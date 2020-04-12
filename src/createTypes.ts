@@ -30,8 +30,7 @@ export function createTypes(customOptions: Partial<Options>) {
     if (
       !['Query', 'Mutation'].includes(model.name) &&
       !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload' &&
-      !options.modelsExclude.includes(model.name)
+      model.name !== 'BatchPayload'
     ) {
       index += `export * from './${model.name}';
 `;
@@ -72,8 +71,7 @@ export function createTypes(customOptions: Partial<Options>) {
       if (
         !options.disableQueries &&
         !options.modelsExclude.find(
-          (item) =>
-            typeof item !== 'string' && item.name === model.name && item.queries
+          (item) => item.name === model.name && item.queries
         )
       ) {
         writeFile(
@@ -87,10 +85,7 @@ export function createTypes(customOptions: Partial<Options>) {
       if (
         !options.disableMutations &&
         !options.modelsExclude.find(
-          (item) =>
-            typeof item !== 'string' &&
-            item.name === model.name &&
-            item.mutations
+          (item) => item.name === model.name && item.mutations
         )
       ) {
         writeFile(

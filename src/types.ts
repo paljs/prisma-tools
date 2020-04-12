@@ -13,7 +13,7 @@ export interface Options extends QueriesAndMutationsOptions {
   modelsOutput: string;
   inputTypesOutput: string;
   fieldsExclude: string[];
-  modelsExclude: (string | {name: string, queries?: boolean, mutations?: boolean})[];
+  modelsExclude: { name: string; queries?: boolean; mutations?: boolean }[];
   disableQueries?: boolean;
   disableMutations?: boolean;
   excludeFieldsByModel: { [modelName: string]: string[] };
