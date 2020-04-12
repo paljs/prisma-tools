@@ -2,6 +2,8 @@
 
 Create nexus types and CURD system from prisma 
 
+**This tool is bulit on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org/#/components/schema/about)**
+
 **Every model in schema will have 3 files**
 
 - `type.ts` contain `objectType` for this model
@@ -14,11 +16,9 @@ Create nexus types and CURD system from prisma
 
 **Example**
 
-Full example [`prisma-apollo`](https://github.com/AhmedElywa/prisma-apollo) prisma , nexus/schema , nexus-schema-prisma , typescript and Auth
+Use full example here [`prisma-apollo`](https://github.com/AhmedElywa/prisma-apollo) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
 
-
-
-Simple code
+**Simple code**
 
 `schema.prisma`
 
