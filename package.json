@@ -1,7 +1,8 @@
 {
   "name": "nexus-schema-prisma",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/AhmedElywa/nexus-schema-prisma",
   "author": "Ahmed Elywa",
   "license": "MIT",
