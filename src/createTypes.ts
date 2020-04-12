@@ -35,7 +35,7 @@ export function createTypes(customOptions: Partial<Options>) {
     ) {
       index += `export * from './${model.name}';
 `;
-      let fileContent = `import { objectType, extendType, arg } from '@nexus/schema'
+      let fileContent = `import { objectType } from '@nexus/schema'
   
 `;
       fileContent += `export const ${model.name} = objectType({
@@ -65,10 +65,48 @@ export function createTypes(customOptions: Partial<Options>) {
 })
   
 `;
-      fileContent += createQueriesAndMutations(model.name, options);
-      mkdir(options.modelsOutput, () => {});
+      const operations = createQueriesAndMutations(model.name, options);
+      let modelIndex = `export * from './type'
+      `;
+      mkdir(`${options.modelsOutput}/${model.name}`, () => {});
+      if (
+        !options.disableQueries &&
+        !options.modelsExclude.find(
+          (item) =>
+            typeof item !== 'string' && item.name === model.name && item.queries
+        )
+      ) {
+        writeFile(
+          `${options.modelsOutput}/${model.name}/queries.ts`,
+          formation(operations.queries),
+          () => {}
+        );
+        modelIndex += `export * from './queries'
+        `;
+      }
+      if (
+        !options.disableMutations &&
+        !options.modelsExclude.find(
+          (item) =>
+            typeof item !== 'string' &&
+            item.name === model.name &&
+            item.mutations
+        )
+      ) {
+        writeFile(
+          `${options.modelsOutput}/${model.name}/mutations.ts`,
+          formation(operations.mutations),
+          () => {}
+        );
+        modelIndex += `export * from './mutations'`;
+      }
       writeFile(
-        `${options.modelsOutput}/${model.name}.ts`,
+        `${options.modelsOutput}/${model.name}/index.ts`,
+        formation(modelIndex),
+        () => {}
+      );
+      writeFile(
+        `${options.modelsOutput}/${model.name}/type.ts`,
         formation(fileContent),
         () => {}
       );
