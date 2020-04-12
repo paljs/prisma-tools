@@ -1,6 +1,6 @@
 {
   "name": "nexus-schema-prisma",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "repository": "https://github.com/AhmedElywa/nexus-schema-prisma",
   "author": "Ahmed Elywa",

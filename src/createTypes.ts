@@ -18,7 +18,14 @@ const defaultOptions: Options = {
 export function createTypes(customOptions: Partial<Options>) {
   const options: Options = { ...defaultOptions, ...customOptions };
   let index = '';
-  createInput(options.inputTypesOutput);
+  writeFile(
+    `${options.inputTypesOutput}/inputTypes.ts`,
+    formation(createInput()),
+    () => {}
+  );
+  if (options.onlyInputType) {
+    return;
+  }
   dmmf.schema.outputTypes.forEach((model) => {
     if (
       !['Query', 'Mutation'].includes(model.name) &&

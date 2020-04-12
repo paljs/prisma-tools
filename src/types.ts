@@ -9,6 +9,7 @@ type QueriesAndMutations =
   | 'deleteMany';
 
 export interface Options extends QueriesAndMutationsOptions {
+  onlyInputType?: boolean;
   modelsOutput: string;
   inputTypesOutput: string;
   fieldsExclude: string[];
