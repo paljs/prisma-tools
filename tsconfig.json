@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "target": "es6",
+    "declaration": true,
+    //"declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
+}
