@@ -264,7 +264,7 @@ export const UserMutations = extendType({
 
 ## Add `prismaSelectObject` plugin to `nexus`
 
-As we work with `graphql` we send select fields from frontend to get this data from `prisma client ` we need to convert `info: GraphQLResolveInfo` to be available select Object to path in prisma client
+As we work with `graphql` we send select fields from frontend to get this data from `prisma client ` we need to convert `info: GraphQLResolveInfo` to be available select Object to pass in prisma client
 
 `schema.ts`
 
@@ -393,7 +393,7 @@ type QueriesAndMutations =
 
 
 
-**## Have questions?**
+### Have questions?
 
 
 
@@ -401,4 +401,4 @@ Didn't find something here? Look through the [issues](https://github.com/AhmedEl
 
 
 
-**# Like my tool give me star**
+## Like my tool give me star
