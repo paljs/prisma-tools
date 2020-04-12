@@ -12,8 +12,8 @@ export function createQueriesAndMutations(
   type: 'Query',
   definition(t) {
     ${
-      !exclude.includes('findOne') &&
-      `
+      !exclude.includes('findOne')
+        ? `
     t.field('findOne${name}', {
       type: '${name}',
       nullable: true,
@@ -29,12 +29,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('findMany') &&
-      `
+      !exclude.includes('findMany')
+        ? `
     t.field('findMany${name}', {
       type: '${name}',
       nullable: true,
@@ -54,12 +54,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('findCount') &&
-      `
+      !exclude.includes('findCount')
+        ? `
     t.field('findMany${name}Count', {
       type: 'Int',
       args: {
@@ -74,8 +74,8 @@ export function createQueriesAndMutations(
       resolve: async (_root, args, {prisma}) => {
         return prisma.${model}.count({...args})
       },
-    })
-    `
+    })`
+        : ''
     }
     }
     })
@@ -84,8 +84,8 @@ export function createQueriesAndMutations(
   type: 'Mutation',
   definition(t) {
     ${
-      !exclude.includes('createOne') &&
-      `
+      !exclude.includes('createOne')
+        ? `
     t.field('createOne${name}', {
       type: '${name}',
       nullable: false,
@@ -101,12 +101,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('updateOne') &&
-      `
+      !exclude.includes('updateOne')
+        ? `
     t.field('updateOne${name}', {
       type: '${name}',
       nullable: false,
@@ -127,12 +127,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('deleteOne') &&
-      `
+      !exclude.includes('deleteOne')
+        ? `
     t.field('deleteOne${name}', {
       type: '${name}',
       nullable: true,
@@ -148,12 +148,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('deleteMany') &&
-      `
+      !exclude.includes('deleteMany')
+        ? `
     t.field('deleteMany${name}', {
       type: 'BatchPayload',
       args: {
@@ -168,12 +168,12 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     ${
-      !exclude.includes('updateMany') &&
-      `
+      !exclude.includes('updateMany')
+        ? `
     t.field('updateMany${name}', {
       type: 'BatchPayload',
       args: {
@@ -193,10 +193,9 @@ export function createQueriesAndMutations(
           ...select,
         })
       },
-    })
-    `
+    })`
+        : ''
     }
     }
-    })
-    `;
+    })`;
 }

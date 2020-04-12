@@ -1,13 +1,12 @@
 {
   "name": "nexus-schema-prisma",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/AhmedElywa/nexus-schema-prisma",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
-  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "prepublish": "yarn build"

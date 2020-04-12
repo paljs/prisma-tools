@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
     "removeComments": true,
     "target": "es6",
     "declaration": true,
-    //"declarationMap": true,
+    "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
     "esModuleInterop": true,
