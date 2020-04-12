@@ -1,11 +1,15 @@
 {
   "name": "nexus-schema-prisma",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "repository": "https://github.com/AhmedElywa/nexus-schema-prisma",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "build": "rollup -c",
+    "prepublish": "yarn build"
+  },
   "dependencies": {
     "graphql-fields": "^2.0.3",
     "prettier": "^2.0.4"
