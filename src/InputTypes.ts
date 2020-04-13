@@ -8,13 +8,13 @@ export const DateTime = scalarType({
   name: 'DateTime',
   description: 'Date custom scalar type',
   parseValue(value) {
-    return new Date(value)
+    return value ? new Date(value) : null
   },
   serialize(value) {
-    return new Date(value)
+    return value ? new Date(value) : null
   },
   parseLiteral(ast: any) {
-    return new Date(ast.value)
+    return ast.value ? new Date(ast.value) : null
   },
 })
 
