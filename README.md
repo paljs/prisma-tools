@@ -346,10 +346,11 @@ t.field('findOneUser', {
 
 ```json
 "scripts": {
-    "generate": "yarn generate-prisma && yarn create-types && yarn generate-nexus",
-    "generate-prisma": "prisma generate",
-    "generate-nexus": "ts-node --transpile-only src/schema",
-    "create-types": "ts-node --transpile-only src/createTypes"
+    "generate": "npm -s run generate:prisma && npm -s run generate:crud && npm -s run generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:crud": "ts-node --transpile-only src/createTypes",
+    "generate:nexus": "ts-node --transpile-only src/schema",
+    "postinstall": "npm -s run generate"
   }
 ```
 
