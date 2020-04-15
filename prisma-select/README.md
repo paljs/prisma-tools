@@ -2,6 +2,10 @@
 
 It's small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
 
+```
+npm i prisma-select
+```
+
 **Example**
 
 ```ts
@@ -17,7 +21,7 @@ t.field('findOneUser', {
       nullable: false,
     }),
   },
-  resolve(_, { where }, { prisma }, info) {
+  resolve(_parent, { where }, { prisma }, info) {
     return prisma.user.findOne({
       where,
       ...getPrismaSelect(info),
@@ -27,7 +31,7 @@ t.field('findOneUser', {
 // normal resolver
 const resolvers = {
   Query: {
-    user(parent, args, { prisma }, info) {
+    user(_parent, { where }, { prisma }, info) {
       return prisma.user.findOne({
         where,
         ...getPrismaSelect(info),
