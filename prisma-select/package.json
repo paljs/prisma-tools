@@ -1,0 +1,12 @@
+{
+  "name": "prisma-select",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/AhmedElywa/nexus-schema-prisma/tree/master/prisma-select",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "graphql-fields": "^2.0.3"
+  }
+}

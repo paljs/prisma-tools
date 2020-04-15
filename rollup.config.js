@@ -14,7 +14,7 @@ export default [
     output: { format: 'cjs', file: `dist/index.js` },
     plugins,
     external: [
-      'graphql-fields',
+      'prisma-select',
       '@prisma/client',
       'prettier',
       '@nexus/schema',

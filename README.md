@@ -1,19 +1,15 @@
 ### nexus-schema-prisma
 
-**This tool is bulit on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org/#/components/schema/about)** Create nexus types and CURD system from prisma 
-
-
+**This tool is built on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org/#/components/schema/about)** Create nexus types and CURD system from prisma
 
 NOTE: you don't need to use `nexus-prisma` plugin our tool replace it.
-
-
 
 **Every model in schema will have 3 files**
 
 - `type.ts` contain `objectType` for this model
 - `queries.ts` contain 3 queries `'findOne' | 'findMany' | 'findCount'`
 - `mutations.ts` contain 5 mutations `'createOne' | 'updateOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
-- add to `inputTypes.ts` file list of inputs 
+- add to `inputTypes.ts` file list of inputs
 
 ```
 UserWhereInput
@@ -23,8 +19,6 @@ UserCreateInput
 UserUpdateInput
 UserUpdateManyMutationInput
 ```
-
-
 
 **Example**
 
@@ -65,20 +59,18 @@ enum Role {
 }
 ```
 
-
-
 `User/type.ts`
 
 ```ts
-import { objectType } from '@nexus/schema'
+import { objectType } from '@nexus/schema';
 
 export const User = objectType({
   name: 'User',
   definition(t) {
-    t.int('id', { nullable: false })
-    t.string('email', { nullable: false })
-    t.string('name', { nullable: true })
-    t.field('role', { nullable: false, type: 'Role' })
+    t.int('id', { nullable: false });
+    t.string('email', { nullable: false });
+    t.string('name', { nullable: true });
+    t.field('role', { nullable: false, type: 'Role' });
     t.field('posts', {
       nullable: false,
       list: [true],
@@ -92,18 +84,15 @@ export const User = objectType({
         first: 'Int',
         last: 'Int',
       },
-    })
+    });
   },
-})
-
+});
 ```
-
-
 
 `User/queries.ts`
 
 ```ts
-import { extendType, arg } from '@nexus/schema'
+import { extendType, arg } from '@nexus/schema';
 
 export const UserQueries = extendType({
   type: 'Query',
@@ -121,9 +110,9 @@ export const UserQueries = extendType({
         return prisma.user.findOne({
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('findManyUser', {
       type: 'User',
@@ -142,9 +131,9 @@ export const UserQueries = extendType({
         return prisma.user.findMany({
           ...args,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('findManyUserCount', {
       type: 'Int',
@@ -158,20 +147,17 @@ export const UserQueries = extendType({
         last: 'Int',
       },
       resolve: async (_root, args, { prisma }) => {
-        return prisma.user.count({ ...args })
+        return prisma.user.count({ ...args });
       },
-    })
+    });
   },
-})
-
+});
 ```
-
-
 
 `User/mutations.ts`
 
 ```ts
-import { extendType, arg } from '@nexus/schema'
+import { extendType, arg } from '@nexus/schema';
 
 export const UserMutations = extendType({
   type: 'Mutation',
@@ -189,9 +175,9 @@ export const UserMutations = extendType({
         return prisma.user.create({
           data,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('updateOneUser', {
       type: 'User',
@@ -211,9 +197,9 @@ export const UserMutations = extendType({
           data,
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('deleteOneUser', {
       type: 'User',
@@ -228,9 +214,9 @@ export const UserMutations = extendType({
         return prisma.user.delete({
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('deleteManyUser', {
       type: 'BatchPayload',
@@ -244,9 +230,9 @@ export const UserMutations = extendType({
         return prisma.user.deleteMany({
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
 
     t.field('updateManyUser', {
       type: 'BatchPayload',
@@ -265,31 +251,27 @@ export const UserMutations = extendType({
           where,
           data,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
+});
 ```
-
-
 
 ## Add `prismaSelectObject` plugin to `nexus`
 
-As we work with `graphql` we send select fields from frontend to get this data from `prisma client ` we need to convert `info: GraphQLResolveInfo` to be available select Object to pass in prisma client
+As we work with `graphql` we send select fields from frontend to get this data from `prisma client` we need to convert `info: GraphQLResolveInfo` to be available select Object to pass in prisma client
 
 ```
 NOTE: you don't need to use `nexus-prisma` plugin
 ```
 
-
-
 `schema.ts`
 
 ```ts
-import { makeSchema } from '@nexus/schema'
-import * as types from './types'
-import { prismaSelectObject } from 'nexus-schema-prisma'
+import { makeSchema } from '@nexus/schema';
+import * as types from './types';
+import { prismaSelectObject } from 'nexus-schema-prisma';
 
 export const schema = makeSchema({
   types,
@@ -311,36 +293,82 @@ export const schema = makeSchema({
     ],
     contextType: 'Context.Context',
   },
-})
-
+});
 ```
 
-This plugin add `select ` object to `context` 
-
-
+This plugin add `select` object to `context`
 
 ```ts
 t.field('findOneUser', {
-      type: 'User',
-      nullable: true,
-      args: {
-        where: arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-      },
+  type: 'User',
+  nullable: true,
+  args: {
+    where: arg({
+      type: 'UserWhereUniqueInput',
+      nullable: false,
+    }),
+  },
   // we have select in context
-      resolve(_, { where }, { prisma, select }) {
-        return prisma.user.findOne({
-          where,
-          // add here to select requested data
-          ...select,
-        })
-      },
-    })
+  resolve(_, { where }, { prisma, select }) {
+    return prisma.user.findOne({
+      where,
+      // add here to select requested data
+      ...select,
+    });
+  },
+});
 ```
 
+**Example query**
 
+```graphql
+query {
+  findOneUser(where: { id: 1 }) {
+    id
+    email
+    name
+    posts(
+      where: { title: { contains: "a" } }
+      orderBy: { createdAt: asc }
+      first: 10
+      skip: 5
+    ) {
+      id
+      title
+      comments(where: { contain: { contains: "a" } }) {
+        id
+        contain
+      }
+    }
+  }
+}
+```
+
+convert to
+
+```js
+{
+  select: {
+    id: true,
+    email: true,
+    name: true,
+    posts: {
+      select: {
+        id: true,
+        title: true,
+        comments: {
+          select: { id: true, contain: true },
+          where: { contain: { contains: 'a' } }
+        }
+      },
+      where: { title: { contains: 'a' } },
+      orderBy: { createdAt: 'asc' },
+      first: 10,
+      skip: 5
+    }
+  }
+}
+```
 
 ### Add scripts to `package.json`
 
@@ -354,14 +382,12 @@ t.field('findOneUser', {
   }
 ```
 
-
-
 ### `createTypes.ts` to build our CURD system
 
 `src/createTypes.ts`
 
 ```ts
-import { createTypes } from 'nexus-schema-prisma'
+import { createTypes } from 'nexus-schema-prisma';
 
 // for include every thing just createTypes() without any args
 
@@ -374,7 +400,7 @@ createTypes({
   excludeQueriesAndMutationsByModel: {
     Post: ['deleteMany'],
   },
-})
+});
 
 interface Options {
   // rebuild only Input types
@@ -394,13 +420,15 @@ interface Options {
   // disable all muations for all models
   disableMutations?: boolean;
   // exclude queries and mutations for one or more model it's object with key : model name value array of QueriesAndMutations type
-  excludeQueriesAndMutationsByModel: {[modelName: string]: QueriesAndMutations[]};
+  excludeQueriesAndMutationsByModel: {
+    [modelName: string]: QueriesAndMutations[];
+  };
   // exclude queries and mutations for all models array of QueriesAndMutations type
   excludeQueriesAndMutations: QueriesAndMutations[];
 }
 
-type QueriesAndMutations = 
-	| 'findOne'
+type QueriesAndMutations =
+  | 'findOne'
   | 'findMany'
   | 'findCount'
   | 'createOne'
@@ -410,9 +438,7 @@ type QueriesAndMutations =
   | 'deleteMany';
 ```
 
-
-
-## `inputTypes.ts`  file 
+## `inputTypes.ts` file
 
 Generate all `enums` , `InputTypes` from `@prisma/client` package
 
@@ -429,14 +455,8 @@ UserUpdateInput
 UserUpdateManyMutationInput
 ```
 
-
-
 ### Have questions?
 
-
-
 Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/nexus-schema-prisma/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
-
-
 
 ## Like my tool give me star

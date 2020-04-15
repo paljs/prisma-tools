@@ -1,6 +1,6 @@
-import graphqlFields from 'graphql-fields';
+const graphqlFields = require('graphql-fields');
 
-export function getGraphqlFields(info): any {
+export default function getPrismaSelect(info) {
   const fields = graphqlFields(
     info,
     {},
