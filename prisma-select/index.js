@@ -1,6 +1,6 @@
 const graphqlFields = require('graphql-fields');
 
-export default function getPrismaSelect(info) {
+function getPrismaSelect(info) {
   const fields = graphqlFields(
     info,
     {},
@@ -26,3 +26,5 @@ function getSelect(fields) {
   });
   return selectObject;
 }
+
+module.exports = getPrismaSelect;
