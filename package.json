@@ -1,6 +1,6 @@
 {
   "name": "nexus-schema-prisma",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/AhmedElywa/nexus-schema-prisma",
@@ -18,7 +18,7 @@
   "dependencies": {
     "graphql-fields": "^2.0.3",
     "prettier": "^2.0.4",
-    "prisma-select": "^0.0.1"
+    "prisma-select": "^0.0.3"
   },
   "devDependencies": {
     "@nexus/schema": "^0.13.1",
