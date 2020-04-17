@@ -210,7 +210,8 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { where }, { prisma, select }) {
+      resolve(_, { where }, { prisma, select, onDelete }) {
+        await onDelete.cascade('User', where, false);
         return prisma.user.delete({
           where,
           ...select,
@@ -226,7 +227,8 @@ export const UserMutations = extendType({
           nullable: true,
         }),
       },
-      resolve(_, { where }, { prisma, select }) {
+      resolve(_, { where }, { prisma, select, onDelete }) {
+        await onDelete.cascade('User', where, false);
         return prisma.user.deleteMany({
           where,
           ...select,
@@ -454,6 +456,12 @@ UserCreateInput
 UserUpdateInput
 UserUpdateManyMutationInput
 ```
+
+## `DeleteCascade` class
+
+Prisma Migrate cli not supported `Cascading deletes` so this tool is workaround this option
+
+We use [Prisma delete tool](https://github.com/AhmedElywa/nexus-schema-prisma/tree/master/prisma-delete) you can see his docs here
 
 ### Have questions?
 
