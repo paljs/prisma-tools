@@ -8,6 +8,8 @@ npm i prisma-select
 
 **Example**
 
+Use full example here [`prisma-apollo`](https://github.com/AhmedElywa/prisma-apollo) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
+
 ```ts
 import getPrismaSelect from 'prisma-select';
 
