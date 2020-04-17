@@ -167,7 +167,7 @@ export function createQueriesAndMutations(
               nullable: true,
             }),
           },
-          resolve(_, { where }, {prisma, select, onDelete}) {
+          resolve: async (_, { where }, {prisma, select, onDelete}) => {
             await onDelete.cascade('${name}', where, false)
             return prisma.${model}.deleteMany({
               where,
