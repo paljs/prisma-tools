@@ -1,4 +1,4 @@
-### prisma-tools
+### nexus-schema-prisma
 
 **This tool is built on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org/#/components/schema/about)** Create nexus types and CURD system from prisma
 

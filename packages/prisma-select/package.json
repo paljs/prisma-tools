@@ -1,8 +1,8 @@
 {
-  "name": "prisma-select",
+  "name": "@prisma-tools/select",
   "version": "0.0.3",
   "main": "index.js",
-  "repository": "https://github.com/AhmedElywa/nexus-schema-prisma/tree/master/prisma-select",
+  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/prisma-select",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

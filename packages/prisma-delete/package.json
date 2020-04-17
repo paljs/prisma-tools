@@ -1,9 +1,9 @@
 {
-  "name": "prisma-delete",
+  "name": "@prisma-tools/delete",
   "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/AhmedElywa/nexus-schema-prisma/tree/master/prisma-delete",
+  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/prisma-delete",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

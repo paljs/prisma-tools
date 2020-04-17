@@ -1,0 +1,37 @@
+{
+  "name": "@prisma-tools/nexus",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/nexus",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "rollup -c",
+    "prepublish": "yarn build"
+  },
+  "peerDependencies": {
+    "@nexus/schema": ">= 0.13.1",
+    "@prisma/client": ">= 2.0.0-beta.2"
+  },
+  "dependencies": {
+    "graphql-fields": "^2.0.3",
+    "prettier": "^2.0.4",
+    "prisma-select": "^0.0.3"
+  },
+  "devDependencies": {
+    "@nexus/schema": "^0.13.1",
+    "@prisma/client": "^2.0.0-beta.2",
+    "@types/node": "^13.11.1",
+    "@types/prettier": "^2.0.0",
+    "lerna": "^3.20.2",
+    "rollup": "^2.6.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "files": [
+    "dist"
+  ]
+}
