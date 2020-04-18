@@ -1,6 +1,6 @@
 ## GraphQL Apollo Server with Authentication & CURD system
 
-This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md), [apollo-server](https://www.apollographql.com/docs/apollo-server/),  [GraphQL Nexus](https://nexus.js.org/) and [nexus-schema-prisma to create CURD system](https://github.com/AhmedElywa/nexus-schema-prisma). It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](https://github.com/prisma/prisma-examples/blob/master/typescript/graphql-apollo-server/prisma/dev.db).
+This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md), [apollo-server](https://www.apollographql.com/docs/apollo-server/), [GraphQL Nexus](https://nexus.js.org/) and [nexus-schema-prisma to create CURD system](https://github.com/AhmedElywa/nexus-schema-prisma). It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](https://github.com/prisma/prisma-examples/blob/master/typescript/graphql-apollo-server/prisma/dev.db).
 
 ## How to use
 
@@ -9,10 +9,14 @@ This example shows how to implement a **GraphQL server with TypeScript** based o
 Clone this repository:
 
 ```pash
-git clone https://github.com/AhmedElywa/prisma-apollo.git
+git clone https://github.com/AhmedElywa/prisma-tools.git
 ```
 
 Install npm dependencies:
+
+```
+cd examples/apollo-nexus-schema
+```
 
 ```
 yarn install
@@ -20,7 +24,7 @@ or
 npm install
 ```
 
-Note that this also generates Prisma Client JS into `node_modules/@prisma/client` and create your CURD system into `src/types/`  via a `postinstall` hook of the `@prisma/client` package from your `package.json`.
+Note that this also generates Prisma Client JS into `node_modules/@prisma/client` and create your CURD system into `src/types/` via a `postinstall` hook of the `@prisma/client` package from your `package.json`.
 
 ### 2. Start the GraphQL server
 
@@ -44,15 +48,15 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
 
 ```graphql
 {
-  findManyUser{
+  findManyUser {
     id
     email
     name
-    posts{
+    posts {
       id
       title
       published
-      comments{
+      comments {
         id
         contain
       }
@@ -60,4 +64,3 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
   }
 }
 ```
-
