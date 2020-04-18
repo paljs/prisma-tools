@@ -4,6 +4,12 @@ This tool is built for [Prisma](https://prisma.io)
 
 Prisma Migrate cli not supported `Cascading deletes` so this tool is workaround this option
 
+install
+
+```
+npm i @prisma-tools/delete
+```
+
 **Example**
 
 Use full example here [`prisma-apollo`](https://github.com/AhmedElywa/prisma-apollo) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
@@ -90,7 +96,7 @@ export default schema;
 Here when we delete `user` will go thought schema and look to model name array
 
 ```ts
-import DeleteCascade from 'prisma-delete';
+import DeleteCascade from '@prisma-tools/delete';
 
 const schema: { [Model: string]: string[] } = {
   User: ['posts', 'activities'],
@@ -191,7 +197,7 @@ await onDelete.cascade('User', where, false);
 
 ```ts
 import { PrismaClient } from '@prisma/client';
-import DeleteCascade from 'prisma-delete';
+import DeleteCascade from '@prisma-tools/delete';
 
 const prisma = new PrismaClient();
 
@@ -218,6 +224,6 @@ resolve(_, { where }, { prisma, onDelete }) {
 
 ### Have questions?
 
-Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/nexus-schema-prisma/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
 ## Like my tool give me star

@@ -3,7 +3,7 @@
 It's small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
 
 ```
-npm i prisma-select
+npm i @prisma-tools/select
 ```
 
 **Example**
@@ -11,7 +11,7 @@ npm i prisma-select
 Use full example here [`prisma-apollo`](https://github.com/AhmedElywa/prisma-apollo) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
 
 ```ts
-import getPrismaSelect from 'prisma-select';
+import getPrismaSelect from '@prisma-tools/select';
 
 // nexus
 t.field('findOneUser', {

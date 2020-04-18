@@ -3,7 +3,11 @@
   "version": "0.0.1-test1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/packages/delete",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/nexus"
+  },
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -24,5 +28,5 @@
   "files": [
     "dist"
   ],
-  "gitHead": "5d5311ad08f60e454cb04d30709bc8ba6b892103"
+  "gitHead": "f4c8cbda1aed123b43184eb3b7063d8b82f14639"
 }

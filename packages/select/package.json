@@ -2,12 +2,16 @@
   "name": "@prisma-tools/select",
   "version": "0.0.1-test1.0",
   "main": "index.js",
-  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/packages/select",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/select"
+  },
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
   "dependencies": {
     "graphql-fields": "^2.0.3"
   },
-  "gitHead": "5d5311ad08f60e454cb04d30709bc8ba6b892103"
+  "gitHead": "f4c8cbda1aed123b43184eb3b7063d8b82f14639"
 }
