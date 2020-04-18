@@ -1,4 +1,4 @@
-import { createTypes } from 'nexus-schema-prisma'
+import { createTypes } from '@prisma-tools/nexus'
 
 // for include every thing just createTypes() without any args
 

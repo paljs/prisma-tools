@@ -1,6 +1,6 @@
 import { makeSchema } from '@nexus/schema'
 import * as types from './types'
-import { prismaSelectObject } from 'nexus-schema-prisma'
+import { prismaSelectObject } from '@prisma-tools/nexus'
 
 export const schema = makeSchema({
   types,

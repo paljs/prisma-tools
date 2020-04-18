@@ -1,8 +1,14 @@
-### prisma-tools
+### nexus-schema-prisma
 
 **This tool is built on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org/#/components/schema/about)** Create nexus types and CURD system from prisma
 
 NOTE: you don't need to use `nexus-prisma` plugin our tool replace it.
+
+install
+
+```
+npm i @prisma-tools/nexus
+```
 
 **Every model in schema will have 3 files**
 
@@ -273,7 +279,7 @@ NOTE: you don't need to use `nexus-prisma` plugin
 ```ts
 import { makeSchema } from '@nexus/schema';
 import * as types from './types';
-import { prismaSelectObject } from 'nexus-schema-prisma';
+import { prismaSelectObject } from '@prisma-tools/nexus';
 
 export const schema = makeSchema({
   types,
@@ -389,7 +395,7 @@ convert to
 `src/createTypes.ts`
 
 ```ts
-import { createTypes } from 'nexus-schema-prisma';
+import { createTypes } from '@prisma-tools/nexus';
 
 // for include every thing just createTypes() without any args
 
@@ -461,10 +467,10 @@ UserUpdateManyMutationInput
 
 Prisma Migrate cli not supported `Cascading deletes` so this tool is workaround this option
 
-We use [Prisma delete tool](https://github.com/AhmedElywa/nexus-schema-prisma/tree/master/prisma-delete) you can see his docs here
+We use [Prisma delete tool](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/delete) you can see his docs here
 
 ### Have questions?
 
-Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/nexus-schema-prisma/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
 ## Like my tool give me star

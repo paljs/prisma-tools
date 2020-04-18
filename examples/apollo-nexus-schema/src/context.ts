@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { verify } from 'jsonwebtoken'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
-import DeleteCascade from 'prisma-delete'
+import DeleteCascade from '@prisma-tools/delete'
 import schema from './onDeleteSchema'
 
 const prisma = new PrismaClient()
