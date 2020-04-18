@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/select",
-  "version": "0.0.1",
+  "version": "0.0.0-test1",
   "main": "index.js",
   "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/prisma-select",
   "author": "Ahmed Elywa",

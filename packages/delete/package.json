@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/delete",
-  "version": "0.0.1",
+  "version": "0.0.0-test1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/prisma-delete",
