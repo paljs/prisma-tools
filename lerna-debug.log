@@ -1,0 +1,6 @@
+49 error Error: Command failed: git tag v0.0.2-alpha.0 -m v0.0.2-alpha.0
+49 error fatal: tag 'v0.0.2-alpha.0' already exists
+49 error
+49 error     at makeError (/Users/ahmed/Sites/prisma-tools/node_modules/execa/index.js:174:9)
+49 error     at /Users/ahmed/Sites/prisma-tools/node_modules/execa/index.js:278:16
+49 error     at processTicksAndRejections (internal/process/task_queues.js:97:5)
