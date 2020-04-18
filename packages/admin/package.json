@@ -1,0 +1,32 @@
+{
+  "name": "@prisma-tools/admin",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/admin"
+  },
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "rollup -c",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "prettier": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.1",
+    "@types/prettier": "^2.0.0",
+    "rollup": "^2.6.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "files": [
+    "dist"
+  ]
+}
