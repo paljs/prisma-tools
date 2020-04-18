@@ -3,7 +3,7 @@
   "version": "0.0.0-test1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/nexus",
+  "repository": "https://github.com/AhmedElywa/prisma-tools/tree/master/packages/nexus",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
