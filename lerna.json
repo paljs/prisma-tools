@@ -1,16 +1,10 @@
 {
   "version": "0.0.1-test1.0",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "ignored-file",
-        "*.md"
-      ],
-      "registry": "https://npm.pkg.github.com"
+      "ignoreChanges": ["ignored-file", "*.md"]
     },
     "version": {
       "allowBranch": "master"
