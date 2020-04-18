@@ -20,13 +20,15 @@
     "@prisma/client": ">= 2.0.0-beta.2"
   },
   "dependencies": {
+    "@prisma/cli": "^2.0.0-beta.2",
     "@prisma-tools/delete": "^0.0.3-test1.0",
+    "@prisma-tools/select": "^0.0.3-test1.0",
+    "@nexus/schema": "^0.13.1",
+    "@prisma/client": "^2.0.0-beta.2",
     "graphql-fields": "^2.0.3",
     "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "@nexus/schema": "^0.13.1",
-    "@prisma/client": "^2.0.0-beta.2",
     "@types/node": "^13.11.1",
     "@types/prettier": "^2.0.0",
     "lerna": "^3.20.2",
