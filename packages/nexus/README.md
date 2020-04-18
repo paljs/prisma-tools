@@ -97,6 +97,10 @@ export const User = objectType({
 
 `User/queries.ts`
 
+<details>
+<summary>Click here to show ...</summary>
+<p>
+
 ```ts
 import { extendType, arg } from '@nexus/schema';
 
@@ -160,7 +164,14 @@ export const UserQueries = extendType({
 });
 ```
 
+</p>
+</details>
+
 `User/mutations.ts`
+
+<details>
+<summary>Click here to show ...</summary>
+<p>
 
 ```ts
 import { extendType, arg } from '@nexus/schema';
@@ -265,6 +276,9 @@ export const UserMutations = extendType({
   },
 });
 ```
+
+</p>
+</details>
 
 ## Add `prismaSelectObject` plugin to `nexus`
 
