@@ -29,5 +29,8 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "gitHead": "da8dd26e050f973c91f15dc8541f515504655dde"
 }

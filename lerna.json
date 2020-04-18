@@ -1,15 +1,11 @@
 {
   "version": "0.0.3-test1.1",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "ignored-file",
-        "*.md"
-      ]
+      "ignoreChanges": ["ignored-file", "*.md"],
+      "bump": "from-package"
     },
     "version": {
       "allowBranch": "master"
