@@ -1,4 +1,4 @@
-import { dmmf, PrismaClient } from './@prisma/client';
+import { dmmf, PrismaClient } from '@prisma/client';
 
 interface DeleteData {
   name: string;

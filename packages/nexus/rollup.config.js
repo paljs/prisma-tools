@@ -14,7 +14,7 @@ export default [
     output: { format: 'cjs', file: `dist/index.js` },
     plugins,
     external: [
-      'prisma-select',
+      '@prisma-tools/select',
       '@prisma/client',
       'prettier',
       '@nexus/schema',
