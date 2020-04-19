@@ -1,0 +1,71 @@
+fragment GroupFragment on Group {
+  id
+  createdAt
+  updatedAt
+}
+
+query findOneGroup($where: GroupWhereUniqueInput!) {
+  findOneGroup(where: $where) {
+    ...GroupFragment
+  }
+}
+
+query findManyGroup(
+  $where: GroupWhereInput
+  $orderBy: GroupOrderByInput
+  $after: GroupWhereUniqueInput
+  $before: GroupWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyGroup(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  ) {
+    ...GroupFragment
+  }
+}
+
+query findManyGroupCount(
+  $where: GroupWhereInput
+  $orderBy: GroupOrderByInput
+  $after: GroupWhereUniqueInput
+  $before: GroupWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyGroupCount(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  )
+}
+
+mutation createOneGroup($data: GroupCreateInput!) {
+  createOneGroup(data: $data) {
+    ...GroupFragment
+  }
+}
+
+mutation updateOneGroup($where: GroupWhereUniqueInput!, $data: GroupUpdateInput!) {
+  updateOneGroup(where: $where, data: $data) {
+    ...GroupFragment
+  }
+}
+
+mutation deleteOneGroup($where: GroupWhereUniqueInput!) {
+  deleteOneGroup(where: $where) {
+    id
+  }
+}

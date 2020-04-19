@@ -4,6 +4,8 @@ export const Group = objectType({
   name: 'Group',
   definition(t) {
     t.int('id', { nullable: false })
+    t.field('createdAt', { nullable: false, type: 'DateTime' })
+    t.field('updatedAt', { nullable: false, type: 'DateTime' })
     t.field('users', {
       nullable: false,
       list: [true],

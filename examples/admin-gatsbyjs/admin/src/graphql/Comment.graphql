@@ -1,0 +1,80 @@
+fragment CommentFragment on Comment {
+  id
+  createdAt
+  updatedAt
+  contain
+  post {
+    id
+  }
+  postId
+  author {
+    id
+  }
+  authorId
+}
+
+query findOneComment($where: CommentWhereUniqueInput!) {
+  findOneComment(where: $where) {
+    ...CommentFragment
+  }
+}
+
+query findManyComment(
+  $where: CommentWhereInput
+  $orderBy: CommentOrderByInput
+  $after: CommentWhereUniqueInput
+  $before: CommentWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyComment(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  ) {
+    ...CommentFragment
+  }
+}
+
+query findManyCommentCount(
+  $where: CommentWhereInput
+  $orderBy: CommentOrderByInput
+  $after: CommentWhereUniqueInput
+  $before: CommentWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyCommentCount(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  )
+}
+
+mutation createOneComment($data: CommentCreateInput!) {
+  createOneComment(data: $data) {
+    ...CommentFragment
+  }
+}
+
+mutation updateOneComment($where: CommentWhereUniqueInput!, $data: CommentUpdateInput!) {
+  updateOneComment(where: $where, data: $data) {
+    ...CommentFragment
+  }
+}
+
+mutation deleteOneComment($where: CommentWhereUniqueInput!) {
+  deleteOneComment(where: $where) {
+    id
+  }
+}

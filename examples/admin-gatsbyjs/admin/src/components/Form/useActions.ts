@@ -21,12 +21,14 @@ const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', 
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
       if (field?.kind === 'object') {
-        if (newData[key] !== data[key].id) {
-          updateData[key] = {
-            connect: {
-              id: getValue(field.type, newData[key]),
-            },
-          };
+        if (newData[key]) {
+          if (!data[key] || newData[key] !== data[key].id) {
+            updateData[key] = {
+              connect: {
+                id: getValue('Int', newData[key]),
+              },
+            };
+          }
         }
       } else if (newData[key] !== data[key]) {
         updateData[key] = getValue(field?.type, newData[key]);
@@ -47,11 +49,13 @@ const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', 
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
       if (field?.kind === 'object') {
-        createData[key] = {
-          connect: {
-            id: getValue(field.type, newData[key]),
-          },
-        };
+        if (newData[key]) {
+          createData[key] = {
+            connect: {
+              id: getValue('Int', newData[key]),
+            },
+          };
+        }
       } else {
         createData[key] = getValue(field?.type, newData[key]);
       }

@@ -1,40 +1,40 @@
 import { extendType, arg } from '@nexus/schema'
 
-export const CommentMutations = extendType({
+export const GroupMutations = extendType({
   type: 'Mutation',
   definition(t) {
-    t.field('createOneComment', {
-      type: 'Comment',
+    t.field('createOneGroup', {
+      type: 'Group',
       nullable: false,
       args: {
         data: arg({
-          type: 'CommentCreateInput',
+          type: 'GroupCreateInput',
           nullable: false,
         }),
       },
       resolve(_, { data }, { prisma, select }) {
-        return prisma.comment.create({
+        return prisma.group.create({
           data,
           ...select,
         })
       },
     })
 
-    t.field('updateOneComment', {
-      type: 'Comment',
+    t.field('updateOneGroup', {
+      type: 'Group',
       nullable: false,
       args: {
         where: arg({
-          type: 'CommentWhereUniqueInput',
+          type: 'GroupWhereUniqueInput',
           nullable: false,
         }),
         data: arg({
-          type: 'CommentUpdateInput',
+          type: 'GroupUpdateInput',
           nullable: false,
         }),
       },
       resolve(_, { data, where }, { prisma, select }) {
-        return prisma.comment.update({
+        return prisma.group.update({
           data,
           where,
           ...select,
@@ -42,18 +42,18 @@ export const CommentMutations = extendType({
       },
     })
 
-    t.field('deleteOneComment', {
-      type: 'Comment',
+    t.field('deleteOneGroup', {
+      type: 'Group',
       nullable: true,
       args: {
         where: arg({
-          type: 'CommentWhereUniqueInput',
+          type: 'GroupWhereUniqueInput',
           nullable: false,
         }),
       },
       resolve: async (_, { where }, { prisma, select, onDelete }) => {
-        await onDelete.cascade('Comment', where, false)
-        return prisma.comment.delete({
+        await onDelete.cascade('Group', where, false)
+        return prisma.group.delete({
           where,
           ...select,
         })

@@ -16,8 +16,8 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ action, model, data, onCancel }) => {
   const { onSave } = useActions(model, data, action, onCancel);
   const { register, errors, handleSubmit, setValue } = useForm();
+
   const onSubmit = (newData: any) => {
-    console.log(newData);
     onSave(newData);
   };
 
@@ -48,7 +48,7 @@ const Form: React.FC<FormProps> = ({ action, model, data, onCancel }) => {
                     <DefaultInput
                       key={field.id}
                       field={field}
-                      value={data[field.name].id}
+                      value={data[field.name] ? data[field.name].id : null}
                       error={errors[field.name]}
                       register={register}
                       setValue={setValue}

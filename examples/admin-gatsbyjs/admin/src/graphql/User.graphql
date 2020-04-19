@@ -1,0 +1,77 @@
+fragment UserFragment on User {
+  id
+  createdAt
+  email
+  name
+  role
+  group {
+    id
+  }
+  groupId
+}
+
+query findOneUser($where: UserWhereUniqueInput!) {
+  findOneUser(where: $where) {
+    ...UserFragment
+  }
+}
+
+query findManyUser(
+  $where: UserWhereInput
+  $orderBy: UserOrderByInput
+  $after: UserWhereUniqueInput
+  $before: UserWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyUser(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  ) {
+    ...UserFragment
+  }
+}
+
+query findManyUserCount(
+  $where: UserWhereInput
+  $orderBy: UserOrderByInput
+  $after: UserWhereUniqueInput
+  $before: UserWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyUserCount(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  )
+}
+
+mutation createOneUser($data: UserCreateInput!) {
+  createOneUser(data: $data) {
+    ...UserFragment
+  }
+}
+
+mutation updateOneUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
+  updateOneUser(where: $where, data: $data) {
+    ...UserFragment
+  }
+}
+
+mutation deleteOneUser($where: UserWhereUniqueInput!) {
+  deleteOneUser(where: $where) {
+    id
+  }
+}

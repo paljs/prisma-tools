@@ -4,6 +4,7 @@ export const User = objectType({
   name: 'User',
   definition(t) {
     t.int('id', { nullable: false })
+    t.field('createdAt', { nullable: false, type: 'DateTime' })
     t.string('email', { nullable: false })
     t.string('name', { nullable: true })
     t.field('role', { nullable: false, type: 'Role' })

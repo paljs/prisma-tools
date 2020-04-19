@@ -59,43 +59,5 @@ export const UserMutations = extendType({
         })
       },
     })
-
-    t.field('deleteManyUser', {
-      type: 'BatchPayload',
-      args: {
-        where: arg({
-          type: 'UserWhereInput',
-          nullable: true,
-        }),
-      },
-      resolve: async (_, { where }, { prisma, select, onDelete }) => {
-        await onDelete.cascade('User', where, false)
-        return prisma.user.deleteMany({
-          where,
-          ...select,
-        })
-      },
-    })
-
-    t.field('updateManyUser', {
-      type: 'BatchPayload',
-      args: {
-        where: arg({
-          type: 'UserWhereInput',
-          nullable: true,
-        }),
-        data: arg({
-          type: 'UserUpdateManyMutationInput',
-          nullable: false,
-        }),
-      },
-      resolve(_, { where, data }, { prisma, select }) {
-        return prisma.user.updateMany({
-          where,
-          data,
-          ...select,
-        })
-      },
-    })
   },
 })

@@ -10,7 +10,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-apollo',
       options: {
-        uri: process.env.REACT_APP_GQL_URL,
+        uri: 'http://localhost:4000',
         credentials: 'include',
         connectToDevTools: true,
       },

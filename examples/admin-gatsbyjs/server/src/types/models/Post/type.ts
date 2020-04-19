@@ -4,6 +4,8 @@ export const Post = objectType({
   name: 'Post',
   definition(t) {
     t.int('id', { nullable: false })
+    t.field('createdAt', { nullable: false, type: 'DateTime' })
+    t.field('updatedAt', { nullable: false, type: 'DateTime' })
     t.boolean('published', { nullable: false })
     t.string('title', { nullable: false })
     t.field('author', { nullable: true, type: 'User' })

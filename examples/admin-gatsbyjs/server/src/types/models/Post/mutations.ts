@@ -59,26 +59,5 @@ export const PostMutations = extendType({
         })
       },
     })
-
-    t.field('updateManyPost', {
-      type: 'BatchPayload',
-      args: {
-        where: arg({
-          type: 'PostWhereInput',
-          nullable: true,
-        }),
-        data: arg({
-          type: 'PostUpdateManyMutationInput',
-          nullable: false,
-        }),
-      },
-      resolve(_, { where, data }, { prisma, select }) {
-        return prisma.post.updateMany({
-          where,
-          data,
-          ...select,
-        })
-      },
-    })
   },
 })
