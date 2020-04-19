@@ -8,7 +8,7 @@ export function buildPages(schema: Schema, path: string) {
       singleQuote: true,
       semi: false,
       trailingComma: "all",
-      parser: "babel",
+      parser: "babel-ts",
     });
     writeFile(`${path}/${model.id}.tsx`, fileContent, () => {});
   });

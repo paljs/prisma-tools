@@ -11,8 +11,11 @@
     "directory": "examples/admin-gatsbyjs"
   },
   "private": false,
+  "scripts": {
+    "generate-pages": "ts-node --transpile-only generatePages"
+  },
   "devDependencies": {
-    "@prisma-tools/admin": "^0.0.3-test1.1",
+    "@prisma-tools/admin": "^0.0.3",
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1",
