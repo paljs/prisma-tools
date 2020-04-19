@@ -1,0 +1,32 @@
+{
+  "name": "admin-gatsbyjs",
+  "version": "1.0.0",
+  "description": "prisma example with gatsbyjs project to control your db",
+  "main": "index.js",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "examples/admin-gatsbyjs"
+  },
+  "private": false,
+  "devDependencies": {
+    "@prisma-tools/admin": "^0.0.3-test1.1",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.4",
+    "pretty-quick": "^2.0.1",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
+    }
+  }
+}

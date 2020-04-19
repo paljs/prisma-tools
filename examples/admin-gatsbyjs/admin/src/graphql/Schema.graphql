@@ -1,0 +1,61 @@
+fragment ModelFragment on Model {
+  id
+  name
+  create
+  delete
+  update
+  fields {
+    ...FieldFragment
+  }
+}
+
+fragment FieldFragment on Field {
+  id
+  name
+  title
+  type
+  list
+  kind
+  read
+  required
+  create
+  order
+  update
+  sort
+  filter
+}
+
+fragment EnumFragment on Enum {
+  name
+  fields
+}
+
+query getModel($id: String!) {
+  getModel(id: $id) {
+    ...ModelFragment
+  }
+}
+
+query getModels {
+  getModels {
+    ...ModelFragment
+  }
+}
+
+query getEnum($name: String!) {
+  getEnum(name: $name) {
+    ...EnumFragment
+  }
+}
+
+mutation updateModel($id: String!, $data: UpdateModelInput!) {
+  updateModel(id: $id, data: $data) {
+    ...ModelFragment
+  }
+}
+
+mutation updateField($id: String!, $modelId: String!, $data: UpdateFieldInput!) {
+  updateField(id: $id, modelId: $modelId, data: $data) {
+    ...FieldFragment
+  }
+}
