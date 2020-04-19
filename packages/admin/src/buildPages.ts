@@ -1,14 +1,14 @@
-import { Schema } from './types';
-import { format } from 'prettier';
-import { writeFile } from 'fs';
+import { Schema } from "./types";
+import { format } from "prettier";
+import { writeFile } from "fs";
 
 export function buildPages(schema: Schema, path: string) {
   schema.models.forEach((model) => {
     const fileContent = format(page(model.id, model.name), {
       singleQuote: true,
       semi: false,
-      trailingComma: 'all',
-      parser: 'babel',
+      trailingComma: "all",
+      parser: "babel",
     });
     writeFile(`${path}/${model.id}.tsx`, fileContent, () => {});
   });
@@ -19,13 +19,29 @@ import { Row, Col } from 'oah-ui';
 import React, { useState } from 'react';
 import SEO from '../../components/SEO';
 import { Table } from '../../components/Table';
-import { useFindMany${id}CountQuery, useFindMany${id}Query } from '../../generated';
+import {
+  ${id}FragmentFragment,
+  useDeleteOne${id}Mutation,
+  useFindMany${id}CountQuery,
+  useFindMany${id}Query,
+  useGetModelQuery,
+} from '../../generated';
 import { useFilterAndSort } from '../../components/Table/useFilterAndSort';
 import { IPageProps } from '../../components/pageProps';
+import Form from '../../components/Form';
 
 const ${id}: React.FC<IPageProps> = ({ location }) => {
   const [pageSize, setPageSize] = useState(10);
-  const { where, orderBy, filterHandler, sortByHandler, initialFilter } = useFilterAndSort(location, '${id}');
+  const [update, setUpdate] = useState<${id}FragmentFragment>();
+  const [create, setCreate] = useState(false);
+
+  const { data: modelData } = useGetModelQuery({
+    variables: {
+      id: '${id}',
+    },
+  });
+  
+  const { where, orderBy, filterHandler, sortByHandler, initialFilter } = useFilterAndSort(location, modelData?.getModel);
 
   const { data, loading, fetchMore } = useFindMany${id}Query({
     variables: {
@@ -34,11 +50,14 @@ const ${id}: React.FC<IPageProps> = ({ location }) => {
       first: pageSize,
     },
   });
+
   const { data: dataCount, loading: loadingCount } = useFindMany${id}CountQuery({
     variables: {
       where,
     },
   });
+
+  const [delete${id}] = useDeleteOne${id}Mutation();
 
   const fetchMoreHandler = (pageSize: number, pageIndex: number) => {
     fetchMore({
@@ -49,13 +68,45 @@ const ${id}: React.FC<IPageProps> = ({ location }) => {
     });
     setPageSize(pageSize);
   };
+
+  const onAction = (action: 'create' | 'update' | 'delete', id?: number) => {
+    if (action === 'delete' && id) {
+      delete${id}({
+        variables: {
+          where: {
+            id,
+          },
+        },
+      });
+    } else if (action === 'update' && id && data?.findMany${id}) {
+      setUpdate(data.findMany${id}.find((item) => item.id === id));
+    } else if (action === 'create') {
+      setCreate(true);
+    }
+  };
+
+  const onCancel = (action: 'create' | 'update') => {
+    action === 'create' ? setCreate(false) : setUpdate(undefined);
+  }
+
   return (
     <>
       <SEO title="${name}" keywords={['OAH', 'application', 'react']} />
       <Row>
+        {create && modelData?.getModel && (
+          <Col breakPoint={{ xs: 12 }}>
+            <Form model={modelData.getModel} action="create" data={{}} onCancel={() => onCancel('create')} />
+          </Col>
+        )}
+        {update && modelData?.getModel && (
+          <Col breakPoint={{ xs: 12 }}>
+            <Form model={modelData.getModel} action="update" data={update} onCancel={() => onCancel('update')} />
+          </Col>
+        )}
         <Col breakPoint={{ xs: 12 }}>
           <Table
-            model="${id}"
+            onAction={onAction}
+            model={modelData?.getModel}
             data={data?.findMany${id} || []}
             fetchMore={fetchMoreHandler}
             loading={loading || loadingCount}
