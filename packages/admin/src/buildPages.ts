@@ -5,9 +5,11 @@ import { writeFile } from "fs";
 export function buildPages(schema: Schema, path: string) {
   schema.models.forEach((model) => {
     const fileContent = format(page(model.id, model.name), {
-      singleQuote: true,
-      semi: false,
+      semi: true,
       trailingComma: "all",
+      singleQuote: true,
+      printWidth: 120,
+      tabWidth: 2,
       parser: "babel-ts",
     });
     writeFile(`${path}/${model.id}.tsx`, fileContent, () => {});

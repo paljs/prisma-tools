@@ -1,4 +1,4 @@
-import { SchemaObject, Schema, SchemaModel, Model, Field } from './types';
+import { SchemaObject, Schema, SchemaModel, Model, Field } from "./types";
 
 export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
   const newSchema: Schema = {
@@ -48,12 +48,14 @@ function handleNewModel(model: Model) {
   return newItem;
 }
 
+const defaultField = ["id", "createdAt", "updatedAt"];
+
 function handleNewField(field: Field) {
   return {
     ...field,
     title: field.name,
-    create: true,
-    update: true,
+    create: !defaultField.includes(field.name),
+    update: !defaultField.includes(field.name),
     read: true,
     filter: true,
     sort: true,
