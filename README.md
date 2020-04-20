@@ -11,12 +11,14 @@ Tools
 
 Examples 
 
- - [apollo with nexus schema](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/apollo-nexus-schema)
- - [Prisma Admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsbyjs)
+ - [**apollo with nexus schema**](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/apollo-nexus-schema)
+ - [**Prisma Admin**](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsbyjs)
  
  
 ## nexus
 
+ - [Install](#Install)
+ - [Example](#Example)
  - [prismaselectobject plugin](#add-prismaselectobject-plugin-to-nexus)
  - [scripts](#add-scripts-to-packagejson)
  - [Api](#createtypests-to-build-our-curd-system)
@@ -27,7 +29,7 @@ Examples
 
 NOTE: you don't need to use `nexus-prisma` plugin our tool replace it.
 
-install
+## Install
 
 ```
 npm i @prisma-tools/nexus
@@ -49,7 +51,7 @@ UserUpdateInput
 UserUpdateManyMutationInput
 ```
 
-**Example**
+## Example
 
 Use full example here [`apollo-nexus-schema`](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/apollo-nexus-schema) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
 

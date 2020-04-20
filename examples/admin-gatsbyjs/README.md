@@ -17,6 +17,10 @@ git clone https://github.com/AhmedElywa/prisma-tools.git
 Install npm dependencies:
 
 ```shell script
+cd examples/admin-gatsbyjs/
+```
+
+```shell script
 yarn
 cd server && yarn
 cd admin && yarn
