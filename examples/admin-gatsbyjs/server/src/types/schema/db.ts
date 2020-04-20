@@ -3,9 +3,7 @@ import low from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync'
 import { NexusGenRootTypes } from '../../generated/nexus'
 import { existsSync } from 'fs'
-
-// TODO: uncomment next line before build for production
-//import './schema.json'
+import './schema.json'
 
 interface Db {
   models: NexusGenRootTypes['Model'][]
