@@ -12,11 +12,11 @@ export const Settings: React.FC = () => {
   const [currentModel, setCurrentModel] = useState<ModelFragmentFragment>();
   const dataRef = useRef(data);
 
-  if (dataRef.current !== data && data?.getModels) {
+  if (!currentModel && data?.getModels) setCurrentModel(data.getModels[0]);
+
+  if (dataRef.current !== data && data?.getModels && currentModel) {
     dataRef.current = data;
-    currentModel
-      ? setCurrentModel(data.getModels?.find((model) => model.id === currentModel.id))
-      : setCurrentModel(data.getModels[0]);
+    setCurrentModel(data.getModels?.find((model) => model.id === currentModel.id));
   }
 
   const onDragEnd = (result: DropResult) => {
