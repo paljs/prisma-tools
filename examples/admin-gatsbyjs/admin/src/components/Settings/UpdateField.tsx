@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, Col, InputGroup, Row } from 'oah-ui';
-import { SchemaField } from 'prisma-db-admin';
+import { SchemaField } from '@prisma-tools/admin';
 import { useUpdateFieldMutation } from '../../generated';
 
 type Fields = 'read' | 'create' | 'update' | 'filter' | 'sort' | 'title';
