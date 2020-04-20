@@ -159,6 +159,7 @@ export const Table: React.FC<TableProps> = ({
                       </Tooltip>
                     </td>
                   )}
+                  {actions.create && !actions.update && !actions.delete && <td colSpan={2} />}
                   {row.cells.map((cell: any, index2: number) => {
                     return (
                       <td key={index2} {...cell.getCellProps()}>

@@ -64,3 +64,9 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
   }
 }
 ```
+
+### Have questions?
+
+Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+
+## Like my tool give me star
