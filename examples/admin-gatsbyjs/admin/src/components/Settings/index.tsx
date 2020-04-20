@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Accordion, AccordionItem, Card, CardBody, Col, EvaIcon, Row, Select } from 'oah-ui';
 import { Droppable, Draggable, DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { useGetModelsQuery, useUpdateModelMutation } from '../../generated';
+import { ModelFragmentFragment, useGetModelsQuery, useUpdateModelMutation } from '../../generated';
 import UpdateModel from './UpdateModel';
 import UpdateField from './UpdateField';
 import styled from 'styled-components';
@@ -9,16 +9,19 @@ import styled from 'styled-components';
 export const Settings: React.FC = () => {
   const { data } = useGetModelsQuery();
   const [updateModel] = useUpdateModelMutation();
-  const [currentModel, setCurrentModel] = useState<any>();
-  if (data?.getModels && !currentModel) {
-    setCurrentModel({ value: data.getModels[0].id, label: data.getModels[0].name });
+  const [currentModel, setCurrentModel] = useState<ModelFragmentFragment>();
+  const dataRef = useRef(data);
+
+  if (dataRef.current !== data && data?.getModels) {
+    dataRef.current = data;
+    currentModel
+      ? setCurrentModel(data.getModels?.find((model) => model.id === currentModel.id))
+      : setCurrentModel(data.getModels[0]);
   }
-  const model =
-    currentModel && data?.getModels ? data?.getModels?.find((model) => model.id === currentModel.value) : null;
 
   const onDragEnd = (result: DropResult) => {
-    const list = model?.fields.slice().sort((a, b) => a.order - b.order);
-    if (list && result.destination && model) {
+    const list = currentModel?.fields.slice().sort((a, b) => a.order - b.order);
+    if (list && result.destination && currentModel) {
       const [removed] = list.splice(result.source.index, 1);
       list.splice(result.destination.index, 0, removed);
       const newListOrder = list.map((f, i) => {
@@ -28,11 +31,15 @@ export const Settings: React.FC = () => {
       });
       updateModel({
         variables: {
-          id: model.id,
+          id: currentModel.id,
           data: {
             fields: newListOrder,
           },
         },
+      });
+      setCurrentModel({
+        ...currentModel,
+        fields: newListOrder,
       });
     }
   };
@@ -45,27 +52,31 @@ export const Settings: React.FC = () => {
           <CardBody>
             <Row>
               <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-                <Select
-                  status="Primary"
-                  shape="SemiRound"
-                  value={currentModel}
-                  onChange={(option) => setCurrentModel(option)}
-                  options={data?.getModels?.map((model) => ({ value: model.id, label: model.name }))}
-                />
+                {currentModel && (
+                  <Select
+                    status="Primary"
+                    shape="SemiRound"
+                    value={{ value: currentModel.id, label: currentModel.name }}
+                    onChange={(option: any) =>
+                      setCurrentModel(data?.getModels?.find((model) => model.id === option.value))
+                    }
+                    options={data?.getModels?.map((model) => ({ value: model.id, label: model.name }))}
+                  />
+                )}
               </Col>
-              <Col breakPoint={{ xs: 12 }}>{model && <UpdateModel {...model} />}</Col>
+              <Col breakPoint={{ xs: 12 }}>{currentModel && <UpdateModel {...currentModel} />}</Col>
             </Row>
           </CardBody>
         </Card>
       </Col>
       <Col breakPoint={{ xs: 12, md: 6 }}>
-        {model && (
+        {currentModel && (
           <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId={model.id}>
+            <Droppable droppableId={currentModel.id}>
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <Accordion>
-                    {model.fields
+                    {currentModel.fields
                       .slice()
                       .sort((a, b) => a.order - b.order)
                       .map((field, index) => (
@@ -86,7 +97,7 @@ export const Settings: React.FC = () => {
                                   </div>
                                 }
                               >
-                                <UpdateField field={field} model={model?.id} />
+                                <UpdateField field={field} model={currentModel?.id} />
                               </AccordionItem>
                             </StyledDragItem>
                           )}
