@@ -788,18 +788,6 @@ export type QueryGetModelArgs = {
   id: Scalars['String'];
 };
 
-export enum Role {
-  Admin = 'ADMIN',
-  User = 'USER',
-}
-
-export type RoleFilter = {
-  equals?: Maybe<Role>;
-  in?: Maybe<Array<Role>>;
-  not?: Maybe<Role>;
-  notIn?: Maybe<Array<Role>>;
-};
-
 export type StringFilter = {
   contains?: Maybe<Scalars['String']>;
   endsWith?: Maybe<Scalars['String']>;
@@ -848,7 +836,6 @@ export type User = {
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   posts: Array<Post>;
-  role: Role;
 };
 
 export type UserCommentArgs = {
@@ -879,7 +866,6 @@ export type UserCreateInput = {
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserCreateManyWithoutGroupInput = {
@@ -904,7 +890,6 @@ export type UserCreateWithoutCommentInput = {
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserCreateWithoutGroupInput = {
@@ -914,7 +899,6 @@ export type UserCreateWithoutGroupInput = {
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserCreateWithoutPostsInput = {
@@ -924,7 +908,6 @@ export type UserCreateWithoutPostsInput = {
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
-  role?: Maybe<Role>;
 };
 
 export type UserFilter = {
@@ -941,7 +924,6 @@ export type UserOrderByInput = {
   id?: Maybe<OrderByArg>;
   name?: Maybe<OrderByArg>;
   password?: Maybe<OrderByArg>;
-  role?: Maybe<OrderByArg>;
 };
 
 export type UserScalarWhereInput = {
@@ -956,7 +938,6 @@ export type UserScalarWhereInput = {
   OR?: Maybe<Array<UserScalarWhereInput>>;
   password?: Maybe<StringFilter>;
   posts?: Maybe<PostFilter>;
-  role?: Maybe<RoleFilter>;
 };
 
 export type UserUpdateInput = {
@@ -968,7 +949,6 @@ export type UserUpdateInput = {
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateManyDataInput = {
@@ -977,7 +957,6 @@ export type UserUpdateManyDataInput = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -986,7 +965,6 @@ export type UserUpdateManyMutationInput = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateManyWithoutGroupInput = {
@@ -1032,7 +1010,6 @@ export type UserUpdateWithoutCommentDataInput = {
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateWithoutGroupDataInput = {
@@ -1043,7 +1020,6 @@ export type UserUpdateWithoutGroupDataInput = {
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateWithoutPostsDataInput = {
@@ -1054,7 +1030,6 @@ export type UserUpdateWithoutPostsDataInput = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-  role?: Maybe<Role>;
 };
 
 export type UserUpdateWithWhereUniqueWithoutGroupInput = {
@@ -1091,7 +1066,6 @@ export type UserWhereInput = {
   OR?: Maybe<Array<UserWhereInput>>;
   password?: Maybe<StringFilter>;
   posts?: Maybe<PostFilter>;
-  role?: Maybe<RoleFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -1355,7 +1329,7 @@ export type UpdateFieldMutation = { __typename?: 'Mutation' } & {
 
 export type UserFragmentFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'createdAt' | 'email' | 'name' | 'role' | 'groupId'
+  'id' | 'createdAt' | 'email' | 'name' | 'groupId'
 > & { group?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id'>> };
 
 export type FindOneUserQueryVariables = {
@@ -1495,7 +1469,6 @@ export const UserFragmentFragmentDoc = gql`
     createdAt
     email
     name
-    role
     group {
       id
     }

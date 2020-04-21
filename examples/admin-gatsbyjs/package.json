@@ -14,7 +14,7 @@
   "scripts": {
     "start-server": "cd server && yarn dev",
     "start-admin": "cd admin && yarn dev",
-    "generate": "yarn generate:pages && yarn generate:server && yarn generate:graphql",
+    "generate": "yarn generate:server && yarn generate:pages && yarn generate:graphql",
     "generate:pages": "ts-node --transpile-only generatePages",
     "generate:graphql": "cd admin && yarn codegen",
     "generate:server": "cd server && yarn generate"

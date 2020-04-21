@@ -13,7 +13,6 @@ model User {
   email     String   @unique
   name      String?
   password  String
-  role      Role     @default(USER)
   posts     Post[]
   group     Group?   @relation(fields: [groupId], references: [id])
   groupId   Int?
@@ -46,9 +45,4 @@ model Group {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User[]
-}
-
-enum Role {
-  USER
-  ADMIN
 }

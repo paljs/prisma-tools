@@ -6,7 +6,6 @@ export const User = objectType({
     t.int('id', { nullable: false })
     t.string('email', { nullable: false })
     t.string('name', { nullable: true })
-    t.field('role', { nullable: false, type: 'Role' })
     t.field('posts', {
       nullable: false,
       list: [true],

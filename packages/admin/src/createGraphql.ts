@@ -1,6 +1,6 @@
-import { SchemaObject, Options } from './types';
-import { writeFile, mkdir } from 'fs';
-import { format } from 'prettier';
+import { SchemaObject, Options } from "./types";
+import { writeFile, mkdir } from "fs";
+import { format } from "prettier";
 
 export function createGraphql(schemaObject: SchemaObject, options: Options) {
   schemaObject.models.forEach((model) => {
@@ -19,7 +19,7 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
       if (fieldsExclude.includes(field.name)) {
         return;
       }
-      if (field.kind !== 'object') {
+      if (field.kind !== "object") {
         fileContent += `${field.name}
         `;
       } else if (!field.list) {
@@ -33,22 +33,22 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
 ${
   !options.disableQueries &&
   !options.modelsExclude.find(
-    (item) => typeof item !== 'string' && item.name === model.id && item.queries
+    (item) => typeof item !== "string" && item.name === model.id && item.queries
   )
     ? `
 ${
-  !excludeQueriesAndMutations.includes('findOne')
+  !excludeQueriesAndMutations.includes("findOne")
     ? `
 query findOne${model.id}($where: ${model.id}WhereUniqueInput!) {
   findOne${model.id}(where: $where) {
     ...${model.id}Fragment
   }
 }`
-    : ''
+    : ""
 }    
 
 ${
-  !excludeQueriesAndMutations.includes('findMany')
+  !excludeQueriesAndMutations.includes("findMany")
     ? `
 query findMany${model.id}(
   $where: ${model.id}WhereInput
@@ -71,11 +71,11 @@ query findMany${model.id}(
     ...${model.id}Fragment
   }
 }`
-    : ''
+    : ""
 }  
 
 ${
-  !excludeQueriesAndMutations.includes('findCount')
+  !excludeQueriesAndMutations.includes("findCount")
     ? `
 query findMany${model.id}Count(
   $where: ${model.id}WhereInput
@@ -96,82 +96,83 @@ query findMany${model.id}Count(
     last: $last
   )
 }`
-    : ''
+    : ""
 }  
 `
-    : ''
+    : ""
 }
 
 ${
   !options.disableMutations &&
   !options.modelsExclude.find(
     (item) =>
-      typeof item !== 'string' && item.name === model.id && item.mutations
+      typeof item !== "string" && item.name === model.id && item.mutations
   )
     ? `
 ${
-  !excludeQueriesAndMutations.includes('createOne')
+  !excludeQueriesAndMutations.includes("createOne")
     ? `
 mutation createOne${model.id}($data: ${model.id}CreateInput!) {
     createOne${model.id}(data: $data) {
         ...${model.id}Fragment
     }
 }`
-    : ''
+    : ""
 } 
 
 ${
-  !excludeQueriesAndMutations.includes('updateOne')
+  !excludeQueriesAndMutations.includes("updateOne")
     ? `
 mutation updateOne${model.id}($where: ${model.id}WhereUniqueInput!, $data: ${model.id}UpdateInput!) {
     updateOne${model.id}(where: $where, data: $data) {
         ...${model.id}Fragment
     }
 }`
-    : ''
+    : ""
 } 
 
 ${
-  !excludeQueriesAndMutations.includes('deleteOne')
+  !excludeQueriesAndMutations.includes("deleteOne")
     ? `
 mutation deleteOne${model.id}($where: ${model.id}WhereUniqueInput!) {
     deleteOne${model.id}(where: $where) {
         id
     }
 }`
-    : ''
+    : ""
 }
 
 ${
-  !excludeQueriesAndMutations.includes('deleteMany')
+  !excludeQueriesAndMutations.includes("deleteMany")
     ? `
 mutation deleteMany${model.id}($where: ${model.id}WhereInput) {
     deleteMany${model.id}(where: $where) {
         count
     }
 }`
-    : ''
+    : ""
 }
 
 ${
-  !excludeQueriesAndMutations.includes('updateMany')
+  !excludeQueriesAndMutations.includes("updateMany")
     ? `
 mutation updateMany${model.id}($where: ${model.id}WhereInput, $data: ${model.id}UpdateManyMutationInput!) {
     updateMany${model.id}(where: $where, data: $data) {
         count
     }
 }`
-    : ''
+    : ""
 }
 `
-    : ''
+    : ""
 }
 `;
     fileContent = format(fileContent, {
+      trailingComma: "all",
       singleQuote: true,
-      semi: false,
-      trailingComma: 'all',
-      parser: 'graphql',
+      printWidth: 120,
+      tabWidth: 2,
+      parser: "graphql",
     });
 
     mkdir(options.graphqlOutput, () => {});

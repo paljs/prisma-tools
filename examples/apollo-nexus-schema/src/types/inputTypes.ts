@@ -31,11 +31,6 @@ export const OrderByArg = enumType({
   members: ['asc', 'desc'],
 })
 
-export const Role = enumType({
-  name: 'Role',
-  members: ['USER', 'ADMIN'],
-})
-
 export const CommentWhereInput = inputObjectType({
   name: 'CommentWhereInput',
   definition(t) {
@@ -91,7 +86,6 @@ export const UserWhereInput = inputObjectType({
     t.field('email', { type: 'StringFilter' })
     t.field('name', { type: 'NullableStringFilter' })
     t.field('password', { type: 'StringFilter' })
-    t.field('role', { type: 'RoleFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
     t.field('comment', { type: 'CommentFilter' })
@@ -154,7 +148,6 @@ export const UserCreateWithoutCommentInput = inputObjectType({
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
   },
@@ -212,7 +205,6 @@ export const UserCreateWithoutPostsInput = inputObjectType({
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
-    t.field('role', { type: 'Role' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
     t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
@@ -273,7 +265,6 @@ export const UserCreateInput = inputObjectType({
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
     t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
@@ -320,7 +311,6 @@ export const UserUpdateWithoutCommentDataInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
   },
@@ -548,7 +538,6 @@ export const UserUpdateWithoutPostsDataInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
     t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
@@ -682,7 +671,6 @@ export const UserUpdateInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
     t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
@@ -697,7 +685,6 @@ export const UserUpdateManyMutationInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
   },
 })
 
@@ -780,7 +767,6 @@ export const UserCreateWithoutGroupInput = inputObjectType({
     t.field('email', { type: 'String', nullable: false })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
@@ -811,7 +797,6 @@ export const UserUpdateWithoutGroupDataInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
@@ -836,7 +821,6 @@ export const UserScalarWhereInput = inputObjectType({
     t.field('email', { type: 'StringFilter' })
     t.field('name', { type: 'NullableStringFilter' })
     t.field('password', { type: 'StringFilter' })
-    t.field('role', { type: 'RoleFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
     t.field('comment', { type: 'CommentFilter' })
@@ -854,7 +838,6 @@ export const UserUpdateManyDataInput = inputObjectType({
     t.field('email', { type: 'String' })
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
-    t.field('role', { type: 'Role' })
   },
 })
 
@@ -1023,16 +1006,6 @@ export const NullableStringFilter = inputObjectType({
   },
 })
 
-export const RoleFilter = inputObjectType({
-  name: 'RoleFilter',
-  definition(t) {
-    t.field('equals', { type: 'Role' })
-    t.field('not', { type: 'Role' })
-    t.field('in', { type: 'Role', list: true })
-    t.field('notIn', { type: 'Role', list: true })
-  },
-})
-
 export const PostFilter = inputObjectType({
   name: 'PostFilter',
   definition(t) {
@@ -1050,7 +1023,6 @@ export const UserOrderByInput = inputObjectType({
     t.field('email', { type: 'OrderByArg' })
     t.field('name', { type: 'OrderByArg' })
     t.field('password', { type: 'OrderByArg' })
-    t.field('role', { type: 'OrderByArg' })
     t.field('group', { type: 'OrderByArg' })
     t.field('groupId', { type: 'OrderByArg' })
   },
