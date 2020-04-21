@@ -53,21 +53,6 @@
           "kind": "scalar"
         },
         {
-          "id": "User.role",
-          "name": "role",
-          "title": "role",
-          "type": "Role",
-          "list": false,
-          "required": true,
-          "create": true,
-          "update": true,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 4,
-          "kind": "enum"
-        },
-        {
           "id": "User.group",
           "name": "group",
           "title": "group",
@@ -79,7 +64,7 @@
           "read": true,
           "filter": true,
           "sort": true,
-          "order": 5,
+          "order": 4,
           "kind": "object"
         },
         {
@@ -94,7 +79,7 @@
           "read": false,
           "filter": true,
           "sort": true,
-          "order": 6,
+          "order": 5,
           "kind": "scalar"
         },
         {
@@ -109,7 +94,7 @@
           "read": true,
           "filter": true,
           "sort": true,
-          "order": 7,
+          "order": 6,
           "kind": "object"
         },
         {
@@ -124,7 +109,7 @@
           "read": false,
           "filter": true,
           "sort": true,
-          "order": 8,
+          "order": 7,
           "kind": "scalar"
         },
         {
@@ -139,7 +124,7 @@
           "read": true,
           "filter": true,
           "sort": true,
-          "order": 9,
+          "order": 8,
           "kind": "scalar"
         }
       ]
@@ -167,18 +152,33 @@
           "kind": "scalar"
         },
         {
-          "id": "Post.title",
-          "name": "title",
-          "title": "title",
-          "type": "String",
+          "id": "Post.createdAt",
+          "name": "createdAt",
+          "title": "createdAt",
+          "type": "DateTime",
           "list": false,
           "required": true,
-          "create": true,
-          "update": true,
+          "create": false,
+          "update": false,
           "read": true,
           "filter": true,
           "sort": true,
-          "order": 2,
+          "order": 7,
+          "kind": "scalar"
+        },
+        {
+          "id": "Post.updatedAt",
+          "name": "updatedAt",
+          "title": "updatedAt",
+          "type": "DateTime",
+          "list": false,
+          "required": true,
+          "create": false,
+          "update": false,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": 8,
           "kind": "scalar"
         },
         {
@@ -194,6 +194,21 @@
           "filter": true,
           "sort": true,
           "order": 3,
+          "kind": "scalar"
+        },
+        {
+          "id": "Post.title",
+          "name": "title",
+          "title": "title",
+          "type": "String",
+          "list": false,
+          "required": true,
+          "create": true,
+          "update": true,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": 2,
           "kind": "scalar"
         },
         {
@@ -240,36 +255,6 @@
           "sort": true,
           "order": 6,
           "kind": "object"
-        },
-        {
-          "id": "Post.createdAt",
-          "name": "createdAt",
-          "title": "createdAt",
-          "type": "DateTime",
-          "list": false,
-          "required": true,
-          "create": false,
-          "update": false,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 7,
-          "kind": "scalar"
-        },
-        {
-          "id": "Post.updatedAt",
-          "name": "updatedAt",
-          "title": "updatedAt",
-          "type": "DateTime",
-          "list": false,
-          "required": true,
-          "create": false,
-          "update": false,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 8,
-          "kind": "scalar"
         }
       ]
     },
@@ -293,6 +278,36 @@
           "filter": true,
           "sort": true,
           "order": 1,
+          "kind": "scalar"
+        },
+        {
+          "id": "Comment.createdAt",
+          "name": "createdAt",
+          "title": "createdAt",
+          "type": "DateTime",
+          "list": false,
+          "required": true,
+          "create": false,
+          "update": false,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": 8,
+          "kind": "scalar"
+        },
+        {
+          "id": "Comment.updatedAt",
+          "name": "updatedAt",
+          "title": "updatedAt",
+          "type": "DateTime",
+          "list": false,
+          "required": true,
+          "create": false,
+          "update": false,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": 7,
           "kind": "scalar"
         },
         {
@@ -369,36 +384,6 @@
           "sort": true,
           "order": 6,
           "kind": "scalar"
-        },
-        {
-          "id": "Comment.updatedAt",
-          "name": "updatedAt",
-          "title": "updatedAt",
-          "type": "DateTime",
-          "list": false,
-          "required": true,
-          "create": false,
-          "update": false,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 7,
-          "kind": "scalar"
-        },
-        {
-          "id": "Comment.createdAt",
-          "name": "createdAt",
-          "title": "createdAt",
-          "type": "DateTime",
-          "list": false,
-          "required": true,
-          "create": false,
-          "update": false,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 8,
-          "kind": "scalar"
         }
       ]
     },
@@ -472,13 +457,5 @@
       ]
     }
   ],
-  "enums": [
-    {
-      "name": "Role",
-      "fields": [
-        "USER",
-        "ADMIN"
-      ]
-    }
-  ]
+  "enums": []
 }

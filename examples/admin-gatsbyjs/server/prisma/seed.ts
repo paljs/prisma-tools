@@ -8,7 +8,7 @@ async function seedData() {
   await prisma.user.create({
     data: {
       name: 'Ahmed',
-      email: 'ahmed.elywa@icloud.com',
+      email: 'ahmed.elywa1@icloud.com',
       password: await hash('password', 10),
       posts: {
         create: [
