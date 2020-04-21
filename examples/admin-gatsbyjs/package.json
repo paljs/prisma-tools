@@ -20,7 +20,7 @@
     "generate:server": "cd server && yarn generate"
   },
   "devDependencies": {
-    "@prisma-tools/admin": "^0.0.5",
+    "@prisma-tools/admin": "^0.0.6",
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1",
