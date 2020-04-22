@@ -36,7 +36,7 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
 function handleNewModel(model: Model) {
   const newItem: SchemaModel = {
     id: model.id,
-    name: model.id,
+    name: getTitle(model.id),
     create: true,
     update: true,
     delete: true,
@@ -53,7 +53,7 @@ const defaultField = ["id", "createdAt", "updatedAt"];
 function handleNewField(field: Field) {
   return {
     ...field,
-    title: field.name,
+    title: getTitle(field.name),
     create: !defaultField.includes(field.name),
     update: !defaultField.includes(field.name),
     read: true,
@@ -61,4 +61,10 @@ function handleNewField(field: Field) {
     sort: true,
     order: -1,
   };
+}
+
+function getTitle(id: string) {
+  const split = id.split(/(?=[A-Z])/);
+  split[0] = split[0].charAt(0).toUpperCase() + split[0].slice(1);
+  return split.join(" ");
 }
