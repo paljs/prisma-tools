@@ -3,6 +3,7 @@ import { Button, Col, EvaIcon, InputGroup, Popover, Row, Select, Tab, Tabs } fro
 import styled from 'styled-components';
 import { Field } from '@prisma-tools/admin';
 import { useGetEnumQuery } from '../../generated';
+import { useFilter } from './useFilter';
 
 interface Option {
   value: any;
@@ -19,18 +20,8 @@ const StyledSelect = styled(Select)`
 `;
 
 export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter } }) => {
-  const onChangeHandler = (value: string, name: string) => {
-    const second = name === 'lte' ? 'gte' : 'lte';
-    if (filterValue && value && filterValue[second]) {
-      setFilter({ [second]: filterValue[second], [name]: parseInt(value) });
-    } else if (value) {
-      setFilter({ [name]: parseInt(value) });
-    } else if (filterValue && filterValue[second]) {
-      setFilter({ [second]: filterValue[second] });
-    } else {
-      setFilter(undefined);
-    }
-  };
+  const { value, onChange } = useFilter(filterValue, setFilter, true);
+
   return (
     <Popover
       eventListener="#popoverScroll"
@@ -41,12 +32,7 @@ export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter }
         <Tabs activeIndex={0} fullWidth>
           <Tab title="Equals">
             <Input size="Medium" fullWidth status="Primary">
-              <input
-                placeholder="Equals"
-                type="number"
-                value={filterValue?.equals}
-                onChange={(e) => setFilter(e.target.value ? { equals: parseInt(e.target.value) } : undefined)}
-              />
+              <input placeholder="Equals" type="number" value={value?.equals} onChange={(e) => onChange(e, 'equals')} />
             </Input>
           </Tab>
           <Tab title="Range">
@@ -57,8 +43,8 @@ export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter }
                     style={{ maxWidth: '85px' }}
                     placeholder="min"
                     type="text"
-                    value={filterValue?.gte}
-                    onChange={(e) => onChangeHandler(e.target.value, 'gte')}
+                    value={value?.gte}
+                    onChange={(e) => onChange(e, 'gte')}
                   />
                 </Input>
               </Col>
@@ -68,8 +54,8 @@ export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter }
                     style={{ maxWidth: '85px' }}
                     placeholder="max"
                     type="text"
-                    value={filterValue?.lte}
-                    onChange={(e) => onChangeHandler(e.target.value, 'lte')}
+                    value={value?.lte}
+                    onChange={(e) => onChange(e, 'lte')}
                   />
                 </Input>
               </Col>
@@ -96,18 +82,8 @@ export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter }
 };
 
 export const DateTimeFilter: React.FC<any> = ({ column: { filterValue, setFilter } }) => {
-  const onChangeHandler = (value: string, name: string) => {
-    const second = name === 'lte' ? 'gte' : 'lte';
-    if (filterValue && value && filterValue[second]) {
-      setFilter({ ...filterValue, [name]: value });
-    } else if (value) {
-      setFilter({ [name]: value });
-    } else if (filterValue && filterValue[second]) {
-      setFilter({ [second]: filterValue[second] });
-    } else {
-      setFilter(undefined);
-    }
-  };
+  const { value, onChange } = useFilter(filterValue, setFilter);
+
   return (
     <Popover
       eventListener="#popoverScroll"
@@ -118,22 +94,12 @@ export const DateTimeFilter: React.FC<any> = ({ column: { filterValue, setFilter
         <Tabs activeIndex={0} fullWidth>
           <Tab title="Start Date">
             <Input size="Medium" fullWidth status="Primary">
-              <input
-                placeholder="min"
-                type="date"
-                value={filterValue?.gte}
-                onChange={(e) => onChangeHandler(e.target.value, 'gte')}
-              />
+              <input placeholder="min" type="date" value={value?.gte} onChange={(e) => onChange(e, 'gte')} />
             </Input>
           </Tab>
           <Tab title="End Date">
             <Input size="Medium" fullWidth status="Primary">
-              <input
-                placeholder="max"
-                type="date"
-                value={filterValue?.lte}
-                onChange={(e) => onChangeHandler(e.target.value, 'lte')}
-              />
+              <input placeholder="max" type="date" value={value?.lte} onChange={(e) => onChange(e, 'lte')} />
             </Input>
           </Tab>
         </Tabs>
@@ -172,14 +138,10 @@ export const BooleanFilter: React.FC<any> = ({ column: { filterValue, setFilter 
 };
 
 export const StringFilter: React.FC<any> = ({ column: { filterValue, setFilter } }) => {
+  const { value, onChange } = useFilter(filterValue, setFilter);
   return (
     <Input size="Small" fullWidth status="Primary">
-      <input
-        placeholder="word"
-        type="text"
-        value={filterValue?.contains}
-        onChange={(e) => setFilter(e.target.value ? { contains: e.target.value } : undefined)}
-      />
+      <input type="text" value={value?.contains} onChange={(e) => onChange(e, 'contains')} />
     </Input>
   );
 };
