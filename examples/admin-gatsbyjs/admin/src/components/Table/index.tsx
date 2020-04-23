@@ -80,7 +80,7 @@ export const Table: React.FC<TableProps> = ({
   // Render the UI for your table
   return (
     <Card status="Primary">
-      <header>Status and accent card</header>
+      <header>{model?.name}</header>
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
         <StyledTable {...getTableProps()}>

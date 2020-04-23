@@ -5,8 +5,8 @@ import { SchemaModel } from '@prisma-tools/admin';
 type keys = keyof typeof generate;
 
 const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', onCancel: () => void) => {
-  const [updateModel] = useMutation(generate[`UpdateOne${model.name}Document` as keys] as DocumentNode);
-  const [createModel] = useMutation(generate[`CreateOne${model.name}Document` as keys] as DocumentNode);
+  const [updateModel] = useMutation(generate[`UpdateOne${model.id}Document` as keys] as DocumentNode);
+  const [createModel] = useMutation(generate[`CreateOne${model.id}Document` as keys] as DocumentNode);
 
   const getField = (name: string) => {
     return model.fields.find((item) => item.name === name);
