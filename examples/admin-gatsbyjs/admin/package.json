@@ -24,7 +24,7 @@
     "moment": "^2.24.0",
     "namor": "^2.0.2",
     "oah-eva-icon": "^1.0.1",
-    "oah-ui": "^2.0.12",
+    "oah-ui": "^2.1.2",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-datepicker": "^2.14.1",

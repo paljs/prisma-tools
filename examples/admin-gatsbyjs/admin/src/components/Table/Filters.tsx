@@ -81,7 +81,7 @@ export const NumberFilter: React.FC<any> = ({ column: { filterValue, setFilter }
       <Button
         status={filterValue ? 'Success' : 'Primary'}
         fullWidth
-        size="Medium"
+        size="Small"
         shape="SemiRound"
         style={{
           display: 'flex',
@@ -142,7 +142,7 @@ export const DateTimeFilter: React.FC<any> = ({ column: { filterValue, setFilter
       <Button
         status={filterValue ? 'Success' : 'Primary'}
         fullWidth
-        size="Medium"
+        size="Small"
         shape="SemiRound"
         style={{ justifyContent: 'center' }}
       >
@@ -160,6 +160,7 @@ export const BooleanFilter: React.FC<any> = ({ column: { filterValue, setFilter 
   ];
   return (
     <StyledSelect
+      size="Small"
       status="Primary"
       isSearchable={false}
       shape="SemiRound"
@@ -196,6 +197,7 @@ export const EnumFilter: (field: Field) => React.FC<any> = (field) => {
     }
     return (
       <StyledSelect
+        size="Small"
         status="Primary"
         isSearchable={false}
         shape="SemiRound"

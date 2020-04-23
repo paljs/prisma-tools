@@ -1,7 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
-import { breakpointDown, Button, Card, CardBody, Col, EvaIcon, InputGroup, Row, Spinner, Tooltip } from 'oah-ui';
+import {
+  breakpointDown,
+  Button,
+  Card,
+  CardBody,
+  Col,
+  EvaIcon,
+  InputGroup,
+  Row,
+  Spinner,
+  Tooltip,
+  Popover,
+} from 'oah-ui';
 import { columns } from './Columns';
 import { initPages } from './utils';
 import { SchemaModel } from '@prisma-tools/admin';
@@ -100,7 +112,7 @@ export const Table: React.FC<TableProps> = ({
                   {hasActions && (
                     <th colSpan={2}>
                       {actions.create && (
-                        <Button onClick={() => onAction('create')}>
+                        <Button onClick={() => onAction('create')} size="Tiny">
                           <EvaIcon name="plus-outline" />
                         </Button>
                       )}
@@ -163,7 +175,24 @@ export const Table: React.FC<TableProps> = ({
                   {row.cells.map((cell: any, index2: number) => {
                     return (
                       <td key={index2} {...cell.getCellProps()}>
-                        {cell.render('Cell')}
+                        {cell.value && cell.value.length > 15 ? (
+                          <Popover
+                            eventListener="#popoverScroll"
+                            trigger="hover"
+                            placement="top"
+                            overlay={
+                              <Card style={{ marginBottom: '0', maxHeight: '300px' }}>
+                                <CardBody>
+                                  <div style={{ maxWidth: '300px' }} dangerouslySetInnerHTML={{ __html: cell.value }} />
+                                </CardBody>
+                              </Card>
+                            }
+                          >
+                            {cell.render('Cell')}
+                          </Popover>
+                        ) : (
+                          cell.render('Cell')
+                        )}
                       </td>
                     );
                   })}
@@ -276,7 +305,8 @@ const StyledTable = styled.table`
     }
   }
 
-  td {
+  td,
+  td div {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
