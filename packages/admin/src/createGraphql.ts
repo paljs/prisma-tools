@@ -22,11 +22,6 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
       if (field.kind !== "object") {
         fileContent += `${field.name}
         `;
-      } else if (!field.list) {
-        fileContent += `${field.name} {
-          id
-        }
-        `;
       }
     });
     fileContent += `}
@@ -41,7 +36,7 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
       if (fieldsExclude.includes(field.name)) {
         return;
       }
-      if (field.kind !== "object" && !field.list) {
+      if (field.kind === "object" && !field.list) {
         fileContent += `${field.name} {
             ...${field.type}Fields
           }
