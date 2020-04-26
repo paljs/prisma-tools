@@ -56,7 +56,7 @@ ${
     ? `
 query findOne${model.id}($where: ${model.id}WhereUniqueInput!) {
   findOne${model.id}(where: $where) {
-    ...${model.id}Fragment
+    ...${model.id}
   }
 }`
     : ""
@@ -83,7 +83,7 @@ query findMany${model.id}(
     first: $first
     last: $last
   ) {
-    ...${model.id}Fragment
+    ...${model.id}
   }
 }`
     : ""
@@ -129,7 +129,7 @@ ${
     ? `
 mutation createOne${model.id}($data: ${model.id}CreateInput!) {
     createOne${model.id}(data: $data) {
-        ...${model.id}Fragment
+        ...${model.id}
     }
 }`
     : ""
@@ -140,7 +140,7 @@ ${
     ? `
 mutation updateOne${model.id}($where: ${model.id}WhereUniqueInput!, $data: ${model.id}UpdateInput!) {
     updateOne${model.id}(where: $where, data: $data) {
-        ...${model.id}Fragment
+        ...${model.id}
     }
 }`
     : ""
