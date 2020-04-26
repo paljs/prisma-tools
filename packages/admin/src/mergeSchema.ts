@@ -12,6 +12,12 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
     } else {
       const newItem: SchemaModel = {
         ...schemaItem,
+        idField:
+          schemaItem.idField ??
+          schemaItem.fields.find((field) => field.isId).name,
+        displayFields: schemaItem.displayFields ?? [
+          schemaItem.fields.find((field) => field.isId).name,
+        ],
         fields: [],
       };
       item.fields.forEach((field) => {
@@ -37,6 +43,8 @@ function handleNewModel(model: Model) {
   const newItem: SchemaModel = {
     id: model.id,
     name: getTitle(model.id),
+    idField: model.fields.find((field) => field.isId).name,
+    displayFields: [model.fields.find((field) => field.isId).name],
     create: true,
     update: true,
     delete: true,

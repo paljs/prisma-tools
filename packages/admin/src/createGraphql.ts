@@ -10,7 +10,7 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
     const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
       options.excludeQueriesAndMutationsByModel[model.id] ?? []
     );
-    let fileContent = `fragment ${model.id}Fragment on ${model.id} {
+    let fileContent = `fragment ${model.id}Fields on ${model.id} {
     `;
     model.fields.forEach((field) => {
       const fieldsExclude = options.fieldsExclude.concat(
@@ -29,6 +29,26 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
         `;
       }
     });
+    fileContent += `}
+    
+    fragment ${model.id} on ${model.id} {
+      ...${model.id}Fields
+      `;
+    model.fields.forEach((field) => {
+      const fieldsExclude = options.fieldsExclude.concat(
+        options.excludeFieldsByModel[model.id]
+      );
+      if (fieldsExclude.includes(field.name)) {
+        return;
+      }
+      if (field.kind !== "object" && !field.list) {
+        fileContent += `${field.name} {
+            ...${field.type}Fields
+          }
+          `;
+      }
+    });
+
     fileContent += `}
 ${
   !options.disableQueries &&

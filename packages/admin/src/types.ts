@@ -14,7 +14,9 @@ export interface Field {
   type: string;
   list: boolean;
   required: boolean;
-  kind: 'object' | 'enum' | 'scalar';
+  isId: boolean;
+  unique: boolean;
+  kind: "object" | "enum" | "scalar";
 }
 
 export type SchemaObject = { models: Model[]; enums: Enums[] };
@@ -31,6 +33,8 @@ export interface SchemaField extends Field {
 
 export interface SchemaModel extends Model {
   name: string;
+  idField: string;
+  displayFields: string[];
   update: boolean;
   delete: boolean;
   create: boolean;
@@ -40,14 +44,14 @@ export interface SchemaModel extends Model {
 export type Schema = { models: SchemaModel[]; enums: Enums[] };
 
 type QueriesAndMutations =
-  | 'findOne'
-  | 'findMany'
-  | 'findCount'
-  | 'createOne'
-  | 'updateOne'
-  | 'deleteOne'
-  | 'updateMany'
-  | 'deleteMany';
+  | "findOne"
+  | "findMany"
+  | "findCount"
+  | "createOne"
+  | "updateOne"
+  | "deleteOne"
+  | "updateMany"
+  | "deleteMany";
 
 export interface Options {
   schemaOutput: string;
