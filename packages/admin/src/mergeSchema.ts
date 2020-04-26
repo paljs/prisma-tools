@@ -32,6 +32,7 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
           });
         }
       });
+      newItem.fields.sort((a, b) => a.order - b.order);
       newSchema.models.push(newItem);
     }
   });
