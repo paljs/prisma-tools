@@ -21,17 +21,14 @@ cd examples/admin-gatsbyjs/
 ```
 
 ```shell script
-yarn
-cd server && yarn
-cd admin && yarn
+yarn i-all
 ```
 
 Start service
 
 ```shell script
 yarn generate
-yarn start-server
-yarn start-admin
+yarn start
 ```
 
 Navigate to [http://localhost:8000](http://localhost:8000/) in your browser to explore admin pages
@@ -42,4 +39,4 @@ This admin ui template built on [oah-ui](https://oah-ui.oahtech.io/getting-start
 
 Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
-## Like my tool give me star 
+## Like my tool give me star

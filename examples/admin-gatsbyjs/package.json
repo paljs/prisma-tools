@@ -12,8 +12,12 @@
   },
   "private": false,
   "scripts": {
-    "start-server": "cd server && yarn dev",
-    "start-admin": "cd admin && yarn dev",
+    "start": "concurrently -k -p \"[{name}]\" -n \"SERVER,ADMIN\" -c \"bgBlue.bold,bgMagenta.bold\" -i \"yarn server\" \"yarn admin\"",
+    "i-all": "yarn && yarn i-server && yarn i-admin",
+    "i-admin": "cd server && yarn",
+    "i-server": "cd admin && yarn",
+    "server": "cd server && yarn dev",
+    "admin": "cd admin && yarn dev",
     "generate": "yarn generate:server && yarn generate:pages && yarn generate:graphql",
     "generate:pages": "ts-node --transpile-only generatePages",
     "generate:graphql": "cd admin && yarn codegen",
@@ -36,5 +40,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
     }
+  },
+  "dependencies": {
+    "concurrently": "^5.2.0"
   }
 }
