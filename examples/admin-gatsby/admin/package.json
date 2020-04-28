@@ -38,6 +38,7 @@
     "build": "gatsby build",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
+    "deploy": "gatsby build && gh-pages -d public",
     "codegen": "graphql-codegen --config codegen.yml",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "lint": "eslint src --max-warnings=0 --ext=.tsx,.jsx"

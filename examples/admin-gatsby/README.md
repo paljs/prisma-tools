@@ -2,7 +2,9 @@
 
 Admin pages for prisma project db with [`@prisma-tools/admin`](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/admin) tool to generate pages and apollo (queries and mutations) hooks and `schema.json` to custom your models
 
-![demo](demo.gif)
+### Online demo
+
+[http://prisma-admin.ahmedelywa.com/](http://prisma-admin.ahmedelywa.com/)
 
 ## How to use
 

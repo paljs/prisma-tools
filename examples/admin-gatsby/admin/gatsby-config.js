@@ -10,7 +10,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-apollo',
       options: {
-        uri: 'https://prisma-tools.herokuapp.com',
+        uri: 'http://localhost:4000',
         credentials: 'include',
         connectToDevTools: true,
       },
