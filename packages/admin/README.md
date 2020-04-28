@@ -4,7 +4,7 @@ It's a small tool to generate pages and .graphql files for every model in your p
 
 ## Project
 
-you can't use this tool outside our example [admin-admin](https://github.com/AhmedElywa/prisma-admin)
+you can't use this tool outside our example [admin-admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby)
 
 ## Api
 
