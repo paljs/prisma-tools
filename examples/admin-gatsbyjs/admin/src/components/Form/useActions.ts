@@ -28,7 +28,7 @@ const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', 
       if (field?.kind === 'object') {
         if (newData[key]) {
           const fieldModel = models.find((item) => item.id === field.type)!;
-          if (!data[key] || newData[key] !== data[key][fieldModel.idField]) {
+          if (newData[key] && (!data[key] || newData[key] !== data[key][fieldModel.idField])) {
             const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
             updateData[key] = {
               connect: {
