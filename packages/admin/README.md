@@ -4,17 +4,17 @@ It's a small tool to generate pages and .graphql files for every model in your p
 
 ## Project
 
-you can't use this tool outside our example [admin-gatsbyjs](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsbyjs)
+you can't use this tool outside our example [admin-admin](https://github.com/AhmedElywa/prisma-admin)
 
 ## Api
 
 ```typescript
-import { generateAdmin, Schema } from '@prisma-tools/admin'
-import defaultSchema from './server/src/types/schema/schema.json'
+import { generateAdmin, Schema } from '@prisma-tools/admin';
+import defaultSchema from './server/src/types/schema/schema.json';
 
-// accept three args 
-// first one path to your schema.prisma file 
-// second import generated schema.json to merge changes you must create this file form first and add 
+// accept three args
+// first one path to your schema.prisma file
+// second import generated schema.json to merge changes you must create this file form first and add
 // {models: [], enums: []}
 // third arg is options look to the interface to know options
 
@@ -23,14 +23,14 @@ generateAdmin('./server/prisma/schema.prisma', defaultSchema as Schema, {
     User: ['password'],
   },
   excludeQueriesAndMutations: ['updateMany', 'deleteMany'],
-})
+});
 
 interface Options {
-// schema.json file output path default './server/src/types/schema/schema.json'
+  // schema.json file output path default './server/src/types/schema/schema.json'
   schemaOutput: string;
-// .graphql files output for queries and mutations default './admin/src/graphql'
+  // .graphql files output for queries and mutations default './admin/src/graphql'
   graphqlOutput: string;
-// pages output for generate page for every model default './admin/src/pages/models'
+  // pages output for generate page for every model default './admin/src/pages/models'
   pagesOutput: string;
   // exclude fields from all models
   fieldsExclude: string[];
