@@ -1,6 +1,6 @@
-datasource postgresql {
+datasource db {
   url = "***"
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 generator client {
