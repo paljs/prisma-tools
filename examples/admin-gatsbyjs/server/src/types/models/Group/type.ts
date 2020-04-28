@@ -4,8 +4,7 @@ export const Group = objectType({
   name: 'Group',
   definition(t) {
     t.int('id', { nullable: false })
-    t.field('createdAt', { nullable: false, type: 'DateTime' })
-    t.field('updatedAt', { nullable: false, type: 'DateTime' })
+    t.string('name', { nullable: false })
     t.field('users', {
       nullable: false,
       list: [true],
@@ -20,5 +19,7 @@ export const Group = objectType({
         last: 'Int',
       },
     })
+    t.field('createdAt', { nullable: false, type: 'DateTime' })
+    t.field('updatedAt', { nullable: false, type: 'DateTime' })
   },
 })

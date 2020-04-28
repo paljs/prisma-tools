@@ -1,12 +1,17 @@
-fragment GroupFragment on Group {
+fragment GroupFields on Group {
   id
+  name
   createdAt
   updatedAt
 }
 
+fragment Group on Group {
+  ...GroupFields
+}
+
 query findOneGroup($where: GroupWhereUniqueInput!) {
   findOneGroup(where: $where) {
-    ...GroupFragment
+    ...Group
   }
 }
 
@@ -28,7 +33,7 @@ query findManyGroup(
     first: $first
     last: $last
   ) {
-    ...GroupFragment
+    ...Group
   }
 }
 
@@ -54,13 +59,13 @@ query findManyGroupCount(
 
 mutation createOneGroup($data: GroupCreateInput!) {
   createOneGroup(data: $data) {
-    ...GroupFragment
+    ...Group
   }
 }
 
 mutation updateOneGroup($where: GroupWhereUniqueInput!, $data: GroupUpdateInput!) {
   updateOneGroup(where: $where, data: $data) {
-    ...GroupFragment
+    ...Group
   }
 }
 

@@ -1,47 +1,56 @@
 import * as generate from '../../generated';
 import { DocumentNode, useMutation } from '@apollo/client';
 import { SchemaModel } from '@prisma-tools/admin';
+import { useContext } from 'react';
+import { LayoutContext } from '../../Layouts';
 
 type keys = keyof typeof generate;
+
+export const getValueByType = (type: string | undefined, value: string) => {
+  return type === 'Int' ? parseInt(value) : type === 'Float' ? parseFloat(value) : value;
+};
 
 const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', onCancel: () => void) => {
   const [updateModel] = useMutation(generate[`UpdateOne${model.id}Document` as keys] as DocumentNode);
   const [createModel] = useMutation(generate[`CreateOne${model.id}Document` as keys] as DocumentNode);
-
+  const {
+    schema: { models },
+  } = useContext(LayoutContext);
   const getField = (name: string) => {
     return model.fields.find((item) => item.name === name);
   };
 
-  const getValue = (type: string | undefined, value: string) => {
-    return type === 'Int' ? parseInt(value) : type === 'Float' ? parseFloat(value) : value;
-  };
-
   const onUpdateHandler = (newData: any) => {
     const updateData: any = {};
+    console.log(newData);
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
       if (field?.kind === 'object') {
         if (newData[key]) {
-          if (!data[key] || newData[key] !== data[key].id) {
+          const fieldModel = models.find((item) => item.id === field.type)!;
+          if (!data[key] || newData[key] !== data[key][fieldModel.idField]) {
+            const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
             updateData[key] = {
               connect: {
-                id: getValue('Int', newData[key]),
+                id: getValueByType(editField.type, newData[key]),
               },
             };
           }
         }
       } else if (newData[key] !== data[key]) {
-        updateData[key] = getValue(field?.type, newData[key]);
+        updateData[key] = getValueByType(field?.type, newData[key]);
       }
     });
-    updateModel({
-      variables: {
-        where: {
-          id: data.id,
+    if (Object.keys(updateData).length > 0) {
+      updateModel({
+        variables: {
+          where: {
+            id: data.id,
+          },
+          data: updateData,
         },
-        data: updateData,
-      },
-    }).then(onCancel);
+      }).then(onCancel);
+    }
   };
 
   const onCreateHandler = (newData: any) => {
@@ -49,15 +58,17 @@ const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', 
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
       if (field?.kind === 'object') {
+        const fieldModel = models.find((item) => item.id === field.type)!;
+        const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
         if (newData[key]) {
           createData[key] = {
             connect: {
-              id: getValue('Int', newData[key]),
+              id: getValueByType(editField.type, newData[key]),
             },
           };
         }
       } else {
-        createData[key] = getValue(field?.type, newData[key]);
+        createData[key] = getValueByType(field?.type, newData[key]);
       }
     });
     createModel({

@@ -1,22 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Accordion, AccordionItem, Card, CardBody, Col, EvaIcon, Row, Select } from 'oah-ui';
 import { Droppable, Draggable, DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { ModelFragmentFragment, useGetModelsQuery, useUpdateModelMutation } from '../../generated';
+import { ModelFragment, useUpdateModelMutation } from '../../generated';
 import UpdateModel from './UpdateModel';
 import UpdateField from './UpdateField';
 import styled from 'styled-components';
+import { LayoutContext } from '../../Layouts';
 
 export const Settings: React.FC = () => {
-  const { data } = useGetModelsQuery();
+  const {
+    schema: { models },
+  } = useContext(LayoutContext);
   const [updateModel] = useUpdateModelMutation();
-  const [currentModel, setCurrentModel] = useState<ModelFragmentFragment>();
-  const dataRef = useRef(data);
+  const [currentModel, setCurrentModel] = useState<ModelFragment>();
+  const dataRef = useRef(models);
 
-  if (!currentModel && data?.getModels) setCurrentModel(data.getModels[0]);
+  if (!currentModel && models.length > 0) setCurrentModel(models[0]);
 
-  if (dataRef.current !== data && data?.getModels && currentModel) {
-    dataRef.current = data;
-    setCurrentModel(data.getModels?.find((model) => model.id === currentModel.id));
+  if (dataRef.current !== models && models.length > 0 && currentModel) {
+    dataRef.current = models;
+    setCurrentModel(models.find((model) => model.id === currentModel.id));
   }
 
   const onDragEnd = (result: DropResult) => {
@@ -47,9 +50,9 @@ export const Settings: React.FC = () => {
   return (
     <Row>
       <Col breakPoint={{ xs: 12, md: 6 }}>
-        <Card size="Medium">
+        <Card>
           <header>Update models Tables</header>
-          <CardBody>
+          <CardBody style={{ overflow: 'visible' }}>
             <Row>
               <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
                 {currentModel && (
@@ -57,10 +60,8 @@ export const Settings: React.FC = () => {
                     status="Primary"
                     shape="SemiRound"
                     value={{ value: currentModel.id, label: currentModel.name }}
-                    onChange={(option: any) =>
-                      setCurrentModel(data?.getModels?.find((model) => model.id === option.value))
-                    }
-                    options={data?.getModels?.map((model) => ({ value: model.id, label: model.name }))}
+                    onChange={(option: any) => setCurrentModel(models.find((model) => model.id === option.value))}
+                    options={models.map((model) => ({ value: model.id, label: model.name }))}
                   />
                 )}
               </Col>

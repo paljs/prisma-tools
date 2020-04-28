@@ -1,17 +1,21 @@
-fragment UserFragment on User {
+fragment UserFields on User {
   id
   createdAt
   email
   name
-  group {
-    id
-  }
   groupId
+}
+
+fragment User on User {
+  ...UserFields
+  group {
+    ...GroupFields
+  }
 }
 
 query findOneUser($where: UserWhereUniqueInput!) {
   findOneUser(where: $where) {
-    ...UserFragment
+    ...User
   }
 }
 
@@ -33,7 +37,7 @@ query findManyUser(
     first: $first
     last: $last
   ) {
-    ...UserFragment
+    ...User
   }
 }
 
@@ -59,13 +63,13 @@ query findManyUserCount(
 
 mutation createOneUser($data: UserCreateInput!) {
   createOneUser(data: $data) {
-    ...UserFragment
+    ...User
   }
 }
 
 mutation updateOneUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
   updateOneUser(where: $where, data: $data) {
-    ...UserFragment
+    ...User
   }
 }
 

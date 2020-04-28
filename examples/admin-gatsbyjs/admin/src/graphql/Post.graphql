@@ -1,18 +1,22 @@
-fragment PostFragment on Post {
+fragment PostFields on Post {
   id
-  createdAt
-  updatedAt
   published
   title
-  author {
-    id
-  }
   authorId
+  createdAt
+  updatedAt
+}
+
+fragment Post on Post {
+  ...PostFields
+  author {
+    ...UserFields
+  }
 }
 
 query findOnePost($where: PostWhereUniqueInput!) {
   findOnePost(where: $where) {
-    ...PostFragment
+    ...Post
   }
 }
 
@@ -34,7 +38,7 @@ query findManyPost(
     first: $first
     last: $last
   ) {
-    ...PostFragment
+    ...Post
   }
 }
 
@@ -60,13 +64,13 @@ query findManyPostCount(
 
 mutation createOnePost($data: PostCreateInput!) {
   createOnePost(data: $data) {
-    ...PostFragment
+    ...Post
   }
 }
 
 mutation updateOnePost($where: PostWhereUniqueInput!, $data: PostUpdateInput!) {
   updateOnePost(where: $where, data: $data) {
-    ...PostFragment
+    ...Post
   }
 }
 

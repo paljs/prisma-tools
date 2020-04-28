@@ -226,6 +226,7 @@ export type Field = {
   create: Scalars['Boolean'];
   filter: Scalars['Boolean'];
   id: Scalars['String'];
+  isId: Scalars['Boolean'];
   kind: KindEnum;
   list: Scalars['Boolean'];
   name: Scalars['String'];
@@ -235,6 +236,7 @@ export type Field = {
   sort: Scalars['Boolean'];
   title: Scalars['String'];
   type: Scalars['String'];
+  unique: Scalars['Boolean'];
   update: Scalars['Boolean'];
 };
 
@@ -242,6 +244,7 @@ export type Group = {
   __typename?: 'Group';
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
+  name: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   users: Array<User>;
 };
@@ -258,6 +261,7 @@ export type GroupUsersArgs = {
 
 export type GroupCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
+  name: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   users?: Maybe<UserCreateManyWithoutGroupInput>;
 };
@@ -269,18 +273,21 @@ export type GroupCreateOneWithoutUsersInput = {
 
 export type GroupCreateWithoutUsersInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
+  name: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type GroupOrderByInput = {
   createdAt?: Maybe<OrderByArg>;
   id?: Maybe<OrderByArg>;
+  name?: Maybe<OrderByArg>;
   updatedAt?: Maybe<OrderByArg>;
 };
 
 export type GroupUpdateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   users?: Maybe<UserUpdateManyWithoutGroupInput>;
 };
@@ -288,6 +295,7 @@ export type GroupUpdateInput = {
 export type GroupUpdateManyMutationInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -303,6 +311,7 @@ export type GroupUpdateOneWithoutUsersInput = {
 export type GroupUpdateWithoutUsersDataInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -315,6 +324,7 @@ export type GroupWhereInput = {
   AND?: Maybe<Array<GroupWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<IntFilter>;
+  name?: Maybe<StringFilter>;
   NOT?: Maybe<Array<GroupWhereInput>>;
   OR?: Maybe<Array<GroupWhereInput>>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -346,8 +356,10 @@ export type Model = {
   __typename?: 'Model';
   create: Scalars['Boolean'];
   delete: Scalars['Boolean'];
+  displayFields: Array<Scalars['String']>;
   fields: Array<Field>;
   id: Scalars['String'];
+  idField: Scalars['String'];
   name: Scalars['String'];
   update: Scalars['Boolean'];
 };
@@ -678,9 +690,7 @@ export type Query = {
   findOneGroup?: Maybe<Group>;
   findOnePost?: Maybe<Post>;
   findOneUser?: Maybe<User>;
-  getEnum?: Maybe<Enum>;
-  getModel?: Maybe<Model>;
-  getModels?: Maybe<Array<Model>>;
+  getSchema: Schema;
   me?: Maybe<User>;
 };
 
@@ -780,12 +790,10 @@ export type QueryFindOneUserArgs = {
   where: UserWhereUniqueInput;
 };
 
-export type QueryGetEnumArgs = {
-  name: Scalars['String'];
-};
-
-export type QueryGetModelArgs = {
-  id: Scalars['String'];
+export type Schema = {
+  __typename?: 'Schema';
+  enums: Array<Enum>;
+  models: Array<Model>;
 };
 
 export type StringFilter = {
@@ -806,6 +814,7 @@ export type UpdateFieldInput = {
   create?: Maybe<Scalars['Boolean']>;
   filter?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['String']>;
+  isId?: Maybe<Scalars['Boolean']>;
   kind?: Maybe<KindEnum>;
   list?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
@@ -815,13 +824,16 @@ export type UpdateFieldInput = {
   sort?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  unique?: Maybe<Scalars['Boolean']>;
   update?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdateModelInput = {
   create?: Maybe<Scalars['Boolean']>;
   delete?: Maybe<Scalars['Boolean']>;
+  displayFields?: Maybe<Array<Scalars['String']>>;
   fields?: Maybe<Array<UpdateFieldInput>>;
+  idField?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   update?: Maybe<Scalars['Boolean']>;
 };
@@ -1073,17 +1085,22 @@ export type UserWhereUniqueInput = {
   id?: Maybe<Scalars['Int']>;
 };
 
-export type CommentFragmentFragment = { __typename?: 'Comment' } & Pick<
+export type CommentFieldsFragment = { __typename?: 'Comment' } & Pick<
   Comment,
-  'id' | 'createdAt' | 'updatedAt' | 'contain' | 'postId' | 'authorId'
-> & { post: { __typename?: 'Post' } & Pick<Post, 'id'>; author?: Maybe<{ __typename?: 'User' } & Pick<User, 'id'>> };
+  'id' | 'contain' | 'postId' | 'authorId' | 'createdAt' | 'updatedAt'
+>;
+
+export type CommentFragment = { __typename?: 'Comment' } & {
+  post: { __typename?: 'Post' } & PostFieldsFragment;
+  author?: Maybe<{ __typename?: 'User' } & UserFieldsFragment>;
+} & CommentFieldsFragment;
 
 export type FindOneCommentQueryVariables = {
   where: CommentWhereUniqueInput;
 };
 
 export type FindOneCommentQuery = { __typename?: 'Query' } & {
-  findOneComment?: Maybe<{ __typename?: 'Comment' } & CommentFragmentFragment>;
+  findOneComment?: Maybe<{ __typename?: 'Comment' } & CommentFragment>;
 };
 
 export type FindManyCommentQueryVariables = {
@@ -1097,7 +1114,7 @@ export type FindManyCommentQueryVariables = {
 };
 
 export type FindManyCommentQuery = { __typename?: 'Query' } & {
-  findManyComment?: Maybe<Array<{ __typename?: 'Comment' } & CommentFragmentFragment>>;
+  findManyComment?: Maybe<Array<{ __typename?: 'Comment' } & CommentFragment>>;
 };
 
 export type FindManyCommentCountQueryVariables = {
@@ -1117,7 +1134,7 @@ export type CreateOneCommentMutationVariables = {
 };
 
 export type CreateOneCommentMutation = { __typename?: 'Mutation' } & {
-  createOneComment: { __typename?: 'Comment' } & CommentFragmentFragment;
+  createOneComment: { __typename?: 'Comment' } & CommentFragment;
 };
 
 export type UpdateOneCommentMutationVariables = {
@@ -1126,7 +1143,7 @@ export type UpdateOneCommentMutationVariables = {
 };
 
 export type UpdateOneCommentMutation = { __typename?: 'Mutation' } & {
-  updateOneComment: { __typename?: 'Comment' } & CommentFragmentFragment;
+  updateOneComment: { __typename?: 'Comment' } & CommentFragment;
 };
 
 export type DeleteOneCommentMutationVariables = {
@@ -1137,14 +1154,16 @@ export type DeleteOneCommentMutation = { __typename?: 'Mutation' } & {
   deleteOneComment?: Maybe<{ __typename?: 'Comment' } & Pick<Comment, 'id'>>;
 };
 
-export type GroupFragmentFragment = { __typename?: 'Group' } & Pick<Group, 'id' | 'createdAt' | 'updatedAt'>;
+export type GroupFieldsFragment = { __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'createdAt' | 'updatedAt'>;
+
+export type GroupFragment = { __typename?: 'Group' } & GroupFieldsFragment;
 
 export type FindOneGroupQueryVariables = {
   where: GroupWhereUniqueInput;
 };
 
 export type FindOneGroupQuery = { __typename?: 'Query' } & {
-  findOneGroup?: Maybe<{ __typename?: 'Group' } & GroupFragmentFragment>;
+  findOneGroup?: Maybe<{ __typename?: 'Group' } & GroupFragment>;
 };
 
 export type FindManyGroupQueryVariables = {
@@ -1158,7 +1177,7 @@ export type FindManyGroupQueryVariables = {
 };
 
 export type FindManyGroupQuery = { __typename?: 'Query' } & {
-  findManyGroup?: Maybe<Array<{ __typename?: 'Group' } & GroupFragmentFragment>>;
+  findManyGroup?: Maybe<Array<{ __typename?: 'Group' } & GroupFragment>>;
 };
 
 export type FindManyGroupCountQueryVariables = {
@@ -1178,7 +1197,7 @@ export type CreateOneGroupMutationVariables = {
 };
 
 export type CreateOneGroupMutation = { __typename?: 'Mutation' } & {
-  createOneGroup: { __typename?: 'Group' } & GroupFragmentFragment;
+  createOneGroup: { __typename?: 'Group' } & GroupFragment;
 };
 
 export type UpdateOneGroupMutationVariables = {
@@ -1187,7 +1206,7 @@ export type UpdateOneGroupMutationVariables = {
 };
 
 export type UpdateOneGroupMutation = { __typename?: 'Mutation' } & {
-  updateOneGroup: { __typename?: 'Group' } & GroupFragmentFragment;
+  updateOneGroup: { __typename?: 'Group' } & GroupFragment;
 };
 
 export type DeleteOneGroupMutationVariables = {
@@ -1198,17 +1217,21 @@ export type DeleteOneGroupMutation = { __typename?: 'Mutation' } & {
   deleteOneGroup?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id'>>;
 };
 
-export type PostFragmentFragment = { __typename?: 'Post' } & Pick<
+export type PostFieldsFragment = { __typename?: 'Post' } & Pick<
   Post,
-  'id' | 'createdAt' | 'updatedAt' | 'published' | 'title' | 'authorId'
-> & { author?: Maybe<{ __typename?: 'User' } & Pick<User, 'id'>> };
+  'id' | 'published' | 'title' | 'authorId' | 'createdAt' | 'updatedAt'
+>;
+
+export type PostFragment = { __typename?: 'Post' } & {
+  author?: Maybe<{ __typename?: 'User' } & UserFieldsFragment>;
+} & PostFieldsFragment;
 
 export type FindOnePostQueryVariables = {
   where: PostWhereUniqueInput;
 };
 
 export type FindOnePostQuery = { __typename?: 'Query' } & {
-  findOnePost?: Maybe<{ __typename?: 'Post' } & PostFragmentFragment>;
+  findOnePost?: Maybe<{ __typename?: 'Post' } & PostFragment>;
 };
 
 export type FindManyPostQueryVariables = {
@@ -1222,7 +1245,7 @@ export type FindManyPostQueryVariables = {
 };
 
 export type FindManyPostQuery = { __typename?: 'Query' } & {
-  findManyPost?: Maybe<Array<{ __typename?: 'Post' } & PostFragmentFragment>>;
+  findManyPost?: Maybe<Array<{ __typename?: 'Post' } & PostFragment>>;
 };
 
 export type FindManyPostCountQueryVariables = {
@@ -1242,7 +1265,7 @@ export type CreateOnePostMutationVariables = {
 };
 
 export type CreateOnePostMutation = { __typename?: 'Mutation' } & {
-  createOnePost: { __typename?: 'Post' } & PostFragmentFragment;
+  createOnePost: { __typename?: 'Post' } & PostFragment;
 };
 
 export type UpdateOnePostMutationVariables = {
@@ -1251,7 +1274,7 @@ export type UpdateOnePostMutationVariables = {
 };
 
 export type UpdateOnePostMutation = { __typename?: 'Mutation' } & {
-  updateOnePost: { __typename?: 'Post' } & PostFragmentFragment;
+  updateOnePost: { __typename?: 'Post' } & PostFragment;
 };
 
 export type DeleteOnePostMutationVariables = {
@@ -1262,12 +1285,12 @@ export type DeleteOnePostMutation = { __typename?: 'Mutation' } & {
   deleteOnePost?: Maybe<{ __typename?: 'Post' } & Pick<Post, 'id'>>;
 };
 
-export type ModelFragmentFragment = { __typename?: 'Model' } & Pick<
+export type ModelFragment = { __typename?: 'Model' } & Pick<
   Model,
-  'id' | 'name' | 'create' | 'delete' | 'update'
-> & { fields: Array<{ __typename?: 'Field' } & FieldFragmentFragment> };
+  'id' | 'name' | 'create' | 'delete' | 'update' | 'idField' | 'displayFields'
+> & { fields: Array<{ __typename?: 'Field' } & FieldFragment> };
 
-export type FieldFragmentFragment = { __typename?: 'Field' } & Pick<
+export type FieldFragment = { __typename?: 'Field' } & Pick<
   Field,
   | 'id'
   | 'name'
@@ -1277,6 +1300,8 @@ export type FieldFragmentFragment = { __typename?: 'Field' } & Pick<
   | 'kind'
   | 'read'
   | 'required'
+  | 'isId'
+  | 'unique'
   | 'create'
   | 'order'
   | 'update'
@@ -1284,28 +1309,15 @@ export type FieldFragmentFragment = { __typename?: 'Field' } & Pick<
   | 'filter'
 >;
 
-export type EnumFragmentFragment = { __typename?: 'Enum' } & Pick<Enum, 'name' | 'fields'>;
+export type EnumFragment = { __typename?: 'Enum' } & Pick<Enum, 'name' | 'fields'>;
 
-export type GetModelQueryVariables = {
-  id: Scalars['String'];
-};
+export type GetSchemaQueryVariables = {};
 
-export type GetModelQuery = { __typename?: 'Query' } & {
-  getModel?: Maybe<{ __typename?: 'Model' } & ModelFragmentFragment>;
-};
-
-export type GetModelsQueryVariables = {};
-
-export type GetModelsQuery = { __typename?: 'Query' } & {
-  getModels?: Maybe<Array<{ __typename?: 'Model' } & ModelFragmentFragment>>;
-};
-
-export type GetEnumQueryVariables = {
-  name: Scalars['String'];
-};
-
-export type GetEnumQuery = { __typename?: 'Query' } & {
-  getEnum?: Maybe<{ __typename?: 'Enum' } & EnumFragmentFragment>;
+export type GetSchemaQuery = { __typename?: 'Query' } & {
+  getSchema: { __typename?: 'Schema' } & {
+    models: Array<{ __typename?: 'Model' } & ModelFragment>;
+    enums: Array<{ __typename?: 'Enum' } & EnumFragment>;
+  };
 };
 
 export type UpdateModelMutationVariables = {
@@ -1314,7 +1326,7 @@ export type UpdateModelMutationVariables = {
 };
 
 export type UpdateModelMutation = { __typename?: 'Mutation' } & {
-  updateModel: { __typename?: 'Model' } & ModelFragmentFragment;
+  updateModel: { __typename?: 'Model' } & ModelFragment;
 };
 
 export type UpdateFieldMutationVariables = {
@@ -1324,20 +1336,24 @@ export type UpdateFieldMutationVariables = {
 };
 
 export type UpdateFieldMutation = { __typename?: 'Mutation' } & {
-  updateField: { __typename?: 'Field' } & FieldFragmentFragment;
+  updateField: { __typename?: 'Field' } & FieldFragment;
 };
 
-export type UserFragmentFragment = { __typename?: 'User' } & Pick<
+export type UserFieldsFragment = { __typename?: 'User' } & Pick<
   User,
   'id' | 'createdAt' | 'email' | 'name' | 'groupId'
-> & { group?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id'>> };
+>;
+
+export type UserFragment = { __typename?: 'User' } & {
+  group?: Maybe<{ __typename?: 'Group' } & GroupFieldsFragment>;
+} & UserFieldsFragment;
 
 export type FindOneUserQueryVariables = {
   where: UserWhereUniqueInput;
 };
 
 export type FindOneUserQuery = { __typename?: 'Query' } & {
-  findOneUser?: Maybe<{ __typename?: 'User' } & UserFragmentFragment>;
+  findOneUser?: Maybe<{ __typename?: 'User' } & UserFragment>;
 };
 
 export type FindManyUserQueryVariables = {
@@ -1351,7 +1367,7 @@ export type FindManyUserQueryVariables = {
 };
 
 export type FindManyUserQuery = { __typename?: 'Query' } & {
-  findManyUser?: Maybe<Array<{ __typename?: 'User' } & UserFragmentFragment>>;
+  findManyUser?: Maybe<Array<{ __typename?: 'User' } & UserFragment>>;
 };
 
 export type FindManyUserCountQueryVariables = {
@@ -1371,7 +1387,7 @@ export type CreateOneUserMutationVariables = {
 };
 
 export type CreateOneUserMutation = { __typename?: 'Mutation' } & {
-  createOneUser: { __typename?: 'User' } & UserFragmentFragment;
+  createOneUser: { __typename?: 'User' } & UserFragment;
 };
 
 export type UpdateOneUserMutationVariables = {
@@ -1380,7 +1396,7 @@ export type UpdateOneUserMutationVariables = {
 };
 
 export type UpdateOneUserMutation = { __typename?: 'Mutation' } & {
-  updateOneUser: { __typename?: 'User' } & UserFragmentFragment;
+  updateOneUser: { __typename?: 'User' } & UserFragment;
 };
 
 export type DeleteOneUserMutationVariables = {
@@ -1391,44 +1407,75 @@ export type DeleteOneUserMutation = { __typename?: 'Mutation' } & {
   deleteOneUser?: Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>;
 };
 
-export const CommentFragmentFragmentDoc = gql`
-  fragment CommentFragment on Comment {
+export const CommentFieldsFragmentDoc = gql`
+  fragment CommentFields on Comment {
     id
-    createdAt
-    updatedAt
     contain
-    post {
-      id
-    }
     postId
-    author {
-      id
-    }
     authorId
-  }
-`;
-export const GroupFragmentFragmentDoc = gql`
-  fragment GroupFragment on Group {
-    id
     createdAt
     updatedAt
   }
 `;
-export const PostFragmentFragmentDoc = gql`
-  fragment PostFragment on Post {
+export const PostFieldsFragmentDoc = gql`
+  fragment PostFields on Post {
     id
-    createdAt
-    updatedAt
     published
     title
-    author {
-      id
-    }
     authorId
+    createdAt
+    updatedAt
   }
 `;
-export const FieldFragmentFragmentDoc = gql`
-  fragment FieldFragment on Field {
+export const UserFieldsFragmentDoc = gql`
+  fragment UserFields on User {
+    id
+    createdAt
+    email
+    name
+    groupId
+  }
+`;
+export const CommentFragmentDoc = gql`
+  fragment Comment on Comment {
+    ...CommentFields
+    post {
+      ...PostFields
+    }
+    author {
+      ...UserFields
+    }
+  }
+  ${CommentFieldsFragmentDoc}
+  ${PostFieldsFragmentDoc}
+  ${UserFieldsFragmentDoc}
+`;
+export const GroupFieldsFragmentDoc = gql`
+  fragment GroupFields on Group {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+`;
+export const GroupFragmentDoc = gql`
+  fragment Group on Group {
+    ...GroupFields
+  }
+  ${GroupFieldsFragmentDoc}
+`;
+export const PostFragmentDoc = gql`
+  fragment Post on Post {
+    ...PostFields
+    author {
+      ...UserFields
+    }
+  }
+  ${PostFieldsFragmentDoc}
+  ${UserFieldsFragmentDoc}
+`;
+export const FieldFragmentDoc = gql`
+  fragment Field on Field {
     id
     name
     title
@@ -1437,6 +1484,8 @@ export const FieldFragmentFragmentDoc = gql`
     kind
     read
     required
+    isId
+    unique
     create
     order
     update
@@ -1444,44 +1493,44 @@ export const FieldFragmentFragmentDoc = gql`
     filter
   }
 `;
-export const ModelFragmentFragmentDoc = gql`
-  fragment ModelFragment on Model {
+export const ModelFragmentDoc = gql`
+  fragment Model on Model {
     id
     name
     create
     delete
     update
+    idField
+    displayFields
     fields {
-      ...FieldFragment
+      ...Field
     }
   }
-  ${FieldFragmentFragmentDoc}
+  ${FieldFragmentDoc}
 `;
-export const EnumFragmentFragmentDoc = gql`
-  fragment EnumFragment on Enum {
+export const EnumFragmentDoc = gql`
+  fragment Enum on Enum {
     name
     fields
   }
 `;
-export const UserFragmentFragmentDoc = gql`
-  fragment UserFragment on User {
-    id
-    createdAt
-    email
-    name
+export const UserFragmentDoc = gql`
+  fragment User on User {
+    ...UserFields
     group {
-      id
+      ...GroupFields
     }
-    groupId
   }
+  ${UserFieldsFragmentDoc}
+  ${GroupFieldsFragmentDoc}
 `;
 export const FindOneCommentDocument = gql`
   query findOneComment($where: CommentWhereUniqueInput!) {
     findOneComment(where: $where) {
-      ...CommentFragment
+      ...Comment
     }
   }
-  ${CommentFragmentFragmentDoc}
+  ${CommentFragmentDoc}
 `;
 
 /**
@@ -1541,10 +1590,10 @@ export const FindManyCommentDocument = gql`
       first: $first
       last: $last
     ) {
-      ...CommentFragment
+      ...Comment
     }
   }
-  ${CommentFragmentFragmentDoc}
+  ${CommentFragmentDoc}
 `;
 
 /**
@@ -1660,10 +1709,10 @@ export type FindManyCommentCountQueryResult = ApolloReactCommon.QueryResult<
 export const CreateOneCommentDocument = gql`
   mutation createOneComment($data: CommentCreateInput!) {
     createOneComment(data: $data) {
-      ...CommentFragment
+      ...Comment
     }
   }
-  ${CommentFragmentFragmentDoc}
+  ${CommentFragmentDoc}
 `;
 
 /**
@@ -1700,10 +1749,10 @@ export type CreateOneCommentMutationOptions = ApolloReactCommon.BaseMutationOpti
 export const UpdateOneCommentDocument = gql`
   mutation updateOneComment($where: CommentWhereUniqueInput!, $data: CommentUpdateInput!) {
     updateOneComment(where: $where, data: $data) {
-      ...CommentFragment
+      ...Comment
     }
   }
-  ${CommentFragmentFragmentDoc}
+  ${CommentFragmentDoc}
 `;
 
 /**
@@ -1780,10 +1829,10 @@ export type DeleteOneCommentMutationOptions = ApolloReactCommon.BaseMutationOpti
 export const FindOneGroupDocument = gql`
   query findOneGroup($where: GroupWhereUniqueInput!) {
     findOneGroup(where: $where) {
-      ...GroupFragment
+      ...Group
     }
   }
-  ${GroupFragmentFragmentDoc}
+  ${GroupFragmentDoc}
 `;
 
 /**
@@ -1837,10 +1886,10 @@ export const FindManyGroupDocument = gql`
       first: $first
       last: $last
     ) {
-      ...GroupFragment
+      ...Group
     }
   }
-  ${GroupFragmentFragmentDoc}
+  ${GroupFragmentDoc}
 `;
 
 /**
@@ -1950,10 +1999,10 @@ export type FindManyGroupCountQueryResult = ApolloReactCommon.QueryResult<
 export const CreateOneGroupDocument = gql`
   mutation createOneGroup($data: GroupCreateInput!) {
     createOneGroup(data: $data) {
-      ...GroupFragment
+      ...Group
     }
   }
-  ${GroupFragmentFragmentDoc}
+  ${GroupFragmentDoc}
 `;
 
 /**
@@ -1990,10 +2039,10 @@ export type CreateOneGroupMutationOptions = ApolloReactCommon.BaseMutationOption
 export const UpdateOneGroupDocument = gql`
   mutation updateOneGroup($where: GroupWhereUniqueInput!, $data: GroupUpdateInput!) {
     updateOneGroup(where: $where, data: $data) {
-      ...GroupFragment
+      ...Group
     }
   }
-  ${GroupFragmentFragmentDoc}
+  ${GroupFragmentDoc}
 `;
 
 /**
@@ -2070,10 +2119,10 @@ export type DeleteOneGroupMutationOptions = ApolloReactCommon.BaseMutationOption
 export const FindOnePostDocument = gql`
   query findOnePost($where: PostWhereUniqueInput!) {
     findOnePost(where: $where) {
-      ...PostFragment
+      ...Post
     }
   }
-  ${PostFragmentFragmentDoc}
+  ${PostFragmentDoc}
 `;
 
 /**
@@ -2124,10 +2173,10 @@ export const FindManyPostDocument = gql`
       first: $first
       last: $last
     ) {
-      ...PostFragment
+      ...Post
     }
   }
-  ${PostFragmentFragmentDoc}
+  ${PostFragmentDoc}
 `;
 
 /**
@@ -2237,10 +2286,10 @@ export type FindManyPostCountQueryResult = ApolloReactCommon.QueryResult<
 export const CreateOnePostDocument = gql`
   mutation createOnePost($data: PostCreateInput!) {
     createOnePost(data: $data) {
-      ...PostFragment
+      ...Post
     }
   }
-  ${PostFragmentFragmentDoc}
+  ${PostFragmentDoc}
 `;
 
 /**
@@ -2277,10 +2326,10 @@ export type CreateOnePostMutationOptions = ApolloReactCommon.BaseMutationOptions
 export const UpdateOnePostDocument = gql`
   mutation updateOnePost($where: PostWhereUniqueInput!, $data: PostUpdateInput!) {
     updateOnePost(where: $where, data: $data) {
-      ...PostFragment
+      ...Post
     }
   }
-  ${PostFragmentFragmentDoc}
+  ${PostFragmentDoc}
 `;
 
 /**
@@ -2354,124 +2403,56 @@ export type DeleteOnePostMutationOptions = ApolloReactCommon.BaseMutationOptions
   DeleteOnePostMutation,
   DeleteOnePostMutationVariables
 >;
-export const GetModelDocument = gql`
-  query getModel($id: String!) {
-    getModel(id: $id) {
-      ...ModelFragment
+export const GetSchemaDocument = gql`
+  query getSchema {
+    getSchema {
+      models {
+        ...Model
+      }
+      enums {
+        ...Enum
+      }
     }
   }
-  ${ModelFragmentFragmentDoc}
+  ${ModelFragmentDoc}
+  ${EnumFragmentDoc}
 `;
 
 /**
- * __useGetModelQuery__
+ * __useGetSchemaQuery__
  *
- * To run a query within a React component, call `useGetModelQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetModelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetSchemaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSchemaQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetModelQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetModelQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<GetModelQuery, GetModelQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<GetModelQuery, GetModelQueryVariables>(GetModelDocument, baseOptions);
-}
-export function useGetModelLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetModelQuery, GetModelQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<GetModelQuery, GetModelQueryVariables>(GetModelDocument, baseOptions);
-}
-export type GetModelQueryHookResult = ReturnType<typeof useGetModelQuery>;
-export type GetModelLazyQueryHookResult = ReturnType<typeof useGetModelLazyQuery>;
-export type GetModelQueryResult = ApolloReactCommon.QueryResult<GetModelQuery, GetModelQueryVariables>;
-export const GetModelsDocument = gql`
-  query getModels {
-    getModels {
-      ...ModelFragment
-    }
-  }
-  ${ModelFragmentFragmentDoc}
-`;
-
-/**
- * __useGetModelsQuery__
- *
- * To run a query within a React component, call `useGetModelsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetModelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetModelsQuery({
+ * const { data, loading, error } = useGetSchemaQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetModelsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<GetModelsQuery, GetModelsQueryVariables>,
+export function useGetSchemaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetSchemaQuery, GetSchemaQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<GetModelsQuery, GetModelsQueryVariables>(GetModelsDocument, baseOptions);
+  return ApolloReactHooks.useQuery<GetSchemaQuery, GetSchemaQueryVariables>(GetSchemaDocument, baseOptions);
 }
-export function useGetModelsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetModelsQuery, GetModelsQueryVariables>,
+export function useGetSchemaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetSchemaQuery, GetSchemaQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<GetModelsQuery, GetModelsQueryVariables>(GetModelsDocument, baseOptions);
+  return ApolloReactHooks.useLazyQuery<GetSchemaQuery, GetSchemaQueryVariables>(GetSchemaDocument, baseOptions);
 }
-export type GetModelsQueryHookResult = ReturnType<typeof useGetModelsQuery>;
-export type GetModelsLazyQueryHookResult = ReturnType<typeof useGetModelsLazyQuery>;
-export type GetModelsQueryResult = ApolloReactCommon.QueryResult<GetModelsQuery, GetModelsQueryVariables>;
-export const GetEnumDocument = gql`
-  query getEnum($name: String!) {
-    getEnum(name: $name) {
-      ...EnumFragment
-    }
-  }
-  ${EnumFragmentFragmentDoc}
-`;
-
-/**
- * __useGetEnumQuery__
- *
- * To run a query within a React component, call `useGetEnumQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEnumQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetEnumQuery({
- *   variables: {
- *      name: // value for 'name'
- *   },
- * });
- */
-export function useGetEnumQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetEnumQuery, GetEnumQueryVariables>) {
-  return ApolloReactHooks.useQuery<GetEnumQuery, GetEnumQueryVariables>(GetEnumDocument, baseOptions);
-}
-export function useGetEnumLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetEnumQuery, GetEnumQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<GetEnumQuery, GetEnumQueryVariables>(GetEnumDocument, baseOptions);
-}
-export type GetEnumQueryHookResult = ReturnType<typeof useGetEnumQuery>;
-export type GetEnumLazyQueryHookResult = ReturnType<typeof useGetEnumLazyQuery>;
-export type GetEnumQueryResult = ApolloReactCommon.QueryResult<GetEnumQuery, GetEnumQueryVariables>;
+export type GetSchemaQueryHookResult = ReturnType<typeof useGetSchemaQuery>;
+export type GetSchemaLazyQueryHookResult = ReturnType<typeof useGetSchemaLazyQuery>;
+export type GetSchemaQueryResult = ApolloReactCommon.QueryResult<GetSchemaQuery, GetSchemaQueryVariables>;
 export const UpdateModelDocument = gql`
   mutation updateModel($id: String!, $data: UpdateModelInput!) {
     updateModel(id: $id, data: $data) {
-      ...ModelFragment
+      ...Model
     }
   }
-  ${ModelFragmentFragmentDoc}
+  ${ModelFragmentDoc}
 `;
 
 /**
@@ -2509,10 +2490,10 @@ export type UpdateModelMutationOptions = ApolloReactCommon.BaseMutationOptions<
 export const UpdateFieldDocument = gql`
   mutation updateField($id: String!, $modelId: String!, $data: UpdateFieldInput!) {
     updateField(id: $id, modelId: $modelId, data: $data) {
-      ...FieldFragment
+      ...Field
     }
   }
-  ${FieldFragmentFragmentDoc}
+  ${FieldFragmentDoc}
 `;
 
 /**
@@ -2551,10 +2532,10 @@ export type UpdateFieldMutationOptions = ApolloReactCommon.BaseMutationOptions<
 export const FindOneUserDocument = gql`
   query findOneUser($where: UserWhereUniqueInput!) {
     findOneUser(where: $where) {
-      ...UserFragment
+      ...User
     }
   }
-  ${UserFragmentFragmentDoc}
+  ${UserFragmentDoc}
 `;
 
 /**
@@ -2605,10 +2586,10 @@ export const FindManyUserDocument = gql`
       first: $first
       last: $last
     ) {
-      ...UserFragment
+      ...User
     }
   }
-  ${UserFragmentFragmentDoc}
+  ${UserFragmentDoc}
 `;
 
 /**
@@ -2718,10 +2699,10 @@ export type FindManyUserCountQueryResult = ApolloReactCommon.QueryResult<
 export const CreateOneUserDocument = gql`
   mutation createOneUser($data: UserCreateInput!) {
     createOneUser(data: $data) {
-      ...UserFragment
+      ...User
     }
   }
-  ${UserFragmentFragmentDoc}
+  ${UserFragmentDoc}
 `;
 
 /**
@@ -2758,10 +2739,10 @@ export type CreateOneUserMutationOptions = ApolloReactCommon.BaseMutationOptions
 export const UpdateOneUserDocument = gql`
   mutation updateOneUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
     updateOneUser(where: $where, data: $data) {
-      ...UserFragment
+      ...User
     }
   }
-  ${UserFragmentFragmentDoc}
+  ${UserFragmentDoc}
 `;
 
 /**

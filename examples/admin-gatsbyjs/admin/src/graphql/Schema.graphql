@@ -1,15 +1,17 @@
-fragment ModelFragment on Model {
+fragment Model on Model {
   id
   name
   create
   delete
   update
+  idField
+  displayFields
   fields {
-    ...FieldFragment
+    ...Field
   }
 }
 
-fragment FieldFragment on Field {
+fragment Field on Field {
   id
   name
   title
@@ -18,6 +20,8 @@ fragment FieldFragment on Field {
   kind
   read
   required
+  isId
+  unique
   create
   order
   update
@@ -25,37 +29,30 @@ fragment FieldFragment on Field {
   filter
 }
 
-fragment EnumFragment on Enum {
+fragment Enum on Enum {
   name
   fields
 }
 
-query getModel($id: String!) {
-  getModel(id: $id) {
-    ...ModelFragment
-  }
-}
-
-query getModels {
-  getModels {
-    ...ModelFragment
-  }
-}
-
-query getEnum($name: String!) {
-  getEnum(name: $name) {
-    ...EnumFragment
+query getSchema {
+  getSchema {
+    models {
+      ...Model
+    }
+    enums {
+      ...Enum
+    }
   }
 }
 
 mutation updateModel($id: String!, $data: UpdateModelInput!) {
   updateModel(id: $id, data: $data) {
-    ...ModelFragment
+    ...Model
   }
 }
 
 mutation updateField($id: String!, $modelId: String!, $data: UpdateFieldInput!) {
   updateField(id: $id, modelId: $modelId, data: $data) {
-    ...FieldFragment
+    ...Field
   }
 }

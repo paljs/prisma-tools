@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled, { DefaultTheme } from 'styled-components';
-import { Actions, Select, LayoutHeader, Button, User, ContextMenu, breakpointDown, EvaIcon } from 'oah-ui';
-import { getPathReady } from './Sidebar';
+import { Actions, Select, LayoutHeader, User, ContextMenu, breakpointDown, EvaIcon } from 'oah-ui';
 import { Location } from '@reach/router';
+import { getPathReady } from './index';
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -39,8 +39,6 @@ const SelectStyled = styled(Select)`
 interface HeaderProps {
   toggleSidebar: () => void;
   changeTheme: (value: DefaultTheme['name']) => void;
-  changeDir: () => void;
-  dir: 'rtl' | 'ltr';
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -111,13 +109,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                   options={themeOptions}
                   onChange={({ value }: { value: DefaultTheme['name'] }) => props.changeTheme(value)}
                 />
-              ),
-            },
-            {
-              content: (
-                <Button size="Small" onClick={() => props.changeDir()}>
-                  {props.dir}
-                </Button>
               ),
             },
           ]}

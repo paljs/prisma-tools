@@ -1,30 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Card, CardBody, Row, CardFooter } from 'oah-ui';
-import { SchemaModel } from '@prisma-tools/admin';
-import { BooleanInput, DateInput, DefaultInput, EnumInput } from './Inputs';
+import { BooleanInput, DateInput, DefaultInput, EnumInput, ObjectInput } from './Inputs';
 import 'react-datepicker/dist/react-datepicker.css';
 import useActions from './useActions';
+import { SchemaModel } from '@prisma-tools/admin';
+import { LayoutContext } from '../../Layouts';
 
 interface FormProps {
   action: 'update' | 'create';
-  model: SchemaModel;
+  model: string;
   data: any;
   onCancel: () => void;
 }
 
-const Form: React.FC<FormProps> = ({ action, model, data, onCancel }) => {
+const getDefaultValues = (action: 'update' | 'create', model: SchemaModel, data: any, models: SchemaModel[]) => {
+  if (action === 'create') return {};
+  const defaultValues: any = {};
+  model.fields
+    .filter((field) => field.update && !field.list)
+    .slice()
+    .sort((a, b) => a.order - b.order)
+    .forEach((field) => {
+      if (field.kind === 'object') {
+        const fieldModel = models.find((item) => item.id === field.type)!;
+        defaultValues[field.name] = data[field.name] ? data[field.name][fieldModel.idField] : null;
+      } else {
+        defaultValues[field.name] = data[field.name];
+      }
+    });
+  return defaultValues;
+};
+
+const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel }) => {
+  const {
+    schema: { models },
+  } = useContext(LayoutContext);
+  const model = models.find((item) => item.id === modelName)!;
   const { onSave } = useActions(model, data, action, onCancel);
-  const { register, errors, handleSubmit, setValue } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm({
+    defaultValues: getDefaultValues(action, model, data, models),
+  });
 
   const onSubmit = (newData: any) => {
     onSave(newData);
   };
 
   return (
-    <Card status={action === 'update' ? 'Warning' : 'Success'}>
+    <Card
+      status={action === 'update' ? 'Warning' : 'Success'}
+      style={{ maxWidth: '1200px', maxHeight: '100vh', minWidth: '50vw' }}
+    >
       <header>{action + ' ' + model.name}</header>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
         <CardBody>
           <Row between="lg">
             {model.fields
@@ -45,10 +73,10 @@ const Form: React.FC<FormProps> = ({ action, model, data, onCancel }) => {
                   );
                 if (field.kind === 'object')
                   return (
-                    <DefaultInput
+                    <ObjectInput
                       key={field.id}
                       field={field}
-                      value={data[field.name] ? data[field.name].id : null}
+                      value={data[field.name] ? data[field.name] : {}}
                       error={errors[field.name]}
                       register={register}
                       setValue={setValue}

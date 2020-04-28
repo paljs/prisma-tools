@@ -27,7 +27,17 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({ field, m
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Field Name :</span>
+            <span className="subtitle text-hint">Database Name</span>
+          </Col>
+          <Col breakPoint={{ xs: 8 }}>
+            <span className="subtitle text-hint">{field.name}</span>
+          </Col>
+        </Row>
+      </Col>
+      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
+        <Row around="xs" middle="xs">
+          <Col breakPoint={{ xs: 4 }}>
+            <span className="subtitle text-hint">Display Name</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup>

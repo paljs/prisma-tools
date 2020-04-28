@@ -9,17 +9,17 @@ import {
   Col,
   EvaIcon,
   InputGroup,
+  Popover,
   Row,
   Spinner,
   Tooltip,
-  Popover,
 } from 'oah-ui';
 import { columns } from './Columns';
 import { initPages } from './utils';
-import { SchemaModel } from '@prisma-tools/admin';
+import { useModel } from '../useSchema';
 
 interface TableProps {
-  model?: SchemaModel | null;
+  model: string;
   data: any[];
   fetchMore: (pageSize: number, pageIndex: number) => void;
   loading: boolean;
@@ -28,11 +28,12 @@ interface TableProps {
   sortByHandler: (sortBy: { id: string; desc: boolean }[]) => void;
   filterHandler: (filters: { id: string; value: any }[]) => void;
   onAction: (action: 'create' | 'update' | 'delete', id?: number) => void;
+  toggle?: () => void;
 }
 
 export const Table: React.FC<TableProps> = ({
   initialFilter,
-  model,
+  model: modelName,
   data,
   fetchMore,
   loading,
@@ -40,7 +41,9 @@ export const Table: React.FC<TableProps> = ({
   sortByHandler,
   filterHandler,
   onAction,
+  toggle,
 }) => {
+  const model = useModel(modelName);
   const {
     getTableProps,
     getTableBodyProps,
@@ -69,7 +72,6 @@ export const Table: React.FC<TableProps> = ({
     useSortBy,
     usePagination,
   );
-
   // Listen for changes in pagination and use the state to fetch our new data
   React.useEffect(() => {
     fetchMore(pageSize, pageIndex);
@@ -91,8 +93,15 @@ export const Table: React.FC<TableProps> = ({
   const hasActions = actions.create || actions.update || actions.delete;
   // Render the UI for your table
   return (
-    <Card status="Primary">
-      <header>{model?.name}</header>
+    <Card style={{ maxHeight: '100vh' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>{model?.name}</span>
+        {toggle && (
+          <Button onClick={toggle} status="Danger" appearance="hero">
+            <EvaIcon name="close-circle-outline" />
+          </Button>
+        )}
+      </header>
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
         <StyledTable {...getTableProps()}>
@@ -112,7 +121,7 @@ export const Table: React.FC<TableProps> = ({
                   {hasActions && (
                     <th colSpan={2}>
                       {actions.create && (
-                        <Button onClick={() => onAction('create')} size="Tiny">
+                        <Button size="Tiny" onClick={() => onAction('create')}>
                           <EvaIcon name="plus-outline" />
                         </Button>
                       )}
@@ -178,7 +187,7 @@ export const Table: React.FC<TableProps> = ({
                         {cell.value && cell.value.length > 15 ? (
                           <Popover
                             eventListener="#popoverScroll"
-                            trigger="hover"
+                            trigger="click"
                             placement="top"
                             overlay={
                               <Card style={{ marginBottom: '0', maxHeight: '300px' }}>
@@ -188,7 +197,7 @@ export const Table: React.FC<TableProps> = ({
                               </Card>
                             }
                           >
-                            {cell.render('Cell')}
+                            <div style={{ cursor: 'pointer' }}>{cell.render('Cell')}</div>
                           </Popover>
                         ) : (
                           cell.render('Cell')

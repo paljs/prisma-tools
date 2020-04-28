@@ -35,11 +35,11 @@ export const CommentWhereInput = inputObjectType({
   name: 'CommentWhereInput',
   definition(t) {
     t.field('id', { type: 'IntFilter' })
-    t.field('createdAt', { type: 'DateTimeFilter' })
-    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('contain', { type: 'StringFilter' })
     t.field('postId', { type: 'IntFilter' })
     t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'CommentWhereInput', list: true })
     t.field('OR', { type: 'CommentWhereInput', list: true })
     t.field('NOT', { type: 'CommentWhereInput', list: true })
@@ -52,12 +52,12 @@ export const PostWhereInput = inputObjectType({
   name: 'PostWhereInput',
   definition(t) {
     t.field('id', { type: 'IntFilter' })
-    t.field('createdAt', { type: 'DateTimeFilter' })
-    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('published', { type: 'BooleanFilter' })
     t.field('title', { type: 'StringFilter' })
     t.field('authorId', { type: 'NullableIntFilter' })
     t.field('comments', { type: 'CommentFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'PostWhereInput', list: true })
     t.field('OR', { type: 'PostWhereInput', list: true })
     t.field('NOT', { type: 'PostWhereInput', list: true })
@@ -69,9 +69,10 @@ export const GroupWhereInput = inputObjectType({
   name: 'GroupWhereInput',
   definition(t) {
     t.field('id', { type: 'IntFilter' })
+    t.field('name', { type: 'StringFilter' })
+    t.field('users', { type: 'UserFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
-    t.field('users', { type: 'UserFilter' })
     t.field('AND', { type: 'GroupWhereInput', list: true })
     t.field('OR', { type: 'GroupWhereInput', list: true })
     t.field('NOT', { type: 'GroupWhereInput', list: true })
@@ -128,6 +129,7 @@ export const GroupWhereUniqueInput = inputObjectType({
 export const GroupCreateWithoutUsersInput = inputObjectType({
   name: 'GroupCreateWithoutUsersInput',
   definition(t) {
+    t.field('name', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
   },
@@ -164,9 +166,9 @@ export const UserCreateOneWithoutCommentInput = inputObjectType({
 export const CommentCreateWithoutPostInput = inputObjectType({
   name: 'CommentCreateWithoutPostInput',
   definition(t) {
+    t.field('contain', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String', nullable: false })
     t.field('author', { type: 'UserCreateOneWithoutCommentInput' })
   },
 })
@@ -182,10 +184,10 @@ export const CommentCreateManyWithoutPostInput = inputObjectType({
 export const PostCreateWithoutAuthorInput = inputObjectType({
   name: 'PostCreateWithoutAuthorInput',
   definition(t) {
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String', nullable: false })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('comments', { type: 'CommentCreateManyWithoutPostInput' })
   },
 })
@@ -221,10 +223,10 @@ export const UserCreateOneWithoutPostsInput = inputObjectType({
 export const PostCreateWithoutCommentsInput = inputObjectType({
   name: 'PostCreateWithoutCommentsInput',
   definition(t) {
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String', nullable: false })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('author', { type: 'UserCreateOneWithoutPostsInput' })
   },
 })
@@ -240,9 +242,9 @@ export const PostCreateOneWithoutCommentsInput = inputObjectType({
 export const CommentCreateWithoutAuthorInput = inputObjectType({
   name: 'CommentCreateWithoutAuthorInput',
   definition(t) {
+    t.field('contain', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String', nullable: false })
     t.field('post', {
       type: 'PostCreateOneWithoutCommentsInput',
       nullable: false,
@@ -275,6 +277,7 @@ export const GroupUpdateWithoutUsersDataInput = inputObjectType({
   name: 'GroupUpdateWithoutUsersDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('name', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
   },
@@ -346,9 +349,9 @@ export const CommentUpdateWithoutPostDataInput = inputObjectType({
   name: 'CommentUpdateWithoutPostDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String' })
     t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
   },
 })
@@ -368,11 +371,11 @@ export const CommentScalarWhereInput = inputObjectType({
   name: 'CommentScalarWhereInput',
   definition(t) {
     t.field('id', { type: 'IntFilter' })
-    t.field('createdAt', { type: 'DateTimeFilter' })
-    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('contain', { type: 'StringFilter' })
     t.field('postId', { type: 'IntFilter' })
     t.field('authorId', { type: 'NullableIntFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'CommentScalarWhereInput', list: true })
     t.field('OR', { type: 'CommentScalarWhereInput', list: true })
     t.field('NOT', { type: 'CommentScalarWhereInput', list: true })
@@ -383,9 +386,9 @@ export const CommentUpdateManyDataInput = inputObjectType({
   name: 'CommentUpdateManyDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String' })
   },
 })
 
@@ -440,10 +443,10 @@ export const PostUpdateWithoutAuthorDataInput = inputObjectType({
   name: 'PostUpdateWithoutAuthorDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('comments', { type: 'CommentUpdateManyWithoutPostInput' })
   },
 })
@@ -463,12 +466,12 @@ export const PostScalarWhereInput = inputObjectType({
   name: 'PostScalarWhereInput',
   definition(t) {
     t.field('id', { type: 'IntFilter' })
-    t.field('createdAt', { type: 'DateTimeFilter' })
-    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('published', { type: 'BooleanFilter' })
     t.field('title', { type: 'StringFilter' })
     t.field('authorId', { type: 'NullableIntFilter' })
     t.field('comments', { type: 'CommentFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
     t.field('AND', { type: 'PostScalarWhereInput', list: true })
     t.field('OR', { type: 'PostScalarWhereInput', list: true })
     t.field('NOT', { type: 'PostScalarWhereInput', list: true })
@@ -479,10 +482,10 @@ export const PostUpdateManyDataInput = inputObjectType({
   name: 'PostUpdateManyDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
   },
 })
 
@@ -570,10 +573,10 @@ export const PostUpdateWithoutCommentsDataInput = inputObjectType({
   name: 'PostUpdateWithoutCommentsDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('author', { type: 'UserUpdateOneWithoutPostsInput' })
   },
 })
@@ -606,9 +609,9 @@ export const CommentUpdateWithoutAuthorDataInput = inputObjectType({
   name: 'CommentUpdateWithoutAuthorDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String' })
     t.field('post', { type: 'PostUpdateOneRequiredWithoutCommentsInput' })
   },
 })
@@ -691,10 +694,10 @@ export const UserUpdateManyMutationInput = inputObjectType({
 export const PostCreateInput = inputObjectType({
   name: 'PostCreateInput',
   definition(t) {
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String', nullable: false })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('author', { type: 'UserCreateOneWithoutPostsInput' })
     t.field('comments', { type: 'CommentCreateManyWithoutPostInput' })
   },
@@ -704,10 +707,10 @@ export const PostUpdateInput = inputObjectType({
   name: 'PostUpdateInput',
   definition(t) {
     t.field('id', { type: 'Int' })
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.field('author', { type: 'UserUpdateOneWithoutPostsInput' })
     t.field('comments', { type: 'CommentUpdateManyWithoutPostInput' })
   },
@@ -717,19 +720,19 @@ export const PostUpdateManyMutationInput = inputObjectType({
   name: 'PostUpdateManyMutationInput',
   definition(t) {
     t.field('id', { type: 'Int' })
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
     t.field('published', { type: 'Boolean' })
     t.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
   },
 })
 
 export const CommentCreateInput = inputObjectType({
   name: 'CommentCreateInput',
   definition(t) {
+    t.field('contain', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String', nullable: false })
     t.field('post', {
       type: 'PostCreateOneWithoutCommentsInput',
       nullable: false,
@@ -742,9 +745,9 @@ export const CommentUpdateInput = inputObjectType({
   name: 'CommentUpdateInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String' })
     t.field('post', { type: 'PostUpdateOneRequiredWithoutCommentsInput' })
     t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
   },
@@ -754,9 +757,9 @@ export const CommentUpdateManyMutationInput = inputObjectType({
   name: 'CommentUpdateManyMutationInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('contain', { type: 'String' })
   },
 })
 
@@ -783,6 +786,7 @@ export const UserCreateManyWithoutGroupInput = inputObjectType({
 export const GroupCreateInput = inputObjectType({
   name: 'GroupCreateInput',
   definition(t) {
+    t.field('name', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
     t.field('users', { type: 'UserCreateManyWithoutGroupInput' })
@@ -889,6 +893,7 @@ export const GroupUpdateInput = inputObjectType({
   name: 'GroupUpdateInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('name', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
     t.field('users', { type: 'UserUpdateManyWithoutGroupInput' })
@@ -899,6 +904,7 @@ export const GroupUpdateManyMutationInput = inputObjectType({
   name: 'GroupUpdateManyMutationInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.field('name', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
   },
@@ -915,20 +921,6 @@ export const IntFilter = inputObjectType({
     t.field('lte', { type: 'Int' })
     t.field('gt', { type: 'Int' })
     t.field('gte', { type: 'Int' })
-  },
-})
-
-export const DateTimeFilter = inputObjectType({
-  name: 'DateTimeFilter',
-  definition(t) {
-    t.field('equals', { type: 'DateTime' })
-    t.field('not', { type: 'DateTime' })
-    t.field('in', { type: 'DateTime', list: true })
-    t.field('notIn', { type: 'DateTime', list: true })
-    t.field('lt', { type: 'DateTime' })
-    t.field('lte', { type: 'DateTime' })
-    t.field('gt', { type: 'DateTime' })
-    t.field('gte', { type: 'DateTime' })
   },
 })
 
@@ -960,6 +952,20 @@ export const NullableIntFilter = inputObjectType({
     t.field('lte', { type: 'Int' })
     t.field('gt', { type: 'Int' })
     t.field('gte', { type: 'Int' })
+  },
+})
+
+export const DateTimeFilter = inputObjectType({
+  name: 'DateTimeFilter',
+  definition(t) {
+    t.field('equals', { type: 'DateTime' })
+    t.field('not', { type: 'DateTime' })
+    t.field('in', { type: 'DateTime', list: true })
+    t.field('notIn', { type: 'DateTime', list: true })
+    t.field('lt', { type: 'DateTime' })
+    t.field('lte', { type: 'DateTime' })
+    t.field('gt', { type: 'DateTime' })
+    t.field('gte', { type: 'DateTime' })
   },
 })
 
@@ -1032,12 +1038,12 @@ export const PostOrderByInput = inputObjectType({
   name: 'PostOrderByInput',
   definition(t) {
     t.field('id', { type: 'OrderByArg' })
-    t.field('createdAt', { type: 'OrderByArg' })
-    t.field('updatedAt', { type: 'OrderByArg' })
     t.field('published', { type: 'OrderByArg' })
     t.field('title', { type: 'OrderByArg' })
     t.field('author', { type: 'OrderByArg' })
     t.field('authorId', { type: 'OrderByArg' })
+    t.field('createdAt', { type: 'OrderByArg' })
+    t.field('updatedAt', { type: 'OrderByArg' })
   },
 })
 
@@ -1045,13 +1051,13 @@ export const CommentOrderByInput = inputObjectType({
   name: 'CommentOrderByInput',
   definition(t) {
     t.field('id', { type: 'OrderByArg' })
-    t.field('createdAt', { type: 'OrderByArg' })
-    t.field('updatedAt', { type: 'OrderByArg' })
     t.field('contain', { type: 'OrderByArg' })
     t.field('post', { type: 'OrderByArg' })
     t.field('postId', { type: 'OrderByArg' })
     t.field('author', { type: 'OrderByArg' })
     t.field('authorId', { type: 'OrderByArg' })
+    t.field('createdAt', { type: 'OrderByArg' })
+    t.field('updatedAt', { type: 'OrderByArg' })
   },
 })
 
@@ -1059,6 +1065,7 @@ export const GroupOrderByInput = inputObjectType({
   name: 'GroupOrderByInput',
   definition(t) {
     t.field('id', { type: 'OrderByArg' })
+    t.field('name', { type: 'OrderByArg' })
     t.field('createdAt', { type: 'OrderByArg' })
     t.field('updatedAt', { type: 'OrderByArg' })
   },

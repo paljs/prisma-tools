@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
 import { CourseTakingOrderByInput, CourseTakingWhereInput, OrderByArg } from '../../generated';
 import { SchemaModel } from '@prisma-tools/admin';
+import { useModel } from '../useSchema';
 
-export const useFilterAndSort = (location: any, model?: SchemaModel | null) => {
-  const initialFilter = React.useMemo(() => {
-    let initialValue = [];
-    if (location.state?.id) {
-      initialValue.push({
-        id: 'id',
-        value: {
-          equals: parseInt(location.state?.id),
-        },
-      });
-    }
-    if (location.state) {
-      Object.keys(location.state).forEach((key) => {
-        if (model) {
+const filterMemo = (filter?: any, model?: SchemaModel | null) =>
+  React.useMemo(() => {
+    let initialValue: any[] = [];
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        if (model && filter[key]) {
           const field = model.fields.find((item) => item.type === key);
-          if (field) {
-            initialValue.push({
-              id: field.name + '.id',
-              value: {
-                equals: parseInt(location.state[key]),
-              },
-            });
-          }
+          initialValue.push({
+            id: field ? field.name + '.id' : 'id',
+            value: {
+              equals: parseInt(filter[key]),
+            },
+          });
         }
       });
     }
     return initialValue;
-  }, [location]);
+  }, [filter, model]);
 
-  const [where, setWhere] = useState<CourseTakingWhereInput | null>(handleFilter(initialFilter));
+const handleFilter = (filters: { id: string; value: any }[]) => {
+  if (filters.length) {
+    let newWhere: { [key: string]: { [key: string]: object } } = {};
+    filters.forEach((item) => {
+      const idArray = item.id.split('.');
+      if (idArray.length > 1) {
+        newWhere[idArray[0]] = {};
+        newWhere[idArray[0]][idArray[1]] = item.value;
+      } else {
+        newWhere[idArray[0]] = item.value;
+      }
+    });
+    return newWhere;
+  }
+  return null;
+};
+
+export const useFilterAndSort = (model: string, filter?: any) => {
+  const initialFilter = filterMemo(filter, useModel(model));
+  const [where, setWhere] = useState<CourseTakingWhereInput | null>();
   const [orderBy, setOrderBy] = useState<CourseTakingOrderByInput | null>(null);
+
+  if (!where && initialFilter.length > 0) {
+    setWhere(handleFilter(initialFilter));
+  }
 
   const filterHandler = (filters: { id: string; value: any }[]) => {
     setWhere(handleFilter(filters));
@@ -57,21 +71,4 @@ export const useFilterAndSort = (location: any, model?: SchemaModel | null) => {
     filterHandler,
     sortByHandler,
   };
-};
-
-const handleFilter = (filters: { id: string; value: any }[]) => {
-  if (filters.length) {
-    let newWhere: { [key: string]: { [key: string]: object } } = {};
-    filters.forEach((item) => {
-      const idArray = item.id.split('.');
-      if (idArray.length > 1) {
-        newWhere[idArray[0]] = {};
-        newWhere[idArray[0]][idArray[1]] = item.value;
-      } else {
-        newWhere[idArray[0]] = item.value;
-      }
-    });
-    return newWhere;
-  }
-  return null;
 };

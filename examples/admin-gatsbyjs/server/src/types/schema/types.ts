@@ -8,6 +8,14 @@ export const EnumObject = objectType({
   },
 })
 
+export const SchemaObject = objectType({
+  name: 'Schema',
+  definition(t) {
+    t.list.field('models', { type: 'Model' })
+    t.list.field('enums', { type: 'Enum' })
+  },
+})
+
 const FieldDefinition = {
   definition(t) {
     t.string('id')
@@ -16,6 +24,8 @@ const FieldDefinition = {
     t.string('type')
     t.boolean('list')
     t.boolean('required')
+    t.boolean('isId')
+    t.boolean('unique')
     t.boolean('create')
     t.boolean('update')
     t.boolean('read')
@@ -31,6 +41,8 @@ export const ModelObject = objectType({
   definition(t) {
     t.string('id')
     t.string('name')
+    t.string('idField')
+    t.list.string('displayFields')
     t.boolean('create')
     t.boolean('update')
     t.boolean('delete')
@@ -54,6 +66,8 @@ export const UpdateModelInput = inputObjectType({
   name: 'UpdateModelInput',
   definition(t) {
     t.string('name')
+    t.string('idField')
+    t.list.string('displayFields')
     t.boolean('create')
     t.boolean('update')
     t.boolean('delete')

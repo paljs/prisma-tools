@@ -2,9 +2,14 @@ import React, { useRef, useState } from 'react';
 import { SchemaField } from '@prisma-tools/admin';
 import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
 import { FormContextValues } from 'react-hook-form';
-import { useGetEnumQuery } from '../../generated';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
+import { useEnum, useModel } from '../useSchema';
+import { useFilterState } from '../useFilterState';
+import * as generated from '../../generated';
+import { DocumentNode, useQuery } from '@apollo/client';
+import { getDisplayName } from '../Table/utils';
+import { getValueByType } from './useActions';
 
 interface Option {
   value: any;
@@ -27,7 +32,10 @@ export const DefaultInput: React.FC<InputProps> = ({ field, value, error, regist
     setValue(field.name, value);
   }
 
-  let options: any = { name: field.name, defaultValue: value, ref: register(field.required ? { required: true } : {}) };
+  const options: any = {
+    name: field.name,
+    ref: register(field.required ? { required: true } : {}),
+  };
   switch (field.type) {
     case 'Int':
       options['type'] = 'number';
@@ -47,7 +55,7 @@ export const DefaultInput: React.FC<InputProps> = ({ field, value, error, regist
           <span className="subtitle text-hint">{field.title}</span>
         </Col>
         <Col breakPoint={{ xs: 8 }}>
-          <InputGroup status={error ? 'Danger' : 'Primary'}>
+          <InputGroup status={error ? 'Danger' : 'Primary'} fullWidth>
             {field.type === 'String' && value && value.length > 50 ? (
               <textarea rows={1} {...options} />
             ) : (
@@ -63,11 +71,7 @@ export const DefaultInput: React.FC<InputProps> = ({ field, value, error, regist
 
 export const EnumInput: React.FC<InputProps> = ({ field, value, error, register, setValue }) => {
   const [state, setState] = useState(value);
-  const { data } = useGetEnumQuery({
-    variables: {
-      name: field.type,
-    },
-  });
+  const enumType = useEnum(field.type);
   const valueRef = useRef(value);
 
   if (valueRef.current !== value) {
@@ -77,12 +81,12 @@ export const EnumInput: React.FC<InputProps> = ({ field, value, error, register,
   }
 
   React.useEffect(() => {
-    register({ name: field.name, required: field.required, defaultValue: value });
+    register({ name: field.name, required: field.required });
   }, [register]);
 
   const options: Option[] = field.required ? [] : [{ value: null, label: 'All' }];
-  if (data?.getEnum) {
-    options.push(...data.getEnum.fields.map((item) => ({ value: item, label: item })));
+  if (enumType) {
+    options.push(...enumType.fields.map((item) => ({ value: item, label: item })));
   }
   return (
     <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
@@ -95,6 +99,92 @@ export const EnumInput: React.FC<InputProps> = ({ field, value, error, register,
             status={error ? 'Danger' : 'Primary'}
             shape="SemiRound"
             value={options.find((option) => option.value === state)}
+            onChange={(option: any) => {
+              setState(option.value);
+              setValue(field.name, option.value);
+            }}
+            options={options}
+          />
+        </Col>
+      </Row>
+      <span className="caption-2 status-Danger">{error ? field.title + ' is required' : ''}</span>
+    </StyledCol>
+  );
+};
+type keys = keyof typeof generated;
+export const ObjectInput: React.FC<InputProps> = ({ field, value, error, register, setValue }) => {
+  const model = useModel(field.type)!;
+  const [state, setState] = useState(value[model.idField]);
+  const valueRef = useRef(value[model.idField]);
+
+  if (valueRef.current !== value[model.idField]) {
+    valueRef.current = value[model.idField];
+    setState(value[model.idField]);
+    setValue(field.name, value[model.idField]);
+  }
+
+  const [search, setSearch] = useState({});
+  const { onChange } = useFilterState('');
+  const { data } = useQuery(generated[`FindMany${field.type}Document` as keys] as DocumentNode, {
+    variables: {
+      where: search,
+      first: 10,
+    },
+  });
+
+  React.useEffect(() => {
+    register({ name: field.name, required: field.required });
+  }, [register]);
+
+  const onSearch = (value: string) => {
+    const searchFields = model.displayFields.includes(model.idField)
+      ? model.displayFields
+      : model.displayFields.concat([model.idField]);
+    const searchObject: any = { OR: [] };
+    model.fields
+      .filter((item) => searchFields.includes(item.name))
+      .forEach((item) => {
+        searchObject.OR.push({
+          [item.name]: item.type === 'String' ? { contains: value } : { equals: getValueByType(item.type, value) },
+        });
+      });
+    setSearch(searchObject);
+  };
+
+  const result = data ? data[`findMany${field.type}`] : null;
+
+  const options: Option[] = field.required
+    ? []
+    : [
+        { value: null, label: 'clear' },
+        { value: value[model.idField], label: getDisplayName(value, model) },
+      ];
+
+  if (result) {
+    options.push(
+      ...result
+        .filter((item: any) => item[model.idField] !== value[model.idField])
+        .map((item: any) => ({ value: item[model.idField], label: getDisplayName(item, model) })),
+    );
+  }
+
+  return (
+    <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
+      <Row around="xs" middle="xs">
+        <Col breakPoint={{ xs: 4 }}>
+          <span className="subtitle text-hint">{field.title}</span>
+        </Col>
+        <Col breakPoint={{ xs: 8 }}>
+          <Select
+            //menuPlacement="top"
+            status={error ? 'Danger' : 'Primary'}
+            shape="SemiRound"
+            value={options.find((option) => option.value === state)}
+            onInputChange={(value, meta) => {
+              if (meta.action === 'input-change') {
+                onChange(value, onSearch);
+              }
+            }}
             onChange={(option: any) => {
               setState(option.value);
               setValue(field.name, option.value);
@@ -124,7 +214,7 @@ export const DateInput: React.FC<InputProps> = ({ field, value, error, register,
   };
 
   React.useEffect(() => {
-    register({ name: field.name, required: field.required, defaultValue: new Date(value) });
+    register({ name: field.name, required: field.required });
   }, [register]);
 
   return (
@@ -134,7 +224,7 @@ export const DateInput: React.FC<InputProps> = ({ field, value, error, register,
           <span className="subtitle text-hint">{field.title}</span>
         </Col>
         <Col breakPoint={{ xs: 8 }}>
-          <InputGroup status={error ? 'Danger' : 'Primary'}>
+          <InputGroup status={error ? 'Danger' : 'Primary'} fullWidth>
             <DatePicker
               selected={state}
               onChange={(date) => date && onChangeHandler(date)}
@@ -165,7 +255,7 @@ export const BooleanInput: React.FC<InputProps> = ({ field, value, register, set
   };
 
   React.useEffect(() => {
-    register({ name: field.name, defaultValue: value });
+    register({ name: field.name });
   }, [register]);
 
   return (

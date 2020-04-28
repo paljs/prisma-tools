@@ -1,3 +1,5 @@
+import { SchemaModel } from '@prisma-tools/admin';
+
 export const initPages = (pagesCount: number, page: number) => {
   let showPagesCount = 4;
   showPagesCount = pagesCount < showPagesCount ? pagesCount : showPagesCount;
@@ -16,4 +18,21 @@ export const initPages = (pagesCount: number, page: number) => {
   }
 
   return pages;
+};
+
+export const getDisplayName = (value: any, model: SchemaModel) => {
+  const values: string[] = [];
+  model.displayFields.forEach((item) => {
+    const splitItem = item.split('.');
+    if (splitItem.length === 1) {
+      values.push(value[splitItem[0]]);
+    } else {
+      let nameValue: any = { ...value };
+      splitItem.forEach((field) => {
+        nameValue = nameValue[field];
+      });
+      values.push(nameValue);
+    }
+  });
+  return values.join(' ');
 };

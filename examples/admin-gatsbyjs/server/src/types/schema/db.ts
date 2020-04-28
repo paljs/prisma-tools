@@ -2,8 +2,8 @@ import { extendType, stringArg } from '@nexus/schema'
 import low from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync'
 import { NexusGenRootTypes } from '../../generated/nexus'
-import { existsSync } from 'fs'
 import './schema.json'
+const fs = require('fs')
 
 interface Db {
   models: NexusGenRootTypes['Model'][]
@@ -12,38 +12,16 @@ interface Db {
 
 const path1 = 'src/types/schema/schema.json'
 const path2 = 'types/schema/schema.json'
-const adapter = new FileSync<Db>(existsSync(path1) ? path1 : path2)
+const adapter = new FileSync<Db>(fs.existsSync(path1) ? path1 : path2)
 const db = low(adapter)
 
 export const SchemaQueries = extendType({
   type: 'Query',
   definition(t) {
-    t.field('getModel', {
-      type: 'Model',
-      nullable: true,
-      args: {
-        id: stringArg({ nullable: false }),
-      },
-      resolve: async (_, { id }) => {
-        return db.get('models').find({ id }).value()
-      },
-    })
-    t.field('getModels', {
-      type: 'Model',
-      list: true,
-      nullable: true,
+    t.field('getSchema', {
+      type: 'Schema',
       resolve: async () => {
-        return db.get('models').value()
-      },
-    })
-    t.field('getEnum', {
-      type: 'Enum',
-      nullable: true,
-      args: {
-        name: stringArg({ nullable: false }),
-      },
-      resolve: async (_, { name }) => {
-        return db.get('enums').find({ name }).value()
+        return db.value()
       },
     })
   },

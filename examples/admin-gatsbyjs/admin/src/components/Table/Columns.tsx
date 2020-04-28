@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Column } from 'react-table';
-import { BooleanFilter, DateTimeFilter, EnumFilter, NumberFilter, StringFilter } from './Filters';
+import { BooleanFilter, DateTimeFilter, EnumFilter, NumberFilter, ObjectFilter, StringFilter } from './Filters';
 import moment from 'moment';
-import { Link } from 'gatsby';
 import { SchemaModel, SchemaField } from '@prisma-tools/admin';
+import { Button, Modal } from 'oah-ui';
+import DynamicTable from '../dynamicTable';
+import { useModel } from '../useSchema';
+import { getDisplayName } from './utils';
 
 const columnsObject: { [key: string]: (field: SchemaField, model?: SchemaModel | null) => Column } = {
   boolean: (field) => ({
@@ -39,18 +42,41 @@ const columnsObject: { [key: string]: (field: SchemaField, model?: SchemaModel |
   }),
   object: (field) => ({
     Header: field.title,
-    accessor: field.name + '.id',
-    Filter: NumberFilter,
+    accessor: field.name,
+    Filter: ObjectFilter(field),
     disableFilters: !field.filter,
     disableSortBy: !field.sort,
-    Cell: ({ value }) =>
-      value ? (
-        <Link to={`/models/${field.type}`} state={{ id: value }}>
-          {value}
-        </Link>
-      ) : (
-        ''
-      ),
+    Cell: ({ value }) => {
+      const [modal, setModal] = useState(false);
+      const model = useModel(field.type);
+      if (!model || !value) return <></>;
+      return (
+        <>
+          <Modal on={modal} toggle={() => setModal(false)}>
+            <DynamicTable
+              model={field.type}
+              filter={{ [model.idField]: value[model.idField] }}
+              toggle={() => setModal(false)}
+            />
+          </Modal>
+          <Button
+            onClick={() => setModal(true)}
+            appearance="ghost"
+            size="Small"
+            fullWidth
+            style={{
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              padding: 0,
+              textTransform: 'none',
+            }}
+          >
+            {getDisplayName(value, model)}
+          </Button>
+        </>
+      );
+    },
   }),
   Default: (field) => ({
     Header: field.title,
@@ -73,14 +99,20 @@ const columnsObject: { [key: string]: (field: SchemaField, model?: SchemaModel |
       row: {
         original: { id },
       },
-    }) =>
-      id && model ? (
-        <Link to={`/models/${field.type}`} state={{ [model.id]: id }}>
-          Show
-        </Link>
-      ) : (
-        ''
-      ),
+    }) => {
+      const [modal, setModal] = useState(false);
+      if (!model) return <></>;
+      return (
+        <>
+          <Modal on={modal} toggle={() => setModal(false)}>
+            <DynamicTable model={field.type} filter={{ [model.id]: id }} toggle={() => setModal(false)} />
+          </Modal>
+          <Button onClick={() => setModal(true)} appearance="ghost" size="Small">
+            Show
+          </Button>
+        </>
+      );
+    },
   }),
 };
 
