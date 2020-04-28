@@ -20,10 +20,9 @@ const HeaderStyle = styled.div`
     align-content: center;
   }
   .logo {
-      font-size: 1.25rem;
-      white-space: nowrap;
-      text-decoration: none;
-    }
+    font-size: 1.25rem;
+    white-space: nowrap;
+    text-decoration: none;
   }
 `;
 
