@@ -1,0 +1,81 @@
+fragment PostFields on Post {
+  id
+  published
+  title
+  authorId
+  createdAt
+  updatedAt
+}
+
+fragment Post on Post {
+  ...PostFields
+  author {
+    ...UserFields
+  }
+}
+
+query findOnePost($where: PostWhereUniqueInput!) {
+  findOnePost(where: $where) {
+    ...Post
+  }
+}
+
+query findManyPost(
+  $where: PostWhereInput
+  $orderBy: PostOrderByInput
+  $after: PostWhereUniqueInput
+  $before: PostWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyPost(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  ) {
+    ...Post
+  }
+}
+
+query findManyPostCount(
+  $where: PostWhereInput
+  $orderBy: PostOrderByInput
+  $after: PostWhereUniqueInput
+  $before: PostWhereUniqueInput
+  $skip: Int
+  $first: Int
+  $last: Int
+) {
+  findManyPostCount(
+    where: $where
+    orderBy: $orderBy
+    after: $after
+    before: $before
+    skip: $skip
+    first: $first
+    last: $last
+  )
+}
+
+mutation createOnePost($data: PostCreateInput!) {
+  createOnePost(data: $data) {
+    ...Post
+  }
+}
+
+mutation updateOnePost($where: PostWhereUniqueInput!, $data: PostUpdateInput!) {
+  updateOnePost(where: $where, data: $data) {
+    ...Post
+  }
+}
+
+mutation deleteOnePost($where: PostWhereUniqueInput!) {
+  deleteOnePost(where: $where) {
+    id
+  }
+}
