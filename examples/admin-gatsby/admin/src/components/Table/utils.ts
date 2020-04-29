@@ -1,4 +1,4 @@
-import { SchemaModel } from '@prisma-tools/admin';
+import { ModelFragment } from '../../generated';
 
 export const initPages = (pagesCount: number, page: number) => {
   let showPagesCount = 4;
@@ -20,7 +20,7 @@ export const initPages = (pagesCount: number, page: number) => {
   return pages;
 };
 
-export const getDisplayName = (value: any, model: SchemaModel) => {
+export const getDisplayName = (value: any, model: ModelFragment) => {
   const values: string[] = [];
   model.displayFields.forEach((item) => {
     const splitItem = item.split('.');

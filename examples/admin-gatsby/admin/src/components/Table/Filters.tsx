@@ -14,9 +14,9 @@ import {
   Tabs,
 } from 'oah-ui';
 import styled from 'styled-components';
-import { SchemaField } from '@prisma-tools/admin';
 import { useFilter } from './useFilter';
 import { useEnum, useModel } from '../useSchema';
+import { FieldFragment } from '../../generated';
 
 interface Option {
   value: any;
@@ -175,7 +175,7 @@ export const StringFilter: React.FC<any> = ({ column: { filterValue, setFilter }
   );
 };
 
-export const EnumFilter: (field: SchemaField) => React.FC<any> = (field) => {
+export const EnumFilter: (field: FieldFragment) => React.FC<any> = (field) => {
   return ({ column: { filterValue, setFilter } }) => {
     const enumType = useEnum(field.type);
     const options: Option[] = [{ value: undefined, label: 'All' }];
@@ -196,7 +196,7 @@ export const EnumFilter: (field: SchemaField) => React.FC<any> = (field) => {
   };
 };
 
-export const ObjectFilter: (field: SchemaField) => React.FC<any> = (field) => {
+export const ObjectFilter: (field: FieldFragment) => React.FC<any> = (field) => {
   return ({ column: { filterValue, setFilter } }) => {
     return (
       <Popover
@@ -220,7 +220,7 @@ export const ObjectFilter: (field: SchemaField) => React.FC<any> = (field) => {
   };
 };
 
-const ObjectCard: React.FC<FiltersProps & { field: SchemaField }> = ({ field, filterValue, setFilter }) => {
+const ObjectCard: React.FC<FiltersProps & { field: FieldFragment }> = ({ field, filterValue, setFilter }) => {
   const model = useModel(field.type)!;
   const [currentField, setCurrentField] = useState({ value: model.fields[0].name, label: model.fields[0].title });
   const getField = model.fields.find((item) => item.name === currentField.value)!;

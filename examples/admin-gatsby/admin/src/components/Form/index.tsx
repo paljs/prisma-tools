@@ -4,8 +4,8 @@ import { Button, Card, CardBody, Row, CardFooter } from 'oah-ui';
 import { BooleanInput, DateInput, DefaultInput, EnumInput, ObjectInput } from './Inputs';
 import 'react-datepicker/dist/react-datepicker.css';
 import useActions from './useActions';
-import { SchemaModel } from '@prisma-tools/admin';
 import { LayoutContext } from '../../Layouts';
+import { ModelFragment } from '../../generated';
 
 interface FormProps {
   action: 'update' | 'create';
@@ -14,7 +14,7 @@ interface FormProps {
   onCancel: () => void;
 }
 
-const getDefaultValues = (action: 'update' | 'create', model: SchemaModel, data: any, models: SchemaModel[]) => {
+const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, data: any, models: ModelFragment[]) => {
   if (action === 'create') return {};
   const defaultValues: any = {};
   model.fields

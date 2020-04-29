@@ -1,6 +1,5 @@
 import * as generate from '../../generated';
 import { DocumentNode, useMutation } from '@apollo/client';
-import { SchemaModel } from '@prisma-tools/admin';
 import { useContext } from 'react';
 import { LayoutContext } from '../../Layouts';
 
@@ -10,7 +9,7 @@ export const getValueByType = (type: string | undefined, value: string) => {
   return type === 'Int' ? parseInt(value) : type === 'Float' ? parseFloat(value) : value;
 };
 
-const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', onCancel: () => void) => {
+const useActions = (model: generate.ModelFragment, data: any, action: 'create' | 'update', onCancel: () => void) => {
   const [updateModel] = useMutation(generate[`UpdateOne${model.id}Document` as keys] as DocumentNode);
   const [createModel] = useMutation(generate[`CreateOne${model.id}Document` as keys] as DocumentNode);
   const {

@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { SchemaField } from '@prisma-tools/admin';
 import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
 import { FormContextValues } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
@@ -17,7 +16,7 @@ interface Option {
 }
 
 interface InputProps {
-  field: SchemaField;
+  field: generated.FieldFragment;
   value: any;
   error: any;
   register: FormContextValues['register'];

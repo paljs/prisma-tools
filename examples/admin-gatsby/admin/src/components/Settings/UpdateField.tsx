@@ -1,13 +1,12 @@
 import React from 'react';
 import { Checkbox, Col, InputGroup, Row } from 'oah-ui';
-import { SchemaField } from '@prisma-tools/admin';
-import { useUpdateFieldMutation } from '../../generated';
+import { useUpdateFieldMutation, FieldFragment } from '../../generated';
 
 type Fields = 'read' | 'create' | 'update' | 'filter' | 'sort' | 'title';
 
 const fieldsArray: Fields[] = ['read', 'create', 'update', 'filter', 'sort'];
 
-const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({ field, model }) => {
+const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field, model }) => {
   const [updateField] = useUpdateFieldMutation();
 
   const onChangeHandler = (name: string, value: boolean | string) => {
@@ -54,7 +53,7 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({ field, m
       {fieldsArray.map((item) => (
         <Col breakPoint={{ xs: 4 }} key={item}>
           <Checkbox
-            disabled={field.relationField && ['create', 'update'].includes(item)}
+            disabled={!!(field.relationField && ['create', 'update'].includes(item))}
             status="Success"
             checked={field[item] as boolean}
             onChange={(value) => onChangeHandler(item, value)}

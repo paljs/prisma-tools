@@ -1,13 +1,12 @@
 import React from 'react';
 import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
-import { SchemaModel } from '@prisma-tools/admin';
-import { useUpdateModelMutation } from '../../generated';
+import { useUpdateModelMutation, ModelFragment } from '../../generated';
 
 type Fields = 'delete' | 'create' | 'update' | 'name';
 
 const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
-const UpdateModel: React.FC<SchemaModel> = (props) => {
+const UpdateModel: React.FC<ModelFragment> = (props) => {
   const [updateModel] = useUpdateModelMutation();
 
   const onChangeHandler = (name: string, value: boolean | string) => {

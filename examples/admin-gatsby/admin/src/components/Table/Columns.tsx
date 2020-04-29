@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Column } from 'react-table';
 import { BooleanFilter, DateTimeFilter, EnumFilter, NumberFilter, ObjectFilter, StringFilter } from './Filters';
 import moment from 'moment';
-import { SchemaModel, SchemaField } from '@prisma-tools/admin';
 import { Button, Modal } from 'oah-ui';
 import DynamicTable from '../dynamicTable';
 import { useModel } from '../useSchema';
 import { getDisplayName } from './utils';
+import { FieldFragment, ModelFragment } from '../../generated';
 
-const columnsObject: { [key: string]: (field: SchemaField, model?: SchemaModel | null) => Column } = {
+const columnsObject: { [key: string]: (field: FieldFragment, model?: ModelFragment | null) => Column } = {
   boolean: (field) => ({
     Header: field.title,
     accessor: field.name,
@@ -116,7 +116,7 @@ const columnsObject: { [key: string]: (field: SchemaField, model?: SchemaModel |
   }),
 };
 
-export const columns = (model?: SchemaModel | null) => {
+export const columns = (model?: ModelFragment | null) => {
   return React.useMemo(() => {
     return model
       ? model.fields

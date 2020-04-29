@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { CourseTakingOrderByInput, CourseTakingWhereInput, OrderByArg } from '../../generated';
-import { SchemaModel } from '@prisma-tools/admin';
+import { OrderByArg, ModelFragment } from '../../generated';
 import { useModel } from '../useSchema';
 
-const filterMemo = (filter?: any, model?: SchemaModel | null) =>
+const filterMemo = (filter?: any, model?: ModelFragment | null) =>
   React.useMemo(() => {
     let initialValue: any[] = [];
     if (filter) {
@@ -41,8 +40,8 @@ const handleFilter = (filters: { id: string; value: any }[]) => {
 
 export const useFilterAndSort = (model: string, filter?: any) => {
   const initialFilter = filterMemo(filter, useModel(model));
-  const [where, setWhere] = useState<CourseTakingWhereInput | null>();
-  const [orderBy, setOrderBy] = useState<CourseTakingOrderByInput | null>(null);
+  const [where, setWhere] = useState<any>();
+  const [orderBy, setOrderBy] = useState<any>(null);
 
   if (!where && initialFilter.length > 0) {
     setWhere(handleFilter(initialFilter));
