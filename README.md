@@ -7,13 +7,13 @@ Tools
 - [**@prisma-tools/nexus**](#nexus) Build CRUD system from prisma
 - [**@prisma-tools/select**](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/select) convert `info: GraphQLResolveInfo` to be available prisma select object
 - [**@prisma-tools/delete**](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/delete) Prisma Migrate cli not supported Cascading deletes so this tool is workaround this option
-- [**@prisma-tools/admin**](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/admin) generate pages, Queries and mutations in our Admin project [prisma-admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby) [Online demo](http://prisma-admin.ahmedelywa.com/)
+- [**@prisma-tools/admin**](https://github.com/AhmedElywa/prisma-tools/tree/master/packages/admin) generate pages, Queries and mutations in our Admin project [prisma-admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby)
 
 Examples
 
 - [**apollo with nexus schema**](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/apollo-nexus-schema)
 - [**Prisma Admin**](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby)
-
+- [**Online demo has all tools** ](http://prisma-admin.ahmedelywa.com/)
 ## nexus
 
 - [Install](#Install)
