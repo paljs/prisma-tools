@@ -74,12 +74,10 @@ export type CommentFilter = {
 };
 
 export type CommentOrderByInput = {
-  author?: Maybe<OrderByArg>;
   authorId?: Maybe<OrderByArg>;
   contain?: Maybe<OrderByArg>;
   createdAt?: Maybe<OrderByArg>;
   id?: Maybe<OrderByArg>;
-  post?: Maybe<OrderByArg>;
   postId?: Maybe<OrderByArg>;
   updatedAt?: Maybe<OrderByArg>;
 };
@@ -232,6 +230,7 @@ export type Field = {
   name: Scalars['String'];
   order: Scalars['Int'];
   read: Scalars['Boolean'];
+  relationField: Scalars['Boolean'];
   required: Scalars['Boolean'];
   sort: Scalars['Boolean'];
   title: Scalars['String'];
@@ -552,7 +551,6 @@ export type PostFilter = {
 };
 
 export type PostOrderByInput = {
-  author?: Maybe<OrderByArg>;
   authorId?: Maybe<OrderByArg>;
   createdAt?: Maybe<OrderByArg>;
   id?: Maybe<OrderByArg>;
@@ -820,6 +818,7 @@ export type UpdateFieldInput = {
   name?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
   read?: Maybe<Scalars['Boolean']>;
+  relationField?: Maybe<Scalars['Boolean']>;
   required?: Maybe<Scalars['Boolean']>;
   sort?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
@@ -931,7 +930,6 @@ export type UserFilter = {
 export type UserOrderByInput = {
   createdAt?: Maybe<OrderByArg>;
   email?: Maybe<OrderByArg>;
-  group?: Maybe<OrderByArg>;
   groupId?: Maybe<OrderByArg>;
   id?: Maybe<OrderByArg>;
   name?: Maybe<OrderByArg>;
@@ -1307,6 +1305,7 @@ export type FieldFragment = { __typename?: 'Field' } & Pick<
   | 'update'
   | 'sort'
   | 'filter'
+  | 'relationField'
 >;
 
 export type EnumFragment = { __typename?: 'Enum' } & Pick<Enum, 'name' | 'fields'>;
@@ -1341,7 +1340,7 @@ export type UpdateFieldMutation = { __typename?: 'Mutation' } & {
 
 export type UserFieldsFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'createdAt' | 'email' | 'name' | 'groupId'
+  'id' | 'email' | 'name' | 'groupId' | 'createdAt'
 >;
 
 export type UserFragment = { __typename?: 'User' } & {
@@ -1430,10 +1429,10 @@ export const PostFieldsFragmentDoc = gql`
 export const UserFieldsFragmentDoc = gql`
   fragment UserFields on User {
     id
-    createdAt
     email
     name
     groupId
+    createdAt
   }
 `;
 export const CommentFragmentDoc = gql`
@@ -1491,6 +1490,7 @@ export const FieldFragmentDoc = gql`
     update
     sort
     filter
+    relationField
   }
 `;
 export const ModelFragmentDoc = gql`

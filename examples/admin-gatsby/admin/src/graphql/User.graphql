@@ -1,9 +1,9 @@
 fragment UserFields on User {
   id
-  createdAt
   email
   name
   groupId
+  createdAt
 }
 
 fragment User on User {

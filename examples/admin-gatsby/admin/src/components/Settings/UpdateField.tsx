@@ -54,6 +54,7 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({ field, m
       {fieldsArray.map((item) => (
         <Col breakPoint={{ xs: 4 }} key={item}>
           <Checkbox
+            disabled={field.relationField && ['create', 'update'].includes(item)}
             status="Success"
             checked={field[item] as boolean}
             onChange={(value) => onChangeHandler(item, value)}

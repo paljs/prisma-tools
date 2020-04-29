@@ -18,7 +18,7 @@ const getDefaultValues = (action: 'update' | 'create', model: SchemaModel, data:
   if (action === 'create') return {};
   const defaultValues: any = {};
   model.fields
-    .filter((field) => field.update && !field.list)
+    .filter((field) => field.update && !field.list && !field.relationField)
     .slice()
     .sort((a, b) => a.order - b.order)
     .forEach((field) => {
@@ -56,7 +56,7 @@ const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel })
         <CardBody>
           <Row between="lg">
             {model.fields
-              .filter((field) => field[action] && !field.list)
+              .filter((field) => field[action] && !field.list && !field.relationField)
               .slice()
               .sort((a, b) => a.order - b.order)
               .map((field) => {

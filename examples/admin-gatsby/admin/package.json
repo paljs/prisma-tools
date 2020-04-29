@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.43",
-    "@prisma-tools/admin": "^0.0.12",
+    "@prisma-tools/admin": "^0.0.13",
     "@tinymce/tinymce-react": "^3.4.0",
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.20.10",

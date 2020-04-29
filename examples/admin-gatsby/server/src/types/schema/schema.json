@@ -22,7 +22,8 @@
           "filter": true,
           "sort": true,
           "order": 1,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "User.email",
@@ -39,7 +40,8 @@
           "filter": true,
           "sort": true,
           "order": 2,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "User.name",
@@ -56,7 +58,8 @@
           "filter": true,
           "sort": true,
           "order": 3,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "User.password",
@@ -73,7 +76,8 @@
           "filter": true,
           "sort": true,
           "order": 4,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "User.group",
@@ -124,7 +128,8 @@
           "filter": true,
           "sort": true,
           "order": 7,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": true
         },
         {
           "id": "User.createdAt",
@@ -141,13 +146,12 @@
           "filter": true,
           "sort": true,
           "order": 8,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "name"
-      ]
+      "displayFields": ["name"]
     },
     {
       "id": "Post",
@@ -171,7 +175,8 @@
           "filter": true,
           "sort": true,
           "order": 1,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Post.published",
@@ -188,7 +193,8 @@
           "filter": true,
           "sort": true,
           "order": 2,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Post.title",
@@ -205,7 +211,8 @@
           "filter": true,
           "sort": true,
           "order": 3,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Post.author",
@@ -239,7 +246,8 @@
           "filter": true,
           "sort": true,
           "order": 5,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": true
         },
         {
           "id": "Post.comments",
@@ -273,7 +281,8 @@
           "filter": true,
           "sort": true,
           "order": 7,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Post.updatedAt",
@@ -290,13 +299,12 @@
           "filter": true,
           "sort": true,
           "order": 8,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "title"
-      ]
+      "displayFields": ["title"]
     },
     {
       "id": "Comment",
@@ -320,7 +328,8 @@
           "filter": true,
           "sort": true,
           "order": 1,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Comment.contain",
@@ -337,7 +346,8 @@
           "filter": true,
           "sort": true,
           "order": 2,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Comment.post",
@@ -371,7 +381,8 @@
           "filter": true,
           "sort": true,
           "order": 4,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": true
         },
         {
           "id": "Comment.author",
@@ -405,7 +416,8 @@
           "filter": true,
           "sort": true,
           "order": 6,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": true
         },
         {
           "id": "Comment.createdAt",
@@ -422,7 +434,8 @@
           "filter": true,
           "sort": true,
           "order": 7,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Comment.updatedAt",
@@ -439,13 +452,12 @@
           "filter": true,
           "sort": true,
           "order": 8,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "contain"
-      ]
+      "displayFields": ["contain"]
     },
     {
       "id": "Group",
@@ -469,7 +481,8 @@
           "filter": true,
           "sort": true,
           "order": 1,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Group.name",
@@ -486,7 +499,8 @@
           "filter": true,
           "sort": true,
           "order": 2,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Group.users",
@@ -520,7 +534,8 @@
           "filter": true,
           "sort": true,
           "order": 4,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         },
         {
           "id": "Group.updatedAt",
@@ -537,13 +552,12 @@
           "filter": true,
           "sort": true,
           "order": 5,
-          "kind": "scalar"
+          "kind": "scalar",
+          "relationField": false
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "name"
-      ]
+      "displayFields": ["name"]
     }
   ],
   "enums": []

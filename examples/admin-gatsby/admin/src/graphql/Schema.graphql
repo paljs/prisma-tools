@@ -27,6 +27,7 @@ fragment Field on Field {
   update
   sort
   filter
+  relationField
 }
 
 fragment Enum on Enum {
