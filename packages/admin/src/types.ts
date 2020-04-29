@@ -1,6 +1,7 @@
 import { Field, Model, Enums } from "@prisma-tools/schema";
 
-export interface SchemaField extends Field {
+export interface SchemaField extends Omit<Field, "relation"> {
+  id: string;
   title: string;
   read: boolean;
   create: boolean;
@@ -11,7 +12,7 @@ export interface SchemaField extends Field {
 }
 
 export interface SchemaModel extends Model {
-  name: string;
+  id: string;
   idField: string;
   displayFields: string[];
   update: boolean;

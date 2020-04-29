@@ -26,7 +26,7 @@ export function generateAdmin(
   convertSchema(path, (modelsObject) => {
     const newSchema = mergeSchema(modelsObject, schema);
     createSchemaObject(options.schemaOutput, newSchema);
-    !options.disableCreateGraphql && createGraphql(modelsObject, options);
+    !options.disableCreateGraphql && createGraphql(newSchema, options);
     !options.disableCreatePages && buildPages(newSchema, options.pagesOutput);
   });
 }

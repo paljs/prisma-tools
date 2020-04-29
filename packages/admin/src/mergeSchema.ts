@@ -1,4 +1,5 @@
-import { SchemaObject, Schema, SchemaModel, Model, Field } from "./types";
+import { Schema, SchemaModel, SchemaField } from "./types";
+import { SchemaObject, Model, Field } from "@prisma-tools/schema";
 
 export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
   const newSchema: Schema = {
@@ -6,7 +7,7 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
     enums: object.enums,
   };
   object.models.forEach((item) => {
-    const schemaItem = schema.models.find((model) => model.id === item.id);
+    const schemaItem = schema.models.find((model) => model.id === item.name);
     if (!schemaItem) {
       newSchema.models.push(handleNewModel(item));
     } else {
@@ -21,14 +22,14 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
       };
       item.fields.forEach((field) => {
         const schemaField = schemaItem.fields.find(
-          (item) => item.id === field.id
+          (item) => item.name === field.name
         );
         if (!schemaField) {
-          newItem.fields.push(handleNewField(field));
+          newItem.fields.push(handleNewField(field, schemaItem.name));
         } else {
           newItem.fields.push({
             ...schemaField,
-            ...field,
+            ...getOriginalField(field, schemaItem.name),
           });
         }
       });
@@ -41,8 +42,8 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
 
 function handleNewModel(model: Model) {
   const newItem: SchemaModel = {
-    id: model.id,
-    name: getTitle(model.id),
+    id: model.name,
+    name: getTitle(model.name),
     idField: model.fields.find((field) => field.isId).name,
     displayFields: [model.fields.find((field) => field.isId).name],
     create: true,
@@ -51,19 +52,19 @@ function handleNewModel(model: Model) {
     fields: [],
   };
   model.fields.forEach((field) => {
-    newItem.fields.push(handleNewField(field));
+    newItem.fields.push(handleNewField(field, model.name));
   });
   return newItem;
 }
 
 const defaultField = ["id", "createdAt", "updatedAt"];
 
-function handleNewField(field: Field) {
+function handleNewField(field: Field, modelName: string): SchemaField {
   return {
-    ...field,
+    ...getOriginalField(field, modelName),
     title: getTitle(field.name),
-    create: !defaultField.includes(field.name),
-    update: !defaultField.includes(field.name),
+    create: !defaultField.includes(field.name) && !field.relationField,
+    update: !defaultField.includes(field.name) && !field.relationField,
     read: true,
     filter: true,
     sort: true,
@@ -75,4 +76,15 @@ function getTitle(id: string) {
   const split = id.split(/(?=[A-Z])/);
   split[0] = split[0].charAt(0).toUpperCase() + split[0].slice(1);
   return split.join(" ");
+}
+
+function getOriginalField(
+  field: Field,
+  modelName: string
+): Omit<Field, "relation"> & { id: string } {
+  delete field.relation;
+  return {
+    id: modelName + "." + field.name,
+    ...field,
+  };
 }

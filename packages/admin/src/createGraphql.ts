@@ -1,8 +1,8 @@
-import { SchemaObject, Options } from "./types";
+import { Options, Schema } from "./types";
 import { writeFile, mkdir } from "fs";
 import { format } from "prettier";
 
-export function createGraphql(schemaObject: SchemaObject, options: Options) {
+export function createGraphql(schemaObject: Schema, options: Options) {
   schemaObject.models.forEach((model) => {
     if (options.modelsExclude.includes(model.id)) {
       return;
