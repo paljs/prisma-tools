@@ -5,6 +5,7 @@
     "target": "es6",
     "declaration": true,
     "declarationMap": true,
+    "moduleResolution": "Node",
     "sourceMap": true,
     "outDir": "./dist",
     "esModuleInterop": true,

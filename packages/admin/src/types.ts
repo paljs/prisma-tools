@@ -1,25 +1,4 @@
-export interface Model {
-  id: string;
-  fields: Field[];
-}
-
-export interface Enums {
-  name: string;
-  fields: string[];
-}
-
-export interface Field {
-  id: string;
-  name: string;
-  type: string;
-  list: boolean;
-  required: boolean;
-  isId: boolean;
-  unique: boolean;
-  kind: "object" | "enum" | "scalar";
-}
-
-export type SchemaObject = { models: Model[]; enums: Enums[] };
+import { Field, Model, Enums } from "@prisma-tools/schema";
 
 export interface SchemaField extends Field {
   title: string;

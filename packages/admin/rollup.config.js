@@ -13,6 +13,6 @@ export default [
     input: 'src/index.ts',
     output: { format: 'cjs', file: `dist/index.js` },
     plugins,
-    external: ['prettier', 'fs'],
+    external: ['prettier', 'fs', '@prisma-tools/schema'],
   },
 ];

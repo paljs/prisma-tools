@@ -8,6 +8,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "esModuleInterop": true,
+    "moduleResolution": "Node",
     "skipLibCheck": true
   },
   "exclude": ["node_modules"],

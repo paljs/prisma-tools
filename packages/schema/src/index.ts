@@ -21,7 +21,7 @@ function getSchemaInObject(data: string) {
   const lines = data.split(`
 `);
   let currentModel: Model = {
-    id: "",
+    name: "",
     fields: [],
   };
   let currentEnum: Enums = {
@@ -36,7 +36,7 @@ function getSchemaInObject(data: string) {
       const filteredArray = lineArray.filter((v) => v);
       if (["model", "enum"].includes(filteredArray[0]) && inModel === "") {
         if (filteredArray[0] === "model") {
-          currentModel.id = filteredArray[1];
+          currentModel.name = filteredArray[1];
         } else {
           currentEnum.name = filteredArray[1];
         }
@@ -53,7 +53,6 @@ function getSchemaInObject(data: string) {
           } else {
             const type = filteredArray[1].replace("?", "").replace("[]", "");
             const field: Field = {
-              id: currentModel.id + "." + filteredArray[0],
               name: filteredArray[0],
               type,
               isId: filteredArray.includes("@id"),
@@ -98,7 +97,7 @@ function getSchemaInObject(data: string) {
               });
             modelsObject.models.push({ ...currentModel });
             currentModel = {
-              id: "",
+              name: "",
               fields: [],
             };
           }

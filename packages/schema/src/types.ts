@@ -1,5 +1,5 @@
 export interface Model {
-  id: string;
+  name: string;
   fields: Field[];
 }
 
@@ -9,7 +9,6 @@ export interface Enums {
 }
 
 export interface Field {
-  id: string;
   name: string;
   type: string;
   list: boolean;
