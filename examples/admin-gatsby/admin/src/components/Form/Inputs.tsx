@@ -153,13 +153,8 @@ export const ObjectInput: React.FC<InputProps> = ({ field, value, error, registe
 
   const result = data ? data[`findMany${field.type}`] : null;
 
-  const options: Option[] = field.required
-    ? []
-    : [
-        { value: null, label: 'clear' },
-        { value: value[model.idField], label: getDisplayName(value, model) },
-      ];
-
+  const options: Option[] = field.required ? [] : [{ value: null, label: 'clear' }];
+  Object.keys(value).length > 0 && options.push({ value: value[model.idField], label: getDisplayName(value, model) });
   if (result) {
     options.push(
       ...result

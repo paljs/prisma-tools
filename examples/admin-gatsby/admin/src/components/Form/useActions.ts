@@ -22,20 +22,19 @@ const useActions = (model: SchemaModel, data: any, action: 'create' | 'update', 
 
   const onUpdateHandler = (newData: any) => {
     const updateData: any = {};
-    console.log(newData);
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
       if (field?.kind === 'object') {
-        if (newData[key]) {
-          const fieldModel = models.find((item) => item.id === field.type)!;
-          if (newData[key] && (!data[key] || newData[key] !== data[key][fieldModel.idField])) {
-            const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
-            updateData[key] = {
-              connect: {
-                id: getValueByType(editField.type, newData[key]),
-              },
-            };
-          }
+        const fieldModel = models.find((item) => item.id === field.type)!;
+        if ((newData[key] && !data[key]) || (newData[key] && newData[key] !== data[key][fieldModel.idField])) {
+          const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
+          updateData[key] = {
+            connect: {
+              id: getValueByType(editField.type, newData[key]),
+            },
+          };
+        } else if (!newData[key] && data[key]) {
+          updateData[key] = { disconnect: true };
         }
       } else if (newData[key] !== data[key]) {
         updateData[key] = getValueByType(field?.type, newData[key]);
