@@ -1,12 +1,12 @@
 {
-  "name": "@prisma-tools/delete",
-  "version": "0.0.3-test1.0",
+  "name": "@prisma-tools/schema",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
-    "directory": "packages/delete"
+    "directory": "packages/schema"
   },
   "author": "Ahmed Elywa",
   "license": "MIT",
@@ -15,11 +15,7 @@
     "build": "rollup -c",
     "prepublish": "yarn build"
   },
-  "peerDependencies": {
-    "@prisma/client": ">= 2.0.0-beta.2"
-  },
   "devDependencies": {
-    "@prisma/client": "^2.0.0-beta.2",
     "rollup": "^2.6.0",
     "rollup-plugin-typescript2": "^0.27.0",
     "tslib": "^1.11.1",
@@ -30,6 +26,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "f4c8cbda1aed123b43184eb3b7063d8b82f14639"
+  }
 }
