@@ -1,4 +1,4 @@
-import { QueriesAndMutationsOptions } from './types';
+import { QueriesAndMutationsOptions } from "./types";
 
 export function createQueriesAndMutations(
   name: string,
@@ -9,19 +9,25 @@ export function createQueriesAndMutations(
   );
   const model = name.charAt(0).toLowerCase() + name.slice(1);
   return {
-    queries: `import { extendType, arg } from '@nexus/schema'
+    queries: `${
+      options.nexusSchema
+        ? `import { extendType, arg } from '@nexus/schema'`
+        : `import { schema } from 'nexus'`
+    }
     
-    export const ${name}Queries = extendType({
+    ${
+      options.nexusSchema ? `export const ${name}Queries = ` : "schema."
+    }extendType({
       type: 'Query',
       definition(t) {
         ${
-          !exclude.includes('findOne')
+          !exclude.includes("findOne")
             ? `
         t.field('findOne${name}', {
           type: '${name}',
           nullable: true,
           args: {
-            where: arg({
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
@@ -33,10 +39,10 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('findMany')
+          !exclude.includes("findMany")
             ? `
         t.field('findMany${name}', {
           type: '${name}',
@@ -58,10 +64,10 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('findCount')
+          !exclude.includes("findCount")
             ? `
         t.field('findMany${name}Count', {
           type: 'Int',
@@ -78,23 +84,29 @@ export function createQueriesAndMutations(
             return prisma.${model}.count({...args})
           },
         })`
-            : ''
+            : ""
         }
         }
         })`,
-    mutations: `import { extendType, arg } from '@nexus/schema'
+    mutations: `${
+      options.nexusSchema
+        ? `import { extendType, arg } from '@nexus/schema'`
+        : `import { schema } from 'nexus'`
+    }
     
-    export const ${name}Mutations = extendType({
+    ${
+      options.nexusSchema ? `export const ${name}Mutations = ` : "schema."
+    }extendType({
       type: 'Mutation',
       definition(t) {
         ${
-          !exclude.includes('createOne')
+          !exclude.includes("createOne")
             ? `
         t.field('createOne${name}', {
           type: '${name}',
           nullable: false,
           args: {
-            data: arg({
+            data: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}CreateInput',
               nullable: false,
             }),
@@ -106,20 +118,20 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('updateOne')
+          !exclude.includes("updateOne")
             ? `
         t.field('updateOne${name}', {
           type: '${name}',
           nullable: false,
           args: {
-            where: arg({
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
-            data: arg({
+            data: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}UpdateInput',
               nullable: false,
             }),
@@ -132,62 +144,74 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('deleteOne')
+          !exclude.includes("deleteOne")
             ? `
         t.field('deleteOne${name}', {
           type: '${name}',
           nullable: true,
           args: {
-            where: arg({
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
           },
-          resolve: async (_, { where }, {prisma, select, onDelete}) => {
-            await onDelete.cascade('${name}', where, false)
+          resolve: async (_, { where }, {prisma, select${
+            options.onDelete ? ", onDelete" : ""
+          }}) => {
+            ${
+              options.onDelete
+                ? `await onDelete.cascade('${name}', where, false)`
+                : ""
+            }
             return prisma.${model}.delete({
               where,
               ...select,
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('deleteMany')
+          !exclude.includes("deleteMany")
             ? `
         t.field('deleteMany${name}', {
           type: 'BatchPayload',
           args: {
-            where: arg({
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}WhereInput',
               nullable: true,
             }),
           },
-          resolve: async (_, { where }, {prisma, select, onDelete}) => {
-            await onDelete.cascade('${name}', where, false)
+          resolve: async (_, { where }, {prisma, select${
+            options.onDelete ? ", onDelete" : ""
+          }}) => {
+            ${
+              options.onDelete
+                ? `await onDelete.cascade('${name}', where, false)`
+                : ""
+            }
             return prisma.${model}.deleteMany({
               where,
               ...select,
             })
           },
         })`
-            : ''
+            : ""
         }
         ${
-          !exclude.includes('updateMany')
+          !exclude.includes("updateMany")
             ? `
         t.field('updateMany${name}', {
           type: 'BatchPayload',
           args: {
-            where: arg({
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}WhereInput',
               nullable: true,
             }),
-            data: arg({
+            data: ${!options.nexusSchema ? "schema." : ""}arg({
               type: '${name}UpdateManyMutationInput',
               nullable: false,
             }),
@@ -200,7 +224,7 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ''
+            : ""
         }
         }
         })`,

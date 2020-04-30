@@ -1,7 +1,8 @@
 {
   "name": "@prisma-tools/select",
-  "version": "0.0.3-test1.0",
+  "version": "0.0.3",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:AhmedElywa/prisma-tools.git",

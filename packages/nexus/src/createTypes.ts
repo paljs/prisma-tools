@@ -1,13 +1,14 @@
-import { Options } from './types';
-import { writeFile, mkdir } from 'fs';
-import { dmmf } from '@prisma/client';
-import { format } from 'prettier';
-import { createQueriesAndMutations } from './CreateQueriesAndMutations';
-import { createInput } from './InputTypes';
+import { Options } from "./types";
+import { writeFile, mkdir } from "fs";
+import { schema } from "./schema";
+import { format } from "prettier";
+import { createQueriesAndMutations } from "./CreateQueriesAndMutations";
+import { createInput } from "./InputTypes";
+import { DMMF } from "@prisma/client/runtime";
 
 const defaultOptions: Options = {
-  inputTypesOutput: 'src/types',
-  modelsOutput: 'src/types/models',
+  inputTypesOutput: "src/types",
+  modelsOutput: "src/types/models",
   fieldsExclude: [],
   modelsExclude: [],
   excludeFieldsByModel: {},
@@ -17,27 +18,33 @@ const defaultOptions: Options = {
 
 export function createTypes(customOptions: Partial<Options>) {
   const options: Options = { ...defaultOptions, ...customOptions };
-  let index = '';
+  let index = "";
   writeFile(
     `${options.inputTypesOutput}/inputTypes.ts`,
-    formation(createInput()),
+    formation(createInput(options.nexusSchema)),
     () => {}
   );
   if (options.onlyInputType) {
     return;
   }
-  dmmf.schema.outputTypes.forEach((model) => {
+  schema.outputTypes.forEach((model) => {
     if (
-      !['Query', 'Mutation'].includes(model.name) &&
-      !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload'
+      !["Query", "Mutation"].includes(model.name) &&
+      !model.name.startsWith("Aggregate") &&
+      model.name !== "BatchPayload"
     ) {
       index += `export * from './${model.name}';
 `;
-      let fileContent = `import { objectType } from '@nexus/schema'
+      let fileContent = `${
+        options.nexusSchema
+          ? `import { objectType } from '@nexus/schema'`
+          : `import { schema } from 'nexus'`
+      }
   
 `;
-      fileContent += `export const ${model.name} = objectType({
+      fileContent += `${
+        options.nexusSchema ? `export const ${model.name} = ` : "schema."
+      }objectType({
   name: '${model.name}',
   definition(t) {
     `;
@@ -48,8 +55,8 @@ export function createTypes(customOptions: Partial<Options>) {
         if (!fieldsExclude.includes(field.name)) {
           const options = getOptions(field);
           if (
-            field.outputType.kind === 'scalar' &&
-            field.outputType.type !== 'DateTime'
+            field.outputType.kind === "scalar" &&
+            field.outputType.type !== "DateTime"
           ) {
             fileContent += `t.${(field.outputType
               .type as String).toLowerCase()}('${field.name}'${options})
@@ -95,11 +102,13 @@ export function createTypes(customOptions: Partial<Options>) {
         );
         modelIndex += `export * from './mutations'`;
       }
-      writeFile(
-        `${options.modelsOutput}/${model.name}/index.ts`,
-        formation(modelIndex),
-        () => {}
-      );
+      if (options.nexusSchema) {
+        writeFile(
+          `${options.modelsOutput}/${model.name}/index.ts`,
+          formation(modelIndex),
+          () => {}
+        );
+      }
       writeFile(
         `${options.modelsOutput}/${model.name}/type.ts`,
         formation(fileContent),
@@ -107,33 +116,35 @@ export function createTypes(customOptions: Partial<Options>) {
       );
     }
   });
-  writeFile(`${options.modelsOutput}/index.ts`, formation(index), () => {});
+  if (options.nexusSchema) {
+    writeFile(`${options.modelsOutput}/index.ts`, formation(index), () => {});
+  }
 }
 
-function getOptions(field) {
-  const options = field.outputType.isList
+function getOptions(field: DMMF.SchemaField) {
+  const options: any = field.outputType.isList
     ? { nullable: false, list: [true] }
     : { nullable: !field.outputType.isRequired };
   if (
-    field.outputType.kind !== 'scalar' ||
-    field.outputType.type === 'DateTime'
+    field.outputType.kind !== "scalar" ||
+    field.outputType.type === "DateTime"
   )
-    options['type'] = field.outputType.type;
+    options["type"] = field.outputType.type;
   if (field.args.length > 0) {
     field.args.forEach((arg) => {
-      if (!options['args']) options['args'] = {};
-      options['args'][arg.name] = arg.inputType[0].type;
+      if (!options["args"]) options["args"] = {};
+      options["args"][arg.name] = arg.inputType[0].type;
     });
   }
   const toString = JSON.stringify(options);
-  return ', ' + toString;
+  return ", " + toString;
 }
 
 export function formation(text: string) {
   return format(text, {
     singleQuote: true,
     semi: false,
-    trailingComma: 'all',
-    parser: 'babel',
+    trailingComma: "all",
+    parser: "babel",
   });
 }

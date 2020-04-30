@@ -1,10 +1,14 @@
-import { dmmf } from '@prisma/client';
-import { DMMF } from '@prisma/client/runtime';
+import { schema } from "./schema";
+import { DMMF } from "@prisma/client/runtime";
 
-export function createInput() {
-  let fileContent = `import { enumType, scalarType, inputObjectType, objectType } from '@nexus/schema'
+export function createInput(nexusSchema?: boolean) {
+  let fileContent = `${
+    nexusSchema
+      ? `import { enumType, scalarType, inputObjectType, objectType } from '@nexus/schema'`
+      : `import { schema } from 'nexus'`
+  }
   
-export const DateTime = scalarType({
+${nexusSchema ? `export const DateTime = ` : "schema."}scalarType({
   name: 'DateTime',
   description: 'Date custom scalar type',
   parseValue(value) {
@@ -18,7 +22,7 @@ export const DateTime = scalarType({
   },
 })
 
-export const BatchPayload = objectType({
+${nexusSchema ? `export const BatchPayload = ` : "schema."}objectType({
   name: 'BatchPayload',
   definition(t) {
     t.int('count', { nullable: false })
@@ -26,8 +30,10 @@ export const BatchPayload = objectType({
 })
 
 `;
-  dmmf.schema.enums.forEach((item) => {
-    fileContent += `export const ${item.name} = enumType({
+  schema.enums.forEach((item) => {
+    fileContent += `${
+      nexusSchema ? `export const ${item.name} = ` : "schema."
+    }enumType({
   name: '${item.name}',
   members: ${JSON.stringify(item.values)},
 })
@@ -35,8 +41,10 @@ export const BatchPayload = objectType({
 `;
   });
 
-  dmmf.schema.inputTypes.forEach((model) => {
-    fileContent += `export const ${model.name} = inputObjectType({
+  schema.inputTypes.forEach((model) => {
+    fileContent += `${
+      nexusSchema ? `export const ${model.name} = ` : "schema."
+    }inputObjectType({
   name: '${model.name}',
   definition(t) {
     `;
@@ -44,16 +52,16 @@ export const BatchPayload = objectType({
       let inputType: DMMF.SchemaArgInputType;
       if (
         field.inputType.length > 1 &&
-        field.inputType[1].type !== 'null' &&
-        field.name !== 'not'
+        field.inputType[1].type !== "null" &&
+        field.name !== "not"
       ) {
         inputType = field.inputType[1];
       } else {
         inputType = field.inputType[0];
       }
       fileContent += `t.field('${field.name}', { type: '${inputType.type}'${
-        inputType.isRequired ? ', nullable: false' : ''
-      }${inputType.isList ? ', list: true' : ''} })
+        inputType.isRequired ? ", nullable: false" : ""
+      }${inputType.isList ? ", list: true" : ""} })
     `;
     });
     fileContent += `},

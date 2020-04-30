@@ -1,12 +1,12 @@
 type QueriesAndMutations =
-  | 'findOne'
-  | 'findMany'
-  | 'findCount'
-  | 'createOne'
-  | 'updateOne'
-  | 'deleteOne'
-  | 'updateMany'
-  | 'deleteMany';
+  | "findOne"
+  | "findMany"
+  | "findCount"
+  | "createOne"
+  | "updateOne"
+  | "deleteOne"
+  | "updateMany"
+  | "deleteMany";
 
 export interface Options extends QueriesAndMutationsOptions {
   onlyInputType?: boolean;
@@ -20,6 +20,8 @@ export interface Options extends QueriesAndMutationsOptions {
 }
 
 export interface QueriesAndMutationsOptions {
+  onDelete?: boolean;
+  nexusSchema?: boolean;
   excludeQueriesAndMutationsByModel: {
     [modelName: string]: QueriesAndMutations[];
   };
