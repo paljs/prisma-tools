@@ -1,0 +1,26 @@
+import { schema } from 'nexus'
+
+schema.objectType({
+  name: 'Post',
+  definition(t) {
+    t.int('id', { nullable: false })
+    t.boolean('published', { nullable: false })
+    t.string('title', { nullable: false })
+    t.field('author', { nullable: true, type: 'User' })
+    t.int('authorId', { nullable: true })
+    t.field('comments', {
+      nullable: false,
+      list: [true],
+      type: 'Comment',
+      args: {
+        where: 'CommentWhereInput',
+        orderBy: 'CommentOrderByInput',
+        skip: 'Int',
+        after: 'CommentWhereUniqueInput',
+        before: 'CommentWhereUniqueInput',
+        first: 'Int',
+        last: 'Int',
+      },
+    })
+  },
+})

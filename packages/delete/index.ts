@@ -1,4 +1,7 @@
 import { dmmf, PrismaClient } from '@prisma/client';
+import { DMMF } from '@prisma/client/runtime';
+
+const datamodel: DMMF.Datamodel = dmmf.datamodel;
 
 interface DeleteData {
   name: string;
@@ -11,17 +14,17 @@ export default class DeleteCascade {
   constructor(private prisma: PrismaClient, private schema: Schema) {}
 
   private getFieldByName(modelName: string, fieldName: string) {
-    return this.getModel(modelName).fields.find(
+    return this.getModel(modelName)?.fields.find(
       (item) => item.name === fieldName
     );
   }
 
   private getModel(modelName: string) {
-    return dmmf.datamodel.models.find((item) => item.name === modelName);
+    return datamodel.models.find((item) => item.name === modelName);
   }
 
   private getFieldByType(modelName: string, fieldType: string) {
-    return this.getModel(modelName).fields.find(
+    return this.getModel(modelName)?.fields.find(
       (item) => item.type === fieldType
     );
   }
@@ -44,12 +47,16 @@ export default class DeleteCascade {
     if (modelRelations) {
       modelRelations.forEach((item) => {
         const parentField = this.getFieldByName(modelName, item);
-        const childField = this.getFieldByType(parentField.type, modelName);
-        deleteArray.push(
-          ...this.getDeleteArray(parentField.type, {
-            [childField.name]: whereInput,
-          })
-        );
+        if (parentField) {
+          const childField = this.getFieldByType(parentField.type, modelName);
+          if (childField) {
+            deleteArray.push(
+              ...this.getDeleteArray(parentField.type, {
+                [childField.name]: whereInput,
+              })
+            );
+          }
+        }
       });
     }
     return deleteArray;

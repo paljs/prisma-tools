@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/schema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -12,13 +12,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc",
     "prepublish": "yarn build"
   },
   "devDependencies": {
-    "rollup": "^2.6.0",
-    "rollup-plugin-typescript2": "^0.27.0",
-    "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   },
   "files": [

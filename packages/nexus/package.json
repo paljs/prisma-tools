@@ -16,7 +16,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/delete": "^0.0.3-test1.0",
+    "@prisma-tools/delete": "^0.0.3",
     "@prisma/cli": "2.0.0-beta.2",
     "@prisma/client": "2.0.0-beta.2",
     "graphql-fields": "^2.0.3",

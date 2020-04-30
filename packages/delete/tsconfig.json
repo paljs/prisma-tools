@@ -1,16 +1,18 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "removeComments": true,
-    "target": "es6",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true
-  },
+  "include": ["index.ts"],
   "exclude": ["node_modules"],
-  "include": ["index.ts"]
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": ["esnext"],
+    "importHelpers": true,
+    "declaration": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  }
 }

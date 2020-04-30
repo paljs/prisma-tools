@@ -1,5 +1,5 @@
-import { Schema, SchemaModel, SchemaField } from "./types";
-import { SchemaObject, Model, Field } from "@prisma-tools/schema";
+import { Schema, SchemaModel, SchemaField } from './types';
+import { SchemaObject, Model, Field } from '@prisma-tools/schema';
 
 export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
   const newSchema: Schema = {
@@ -14,9 +14,9 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
       const newItem: SchemaModel = {
         ...schemaItem,
         idField:
-          schemaItem.idField ?? item.fields.find((field) => field.isId).name,
+          schemaItem.idField ?? item.fields.find((field) => field.isId)?.name,
         displayFields: schemaItem.displayFields ?? [
-          item.fields.find((field) => field.isId).name,
+          item.fields.find((field) => field.isId)?.name,
         ],
         fields: [],
       };
@@ -44,8 +44,8 @@ function handleNewModel(model: Model) {
   const newItem: SchemaModel = {
     id: model.name,
     name: getTitle(model.name),
-    idField: model.fields.find((field) => field.isId).name,
-    displayFields: [model.fields.find((field) => field.isId).name],
+    idField: model.fields.find((field) => field.isId)!.name,
+    displayFields: [model.fields.find((field) => field.isId)!.name],
     create: true,
     update: true,
     delete: true,
@@ -57,7 +57,7 @@ function handleNewModel(model: Model) {
   return newItem;
 }
 
-const defaultField = ["id", "createdAt", "updatedAt"];
+const defaultField = ['id', 'createdAt', 'updatedAt'];
 
 function handleNewField(field: Field, modelName: string): SchemaField {
   return {
@@ -75,16 +75,16 @@ function handleNewField(field: Field, modelName: string): SchemaField {
 function getTitle(id: string) {
   const split = id.split(/(?=[A-Z])/);
   split[0] = split[0].charAt(0).toUpperCase() + split[0].slice(1);
-  return split.join(" ");
+  return split.join(' ');
 }
 
 function getOriginalField(
   field: Field,
   modelName: string
-): Omit<Field, "relation"> & { id: string } {
+): Omit<Field, 'relation'> & { id: string } {
   delete field.relation;
   return {
-    id: modelName + "." + field.name,
+    id: modelName + '.' + field.name,
     ...field,
   };
 }
