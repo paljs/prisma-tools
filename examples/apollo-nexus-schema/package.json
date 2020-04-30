@@ -19,12 +19,14 @@
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
   },
   "dependencies": {
+    "@prisma/client": "2.0.0-beta.4",
     "@nexus/schema": "^0.13.1",
-    "@prisma-tools/nexus": "^0.6.0",
+    "@prisma-tools/nexus": "^0.6.1",
     "apollo-server": "^2.12.0",
     "graphql": "^15.0.0"
   },
   "devDependencies": {
+    "@prisma/cli": "2.0.0-beta.4",
     "@types/node": "^13.11.1",
     "prettier": "^2.0.4",
     "ts-node": "^8.8.2",

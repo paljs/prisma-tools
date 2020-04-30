@@ -17,14 +17,15 @@
     "dev": "nexus dev"
   },
   "dependencies": {
-    "@prisma-tools/nexus": "^0.6.0",
+    "@prisma/client": "2.0.0-beta.4",
+    "@prisma-tools/nexus": "^0.6.1",
     "nexus": "^0.21.0-next.17",
     "nexus-plugin-prisma-select": "^0.0.0"
   },
   "devDependencies": {
+    "@prisma/cli": "2.0.0-beta.4",
     "prettier": "^2.0.4",
     "ts-node": "^8.8.2",
-    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   },
   "prettier": {
