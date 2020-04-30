@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/nexus",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -13,6 +13,7 @@
   "private": false,
   "scripts": {
     "build": "tsc",
+    "build:doc": "doctoc README.md --notitle",
     "prepublish": "yarn build"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "@prisma/cli": "2.0.0-beta.2",
     "@prisma/client": "2.0.0-beta.2",
     "graphql-fields": "^2.0.3",
+    "nexus": "^0.21.0-next.17",
     "nexus-plugin-prisma-select": "^0.0.0",
     "prettier": "^2.0.4"
   },
@@ -27,6 +29,7 @@
     "@nexus/schema": "^0.14.0-next.1",
     "@types/node": "^13.11.1",
     "@types/prettier": "^2.0.0",
+    "doctoc": "^1.4.0",
     "graphql": "^15.0.0",
     "typescript": "^3.8.3"
   },

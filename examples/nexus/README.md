@@ -1,46 +1,54 @@
-## GraphQL Apollo Server with Authentication & CURD system
+## GraphQL nexus Server CURD system
 
-This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md), [apollo-server](https://www.apollographql.com/docs/apollo-server/), [GraphQL Nexus](https://nexus.js.org/) and [nexus-schema-prisma to create CURD system](https://github.com/AhmedElywa/nexus-schema-prisma). It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](https://github.com/prisma/prisma-examples/blob/master/typescript/graphql-apollo-server/prisma/dev.db).
+This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://www.prisma.io/docs/), [GraphQL Nexus](https://www.nexusjs.org/) and [@prisma-tools/nexus](../../packages/nexus) to create CURD system. It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](./prisma/dev.db).
 
 ## How to use
 
-### 1. Download example & install dependencies
+## Download nexus starter project
 
-Clone this repository:
+This guide uses a small starter project that has Prisma configured against a SQLite database file.
 
-```pash
-git clone https://github.com/AhmedElywa/prisma-tools.git
+Open your terminal and download the starter project with the following command:
+
+### Unix (Mac OS, Linux)
+
+```shell script
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/nexus
 ```
 
-Install npm dependencies:
+### Windows
 
-```
-cd examples/apollo-nexus-schema
-```
-
-```
-yarn install
-or
-npm install
+```shell script
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/nexus && move prisma-tools-master/examples/nexus nexus && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
 ```
 
-Note that this also generates Prisma Client JS into `node_modules/@prisma/client` and create your CURD system into `src/types/` via a `postinstall` hook of the `@prisma/client` package from your `package.json`.
+## Install dependencies
 
-### 2. Start the GraphQL server
+The project has downloaded to directory called nexus
 
-Launch your GraphQL server with this command:
+### npm
+Run this three commands
 
-```
-yarn dev
-or
+```shell script
+cd nexus
+npm i
 npm run dev
+```
+
+### yarn
+Run this three commands
+
+```shell script
+cd nexus
+yarn
+yarn dev
 ```
 
 Navigate to [http://localhost:4000](http://localhost:4000/) in your browser to explore the API of your GraphQL server in a [GraphQL Playground](https://github.com/prisma/graphql-playground).
 
 ## Using the GraphQL API
 
-The schema that specifies the API operations of your GraphQL server is defined in [`src/generated/schema.graphql`](https://github.com/AhmedElywa/prisma-apollo/blob/master/src/generated/schema.graphql). Below are a number of operations that you can send to the API using the GraphQL Playground.
+The schema that specifies the API operations of your GraphQL server has defined in [`src/generated/schema.graphql`](./src/generated/schema.graphql). Below are a number of operations that you can send to the API using the GraphQL Playground.
 
 Feel free to adjust any operation by adding or removing fields. The GraphQL Playground helps you with its auto-completion and query validation features.
 
@@ -69,4 +77,4 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
 
 Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
-## Like my tool give me star
+***Like my tool give me star***
