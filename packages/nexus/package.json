@@ -23,11 +23,11 @@
     "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "nexus": "^0.21.0-next.17",
     "@prisma/client": "2.0.0-beta.4",
     "@types/node": "^13.11.1",
     "@types/prettier": "^2.0.0",
     "doctoc": "^1.4.0",
+    "nexus": "^0.21.0-next.17",
     "typescript": "^3.8.3"
   },
   "files": [
@@ -36,5 +36,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "45f7121def2f071ab0ca5e1aadaf11fe6fe551be"
+  "gitHead": "7253dd48c8ce045ead3b60960e4aa87281fe9748"
 }
