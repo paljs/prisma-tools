@@ -1,8 +1,9 @@
 {
-  "name": "prisma-nexus",
+  "name": "nexus-example",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "description": "prisma, nexus example to create CRUD system by one command",
   "scripts": {
     "build": "nexus build",
@@ -10,7 +11,6 @@
     "generate": "npm -s run generate:prisma && npm -s run generate:crud",
     "generate:prisma": "prisma generate",
     "generate:crud": "ts-node --transpile-only src/createTypes",
-    "postinstall": "npm -s run generate",
     "seed": "ts-node --transpile-only prisma/seed",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",

@@ -3,4 +3,3 @@ node_modules
 yarn.lock
 dist
 src/generated
-.env

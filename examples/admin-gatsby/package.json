@@ -1,6 +1,5 @@
 {
-  "name": "prisma-admin",
-  "version": "1.0.0",
+  "name": "prisma-admin-example",
   "description": "prisma example with gatsbyjs project to control your db",
   "main": "index.js",
   "author": "Ahmed Elywa",
@@ -10,7 +9,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "examples/admin-gatsbyjs"
   },
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "concurrently -k -p \"[{name}]\" -n \"SERVER,ADMIN\" -c \"bgBlue.bold,bgMagenta.bold\" -i \"yarn server\" \"yarn admin\"",
     "i-all": "yarn && yarn i-server && yarn i-admin",
@@ -24,12 +23,9 @@
     "generate:server": "cd server && yarn generate"
   },
   "devDependencies": {
-    "@prisma-tools/admin": "^0.0.13",
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
-    "pretty-quick": "^2.0.1",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "pretty-quick": "^2.0.1"
   },
   "prettier": {
     "singleQuote": true,

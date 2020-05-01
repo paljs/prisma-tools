@@ -1,8 +1,9 @@
 {
-  "name": "prisma-apollo",
+  "name": "admin-server-example",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
+  "private": true,
   "description": "prisma, nexus and apollo server  example to create CUED system by one command",
   "scripts": {
     "start": "node dist/server",

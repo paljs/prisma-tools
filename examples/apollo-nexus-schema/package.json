@@ -1,8 +1,9 @@
 {
-  "name": "prisma-apollo",
+  "name": "apollo-nexus-example",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "description": "prisma, nexus and apollo server  example to create CUED system by one command",
   "scripts": {
     "start": "node dist/server",
@@ -12,7 +13,6 @@
     "generate:prisma": "prisma generate",
     "generate:crud": "ts-node --transpile-only src/createTypes",
     "generate:nexus": "ts-node --transpile-only src/schema",
-    "postinstall": "npm -s run generate",
     "seed": "ts-node --transpile-only prisma/seed",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",

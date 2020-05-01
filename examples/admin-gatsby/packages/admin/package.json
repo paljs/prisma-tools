@@ -1,8 +1,9 @@
 {
-  "name": "prisma-admin",
+  "name": "admin-gatsby-example",
   "description": "Admin dashboard template based on Gatsby with oah-ui component package",
   "version": "0.1.0",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.43",
     "@prisma-tools/admin": "^0.0.13",
