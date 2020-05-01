@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client'
 import DeleteCascade from '@prisma-tools/delete'
 import schemaObject from './onDeleteSchema'
 import { schema, use } from 'nexus'
-import { plugin } from 'nexus-plugin-prisma-select'
+import { prismaSelect } from 'nexus-plugin-prisma-select'
 
-use(plugin())
+use(prismaSelect())
 
 const prisma = new PrismaClient()
 schema.addToContext(() => {

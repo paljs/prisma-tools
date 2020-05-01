@@ -22,7 +22,7 @@ schema.objectType({
     })
     t.field('group', { nullable: true, type: 'Group' })
     t.int('groupId', { nullable: true })
-    t.field('comment', {
+    t.field('Comment', {
       nullable: false,
       list: [true],
       type: 'Comment',

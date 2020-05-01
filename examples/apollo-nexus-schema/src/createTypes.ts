@@ -4,6 +4,7 @@ import { createTypes } from '@prisma-tools/nexus'
 
 createTypes({
   nexusSchema: true,
+  onDelete: true,
   fieldsExclude: ['createdAt', 'updatedAt'],
   excludeFieldsByModel: {
     User: ['password'],
