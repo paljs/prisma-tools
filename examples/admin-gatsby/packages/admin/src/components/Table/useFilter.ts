@@ -6,6 +6,19 @@ export const useFilter = (init: any, setFilter: (value: any) => void, number?: b
     typingTimeout: 0,
   });
 
+  const onChangeHandler = (newValue: any) => {
+    let search: any = false;
+    Object.keys(newValue).forEach((key) => {
+      if (newValue[key]) {
+        if (!search) {
+          search = {};
+        }
+        search[key] = newValue[key];
+      }
+    });
+    setFilter(search ?? undefined);
+  };
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>, name: string) => {
     const search = event.target.value;
     if (state.typingTimeout) clearTimeout(state.typingTimeout);
@@ -19,19 +32,6 @@ export const useFilter = (init: any, setFilter: (value: any) => void, number?: b
         onChangeHandler(newValue);
       }, 1000),
     });
-  };
-
-  const onChangeHandler = (newValue: any) => {
-    let search: any = false;
-    Object.keys(newValue).forEach((key) => {
-      if (newValue[key]) {
-        if (!search) {
-          search = {};
-        }
-        search[key] = newValue[key];
-      }
-    });
-    setFilter(search ?? undefined);
   };
 
   return {

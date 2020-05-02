@@ -15,7 +15,6 @@ interface FormProps {
 }
 
 const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, data: any, models: ModelFragment[]) => {
-  if (action === 'create') return {};
   const defaultValues: any = {};
   model.fields
     .filter((field) => field.update && !field.list && !field.relationField)
@@ -47,11 +46,8 @@ const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel })
   };
 
   return (
-    <Card
-      status={action === 'update' ? 'Warning' : 'Success'}
-      style={{ maxWidth: '1200px', maxHeight: '100vh', minWidth: '50vw' }}
-    >
-      <header>{action + ' ' + model.name}</header>
+    <Card status="Success" style={{ maxWidth: '1200px', maxHeight: '100vh', minWidth: '50vw', marginBottom: 0 }}>
+      {action === 'create' && <header>{action + ' ' + model.name}</header>}
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
         <CardBody>
           <Row between="lg">

@@ -1,45 +1,57 @@
-import React, { useState } from 'react';
-import { OrderByArg, ModelFragment } from '../../generated';
-import { useModel } from '../useSchema';
+import React, { useContext, useState } from 'react';
+import { OrderByArg } from '../../generated';
+import { LayoutContext } from '../../Layouts';
 
-const filterMemo = (filter?: any, model?: ModelFragment | null) =>
-  React.useMemo(() => {
-    let initialValue: any[] = [];
+const filterMemo = (modelName: string, filter?: any) => {
+  const {
+    schema: { models },
+  } = useContext(LayoutContext);
+  return React.useMemo(() => {
+    const initialValue: any[] = [];
     if (filter) {
+      const model = models.find((item) => item.id === modelName);
       Object.keys(filter).forEach((key) => {
         if (model && filter[key]) {
           const field = model.fields.find((item) => item.type === key);
-          initialValue.push({
-            id: field ? field.name + '.id' : 'id',
-            value: {
-              equals: parseInt(filter[key]),
-            },
-          });
+          const fieldModel = models.find((item) => item.id === field?.type);
+          if (fieldModel) {
+            initialValue.push({
+              id: field ? field.name : key,
+              value: {
+                [fieldModel.idField]: {
+                  equals: parseInt(filter[key]),
+                },
+              },
+            });
+          }
+          if (key === 'id') {
+            initialValue.push({
+              id: key,
+              value: {
+                equals: parseInt(filter[key]),
+              },
+            });
+          }
         }
       });
     }
     return initialValue;
-  }, [filter, model]);
+  }, [filter, models]);
+};
 
 const handleFilter = (filters: { id: string; value: any }[]) => {
   if (filters.length) {
-    let newWhere: { [key: string]: { [key: string]: object } } = {};
+    const newWhere: { [key: string]: { [key: string]: object } } = {};
     filters.forEach((item) => {
-      const idArray = item.id.split('.');
-      if (idArray.length > 1) {
-        newWhere[idArray[0]] = {};
-        newWhere[idArray[0]][idArray[1]] = item.value;
-      } else {
-        newWhere[idArray[0]] = item.value;
-      }
+      newWhere[item.id] = item.value;
     });
     return newWhere;
   }
-  return null;
+  return {};
 };
 
 export const useFilterAndSort = (model: string, filter?: any) => {
-  const initialFilter = filterMemo(filter, useModel(model));
+  const initialFilter = filterMemo(model, filter);
   const [where, setWhere] = useState<any>();
   const [orderBy, setOrderBy] = useState<any>(null);
 
@@ -53,7 +65,7 @@ export const useFilterAndSort = (model: string, filter?: any) => {
 
   const sortByHandler = (sortBy: { id: string; desc: boolean }[]) => {
     if (sortBy.length > 0) {
-      let newOrderBy: { [key: string]: OrderByArg } = {};
+      const newOrderBy: { [key: string]: OrderByArg } = {};
       sortBy.forEach((item) => {
         newOrderBy[item.id.split('.')[0]] = item.desc ? OrderByArg.Desc : OrderByArg.Asc;
       });

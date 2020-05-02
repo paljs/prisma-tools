@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Column } from 'react-table';
+import { navigate } from '@reach/router';
 import { BooleanFilter, DateTimeFilter, EnumFilter, NumberFilter, ObjectFilter, StringFilter } from './Filters';
 import moment from 'moment';
 import { Button, Modal } from 'oah-ui';
@@ -47,34 +48,24 @@ const columnsObject: { [key: string]: (field: FieldFragment, model?: ModelFragme
     disableFilters: !field.filter,
     disableSortBy: !field.sort,
     Cell: ({ value }) => {
-      const [modal, setModal] = useState(false);
       const model = useModel(field.type);
       if (!model || !value) return <></>;
       return (
-        <>
-          <Modal on={modal} toggle={() => setModal(false)}>
-            <DynamicTable
-              model={field.type}
-              filter={{ [model.idField]: value[model.idField] }}
-              toggle={() => setModal(false)}
-            />
-          </Modal>
-          <Button
-            onClick={() => setModal(true)}
-            appearance="ghost"
-            size="Small"
-            fullWidth
-            style={{
-              textOverflow: 'ellipsis',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              padding: 0,
-              textTransform: 'none',
-            }}
-          >
-            {getDisplayName(value, model)}
-          </Button>
-        </>
+        <Button
+          onClick={() => navigate(`/models/${field.type}?${model.idField}=${value[model.idField]}`)}
+          appearance="ghost"
+          size="Small"
+          fullWidth
+          style={{
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            padding: 0,
+            textTransform: 'none',
+          }}
+        >
+          {getDisplayName(value, model)}
+        </Button>
       );
     },
   }),
@@ -100,17 +91,11 @@ const columnsObject: { [key: string]: (field: FieldFragment, model?: ModelFragme
         original: { id },
       },
     }) => {
-      const [modal, setModal] = useState(false);
       if (!model) return <></>;
       return (
-        <>
-          <Modal on={modal} toggle={() => setModal(false)}>
-            <DynamicTable model={field.type} filter={{ [model.id]: id }} toggle={() => setModal(false)} />
-          </Modal>
-          <Button onClick={() => setModal(true)} appearance="ghost" size="Small">
-            Show
-          </Button>
-        </>
+        <Button onClick={() => navigate(`/models/${field.type}?${model.id}=${id}`)} appearance="ghost" size="Small">
+          Show
+        </Button>
       );
     },
   }),

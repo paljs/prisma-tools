@@ -17,8 +17,10 @@ import {
 import { columns } from './Columns';
 import { initPages } from './utils';
 import { useModel } from '../useSchema';
+import { navigate } from '@reach/router';
 
 interface TableProps {
+  inEdit?: boolean;
   model: string;
   data: any[];
   fetchMore: (pageSize: number, pageIndex: number) => void;
@@ -27,8 +29,7 @@ interface TableProps {
   initialFilter: { id: string; value: any }[];
   sortByHandler: (sortBy: { id: string; desc: boolean }[]) => void;
   filterHandler: (filters: { id: string; value: any }[]) => void;
-  onAction: (action: 'create' | 'update' | 'delete', id?: number) => void;
-  toggle?: () => void;
+  onAction: (action: 'create' | 'delete', id?: number) => void;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -41,7 +42,7 @@ export const Table: React.FC<TableProps> = ({
   sortByHandler,
   filterHandler,
   onAction,
-  toggle,
+  inEdit,
 }) => {
   const model = useModel(modelName);
   const {
@@ -82,6 +83,7 @@ export const Table: React.FC<TableProps> = ({
   }, [sortBy]);
 
   React.useEffect(() => {
+    console.log(filters);
     filterHandler(filters);
   }, [filters]);
 
@@ -93,15 +95,12 @@ export const Table: React.FC<TableProps> = ({
   const hasActions = actions.create || actions.update || actions.delete;
   // Render the UI for your table
   return (
-    <Card style={{ maxHeight: '100vh' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>{model?.name}</span>
-        {toggle && (
-          <Button onClick={toggle} status="Danger" appearance="hero">
-            <EvaIcon name="close-circle-outline" />
-          </Button>
-        )}
-      </header>
+    <Card style={{ maxHeight: '100vh', marginBottom: 0 }}>
+      {!inEdit && (
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {model?.name}
+        </header>
+      )}
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
         <StyledTable {...getTableProps()}>
@@ -153,7 +152,7 @@ export const Table: React.FC<TableProps> = ({
                         <Button
                           style={{ padding: 0 }}
                           appearance="ghost"
-                          onClick={() => onAction('update', row.original.id)}
+                          onClick={() => navigate(`/models/${modelName}?update=${row.original.id}`)}
                         >
                           <EvaIcon name="edit-outline" />
                         </Button>
