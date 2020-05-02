@@ -1,9 +1,9 @@
-import { generateAdmin, Schema } from '@prisma-tools/admin'
-import defaultSchema from './server/src/types/schema/schema.json'
+import { generateAdmin, Schema } from '@prisma-tools/admin';
+import defaultSchema from '../../server/src/graphql/schema/schema.json';
 
-generateAdmin('./server/prisma/schema.prisma', defaultSchema as Schema, {
+generateAdmin('./packages/server/prisma/schema.prisma', defaultSchema as Schema, {
   excludeFieldsByModel: {
     User: ['password'],
   },
   excludeQueriesAndMutations: ['updateMany', 'deleteMany'],
-})
+});

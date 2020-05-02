@@ -1,7 +1,15 @@
-import { extendType, stringArg } from '@nexus/schema'
+import { extendType, objectType, stringArg } from '@nexus/schema'
 import { compare, hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
-import { code } from '../context'
+import { APP_SECRET } from '../utils'
+
+export const AuthPayload = objectType({
+  name: 'AuthPayload',
+  definition(t) {
+    t.string('token')
+    t.field('user', { type: 'User' })
+  },
+})
 
 export const AuthQueries = extendType({
   type: 'Query',
@@ -9,10 +17,11 @@ export const AuthQueries = extendType({
     t.field('me', {
       type: 'User',
       nullable: true,
-      resolve: async (_, __, { prisma, select, user }) => {
+      resolve: async (_, __, { prisma, select, userId }) => {
+        if (!userId) return null
         return prisma.user.findOne({
           where: {
-            id: user.id,
+            id: userId,
           },
           ...select,
         })
@@ -24,47 +33,52 @@ export const AuthQueries = extendType({
 export const AuthMutations = extendType({
   type: 'Mutation',
   definition(t) {
+    t.field('signup', {
+      type: 'AuthPayload',
+      args: {
+        name: stringArg(),
+        email: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false }),
+      },
+      resolve: async (_parent, { name, email, password }, ctx) => {
+        const hashedPassword = await hash(password, 10)
+        const user = await ctx.prisma.user.create({
+          data: {
+            name,
+            email,
+            password: hashedPassword,
+          },
+        })
+        return {
+          token: sign({ userId: user.id }, APP_SECRET),
+          user,
+        }
+      },
+    })
     t.field('login', {
-      type: 'Boolean',
+      type: 'AuthPayload',
       nullable: true,
       args: {
         email: stringArg({ nullable: false }),
         password: stringArg({ nullable: false }),
       },
-      resolve: async (_, { email, password }, ctx) => {
+      resolve: async (_parent, { email, password }, ctx) => {
         const user = await ctx.prisma.user.findOne({
           where: {
             email,
           },
-          select: {
-            id: true,
-            password: true,
-          },
         })
-
         if (!user) {
-          throw new Error('Incorrect Username/Password')
+          throw new Error(`No user found for email: ${email}`)
         }
-        const valid = await compare(password, user.password)
-        if (!valid) {
-          throw new Error('Incorrect Username/Password')
+        const passwordValid = await compare(password, user.password)
+        if (!passwordValid) {
+          throw new Error('Invalid password')
         }
-
-        const token = sign({ id: user.id, email }, code, {
-          expiresIn: '1y',
-        })
-        ctx.res.cookie('token', token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365,
-        })
-        return true
-      },
-    })
-    t.field('logout', {
-      type: 'Boolean',
-      resolve: async (_, __, ctx) => {
-        ctx.res.clearCookie('token')
-        return true
+        return {
+          token: sign({ userId: user.id }, APP_SECRET),
+          user,
+        }
       },
     })
     t.field('updatePassword', {
@@ -90,7 +104,7 @@ export const AuthMutations = extendType({
 
           await ctx.prisma.user.update({
             data: { password: hashPassword },
-            where: { id: ctx.user.id },
+            where: { id: ctx.userId },
           })
           return true
         }

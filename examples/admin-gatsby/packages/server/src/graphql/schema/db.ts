@@ -10,8 +10,8 @@ interface Db {
   enums: NexusGenRootTypes['Enum'][]
 }
 
-const path1 = 'src/types/schema/schema.json'
-const path2 = 'types/schema/schema.json'
+const path1 = 'src/graphql/schema/schema.json'
+const path2 = 'graphql/schema/schema.json'
 const adapter = new FileSync<Db>(fs.existsSync(path1) ? path1 : path2)
 const db = low(adapter)
 

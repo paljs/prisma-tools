@@ -2,7 +2,6 @@ const express = require('express')
 import { ApolloServer } from 'apollo-server-express'
 import { schema } from './schema'
 import { createContext } from './context'
-import cookieParser from 'cookie-parser'
 
 const server = new ApolloServer({
   schema,
@@ -10,7 +9,6 @@ const server = new ApolloServer({
 })
 
 const app = express()
-app.use(cookieParser())
 
 server.applyMiddleware({
   app,

@@ -7,14 +7,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-styled-components',
     'gatsby-plugin-typescript',
-    {
-      resolve: 'gatsby-plugin-apollo',
-      options: {
-        uri: 'http://localhost:4000',
-        credentials: 'include',
-        connectToDevTools: true,
-      },
-    },
+    'gatsby-theme-apollo',
     {
       resolve: `gatsby-plugin-layout`,
       options: {

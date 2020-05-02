@@ -191,7 +191,7 @@ select {
 }
 
 /**
- * Correct the inability to style clickable types in iOS and Safari.
+ * Correct the inability to style clickable graphql in iOS and Safari.
  */
 
 button,
@@ -303,7 +303,7 @@ textarea {
 }
 
 /**
- * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 1. Correct the inability to style clickable graphql in iOS and Safari.
  * 2. Change font properties to `inherit` in Safari.
  */
 

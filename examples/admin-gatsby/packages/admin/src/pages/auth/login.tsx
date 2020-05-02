@@ -1,30 +1,70 @@
 import { InputGroup, Checkbox, Button } from 'oah-ui';
-import React from 'react';
-import { Link } from 'gatsby';
+import React, { useContext, useState } from 'react';
+import { Link, navigate } from 'gatsby';
 
 import Auth, { Group } from '../../components/Auth';
 import Socials from '../../components/Auth/Socials';
 import SEO from '../../components/SEO';
+import { useLoginMutation } from '../../generated';
+import { LayoutContext } from '../../Layouts';
 
 export default function Login() {
-  const onCheckbox = () => {
-    // v will be true or false
+  const [login] = useLoginMutation();
+  const { refetch } = useContext(LayoutContext);
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    checkbox: false,
+  });
+
+  const onChange = (value: any, name: string) => {
+    setState({ ...state, [name]: value });
   };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    login({
+      variables: {
+        email: state.email,
+        password: state.password,
+      },
+    }).then(({ data, errors }) => {
+      if (!errors && data?.login && refetch) {
+        localStorage.setItem('token', data.login.token);
+        refetch().then(() => navigate('dashboard'));
+      }
+    });
+  };
+
   return (
     <Auth title="Login" subTitle="Hello! Login with your email">
       <SEO title="Login" keywords={['OAH', 'application', 'react']} />
-      <form>
+      <form onSubmit={onSubmit}>
         <InputGroup fullWidth>
-          <input type="email" placeholder="Email Address" />
+          <input
+            type="email"
+            placeholder="Email Address"
+            required
+            value={state.email}
+            onChange={(event) => onChange(event.target.value, 'email')}
+          />
         </InputGroup>
         <InputGroup fullWidth>
-          <input type="password" placeholder="Password" />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={state.password}
+            onChange={(event) => onChange(event.target.value, 'password')}
+          />
         </InputGroup>
         <Group>
-          <Checkbox onChange={onCheckbox}>Remember me</Checkbox>
+          <Checkbox checked={state.checkbox} onChange={(value) => onChange(value, 'checkbox')}>
+            Remember me
+          </Checkbox>
           <Link to="/auth/request-password">Forgot Password?</Link>
         </Group>
-        <Button status="Success" type="button" shape="SemiRound" fullWidth>
+        <Button disabled={!state.email || !state.password} status="Success" shape="SemiRound" fullWidth>
           Login
         </Button>
       </form>

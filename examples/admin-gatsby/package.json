@@ -1,5 +1,6 @@
 {
-  "name": "prisma-admin-example",
+  "name": "root",
+  "version": "0.0.0",
   "description": "prisma example with gatsbyjs project to control your db",
   "main": "index.js",
   "author": "Ahmed Elywa",
@@ -10,19 +11,15 @@
     "directory": "examples/admin-gatsbyjs"
   },
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "concurrently -k -p \"[{name}]\" -n \"SERVER,ADMIN\" -c \"bgBlue.bold,bgMagenta.bold\" -i \"yarn server\" \"yarn admin\"",
-    "i-all": "yarn && yarn i-server && yarn i-admin",
-    "i-admin": "cd server && yarn",
-    "i-server": "cd admin && yarn",
-    "server": "cd server && yarn dev",
-    "admin": "cd admin && yarn dev",
-    "generate": "yarn generate:server && yarn generate:pages && yarn generate:graphql",
-    "generate:pages": "ts-node --transpile-only generatePages",
-    "generate:graphql": "cd admin && yarn codegen",
-    "generate:server": "cd server && yarn generate"
+    "generate": "lerna run generate --stream",
+    "dev": "lerna run dev --stream"
   },
   "devDependencies": {
+    "lerna": "3.20.2",
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1"
@@ -36,8 +33,5 @@
     "hooks": {
       "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
     }
-  },
-  "dependencies": {
-    "concurrently": "^5.2.0"
   }
 }

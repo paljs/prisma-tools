@@ -13,6 +13,12 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  token: Scalars['String'];
+  user: User;
+};
+
 export type BatchPayload = {
   __typename?: 'BatchPayload';
   count: Scalars['Int'];
@@ -230,7 +236,7 @@ export type Field = {
   name: Scalars['String'];
   order: Scalars['Int'];
   read: Scalars['Boolean'];
-  relationField: Scalars['Boolean'];
+  relationField?: Maybe<Scalars['Boolean']>;
   required: Scalars['Boolean'];
   sort: Scalars['Boolean'];
   title: Scalars['String'];
@@ -373,8 +379,8 @@ export type Mutation = {
   deleteOneGroup?: Maybe<Group>;
   deleteOnePost?: Maybe<Post>;
   deleteOneUser?: Maybe<User>;
-  login?: Maybe<Scalars['Boolean']>;
-  logout: Scalars['Boolean'];
+  login?: Maybe<AuthPayload>;
+  signup: AuthPayload;
   updateField: Field;
   updateModel: Model;
   updateOneComment: Comment;
@@ -418,6 +424,12 @@ export type MutationDeleteOneUserArgs = {
 
 export type MutationLoginArgs = {
   email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type MutationSignupArgs = {
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
 };
 
@@ -839,7 +851,7 @@ export type UpdateModelInput = {
 
 export type User = {
   __typename?: 'User';
-  comment: Array<Comment>;
+  Comment: Array<Comment>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   group?: Maybe<Group>;
@@ -870,7 +882,7 @@ export type UserPostsArgs = {
 };
 
 export type UserCreateInput = {
-  comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
@@ -904,7 +916,7 @@ export type UserCreateWithoutCommentInput = {
 };
 
 export type UserCreateWithoutGroupInput = {
-  comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -913,7 +925,7 @@ export type UserCreateWithoutGroupInput = {
 };
 
 export type UserCreateWithoutPostsInput = {
-  comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
@@ -938,7 +950,7 @@ export type UserOrderByInput = {
 
 export type UserScalarWhereInput = {
   AND?: Maybe<Array<UserScalarWhereInput>>;
-  comment?: Maybe<CommentFilter>;
+  Comment?: Maybe<CommentFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
   groupId?: Maybe<NullableIntFilter>;
@@ -951,7 +963,7 @@ export type UserScalarWhereInput = {
 };
 
 export type UserUpdateInput = {
-  comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   group?: Maybe<GroupUpdateOneWithoutUsersInput>;
@@ -1023,7 +1035,7 @@ export type UserUpdateWithoutCommentDataInput = {
 };
 
 export type UserUpdateWithoutGroupDataInput = {
-  comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
@@ -1033,7 +1045,7 @@ export type UserUpdateWithoutGroupDataInput = {
 };
 
 export type UserUpdateWithoutPostsDataInput = {
-  comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   group?: Maybe<GroupUpdateOneWithoutUsersInput>;
@@ -1065,7 +1077,7 @@ export type UserUpsertWithWhereUniqueWithoutGroupInput = {
 
 export type UserWhereInput = {
   AND?: Maybe<Array<UserWhereInput>>;
-  comment?: Maybe<CommentFilter>;
+  Comment?: Maybe<CommentFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
   group?: Maybe<GroupWhereInput>;
@@ -1081,6 +1093,35 @@ export type UserWhereInput = {
 export type UserWhereUniqueInput = {
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+};
+
+export type MeQueryVariables = {};
+
+export type MeQuery = { __typename?: 'Query' } & {
+  me?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>>;
+};
+
+export type LoginMutationVariables = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login?: Maybe<
+    { __typename?: 'AuthPayload' } & Pick<AuthPayload, 'token'> & { user: { __typename?: 'User' } & UserFieldsFragment }
+  >;
+};
+
+export type SignupMutationVariables = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  signup: { __typename?: 'AuthPayload' } & Pick<AuthPayload, 'token'> & {
+      user: { __typename?: 'User' } & UserFieldsFragment;
+    };
 };
 
 export type CommentFieldsFragment = { __typename?: 'Comment' } & Pick<
@@ -1524,6 +1565,117 @@ export const UserFragmentDoc = gql`
   ${UserFieldsFragmentDoc}
   ${GroupFieldsFragmentDoc}
 `;
+export const MeDocument = gql`
+  query me {
+    me {
+      id
+      name
+      email
+    }
+  }
+`;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>) {
+  return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+}
+export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+  return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const LoginDocument = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        ...UserFields
+      }
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
+export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const SignupDocument = gql`
+  mutation signup($email: String!, $password: String!, $name: String) {
+    signup(email: $email, password: $password, name: $name) {
+      token
+      user {
+        ...UserFields
+      }
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useSignupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<SignupMutation, SignupMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, baseOptions);
+}
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = ApolloReactCommon.MutationResult<SignupMutation>;
+export type SignupMutationOptions = ApolloReactCommon.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const FindOneCommentDocument = gql`
   query findOneComment($where: CommentWhereUniqueInput!) {
     findOneComment(where: $where) {

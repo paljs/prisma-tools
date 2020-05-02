@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import styled, { DefaultTheme } from 'styled-components';
 import { Actions, Select, LayoutHeader, User, ContextMenu, breakpointDown, EvaIcon } from 'oah-ui';
 import { Location } from '@reach/router';
-import { getPathReady } from './index';
+import { getPathReady, LayoutContext } from './index';
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -41,6 +41,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
+  const { me } = useContext(LayoutContext);
   const themeOptions = [
     {
       value: 'default',
@@ -125,12 +126,12 @@ const Header: React.FC<HeaderProps> = (props) => {
                       placement="bottom"
                       currentPath={getPathReady(location.pathname)}
                       items={[
-                        { title: 'Profile', link: { to: '/modal-overlays/tooltip' } },
+                        { title: 'Profile', link: { to: '/dashboard' } },
                         { title: 'Log out', link: { to: '/logout' } },
                       ]}
                       Link={Link}
                     >
-                      <User image="url('/icons/icon-72x72.png')" name="Prisma Admin" title="Manger" size="Medium" />
+                      <User image="url('/icons/icon-72x72.png')" name={me?.name} title="Manager" size="Medium" />
                     </ContextMenu>
                   )}
                 </Location>

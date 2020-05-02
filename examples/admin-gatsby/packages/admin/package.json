@@ -1,17 +1,20 @@
 {
-  "name": "admin-gatsby-example",
+  "name": "admin",
   "description": "Admin dashboard template based on Gatsby with oah-ui component package",
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
+  "resolutions": {
+    "moment": "2.24.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.43",
     "@prisma-tools/admin": "^0.0.13",
     "@tinymce/tinymce-react": "^3.4.0",
+    "@types/moment": "^2.13.0",
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.20.10",
     "gatsby-image": "^2.2.40",
-    "gatsby-plugin-apollo": "^3.0.1",
     "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-manifest": "^2.2.41",
     "gatsby-plugin-react-helmet": "^3.0.6",
@@ -19,10 +22,12 @@
     "gatsby-plugin-styled-components": "^3.1.19",
     "gatsby-plugin-typescript": "^2.1.27",
     "gatsby-source-filesystem": "^2.1.48",
+    "gatsby-theme-apollo": "^3.0.2",
     "gatsby-transformer-sharp": "^2.3.14",
+    "isomorphic-fetch": "^2.2.1",
     "lowdb": "^1.0.0",
     "match-sorter": "^4.1.0",
-    "moment": "^2.24.0",
+    "moment": "2.24.0",
     "namor": "^2.0.2",
     "oah-eva-icon": "^1.0.1",
     "oah-ui": "^2.1.4",
@@ -40,6 +45,8 @@
     "dev": "gatsby develop",
     "serve": "gatsby serve",
     "deploy": "gatsby build && gh-pages -d public",
+    "generate": "yarn generate:pages && yarn codegen",
+    "generate:pages": "ts-node --transpile-only scripts/generatePages",
     "codegen": "graphql-codegen --config codegen.yml",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "lint": "eslint src --max-warnings=0 --ext=.tsx,.jsx"
@@ -66,9 +73,10 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "prettier": "^2.0.2",
     "gh-pages": "^2.2.0",
+    "prettier": "^2.0.2",
     "react-live": "^2.2.2",
+    "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   }
 }
