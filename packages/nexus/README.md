@@ -716,7 +716,7 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 
 ```ts
 import { makeSchema } from '@nexus/schema';
-import * as types from './types';
+import * as types from './graphql';
 import { prismaSelectObject } from '@prisma-tools/nexus';
 
 export const schema = makeSchema({

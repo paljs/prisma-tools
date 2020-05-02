@@ -6,20 +6,28 @@ Admin pages for prisma project db with [`@prisma-tools/admin`](https://github.co
 
 [http://prisma-admin.ahmedelywa.com/](http://prisma-admin.ahmedelywa.com/)
 
+For online version you need to signup new account then login
+
 ## How to use
 
 ### 1. Download example & install dependencies
 
-Clone this repository:
+### Unix (Mac OS, Linux)
 
 ```shell script
-git clone https://github.com/AhmedElywa/prisma-admin.git
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/admin-gatsby
+```
+
+### Windows
+
+```shell script
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/admin-gatsby && move prisma-tools-master/examples/admin-gatsby admin-gatsby && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
 ```
 
 Install npm dependencies:
 
 ```shell script
-yarn i-all
+yarn
 ```
 
 Start service

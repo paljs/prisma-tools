@@ -1,5 +1,5 @@
 import { Row, Col, Modal, Tabs, Tab, Card } from 'oah-ui';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Table } from './Table';
 import * as generate from '../generated';
 import { useFilterAndSort } from './Table/useFilterAndSort';
@@ -7,8 +7,8 @@ import Form from './Form';
 import { DocumentNode, useMutation, useQuery } from '@apollo/client';
 import { navigate } from '@reach/router';
 import { useUrlQuery } from './useUrlQuery';
-import { useModel } from './useSchema';
 import styled from 'styled-components';
+import { LayoutContext } from '../Layouts';
 
 type keys = keyof typeof generate;
 
@@ -23,7 +23,10 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
   const [update, setUpdate] = useState();
   const [create, setCreate] = useState(false);
   const query = useUrlQuery();
-  const modelObject = useModel(model);
+  const {
+    schema: { models },
+  } = useContext(LayoutContext);
+  const modelObject = models.find((item) => item.id === model);
 
   const { where, orderBy, filterHandler, sortByHandler, initialFilter } = useFilterAndSort(
     model,
@@ -99,7 +102,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
               .filter((field) => field.kind === 'object' && field.list)
               .map((field) => {
                 return (
-                  <Tab title={field.name} key={field.id}>
+                  <Tab title={models.find((item) => item.id === field.type)?.name} key={field.id}>
                     <DynamicTable
                       model={field.type}
                       inEdit

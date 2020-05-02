@@ -4,13 +4,13 @@ It's a small tool to generate pages and .graphql files for every model in your p
 
 ## Project
 
-you can't use this tool outside our example [admin-admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby)
+you can't use this tool outside our project [prisma-admin](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/admin-gatsby)
 
 ## Api
 
 ```typescript
 import { generateAdmin, Schema } from '@prisma-tools/admin';
-import defaultSchema from './server/src/types/schema/schema.json';
+import defaultSchema from './server/src/graphql/schema/schema.json';
 
 // accept three args
 // first one path to your schema.prisma file
@@ -26,7 +26,7 @@ generateAdmin('./server/prisma/schema.prisma', defaultSchema as Schema, {
 });
 
 interface Options {
-  // schema.json file output path default './server/src/types/schema/schema.json'
+  // schema.json file output path default './server/src/graphql/schema/schema.json'
   schemaOutput: string;
   // .graphql files output for queries and mutations default './admin/src/graphql'
   graphqlOutput: string;

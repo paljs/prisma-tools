@@ -7,7 +7,7 @@ import { buildPages } from "./buildPages";
 import { mergeSchema } from "./mergeSchema";
 
 const defaultOptions: Options = {
-  schemaOutput: "./server/src/types/schema/schema.json",
+  schemaOutput: "./server/src/graphql/schema/schema.json",
   graphqlOutput: "./admin/src/graphql",
   pagesOutput: "./admin/src/pages/models",
   fieldsExclude: [],

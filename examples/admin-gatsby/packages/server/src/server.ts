@@ -1,5 +1,4 @@
-const express = require('express')
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server'
 import { schema } from './schema'
 import { createContext } from './context'
 
@@ -8,14 +7,6 @@ const server = new ApolloServer({
   context: createContext,
 })
 
-const app = express()
-
-server.applyMiddleware({
-  app,
-  path: '/',
-  cors: { credentials: true, origin: true },
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`)
 })
-
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
-)

@@ -83,7 +83,6 @@ export const Table: React.FC<TableProps> = ({
   }, [sortBy]);
 
   React.useEffect(() => {
-    console.log(filters);
     filterHandler(filters);
   }, [filters]);
 

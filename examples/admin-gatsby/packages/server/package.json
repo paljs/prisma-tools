@@ -22,7 +22,7 @@
     "@nexus/schema": "^0.13.1",
     "@prisma-tools/nexus": "^0.6.1",
     "@prisma/client": "2.0.0-beta.4",
-    "apollo-server-express": "^2.12.0",
+    "apollo-server": "^2.12.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "lowdb": "^1.0.0"
