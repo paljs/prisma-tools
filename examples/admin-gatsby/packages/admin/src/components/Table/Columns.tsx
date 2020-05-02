@@ -46,7 +46,7 @@ const columnsObject: { [key: string]: (field: FieldFragment, model?: ModelFragme
     accessor: field.name,
     Filter: ObjectFilter(field),
     disableFilters: !field.filter,
-    disableSortBy: !field.sort,
+    disableSortBy: true,
     Cell: ({ value }) => {
       const model = useModel(field.type);
       if (!model || !value) return <></>;

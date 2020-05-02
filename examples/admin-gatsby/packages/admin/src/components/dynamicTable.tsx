@@ -83,7 +83,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
   };
   const parentName = modelObject?.fields.find((item) => item.type === parent?.name)?.name;
   return (
-    <Row>
+    <>
       <Modal on={create} toggle={() => setCreate(false)}>
         <Form
           model={model}
@@ -115,21 +115,19 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
           </StyledTabs>
         </Card>
       </Modal>
-      <Col breakPoint={{ xs: 12 }}>
-        <Table
-          inEdit={inEdit}
-          onAction={onAction}
-          model={model}
-          data={data ? data[`findMany${model}`] : []}
-          fetchMore={fetchMoreHandler}
-          loading={loading || loadingCount}
-          filterHandler={filterHandler}
-          sortByHandler={sortByHandler}
-          initialFilter={initialFilter}
-          pageCount={dataCount ? Math.ceil(dataCount[`findMany${model}Count`] / pageSize) : 0}
-        />
-      </Col>
-    </Row>
+      <Table
+        inEdit={inEdit}
+        onAction={onAction}
+        model={model}
+        data={data ? data[`findMany${model}`] : []}
+        fetchMore={fetchMoreHandler}
+        loading={loading || loadingCount}
+        filterHandler={filterHandler}
+        sortByHandler={sortByHandler}
+        initialFilter={initialFilter}
+        pageCount={dataCount ? Math.ceil(dataCount[`findMany${model}Count`] / pageSize) : 0}
+      />
+    </>
   );
 };
 

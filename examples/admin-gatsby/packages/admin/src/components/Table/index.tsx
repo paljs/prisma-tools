@@ -286,6 +286,7 @@ export const Table: React.FC<TableProps> = ({
 
 const StyledTable = styled.table`
   border-spacing: 0;
+  width: 100%;
   tbody tr:nth-child(2n) {
     background-color: ${(props) => props.theme.backgroundBasicColor2};
   }
