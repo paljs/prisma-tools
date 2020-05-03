@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
 import {
@@ -45,6 +45,7 @@ export const Table: React.FC<TableProps> = ({
   inEdit,
 }) => {
   const model = useModel(modelName);
+  const columnList = columns(model);
   const {
     getTableProps,
     getTableBodyProps,
@@ -61,7 +62,7 @@ export const Table: React.FC<TableProps> = ({
     state: { pageIndex, pageSize, filters, sortBy },
   } = useTable(
     {
-      columns: columns(model),
+      columns: columnList,
       data,
       initialState: { pageIndex: 0, filters: initialFilter }, // Pass our hoisted table state
       manualFilters: true,
@@ -73,6 +74,8 @@ export const Table: React.FC<TableProps> = ({
     useSortBy,
     usePagination,
   );
+  const tableRef = useRef<HTMLTableElement>(null);
+  const [columnSize, setColumnSize] = useState(1);
   // Listen for changes in pagination and use the state to fetch our new data
   React.useEffect(() => {
     fetchMore(pageSize, pageIndex);
@@ -85,6 +88,20 @@ export const Table: React.FC<TableProps> = ({
   React.useEffect(() => {
     filterHandler(filters);
   }, [filters]);
+
+  React.useEffect(() => {
+    function columnHandler() {
+      const clientRect = tableRef?.current?.getBoundingClientRect();
+      if (clientRect) {
+        setColumnSize(clientRect.width / columnList.length);
+      }
+    }
+    columnHandler();
+    window.addEventListener('resize', columnHandler);
+    return () => {
+      window.removeEventListener('resize', columnHandler);
+    };
+  }, []);
 
   const actions = {
     create: model?.create,
@@ -102,7 +119,7 @@ export const Table: React.FC<TableProps> = ({
       )}
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
-        <StyledTable {...getTableProps()}>
+        <StyledTable ref={tableRef} {...getTableProps()} columnSize={columnSize}>
           <thead>
             {headerGroups.map((headerGroup: any, index: number) => (
               <React.Fragment key={index}>
@@ -182,7 +199,7 @@ export const Table: React.FC<TableProps> = ({
                   {row.cells.map((cell: any, index2: number) => {
                     return (
                       <td key={index2} {...cell.getCellProps()}>
-                        {cell.value && cell.value.length > 15 ? (
+                        {cell.value && cell.value.length > Math.floor(columnSize / 6) ? (
                           <Popover
                             eventListener="#popoverScroll"
                             trigger="click"
@@ -284,7 +301,7 @@ export const Table: React.FC<TableProps> = ({
   );
 };
 
-const StyledTable = styled.table`
+const StyledTable = styled.table<{ columnSize: number }>`
   border-spacing: 0;
   width: 100%;
   tbody tr:nth-child(2n) {
@@ -314,16 +331,15 @@ const StyledTable = styled.table`
     }
   }
 
-  td,
   td div {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 150px;
   }
 
   th,
   td {
+    max-width: ${({ columnSize }) => (columnSize > 150 ? columnSize : 150)}px;
     margin: 0;
     padding: 0.5rem;
     border-top: 1px solid ${(props) => props.theme.backgroundBasicColor2};

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Column } from 'react-table';
 import { navigate } from '@reach/router';
 import { BooleanFilter, DateTimeFilter, EnumFilter, NumberFilter, ObjectFilter, StringFilter } from './Filters';
 import moment from 'moment';
-import { Button, Modal } from 'oah-ui';
-import DynamicTable from '../dynamicTable';
+import { Button } from 'oah-ui';
 import { useModel } from '../useSchema';
 import { getDisplayName } from './utils';
 import { FieldFragment, ModelFragment } from '../../generated';
