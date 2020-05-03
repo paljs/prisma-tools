@@ -65,12 +65,10 @@ input CommentFilter {
 }
 
 input CommentOrderByInput {
-  author: OrderByArg
   authorId: OrderByArg
   contain: OrderByArg
   createdAt: OrderByArg
   id: OrderByArg
-  post: OrderByArg
   postId: OrderByArg
   updatedAt: OrderByArg
 }
@@ -469,7 +467,6 @@ input PostFilter {
 }
 
 input PostOrderByInput {
-  author: OrderByArg
   authorId: OrderByArg
   createdAt: OrderByArg
   id: OrderByArg
@@ -723,7 +720,7 @@ input UpdateModelInput {
 }
 
 type User {
-  comment(
+  Comment(
     after: CommentWhereUniqueInput
     before: CommentWhereUniqueInput
     first: Int
@@ -750,7 +747,7 @@ type User {
 }
 
 input UserCreateInput {
-  comment: CommentCreateManyWithoutAuthorInput
+  Comment: CommentCreateManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
   group: GroupCreateOneWithoutUsersInput
@@ -784,7 +781,7 @@ input UserCreateWithoutCommentInput {
 }
 
 input UserCreateWithoutGroupInput {
-  comment: CommentCreateManyWithoutAuthorInput
+  Comment: CommentCreateManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
   name: String
@@ -793,7 +790,7 @@ input UserCreateWithoutGroupInput {
 }
 
 input UserCreateWithoutPostsInput {
-  comment: CommentCreateManyWithoutAuthorInput
+  Comment: CommentCreateManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
   group: GroupCreateOneWithoutUsersInput
@@ -810,7 +807,6 @@ input UserFilter {
 input UserOrderByInput {
   createdAt: OrderByArg
   email: OrderByArg
-  group: OrderByArg
   groupId: OrderByArg
   id: OrderByArg
   name: OrderByArg
@@ -819,7 +815,7 @@ input UserOrderByInput {
 
 input UserScalarWhereInput {
   AND: [UserScalarWhereInput!]
-  comment: CommentFilter
+  Comment: CommentFilter
   createdAt: DateTimeFilter
   email: StringFilter
   groupId: NullableIntFilter
@@ -832,7 +828,7 @@ input UserScalarWhereInput {
 }
 
 input UserUpdateInput {
-  comment: CommentUpdateManyWithoutAuthorInput
+  Comment: CommentUpdateManyWithoutAuthorInput
   createdAt: DateTime
   email: String
   group: GroupUpdateOneWithoutUsersInput
@@ -904,7 +900,7 @@ input UserUpdateWithoutCommentDataInput {
 }
 
 input UserUpdateWithoutGroupDataInput {
-  comment: CommentUpdateManyWithoutAuthorInput
+  Comment: CommentUpdateManyWithoutAuthorInput
   createdAt: DateTime
   email: String
   id: Int
@@ -914,7 +910,7 @@ input UserUpdateWithoutGroupDataInput {
 }
 
 input UserUpdateWithoutPostsDataInput {
-  comment: CommentUpdateManyWithoutAuthorInput
+  Comment: CommentUpdateManyWithoutAuthorInput
   createdAt: DateTime
   email: String
   group: GroupUpdateOneWithoutUsersInput
@@ -946,7 +942,7 @@ input UserUpsertWithWhereUniqueWithoutGroupInput {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
-  comment: CommentFilter
+  Comment: CommentFilter
   createdAt: DateTimeFilter
   email: StringFilter
   group: GroupWhereInput
