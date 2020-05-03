@@ -33,6 +33,12 @@ yarn
 Start service
 
 ```shell script
+yarn dev
+```
+
+After change your `schema.prisma`
+
+```shell script
 yarn generate
 yarn dev
 ```

@@ -9,7 +9,7 @@
     "start": "node dist/server",
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn generate && tsc",
-    "generate": "yarn generate:crud && yarn generate:nexus",
+    "generate": "yarn generate:prisma && yarn generate:crud && yarn generate:nexus",
     "generate:prisma": "prisma generate",
     "generate:crud": "ts-node --transpile-only src/createTypes",
     "generate:nexus": "ts-node --transpile-only src/schema",
@@ -21,14 +21,14 @@
   "dependencies": {
     "@nexus/schema": "^0.13.1",
     "@prisma-tools/nexus": "^0.6.2",
-    "@prisma/client": "2.0.0-beta.4",
+    "@prisma/client": "2.0.0-beta.2",
     "apollo-server": "^2.12.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "lowdb": "^1.0.0"
   },
   "devDependencies": {
-    "@prisma/cli": "2.0.0-beta.4",
+    "@prisma/cli": "2.0.0-beta.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^8.3.9",
     "@types/lowdb": "^1.0.9",

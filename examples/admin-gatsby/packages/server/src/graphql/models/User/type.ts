@@ -23,7 +23,7 @@ export const User = objectType({
     })
     t.field('group', { nullable: true, type: 'Group' })
     t.int('groupId', { nullable: true })
-    t.field('Comment', {
+    t.field('comment', {
       nullable: false,
       list: [true],
       type: 'Comment',

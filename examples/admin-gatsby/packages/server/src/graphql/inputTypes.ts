@@ -89,7 +89,7 @@ export const UserWhereInput = inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comment', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserWhereInput', list: true })
     t.field('OR', { type: 'UserWhereInput', list: true })
     t.field('NOT', { type: 'UserWhereInput', list: true })
@@ -208,7 +208,7 @@ export const UserCreateWithoutPostsInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -269,7 +269,7 @@ export const UserCreateInput = inputObjectType({
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -542,7 +542,7 @@ export const UserUpdateWithoutPostsDataInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -676,7 +676,7 @@ export const UserUpdateInput = inputObjectType({
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -771,7 +771,7 @@ export const UserCreateWithoutGroupInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -802,7 +802,7 @@ export const UserUpdateWithoutGroupDataInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -827,7 +827,7 @@ export const UserScalarWhereInput = inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comment', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserScalarWhereInput', list: true })
     t.field('OR', { type: 'UserScalarWhereInput', list: true })
     t.field('NOT', { type: 'UserScalarWhereInput', list: true })
@@ -1029,6 +1029,7 @@ export const UserOrderByInput = inputObjectType({
     t.field('email', { type: 'OrderByArg' })
     t.field('name', { type: 'OrderByArg' })
     t.field('password', { type: 'OrderByArg' })
+    t.field('group', { type: 'OrderByArg' })
     t.field('groupId', { type: 'OrderByArg' })
   },
 })
@@ -1039,6 +1040,7 @@ export const PostOrderByInput = inputObjectType({
     t.field('id', { type: 'OrderByArg' })
     t.field('published', { type: 'OrderByArg' })
     t.field('title', { type: 'OrderByArg' })
+    t.field('author', { type: 'OrderByArg' })
     t.field('authorId', { type: 'OrderByArg' })
     t.field('createdAt', { type: 'OrderByArg' })
     t.field('updatedAt', { type: 'OrderByArg' })
@@ -1050,7 +1052,9 @@ export const CommentOrderByInput = inputObjectType({
   definition(t) {
     t.field('id', { type: 'OrderByArg' })
     t.field('contain', { type: 'OrderByArg' })
+    t.field('post', { type: 'OrderByArg' })
     t.field('postId', { type: 'OrderByArg' })
+    t.field('author', { type: 'OrderByArg' })
     t.field('authorId', { type: 'OrderByArg' })
     t.field('createdAt', { type: 'OrderByArg' })
     t.field('updatedAt', { type: 'OrderByArg' })
