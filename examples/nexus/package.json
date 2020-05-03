@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@prisma/client": "2.0.0-beta.4",
-    "@prisma-tools/nexus": "^0.6.1",
-    "nexus": "^0.21.0-next.17",
+    "@prisma-tools/nexus": "^0.6.2",
+    "nexus": "^0.21.0-next.21",
     "nexus-plugin-prisma-select": "^0.0.1"
   },
   "devDependencies": {

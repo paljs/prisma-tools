@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/nexus",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "@prisma-tools/delete": "^0.0.3",
     "graphql-fields": "^2.0.3",
-    "nexus-plugin-prisma-select": "^0.0.0",
+    "nexus-plugin-prisma-select": "^0.0.2",
     "prettier": "^2.0.4"
   },
   "devDependencies": {

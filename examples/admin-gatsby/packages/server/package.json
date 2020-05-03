@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nexus/schema": "^0.13.1",
-    "@prisma-tools/nexus": "^0.6.1",
+    "@prisma-tools/nexus": "^0.6.2",
     "@prisma/client": "2.0.0-beta.4",
     "apollo-server": "^2.12.0",
     "bcryptjs": "^2.4.3",
