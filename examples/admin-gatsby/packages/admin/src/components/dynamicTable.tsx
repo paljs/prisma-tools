@@ -1,4 +1,4 @@
-import { Row, Col, Modal, Tabs, Tab, Card } from 'oah-ui';
+import { Modal, Tabs, Tab, Card } from 'oah-ui';
 import React, { useContext, useState } from 'react';
 import { Table } from './Table';
 import * as generate from '../generated';
@@ -20,7 +20,7 @@ interface DynamicTableProps {
 }
 const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, parent }) => {
   const [pageSize, setPageSize] = useState(10);
-  const [update, setUpdate] = useState();
+  const [update, setUpdate] = useState<any>();
   const [create, setCreate] = useState(false);
   const query = useUrlQuery();
   const {
@@ -133,7 +133,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
 
 export default DynamicTable;
 
-const StyledTabs = styled(Tabs)`
+const StyledTabs = styled(Tabs)<{ children: any }>`
   .tab-content {
     padding: 0;
   }
