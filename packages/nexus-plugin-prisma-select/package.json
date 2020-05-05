@@ -48,6 +48,6 @@
   "gitHead": "7253dd48c8ce045ead3b60960e4aa87281fe9748",
   "dependencies": {
     "@prisma-tools/select": "^0.0.3",
-    "nexus": "0.21.0-next.25"
+    "nexus": "0.21.0-next.28"
   }
 }
