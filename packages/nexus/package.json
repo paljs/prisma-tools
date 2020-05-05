@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@prisma/client": "2.0.0-beta.4",
-    "@types/node": "13.13.4",
+    "@types/node": "13.13.5",
     "@types/prettier": "2.0.0",
     "doctoc": "1.4.0",
     "nexus": "0.21.0-next.25",
