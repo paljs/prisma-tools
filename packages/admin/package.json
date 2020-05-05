@@ -20,7 +20,7 @@
     "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "@types/node": "13.13.4",
+    "@types/node": "13.13.5",
     "@types/prettier": "2.0.0",
     "typescript": "3.8.3"
   },
