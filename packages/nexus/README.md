@@ -58,7 +58,7 @@
     UserUpdateManyMutationInput
     ```
 - Has nexus plugin to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this help in this points :-
-  - Good solution N + 1 issue.
+  - Good solution for N + 1 issue.
   - Save performance with just query what frontend request from db
 - Support two version of `nexus`
   - nexus framework
