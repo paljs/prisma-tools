@@ -47,17 +47,13 @@ const handleFilter = (filters: { id: string; value: any }[]) => {
     });
     return newWhere;
   }
-  return {};
+  return undefined;
 };
 
 export const useFilterAndSort = (model: string, filter?: any) => {
   const initialFilter = filterMemo(model, filter);
   const [where, setWhere] = useState<any>();
-  const [orderBy, setOrderBy] = useState<any>(null);
-
-  if (!where && initialFilter.length > 0) {
-    setWhere(handleFilter(initialFilter));
-  }
+  const [orderBy, setOrderBy] = useState<any>();
 
   const filterHandler = (filters: { id: string; value: any }[]) => {
     setWhere(handleFilter(filters));
@@ -70,8 +66,8 @@ export const useFilterAndSort = (model: string, filter?: any) => {
         newOrderBy[item.id.split('.')[0]] = item.desc ? OrderByArg.Desc : OrderByArg.Asc;
       });
       setOrderBy(newOrderBy);
-    } else {
-      setOrderBy(null);
+    } else if (orderBy) {
+      setOrderBy(undefined);
     }
   };
 

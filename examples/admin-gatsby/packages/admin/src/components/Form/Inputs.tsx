@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
+import { Button, Checkbox, Col, EvaIcon, InputGroup, Modal, Row, Select } from 'oah-ui';
 import { FormContextValues } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
@@ -9,6 +9,8 @@ import * as generated from '../../generated';
 import { DocumentNode, useQuery } from '@apollo/client';
 import { getDisplayName } from '../Table/utils';
 import { getValueByType } from './useActions';
+import { navigate } from '@reach/router';
+import EditRecord from '../EditRecord';
 
 interface Option {
   value: any;
@@ -114,6 +116,7 @@ type keys = keyof typeof generated;
 export const ObjectInput: React.FC<InputProps> = ({ field, value, error, register, setValue }) => {
   const model = useModel(field.type)!;
   const [state, setState] = useState(value[model.idField]);
+  const [modal, setModal] = useState(false);
   const valueRef = useRef(value[model.idField]);
 
   if (valueRef.current !== value[model.idField]) {
@@ -164,9 +167,17 @@ export const ObjectInput: React.FC<InputProps> = ({ field, value, error, registe
 
   return (
     <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
+      <Modal on={modal} toggle={() => setModal(!modal)}>
+        <EditRecord model={model.id} update={state} toggle={() => setModal(!modal)} />
+      </Modal>
       <Row around="xs" middle="xs">
         <Col breakPoint={{ xs: 4 }}>
           <span className="subtitle text-hint">{field.title}</span>
+          {state && (
+            <Button style={{ padding: 0 }} appearance="ghost" onClick={() => setModal(true)} type="button">
+              <EvaIcon name="edit-outline" />
+            </Button>
+          )}
         </Col>
         <Col breakPoint={{ xs: 8 }}>
           <Select

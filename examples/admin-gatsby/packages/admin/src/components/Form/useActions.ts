@@ -9,7 +9,13 @@ export const getValueByType = (type: string | undefined, value: string) => {
   return type === 'Int' ? parseInt(value) : type === 'Float' ? parseFloat(value) : value;
 };
 
-const useActions = (model: generate.ModelFragment, data: any, action: 'create' | 'update', onCancel: () => void) => {
+const useActions = (
+  model: generate.ModelFragment,
+  data: any,
+  action: 'create' | 'update',
+  onCancel: () => void,
+  onSave?: () => void,
+) => {
   const [updateModel] = useMutation(generate[`UpdateOne${model.id}Document` as keys] as DocumentNode);
   const [createModel] = useMutation(generate[`CreateOne${model.id}Document` as keys] as DocumentNode);
   const {
@@ -73,15 +79,18 @@ const useActions = (model: generate.ModelFragment, data: any, action: 'create' |
       variables: {
         data: createData,
       },
-    }).then(onCancel);
+    }).then(() => {
+      onCancel();
+      onSave && onSave();
+    });
   };
 
-  const onSave = (newData: any) => {
+  const onSubmit = (newData: any) => {
     action === 'create' ? onCreateHandler(newData) : onUpdateHandler(newData);
   };
 
   return {
-    onSave,
+    onSubmit,
   };
 };
 

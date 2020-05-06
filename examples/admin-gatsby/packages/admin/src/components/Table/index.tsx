@@ -96,12 +96,12 @@ export const Table: React.FC<TableProps> = ({
         setColumnSize(clientRect.width / columnList.length);
       }
     }
-    columnHandler();
+    if (columnList.length > 0) columnHandler();
     window.addEventListener('resize', columnHandler);
     return () => {
       window.removeEventListener('resize', columnHandler);
     };
-  }, []);
+  }, [columnList]);
 
   const actions = {
     create: model?.create,
@@ -111,7 +111,7 @@ export const Table: React.FC<TableProps> = ({
   const hasActions = actions.create || actions.update || actions.delete;
   // Render the UI for your table
   return (
-    <Card style={{ maxHeight: '100vh', marginBottom: 0 }}>
+    <Card style={{ marginBottom: 0 }}>
       {!inEdit && (
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {model?.name}
@@ -188,7 +188,10 @@ export const Table: React.FC<TableProps> = ({
                           style={{ padding: 0 }}
                           status="Danger"
                           appearance="ghost"
-                          onClick={() => onAction('delete', row.original.id)}
+                          onClick={() => {
+                            const confirm = window.confirm('Are you sure you want to delete this record ?');
+                            if (confirm) onAction('delete', row.original.id);
+                          }}
                         >
                           <EvaIcon name="trash-2-outline" />
                         </Button>

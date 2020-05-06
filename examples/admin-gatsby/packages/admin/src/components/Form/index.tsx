@@ -12,6 +12,8 @@ interface FormProps {
   model: string;
   data: any;
   onCancel: () => void;
+  onSave?: () => void;
+  inModal?: boolean;
 }
 
 const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, data: any, models: ModelFragment[]) => {
@@ -31,23 +33,23 @@ const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, dat
   return defaultValues;
 };
 
-const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel }) => {
+const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel, inModal, onSave }) => {
   const {
     schema: { models },
   } = useContext(LayoutContext);
   const model = models.find((item) => item.id === modelName)!;
-  const { onSave } = useActions(model, data, action, onCancel);
+  const { onSubmit } = useActions(model, data, action, onCancel, onSave);
+
   const { register, errors, handleSubmit, setValue } = useForm({
     defaultValues: getDefaultValues(action, model, data, models),
   });
 
-  const onSubmit = (newData: any) => {
-    onSave(newData);
-  };
-
   return (
-    <Card status="Success" style={{ maxWidth: '1200px', maxHeight: '100vh', minWidth: '50vw', marginBottom: 0 }}>
-      {action === 'create' && <header>{action + ' ' + model.name}</header>}
+    <Card
+      status={action === 'update' ? 'Warning' : 'Success'}
+      style={{ maxWidth: action === 'update' && !inModal ? '100%' : '1200px', maxHeight: '100vh', minWidth: '50vw' }}
+    >
+      <header>{action.charAt(0).toUpperCase() + action.slice(1) + ' ' + model.name}</header>
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
         <CardBody>
           <Row between="lg">

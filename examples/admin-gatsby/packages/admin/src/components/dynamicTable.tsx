@@ -1,14 +1,13 @@
-import { Modal, Tabs, Tab, Card } from 'oah-ui';
+import { Modal } from 'oah-ui';
 import React, { useContext, useState } from 'react';
 import { Table } from './Table';
 import * as generate from '../generated';
 import { useFilterAndSort } from './Table/useFilterAndSort';
 import Form from './Form';
 import { DocumentNode, useMutation, useQuery } from '@apollo/client';
-import { navigate } from '@reach/router';
 import { useUrlQuery } from './useUrlQuery';
-import styled from 'styled-components';
 import { LayoutContext } from '../Layouts';
+import EditRecord from './EditRecord';
 
 type keys = keyof typeof generate;
 
@@ -19,8 +18,10 @@ interface DynamicTableProps {
   filter?: object;
 }
 const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, parent }) => {
-  const [pageSize, setPageSize] = useState(10);
-  const [update, setUpdate] = useState<any>();
+  const [page, setPage] = useState({
+    first: 10,
+    skip: 0,
+  });
   const [create, setCreate] = useState(false);
   const query = useUrlQuery();
   const {
@@ -33,39 +34,34 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
     inEdit ? filter : query,
   );
 
-  const { data, loading, fetchMore } = useQuery(generate[`FindMany${model}Document` as keys] as DocumentNode, {
+  const { data, loading, refetch } = useQuery(generate[`FindMany${model}Document` as keys] as DocumentNode, {
     variables: {
       where,
       orderBy,
-      first: pageSize,
+      ...page,
     },
+    fetchPolicy: 'no-cache',
   });
 
-  const { data: dataCount, loading: loadingCount } = useQuery(
+  const { data: dataCount, loading: loadingCount, refetch: refetchCount } = useQuery(
     generate[`FindMany${model}CountDocument` as keys] as DocumentNode,
     {
       variables: {
         where,
       },
+      fetchPolicy: 'no-cache',
     },
   );
 
   const [deleteOne] = useMutation(generate[`DeleteOne${model}Document` as keys] as DocumentNode);
 
-  if (query?.update && !update && data && !inEdit) {
-    setUpdate(data[`findMany${model}`].find((item: { id: string }) => item.id == query.update));
-  } else if (update && !query?.update) {
-    setUpdate(undefined);
-  }
-
   const fetchMoreHandler = (pageSize: number, pageIndex: number) => {
-    fetchMore({
-      variables: {
-        skip: pageIndex * pageSize,
+    if (pageSize !== page.first || pageSize * pageIndex !== page.skip) {
+      setPage({
         first: pageSize,
-      },
-    });
-    setPageSize(pageSize);
+        skip: pageSize * pageIndex,
+      });
+    }
   };
 
   const onAction = (action: 'create' | 'delete', id?: number) => {
@@ -76,6 +72,9 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
             id,
           },
         },
+      }).then(() => {
+        refetch();
+        refetchCount();
       });
     } else if (action === 'create') {
       setCreate(true);
@@ -90,51 +89,30 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
           action="create"
           data={inEdit && parentName ? { [parentName]: parent?.value } : {}}
           onCancel={() => setCreate(false)}
+          onSave={() => {
+            refetch();
+            refetchCount();
+          }}
         />
       </Modal>
-      <Modal on={!!update} toggle={() => navigate(`/models/${model}`)}>
-        <Card>
-          <StyledTabs>
-            <Tab title={model}>
-              <Form model={model} action="update" data={update} onCancel={() => navigate(`/models/${model}`)} />
-            </Tab>
-            {modelObject?.fields
-              .filter((field) => field.kind === 'object' && field.list)
-              .map((field) => {
-                return (
-                  <Tab title={models.find((item) => item.id === field.type)?.name} key={field.id}>
-                    <DynamicTable
-                      model={field.type}
-                      inEdit
-                      filter={update ? { [model]: update[modelObject.idField] } : {}}
-                      parent={{ name: model, value: update }}
-                    />
-                  </Tab>
-                );
-              })}
-          </StyledTabs>
-        </Card>
-      </Modal>
-      <Table
-        inEdit={inEdit}
-        onAction={onAction}
-        model={model}
-        data={data ? data[`findMany${model}`] : []}
-        fetchMore={fetchMoreHandler}
-        loading={loading || loadingCount}
-        filterHandler={filterHandler}
-        sortByHandler={sortByHandler}
-        initialFilter={initialFilter}
-        pageCount={dataCount ? Math.ceil(dataCount[`findMany${model}Count`] / pageSize) : 0}
-      />
+      {query?.update && !inEdit ? (
+        <EditRecord model={model} update={query.update} />
+      ) : (
+        <Table
+          inEdit={inEdit}
+          onAction={onAction}
+          model={model}
+          data={data ? data[`findMany${model}`] : []}
+          fetchMore={fetchMoreHandler}
+          loading={loading || loadingCount}
+          filterHandler={filterHandler}
+          sortByHandler={sortByHandler}
+          initialFilter={initialFilter}
+          pageCount={dataCount ? Math.ceil(dataCount[`findMany${model}Count`] / page.first) : 0}
+        />
+      )}
     </>
   );
 };
 
 export default DynamicTable;
-
-const StyledTabs = styled(Tabs)<{ children: any }>`
-  .tab-content {
-    padding: 0;
-  }
-`;
