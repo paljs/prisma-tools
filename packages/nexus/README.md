@@ -43,7 +43,7 @@
 
 # Features
 
-- Auto Generate CRUD system from your `schema.prisma` file.
+- Auto generate CRUD system from your `schema.prisma` file.
   - **Every model in `schema.prisma` will have folder contain 3 files**
     - `type.ts` contain `objectType` for this model
     - `queries.ts` contain 3 queries `'findOne' | 'findMany' | 'findCount'`
@@ -57,14 +57,14 @@
     UserUpdateInput
     UserUpdateManyMutationInput
     ```
-- Has nexus plugin to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this help in this points :-
+- Has nexus plugin to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this help in these points :-
   - Good solution for N + 1 issue.
   - Save performance with just query what frontend request from db
-- Support two version of `nexus`
-  - nexus framework
-  - nexus schema
-- Add onDelete cascade function to workaround missing function in prisma migrate cli more information [here](../delete)
-- You have options to exclude any thing you want.
+- Support two versions of `nexus`
+  - Nexus framework
+  - Nexus schema
+- Add onDelete cascade function to workaround missing function in Prisma migrate Cli more information [here](../delete)
+- You have options to exclude anything you want.
   - exclude queries or mutations file for all models.
   - exclude queries or mutations from custom models.
   - exclude fields from all models.
@@ -184,12 +184,13 @@ This command will run two commands
 
 ```json
 {
-  // build prisma client
   "generate:prisma": "prisma generate",
-  // use our tool to auto generate your crud system
   "generate:crud": "ts-node --transpile-only src/createTypes"
 }
 ```
+
+- build prisma client
+- use our tool to auto generate your crud system
 
 **Output**
 
@@ -563,14 +564,15 @@ This command will run two commands
 
 ```json
 {
-  // build prisma client
   "generate:prisma": "prisma generate",
-  // use our tool to auto generate your crud system
   "generate:crud": "ts-node --transpile-only src/createTypes",
-  // build nexus type gen and schema.graphql file
   "generate:nexus": "ts-node --transpile-only src/schema"
 }
 ```
+
+- build prisma client
+- use our tool to auto generate your crud system
+- build nexus type gen and schema.graphql file
 
 **Output**
 
