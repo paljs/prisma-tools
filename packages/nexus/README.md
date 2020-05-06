@@ -172,8 +172,6 @@ enum Role {
 }
 ```
 
-To understand this code structure please look to [Nexus Docs](https://www.nexusjs.org/#/guides/schema?id=schema)
-
 After build your `schema.prisma` file all you need to run
 
 ```
@@ -193,6 +191,8 @@ This command will run two commands
 - use our tool to auto generate your crud system
 
 **Output**
+
+To understand this code structure please look to [Nexus Docs](https://www.nexusjs.org/#/guides/schema?id=schema)
 
 ### `User/type.ts`
 
@@ -552,8 +552,6 @@ enum Role {
 }
 ```
 
-To understand this code structure please look to [Nexus schema Docs](https://www.nexusjs.org/#/components/schema/api/index)
-
 After build your `schema.prisma` file all you need to run
 
 ```
@@ -575,6 +573,8 @@ This command will run three commands
 - build nexus type gen and schema.graphql file
 
 **Output**
+
+To understand this code structure please look to [Nexus schema Docs](https://www.nexusjs.org/#/components/schema/api/index)
 
 ### `User/type.ts`
 
