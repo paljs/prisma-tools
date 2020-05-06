@@ -560,7 +560,7 @@ After build your `schema.prisma` file all you need to run
 yarn generate
 ```
 
-This command will run two commands
+This command will run three commands
 
 ```json
 {
