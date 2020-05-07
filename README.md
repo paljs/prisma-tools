@@ -6,11 +6,11 @@
 
 ### Tools
 
-- [**@prisma-tools/nexus**](./packages/nexus) Build CRUD system from prisma using nexus framework
+- [**@prisma-tools/nexus**](./packages/nexus) Auto generate CRUD system from prisma using nexus framework
 - [**@prisma-tools/select**](./packages/select) convert `info: GraphQLResolveInfo` to be available prisma select object
 - [**@prisma-tools/delete**](./packages/delete) Prisma Migrate cli not supported Cascading deletes so this tool is workaround this option
 - [**@prisma-tools/schema**](./packages/schema) convert your `schema.prisma` file into `JavaScript` object.
-- [**@prisma-tools/admin**](./packages/admin) generate pages, Queries and mutations in our Admin project [prisma-admin](./examples/admin-gatsby)
+- [**@prisma-tools/admin**](./packages/admin) Auto generate pages, Queries and mutations in our Admin project [prisma-admin](./examples/admin-gatsby)
 
 ### Examples
 

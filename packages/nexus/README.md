@@ -1,8 +1,8 @@
 # Introduction
 
-**This tool built on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org)** Create nexus types and CURD system from Prisma Client
+**This tool built on [Prisma](https://prisma.io) and [nexus](https://www.nexusjs.org)** Auto generate nexus types and CURD system from Prisma Client
 
-> NOTE: You must be familiar with `Prisma` and `nexusJs` before use this tools.
+> NOTE: You must be familiar with `Prisma` and `Nexus` before use this tools.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
