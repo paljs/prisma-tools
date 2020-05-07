@@ -151,7 +151,9 @@
         }
       ],
       "idField": "id",
-      "displayFields": ["name"]
+      "displayFields": [
+        "name"
+      ]
     },
     {
       "id": "Post",
@@ -304,7 +306,9 @@
         }
       ],
       "idField": "id",
-      "displayFields": ["title"]
+      "displayFields": [
+        "title"
+      ]
     },
     {
       "id": "Comment",
@@ -457,7 +461,9 @@
         }
       ],
       "idField": "id",
-      "displayFields": ["contain"]
+      "displayFields": [
+        "contain"
+      ]
     },
     {
       "id": "Group",
@@ -557,7 +563,9 @@
         }
       ],
       "idField": "id",
-      "displayFields": ["name"]
+      "displayFields": [
+        "name"
+      ]
     }
   ],
   "enums": []

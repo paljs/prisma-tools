@@ -16,7 +16,7 @@
     "seed": "ts-node --transpile-only prisma/seed",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
-    "dev": "ts-node-dev --ignore-watch=src/types/schema/schema.json --no-notify --respawn --transpileOnly src/server"
+    "dev": "ts-node-dev --ignore-watch=src/graphql/schema/schema.json --no-notify --respawn --transpileOnly src/server"
   },
   "dependencies": {
     "@nexus/schema": "^0.13.1",

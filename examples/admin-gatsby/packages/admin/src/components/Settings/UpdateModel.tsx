@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
 import { useUpdateModelMutation, ModelFragment } from '../../generated';
 
@@ -8,6 +8,21 @@ const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
 const UpdateModel: React.FC<ModelFragment> = (props) => {
   const [updateModel] = useUpdateModelMutation();
+  const [title, setTitle] = useState({
+    value: props.name,
+    typingTimeout: 0,
+  });
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    if (title.typingTimeout) clearTimeout(title.typingTimeout);
+    setTitle({
+      value: newValue,
+      typingTimeout: setTimeout(function () {
+        onChangeHandler('name', newValue);
+      }, 1000),
+    });
+  };
 
   const onChangeHandler = (name: string, value: boolean | string) => {
     updateModel({
@@ -40,12 +55,7 @@ const UpdateModel: React.FC<ModelFragment> = (props) => {
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup>
-              <input
-                name="name"
-                value={props.name}
-                placeholder="Model Name"
-                onChange={(e) => onChangeHandler('name', e.target.value)}
-              />
+              <input name="name" value={title.value} placeholder="Model Name" onChange={onChange} />
             </InputGroup>
           </Col>
         </Row>

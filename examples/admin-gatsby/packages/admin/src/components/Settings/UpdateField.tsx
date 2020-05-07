@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Col, InputGroup, Row } from 'oah-ui';
 import { useUpdateFieldMutation, FieldFragment } from '../../generated';
 
@@ -8,6 +8,21 @@ const fieldsArray: Fields[] = ['read', 'create', 'update', 'filter', 'sort'];
 
 const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field, model }) => {
   const [updateField] = useUpdateFieldMutation();
+  const [title, setTitle] = useState({
+    value: field.title,
+    typingTimeout: 0,
+  });
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    if (title.typingTimeout) clearTimeout(title.typingTimeout);
+    setTitle({
+      value: newValue,
+      typingTimeout: setTimeout(function () {
+        onChangeHandler('title', newValue);
+      }, 1000),
+    });
+  };
 
   const onChangeHandler = (name: string, value: boolean | string) => {
     updateField({
@@ -40,12 +55,7 @@ const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field,
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup>
-              <input
-                name="name"
-                value={field.title}
-                placeholder="Field Name"
-                onChange={(e) => onChangeHandler('title', e.target.value)}
-              />
+              <input name="name" value={title.value} placeholder="Field Name" onChange={onChange} />
             </InputGroup>
           </Col>
         </Row>

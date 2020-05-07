@@ -51,7 +51,7 @@ const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel, i
     >
       <header>{action.charAt(0).toUpperCase() + action.slice(1) + ' ' + model.name}</header>
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
-        <CardBody>
+        <CardBody style={{ overflow: 'visible' }}>
           <Row between="lg">
             {model.fields
               .filter((field) => field[action] && !field.list && !field.relationField)
