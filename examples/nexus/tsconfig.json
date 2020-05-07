@@ -1,19 +1,10 @@
 {
   "compilerOptions": {
+    "target": "es2016",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "noImplicitAny": false,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
-    "strictNullChecks": false,
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "paths": {
-      "*": ["node_modules/*", "src/graphql/*"]
-    }
+    "lib": ["esnext"],
+    "strict": true,
+    "rootDir": "src"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src/tests"]
+  "include": ["src"]
 }
