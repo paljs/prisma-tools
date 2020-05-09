@@ -29,7 +29,8 @@ interface TableProps {
   initialFilter: { id: string; value: any }[];
   sortByHandler: (sortBy: { id: string; desc: boolean }[]) => void;
   filterHandler: (filters: { id: string; value: any }[]) => void;
-  onAction: (action: 'create' | 'delete', id?: number) => void;
+  onAction: (action: 'create' | 'delete' | 'connect', value?: number | object) => void;
+  connect?: any;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -43,6 +44,7 @@ export const Table: React.FC<TableProps> = ({
   filterHandler,
   onAction,
   inEdit,
+  connect,
 }) => {
   const model = useModel(modelName);
   const columnList = columns(model);
@@ -111,7 +113,7 @@ export const Table: React.FC<TableProps> = ({
   const hasActions = actions.create || actions.update || actions.delete;
   // Render the UI for your table
   return (
-    <Card style={{ marginBottom: 0 }}>
+    <Card style={{ marginBottom: 0, maxHeight: '100vh' }}>
       {!inEdit && (
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {model?.name}
@@ -124,7 +126,7 @@ export const Table: React.FC<TableProps> = ({
             {headerGroups.map((headerGroup: any, index: number) => (
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {hasActions && <th colSpan={2}>Actions</th>}
+                  {connect ? <th>Actions</th> : hasActions && <th colSpan={2}>Actions</th>}
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th key={index2} {...column.getHeaderProps(column.getSortByToggleProps())}>
                       {column.render('Header')}
@@ -133,14 +135,18 @@ export const Table: React.FC<TableProps> = ({
                   ))}
                 </tr>
                 <tr>
-                  {hasActions && (
-                    <th colSpan={2}>
-                      {actions.create && (
-                        <Button size="Tiny" onClick={() => onAction('create')}>
-                          <EvaIcon name="plus-outline" />
-                        </Button>
-                      )}
-                    </th>
+                  {connect ? (
+                    <th />
+                  ) : (
+                    hasActions && (
+                      <th colSpan={2}>
+                        {actions.create && (
+                          <Button size="Tiny" onClick={() => onAction('create')}>
+                            <EvaIcon name="plus-outline" />
+                          </Button>
+                        )}
+                      </th>
+                    )
                   )}
                   {headerGroup.headers.map((column: any, index: number) => (
                     <th key={index}>
@@ -156,7 +162,25 @@ export const Table: React.FC<TableProps> = ({
               prepareRow(row);
               return (
                 <tr key={index} {...row.getRowProps()}>
-                  {actions.update && (
+                  {connect && (
+                    <td>
+                      <Button
+                        size="Small"
+                        appearance="ghost"
+                        status="Success"
+                        disabled={model && connect[model.idField] === row.original[model.idField]}
+                        onClick={() =>
+                          onAction(
+                            'connect',
+                            data.find((item) => model && item[model.idField] === row.original[model.idField]),
+                          )
+                        }
+                      >
+                        {model && connect[model.idField] === row.original[model.idField] ? 'Connected' : 'Connect'}
+                      </Button>
+                    </td>
+                  )}
+                  {actions.update && !connect && (
                     <td colSpan={actions.delete ? 1 : 2}>
                       <Tooltip
                         className="inline-block"
@@ -168,14 +192,16 @@ export const Table: React.FC<TableProps> = ({
                         <Button
                           style={{ padding: 0 }}
                           appearance="ghost"
-                          onClick={() => navigate(`/models/${modelName}?update=${row.original.id}`)}
+                          onClick={() =>
+                            model && navigate(`/models/${modelName}?update=${row.original[model.idField]}`)
+                          }
                         >
                           <EvaIcon name="edit-outline" />
                         </Button>
                       </Tooltip>
                     </td>
                   )}
-                  {actions.delete && (
+                  {actions.delete && !connect && (
                     <td colSpan={actions.update ? 1 : 2}>
                       <Tooltip
                         className="inline-block"
@@ -190,7 +216,7 @@ export const Table: React.FC<TableProps> = ({
                           appearance="ghost"
                           onClick={() => {
                             const confirm = window.confirm('Are you sure you want to delete this record ?');
-                            if (confirm) onAction('delete', row.original.id);
+                            if (confirm && model) onAction('delete', row.original[model.idField]);
                           }}
                         >
                           <EvaIcon name="trash-2-outline" />

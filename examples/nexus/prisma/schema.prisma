@@ -8,14 +8,15 @@ generator client {
 }
 
 model User {
-  id        Int      @default(autoincrement()) @id
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        Int       @default(autoincrement()) @id
+  createdAt DateTime  @default(now())
+  email     String    @unique
   name      String?
   password  String
   posts     Post[]
-  group     Group?   @relation(fields: [groupId], references: [id])
+  group     Group?    @relation(fields: [groupId], references: [id])
   groupId   Int?
+  Comment   Comment[]
 }
 
 model Post {

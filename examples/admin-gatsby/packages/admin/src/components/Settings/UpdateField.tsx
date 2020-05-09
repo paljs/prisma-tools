@@ -13,17 +13,6 @@ const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field,
     typingTimeout: 0,
   });
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    if (title.typingTimeout) clearTimeout(title.typingTimeout);
-    setTitle({
-      value: newValue,
-      typingTimeout: setTimeout(function () {
-        onChangeHandler('title', newValue);
-      }, 1000),
-    });
-  };
-
   const onChangeHandler = (name: string, value: boolean | string) => {
     updateField({
       variables: {
@@ -33,6 +22,17 @@ const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field,
           [name]: value,
         },
       },
+    });
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    if (title.typingTimeout) clearTimeout(title.typingTimeout);
+    setTitle({
+      value: newValue,
+      typingTimeout: setTimeout(function () {
+        onChangeHandler('title', newValue);
+      }, 1000),
     });
   };
 

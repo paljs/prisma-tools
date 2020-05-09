@@ -14,7 +14,7 @@ const useActions = (
   data: any,
   action: 'create' | 'update',
   onCancel: () => void,
-  onSave?: () => void,
+  onSave: () => void,
 ) => {
   const [updateModel] = useMutation(generate[`UpdateOne${model.id}Document` as keys] as DocumentNode);
   const [createModel] = useMutation(generate[`CreateOne${model.id}Document` as keys] as DocumentNode);
@@ -31,11 +31,14 @@ const useActions = (
       const field = getField(key);
       if (field?.kind === 'object') {
         const fieldModel = models.find((item) => item.id === field.type)!;
-        if ((newData[key] && !data[key]) || (newData[key] && newData[key] !== data[key][fieldModel.idField])) {
+        if (
+          (newData[key] && !data[key]) ||
+          (newData[key] && newData[key][fieldModel.idField] !== data[key][fieldModel.idField])
+        ) {
           const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
           updateData[key] = {
             connect: {
-              id: getValueByType(editField.type, newData[key]),
+              id: getValueByType(editField.type, newData[key][fieldModel.idField]),
             },
           };
         } else if (!newData[key] && data[key]) {
@@ -53,7 +56,10 @@ const useActions = (
           },
           data: updateData,
         },
-      }).then(onCancel);
+      }).then(() => {
+        onCancel();
+        onSave();
+      });
     }
   };
 
@@ -67,7 +73,7 @@ const useActions = (
         if (newData[key]) {
           createData[key] = {
             connect: {
-              id: getValueByType(editField.type, newData[key]),
+              id: getValueByType(editField.type, newData[key][fieldModel.idField]),
             },
           };
         }
@@ -81,7 +87,7 @@ const useActions = (
       },
     }).then(() => {
       onCancel();
-      onSave && onSave();
+      onSave();
     });
   };
 

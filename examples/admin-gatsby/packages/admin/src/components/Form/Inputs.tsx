@@ -4,13 +4,10 @@ import { FormContextValues } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
 import { useEnum, useModel } from '../useSchema';
-import { useFilterState } from '../useFilterState';
 import * as generated from '../../generated';
-import { DocumentNode, useQuery } from '@apollo/client';
+import { DocumentNode, useLazyQuery } from '@apollo/client';
 import { getDisplayName } from '../Table/utils';
-import { getValueByType } from './useActions';
-import { navigate } from '@reach/router';
-import EditRecord from '../EditRecord';
+import DynamicTable from '../dynamicTable';
 
 interface Option {
   value: any;
@@ -115,87 +112,72 @@ export const EnumInput: React.FC<InputProps> = ({ field, value, error, register,
 type keys = keyof typeof generated;
 export const ObjectInput: React.FC<InputProps> = ({ field, value, error, register, setValue }) => {
   const model = useModel(field.type)!;
-  const [state, setState] = useState(value[model.idField]);
   const [modal, setModal] = useState(false);
+  const [state, setSate] = useState(value);
   const valueRef = useRef(value[model.idField]);
 
   if (valueRef.current !== value[model.idField]) {
     valueRef.current = value[model.idField];
-    setState(value[model.idField]);
-    setValue(field.name, value[model.idField]);
+    setSate(value);
+    setValue(field.name, value);
   }
 
-  const [search, setSearch] = useState({});
-  const { onChange } = useFilterState('');
-  const { data } = useQuery(generated[`FindMany${field.type}Document` as keys] as DocumentNode, {
-    variables: {
-      where: search,
-      first: 10,
-    },
-  });
+  const [getData, { data, loading }] = useLazyQuery(generated[`FindOne${field.type}Document` as keys] as DocumentNode);
+  const result = data ? data[`findOne${field.type}`] : {};
+
+  if (state && Object.keys(state).length > 0 && !loading && state[model.idField] !== result[model.idField]) {
+    getData({
+      variables: {
+        where: {
+          [model.idField]: state[model.idField],
+        },
+      },
+    });
+  }
 
   React.useEffect(() => {
     register({ name: field.name, required: field.required });
   }, [register]);
 
-  const onSearch = (value: string) => {
-    const searchFields = model.displayFields.includes(model.idField)
-      ? model.displayFields
-      : model.displayFields.concat([model.idField]);
-    const searchObject: any = { OR: [] };
-    model.fields
-      .filter((item) => searchFields.includes(item.name))
-      .forEach((item) => {
-        searchObject.OR.push({
-          [item.name]: item.type === 'String' ? { contains: value } : { equals: getValueByType(item.type, value) },
-        });
-      });
-    setSearch(searchObject);
-  };
-
-  const result = data ? data[`findMany${field.type}`] : null;
-
-  const options: Option[] = field.required ? [] : [{ value: null, label: 'clear' }];
-  Object.keys(value).length > 0 && options.push({ value: value[model.idField], label: getDisplayName(value, model) });
-  if (result) {
-    options.push(
-      ...result
-        .filter((item: any) => item[model.idField] !== value[model.idField])
-        .map((item: any) => ({ value: item[model.idField], label: getDisplayName(item, model) })),
-    );
-  }
-
   return (
     <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
       <Modal on={modal} toggle={() => setModal(!modal)}>
-        <EditRecord model={model.id} update={state} toggle={() => setModal(!modal)} />
+        <DynamicTable
+          model={model.id}
+          inEdit
+          connect={Object.keys(state).length > 0 ? result : {}}
+          onConnect={(_value) => {
+            setSate(_value);
+            setValue(field.name, _value);
+            setModal(!modal);
+          }}
+        />
       </Modal>
       <Row around="xs" middle="xs">
         <Col breakPoint={{ xs: 4 }}>
           <span className="subtitle text-hint">{field.title}</span>
-          {state && (
-            <Button style={{ padding: 0 }} appearance="ghost" onClick={() => setModal(true)} type="button">
-              <EvaIcon name="edit-outline" />
-            </Button>
-          )}
         </Col>
         <Col breakPoint={{ xs: 8 }}>
-          <Select
-            //menuPlacement="top"
-            status={error ? 'Danger' : 'Primary'}
-            shape="SemiRound"
-            value={options.find((option) => option.value === state)}
-            onInputChange={(value, meta) => {
-              if (meta.action === 'input-change') {
-                onChange(value, onSearch);
-              }
-            }}
-            onChange={(option: any) => {
-              setState(option.value);
-              setValue(field.name, option.value);
-            }}
-            options={options}
-          />
+          <InputWithIcons fullWidth>
+            <Button type="button" appearance="ghost" className="searchIcon" onClick={() => setModal(!modal)}>
+              <EvaIcon name="search-outline" />
+            </Button>
+            {!field.required && (
+              <Button
+                type="button"
+                appearance="ghost"
+                status="Danger"
+                className="closeIcon"
+                onClick={() => {
+                  setSate({});
+                  setValue(field.name, null);
+                }}
+              >
+                <EvaIcon name="close-circle-outline" />
+              </Button>
+            )}
+            <input value={getDisplayName(state, model)} disabled />
+          </InputWithIcons>
         </Col>
       </Row>
       <span className="caption-2 status-Danger">{error ? field.title + ' is required' : ''}</span>
@@ -282,4 +264,23 @@ const StyledCol = styled(Col)`
   padding-top: 5px;
   margin: 5px 0;
   border: 1px solid ${(props) => props.theme.backgroundBasicColor2};
+`;
+
+const InputWithIcons = styled(InputGroup)`
+  .searchIcon {
+    position: absolute;
+    padding: 0;
+    left: 5px;
+    top: 10px;
+  }
+  .closeIcon {
+    position: absolute;
+    padding: 0;
+    right: 5px;
+    top: 10px;
+  }
+  input {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 `;

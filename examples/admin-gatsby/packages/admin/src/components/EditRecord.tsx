@@ -11,7 +11,7 @@ import { useModel } from './useSchema';
 interface EditRecordProps {
   model: string;
   update: any;
-  toggle?: () => void;
+  onSave: () => void;
 }
 type keys = keyof typeof generate;
 
@@ -21,7 +21,7 @@ const StyledTabs = styled(Tabs)<{ children: any }>`
   }
 `;
 
-const EditRecord: React.FC<EditRecordProps> = ({ model, update, toggle }) => {
+const EditRecord: React.FC<EditRecordProps> = ({ model, update, onSave }) => {
   const modelObject = useModel(model);
   const { data, loading } = useQuery(generate[`FindOne${model}Document` as keys] as DocumentNode, {
     variables: {
@@ -37,10 +37,7 @@ const EditRecord: React.FC<EditRecordProps> = ({ model, update, toggle }) => {
   const record = data ? data[`findOne${model}`] : {};
   const tabs = modelObject?.fields.filter((field) => field.kind === 'object' && field.list);
 
-  if (!loading && !data[`findOne${model}`]) {
-    navigate(`/models/${model}`);
-    return <></>;
-  }
+  if (!loading && !data[`findOne${model}`]) navigate(`/models/${model}`);
 
   return loading || !modelObject ? (
     <Spinner size="Giant" />
@@ -51,11 +48,11 @@ const EditRecord: React.FC<EditRecordProps> = ({ model, update, toggle }) => {
           model={model}
           action="update"
           data={record}
-          onCancel={() => (toggle ? toggle() : navigate(`/models/${model}`))}
-          inModal={!!toggle}
+          onCancel={() => navigate(`/models/${model}`)}
+          onSave={onSave}
         />
       </Col>
-      {tabs?.length && !toggle && (
+      {tabs?.length && (
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <StyledTabs>

@@ -13,6 +13,17 @@ const UpdateModel: React.FC<ModelFragment> = (props) => {
     typingTimeout: 0,
   });
 
+  const onChangeHandler = (name: string, value: boolean | string) => {
+    updateModel({
+      variables: {
+        id: props.id,
+        data: {
+          [name]: value,
+        },
+      },
+    });
+  };
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     if (title.typingTimeout) clearTimeout(title.typingTimeout);
@@ -24,16 +35,6 @@ const UpdateModel: React.FC<ModelFragment> = (props) => {
     });
   };
 
-  const onChangeHandler = (name: string, value: boolean | string) => {
-    updateModel({
-      variables: {
-        id: props.id,
-        data: {
-          [name]: value,
-        },
-      },
-    });
-  };
   const idField = props.fields.find((item) => item.name === props.idField)!;
   const displayFields = props.fields.filter((item) => props.displayFields.includes(item.name));
   return (

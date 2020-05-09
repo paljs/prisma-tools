@@ -12,23 +12,18 @@ interface FormProps {
   model: string;
   data: any;
   onCancel: () => void;
-  onSave?: () => void;
+  onSave: () => void;
   inModal?: boolean;
 }
 
-const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, data: any, models: ModelFragment[]) => {
+const getDefaultValues = (action: 'update' | 'create', model: ModelFragment, data: any) => {
   const defaultValues: any = {};
   model.fields
     .filter((field) => field.update && !field.list && !field.relationField)
     .slice()
     .sort((a, b) => a.order - b.order)
     .forEach((field) => {
-      if (field.kind === 'object') {
-        const fieldModel = models.find((item) => item.id === field.type)!;
-        defaultValues[field.name] = data[field.name] ? data[field.name][fieldModel.idField] : null;
-      } else {
-        defaultValues[field.name] = data[field.name];
-      }
+      defaultValues[field.name] = data[field.name];
     });
   return defaultValues;
 };
@@ -41,7 +36,7 @@ const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel, i
   const { onSubmit } = useActions(model, data, action, onCancel, onSave);
 
   const { register, errors, handleSubmit, setValue } = useForm({
-    defaultValues: getDefaultValues(action, model, data, models),
+    defaultValues: getDefaultValues(action, model, data),
   });
 
   return (

@@ -16,8 +16,10 @@ interface DynamicTableProps {
   inEdit?: boolean;
   model: string;
   filter?: object;
+  connect?: any;
+  onConnect?: (value: any) => void;
 }
-const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, parent }) => {
+const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, parent, connect, onConnect }) => {
   const [page, setPage] = useState({
     first: 10,
     skip: 0,
@@ -64,23 +66,32 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
     }
   };
 
-  const onAction = (action: 'create' | 'delete', id?: number) => {
-    if (action === 'delete' && id) {
-      deleteOne({
-        variables: {
-          where: {
-            id,
+  const onAction = (action: 'create' | 'delete' | 'connect', value?: number | object) => {
+    switch (action) {
+      case 'delete':
+        deleteOne({
+          variables: {
+            where: {
+              id: value,
+            },
           },
-        },
-      }).then(() => {
-        refetch();
-        refetchCount();
-      });
-    } else if (action === 'create') {
-      setCreate(true);
+        }).then(() => {
+          refetch();
+          refetchCount();
+        });
+        break;
+      case 'create':
+        setCreate(true);
+        break;
+      case 'connect':
+        if (onConnect) {
+          onConnect(value);
+        }
+        break;
     }
   };
   const parentName = modelObject?.fields.find((item) => item.type === parent?.name)?.name;
+  const _data: any[] = data ? data[`findMany${model}`] : [];
   return (
     <>
       <Modal on={create} toggle={() => setCreate(false)}>
@@ -96,13 +107,27 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
         />
       </Modal>
       {query?.update && !inEdit ? (
-        <EditRecord model={model} update={query.update} />
+        <EditRecord
+          model={model}
+          update={query.update}
+          onSave={() => {
+            refetch();
+            refetchCount();
+          }}
+        />
       ) : (
         <Table
+          connect={connect}
           inEdit={inEdit}
           onAction={onAction}
           model={model}
-          data={data ? data[`findMany${model}`] : []}
+          data={
+            connect && Object.keys(connect).length > 0
+              ? [connect].concat(
+                  _data.filter((item) => modelObject && item[modelObject.idField] !== connect[modelObject.idField]),
+                )
+              : _data
+          }
           fetchMore={fetchMoreHandler}
           loading={loading || loadingCount}
           filterHandler={filterHandler}
