@@ -93,7 +93,7 @@ Navigate to [http://localhost:8000](http://localhost:8000/) in your browser to e
 
 # Ui package used
 
-This admin ui template built on [oah-ui](https://oah-ui.ahmedelywa.com/getting-started)
+This admin ui template built on [oah-ui](http://oah-ui.ahmedelywa.com/getting-started)
 
 # Have questions?
 
