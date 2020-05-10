@@ -27,6 +27,7 @@ curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master
 The project has downloaded to directory called nexus
 
 ### npm
+
 Run this three commands
 
 ```shell script
@@ -36,6 +37,7 @@ npm run dev
 ```
 
 ### yarn
+
 Run this three commands
 
 ```shell script
@@ -77,4 +79,4 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
 
 Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
-***Like my tool give me star***
+**_Like my tool give me star_**
