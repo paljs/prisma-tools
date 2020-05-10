@@ -2,7 +2,6 @@ import { MenuItemType } from 'oah-ui';
 
 const items: MenuItemType[] = [
   { title: 'Home Page', icon: { name: 'home' }, link: { to: '/dashboard' } },
-  { title: 'FEATURES', group: true },
   {
     title: 'Models',
     icon: { name: 'layers-outline' },
@@ -20,21 +19,6 @@ const items: MenuItemType[] = [
         title: 'Groups',
         link: { to: '/models/Group' },
       },
-    ],
-  },
-  {
-    title: 'Miscellaneous',
-    icon: { name: 'shuffle-2-outline' },
-    children: [{ title: '404', link: { to: '/miscellaneous/404' } }],
-  },
-  {
-    title: 'Auth',
-    icon: { name: 'lock-outline' },
-    children: [
-      { title: 'Login', link: { to: '/auth/login' } },
-      { title: 'Register', link: { to: '/auth/register' } },
-      { title: 'Request Password', link: { to: '/auth/request-password' } },
-      { title: 'Reset Password', link: { to: '/auth/reset-password' } },
     ],
   },
 ];

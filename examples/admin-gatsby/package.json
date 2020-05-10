@@ -15,13 +15,15 @@
     "packages/*"
   ],
   "scripts": {
+    "doc": "doctoc README.md --notitle",
     "postinstall": "yarn generate",
     "generate": "lerna run generate --stream",
     "dev": "lerna run dev --stream"
   },
   "devDependencies": {
-    "lerna": "3.20.2",
+    "doctoc": "^1.4.0",
     "husky": "^4.2.5",
+    "lerna": "3.20.2",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1"
   },
