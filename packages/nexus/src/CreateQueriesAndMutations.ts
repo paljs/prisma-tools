@@ -32,7 +32,7 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve(_, { where }, {prisma, select}) {
+          resolve(_parent, { where }, {prisma, select}) {
             return prisma.${model}.findOne({
               where,
               ...select,
@@ -57,7 +57,7 @@ export function createQueriesAndMutations(
             first: 'Int',
             last: 'Int',
           },
-          resolve: async (_root, args, {prisma, select}) => {
+          resolve: async (_parent, args, {prisma, select}) => {
             return prisma.${model}.findMany({
               ...args,
               ...select,
@@ -80,8 +80,8 @@ export function createQueriesAndMutations(
             first: 'Int',
             last: 'Int',
           },
-          resolve: async (_root, args, {prisma}) => {
-            return prisma.${model}.count({...args})
+          resolve: async (_parent, args, {prisma}) => {
+            return prisma.${model}.count(args)
           },
         })`
             : ""
@@ -111,7 +111,7 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve(_, { data }, {prisma, select}) {
+          resolve(_parent, { data }, {prisma, select}) {
             return prisma.${model}.create({
               data,
               ...select,
@@ -136,7 +136,7 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve(_, { data, where }, {prisma, select}) {
+          resolve(_parent, { data, where }, {prisma, select}) {
             return prisma.${model}.update({
               data,
               where,
@@ -158,7 +158,7 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve: async (_, { where }, {prisma, select${
+          resolve: async (_parent, { where }, {prisma, select${
             options.onDelete ? ", onDelete" : ""
           }}) => {
             ${
@@ -185,7 +185,7 @@ export function createQueriesAndMutations(
               nullable: true,
             }),
           },
-          resolve: async (_, { where }, {prisma, select${
+          resolve: async (_parent, {where}, {prisma${
             options.onDelete ? ", onDelete" : ""
           }}) => {
             ${
@@ -193,10 +193,7 @@ export function createQueriesAndMutations(
                 ? `await onDelete.cascade('${name}', where, false)`
                 : ""
             }
-            return prisma.${model}.deleteMany({
-              where,
-              ...select,
-            })
+            return prisma.${model}.deleteMany({where})
           },
         })`
             : ""
@@ -216,12 +213,8 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve(_, { where, data }, {prisma, select}) {
-            return prisma.${model}.updateMany({
-              where,
-              data,
-              ...select,
-            })
+          resolve(_parent, args, {prisma}) {
+            return prisma.${model}.updateMany(args)
           },
         })`
             : ""

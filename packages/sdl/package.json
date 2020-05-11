@@ -1,25 +1,24 @@
 {
-  "name": "@prisma-tools/nexus",
-  "version": "0.6.4",
+  "name": "@prisma-tools/sdl",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
-    "directory": "packages/nexus"
+    "directory": "packages/sdl"
   },
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
   "scripts": {
     "build": "tsc",
-    "build:doc": "doctoc README.md --notitle",
+    "doc": "doctoc README.md --notitle",
     "prepublish": "yarn build"
   },
   "dependencies": {
     "@prisma-tools/delete": "^0.0.3",
-    "graphql-fields": "^2.0.3",
-    "nexus-plugin-prisma-select": "^0.0.2",
+    "@prisma-tools/select": "^0.0.3",
     "prettier": "^2.0.4"
   },
   "devDependencies": {
@@ -27,7 +26,6 @@
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.0",
     "doctoc": "1.4.0",
-    "nexus": "0.21.0",
     "typescript": "3.8.3"
   },
   "files": [
@@ -35,6 +33,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "7253dd48c8ce045ead3b60960e4aa87281fe9748"
+  }
 }

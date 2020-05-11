@@ -1,0 +1,690 @@
+scalar DateTime
+
+type BatchPayload {
+  count: Int!
+}
+enum OrderByArg {
+  asc
+  desc
+}
+
+input CommentWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  contain: StringFilter
+  postId: IntFilter
+  authorId: NullableIntFilter
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  post: PostWhereInput
+  author: UserWhereInput
+}
+
+input PostWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  published: BooleanFilter
+  title: StringFilter
+  authorId: NullableIntFilter
+  comments: CommentFilter
+  AND: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+  author: UserWhereInput
+}
+
+input GroupWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  users: UserFilter
+  AND: [GroupWhereInput!]
+  OR: [GroupWhereInput!]
+  NOT: [GroupWhereInput!]
+}
+
+input UserWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  email: StringFilter
+  name: NullableStringFilter
+  password: StringFilter
+  posts: PostFilter
+  groupId: NullableIntFilter
+  Comment: CommentFilter
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  group: GroupWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  email: String
+}
+
+input PostWhereUniqueInput {
+  id: Int
+}
+
+input CommentWhereUniqueInput {
+  id: Int
+}
+
+input GroupWhereUniqueInput {
+  id: Int
+}
+
+input GroupCreateWithoutUsersInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input GroupCreateOneWithoutUsersInput {
+  create: GroupCreateWithoutUsersInput
+  connect: GroupWhereUniqueInput
+}
+
+input UserCreateWithoutCommentInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  posts: PostCreateManyWithoutAuthorInput
+  group: GroupCreateOneWithoutUsersInput
+}
+
+input UserCreateOneWithoutCommentInput {
+  create: UserCreateWithoutCommentInput
+  connect: UserWhereUniqueInput
+}
+
+input CommentCreateWithoutPostInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String!
+  author: UserCreateOneWithoutCommentInput
+}
+
+input CommentCreateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input PostCreateWithoutAuthorInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input UserCreateWithoutPostsInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  group: GroupCreateOneWithoutUsersInput
+  Comment: CommentCreateManyWithoutAuthorInput
+}
+
+input UserCreateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
+input PostCreateWithoutCommentsInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String!
+  author: UserCreateOneWithoutPostsInput
+}
+
+input PostCreateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input CommentCreateWithoutAuthorInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String!
+  post: PostCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input UserCreateInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  posts: PostCreateManyWithoutAuthorInput
+  group: GroupCreateOneWithoutUsersInput
+  Comment: CommentCreateManyWithoutAuthorInput
+}
+
+input GroupUpdateWithoutUsersDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input GroupUpsertWithoutUsersInput {
+  update: GroupUpdateWithoutUsersDataInput!
+  create: GroupCreateWithoutUsersInput!
+}
+
+input GroupUpdateOneWithoutUsersInput {
+  create: GroupCreateWithoutUsersInput
+  connect: GroupWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: GroupUpdateWithoutUsersDataInput
+  upsert: GroupUpsertWithoutUsersInput
+}
+
+input UserUpdateWithoutCommentDataInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+  posts: PostUpdateManyWithoutAuthorInput
+  group: GroupUpdateOneWithoutUsersInput
+}
+
+input UserUpsertWithoutCommentInput {
+  update: UserUpdateWithoutCommentDataInput!
+  create: UserCreateWithoutCommentInput!
+}
+
+input UserUpdateOneWithoutCommentInput {
+  create: UserCreateWithoutCommentInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutCommentDataInput
+  upsert: UserUpsertWithoutCommentInput
+}
+
+input CommentUpdateWithoutPostDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String
+  author: UserUpdateOneWithoutCommentInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutPostDataInput!
+}
+
+input CommentScalarWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  contain: StringFilter
+  postId: IntFilter
+  authorId: NullableIntFilter
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
+}
+
+input CommentUpdateManyDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutPostDataInput!
+  create: CommentCreateWithoutPostInput!
+}
+
+input CommentUpdateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+}
+
+input PostUpdateWithoutAuthorDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutAuthorDataInput!
+}
+
+input PostScalarWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  published: BooleanFilter
+  title: StringFilter
+  authorId: NullableIntFilter
+  comments: CommentFilter
+  AND: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
+}
+
+input PostUpdateManyDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String
+}
+
+input PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput!
+  data: PostUpdateManyDataInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutAuthorDataInput!
+  create: PostCreateWithoutAuthorInput!
+}
+
+input PostUpdateManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
+  deleteMany: [PostScalarWhereInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input UserUpdateWithoutPostsDataInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+  group: GroupUpdateOneWithoutUsersInput
+  Comment: CommentUpdateManyWithoutAuthorInput
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput!
+  create: UserCreateWithoutPostsInput!
+}
+
+input UserUpdateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutPostsDataInput
+  upsert: UserUpsertWithoutPostsInput
+}
+
+input PostUpdateWithoutCommentsDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String
+  author: UserUpdateOneWithoutPostsInput
+}
+
+input PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput!
+  create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpdateOneRequiredWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+  update: PostUpdateWithoutCommentsDataInput
+  upsert: PostUpsertWithoutCommentsInput
+}
+
+input CommentUpdateWithoutAuthorDataInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String
+  post: PostUpdateOneRequiredWithoutCommentsInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutAuthorDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutAuthorDataInput!
+  create: CommentCreateWithoutAuthorInput!
+}
+
+input CommentUpdateManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input UserUpdateInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+  posts: PostUpdateManyWithoutAuthorInput
+  group: GroupUpdateOneWithoutUsersInput
+  Comment: CommentUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateManyMutationInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+}
+
+input PostCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String!
+  author: UserCreateOneWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostUpdateInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String
+  author: UserUpdateOneWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateManyMutationInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  title: String
+}
+
+input CommentCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String!
+  post: PostCreateOneWithoutCommentsInput!
+  author: UserCreateOneWithoutCommentInput
+}
+
+input CommentUpdateInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String
+  post: PostUpdateOneRequiredWithoutCommentsInput
+  author: UserUpdateOneWithoutCommentInput
+}
+
+input CommentUpdateManyMutationInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contain: String
+}
+
+input UserCreateWithoutGroupInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  posts: PostCreateManyWithoutAuthorInput
+  Comment: CommentCreateManyWithoutAuthorInput
+}
+
+input UserCreateManyWithoutGroupInput {
+  create: [UserCreateWithoutGroupInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input GroupCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  users: UserCreateManyWithoutGroupInput
+}
+
+input UserUpdateWithoutGroupDataInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+  posts: PostUpdateManyWithoutAuthorInput
+  Comment: CommentUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateWithWhereUniqueWithoutGroupInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutGroupDataInput!
+}
+
+input UserScalarWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  email: StringFilter
+  name: NullableStringFilter
+  password: StringFilter
+  posts: PostFilter
+  groupId: NullableIntFilter
+  Comment: CommentFilter
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+}
+
+input UserUpdateManyDataInput {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutGroupInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutGroupDataInput!
+  create: UserCreateWithoutGroupInput!
+}
+
+input UserUpdateManyWithoutGroupInput {
+  create: [UserCreateWithoutGroupInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutGroupInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutGroupInput!]
+}
+
+input GroupUpdateInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutGroupInput
+}
+
+input GroupUpdateManyMutationInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input IntFilter {
+  equals: Int
+  not: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  not: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
+
+input StringFilter {
+  equals: String
+  not: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input NullableIntFilter {
+  equals: Int
+  not: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
+input CommentFilter {
+  every: CommentWhereInput
+  some: CommentWhereInput
+  none: CommentWhereInput
+}
+
+input UserFilter {
+  every: UserWhereInput
+  some: UserWhereInput
+  none: UserWhereInput
+}
+
+input NullableStringFilter {
+  equals: String
+  not: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input PostFilter {
+  every: PostWhereInput
+  some: PostWhereInput
+  none: PostWhereInput
+}
+
+input UserOrderByInput {
+  id: OrderByArg
+  createdAt: OrderByArg
+  email: OrderByArg
+  name: OrderByArg
+  password: OrderByArg
+  groupId: OrderByArg
+}
+
+input PostOrderByInput {
+  id: OrderByArg
+  createdAt: OrderByArg
+  updatedAt: OrderByArg
+  published: OrderByArg
+  title: OrderByArg
+  authorId: OrderByArg
+}
+
+input CommentOrderByInput {
+  id: OrderByArg
+  createdAt: OrderByArg
+  updatedAt: OrderByArg
+  contain: OrderByArg
+  postId: OrderByArg
+  authorId: OrderByArg
+}
+
+input GroupOrderByInput {
+  id: OrderByArg
+  createdAt: OrderByArg
+  updatedAt: OrderByArg
+}
