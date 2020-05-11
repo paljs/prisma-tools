@@ -1,4 +1,4 @@
-import { Context } from '../../../context'
+import { Context } from "../../../context";
 
 export default {
   Query: {
@@ -6,16 +6,16 @@ export default {
       return prisma.user.findOne({
         where,
         ...select,
-      })
+      });
     },
     findManyUser: (_parent, args, { prisma, select }: Context) => {
       return prisma.user.findMany({
         ...args,
         ...select,
-      })
+      });
     },
     findManyUserCount: (_parent, args, { prisma }: Context) => {
-      return prisma.user.count(args)
+      return prisma.user.count(args);
     },
   },
   Mutation: {
@@ -23,35 +23,35 @@ export default {
       return prisma.user.create({
         ...args,
         ...select,
-      })
+      });
     },
     updateOneUser: (_parent, args, { prisma, select }: Context) => {
       return prisma.user.update({
         ...args,
         ...select,
-      })
+      });
     },
     deleteOneUser: async (
       _parent,
       { where },
-      { prisma, select, onDelete }: Context,
+      { prisma, select, onDelete }: Context
     ) => {
-      await onDelete.cascade('User', where, false)
+      await onDelete.cascade("User", where, false);
       return prisma.user.delete({
         where,
         ...select,
-      })
+      });
     },
     deleteManyUser: async (
       _parent,
       { where },
-      { prisma, onDelete }: Context,
+      { prisma, onDelete }: Context
     ) => {
-      await onDelete.cascade('User', where, false)
-      return prisma.user.deleteMany({ where })
+      await onDelete.cascade("User", where, false);
+      return prisma.user.deleteMany({ where });
     },
     updateManyUser: (_parent, args, { prisma }: Context) => {
-      return prisma.user.updateMany(args)
+      return prisma.user.updateMany(args);
     },
   },
-}
+};

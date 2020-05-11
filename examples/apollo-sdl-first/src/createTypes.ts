@@ -1,15 +1,15 @@
-import { createTypes } from './tool'
+import { createTypes } from "@prisma-tools/sdl";
 
 // for include every thing just createTypes() without any args
 
 createTypes({
   onDelete: true,
-  fieldsExclude: ['createdAt', 'updatedAt'],
+  fieldsExclude: ["createdAt", "updatedAt"],
   excludeFieldsByModel: {
-    User: ['password'],
+    User: ["password"],
   },
-  modelsExclude: [{ name: 'Group', mutations: true }],
+  modelsExclude: [{ name: "Group", mutations: true }],
   excludeQueriesAndMutationsByModel: {
-    Post: ['deleteMany'],
+    Post: ["deleteMany"],
   },
-})
+});

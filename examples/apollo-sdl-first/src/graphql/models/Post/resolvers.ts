@@ -1,4 +1,4 @@
-import { Context } from '../../../context'
+import { Context } from "../../../context";
 
 export default {
   Query: {
@@ -6,16 +6,16 @@ export default {
       return prisma.post.findOne({
         where,
         ...select,
-      })
+      });
     },
     findManyPost: (_parent, args, { prisma, select }: Context) => {
       return prisma.post.findMany({
         ...args,
         ...select,
-      })
+      });
     },
     findManyPostCount: (_parent, args, { prisma }: Context) => {
-      return prisma.post.count(args)
+      return prisma.post.count(args);
     },
   },
   Mutation: {
@@ -23,27 +23,27 @@ export default {
       return prisma.post.create({
         ...args,
         ...select,
-      })
+      });
     },
     updateOnePost: (_parent, args, { prisma, select }: Context) => {
       return prisma.post.update({
         ...args,
         ...select,
-      })
+      });
     },
     deleteOnePost: async (
       _parent,
       { where },
-      { prisma, select, onDelete }: Context,
+      { prisma, select, onDelete }: Context
     ) => {
-      await onDelete.cascade('Post', where, false)
+      await onDelete.cascade("Post", where, false);
       return prisma.post.delete({
         where,
         ...select,
-      })
+      });
     },
     updateManyPost: (_parent, args, { prisma }: Context) => {
-      return prisma.post.updateMany(args)
+      return prisma.post.updateMany(args);
     },
   },
-}
+};

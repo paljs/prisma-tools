@@ -1,4 +1,4 @@
-import { Context } from '../../../context'
+import { Context } from "../../../context";
 
 export default {
   Query: {
@@ -6,16 +6,16 @@ export default {
       return prisma.comment.findOne({
         where,
         ...select,
-      })
+      });
     },
     findManyComment: (_parent, args, { prisma, select }: Context) => {
       return prisma.comment.findMany({
         ...args,
         ...select,
-      })
+      });
     },
     findManyCommentCount: (_parent, args, { prisma }: Context) => {
-      return prisma.comment.count(args)
+      return prisma.comment.count(args);
     },
   },
   Mutation: {
@@ -23,35 +23,35 @@ export default {
       return prisma.comment.create({
         ...args,
         ...select,
-      })
+      });
     },
     updateOneComment: (_parent, args, { prisma, select }: Context) => {
       return prisma.comment.update({
         ...args,
         ...select,
-      })
+      });
     },
     deleteOneComment: async (
       _parent,
       { where },
-      { prisma, select, onDelete }: Context,
+      { prisma, select, onDelete }: Context
     ) => {
-      await onDelete.cascade('Comment', where, false)
+      await onDelete.cascade("Comment", where, false);
       return prisma.comment.delete({
         where,
         ...select,
-      })
+      });
     },
     deleteManyComment: async (
       _parent,
       { where },
-      { prisma, onDelete }: Context,
+      { prisma, onDelete }: Context
     ) => {
-      await onDelete.cascade('Comment', where, false)
-      return prisma.comment.deleteMany({ where })
+      await onDelete.cascade("Comment", where, false);
+      return prisma.comment.deleteMany({ where });
     },
     updateManyComment: (_parent, args, { prisma }: Context) => {
-      return prisma.comment.updateMany(args)
+      return prisma.comment.updateMany(args);
     },
   },
-}
+};
