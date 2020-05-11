@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/select",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
@@ -16,6 +16,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "f4c8cbda1aed123b43184eb3b7063d8b82f14639"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/sdl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -17,8 +17,6 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/delete": "^0.0.3",
-    "@prisma-tools/select": "^0.0.3",
     "prettier": "^2.0.4"
   },
   "devDependencies": {

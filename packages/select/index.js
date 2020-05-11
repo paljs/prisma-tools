@@ -9,6 +9,16 @@ function getPrismaSelect(info) {
   return getSelect(fields);
 }
 
+const availableArgs = [
+  'where',
+  'orderBy',
+  'skip',
+  'after',
+  'before',
+  'first',
+  'last',
+];
+
 function getSelect(fields) {
   const selectObject = { select: {} };
   Object.keys(fields).forEach((key) => {
@@ -17,7 +27,9 @@ function getSelect(fields) {
     } else if (key === '__arguments') {
       fields[key].forEach((arg) => {
         Object.keys(arg).forEach((key2) => {
-          selectObject[key2] = arg[key2].value;
+          if (availableArgs.includes(key2)) {
+            selectObject[key2] = arg[key2].value;
+          }
         });
       });
     } else {

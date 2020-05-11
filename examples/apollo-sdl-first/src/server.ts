@@ -4,15 +4,20 @@ import { applyMiddleware } from "graphql-middleware";
 import { makeExecutableSchema } from "graphql-tools";
 import { createContext, Context } from "./context";
 import { typeDefs, resolvers } from "./graphql";
+import { GraphQLResolveInfo } from "graphql";
 
 let schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const middleware = async (resolve, root, args, context: Context, info) => {
-  await context.prisma.connect();
-  context.select = getPrismaSelect(info);
-  const result = await resolve(root, args, context, info);
-  await context.prisma.disconnect();
-  return result;
+const middleware = async (
+  resolve,
+  root,
+  args,
+  context: Context,
+  info: GraphQLResolveInfo
+) => {
+  context.select =
+    info.parentType.name === "Query" ? getPrismaSelect(info) : {};
+  return resolve(root, args, context, info);
 };
 
 schema = applyMiddleware(schema, middleware);
