@@ -12,7 +12,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data }, { prisma, select }) {
+      resolve(_parent, { data }, { prisma, select }) {
         return prisma.user.create({
           data,
           ...select,
@@ -33,7 +33,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data, where }, { prisma, select }) {
+      resolve(_parent, { data, where }, { prisma, select }) {
         return prisma.user.update({
           data,
           where,
@@ -51,7 +51,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve: async (_, { where }, { prisma, select }) => {
+      resolve: async (_parent, { where }, { prisma, select }) => {
         return prisma.user.delete({
           where,
           ...select,
@@ -67,11 +67,8 @@ schema.extendType({
           nullable: true,
         }),
       },
-      resolve: async (_, { where }, { prisma, select }) => {
-        return prisma.user.deleteMany({
-          where,
-          ...select,
-        })
+      resolve: async (_parent, { where }, { prisma }) => {
+        return prisma.user.deleteMany({ where })
       },
     })
 
@@ -87,12 +84,8 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { where, data }, { prisma, select }) {
-        return prisma.user.updateMany({
-          where,
-          data,
-          ...select,
-        })
+      resolve(_parent, args, { prisma }) {
+        return prisma.user.updateMany(args)
       },
     })
   },

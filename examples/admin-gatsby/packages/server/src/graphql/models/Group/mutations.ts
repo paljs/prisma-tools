@@ -12,7 +12,7 @@ export const GroupMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data }, { prisma, select }) {
+      resolve(_parent, { data }, { prisma, select }) {
         return prisma.group.create({
           data,
           ...select,
@@ -33,7 +33,7 @@ export const GroupMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data, where }, { prisma, select }) {
+      resolve(_parent, { data, where }, { prisma, select }) {
         return prisma.group.update({
           data,
           where,
@@ -51,7 +51,7 @@ export const GroupMutations = extendType({
           nullable: false,
         }),
       },
-      resolve: async (_, { where }, { prisma, select, onDelete }) => {
+      resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
         await onDelete.cascade('Group', where, false)
         return prisma.group.delete({
           where,

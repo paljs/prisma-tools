@@ -12,7 +12,7 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data }, { prisma, select }) {
+      resolve(_parent, { data }, { prisma, select }) {
         return prisma.user.create({
           data,
           ...select,
@@ -33,7 +33,7 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data, where }, { prisma, select }) {
+      resolve(_parent, { data, where }, { prisma, select }) {
         return prisma.user.update({
           data,
           where,
@@ -51,7 +51,7 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve: async (_, { where }, { prisma, select, onDelete }) => {
+      resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
         await onDelete.cascade('User', where, false)
         return prisma.user.delete({
           where,
@@ -68,12 +68,9 @@ export const UserMutations = extendType({
           nullable: true,
         }),
       },
-      resolve: async (_, { where }, { prisma, select, onDelete }) => {
+      resolve: async (_parent, { where }, { prisma, onDelete }) => {
         await onDelete.cascade('User', where, false)
-        return prisma.user.deleteMany({
-          where,
-          ...select,
-        })
+        return prisma.user.deleteMany({ where })
       },
     })
 
@@ -89,12 +86,8 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve(_, { where, data }, { prisma, select }) {
-        return prisma.user.updateMany({
-          where,
-          data,
-          ...select,
-        })
+      resolve(_parent, args, { prisma }) {
+        return prisma.user.updateMany(args)
       },
     })
   },

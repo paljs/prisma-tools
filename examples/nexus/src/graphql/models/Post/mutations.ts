@@ -12,7 +12,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data }, { prisma, select }) {
+      resolve(_parent, { data }, { prisma, select }) {
         return prisma.post.create({
           data,
           ...select,
@@ -33,7 +33,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { data, where }, { prisma, select }) {
+      resolve(_parent, { data, where }, { prisma, select }) {
         return prisma.post.update({
           data,
           where,
@@ -51,7 +51,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve: async (_, { where }, { prisma, select }) => {
+      resolve: async (_parent, { where }, { prisma, select }) => {
         return prisma.post.delete({
           where,
           ...select,
@@ -71,12 +71,8 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { where, data }, { prisma, select }) {
-        return prisma.post.updateMany({
-          where,
-          data,
-          ...select,
-        })
+      resolve(_parent, args, { prisma }) {
+        return prisma.post.updateMany(args)
       },
     })
   },

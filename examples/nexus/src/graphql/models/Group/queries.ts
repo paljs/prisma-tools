@@ -12,7 +12,7 @@ schema.extendType({
           nullable: false,
         }),
       },
-      resolve(_, { where }, { prisma, select }) {
+      resolve(_parent, { where }, { prisma, select }) {
         return prisma.group.findOne({
           where,
           ...select,
@@ -33,7 +33,7 @@ schema.extendType({
         first: 'Int',
         last: 'Int',
       },
-      resolve: async (_root, args, { prisma, select }) => {
+      resolve: async (_parent, args, { prisma, select }) => {
         return prisma.group.findMany({
           ...args,
           ...select,
@@ -52,8 +52,8 @@ schema.extendType({
         first: 'Int',
         last: 'Int',
       },
-      resolve: async (_root, args, { prisma }) => {
-        return prisma.group.count({ ...args })
+      resolve: async (_parent, args, { prisma }) => {
+        return prisma.group.count(args)
       },
     })
   },
