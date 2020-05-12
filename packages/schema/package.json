@@ -16,7 +16,7 @@
     "prepublish": "yarn build"
   },
   "devDependencies": {
-    "typescript": "3.8.3"
+    "typescript": "3.9.2"
   },
   "files": [
     "dist"
