@@ -47,7 +47,7 @@
   - **Every model in `schema.prisma` will have folder contain 3 files**
     - `type.ts` contain `objectType` for this model
     - `queries.ts` contain 3 queries `'findOne' | 'findMany' | 'findCount'`
-    - `mutations.ts` contain 5 mutations `'createOne' | 'updateOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
+    - `mutations.ts` contain 6 mutations `'createOne' | 'updateOne' | 'upsertOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
   - Add to `inputTypes.ts` file list of inputs
     ```
     UserWhereInput
@@ -894,6 +894,7 @@ type QueriesAndMutations =
   | 'findCount'
   | 'createOne'
   | 'updateOne'
+  | 'upsertOne'
   | 'deleteOne'
   | 'updateMany'
   | 'deleteMany';

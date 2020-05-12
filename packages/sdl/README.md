@@ -34,7 +34,7 @@ This tool built on [Prisma](https://prisma.io) to auto generate graphql schema t
 - Auto generate CRUD system from your `schema.prisma` file.
   - **Every model in `schema.prisma` will have folder contain 2 files**
     - `typeDefs.graphql` contain graphql types for this model
-    - `resolvers.ts` contain 3 queries and 5 mutations `'findOne' | 'findMany' | 'findCount' | 'createOne' | 'updateOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
+    - `resolvers.ts` contain 3 queries and 6 mutations `'findOne' | 'findMany' | 'findCount' | 'createOne' | 'updateOne' | 'upsertOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
   - Add to `inputTypes.graphql` file list of inputs
     ```
     UserWhereInput
@@ -415,6 +415,7 @@ type QueriesAndMutations =
   | 'findCount'
   | 'createOne'
   | 'updateOne'
+  | 'upsertOne'
   | 'deleteOne'
   | 'updateMany'
   | 'deleteMany';
