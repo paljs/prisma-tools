@@ -2,7 +2,6 @@ type User {
   id: Int!
   email: String!
   name: String
-  title: String
   posts(
     where: PostWhereInput
     orderBy: PostOrderByInput
@@ -11,7 +10,6 @@ type User {
     before: PostWhereUniqueInput
     first: Int
     last: Int
-    any: String
   ): [Post!]!
   group: Group
   groupId: Int
@@ -36,7 +34,7 @@ type Query {
     skip: Int
     first: Int
     last: Int
-  ): [User!]!
+  ): [User!]
   findManyUserCount(
     where: UserWhereInput
     orderBy: UserOrderByInput
