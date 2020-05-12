@@ -114,6 +114,22 @@ export function createQueriesAndMutations(
     },`;
   }
 
+  if (!exclude.includes("upsertOne")) {
+    operations.mutations.type += `
+    upsertOne${name}(
+      where: ${name}WhereUniqueInput!
+      create: ${name}CreateInput!
+      update: ${name}UpdateInput!
+    ): ${name}`;
+    operations.mutations.resolver += `
+    upsertOne${name}: async (_parent, args, {prisma, select}: Context) => {
+      return prisma.${model}.upsert({
+        ...args,
+        ...select,
+      })
+    },`;
+  }
+
   if (!exclude.includes("deleteMany")) {
     operations.mutations.type += `
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;

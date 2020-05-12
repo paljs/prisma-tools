@@ -4,6 +4,7 @@ type QueriesAndMutations =
   | "findCount"
   | "createOne"
   | "updateOne"
+  | "upsertOne"
   | "deleteOne"
   | "updateMany"
   | "deleteMany";

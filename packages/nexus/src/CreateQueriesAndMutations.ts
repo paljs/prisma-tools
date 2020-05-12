@@ -147,6 +147,35 @@ export function createQueriesAndMutations(
             : ""
         }
         ${
+          !exclude.includes("upsertOne")
+            ? `
+        t.field('upsertOne${name}', {
+          type: '${name}',
+          nullable: false,
+          args: {
+            where: ${!options.nexusSchema ? "schema." : ""}arg({
+              type: '${name}WhereUniqueInput',
+              nullable: false,
+            }),
+            create: ${!options.nexusSchema ? "schema." : ""}arg({
+              type: '${name}CreateInput',
+              nullable: false,
+            }),
+            update: ${!options.nexusSchema ? "schema." : ""}arg({
+              type: '${name}UpdateInput',
+              nullable: false,
+            }),
+          },
+          resolve(_parent, args, {prisma, select}) {
+            return prisma.${model}.upsert({
+              ...args,
+              ...select,
+            })
+          },
+        })`
+            : ""
+        }
+        ${
           !exclude.includes("deleteOne")
             ? `
         t.field('deleteOne${name}', {
