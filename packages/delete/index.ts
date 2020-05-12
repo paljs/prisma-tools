@@ -1,5 +1,5 @@
-import { dmmf, PrismaClient } from '@prisma/client';
-import { DMMF } from '@prisma/client/runtime';
+import { dmmf, PrismaClient } from "@prisma/client";
+import { DMMF } from "@prisma/client/runtime";
 
 const datamodel: DMMF.Datamodel = dmmf.datamodel;
 
@@ -11,7 +11,7 @@ interface DeleteData {
 type Schema = { [key: string]: string[] };
 
 export default class DeleteCascade {
-  constructor(private prisma: PrismaClient, private schema: Schema) {}
+  constructor(private prisma: any, private schema: Schema) {}
 
   private getFieldByName(modelName: string, fieldName: string) {
     return this.getModel(modelName)?.fields.find(
