@@ -1,4 +1,4 @@
-import getPrismaSelect from "@prisma-tools/select";
+import { PrismaSelect } from "@prisma-tools/select";
 import { ApolloServer } from "apollo-server";
 import { applyMiddleware } from "graphql-middleware";
 import { makeExecutableSchema } from "graphql-tools";
@@ -15,8 +15,7 @@ const middleware = async (
   context: Context,
   info: GraphQLResolveInfo
 ) => {
-  context.select =
-    info.parentType.name === "Query" ? getPrismaSelect(info) : {};
+  context.select = new PrismaSelect(info).value;
   return resolve(root, args, context, info);
 };
 

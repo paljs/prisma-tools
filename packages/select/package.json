@@ -1,8 +1,8 @@
 {
   "name": "@prisma-tools/select",
-  "version": "0.0.4",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "version": "0.0.5",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
@@ -11,10 +11,20 @@
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "build": "tsc",
+    "doc": "doctoc README.md --notitle",
+    "prepublish": "yarn build"
+  },
   "dependencies": {
     "graphql-fields": "^2.0.3"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "graphql": "^15.0.0",
+    "doctoc": "1.4.0",
+    "typescript": "3.8.3"
   }
 }

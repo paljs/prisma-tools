@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Prisma select](#prisma-select)
+- [Use](#use)
+- [Example query](#example-query)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Prisma select
 
 It's a small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
@@ -6,10 +16,10 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 npm i @prisma-tools/select
 ```
 
-**Example**
+## Use
 
 ```ts
-import getPrismaSelect from '@prisma-tools/select';
+import { PrismaSelect } from '@prisma-tools/select';
 
 // nexus
 t.field('findOneUser', {
@@ -22,9 +32,10 @@ t.field('findOneUser', {
     }),
   },
   resolve(_parent, { where }, { prisma }, info) {
+    const select = new PrismaSelect(info);
     return prisma.user.findOne({
       where,
-      ...getPrismaSelect(info),
+      ...select.value,
     });
   },
 });
@@ -32,16 +43,17 @@ t.field('findOneUser', {
 const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
+      const select = new PrismaSelect(info);
       return prisma.user.findOne({
         where,
-        ...getPrismaSelect(info),
+        ...select.value,
       });
     },
   },
 };
 ```
 
-**Example query**
+## Example query
 
 ```graphql
 query {

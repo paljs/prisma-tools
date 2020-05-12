@@ -1,6 +1,6 @@
 import { makeSchema } from '@nexus/schema'
 import * as types from './graphql'
-import { prismaSelectObject } from '@prisma-tools/nexus'
+import { prismaSelectObject } from 'nexus-plugin-prisma-select/dist/lib/schema'
 
 export const schema = makeSchema({
   types,

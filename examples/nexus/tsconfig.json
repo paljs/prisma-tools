@@ -6,5 +6,5 @@
     "strict": true,
     "rootDir": "src"
   },
-  "include": ["src"]
+  "include": ["src", "../apollo-sdl-first/src/index.ts"]
 }

@@ -90,7 +90,12 @@ export function createTypes(customOptions: Partial<Options>) {
         `;
         writeFile(
           `${options.modelsOutput}/${model.name}/resolvers.ts`,
-          format(resolvers, { parser: "babel-ts" }),
+          format(resolvers, {
+            singleQuote: true,
+            semi: false,
+            trailingComma: "all",
+            parser: "babel-ts",
+          }),
           () => {}
         );
       }

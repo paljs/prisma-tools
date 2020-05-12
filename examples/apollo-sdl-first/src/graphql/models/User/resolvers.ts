@@ -1,4 +1,5 @@
 import { Context } from "../../../context";
+import { PrismaSelect } from "../../../index";
 
 export default {
   Query: {
@@ -8,10 +9,11 @@ export default {
         ...select,
       });
     },
-    findManyUser: (_parent, args, { prisma, select }: Context) => {
+    findManyUser: (_parent, args, { prisma }: Context, info) => {
+      const select = new PrismaSelect(info);
       return prisma.user.findMany({
         ...args,
-        ...select,
+        ...select.value,
       });
     },
     findManyUserCount: (_parent, args, { prisma }: Context) => {
