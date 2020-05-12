@@ -1,4 +1,4 @@
-import { dmmf, PrismaClient } from "@prisma/client";
+import { dmmf } from "@prisma/client";
 import { DMMF } from "@prisma/client/runtime";
 
 const datamodel: DMMF.Datamodel = dmmf.datamodel;
