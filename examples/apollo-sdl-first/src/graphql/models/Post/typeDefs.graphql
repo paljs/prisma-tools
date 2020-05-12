@@ -40,6 +40,11 @@ type Mutation {
   createOnePost(data: PostCreateInput!): Post!
   updateOnePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post!
   deleteOnePost(where: PostWhereUniqueInput!): Post
+  upsertOnePost(
+    where: PostWhereUniqueInput!
+    create: PostCreateInput!
+    update: PostUpdateInput!
+  ): Post
   updateManyPost(
     where: PostWhereInput
     data: PostUpdateManyMutationInput

@@ -374,6 +374,26 @@ type Mutation {
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updatePassword(currentPassword: String!, password: String!): Boolean!
+  upsertOneComment(
+    create: CommentCreateInput!
+    update: CommentUpdateInput!
+    where: CommentWhereUniqueInput!
+  ): Comment!
+  upsertOneGroup(
+    create: GroupCreateInput!
+    update: GroupUpdateInput!
+    where: GroupWhereUniqueInput!
+  ): Group!
+  upsertOnePost(
+    create: PostCreateInput!
+    update: PostUpdateInput!
+    where: PostWhereUniqueInput!
+  ): Post!
+  upsertOneUser(
+    create: UserCreateInput!
+    update: UserUpdateInput!
+    where: UserWhereUniqueInput!
+  ): User!
 }
 
 input NullableIntFilter {

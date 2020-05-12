@@ -388,6 +388,10 @@ export type Mutation = {
   updateOnePost: Post;
   updateOneUser: User;
   updatePassword: Scalars['Boolean'];
+  upsertOneComment: Comment;
+  upsertOneGroup: Group;
+  upsertOnePost: Post;
+  upsertOneUser: User;
 };
 
 export type MutationCreateOneCommentArgs = {
@@ -467,6 +471,30 @@ export type MutationUpdateOneUserArgs = {
 export type MutationUpdatePasswordArgs = {
   currentPassword: Scalars['String'];
   password: Scalars['String'];
+};
+
+export type MutationUpsertOneCommentArgs = {
+  create: CommentCreateInput;
+  update: CommentUpdateInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type MutationUpsertOneGroupArgs = {
+  create: GroupCreateInput;
+  update: GroupUpdateInput;
+  where: GroupWhereUniqueInput;
+};
+
+export type MutationUpsertOnePostArgs = {
+  create: PostCreateInput;
+  update: PostUpdateInput;
+  where: PostWhereUniqueInput;
+};
+
+export type MutationUpsertOneUserArgs = {
+  create: UserCreateInput;
+  update: UserUpdateInput;
+  where: UserWhereUniqueInput;
 };
 
 export type NullableIntFilter = {

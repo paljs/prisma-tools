@@ -35,6 +35,11 @@ type Mutation {
     data: CommentUpdateInput!
   ): Comment!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
+  upsertOneComment(
+    where: CommentWhereUniqueInput!
+    create: CommentCreateInput!
+    update: CommentUpdateInput!
+  ): Comment
   deleteManyComment(where: CommentWhereInput): BatchPayload
   updateManyComment(
     where: CommentWhereInput

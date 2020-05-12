@@ -42,6 +42,12 @@ export default {
         ...select,
       });
     },
+    upsertOneUser: async (_parent, args, { prisma, select }: Context) => {
+      return prisma.user.upsert({
+        ...args,
+        ...select,
+      });
+    },
     deleteManyUser: async (
       _parent,
       { where },

@@ -42,6 +42,12 @@ export default {
         ...select,
       });
     },
+    upsertOnePost: async (_parent, args, { prisma, select }: Context) => {
+      return prisma.post.upsert({
+        ...args,
+        ...select,
+      });
+    },
     updateManyPost: (_parent, args, { prisma }: Context) => {
       return prisma.post.updateMany(args);
     },

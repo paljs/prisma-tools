@@ -42,6 +42,12 @@ export default {
         ...select,
       });
     },
+    upsertOneComment: async (_parent, args, { prisma, select }: Context) => {
+      return prisma.comment.upsert({
+        ...args,
+        ...select,
+      });
+    },
     deleteManyComment: async (
       _parent,
       { where },

@@ -49,6 +49,11 @@ type Mutation {
   createOneUser(data: UserCreateInput!): User!
   updateOneUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
   deleteOneUser(where: UserWhereUniqueInput!): User
+  upsertOneUser(
+    where: UserWhereUniqueInput!
+    create: UserCreateInput!
+    update: UserUpdateInput!
+  ): User
   deleteManyUser(where: UserWhereInput): BatchPayload
   updateManyUser(
     where: UserWhereInput

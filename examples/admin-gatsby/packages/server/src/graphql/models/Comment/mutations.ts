@@ -42,6 +42,31 @@ export const CommentMutations = extendType({
       },
     })
 
+    t.field('upsertOneComment', {
+      type: 'Comment',
+      nullable: false,
+      args: {
+        where: arg({
+          type: 'CommentWhereUniqueInput',
+          nullable: false,
+        }),
+        create: arg({
+          type: 'CommentCreateInput',
+          nullable: false,
+        }),
+        update: arg({
+          type: 'CommentUpdateInput',
+          nullable: false,
+        }),
+      },
+      resolve(_parent, args, { prisma, select }) {
+        return prisma.comment.upsert({
+          ...args,
+          ...select,
+        })
+      },
+    })
+
     t.field('deleteOneComment', {
       type: 'Comment',
       nullable: true,
