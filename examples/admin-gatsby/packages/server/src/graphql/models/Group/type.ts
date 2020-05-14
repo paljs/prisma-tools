@@ -18,6 +18,9 @@ export const Group = objectType({
         first: 'Int',
         last: 'Int',
       },
+      resolve(parent) {
+        return parent['users']
+      },
     })
     t.field('createdAt', { nullable: false, type: 'DateTime' })
     t.field('updatedAt', { nullable: false, type: 'DateTime' })

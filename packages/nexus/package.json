@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/nexus",
-  "version": "0.6.7",
+  "version": "0.6.9",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {

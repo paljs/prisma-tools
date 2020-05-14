@@ -19,8 +19,17 @@ export const User = objectType({
         first: 'Int',
         last: 'Int',
       },
+      resolve(parent) {
+        return parent['posts']
+      },
     })
-    t.field('group', { nullable: true, type: 'Group' })
+    t.field('group', {
+      nullable: true,
+      type: 'Group',
+      resolve(parent) {
+        return parent['group']
+      },
+    })
     t.int('groupId', { nullable: true })
     t.field('Comment', {
       nullable: false,
@@ -34,6 +43,9 @@ export const User = objectType({
         before: 'CommentWhereUniqueInput',
         first: 'Int',
         last: 'Int',
+      },
+      resolve(parent) {
+        return parent['Comment']
       },
     })
   },

@@ -6,7 +6,13 @@ schema.objectType({
     t.int('id', { nullable: false })
     t.boolean('published', { nullable: false })
     t.string('title', { nullable: false })
-    t.field('author', { nullable: true, type: 'User' })
+    t.field('author', {
+      nullable: true,
+      type: 'User',
+      resolve(parent) {
+        return parent['author']
+      },
+    })
     t.int('authorId', { nullable: true })
     t.field('comments', {
       nullable: false,
@@ -20,6 +26,9 @@ schema.objectType({
         before: 'CommentWhereUniqueInput',
         first: 'Int',
         last: 'Int',
+      },
+      resolve(parent) {
+        return parent['comments']
       },
     })
   },
