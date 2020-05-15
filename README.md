@@ -2,7 +2,7 @@
 
 **This tools built on [Prisma](https://prisma.io) and `GraphQL` Auto generate nexus types and CURD system from Prisma Client**
 
-> NOTE: You must be familiar with `Prisma` and `nexus` before using this tools.
+> NOTE: You must be familiar with `Prisma` and `GraphQL` before using this tools.
 
 ### Tools
 
