@@ -1,0 +1,36 @@
+{
+  "name": "@prisma-tools/graphql-modules",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/graphql-modules"
+  },
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "doc": "doctoc README.md --notitle",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "prettier": "^2.0.4"
+  },
+  "devDependencies": {
+    "@prisma/client": "2.0.0-beta.5",
+    "@types/node": "13.13.5",
+    "@types/prettier": "2.0.0",
+    "doctoc": "1.4.0",
+    "typescript": "3.9.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+}
