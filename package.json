@@ -6,5 +6,9 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
 }
