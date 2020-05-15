@@ -4,7 +4,7 @@ This example shows how to implement a **GraphQL server with TypeScript** based o
 
 ## How to use
 
-## Download nexus starter project
+## Download starter project
 
 This guide uses a small starter project that has Prisma configured against a SQLite database file.
 

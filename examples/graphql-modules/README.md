@@ -1,10 +1,10 @@
-## GraphQL apollo Server with sdl first and CURD system
+## GraphQL apollo Server with graphql-modules and CURD system
 
-This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://www.prisma.io/docs/) and [@prisma-tools/sdl to create CURD system](../../packages/sdl). It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](./prisma/dev.db).
+This example shows how to implement a **GraphQL server with TypeScript** based on [Prisma Client](https://www.prisma.io/docs/) and [@prisma-tools/graphql-modules to create CURD system](../../packages/graphql-modules). It is based on a SQLite database, you can find the database file with some dummy data at [`./prisma/dev.db`](./prisma/dev.db).
 
 ## How to use
 
-## Download nexus starter project
+## Download graphql-modules starter project
 
 This guide uses a small starter project that has Prisma configured against a SQLite database file.
 
@@ -13,25 +13,25 @@ Open your terminal and download the starter project with the following command:
 ### Unix (Mac OS, Linux)
 
 ```shell script
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/apollo-sdl-first
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/graphql-modules
 ```
 
 ### Windows
 
 ```shell script
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/apollo-sdl-first && move prisma-tools-master/examples/apollo-sdl-first apollo-sdl-first && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
+curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/graphql-modules && move prisma-tools-master/examples/graphql-modules graphql-modules && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
 ```
 
 ## Install dependencies
 
-The project has downloaded to directory called apollo-sdl-first
+The project has downloaded to directory called graphql-modules
 
 ### npm
 
 Run this three commands
 
 ```shell script
-cd apollo-sdl-first
+cd graphql-modules
 npm i
 npm run dev
 ```
@@ -41,7 +41,7 @@ npm run dev
 Run this three commands
 
 ```shell script
-cd apollo-sdl-first
+cd graphql-modules
 yarn
 yarn dev
 ```
