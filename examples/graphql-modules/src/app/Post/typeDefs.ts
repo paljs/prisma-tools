@@ -1,14 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default gql`
   type Post {
     id: Int!
-    createdAt: DateTime!
-    updatedAt: DateTime!
     published: Boolean!
     title: String!
     author: User
     authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 
   extend type User {

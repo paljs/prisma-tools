@@ -19,15 +19,15 @@ export default {
     updateOneComment: (_parent, args, { prisma }: Context) => {
       return prisma.comment.update(args);
     },
-    deleteOneComment: async (_parent, args, { prisma, onDelete }: Context) => {
-      await onDelete.cascade('Comment', args.where, false);
+    deleteOneComment: async (_parent, args, { prisma }: Context) => {
+      await prisma.onDelete({ model: 'Comment', where: args.where });
       return prisma.comment.delete(args);
     },
     upsertOneComment: async (_parent, args, { prisma }: Context) => {
       return prisma.comment.upsert(args);
     },
-    deleteManyComment: async (_parent, args, { prisma, onDelete }: Context) => {
-      await onDelete.cascade('Comment', args.where, false);
+    deleteManyComment: async (_parent, args, { prisma }: Context) => {
+      await prisma.onDelete({ model: 'Comment', where: args.where });
       return prisma.comment.deleteMany(args);
     },
     updateManyComment: (_parent, args, { prisma }: Context) => {

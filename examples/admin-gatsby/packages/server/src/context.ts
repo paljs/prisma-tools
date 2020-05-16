@@ -1,20 +1,20 @@
 import { PrismaClient, PrismaClientOptions } from '@prisma/client'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
-import PrismaDelete from '@prisma-tools/delete'
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
 import { getUserId } from './utils'
 
 class Prisma extends PrismaClient {
-  constructor(options: PrismaClientOptions) {
+  constructor(options?: PrismaClientOptions) {
     super(options)
   }
 
-  async onDelete(args) {
+  async onDelete(args: onDeleteArgs) {
     const prismaDelete = new PrismaDelete(this)
     await prismaDelete.onDelete(args)
   }
 }
 
-const prisma = new Prisma({ log: ['query'] })
+const prisma = new Prisma()
 
 export interface Context {
   prisma: Prisma

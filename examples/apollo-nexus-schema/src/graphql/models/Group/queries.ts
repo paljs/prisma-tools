@@ -33,7 +33,7 @@ export const GroupQueries = extendType({
         first: 'Int',
         last: 'Int',
       },
-      resolve: async (_parent, args, { prisma, select }) => {
+      resolve(_parent, args, { prisma, select }) {
         return prisma.group.findMany({
           ...args,
           ...select,
@@ -52,7 +52,7 @@ export const GroupQueries = extendType({
         first: 'Int',
         last: 'Int',
       },
-      resolve: async (_parent, args, { prisma }) => {
+      resolve(_parent, args, { prisma }) {
         return prisma.group.count(args)
       },
     })

@@ -31,29 +31,29 @@ export const createCommon = (options: Options) => {
 
     writeFile(
       `${options.modelsOutput}/common/Prisma.provider.ts`,
-      formatter(`import PrismaDelete from '@prisma-tools/delete';
-    import { OnRequest, OnResponse } from '@graphql-modules/core';
-    import { PrismaClient } from '@prisma/client';
-    import { Injectable } from '@graphql-modules/di';
-    
-    @Injectable()
-    export class PrismaProvider extends PrismaClient
-      implements OnRequest, OnResponse {
-      constructor() {
-        super();
-      }
-      onRequest() {
-        this.connect();
-      }
-      onResponse() {
-        this.disconnect();
-      }
-    
-      async onDelete(model: string, where: object, deleteParent?: boolean) {
-        const prismaDelete = new PrismaDelete(this);
-        await prismaDelete.onDelete({ model, where, deleteParent });
-      }
-    }
+      formatter(`import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
+      import { OnRequest, OnResponse } from '@graphql-modules/core';
+      import { PrismaClient } from '@prisma/client';
+      import { Injectable } from '@graphql-modules/di';
+      
+      @Injectable()
+      export class PrismaProvider extends PrismaClient
+        implements OnRequest, OnResponse {
+        constructor() {
+          super();
+        }
+        onRequest() {
+          this.connect();
+        }
+        onResponse() {
+          this.disconnect();
+        }
+      
+        async onDelete(args: onDeleteArgs) {
+          const prismaDelete = new PrismaDelete(this);
+          await prismaDelete.onDelete(args);
+        }
+      }      
     `),
       () => {},
     );

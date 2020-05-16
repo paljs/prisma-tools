@@ -19,8 +19,8 @@ export default {
     updateOnePost: (_parent, args, { prisma }: Context) => {
       return prisma.post.update(args);
     },
-    deleteOnePost: async (_parent, args, { prisma, onDelete }: Context) => {
-      await onDelete.cascade('Post', args.where, false);
+    deleteOnePost: async (_parent, args, { prisma }: Context) => {
+      await prisma.onDelete({ model: 'Post', where: args.where });
       return prisma.post.delete(args);
     },
     upsertOnePost: async (_parent, args, { prisma }: Context) => {

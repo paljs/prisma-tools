@@ -1,5 +1,5 @@
-import { ModuleContext } from "@graphql-modules/core";
-import { PrismaProvider } from "../common/Prisma.provider";
+import { ModuleContext } from '@graphql-modules/core';
+import { PrismaProvider } from '../common/Prisma.provider';
 
 export default {
   Query: {
@@ -21,14 +21,14 @@ export default {
       return injector.get(PrismaProvider).comment.update(args);
     },
     deleteOneComment: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete("Comment", args.where, false);
+      await injector.get(PrismaProvider).onDelete('Comment', args.where);
       return injector.get(PrismaProvider).comment.delete(args);
     },
     upsertOneComment: async (_parent, args, { injector }: ModuleContext) => {
       return injector.get(PrismaProvider).comment.upsert(args);
     },
     deleteManyComment: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete("Comment", args.where, false);
+      await injector.get(PrismaProvider).onDelete('Comment', args.where);
       return injector.get(PrismaProvider).comment.deleteMany(args);
     },
     updateManyComment: (_parent, args, { injector }: ModuleContext) => {

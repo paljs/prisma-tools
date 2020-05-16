@@ -76,8 +76,8 @@ export const GroupMutations = extendType({
           nullable: false,
         }),
       },
-      resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
-        await onDelete({ model: 'Group', where })
+      resolve: async (_parent, { where }, { prisma, select }) => {
+        await prisma.onDelete({ model: 'Group', where })
         return prisma.group.delete({
           where,
           ...select,

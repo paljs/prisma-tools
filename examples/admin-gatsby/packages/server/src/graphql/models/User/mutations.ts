@@ -76,8 +76,8 @@ export const UserMutations = extendType({
           nullable: false,
         }),
       },
-      resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
-        await onDelete({ model: 'User', where })
+      resolve: async (_parent, { where }, { prisma, select }) => {
+        await prisma.onDelete({ model: 'User', where })
         return prisma.user.delete({
           where,
           ...select,

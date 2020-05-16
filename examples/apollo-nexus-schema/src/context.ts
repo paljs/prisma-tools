@@ -1,19 +1,27 @@
-import { PrismaClient } from '@prisma/client'
-import DeleteCascade from '@prisma-tools/delete'
-import schema from './onDeleteSchema'
+import { PrismaClient, PrismaClientOptions } from '@prisma/client'
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
 
-const prisma = new PrismaClient()
+class Prisma extends PrismaClient {
+  constructor(options?: PrismaClientOptions) {
+    super(options)
+  }
+
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this)
+    await prismaDelete.onDelete(args)
+  }
+}
+
+const prisma = new Prisma()
 
 export interface Context {
-  prisma: PrismaClient
+  prisma: Prisma
   select: any
-  onDelete: DeleteCascade
 }
 
 export function createContext(): Context {
   return {
     prisma,
     select: {},
-    onDelete: new DeleteCascade(prisma, schema),
   }
 }

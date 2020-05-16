@@ -90,7 +90,7 @@ export function createQueriesAndMutations(
     deleteOne${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
         options.onDelete
-          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where)`
+          ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
           : ''
       }
       return injector.get(PrismaProvider).${model}.delete(args);
@@ -117,7 +117,7 @@ export function createQueriesAndMutations(
     deleteMany${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
         options.onDelete
-          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where)`
+          ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
           : ''
       }
       return injector.get(PrismaProvider).${model}.deleteMany(args);

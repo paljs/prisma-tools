@@ -1,15 +1,15 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default gql`
   type Comment {
     id: Int!
-    createdAt: DateTime!
-    updatedAt: DateTime!
     contain: String!
     post: Post!
     postId: Int!
     author: User
     authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 
   extend type Post {
@@ -25,7 +25,7 @@ export default gql`
   }
 
   extend type User {
-    Comment(
+    comments(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
       skip: Int

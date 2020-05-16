@@ -16,7 +16,7 @@ export default gql`
     ): [Post!]!
     group: Group
     groupId: Int
-    Comment(
+    comments(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
       skip: Int

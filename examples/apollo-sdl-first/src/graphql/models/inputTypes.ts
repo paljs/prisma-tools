@@ -13,11 +13,11 @@ export default gql`
 
   input CommentWhereInput {
     id: IntFilter
-    createdAt: DateTimeFilter
-    updatedAt: DateTimeFilter
     contain: StringFilter
     postId: IntFilter
     authorId: NullableIntFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
     AND: [CommentWhereInput!]
     OR: [CommentWhereInput!]
     NOT: [CommentWhereInput!]
@@ -27,12 +27,12 @@ export default gql`
 
   input PostWhereInput {
     id: IntFilter
-    createdAt: DateTimeFilter
-    updatedAt: DateTimeFilter
     published: BooleanFilter
     title: StringFilter
     authorId: NullableIntFilter
     comments: CommentFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
     AND: [PostWhereInput!]
     OR: [PostWhereInput!]
     NOT: [PostWhereInput!]
@@ -41,6 +41,7 @@ export default gql`
 
   input GroupWhereInput {
     id: IntFilter
+    name: StringFilter
     createdAt: DateTimeFilter
     updatedAt: DateTimeFilter
     users: UserFilter
@@ -57,7 +58,7 @@ export default gql`
     password: StringFilter
     posts: PostFilter
     groupId: NullableIntFilter
-    Comment: CommentFilter
+    comments: CommentFilter
     AND: [UserWhereInput!]
     OR: [UserWhereInput!]
     NOT: [UserWhereInput!]
@@ -82,6 +83,7 @@ export default gql`
   }
 
   input GroupCreateWithoutUsersInput {
+    name: String!
     createdAt: DateTime
     updatedAt: DateTime
   }
@@ -91,7 +93,7 @@ export default gql`
     connect: GroupWhereUniqueInput
   }
 
-  input UserCreateWithoutCommentInput {
+  input UserCreateWithoutCommentsInput {
     createdAt: DateTime
     email: String!
     name: String
@@ -100,16 +102,16 @@ export default gql`
     group: GroupCreateOneWithoutUsersInput
   }
 
-  input UserCreateOneWithoutCommentInput {
-    create: UserCreateWithoutCommentInput
+  input UserCreateOneWithoutCommentsInput {
+    create: UserCreateWithoutCommentsInput
     connect: UserWhereUniqueInput
   }
 
   input CommentCreateWithoutPostInput {
+    contain: String!
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String!
-    author: UserCreateOneWithoutCommentInput
+    author: UserCreateOneWithoutCommentsInput
   }
 
   input CommentCreateManyWithoutPostInput {
@@ -118,10 +120,10 @@ export default gql`
   }
 
   input PostCreateWithoutAuthorInput {
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String!
+    createdAt: DateTime
+    updatedAt: DateTime
     comments: CommentCreateManyWithoutPostInput
   }
 
@@ -136,7 +138,7 @@ export default gql`
     name: String
     password: String!
     group: GroupCreateOneWithoutUsersInput
-    Comment: CommentCreateManyWithoutAuthorInput
+    comments: CommentCreateManyWithoutAuthorInput
   }
 
   input UserCreateOneWithoutPostsInput {
@@ -145,10 +147,10 @@ export default gql`
   }
 
   input PostCreateWithoutCommentsInput {
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String!
+    createdAt: DateTime
+    updatedAt: DateTime
     author: UserCreateOneWithoutPostsInput
   }
 
@@ -158,9 +160,9 @@ export default gql`
   }
 
   input CommentCreateWithoutAuthorInput {
+    contain: String!
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String!
     post: PostCreateOneWithoutCommentsInput!
   }
 
@@ -176,11 +178,12 @@ export default gql`
     password: String!
     posts: PostCreateManyWithoutAuthorInput
     group: GroupCreateOneWithoutUsersInput
-    Comment: CommentCreateManyWithoutAuthorInput
+    comments: CommentCreateManyWithoutAuthorInput
   }
 
   input GroupUpdateWithoutUsersDataInput {
     id: Int
+    name: String
     createdAt: DateTime
     updatedAt: DateTime
   }
@@ -199,7 +202,7 @@ export default gql`
     upsert: GroupUpsertWithoutUsersInput
   }
 
-  input UserUpdateWithoutCommentDataInput {
+  input UserUpdateWithoutCommentsDataInput {
     id: Int
     createdAt: DateTime
     email: String
@@ -209,26 +212,26 @@ export default gql`
     group: GroupUpdateOneWithoutUsersInput
   }
 
-  input UserUpsertWithoutCommentInput {
-    update: UserUpdateWithoutCommentDataInput!
-    create: UserCreateWithoutCommentInput!
+  input UserUpsertWithoutCommentsInput {
+    update: UserUpdateWithoutCommentsDataInput!
+    create: UserCreateWithoutCommentsInput!
   }
 
-  input UserUpdateOneWithoutCommentInput {
-    create: UserCreateWithoutCommentInput
+  input UserUpdateOneWithoutCommentsInput {
+    create: UserCreateWithoutCommentsInput
     connect: UserWhereUniqueInput
     disconnect: Boolean
     delete: Boolean
-    update: UserUpdateWithoutCommentDataInput
-    upsert: UserUpsertWithoutCommentInput
+    update: UserUpdateWithoutCommentsDataInput
+    upsert: UserUpsertWithoutCommentsInput
   }
 
   input CommentUpdateWithoutPostDataInput {
     id: Int
+    contain: String
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String
-    author: UserUpdateOneWithoutCommentInput
+    author: UserUpdateOneWithoutCommentsInput
   }
 
   input CommentUpdateWithWhereUniqueWithoutPostInput {
@@ -238,11 +241,11 @@ export default gql`
 
   input CommentScalarWhereInput {
     id: IntFilter
-    createdAt: DateTimeFilter
-    updatedAt: DateTimeFilter
     contain: StringFilter
     postId: IntFilter
     authorId: NullableIntFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
     AND: [CommentScalarWhereInput!]
     OR: [CommentScalarWhereInput!]
     NOT: [CommentScalarWhereInput!]
@@ -250,9 +253,9 @@ export default gql`
 
   input CommentUpdateManyDataInput {
     id: Int
+    contain: String
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String
   }
 
   input CommentUpdateManyWithWhereNestedInput {
@@ -280,10 +283,10 @@ export default gql`
 
   input PostUpdateWithoutAuthorDataInput {
     id: Int
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String
+    createdAt: DateTime
+    updatedAt: DateTime
     comments: CommentUpdateManyWithoutPostInput
   }
 
@@ -294,12 +297,12 @@ export default gql`
 
   input PostScalarWhereInput {
     id: IntFilter
-    createdAt: DateTimeFilter
-    updatedAt: DateTimeFilter
     published: BooleanFilter
     title: StringFilter
     authorId: NullableIntFilter
     comments: CommentFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
     AND: [PostScalarWhereInput!]
     OR: [PostScalarWhereInput!]
     NOT: [PostScalarWhereInput!]
@@ -307,10 +310,10 @@ export default gql`
 
   input PostUpdateManyDataInput {
     id: Int
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   input PostUpdateManyWithWhereNestedInput {
@@ -343,7 +346,7 @@ export default gql`
     name: String
     password: String
     group: GroupUpdateOneWithoutUsersInput
-    Comment: CommentUpdateManyWithoutAuthorInput
+    comments: CommentUpdateManyWithoutAuthorInput
   }
 
   input UserUpsertWithoutPostsInput {
@@ -362,10 +365,10 @@ export default gql`
 
   input PostUpdateWithoutCommentsDataInput {
     id: Int
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String
+    createdAt: DateTime
+    updatedAt: DateTime
     author: UserUpdateOneWithoutPostsInput
   }
 
@@ -383,9 +386,9 @@ export default gql`
 
   input CommentUpdateWithoutAuthorDataInput {
     id: Int
+    contain: String
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String
     post: PostUpdateOneRequiredWithoutCommentsInput
   }
 
@@ -420,7 +423,7 @@ export default gql`
     password: String
     posts: PostUpdateManyWithoutAuthorInput
     group: GroupUpdateOneWithoutUsersInput
-    Comment: CommentUpdateManyWithoutAuthorInput
+    comments: CommentUpdateManyWithoutAuthorInput
   }
 
   input UserUpdateManyMutationInput {
@@ -432,54 +435,54 @@ export default gql`
   }
 
   input PostCreateInput {
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String!
+    createdAt: DateTime
+    updatedAt: DateTime
     author: UserCreateOneWithoutPostsInput
     comments: CommentCreateManyWithoutPostInput
   }
 
   input PostUpdateInput {
     id: Int
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String
+    createdAt: DateTime
+    updatedAt: DateTime
     author: UserUpdateOneWithoutPostsInput
     comments: CommentUpdateManyWithoutPostInput
   }
 
   input PostUpdateManyMutationInput {
     id: Int
-    createdAt: DateTime
-    updatedAt: DateTime
     published: Boolean
     title: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   input CommentCreateInput {
+    contain: String!
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String!
     post: PostCreateOneWithoutCommentsInput!
-    author: UserCreateOneWithoutCommentInput
+    author: UserCreateOneWithoutCommentsInput
   }
 
   input CommentUpdateInput {
     id: Int
+    contain: String
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String
     post: PostUpdateOneRequiredWithoutCommentsInput
-    author: UserUpdateOneWithoutCommentInput
+    author: UserUpdateOneWithoutCommentsInput
   }
 
   input CommentUpdateManyMutationInput {
     id: Int
+    contain: String
     createdAt: DateTime
     updatedAt: DateTime
-    contain: String
   }
 
   input UserCreateWithoutGroupInput {
@@ -488,7 +491,7 @@ export default gql`
     name: String
     password: String!
     posts: PostCreateManyWithoutAuthorInput
-    Comment: CommentCreateManyWithoutAuthorInput
+    comments: CommentCreateManyWithoutAuthorInput
   }
 
   input UserCreateManyWithoutGroupInput {
@@ -497,6 +500,7 @@ export default gql`
   }
 
   input GroupCreateInput {
+    name: String!
     createdAt: DateTime
     updatedAt: DateTime
     users: UserCreateManyWithoutGroupInput
@@ -509,7 +513,7 @@ export default gql`
     name: String
     password: String
     posts: PostUpdateManyWithoutAuthorInput
-    Comment: CommentUpdateManyWithoutAuthorInput
+    comments: CommentUpdateManyWithoutAuthorInput
   }
 
   input UserUpdateWithWhereUniqueWithoutGroupInput {
@@ -525,7 +529,7 @@ export default gql`
     password: StringFilter
     posts: PostFilter
     groupId: NullableIntFilter
-    Comment: CommentFilter
+    comments: CommentFilter
     AND: [UserScalarWhereInput!]
     OR: [UserScalarWhereInput!]
     NOT: [UserScalarWhereInput!]
@@ -564,6 +568,7 @@ export default gql`
 
   input GroupUpdateInput {
     id: Int
+    name: String
     createdAt: DateTime
     updatedAt: DateTime
     users: UserUpdateManyWithoutGroupInput
@@ -571,6 +576,7 @@ export default gql`
 
   input GroupUpdateManyMutationInput {
     id: Int
+    name: String
     createdAt: DateTime
     updatedAt: DateTime
   }
@@ -584,17 +590,6 @@ export default gql`
     lte: Int
     gt: Int
     gte: Int
-  }
-
-  input DateTimeFilter {
-    equals: DateTime
-    not: DateTime
-    in: [DateTime!]
-    notIn: [DateTime!]
-    lt: DateTime
-    lte: DateTime
-    gt: DateTime
-    gte: DateTime
   }
 
   input StringFilter {
@@ -620,6 +615,17 @@ export default gql`
     lte: Int
     gt: Int
     gte: Int
+  }
+
+  input DateTimeFilter {
+    equals: DateTime
+    not: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
   }
 
   input BooleanFilter {
@@ -670,24 +676,25 @@ export default gql`
 
   input PostOrderByInput {
     id: OrderByArg
-    createdAt: OrderByArg
-    updatedAt: OrderByArg
     published: OrderByArg
     title: OrderByArg
     authorId: OrderByArg
+    createdAt: OrderByArg
+    updatedAt: OrderByArg
   }
 
   input CommentOrderByInput {
     id: OrderByArg
-    createdAt: OrderByArg
-    updatedAt: OrderByArg
     contain: OrderByArg
     postId: OrderByArg
     authorId: OrderByArg
+    createdAt: OrderByArg
+    updatedAt: OrderByArg
   }
 
   input GroupOrderByInput {
     id: OrderByArg
+    name: OrderByArg
     createdAt: OrderByArg
     updatedAt: OrderByArg
   }

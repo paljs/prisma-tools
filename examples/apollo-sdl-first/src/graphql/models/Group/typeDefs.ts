@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
   type Group {
     id: Int!
+    name: String!
     users(
       where: UserWhereInput
       orderBy: UserOrderByInput

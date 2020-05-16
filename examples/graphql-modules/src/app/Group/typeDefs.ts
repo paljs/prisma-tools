@@ -1,8 +1,9 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default gql`
   type Group {
     id: Int!
+    name: String!
     createdAt: DateTime!
     updatedAt: DateTime!
   }

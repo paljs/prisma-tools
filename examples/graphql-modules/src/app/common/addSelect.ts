@@ -1,4 +1,4 @@
-import { PrismaSelect } from "@prisma-tools/select";
+import { PrismaSelect } from '@prisma-tools/select';
 
 export const addSelect = (next) => async (root, args, context, info) => {
   const result = new PrismaSelect(info).value;
