@@ -187,12 +187,10 @@ export function createQueriesAndMutations(
               nullable: false,
             }),
           },
-          resolve: async (_parent, { where }, {prisma, select${
-            options.onDelete ? ', onDelete' : ''
-          }}) => {
+          resolve: async (_parent, { where }, {prisma, select}) => {
             ${
               options.onDelete
-                ? `await onDelete({ model: '${name}', where })`
+                ? `await prisma.onDelete({ model: '${name}', where })`
                 : ''
             }
             return prisma.${model}.delete({
@@ -214,12 +212,10 @@ export function createQueriesAndMutations(
               nullable: true,
             }),
           },
-          resolve: async (_parent, {where}, {prisma${
-            options.onDelete ? ', onDelete' : ''
-          }}) => {
+          resolve: async (_parent, {where}, {prisma}) => {
             ${
               options.onDelete
-                ? `await onDelete({ model: '${name}', where })`
+                ? `await prisma.onDelete({ model: '${name}', where })`
                 : ''
             }
             return prisma.${model}.deleteMany({where})

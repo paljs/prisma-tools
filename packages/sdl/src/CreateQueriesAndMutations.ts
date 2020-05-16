@@ -87,12 +87,10 @@ export function createQueriesAndMutations(
     operations.mutations.type += `
     deleteOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
     operations.mutations.resolver += `
-    deleteOne${name}: async (_parent, args, {prisma${
-      options.onDelete ? ', onDelete' : ''
-    }}: Context) => {
+    deleteOne${name}: async (_parent, args, {prisma}: Context) => {
       ${
         options.onDelete
-          ? `await onDelete({ model: '${name}', where: args.where })`
+          ? `await prisma.onDelete({ model: '${name}', where: args.where })`
           : ''
       }
       return prisma.${model}.delete(args)
@@ -116,12 +114,10 @@ export function createQueriesAndMutations(
     operations.mutations.type += `
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;
     operations.mutations.resolver += `
-    deleteMany${name}: async (_parent, args, {prisma${
-      options.onDelete ? ', onDelete' : ''
-    }}: Context) => {
+    deleteMany${name}: async (_parent, args, {prisma}: Context) => {
       ${
         options.onDelete
-          ? `await onDelete({ model: '${name}', where: args.where })`
+          ? `await prisma.onDelete({ model: '${name}', where: args.where })`
           : ''
       }
       return prisma.${model}.deleteMany(args)

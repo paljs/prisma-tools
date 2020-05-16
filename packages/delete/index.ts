@@ -8,7 +8,7 @@ interface DeleteData {
   where: object;
 }
 
-interface onDeleteArgs {
+export interface onDeleteArgs {
   model: string;
   where: object;
   deleteParent?: boolean;

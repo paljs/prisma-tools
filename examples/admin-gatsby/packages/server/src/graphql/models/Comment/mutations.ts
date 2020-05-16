@@ -77,7 +77,7 @@ export const CommentMutations = extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
-        await onDelete.cascade('Comment', where, false)
+        await onDelete({ model: 'Comment', where })
         return prisma.comment.delete({
           where,
           ...select,

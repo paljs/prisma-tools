@@ -1,8 +1,7 @@
-import DeleteCascade from "@prisma-tools/delete";
-import { OnRequest, OnResponse } from "@graphql-modules/core";
-import { PrismaClient } from "@prisma/client";
-import { Injectable } from "@graphql-modules/di";
-import onDeleteSchema from "./onDeleteSchema";
+import DeleteCascade from '@prisma-tools/delete';
+import { OnRequest, OnResponse } from '@graphql-modules/core';
+import { PrismaClient } from '@prisma/client';
+import { Injectable } from '@graphql-modules/di';
 
 @Injectable()
 export class PrismaProvider extends PrismaClient
@@ -20,9 +19,9 @@ export class PrismaProvider extends PrismaClient
   async onDelete(
     modelName: string,
     whereInput: object,
-    includeParent?: boolean
+    includeParent?: boolean,
   ) {
-    const prismaDelete = new DeleteCascade(this, onDeleteSchema);
+    const prismaDelete = new DeleteCascade(this);
     await prismaDelete.cascade(modelName, whereInput, includeParent);
   }
 }

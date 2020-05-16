@@ -77,7 +77,7 @@ export const PostMutations = extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select, onDelete }) => {
-        await onDelete.cascade('Post', where, false)
+        await onDelete({ model: 'Post', where })
         return prisma.post.delete({
           where,
           ...select,
