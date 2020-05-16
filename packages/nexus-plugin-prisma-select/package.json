@@ -42,7 +42,7 @@
     "doctoc": "1.4.0",
     "jest": "26.0.1",
     "jest-watch-typeahead": "0.6.0",
-    "ts-jest": "25.5.1",
+    "ts-jest": "26.0.0",
     "typescript": "3.9.2"
   },
   "dependencies": {
