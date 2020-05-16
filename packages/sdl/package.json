@@ -12,7 +12,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc",
+    "build": "yarn doc && tsc",
     "doc": "doctoc README.md --notitle",
     "prepublish": "yarn build"
   },
