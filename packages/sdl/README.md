@@ -9,17 +9,17 @@ This tool built on [Prisma](https://prisma.io) to auto generate graphql schema t
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Features](#features)
-- [Download nexus starter project](#download-nexus-starter-project)
+- [Download starter project](#download-starter-project)
   - [Unix (Mac OS, Linux)](#unix-mac-os-linux)
   - [Windows](#windows)
 - [Install dependencies](#install-dependencies)
   - [npm](#npm)
   - [yarn](#yarn)
 - [Example Usage](#example-usage)
-  - [`User/typeDefs.graphql`](#usertypedefsgraphql)
+  - [`User/typeDefs.ts`](#usertypedefsts)
   - [`User/resolvers.ts`](#userresolversts)
-  - [Merge all models](#merge-all-models)
   - [create context](#create-context)
   - [Add select function](#add-select-function)
 - [Tool settings](#tool-settings)
