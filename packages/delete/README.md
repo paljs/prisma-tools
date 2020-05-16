@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Introduction](#introduction)
+- [Install](#install)
+- [Example](#example)
+  - [`schema.prisma`](#schemaprisma)
+  - [Use](#use)
+- [`PrismaDelete` class](#prismadelete-class)
+- [Add to Context](#add-to-context)
+- [Have questions?](#have-questions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Introduction
 
 This tool is built for [Prisma](https://prisma.io)
