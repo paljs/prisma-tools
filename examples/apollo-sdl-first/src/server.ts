@@ -1,21 +1,32 @@
-import { PrismaSelect } from "@prisma-tools/select";
-import { ApolloServer } from "apollo-server";
-import { applyMiddleware } from "graphql-middleware";
-import { makeExecutableSchema } from "graphql-tools";
-import { createContext, Context } from "./context";
-import { typeDefs, resolvers } from "./graphql";
-import { GraphQLResolveInfo } from "graphql";
+import { PrismaSelect } from '@prisma-tools/select';
+import { ApolloServer } from 'apollo-server';
+import { applyMiddleware } from 'graphql-middleware';
+import { makeExecutableSchema } from 'graphql-tools';
+import { createContext, Context } from './context';
+import typeDefs from './graphql/models/typeDefs';
+import resolvers from './graphql/models/resolvers';
+import { GraphQLResolveInfo } from 'graphql';
+import { generateGraphQlSDLFile } from '@prisma-tools/sdl';
 
 let schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// Build one sdl file have all types you can delete if you not need
+generateGraphQlSDLFile(schema);
 
 const middleware = async (
   resolve,
   root,
   args,
   context: Context,
-  info: GraphQLResolveInfo
+  info: GraphQLResolveInfo,
 ) => {
-  context.select = new PrismaSelect(info).value;
+  const result = new PrismaSelect(info).value;
+  if (Object.keys(result.select).length > 0) {
+    args = {
+      ...args,
+      ...result,
+    };
+  }
   return resolve(root, args, context, info);
 };
 

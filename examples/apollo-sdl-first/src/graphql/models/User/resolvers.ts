@@ -1,60 +1,34 @@
-import { Context } from "../../../context";
+import { Context } from '../../../context';
 
 export default {
   Query: {
-    findOneUser: (_parent, { where }, { prisma, select }: Context) => {
-      return prisma.user.findOne({
-        where,
-        ...select,
-      });
+    findOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.findOne(args);
     },
-    findManyUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.findMany({
-        ...args,
-        ...select,
-      });
+    findManyUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.findMany(args);
     },
     findManyUserCount: (_parent, args, { prisma }: Context) => {
       return prisma.user.count(args);
     },
   },
   Mutation: {
-    createOneUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.create({
-        ...args,
-        ...select,
-      });
+    createOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.create(args);
     },
-    updateOneUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.update({
-        ...args,
-        ...select,
-      });
+    updateOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.update(args);
     },
-    deleteOneUser: async (
-      _parent,
-      { where },
-      { prisma, select, onDelete }: Context
-    ) => {
-      await onDelete.cascade("User", where, false);
-      return prisma.user.delete({
-        where,
-        ...select,
-      });
+    deleteOneUser: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('User', args.where, false);
+      return prisma.user.delete(args);
     },
-    upsertOneUser: async (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.upsert({
-        ...args,
-        ...select,
-      });
+    upsertOneUser: async (_parent, args, { prisma }: Context) => {
+      return prisma.user.upsert(args);
     },
-    deleteManyUser: async (
-      _parent,
-      { where },
-      { prisma, onDelete }: Context
-    ) => {
-      await onDelete.cascade("User", where, false);
-      return prisma.user.deleteMany({ where });
+    deleteManyUser: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('User', args.where, false);
+      return prisma.user.deleteMany(args);
     },
     updateManyUser: (_parent, args, { prisma }: Context) => {
       return prisma.user.updateMany(args);

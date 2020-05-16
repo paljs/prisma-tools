@@ -1,60 +1,34 @@
-import { Context } from "../../../context";
+import { Context } from '../../../context';
 
 export default {
   Query: {
-    findOneComment: (_parent, { where }, { prisma, select }: Context) => {
-      return prisma.comment.findOne({
-        where,
-        ...select,
-      });
+    findOneComment: (_parent, args, { prisma }: Context) => {
+      return prisma.comment.findOne(args);
     },
-    findManyComment: (_parent, args, { prisma, select }: Context) => {
-      return prisma.comment.findMany({
-        ...args,
-        ...select,
-      });
+    findManyComment: (_parent, args, { prisma }: Context) => {
+      return prisma.comment.findMany(args);
     },
     findManyCommentCount: (_parent, args, { prisma }: Context) => {
       return prisma.comment.count(args);
     },
   },
   Mutation: {
-    createOneComment: (_parent, args, { prisma, select }: Context) => {
-      return prisma.comment.create({
-        ...args,
-        ...select,
-      });
+    createOneComment: (_parent, args, { prisma }: Context) => {
+      return prisma.comment.create(args);
     },
-    updateOneComment: (_parent, args, { prisma, select }: Context) => {
-      return prisma.comment.update({
-        ...args,
-        ...select,
-      });
+    updateOneComment: (_parent, args, { prisma }: Context) => {
+      return prisma.comment.update(args);
     },
-    deleteOneComment: async (
-      _parent,
-      { where },
-      { prisma, select, onDelete }: Context
-    ) => {
-      await onDelete.cascade("Comment", where, false);
-      return prisma.comment.delete({
-        where,
-        ...select,
-      });
+    deleteOneComment: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('Comment', args.where, false);
+      return prisma.comment.delete(args);
     },
-    upsertOneComment: async (_parent, args, { prisma, select }: Context) => {
-      return prisma.comment.upsert({
-        ...args,
-        ...select,
-      });
+    upsertOneComment: async (_parent, args, { prisma }: Context) => {
+      return prisma.comment.upsert(args);
     },
-    deleteManyComment: async (
-      _parent,
-      { where },
-      { prisma, onDelete }: Context
-    ) => {
-      await onDelete.cascade("Comment", where, false);
-      return prisma.comment.deleteMany({ where });
+    deleteManyComment: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('Comment', args.where, false);
+      return prisma.comment.deleteMany(args);
     },
     updateManyComment: (_parent, args, { prisma }: Context) => {
       return prisma.comment.updateMany(args);

@@ -3,6 +3,7 @@ scalar DateTime
 type BatchPayload {
   count: Int!
 }
+
 enum OrderByArg {
   asc
   desc
@@ -687,4 +688,72 @@ input GroupOrderByInput {
   id: OrderByArg
   createdAt: OrderByArg
   updatedAt: OrderByArg
+}
+
+type Comment {
+  id: Int!
+  contain: String!
+  post: Post!
+  postId: Int!
+  author: User
+  authorId: Int
+}
+
+type Query {
+  findOneComment(where: CommentWhereUniqueInput!): Comment
+  findManyComment(where: CommentWhereInput, orderBy: CommentOrderByInput, after: CommentWhereUniqueInput, before: CommentWhereUniqueInput, skip: Int, first: Int, last: Int): [Comment!]
+  findManyCommentCount(where: CommentWhereInput, orderBy: CommentOrderByInput, after: CommentWhereUniqueInput, before: CommentWhereUniqueInput, skip: Int, first: Int, last: Int): Int!
+  findOnePost(where: PostWhereUniqueInput!): Post
+  findManyPost(where: PostWhereInput, orderBy: PostOrderByInput, after: PostWhereUniqueInput, before: PostWhereUniqueInput, skip: Int, first: Int, last: Int): [Post!]
+  findManyPostCount(where: PostWhereInput, orderBy: PostOrderByInput, after: PostWhereUniqueInput, before: PostWhereUniqueInput, skip: Int, first: Int, last: Int): Int!
+  findOneGroup(where: GroupWhereUniqueInput!): Group
+  findManyGroup(where: GroupWhereInput, orderBy: GroupOrderByInput, after: GroupWhereUniqueInput, before: GroupWhereUniqueInput, skip: Int, first: Int, last: Int): [Group!]
+  findManyGroupCount(where: GroupWhereInput, orderBy: GroupOrderByInput, after: GroupWhereUniqueInput, before: GroupWhereUniqueInput, skip: Int, first: Int, last: Int): Int!
+  findOneUser(where: UserWhereUniqueInput!): User
+  findManyUser(where: UserWhereInput, orderBy: UserOrderByInput, after: UserWhereUniqueInput, before: UserWhereUniqueInput, skip: Int, first: Int, last: Int): [User!]
+  findManyUserCount(where: UserWhereInput, orderBy: UserOrderByInput, after: UserWhereUniqueInput, before: UserWhereUniqueInput, skip: Int, first: Int, last: Int): Int!
+}
+
+type Mutation {
+  createOneComment(data: CommentCreateInput!): Comment!
+  updateOneComment(where: CommentWhereUniqueInput!, data: CommentUpdateInput!): Comment!
+  deleteOneComment(where: CommentWhereUniqueInput!): Comment
+  upsertOneComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment
+  deleteManyComment(where: CommentWhereInput): BatchPayload
+  updateManyComment(where: CommentWhereInput, data: CommentUpdateManyMutationInput): BatchPayload
+  createOnePost(data: PostCreateInput!): Post!
+  updateOnePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post!
+  deleteOnePost(where: PostWhereUniqueInput!): Post
+  upsertOnePost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post
+  updateManyPost(where: PostWhereInput, data: PostUpdateManyMutationInput): BatchPayload
+  createOneUser(data: UserCreateInput!): User!
+  updateOneUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
+  deleteOneUser(where: UserWhereUniqueInput!): User
+  upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
+  deleteManyUser(where: UserWhereInput): BatchPayload
+  updateManyUser(where: UserWhereInput, data: UserUpdateManyMutationInput): BatchPayload
+}
+
+type Post {
+  id: Int!
+  published: Boolean!
+  title: String!
+  author: User
+  authorId: Int
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: CommentWhereUniqueInput, before: CommentWhereUniqueInput, first: Int, last: Int): [Comment!]!
+}
+
+type Group {
+  id: Int!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+type User {
+  id: Int!
+  email: String!
+  name: String
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
+  group: Group
+  groupId: Int
+  Comment(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: CommentWhereUniqueInput, before: CommentWhereUniqueInput, first: Int, last: Int): [Comment!]!
 }

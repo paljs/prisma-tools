@@ -33,7 +33,7 @@ This tool built on [Prisma](https://prisma.io) to auto generate graphql schema t
 
 - Auto generate CRUD system from your `schema.prisma` file.
   - **Every model in `schema.prisma` will have folder contain 2 files**
-    - `typeDefs.graphql` contain graphql types for this model
+    - `typeDefs.ts` contain graphql types for this model
     - `resolvers.ts` contain 3 queries and 6 mutations `'findOne' | 'findMany' | 'findCount' | 'createOne' | 'updateOne' | 'upsertOne' | 'deleteOne' | 'updateMany' | 'deleteMany'`
   - Add to `inputTypes.graphql` file list of inputs
     ```
@@ -176,57 +176,61 @@ This command will run two commands
 
 **Output**
 
-## `User/typeDefs.graphql`
+## `User/typeDefs.ts`
 
-```graphql
-type User {
-  id: Int!
-  email: String!
-  name: String
-  role: Role!
-  createdAt: DateTime!
-  posts(
-    where: PostWhereInput
-    orderBy: PostOrderByInput
-    skip: Int
-    after: PostWhereUniqueInput
-    before: PostWhereUniqueInput
-    first: Int
-    last: Int
-  ): [Post!]!
-}
+```ts
+import gql from 'graphql-tag';
 
-type Query {
-  findOneUser(where: UserWhereUniqueInput!): User
-  findManyUser(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    after: UserWhereUniqueInput
-    before: UserWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): [User!]
-  findManyUserCount(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    after: UserWhereUniqueInput
-    before: UserWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): Int!
-}
-type Mutation {
-  createOneUser(data: UserCreateInput!): User!
-  updateOneUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
-  deleteOneUser(where: UserWhereUniqueInput!): User
-  deleteManyUser(where: UserWhereInput): BatchPayload
-  updateManyUser(
-    where: UserWhereInput
-    data: UserUpdateManyMutationInput
-  ): BatchPayload
-}
+export default gql`
+  type User {
+    id: Int!
+    email: String!
+    name: String
+    role: Role!
+    createdAt: DateTime!
+    posts(
+      where: PostWhereInput
+      orderBy: PostOrderByInput
+      skip: Int
+      after: PostWhereUniqueInput
+      before: PostWhereUniqueInput
+      first: Int
+      last: Int
+    ): [Post!]!
+  }
+
+  type Query {
+    findOneUser(where: UserWhereUniqueInput!): User
+    findManyUser(
+      where: UserWhereInput
+      orderBy: UserOrderByInput
+      after: UserWhereUniqueInput
+      before: UserWhereUniqueInput
+      skip: Int
+      first: Int
+      last: Int
+    ): [User!]
+    findManyUserCount(
+      where: UserWhereInput
+      orderBy: UserOrderByInput
+      after: UserWhereUniqueInput
+      before: UserWhereUniqueInput
+      skip: Int
+      first: Int
+      last: Int
+    ): Int!
+  }
+  type Mutation {
+    createOneUser(data: UserCreateInput!): User!
+    updateOneUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
+    deleteOneUser(where: UserWhereUniqueInput!): User
+    deleteManyUser(where: UserWhereInput): BatchPayload
+    updateManyUser(
+      where: UserWhereInput
+      data: UserUpdateManyMutationInput
+    ): BatchPayload
+  }
+`;
 ```
 
 ## `User/resolvers.ts`
@@ -236,79 +240,39 @@ import { Context } from '../../../context';
 
 export default {
   Query: {
-    findOneUser: (_parent, { where }, { prisma, select }: Context) => {
-      return prisma.user.findOne({
-        where,
-        ...select,
-      });
+    findOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.findOne(args);
     },
-    findManyUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.findMany({
-        ...args,
-        ...select,
-      });
+    findManyUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.findMany(args);
     },
     findManyUserCount: (_parent, args, { prisma }: Context) => {
       return prisma.user.count(args);
     },
   },
   Mutation: {
-    createOneUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.create({
-        ...args,
-        ...select,
-      });
+    createOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.create(args);
     },
-    updateOneUser: (_parent, args, { prisma, select }: Context) => {
-      return prisma.user.update({
-        ...args,
-        ...select,
-      });
+    updateOneUser: (_parent, args, { prisma }: Context) => {
+      return prisma.user.update(args);
     },
-    deleteOneUser: async (
-      _parent,
-      { where },
-      { prisma, select, onDelete }: Context
-    ) => {
-      await onDelete.cascade('User', where, false);
-      return prisma.user.delete({
-        where,
-        ...select,
-      });
+    deleteOneUser: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('User', args.where, false);
+      return prisma.user.delete(args);
     },
-    deleteManyUser: async (
-      _parent,
-      { where },
-      { prisma, onDelete }: Context
-    ) => {
-      await onDelete.cascade('User', where, false);
-      return prisma.user.deleteMany({ where });
+    upsertOneUser: async (_parent, args, { prisma }: Context) => {
+      return prisma.user.upsert(args);
+    },
+    deleteManyUser: async (_parent, args, { prisma, onDelete }: Context) => {
+      await onDelete.cascade('User', args.where, false);
+      return prisma.user.deleteMany(args);
     },
     updateManyUser: (_parent, args, { prisma }: Context) => {
       return prisma.user.updateMany(args);
     },
   },
 };
-```
-
-## Merge all models
-
-`graphql/index.ts`
-
-```ts
-import * as path from 'path';
-import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
-
-const typesArray = fileLoader(
-  path.join(__dirname, './models/**/typeDefs.graphql')
-);
-const inputTypes = fileLoader(path.join(__dirname, './inputTypes.graphql'));
-
-export const typeDefs = mergeTypes(typesArray.concat(inputTypes));
-
-export const resolvers = fileLoader(
-  path.join(__dirname, './models/**/resolvers.ts')
-);
 ```
 
 ## create context
@@ -324,14 +288,12 @@ const prisma = new PrismaClient();
 
 export interface Context {
   prisma: PrismaClient;
-  select: any;
   onDelete: DeleteCascade;
 }
 
 export function createContext(): Context {
   return {
     prisma,
-    select: {},
     onDelete: new DeleteCascade(prisma, schema),
   };
 }
@@ -341,26 +303,40 @@ export function createContext(): Context {
 
 It's a small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
 
-This middleware is take `info` and convert it to Prisma select object and add to resolve context
+This middleware is take `info` and convert it to Prisma select object and add to resolve args
 
 `server.ts`
 
 ```ts
-import getPrismaSelect from '@prisma-tools/select';
+import { PrismaSelect } from '@prisma-tools/select';
 import { ApolloServer } from 'apollo-server';
 import { applyMiddleware } from 'graphql-middleware';
 import { makeExecutableSchema } from 'graphql-tools';
 import { createContext, Context } from './context';
-import { typeDefs, resolvers } from './graphql';
+import typeDefs from './graphql/models/typeDefs';
+import resolvers from './graphql/models/resolvers';
+import { GraphQLResolveInfo } from 'graphql';
+import { generateGraphQlSDLFile } from '@prisma-tools/sdl';
 
 let schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const middleware = async (resolve, root, args, context: Context, info) => {
-  await context.prisma.connect();
-  context.select = getPrismaSelect(info);
-  const result = await resolve(root, args, context, info);
-  await context.prisma.disconnect();
-  return result;
+generateGraphQlSDLFile(schema);
+
+const middleware = async (
+  resolve,
+  root,
+  args,
+  context: Context,
+  info: GraphQLResolveInfo,
+) => {
+  const result = new PrismaSelect(info).value;
+  if (Object.keys(result.select).length > 0) {
+    args = {
+      ...args,
+      ...result,
+    };
+  }
+  return resolve(root, args, context, info);
 };
 
 schema = applyMiddleware(schema, middleware);
@@ -389,8 +365,6 @@ interface Options {
   onlyInputType?: boolean;
   // output path for models folders default 'src/graphql/models' you must create this folder
   modelsOutput?: string;
-  // output path for inputTypes.ts file default 'src/graphql' you must create this folder
-  inputTypesOutput?: string;
   // exclude fields from all models
   fieldsExclude?: string[];
   // exclude fields from one or more models will merge it with general fieldsExclude

@@ -1,18 +1,12 @@
-import { Context } from "../../../context";
+import { Context } from '../../../context';
 
 export default {
   Query: {
-    findOneGroup: (_parent, { where }, { prisma, select }: Context) => {
-      return prisma.group.findOne({
-        where,
-        ...select,
-      });
+    findOneGroup: (_parent, args, { prisma }: Context) => {
+      return prisma.group.findOne(args);
     },
-    findManyGroup: (_parent, args, { prisma, select }: Context) => {
-      return prisma.group.findMany({
-        ...args,
-        ...select,
-      });
+    findManyGroup: (_parent, args, { prisma }: Context) => {
+      return prisma.group.findMany(args);
     },
     findManyGroupCount: (_parent, args, { prisma }: Context) => {
       return prisma.group.count(args);

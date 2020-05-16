@@ -2,7 +2,11 @@ import { schema } from "./schema";
 import { DMMF } from "@prisma/client/runtime";
 
 export function createInput() {
-  let fileContent = `scalar DateTime
+  let fileContent = `import gql from 'graphql-tag';
+
+  export default gql\`
+  
+  scalar DateTime
   
   type BatchPayload {
   count: Int!
@@ -42,5 +46,6 @@ export function createInput() {
   
 `;
   });
+  fileContent += "`;";
   return fileContent;
 }

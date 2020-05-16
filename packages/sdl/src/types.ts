@@ -1,18 +1,17 @@
 type QueriesAndMutations =
-  | "findOne"
-  | "findMany"
-  | "findCount"
-  | "createOne"
-  | "updateOne"
-  | "upsertOne"
-  | "deleteOne"
-  | "updateMany"
-  | "deleteMany";
+  | 'findOne'
+  | 'findMany'
+  | 'findCount'
+  | 'createOne'
+  | 'updateOne'
+  | 'upsertOne'
+  | 'deleteOne'
+  | 'updateMany'
+  | 'deleteMany';
 
 export interface Options extends QueriesAndMutationsOptions {
   onlyInputType?: boolean;
   modelsOutput: string;
-  inputTypesOutput: string;
   fieldsExclude: string[];
   modelsExclude: { name: string; queries?: boolean; mutations?: boolean }[];
   disableQueries?: boolean;
