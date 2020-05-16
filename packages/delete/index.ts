@@ -1,5 +1,5 @@
-import { dmmf } from "@prisma/client";
-import { DMMF } from "@prisma/client/runtime";
+import { dmmf, PrismaClient } from '@prisma/client';
+import { DMMF } from '@prisma/client/runtime';
 
 const datamodel: DMMF.Datamodel = dmmf.datamodel;
 
@@ -8,65 +8,140 @@ interface DeleteData {
   where: object;
 }
 
-type Schema = { [key: string]: string[] };
+interface onDeleteArgs {
+  model: string;
+  where: object;
+  deleteParent?: boolean;
+}
 
-export default class DeleteCascade {
-  constructor(private prisma: any, private schema: Schema) {}
-
-  private getFieldByName(modelName: string, fieldName: string) {
-    return this.getModel(modelName)?.fields.find(
-      (item) => item.name === fieldName
-    );
-  }
+/**
+ * Handle all relation onDelete type
+ * @param prisma - optional arg you can send your clint class.
+ * @example
+ * const prisma = new PrismaClient({log: ['query']});
+ * const prismaDelete = new PrismaDelete(prisma);
+ *
+ * // or new PrismaDelete(); we will create new client and use
+ *
+ * // use onDelete method
+ * prismaDelete.onDelete({
+ *  model: 'User',
+ *  where: { id: 1 },
+ *  deleteParent: true // if true will also delete user record default false
+ * });
+ *
+ **/
+export default class PrismaDelete {
+  constructor(private prisma: any = new PrismaClient()) {}
 
   private getModel(modelName: string) {
     return datamodel.models.find((item) => item.name === modelName);
   }
 
+  private getModelName(modelName: string) {
+    return modelName.charAt(0).toLowerCase() + modelName.slice(1);
+  }
+
   private getFieldByType(modelName: string, fieldType: string) {
     return this.getModel(modelName)?.fields.find(
-      (item) => item.type === fieldType
+      (item) => item.type === fieldType,
     );
   }
 
-  private getDeleteArray(
+  private getModelIdFieldName(modelName: string) {
+    return this.getModel(modelName)?.fields.find((item) => item.isId)?.name;
+  }
+
+  private getOnDeleteFields(modelName: string, type: 'SET_NULL' | 'CASCADE') {
+    return this.getModel(modelName)?.fields.filter(
+      (item) =>
+        item.documentation?.includes('@onDelete') &&
+        item.documentation?.includes(type),
+    );
+  }
+
+  private async setFieldNull(modelName: string, field: DMMF.Field, where: any) {
+    const name = this.getModelName(modelName);
+    const modelId = this.getModelIdFieldName(modelName);
+    const fieldModelId = this.getModelIdFieldName(field.type);
+    if (modelId && fieldModelId && !field.isRequired) {
+      const fieldSelect = field.isList
+        ? { [field.name]: { select: { [fieldModelId]: true } } }
+        : {};
+      const results = await this.prisma[name].findMany({
+        where,
+        select: {
+          [modelId]: true,
+          ...fieldSelect,
+        },
+      });
+      for (const result of results) {
+        await this.prisma[name].update({
+          where: {
+            [modelId]: result[modelId],
+          },
+          data: {
+            [field.name]: {
+              disconnect: field.isList ? result[field.name] : true,
+            },
+          },
+        });
+      }
+    }
+  }
+
+  private async getDeleteArray(
     modelName: string,
     whereInput: object,
-    includeParent = true
+    includeParent = true,
   ) {
     const deleteArray: DeleteData[] = includeParent
       ? [
           {
-            name: modelName.charAt(0).toLowerCase() + modelName.slice(1),
+            name: this.getModelName(modelName),
             where: whereInput,
           },
         ]
       : [];
 
-    const modelRelations = this.schema[modelName];
-    if (modelRelations) {
-      modelRelations.forEach((item) => {
-        const parentField = this.getFieldByName(modelName, item);
-        if (parentField) {
-          const childField = this.getFieldByType(parentField.type, modelName);
-          if (childField) {
-            deleteArray.push(
-              ...this.getDeleteArray(parentField.type, {
-                [childField.name]: whereInput,
-              })
-            );
-          }
-        }
-      });
+    const nullFields = this.getOnDeleteFields(modelName, 'SET_NULL');
+    if (nullFields) {
+      for (const nullField of nullFields) {
+        await this.setFieldNull(modelName, nullField, whereInput);
+      }
     }
+
+    const cascadeFields = this.getOnDeleteFields(modelName, 'CASCADE');
+    if (cascadeFields) {
+      for (const cascadeField of cascadeFields) {
+        const childField = this.getFieldByType(cascadeField.type, modelName);
+        if (childField) {
+          deleteArray.push(
+            ...(await this.getDeleteArray(cascadeField.type, {
+              [childField.name]: whereInput,
+            })),
+          );
+        }
+      }
+    }
+
     return deleteArray;
   }
-
-  async cascade(modelName: string, whereInput: object, includeParent = true) {
-    const results = this.getDeleteArray(
-      modelName,
-      whereInput,
-      includeParent
+  /**
+   * Handle all relation onDelete type
+   * @param onDeleteArgs - Object with model data.
+   * @example
+   * const prismaDelete = new PrismaDelete();
+   * prismaDelete.onDelete({
+   *  model: 'User',
+   *  where: { id: 1 },
+   *  deleteParent: true // if true will also delete user record default false
+   * });
+   *
+   **/
+  async onDelete({ model, where, deleteParent }: onDeleteArgs) {
+    const results = (
+      await this.getDeleteArray(model, where, !!deleteParent)
     ).reverse();
     for (const result of results) {
       await this.prisma[result.name].deleteMany({

@@ -8,6 +8,6 @@ generateAdmin(path.resolve(__dirname, '../../server/prisma/schema.prisma'), defa
   },
   excludeQueriesAndMutations: ['updateMany', 'deleteMany'],
   schemaOutput: path.resolve(__dirname, '../../server/src/graphql/schema/schema.json'),
-  graphqlOutput: path.resolve(__dirname, '../../admin/src/graphql'),
-  pagesOutput: path.resolve(__dirname, '../../admin/src/pages/models'),
+  graphqlOutput: path.resolve(__dirname, '../src/graphql'),
+  pagesOutput: path.resolve(__dirname, '../src/pages/models'),
 });

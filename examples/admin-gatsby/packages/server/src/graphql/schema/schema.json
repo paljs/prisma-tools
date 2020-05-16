@@ -8,6 +8,23 @@
       "delete": true,
       "fields": [
         {
+          "id": "User.comments",
+          "name": "comments",
+          "type": "Comment",
+          "isId": false,
+          "unique": false,
+          "list": true,
+          "required": false,
+          "kind": "object",
+          "title": "Comments",
+          "create": true,
+          "update": true,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": -1
+        },
+        {
           "id": "User.id",
           "name": "id",
           "title": "Id",
@@ -151,9 +168,7 @@
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "name"
-      ]
+      "displayFields": ["name"]
     },
     {
       "id": "Post",
@@ -306,9 +321,7 @@
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "title"
-      ]
+      "displayFields": ["title"]
     },
     {
       "id": "Comment",
@@ -461,9 +474,7 @@
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "contain"
-      ]
+      "displayFields": ["contain"]
     },
     {
       "id": "Group",
@@ -472,6 +483,24 @@
       "update": true,
       "delete": true,
       "fields": [
+        {
+          "id": "Group.name",
+          "name": "name",
+          "type": "String",
+          "isId": false,
+          "unique": false,
+          "list": false,
+          "required": true,
+          "kind": "scalar",
+          "relationField": false,
+          "title": "Name",
+          "create": true,
+          "update": true,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": -1
+        },
         {
           "id": "Group.id",
           "name": "id",
@@ -487,24 +516,6 @@
           "filter": true,
           "sort": true,
           "order": 1,
-          "kind": "scalar",
-          "relationField": false
-        },
-        {
-          "id": "Group.name",
-          "name": "name",
-          "title": "Name",
-          "type": "String",
-          "list": false,
-          "required": true,
-          "isId": false,
-          "unique": false,
-          "create": true,
-          "update": true,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "order": 2,
           "kind": "scalar",
           "relationField": false
         },
@@ -563,9 +574,7 @@
         }
       ],
       "idField": "id",
-      "displayFields": [
-        "name"
-      ]
+      "displayFields": ["name"]
     }
   ],
   "enums": []

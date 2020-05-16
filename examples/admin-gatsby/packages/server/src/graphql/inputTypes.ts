@@ -70,9 +70,9 @@ export const GroupWhereInput = inputObjectType({
   definition(t) {
     t.field('id', { type: 'IntFilter' })
     t.field('name', { type: 'StringFilter' })
-    t.field('users', { type: 'UserFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
+    t.field('users', { type: 'UserFilter' })
     t.field('AND', { type: 'GroupWhereInput', list: true })
     t.field('OR', { type: 'GroupWhereInput', list: true })
     t.field('NOT', { type: 'GroupWhereInput', list: true })
@@ -89,7 +89,7 @@ export const UserWhereInput = inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comments', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserWhereInput', list: true })
     t.field('OR', { type: 'UserWhereInput', list: true })
     t.field('NOT', { type: 'UserWhereInput', list: true })
@@ -143,8 +143,8 @@ export const GroupCreateOneWithoutUsersInput = inputObjectType({
   },
 })
 
-export const UserCreateWithoutCommentInput = inputObjectType({
-  name: 'UserCreateWithoutCommentInput',
+export const UserCreateWithoutCommentsInput = inputObjectType({
+  name: 'UserCreateWithoutCommentsInput',
   definition(t) {
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
@@ -155,10 +155,10 @@ export const UserCreateWithoutCommentInput = inputObjectType({
   },
 })
 
-export const UserCreateOneWithoutCommentInput = inputObjectType({
-  name: 'UserCreateOneWithoutCommentInput',
+export const UserCreateOneWithoutCommentsInput = inputObjectType({
+  name: 'UserCreateOneWithoutCommentsInput',
   definition(t) {
-    t.field('create', { type: 'UserCreateWithoutCommentInput' })
+    t.field('create', { type: 'UserCreateWithoutCommentsInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
   },
 })
@@ -169,7 +169,7 @@ export const CommentCreateWithoutPostInput = inputObjectType({
     t.field('contain', { type: 'String', nullable: false })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('author', { type: 'UserCreateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserCreateOneWithoutCommentsInput' })
   },
 })
 
@@ -208,7 +208,7 @@ export const UserCreateWithoutPostsInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -269,7 +269,7 @@ export const UserCreateInput = inputObjectType({
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -306,8 +306,8 @@ export const GroupUpdateOneWithoutUsersInput = inputObjectType({
   },
 })
 
-export const UserUpdateWithoutCommentDataInput = inputObjectType({
-  name: 'UserUpdateWithoutCommentDataInput',
+export const UserUpdateWithoutCommentsDataInput = inputObjectType({
+  name: 'UserUpdateWithoutCommentsDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
     t.field('createdAt', { type: 'DateTime' })
@@ -319,29 +319,29 @@ export const UserUpdateWithoutCommentDataInput = inputObjectType({
   },
 })
 
-export const UserUpsertWithoutCommentInput = inputObjectType({
-  name: 'UserUpsertWithoutCommentInput',
+export const UserUpsertWithoutCommentsInput = inputObjectType({
+  name: 'UserUpsertWithoutCommentsInput',
   definition(t) {
     t.field('update', {
-      type: 'UserUpdateWithoutCommentDataInput',
+      type: 'UserUpdateWithoutCommentsDataInput',
       nullable: false,
     })
     t.field('create', {
-      type: 'UserCreateWithoutCommentInput',
+      type: 'UserCreateWithoutCommentsInput',
       nullable: false,
     })
   },
 })
 
-export const UserUpdateOneWithoutCommentInput = inputObjectType({
-  name: 'UserUpdateOneWithoutCommentInput',
+export const UserUpdateOneWithoutCommentsInput = inputObjectType({
+  name: 'UserUpdateOneWithoutCommentsInput',
   definition(t) {
-    t.field('create', { type: 'UserCreateWithoutCommentInput' })
+    t.field('create', { type: 'UserCreateWithoutCommentsInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
     t.field('disconnect', { type: 'Boolean' })
     t.field('delete', { type: 'Boolean' })
-    t.field('update', { type: 'UserUpdateWithoutCommentDataInput' })
-    t.field('upsert', { type: 'UserUpsertWithoutCommentInput' })
+    t.field('update', { type: 'UserUpdateWithoutCommentsDataInput' })
+    t.field('upsert', { type: 'UserUpsertWithoutCommentsInput' })
   },
 })
 
@@ -352,7 +352,7 @@ export const CommentUpdateWithoutPostDataInput = inputObjectType({
     t.field('contain', { type: 'String' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
-    t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutCommentsInput' })
   },
 })
 
@@ -542,7 +542,7 @@ export const UserUpdateWithoutPostsDataInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -676,7 +676,7 @@ export const UserUpdateInput = inputObjectType({
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -737,7 +737,7 @@ export const CommentCreateInput = inputObjectType({
       type: 'PostCreateOneWithoutCommentsInput',
       nullable: false,
     })
-    t.field('author', { type: 'UserCreateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserCreateOneWithoutCommentsInput' })
   },
 })
 
@@ -749,7 +749,7 @@ export const CommentUpdateInput = inputObjectType({
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
     t.field('post', { type: 'PostUpdateOneRequiredWithoutCommentsInput' })
-    t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutCommentsInput' })
   },
 })
 
@@ -771,7 +771,7 @@ export const UserCreateWithoutGroupInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -802,7 +802,7 @@ export const UserUpdateWithoutGroupDataInput = inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -827,7 +827,7 @@ export const UserScalarWhereInput = inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comments', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserScalarWhereInput', list: true })
     t.field('OR', { type: 'UserScalarWhereInput', list: true })
     t.field('NOT', { type: 'UserScalarWhereInput', list: true })

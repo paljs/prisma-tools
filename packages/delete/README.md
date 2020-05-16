@@ -1,25 +1,33 @@
-### prisma-delete
+## Introduction
 
 This tool is built for [Prisma](https://prisma.io)
 
-Prisma Migrate cli not supported `Cascading deletes` so this tool is workaround this option
+Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround this option
 
-install
+## Install
 
 ```
 npm i @prisma-tools/delete
 ```
 
-**Example**
+## Example
 
-Use full example here [`apollo-nexus-schema`](https://github.com/AhmedElywa/prisma-tools/tree/master/examples/apollo-nexus-schema) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
+Use full example here [`apollo-nexus-schema`](../../examples/apollo-nexus-schema) to fast start (prisma , nexus/schema , nexus-schema-prisma , typescript and Auth)
 
-`schema.prisma`
+Specifies the deletion behavior and enables cascading deletes. In case a node with related nodes gets deleted, the deletion behavior determines what should happen to the related nodes. The input values for this argument are defined as an enum with the following possible values:
+
+- `SET_NULL`: Set the related node(s) to `null`.
+- `CASCADE`: Delete the related node(s). Note that is not possible to set both ends of a bidirectional relation to `CASCADE`.
+
+To add onDelete Relation to any field just add comment before filed
+`// @onDelete(CASCADE)` or `// @onDelete(SET_NULL)`
+
+### `schema.prisma`
 
 ```prisma
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -27,82 +35,61 @@ generator client {
 }
 
 model User {
-  id         Int      @default(autoincrement()) @id
-  createdAt  DateTime @default(now())
-  email      String   @unique
-  name       String?
-  password   String
-  role       Role     @default(USER)
-  posts      Post[]
-  activities Activity[]
-  group      Group?   @relation(fields: [groupId], references: [id])
-  groupId    Int?
+  id        Int       @default(autoincrement()) @id
+  createdAt DateTime  @default(now())
+  email     String    @unique
+  name      String?
+  password  String
+  // @onDelete(CASCADE)
+  posts     Post[]
+  group     Group?    @relation(fields: [groupId], references: [id])
+  groupId   Int?
+  // @onDelete(SET_NULL)
+  comments  Comment[]
 }
 
 model Post {
   id        Int       @default(autoincrement()) @id
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
   published Boolean   @default(false)
   title     String
   author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?
+  // @onDelete(CASCADE)
   comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Comment {
   id        Int      @default(autoincrement()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   contain   String
   post      Post     @relation(fields: [postId], references: [id])
   postId    Int
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Group {
   id        Int      @default(autoincrement()) @id
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // @onDelete(SET_NULL)
   users     User[]
 }
-
-model Activity {
-  id        Int      @default(autoincrement()) @id
-  day       DateTime
-  title     String   @default("")
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  updatedAt DateTime
-  createdAt DateTime
-}
-
-enum Role {
-  USER
-  ADMIN
-}
 ```
 
-```ts
-const schema: { [key: string]: string[] } = {
-  User: ['posts', 'activities'],
-  Post: ['comments'],
-  Group: ['users'],
-};
-export default schema;
-```
+- When a `User` record gets deleted, all its related `posts` records will be deleted as well and all its related `comments` records will be `author` `null`.
+- When a `Post` record gets deleted, it will simply be removed from the `posts` list on the related `User` record and all its related `comments` records will be deleted.
 
-Here when we delete `user` will go thought schema and look to model name array
+### Use
+
+Here when we delete `user` will go thought schema and look to model
 
 ```ts
-import DeleteCascade from '@prisma-tools/delete';
-
-const schema: { [Model: string]: string[] } = {
-  User: ['posts', 'activities'],
-  Post: ['comments'],
-  Group: ['users'],
-};
+import PrismaDelete from '@prisma-tools/delete';
 
 t.field('deleteOneUser', {
   type: 'User',
@@ -114,8 +101,8 @@ t.field('deleteOneUser', {
     }),
   },
   resolve(_, { where }, { prisma, select }) {
-    const onDelete = new DeleteCascade(prisma, schema);
-    await onDelete.cascade('User', where, false);
+    const prismaDelete = new PrismaDelete();
+    await prismaDelete.onDelete({ model: 'User', where });
     return prisma.user.delete({
       where,
       ...select,
@@ -126,9 +113,9 @@ t.field('deleteOneUser', {
 // normal resolver
 const resolvers = {
   Query: {
-    user(_parent, { where }, { prisma }) {
-      const onDelete = new DeleteCascade(prisma, schema);
-      await onDelete.cascade('CourseTaking', where, false);
+    deleteOneUser(_parent, { where }, { prisma }) {
+      const prismaDelete = new PrismaDelete();
+      await prismaDelete.onDelete({ model: 'User', where });
       return prisma.user.delete({
         where,
         ...select,
@@ -138,78 +125,41 @@ const resolvers = {
 };
 ```
 
-final result will be
-
-```ts
-prisma.comment.deleteMany({
-  where: {
-    post: {
-      user: {
-        id: 1,
-      },
-    },
-  },
-});
-prisma.post.deleteMany({
-  where: {
-    user: {
-      id: 1,
-    },
-  },
-});
-prisma.activity.deleteMany({
-  where: {
-    user: {
-      id: 1,
-    },
-  },
-});
-// if delete parent true
-prisma.user.deleteMany({
-  where: {
-    id: 1,
-  },
-});
-```
-
-## `DeleteCascade` class
-
-accept require two args
+## `PrismaDelete` class
 
 - `prisma` prisma client class
-- `schema` it's our delete relation object like we add in example `{ [Model: string]: string[] }`
 
 ```ts
-const onDelete = new DeleteCascade(prisma, schema);
+const prismaDelete = new PrismaDelete(prisma);
 ```
 
-`onDelete.cascade` accept three args
+`prismaDelete.onDelete` accept object
 
-- `model name` like you define in `schema.prisma`
+- `model` model name like you define in `schema.prisma`
 - `where` object to to find delete result same `{ id: 1}`
-- `delete parent` delete result from this model you pass `default: true` you can send it `false` to delete row and return delete row data
+- `deleteParent` delete result from this model you pass `default: false` you can send it `true` to delete row and return delete row data
 
 ```ts
-await onDelete.cascade('User', where, false);
+await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
 ```
 
 ## Add to Context
 
 ```ts
 import { PrismaClient } from '@prisma/client';
-import DeleteCascade from '@prisma-tools/delete';
+import PrismaDelete from '@prisma-tools/delete';
 
 const prisma = new PrismaClient();
 
 export interface Context {
   prisma: PrismaClient;
-  onDelete: DeleteCascade;
+  onDelete: PrismaDelete['onDelete'];
 }
 
 export function createContext({ req, res }): Context {
   return {
     prisma,
-    onDelete: new DeleteCascade(prisma, onDelete),
+    onDelete: new DeleteCascade(prisma).onDelete,
   };
 }
 ```
@@ -217,13 +167,13 @@ export function createContext({ req, res }): Context {
 And you can use from context in resolves
 
 ```ts
-resolve(_, { where }, { prisma, onDelete }) {
-  await onDelete.cascade('User', where);
+resolve(_, { where }, { onDelete }) {
+  await onDelete({ model: 'User', where, deleteParent: true });
 }
 ```
 
-### Have questions?
+## Have questions?
 
 Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
-## Like my tool give me star
+**_Like my tool give me star_**

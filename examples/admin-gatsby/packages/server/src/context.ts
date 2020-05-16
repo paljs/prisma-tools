@@ -1,10 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
-import DeleteCascade from '@prisma-tools/delete'
-import schema from './onDeleteSchema'
+import PrismaDelete from './onDeleteSchema'
 import { getUserId } from './utils'
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({ log: ['query'] })
 
 export interface Context {
   prisma: PrismaClient
@@ -12,7 +11,7 @@ export interface Context {
   res: ExpressContext['res']
   userId: number
   select: any
-  onDelete: DeleteCascade
+  onDelete: PrismaDelete
 }
 
 export function createContext({ req, res }): Context {
@@ -22,6 +21,6 @@ export function createContext({ req, res }): Context {
     prisma,
     userId: getUserId(req),
     select: {},
-    onDelete: new DeleteCascade(prisma, schema),
+    onDelete: new PrismaDelete(prisma),
   }
 }

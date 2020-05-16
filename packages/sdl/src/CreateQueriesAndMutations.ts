@@ -92,7 +92,7 @@ export function createQueriesAndMutations(
     }}: Context) => {
       ${
         options.onDelete
-          ? `await onDelete.cascade('${name}', args.where, false)`
+          ? `await onDelete({ model: '${name}', where: args.where })`
           : ''
       }
       return prisma.${model}.delete(args)
@@ -121,7 +121,7 @@ export function createQueriesAndMutations(
     }}: Context) => {
       ${
         options.onDelete
-          ? `await onDelete.cascade('${name}', args.where, false)`
+          ? `await onDelete({ model: '${name}', where: args.where })`
           : ''
       }
       return prisma.${model}.deleteMany(args)

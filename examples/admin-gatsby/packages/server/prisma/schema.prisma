@@ -1,6 +1,6 @@
 datasource db {
-  url      = "file:./dev.db"
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -8,14 +8,17 @@ generator client {
 }
 
 model User {
-  id        Int      @default(autoincrement()) @id
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        Int       @default(autoincrement()) @id
+  createdAt DateTime  @default(now())
+  email     String    @unique
   name      String?
   password  String
+  // @onDelete(CASCADE)
   posts     Post[]
-  group     Group?   @relation(fields: [groupId], references: [id])
+  group     Group?    @relation(fields: [groupId], references: [id])
   groupId   Int?
+  // @onDelete(SET_NULL)
+  comments  Comment[]
 }
 
 model Post {
@@ -24,6 +27,7 @@ model Post {
   title     String
   author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?
+  // @onDelete(CASCADE)
   comments  Comment[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -43,7 +47,8 @@ model Comment {
 model Group {
   id        Int      @default(autoincrement()) @id
   name      String
-  users     User[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // @onDelete(SET_NULL)
+  users     User[]
 }

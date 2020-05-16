@@ -42,7 +42,7 @@ export type Comment = {
 };
 
 export type CommentCreateInput = {
-  author?: Maybe<UserCreateOneWithoutCommentInput>;
+  author?: Maybe<UserCreateOneWithoutCommentsInput>;
   contain: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   post: PostCreateOneWithoutCommentsInput;
@@ -67,7 +67,7 @@ export type CommentCreateWithoutAuthorInput = {
 };
 
 export type CommentCreateWithoutPostInput = {
-  author?: Maybe<UserCreateOneWithoutCommentInput>;
+  author?: Maybe<UserCreateOneWithoutCommentsInput>;
   contain: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -101,7 +101,7 @@ export type CommentScalarWhereInput = {
 };
 
 export type CommentUpdateInput = {
-  author?: Maybe<UserUpdateOneWithoutCommentInput>;
+  author?: Maybe<UserUpdateOneWithoutCommentsInput>;
   contain?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
@@ -161,7 +161,7 @@ export type CommentUpdateWithoutAuthorDataInput = {
 };
 
 export type CommentUpdateWithoutPostDataInput = {
-  author?: Maybe<UserUpdateOneWithoutCommentInput>;
+  author?: Maybe<UserUpdateOneWithoutCommentsInput>;
   contain?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
@@ -879,7 +879,7 @@ export type UpdateModelInput = {
 
 export type User = {
   __typename?: 'User';
-  Comment: Array<Comment>;
+  comments: Array<Comment>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   group?: Maybe<Group>;
@@ -889,7 +889,7 @@ export type User = {
   posts: Array<Post>;
 };
 
-export type UserCommentArgs = {
+export type UserCommentsArgs = {
   after?: Maybe<CommentWhereUniqueInput>;
   before?: Maybe<CommentWhereUniqueInput>;
   first?: Maybe<Scalars['Int']>;
@@ -910,7 +910,7 @@ export type UserPostsArgs = {
 };
 
 export type UserCreateInput = {
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
@@ -924,9 +924,9 @@ export type UserCreateManyWithoutGroupInput = {
   create?: Maybe<Array<UserCreateWithoutGroupInput>>;
 };
 
-export type UserCreateOneWithoutCommentInput = {
+export type UserCreateOneWithoutCommentsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  create?: Maybe<UserCreateWithoutCommentInput>;
+  create?: Maybe<UserCreateWithoutCommentsInput>;
 };
 
 export type UserCreateOneWithoutPostsInput = {
@@ -934,7 +934,7 @@ export type UserCreateOneWithoutPostsInput = {
   create?: Maybe<UserCreateWithoutPostsInput>;
 };
 
-export type UserCreateWithoutCommentInput = {
+export type UserCreateWithoutCommentsInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
@@ -944,7 +944,7 @@ export type UserCreateWithoutCommentInput = {
 };
 
 export type UserCreateWithoutGroupInput = {
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -953,7 +953,7 @@ export type UserCreateWithoutGroupInput = {
 };
 
 export type UserCreateWithoutPostsInput = {
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   group?: Maybe<GroupCreateOneWithoutUsersInput>;
@@ -978,7 +978,7 @@ export type UserOrderByInput = {
 
 export type UserScalarWhereInput = {
   AND?: Maybe<Array<UserScalarWhereInput>>;
-  Comment?: Maybe<CommentFilter>;
+  comments?: Maybe<CommentFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
   groupId?: Maybe<NullableIntFilter>;
@@ -991,7 +991,7 @@ export type UserScalarWhereInput = {
 };
 
 export type UserUpdateInput = {
-  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   group?: Maybe<GroupUpdateOneWithoutUsersInput>;
@@ -1034,13 +1034,13 @@ export type UserUpdateManyWithWhereNestedInput = {
   where: UserScalarWhereInput;
 };
 
-export type UserUpdateOneWithoutCommentInput = {
+export type UserUpdateOneWithoutCommentsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  create?: Maybe<UserCreateWithoutCommentInput>;
+  create?: Maybe<UserCreateWithoutCommentsInput>;
   delete?: Maybe<Scalars['Boolean']>;
   disconnect?: Maybe<Scalars['Boolean']>;
-  update?: Maybe<UserUpdateWithoutCommentDataInput>;
-  upsert?: Maybe<UserUpsertWithoutCommentInput>;
+  update?: Maybe<UserUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCommentsInput>;
 };
 
 export type UserUpdateOneWithoutPostsInput = {
@@ -1052,7 +1052,7 @@ export type UserUpdateOneWithoutPostsInput = {
   upsert?: Maybe<UserUpsertWithoutPostsInput>;
 };
 
-export type UserUpdateWithoutCommentDataInput = {
+export type UserUpdateWithoutCommentsDataInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   group?: Maybe<GroupUpdateOneWithoutUsersInput>;
@@ -1063,7 +1063,7 @@ export type UserUpdateWithoutCommentDataInput = {
 };
 
 export type UserUpdateWithoutGroupDataInput = {
-  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
@@ -1073,7 +1073,7 @@ export type UserUpdateWithoutGroupDataInput = {
 };
 
 export type UserUpdateWithoutPostsDataInput = {
-  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   group?: Maybe<GroupUpdateOneWithoutUsersInput>;
@@ -1087,9 +1087,9 @@ export type UserUpdateWithWhereUniqueWithoutGroupInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserUpsertWithoutCommentInput = {
-  create: UserCreateWithoutCommentInput;
-  update: UserUpdateWithoutCommentDataInput;
+export type UserUpsertWithoutCommentsInput = {
+  create: UserCreateWithoutCommentsInput;
+  update: UserUpdateWithoutCommentsDataInput;
 };
 
 export type UserUpsertWithoutPostsInput = {
@@ -1105,7 +1105,7 @@ export type UserUpsertWithWhereUniqueWithoutGroupInput = {
 
 export type UserWhereInput = {
   AND?: Maybe<Array<UserWhereInput>>;
-  Comment?: Maybe<CommentFilter>;
+  comments?: Maybe<CommentFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
   group?: Maybe<GroupWhereInput>;
@@ -1221,7 +1221,7 @@ export type DeleteOneCommentMutation = { __typename?: 'Mutation' } & {
   deleteOneComment?: Maybe<{ __typename?: 'Comment' } & Pick<Comment, 'id'>>;
 };
 
-export type GroupFieldsFragment = { __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'createdAt' | 'updatedAt'>;
+export type GroupFieldsFragment = { __typename?: 'Group' } & Pick<Group, 'name' | 'id' | 'createdAt' | 'updatedAt'>;
 
 export type GroupFragment = { __typename?: 'Group' } & GroupFieldsFragment;
 
@@ -1520,8 +1520,8 @@ export const CommentFragmentDoc = gql`
 `;
 export const GroupFieldsFragmentDoc = gql`
   fragment GroupFields on Group {
-    id
     name
+    id
     createdAt
     updatedAt
   }

@@ -31,7 +31,7 @@ schema.objectType({
       },
     })
     t.int('groupId', { nullable: true })
-    t.field('Comment', {
+    t.field('comments', {
       nullable: false,
       list: [true],
       type: 'Comment',
@@ -45,7 +45,7 @@ schema.objectType({
         last: 'Int',
       },
       resolve(parent) {
-        return parent['Comment']
+        return parent['comments']
       },
     })
   },

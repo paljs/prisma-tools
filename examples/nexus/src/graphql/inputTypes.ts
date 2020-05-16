@@ -83,7 +83,7 @@ schema.inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comments', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserWhereInput', list: true })
     t.field('OR', { type: 'UserWhereInput', list: true })
     t.field('NOT', { type: 'UserWhereInput', list: true })
@@ -137,7 +137,7 @@ schema.inputObjectType({
 })
 
 schema.inputObjectType({
-  name: 'UserCreateWithoutCommentInput',
+  name: 'UserCreateWithoutCommentsInput',
   definition(t) {
     t.field('createdAt', { type: 'DateTime' })
     t.field('email', { type: 'String', nullable: false })
@@ -149,9 +149,9 @@ schema.inputObjectType({
 })
 
 schema.inputObjectType({
-  name: 'UserCreateOneWithoutCommentInput',
+  name: 'UserCreateOneWithoutCommentsInput',
   definition(t) {
-    t.field('create', { type: 'UserCreateWithoutCommentInput' })
+    t.field('create', { type: 'UserCreateWithoutCommentsInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
   },
 })
@@ -162,7 +162,7 @@ schema.inputObjectType({
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
     t.field('contain', { type: 'String', nullable: false })
-    t.field('author', { type: 'UserCreateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserCreateOneWithoutCommentsInput' })
   },
 })
 
@@ -201,7 +201,7 @@ schema.inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -262,7 +262,7 @@ schema.inputObjectType({
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupCreateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -299,7 +299,7 @@ schema.inputObjectType({
 })
 
 schema.inputObjectType({
-  name: 'UserUpdateWithoutCommentDataInput',
+  name: 'UserUpdateWithoutCommentsDataInput',
   definition(t) {
     t.field('id', { type: 'Int' })
     t.field('createdAt', { type: 'DateTime' })
@@ -312,28 +312,28 @@ schema.inputObjectType({
 })
 
 schema.inputObjectType({
-  name: 'UserUpsertWithoutCommentInput',
+  name: 'UserUpsertWithoutCommentsInput',
   definition(t) {
     t.field('update', {
-      type: 'UserUpdateWithoutCommentDataInput',
+      type: 'UserUpdateWithoutCommentsDataInput',
       nullable: false,
     })
     t.field('create', {
-      type: 'UserCreateWithoutCommentInput',
+      type: 'UserCreateWithoutCommentsInput',
       nullable: false,
     })
   },
 })
 
 schema.inputObjectType({
-  name: 'UserUpdateOneWithoutCommentInput',
+  name: 'UserUpdateOneWithoutCommentsInput',
   definition(t) {
-    t.field('create', { type: 'UserCreateWithoutCommentInput' })
+    t.field('create', { type: 'UserCreateWithoutCommentsInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
     t.field('disconnect', { type: 'Boolean' })
     t.field('delete', { type: 'Boolean' })
-    t.field('update', { type: 'UserUpdateWithoutCommentDataInput' })
-    t.field('upsert', { type: 'UserUpsertWithoutCommentInput' })
+    t.field('update', { type: 'UserUpdateWithoutCommentsDataInput' })
+    t.field('upsert', { type: 'UserUpsertWithoutCommentsInput' })
   },
 })
 
@@ -344,7 +344,7 @@ schema.inputObjectType({
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
     t.field('contain', { type: 'String' })
-    t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutCommentsInput' })
   },
 })
 
@@ -534,7 +534,7 @@ schema.inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -668,7 +668,7 @@ schema.inputObjectType({
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
     t.field('group', { type: 'GroupUpdateOneWithoutUsersInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -729,7 +729,7 @@ schema.inputObjectType({
       type: 'PostCreateOneWithoutCommentsInput',
       nullable: false,
     })
-    t.field('author', { type: 'UserCreateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserCreateOneWithoutCommentsInput' })
   },
 })
 
@@ -741,7 +741,7 @@ schema.inputObjectType({
     t.field('updatedAt', { type: 'DateTime' })
     t.field('contain', { type: 'String' })
     t.field('post', { type: 'PostUpdateOneRequiredWithoutCommentsInput' })
-    t.field('author', { type: 'UserUpdateOneWithoutCommentInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutCommentsInput' })
   },
 })
 
@@ -763,7 +763,7 @@ schema.inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String', nullable: false })
     t.field('posts', { type: 'PostCreateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentCreateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentCreateManyWithoutAuthorInput' })
   },
 })
 
@@ -793,7 +793,7 @@ schema.inputObjectType({
     t.field('name', { type: 'String' })
     t.field('password', { type: 'String' })
     t.field('posts', { type: 'PostUpdateManyWithoutAuthorInput' })
-    t.field('Comment', { type: 'CommentUpdateManyWithoutAuthorInput' })
+    t.field('comments', { type: 'CommentUpdateManyWithoutAuthorInput' })
   },
 })
 
@@ -818,7 +818,7 @@ schema.inputObjectType({
     t.field('password', { type: 'StringFilter' })
     t.field('posts', { type: 'PostFilter' })
     t.field('groupId', { type: 'NullableIntFilter' })
-    t.field('Comment', { type: 'CommentFilter' })
+    t.field('comments', { type: 'CommentFilter' })
     t.field('AND', { type: 'UserScalarWhereInput', list: true })
     t.field('OR', { type: 'UserScalarWhereInput', list: true })
     t.field('NOT', { type: 'UserScalarWhereInput', list: true })

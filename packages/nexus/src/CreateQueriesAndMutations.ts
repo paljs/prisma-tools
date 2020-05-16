@@ -1,11 +1,11 @@
-import { QueriesAndMutationsOptions } from "./types";
+import { QueriesAndMutationsOptions } from './types';
 
 export function createQueriesAndMutations(
   name: string,
-  options: QueriesAndMutationsOptions
+  options: QueriesAndMutationsOptions,
 ) {
   const exclude = options.excludeQueriesAndMutations.concat(
-    options.excludeQueriesAndMutationsByModel[name] ?? []
+    options.excludeQueriesAndMutationsByModel[name] ?? [],
   );
   const model = name.charAt(0).toLowerCase() + name.slice(1);
   return {
@@ -16,18 +16,18 @@ export function createQueriesAndMutations(
     }
     
     ${
-      options.nexusSchema ? `export const ${name}Queries = ` : "schema."
+      options.nexusSchema ? `export const ${name}Queries = ` : 'schema.'
     }extendType({
       type: 'Query',
       definition(t) {
         ${
-          !exclude.includes("findOne")
+          !exclude.includes('findOne')
             ? `
         t.field('findOne${name}', {
           type: '${name}',
           nullable: true,
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
@@ -39,10 +39,10 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("findMany")
+          !exclude.includes('findMany')
             ? `
         t.field('findMany${name}', {
           type: '${name}',
@@ -57,17 +57,17 @@ export function createQueriesAndMutations(
             first: 'Int',
             last: 'Int',
           },
-          resolve: async (_parent, args, {prisma, select}) => {
+          resolve(_parent, args, {prisma, select}) {
             return prisma.${model}.findMany({
               ...args,
               ...select,
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("findCount")
+          !exclude.includes('findCount')
             ? `
         t.field('findMany${name}Count', {
           type: 'Int',
@@ -80,11 +80,11 @@ export function createQueriesAndMutations(
             first: 'Int',
             last: 'Int',
           },
-          resolve: async (_parent, args, {prisma}) => {
+          resolve(_parent, args, {prisma}) {
             return prisma.${model}.count(args)
           },
         })`
-            : ""
+            : ''
         }
         }
         })`,
@@ -95,18 +95,18 @@ export function createQueriesAndMutations(
     }
     
     ${
-      options.nexusSchema ? `export const ${name}Mutations = ` : "schema."
+      options.nexusSchema ? `export const ${name}Mutations = ` : 'schema.'
     }extendType({
       type: 'Mutation',
       definition(t) {
         ${
-          !exclude.includes("createOne")
+          !exclude.includes('createOne')
             ? `
         t.field('createOne${name}', {
           type: '${name}',
           nullable: false,
           args: {
-            data: ${!options.nexusSchema ? "schema." : ""}arg({
+            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}CreateInput',
               nullable: false,
             }),
@@ -118,20 +118,20 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("updateOne")
+          !exclude.includes('updateOne')
             ? `
         t.field('updateOne${name}', {
           type: '${name}',
           nullable: false,
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
-            data: ${!options.nexusSchema ? "schema." : ""}arg({
+            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}UpdateInput',
               nullable: false,
             }),
@@ -144,24 +144,24 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("upsertOne")
+          !exclude.includes('upsertOne')
             ? `
         t.field('upsertOne${name}', {
           type: '${name}',
           nullable: false,
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
-            create: ${!options.nexusSchema ? "schema." : ""}arg({
+            create: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}CreateInput',
               nullable: false,
             }),
-            update: ${!options.nexusSchema ? "schema." : ""}arg({
+            update: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}UpdateInput',
               nullable: false,
             }),
@@ -173,27 +173,27 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("deleteOne")
+          !exclude.includes('deleteOne')
             ? `
         t.field('deleteOne${name}', {
           type: '${name}',
           nullable: true,
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereUniqueInput',
               nullable: false,
             }),
           },
           resolve: async (_parent, { where }, {prisma, select${
-            options.onDelete ? ", onDelete" : ""
+            options.onDelete ? ', onDelete' : ''
           }}) => {
             ${
               options.onDelete
-                ? `await onDelete.cascade('${name}', where, false)`
-                : ""
+                ? `await onDelete({ model: '${name}', where })`
+                : ''
             }
             return prisma.${model}.delete({
               where,
@@ -201,43 +201,43 @@ export function createQueriesAndMutations(
             })
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("deleteMany")
+          !exclude.includes('deleteMany')
             ? `
         t.field('deleteMany${name}', {
           type: 'BatchPayload',
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereInput',
               nullable: true,
             }),
           },
           resolve: async (_parent, {where}, {prisma${
-            options.onDelete ? ", onDelete" : ""
+            options.onDelete ? ', onDelete' : ''
           }}) => {
             ${
               options.onDelete
-                ? `await onDelete.cascade('${name}', where, false)`
-                : ""
+                ? `await onDelete({ model: '${name}', where })`
+                : ''
             }
             return prisma.${model}.deleteMany({where})
           },
         })`
-            : ""
+            : ''
         }
         ${
-          !exclude.includes("updateMany")
+          !exclude.includes('updateMany')
             ? `
         t.field('updateMany${name}', {
           type: 'BatchPayload',
           args: {
-            where: ${!options.nexusSchema ? "schema." : ""}arg({
+            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}WhereInput',
               nullable: true,
             }),
-            data: ${!options.nexusSchema ? "schema." : ""}arg({
+            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
               type: '${name}UpdateManyMutationInput',
               nullable: false,
             }),
@@ -246,7 +246,7 @@ export function createQueriesAndMutations(
             return prisma.${model}.updateMany(args)
           },
         })`
-            : ""
+            : ''
         }
         }
         })`,

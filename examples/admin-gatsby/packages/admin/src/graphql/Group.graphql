@@ -1,6 +1,6 @@
 fragment GroupFields on Group {
-  id
   name
+  id
   createdAt
   updatedAt
 }

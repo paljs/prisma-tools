@@ -1,4 +1,5 @@
 export * from './Comment'
 export * from './Post'
 export * from './Group'
+export * from './Person'
 export * from './User'

@@ -1,25 +1,25 @@
-import { QueriesAndMutationsOptions } from "./types";
+import { QueriesAndMutationsOptions } from './types';
 
 export function createQueriesAndMutations(
   name: string,
-  options: QueriesAndMutationsOptions
+  options: QueriesAndMutationsOptions,
 ) {
   const exclude = options.excludeQueriesAndMutations.concat(
-    options.excludeQueriesAndMutationsByModel[name] ?? []
+    options.excludeQueriesAndMutationsByModel[name] ?? [],
   );
   const model = name.charAt(0).toLowerCase() + name.slice(1);
   const operations = {
     queries: {
-      type: "type Query {",
-      resolver: "Query: {",
+      type: 'type Query {',
+      resolver: 'Query: {',
     },
     mutations: {
-      type: "type Mutation {",
-      resolver: "Mutation: {",
+      type: 'type Mutation {',
+      resolver: 'Mutation: {',
     },
   };
 
-  if (!exclude.includes("findOne")) {
+  if (!exclude.includes('findOne')) {
     operations.queries.type += `
     findOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
     operations.queries.resolver += `
@@ -28,7 +28,7 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("findMany")) {
+  if (!exclude.includes('findMany')) {
     operations.queries.type += `
     findMany${name}(
       where: ${name}WhereInput
@@ -45,7 +45,7 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("findCount")) {
+  if (!exclude.includes('findCount')) {
     operations.queries.type += `
     findMany${name}Count(
       where: ${name}WhereInput
@@ -62,7 +62,7 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("createOne")) {
+  if (!exclude.includes('createOne')) {
     operations.mutations.type += `
     createOne${name}(data: ${name}CreateInput!): ${name}!`;
     operations.mutations.resolver += `
@@ -71,7 +71,7 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("updateOne")) {
+  if (!exclude.includes('updateOne')) {
     operations.mutations.type += `
     updateOne${name}(
       where: ${name}WhereUniqueInput!
@@ -83,21 +83,21 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("deleteOne")) {
+  if (!exclude.includes('deleteOne')) {
     operations.mutations.type += `
     deleteOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
     operations.mutations.resolver += `
     deleteOne${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
         options.onDelete
-          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where, false)`
-          : ""
+          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where)`
+          : ''
       }
       return injector.get(PrismaProvider).${model}.delete(args);
     },`;
   }
 
-  if (!exclude.includes("upsertOne")) {
+  if (!exclude.includes('upsertOne')) {
     operations.mutations.type += `
     upsertOne${name}(
       where: ${name}WhereUniqueInput!
@@ -110,21 +110,21 @@ export function createQueriesAndMutations(
     },`;
   }
 
-  if (!exclude.includes("deleteMany")) {
+  if (!exclude.includes('deleteMany')) {
     operations.mutations.type += `
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;
     operations.mutations.resolver += `
     deleteMany${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
         options.onDelete
-          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where, false)`
-          : ""
+          ? `await injector.get(PrismaProvider).onDelete('${name}', args.where)`
+          : ''
       }
       return injector.get(PrismaProvider).${model}.deleteMany(args);
     },`;
   }
 
-  if (!exclude.includes("updateMany")) {
+  if (!exclude.includes('updateMany')) {
     operations.mutations.type += `
     updateMany${name}(
       where: ${name}WhereInput
