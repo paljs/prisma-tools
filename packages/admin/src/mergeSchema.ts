@@ -9,7 +9,9 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
   object.models.forEach((item) => {
     const schemaItem = schema.models.find((model) => model.id === item.name);
     if (!schemaItem) {
-      newSchema.models.push(handleNewModel(item));
+      if (checkIdFieldExist(item)) {
+        newSchema.models.push(handleNewModel(item));
+      }
     } else {
       const newItem: SchemaModel = {
         ...schemaItem,
@@ -22,7 +24,7 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
       };
       item.fields.forEach((field) => {
         const schemaField = schemaItem.fields.find(
-          (item) => item.name === field.name
+          (item) => item.name === field.name,
         );
         if (!schemaField) {
           newItem.fields.push(handleNewField(field, schemaItem.name));
@@ -38,6 +40,10 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
     }
   });
   return newSchema;
+}
+
+function checkIdFieldExist(model: Model) {
+  return !!model.fields.find((field) => field.isId);
 }
 
 function handleNewModel(model: Model) {
@@ -80,7 +86,7 @@ function getTitle(id: string) {
 
 function getOriginalField(
   field: Field,
-  modelName: string
+  modelName: string,
 ): Omit<Field, 'relation'> & { id: string } {
   delete field.relation;
   return {
