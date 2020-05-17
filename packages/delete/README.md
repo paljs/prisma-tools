@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Introduction](#introduction)
 - [Install](#install)
 - [Example](#example)
@@ -161,20 +160,29 @@ await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
 ## Add to Context
 
 ```ts
-import { PrismaClient } from '@prisma/client';
-import PrismaDelete from '@prisma-tools/delete';
+import { PrismaClient, PrismaClientOptions } from '@prisma/client';
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 
-const prisma = new PrismaClient();
+class Prisma extends PrismaClient {
+  constructor(options?: PrismaClientOptions) {
+    super(options);
+  }
 
-export interface Context {
-  prisma: PrismaClient;
-  onDelete: PrismaDelete['onDelete'];
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this);
+    await prismaDelete.onDelete(args);
+  }
 }
 
-export function createContext({ req, res }): Context {
+const prisma = new Prisma();
+
+export interface Context {
+  prisma: Prisma;
+}
+
+export function createContext(): Context {
   return {
     prisma,
-    onDelete: new DeleteCascade(prisma).onDelete,
   };
 }
 ```
@@ -182,8 +190,8 @@ export function createContext({ req, res }): Context {
 And you can use from context in resolves
 
 ```ts
-resolve(_, { where }, { onDelete }) {
-  await onDelete({ model: 'User', where, deleteParent: true });
+resolve(_, { where }, { prisma }) {
+  await prisma.onDelete({ model: 'User', where, deleteParent: true });
 }
 ```
 
