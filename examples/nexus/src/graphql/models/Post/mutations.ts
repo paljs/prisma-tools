@@ -77,6 +77,7 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select }) => {
+        await prisma.onDelete({ model: 'Post', where })
         return prisma.post.delete({
           where,
           ...select,

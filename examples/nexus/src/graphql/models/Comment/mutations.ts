@@ -77,6 +77,7 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select }) => {
+        await prisma.onDelete({ model: 'Comment', where })
         return prisma.comment.delete({
           where,
           ...select,
@@ -93,6 +94,7 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma }) => {
+        await prisma.onDelete({ model: 'Comment', where })
         return prisma.comment.deleteMany({ where })
       },
     })

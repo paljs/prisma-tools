@@ -21,14 +21,18 @@ export default {
       return injector.get(PrismaProvider).post.update(args);
     },
     deleteOnePost: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('Post', args.where);
+      await injector
+        .get(PrismaProvider)
+        .onDelete({ model: 'Post', where: args.where });
       return injector.get(PrismaProvider).post.delete(args);
     },
     upsertOnePost: async (_parent, args, { injector }: ModuleContext) => {
       return injector.get(PrismaProvider).post.upsert(args);
     },
     deleteManyPost: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('Post', args.where);
+      await injector
+        .get(PrismaProvider)
+        .onDelete({ model: 'Post', where: args.where });
       return injector.get(PrismaProvider).post.deleteMany(args);
     },
     updateManyPost: (_parent, args, { injector }: ModuleContext) => {

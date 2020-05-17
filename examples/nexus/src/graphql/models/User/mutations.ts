@@ -77,6 +77,7 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select }) => {
+        await prisma.onDelete({ model: 'User', where })
         return prisma.user.delete({
           where,
           ...select,
@@ -93,6 +94,7 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma }) => {
+        await prisma.onDelete({ model: 'User', where })
         return prisma.user.deleteMany({ where })
       },
     })

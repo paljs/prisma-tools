@@ -1,8 +1,20 @@
-import { PrismaClient } from '@prisma/client'
-import DeleteCascade from '@prisma-tools/delete'
-import schemaObject from './onDeleteSchema'
+import { PrismaClient, PrismaClientOptions } from '@prisma/client'
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
 import { schema, use, settings } from 'nexus'
 import { prismaSelect } from 'nexus-plugin-prisma-select'
+
+class Prisma extends PrismaClient {
+  constructor(options?: PrismaClientOptions) {
+    super(options)
+  }
+
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this)
+    await prismaDelete.onDelete(args)
+  }
+}
+
+const prisma = new Prisma()
 
 settings.change({
   schema: {
@@ -12,10 +24,8 @@ settings.change({
 
 use(prismaSelect())
 
-const prisma = new PrismaClient()
 schema.addToContext(() => {
   return {
     prisma,
-    onDelete: new DeleteCascade(prisma, schemaObject),
   }
 })

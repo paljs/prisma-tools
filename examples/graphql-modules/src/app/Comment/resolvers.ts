@@ -21,14 +21,18 @@ export default {
       return injector.get(PrismaProvider).comment.update(args);
     },
     deleteOneComment: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('Comment', args.where);
+      await injector
+        .get(PrismaProvider)
+        .onDelete({ model: 'Comment', where: args.where });
       return injector.get(PrismaProvider).comment.delete(args);
     },
     upsertOneComment: async (_parent, args, { injector }: ModuleContext) => {
       return injector.get(PrismaProvider).comment.upsert(args);
     },
     deleteManyComment: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('Comment', args.where);
+      await injector
+        .get(PrismaProvider)
+        .onDelete({ model: 'Comment', where: args.where });
       return injector.get(PrismaProvider).comment.deleteMany(args);
     },
     updateManyComment: (_parent, args, { injector }: ModuleContext) => {
