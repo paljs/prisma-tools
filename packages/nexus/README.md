@@ -801,7 +801,7 @@ import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select';
 
 export const schema = makeSchema({
   types,
-  plugins: [prismaSelectObject],
+  plugins: [prismaSelectObject()],
   outputs: {
     schema: __dirname + '/generated/schema.graphql',
     typegen: __dirname + '/generated/nexus.ts',

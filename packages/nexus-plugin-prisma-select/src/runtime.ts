@@ -16,7 +16,7 @@ export const plugin: RuntimePlugin = () => () => {
       },
     },
     schema: {
-      plugins: [prismaSelectObject],
+      plugins: [prismaSelectObject() as any],
     },
   }
 }

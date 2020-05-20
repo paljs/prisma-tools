@@ -5,6 +5,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Example Usage](#example-usage)
   - [Use](#use)
@@ -35,7 +36,7 @@ import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select';
 
 export const schema = makeSchema({
   types,
-  plugins: [prismaSelectObject],
+  plugins: [prismaSelectObject()],
   outputs: {
     schema: __dirname + '/generated/schema.graphql',
     typegen: __dirname + '/generated/nexus.ts',
