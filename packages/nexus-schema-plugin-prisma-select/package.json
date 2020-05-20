@@ -1,0 +1,34 @@
+{
+  "name": "nexus-schema-plugin-prisma-select",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/nexus-schema-plugin-prisma-select"
+  },
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "yarn doc && tsc",
+    "doc": "doctoc README.md --notitle",
+    "prepublish": "yarn build"
+  },
+  "devDependencies": {
+    "@nexus/schema": "^0.13.1",
+    "doctoc": "1.4.0",
+    "typescript": "3.9.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da",
+  "dependencies": {
+    "@prisma-tools/select": "^0.0.5"
+  }
+}
