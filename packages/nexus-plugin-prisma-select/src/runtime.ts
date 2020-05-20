@@ -1,5 +1,5 @@
 import { RuntimePlugin } from 'nexus/plugin'
-import { prismaSelectObject } from './lib/schema'
+import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select'
 
 export const plugin: RuntimePlugin = () => () => {
   return {
