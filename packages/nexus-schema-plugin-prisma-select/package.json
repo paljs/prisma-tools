@@ -17,7 +17,7 @@
     "prepublish": "yarn build"
   },
   "devDependencies": {
-    "@nexus/schema": "^0.13.1",
+    "@nexus/schema": "0.13.1",
     "doctoc": "1.4.0",
     "typescript": "3.9.3"
   },
