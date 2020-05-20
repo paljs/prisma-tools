@@ -43,7 +43,7 @@
     "jest": "26.0.1",
     "jest-watch-typeahead": "0.6.0",
     "ts-jest": "26.0.0",
-    "typescript": "3.9.2"
+    "typescript": "3.9.3"
   },
   "dependencies": {
     "@prisma-tools/select": "^0.0.5",

@@ -25,7 +25,7 @@
   "devDependencies": {
     "doctoc": "1.4.0",
     "graphql": "15.0.0",
-    "typescript": "3.9.2"
+    "typescript": "3.9.3"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
 }
