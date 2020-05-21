@@ -28,6 +28,7 @@ fragment Field on Field {
   sort
   filter
   relationField
+  many
 }
 
 fragment Enum on Enum {

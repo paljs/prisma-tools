@@ -14,7 +14,19 @@ const filterMemo = (modelName: string, filter?: any) => {
         if (model && filter[key]) {
           const field = model.fields.find((item) => item.type === key);
           const fieldModel = models.find((item) => item.id === field?.type);
-          if (fieldModel) {
+          if (field.many) {
+            const relationId = model.name.toLowerCase() + 'Id'
+            initialValue.push({
+              id: field ? field.name : key,
+              value: {
+                every: {
+                  [relationId]: {
+                    equals: parseInt(filter[key]),
+                  },
+                },
+              },
+            })
+          } else {
             initialValue.push({
               id: field ? field.name : key,
               value: {
@@ -22,7 +34,7 @@ const filterMemo = (modelName: string, filter?: any) => {
                   equals: parseInt(filter[key]),
                 },
               },
-            });
+            })
           }
           if (key === 'id') {
             initialValue.push({

@@ -21,7 +21,23 @@ export const SchemaQueries = extendType({
     t.field('getSchema', {
       type: 'Schema',
       resolve: async () => {
-        return db.value()
+        let dbValue = db.value()
+        for (let i = 0; i < dbValue.models.length; i++) {
+          const model = dbValue.models[i].name
+          for (let j = 0; j < dbValue.models[i].fields.length; j++) {
+            const field = dbValue.models[i].fields[j]
+            if (field.type.includes('On')) {
+              const fieldModels = field.type.split('On')
+              field.many = true
+              if (fieldModels[0] === model) {
+                field.type = fieldModels[1]
+              } else if (fieldModels[1] === model) {
+                field.type = fieldModels[0]
+              }
+            }
+          }
+        }
+        return dbValue
       },
     })
   },
