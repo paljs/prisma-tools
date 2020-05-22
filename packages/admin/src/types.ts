@@ -1,6 +1,6 @@
-import { Field, Model, Enums } from "@prisma-tools/schema";
+import { Field, Model, Enums } from '@prisma-tools/schema';
 
-export interface SchemaField extends Omit<Field, "relation"> {
+export interface SchemaField extends Omit<Field, 'relation'> {
   id: string;
   title: string;
   read: boolean;
@@ -9,6 +9,7 @@ export interface SchemaField extends Omit<Field, "relation"> {
   filter: boolean;
   sort: boolean;
   order: number;
+  editor: boolean;
 }
 
 export interface SchemaModel extends Model {
@@ -24,14 +25,14 @@ export interface SchemaModel extends Model {
 export type Schema = { models: SchemaModel[]; enums: Enums[] };
 
 type QueriesAndMutations =
-  | "findOne"
-  | "findMany"
-  | "findCount"
-  | "createOne"
-  | "updateOne"
-  | "deleteOne"
-  | "updateMany"
-  | "deleteMany";
+  | 'findOne'
+  | 'findMany'
+  | 'findCount'
+  | 'createOne'
+  | 'updateOne'
+  | 'deleteOne'
+  | 'updateMany'
+  | 'deleteMany';
 
 export interface Options {
   schemaOutput: string;

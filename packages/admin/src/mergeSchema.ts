@@ -71,6 +71,7 @@ function handleNewField(field: Field, modelName: string): SchemaField {
     title: getTitle(field.name),
     create: !defaultField.includes(field.name) && !field.relationField,
     update: !defaultField.includes(field.name) && !field.relationField,
+    editor: false,
     read: true,
     filter: true,
     sort: true,
