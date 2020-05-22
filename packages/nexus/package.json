@@ -24,7 +24,7 @@
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.0",
     "doctoc": "1.4.0",
-    "nexus": "0.21.0",
+    "nexus": "0.22.0",
     "typescript": "3.9.3"
   },
   "files": [
