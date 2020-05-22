@@ -7,7 +7,6 @@ This tool built on [Prisma](https://prisma.io) and [graphql-modules](https://gra
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Features](#features)
 - [Download starter project](#download-starter-project)
   - [Unix (Mac OS, Linux)](#unix-mac-os-linux)
@@ -313,11 +312,10 @@ export const AppModule = new GraphQLModule({
 `Prisma.provider.ts`
 
 ```ts
-import DeleteCascade from '@prisma-tools/delete';
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 import { OnRequest, OnResponse } from '@graphql-modules/core';
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@graphql-modules/di';
-import onDeleteSchema from './onDeleteSchema';
 
 @Injectable()
 export class PrismaProvider extends PrismaClient
@@ -332,13 +330,9 @@ export class PrismaProvider extends PrismaClient
     this.disconnect();
   }
 
-  async onDelete(
-    modelName: string,
-    whereInput: object,
-    includeParent?: boolean
-  ) {
-    const prismaDelete = new DeleteCascade(this, onDeleteSchema);
-    await prismaDelete.cascade(modelName, whereInput, includeParent);
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this);
+    await prismaDelete.onDelete(args);
   }
 }
 ```
