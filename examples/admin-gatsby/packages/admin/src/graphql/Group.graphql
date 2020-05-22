@@ -35,26 +35,7 @@ query findManyGroup(
   ) {
     ...Group
   }
-}
-
-query findManyGroupCount(
-  $where: GroupWhereInput
-  $orderBy: GroupOrderByInput
-  $after: GroupWhereUniqueInput
-  $before: GroupWhereUniqueInput
-  $skip: Int
-  $first: Int
-  $last: Int
-) {
-  findManyGroupCount(
-    where: $where
-    orderBy: $orderBy
-    after: $after
-    before: $before
-    skip: $skip
-    first: $first
-    last: $last
-  )
+  findManyGroupCount(where: $where)
 }
 
 mutation createOneGroup($data: GroupCreateInput!) {

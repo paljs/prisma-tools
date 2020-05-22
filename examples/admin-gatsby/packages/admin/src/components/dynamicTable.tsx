@@ -1,10 +1,10 @@
 import { Modal } from 'oah-ui';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from './Table';
 import * as generate from '../generated';
 import { useFilterAndSort } from './Table/useFilterAndSort';
 import Form from './Form';
-import { DocumentNode, useMutation, useQuery } from '@apollo/client';
+import { DocumentNode, useLazyQuery, useMutation } from '@apollo/client';
 import { useUrlQuery } from './useUrlQuery';
 import { LayoutContext } from '../Layouts';
 import EditRecord from './EditRecord';
@@ -36,7 +36,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
     inEdit ? filter : query,
   );
 
-  const { data, loading, refetch } = useQuery(generate[`FindMany${model}Document` as keys] as DocumentNode, {
+  const [getData, { data, loading }] = useLazyQuery(generate[`FindMany${model}Document` as keys] as DocumentNode, {
     variables: {
       where,
       orderBy,
@@ -45,17 +45,19 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
     fetchPolicy: 'no-cache',
   });
 
-  const { data: dataCount, loading: loadingCount, refetch: refetchCount } = useQuery(
-    generate[`FindMany${model}CountDocument` as keys] as DocumentNode,
-    {
-      variables: {
-        where,
-      },
-      fetchPolicy: 'no-cache',
-    },
-  );
-
   const [deleteOne] = useMutation(generate[`DeleteOne${model}Document` as keys] as DocumentNode);
+
+  useEffect(() => {
+    let timeOut = 0;
+    if ((!(query?.update || query?.view) || inEdit) && !data && !loading) {
+      timeOut = setTimeout(() => {
+        getData();
+      }, 5);
+    }
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [data, loading, query]);
 
   const fetchMoreHandler = (pageSize: number, pageIndex: number) => {
     if (pageSize !== page.first || pageSize * pageIndex !== page.skip) {
@@ -76,8 +78,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
             },
           },
         }).then(() => {
-          refetch();
-          refetchCount();
+          getData();
         });
         break;
       case 'create':
@@ -100,21 +101,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
           action="create"
           data={inEdit && parentName ? { [parentName]: parent?.value } : {}}
           onCancel={() => setCreate(false)}
-          onSave={() => {
-            refetch();
-            refetchCount();
-          }}
+          onSave={getData}
         />
       </Modal>
-      {query?.update && !inEdit ? (
-        <EditRecord
-          model={model}
-          update={query.update}
-          onSave={() => {
-            refetch();
-            refetchCount();
-          }}
-        />
+      {(query?.update || query?.view) && !inEdit ? (
+        <EditRecord model={model} update={query.update} view={query?.view} onSave={getData} />
       ) : (
         <Table
           connect={connect}
@@ -129,11 +120,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ model, inEdit, filter, pare
               : _data
           }
           fetchMore={fetchMoreHandler}
-          loading={loading || loadingCount}
+          loading={loading}
           filterHandler={filterHandler}
           sortByHandler={sortByHandler}
           initialFilter={initialFilter}
-          pageCount={dataCount ? Math.ceil(dataCount[`findMany${model}Count`] / page.first) : 0}
+          pageCount={data ? Math.ceil(data[`findMany${model}Count`] / page.first) : 0}
         />
       )}
     </>

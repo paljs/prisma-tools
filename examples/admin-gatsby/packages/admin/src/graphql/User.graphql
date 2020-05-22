@@ -39,26 +39,7 @@ query findManyUser(
   ) {
     ...User
   }
-}
-
-query findManyUserCount(
-  $where: UserWhereInput
-  $orderBy: UserOrderByInput
-  $after: UserWhereUniqueInput
-  $before: UserWhereUniqueInput
-  $skip: Int
-  $first: Int
-  $last: Int
-) {
-  findManyUserCount(
-    where: $where
-    orderBy: $orderBy
-    after: $after
-    before: $before
-    skip: $skip
-    first: $first
-    last: $last
-  )
+  findManyUserCount(where: $where)
 }
 
 mutation createOneUser($data: UserCreateInput!) {

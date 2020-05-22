@@ -222,19 +222,23 @@ export const ObjectFilter: (field: FieldFragment) => React.FC<any> = (field) => 
 
 const ObjectCard: React.FC<FiltersProps & { field: FieldFragment }> = ({ field, filterValue, setFilter }) => {
   const model = useModel(field.type)!;
-  const [currentField, setCurrentField] = useState({ value: model.fields[0].name, label: model.fields[0].title });
+  const [currentField, setCurrentField] = useState<Option>({
+    value: model.fields[0].name,
+    label: model.fields[0].title,
+  });
   const getField = model.fields.find((item) => item.name === currentField.value)!;
   const { positionHandle } = useContext(OverLayContext);
+  const filter = filterValue ? (field.list ? filterValue.some : filterValue) : {};
   const props = {
-    filterValue: filterValue ? filterValue[getField.name] : {},
+    filterValue: filter[getField.name],
     setFilter: (value: any) => {
-      const newValue = { ...filterValue };
+      const newValue = { ...filter };
       if (value) {
         newValue[getField.name] = value;
       } else {
         delete newValue[getField.name];
       }
-      setFilter(Object.keys(newValue).length > 0 ? newValue : undefined);
+      setFilter(Object.keys(newValue).length > 0 ? (field.list ? { some: newValue } : newValue) : undefined);
     },
   };
 
@@ -273,7 +277,14 @@ const ObjectCard: React.FC<FiltersProps & { field: FieldFragment }> = ({ field, 
           options={model.fields
             .filter((item) => item.kind !== 'object')
             .sort((a, b) => a.order - b.order)
-            .map((item) => ({ value: item.name, label: item.title }))}
+            .map((item) => ({
+              value: item.name,
+              label: (
+                <>
+                  <span>{item.title}</span> {filter[item.name] && <EvaIcon name="search-outline" />}
+                </>
+              ),
+            }))}
         />
       </header>
       <CardBody style={{ padding: 0, overflow: 'visible' }}>{filterComponent}</CardBody>

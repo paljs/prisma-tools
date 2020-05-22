@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Checkbox, Col, InputGroup, Row, Select } from 'oah-ui';
 import { useUpdateModelMutation, ModelFragment } from '../../generated';
 
@@ -12,6 +12,15 @@ const UpdateModel: React.FC<ModelFragment> = (props) => {
     value: props.name,
     typingTimeout: 0,
   });
+  const titleRef = useRef(props.name);
+
+  if (titleRef.current !== props.name) {
+    titleRef.current = props.name;
+    setTitle({
+      value: props.name,
+      typingTimeout: 0,
+    });
+  }
 
   const onChangeHandler = (name: string, value: boolean | string) => {
     updateModel({

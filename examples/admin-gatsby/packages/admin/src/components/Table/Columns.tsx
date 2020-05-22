@@ -83,7 +83,8 @@ const columnsObject: { [key: string]: (field: FieldFragment, model?: ModelFragme
   list: (field, model) => ({
     Header: field.title,
     accessor: field.name,
-    disableFilters: true,
+    Filter: ObjectFilter(field),
+    disableFilters: !field.filter,
     disableSortBy: true,
     Cell: ({
       row: {

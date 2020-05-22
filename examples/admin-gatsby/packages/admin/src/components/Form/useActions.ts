@@ -2,6 +2,7 @@ import * as generate from '../../generated';
 import { DocumentNode, useMutation } from '@apollo/client';
 import { useContext } from 'react';
 import { LayoutContext } from '../../Layouts';
+import { FormProps } from './index';
 
 type keys = keyof typeof generate;
 
@@ -12,7 +13,7 @@ export const getValueByType = (type: string | undefined, value: string) => {
 const useActions = (
   model: generate.ModelFragment,
   data: any,
-  action: 'create' | 'update',
+  action: FormProps['action'],
   onCancel: () => void,
   onSave: () => void,
 ) => {
@@ -27,25 +28,28 @@ const useActions = (
 
   const onUpdateHandler = (newData: any) => {
     const updateData: any = {};
+    console.log(newData);
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
-      if (field?.kind === 'object') {
-        const fieldModel = models.find((item) => item.id === field.type)!;
-        if (
-          (newData[key] && !data[key]) ||
-          (newData[key] && newData[key][fieldModel.idField] !== data[key][fieldModel.idField])
-        ) {
-          const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
-          updateData[key] = {
-            connect: {
-              id: getValueByType(editField.type, newData[key][fieldModel.idField]),
-            },
-          };
-        } else if (!newData[key] && data[key]) {
-          updateData[key] = { disconnect: true };
+      if (field?.update) {
+        if (field.kind === 'object') {
+          const fieldModel = models.find((item) => item.id === field.type)!;
+          if (
+            (newData[key] && !data[key]) ||
+            (newData[key] && newData[key][fieldModel.idField] !== data[key][fieldModel.idField])
+          ) {
+            const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
+            updateData[key] = {
+              connect: {
+                id: getValueByType(editField.type, newData[key][fieldModel.idField]),
+              },
+            };
+          } else if (!newData[key] && data[key]) {
+            updateData[key] = { disconnect: true };
+          }
+        } else if (newData[key] !== data[key]) {
+          updateData[key] = getValueByType(field?.type, newData[key]);
         }
-      } else if (newData[key] !== data[key]) {
-        updateData[key] = getValueByType(field?.type, newData[key]);
       }
     });
     if (Object.keys(updateData).length > 0) {

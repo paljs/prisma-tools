@@ -3,7 +3,7 @@ import { ModelFragment } from '../../generated';
 export const initPages = (pagesCount: number, page: number) => {
   let showPagesCount = 4;
   showPagesCount = pagesCount < showPagesCount ? pagesCount : showPagesCount;
-  let pages = [];
+  const pages = [];
 
   let middleOne = Math.ceil(showPagesCount / 2);
   middleOne = page >= middleOne ? page : middleOne;

@@ -43,26 +43,7 @@ query findManyComment(
   ) {
     ...Comment
   }
-}
-
-query findManyCommentCount(
-  $where: CommentWhereInput
-  $orderBy: CommentOrderByInput
-  $after: CommentWhereUniqueInput
-  $before: CommentWhereUniqueInput
-  $skip: Int
-  $first: Int
-  $last: Int
-) {
-  findManyCommentCount(
-    where: $where
-    orderBy: $orderBy
-    after: $after
-    before: $before
-    skip: $skip
-    first: $first
-    last: $last
-  )
+  findManyCommentCount(where: $where)
 }
 
 mutation createOneComment($data: CommentCreateInput!) {

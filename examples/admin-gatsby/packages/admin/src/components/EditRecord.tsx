@@ -4,13 +4,14 @@ import Form from './Form';
 import { navigate } from '@reach/router';
 import styled from 'styled-components';
 import DynamicTable from './dynamicTable';
-import { DocumentNode, useQuery } from '@apollo/client';
+import { DocumentNode, useLazyQuery } from '@apollo/client';
 import * as generate from '../generated';
 import { useModel } from './useSchema';
 
 interface EditRecordProps {
   model: string;
   update: any;
+  view?: any;
   onSave: () => void;
 }
 type keys = keyof typeof generate;
@@ -21,23 +22,22 @@ const StyledTabs = styled(Tabs)<{ children: any }>`
   }
 `;
 
-const EditRecord: React.FC<EditRecordProps> = ({ model, update, onSave }) => {
+const EditRecord: React.FC<EditRecordProps> = ({ model, update, onSave, view }) => {
   const modelObject = useModel(model);
-  const { data, loading } = useQuery(generate[`FindOne${model}Document` as keys] as DocumentNode, {
-    variables: {
-      where: modelObject
-        ? {
-            [modelObject.idField]: parseInt(update),
-          }
-        : {},
-    },
-    fetchPolicy: 'cache-first',
-  });
+  const [getRecord, { data, loading }] = useLazyQuery(generate[`FindOne${model}Document` as keys] as DocumentNode);
+
+  if (modelObject && !data && !loading) {
+    getRecord({
+      variables: {
+        where: { [modelObject.idField]: parseInt(update || view) },
+      },
+    });
+  }
 
   const record = data ? data[`findOne${model}`] : {};
-  const tabs = modelObject?.fields.filter((field) => field.kind === 'object' && field.list);
+  const tabs = modelObject?.fields.filter((field) => field.kind === 'object' && field.list && field.update);
 
-  if (!loading && !data[`findOne${model}`]) navigate(`/models/${model}`);
+  if (!loading && data && !data[`findOne${model}`] && modelObject) navigate(`/models/${model}`);
 
   return loading || !modelObject ? (
     <Spinner size="Giant" />
@@ -46,13 +46,13 @@ const EditRecord: React.FC<EditRecordProps> = ({ model, update, onSave }) => {
       <Col breakPoint={{ xs: 12 }}>
         <Form
           model={model}
-          action="update"
+          action={view ? 'view' : 'update'}
           data={record}
           onCancel={() => navigate(`/models/${model}`)}
           onSave={onSave}
         />
       </Col>
-      {tabs?.length && (
+      {!!tabs?.length && (
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <StyledTabs>

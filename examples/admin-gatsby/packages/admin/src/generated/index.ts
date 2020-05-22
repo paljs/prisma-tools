@@ -228,6 +228,7 @@ export type Enum = {
 export type Field = {
   __typename?: 'Field';
   create: Scalars['Boolean'];
+  editor?: Maybe<Scalars['Boolean']>;
   filter: Scalars['Boolean'];
   id: Scalars['String'];
   isId: Scalars['Boolean'];
@@ -850,6 +851,7 @@ export type StringFilter = {
 
 export type UpdateFieldInput = {
   create?: Maybe<Scalars['Boolean']>;
+  editor?: Maybe<Scalars['Boolean']>;
   filter?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['String']>;
   isId?: Maybe<Scalars['Boolean']>;
@@ -1180,21 +1182,9 @@ export type FindManyCommentQueryVariables = {
   last?: Maybe<Scalars['Int']>;
 };
 
-export type FindManyCommentQuery = { __typename?: 'Query' } & {
-  findManyComment?: Maybe<Array<{ __typename?: 'Comment' } & CommentFragment>>;
-};
-
-export type FindManyCommentCountQueryVariables = {
-  where?: Maybe<CommentWhereInput>;
-  orderBy?: Maybe<CommentOrderByInput>;
-  after?: Maybe<CommentWhereUniqueInput>;
-  before?: Maybe<CommentWhereUniqueInput>;
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-};
-
-export type FindManyCommentCountQuery = { __typename?: 'Query' } & Pick<Query, 'findManyCommentCount'>;
+export type FindManyCommentQuery = { __typename?: 'Query' } & Pick<Query, 'findManyCommentCount'> & {
+    findManyComment?: Maybe<Array<{ __typename?: 'Comment' } & CommentFragment>>;
+  };
 
 export type CreateOneCommentMutationVariables = {
   data: CommentCreateInput;
@@ -1243,21 +1233,9 @@ export type FindManyGroupQueryVariables = {
   last?: Maybe<Scalars['Int']>;
 };
 
-export type FindManyGroupQuery = { __typename?: 'Query' } & {
-  findManyGroup?: Maybe<Array<{ __typename?: 'Group' } & GroupFragment>>;
-};
-
-export type FindManyGroupCountQueryVariables = {
-  where?: Maybe<GroupWhereInput>;
-  orderBy?: Maybe<GroupOrderByInput>;
-  after?: Maybe<GroupWhereUniqueInput>;
-  before?: Maybe<GroupWhereUniqueInput>;
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-};
-
-export type FindManyGroupCountQuery = { __typename?: 'Query' } & Pick<Query, 'findManyGroupCount'>;
+export type FindManyGroupQuery = { __typename?: 'Query' } & Pick<Query, 'findManyGroupCount'> & {
+    findManyGroup?: Maybe<Array<{ __typename?: 'Group' } & GroupFragment>>;
+  };
 
 export type CreateOneGroupMutationVariables = {
   data: GroupCreateInput;
@@ -1311,21 +1289,9 @@ export type FindManyPostQueryVariables = {
   last?: Maybe<Scalars['Int']>;
 };
 
-export type FindManyPostQuery = { __typename?: 'Query' } & {
-  findManyPost?: Maybe<Array<{ __typename?: 'Post' } & PostFragment>>;
-};
-
-export type FindManyPostCountQueryVariables = {
-  where?: Maybe<PostWhereInput>;
-  orderBy?: Maybe<PostOrderByInput>;
-  after?: Maybe<PostWhereUniqueInput>;
-  before?: Maybe<PostWhereUniqueInput>;
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-};
-
-export type FindManyPostCountQuery = { __typename?: 'Query' } & Pick<Query, 'findManyPostCount'>;
+export type FindManyPostQuery = { __typename?: 'Query' } & Pick<Query, 'findManyPostCount'> & {
+    findManyPost?: Maybe<Array<{ __typename?: 'Post' } & PostFragment>>;
+  };
 
 export type CreateOnePostMutationVariables = {
   data: PostCreateInput;
@@ -1374,6 +1340,7 @@ export type FieldFragment = { __typename?: 'Field' } & Pick<
   | 'update'
   | 'sort'
   | 'filter'
+  | 'editor'
   | 'relationField'
 >;
 
@@ -1434,21 +1401,9 @@ export type FindManyUserQueryVariables = {
   last?: Maybe<Scalars['Int']>;
 };
 
-export type FindManyUserQuery = { __typename?: 'Query' } & {
-  findManyUser?: Maybe<Array<{ __typename?: 'User' } & UserFragment>>;
-};
-
-export type FindManyUserCountQueryVariables = {
-  where?: Maybe<UserWhereInput>;
-  orderBy?: Maybe<UserOrderByInput>;
-  after?: Maybe<UserWhereUniqueInput>;
-  before?: Maybe<UserWhereUniqueInput>;
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-};
-
-export type FindManyUserCountQuery = { __typename?: 'Query' } & Pick<Query, 'findManyUserCount'>;
+export type FindManyUserQuery = { __typename?: 'Query' } & Pick<Query, 'findManyUserCount'> & {
+    findManyUser?: Maybe<Array<{ __typename?: 'User' } & UserFragment>>;
+  };
 
 export type CreateOneUserMutationVariables = {
   data: UserCreateInput;
@@ -1559,6 +1514,7 @@ export const FieldFragmentDoc = gql`
     update
     sort
     filter
+    editor
     relationField
   }
 `;
@@ -1772,6 +1728,7 @@ export const FindManyCommentDocument = gql`
     ) {
       ...Comment
     }
+    findManyCommentCount(where: $where)
   }
   ${CommentFragmentDoc}
 `;
@@ -1819,72 +1776,6 @@ export type FindManyCommentLazyQueryHookResult = ReturnType<typeof useFindManyCo
 export type FindManyCommentQueryResult = ApolloReactCommon.QueryResult<
   FindManyCommentQuery,
   FindManyCommentQueryVariables
->;
-export const FindManyCommentCountDocument = gql`
-  query findManyCommentCount(
-    $where: CommentWhereInput
-    $orderBy: CommentOrderByInput
-    $after: CommentWhereUniqueInput
-    $before: CommentWhereUniqueInput
-    $skip: Int
-    $first: Int
-    $last: Int
-  ) {
-    findManyCommentCount(
-      where: $where
-      orderBy: $orderBy
-      after: $after
-      before: $before
-      skip: $skip
-      first: $first
-      last: $last
-    )
-  }
-`;
-
-/**
- * __useFindManyCommentCountQuery__
- *
- * To run a query within a React component, call `useFindManyCommentCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindManyCommentCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindManyCommentCountQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      last: // value for 'last'
- *   },
- * });
- */
-export function useFindManyCommentCountQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<FindManyCommentCountQuery, FindManyCommentCountQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<FindManyCommentCountQuery, FindManyCommentCountQueryVariables>(
-    FindManyCommentCountDocument,
-    baseOptions,
-  );
-}
-export function useFindManyCommentCountLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindManyCommentCountQuery, FindManyCommentCountQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<FindManyCommentCountQuery, FindManyCommentCountQueryVariables>(
-    FindManyCommentCountDocument,
-    baseOptions,
-  );
-}
-export type FindManyCommentCountQueryHookResult = ReturnType<typeof useFindManyCommentCountQuery>;
-export type FindManyCommentCountLazyQueryHookResult = ReturnType<typeof useFindManyCommentCountLazyQuery>;
-export type FindManyCommentCountQueryResult = ApolloReactCommon.QueryResult<
-  FindManyCommentCountQuery,
-  FindManyCommentCountQueryVariables
 >;
 export const CreateOneCommentDocument = gql`
   mutation createOneComment($data: CommentCreateInput!) {
@@ -2068,6 +1959,7 @@ export const FindManyGroupDocument = gql`
     ) {
       ...Group
     }
+    findManyGroupCount(where: $where)
   }
   ${GroupFragmentDoc}
 `;
@@ -2110,72 +2002,6 @@ export function useFindManyGroupLazyQuery(
 export type FindManyGroupQueryHookResult = ReturnType<typeof useFindManyGroupQuery>;
 export type FindManyGroupLazyQueryHookResult = ReturnType<typeof useFindManyGroupLazyQuery>;
 export type FindManyGroupQueryResult = ApolloReactCommon.QueryResult<FindManyGroupQuery, FindManyGroupQueryVariables>;
-export const FindManyGroupCountDocument = gql`
-  query findManyGroupCount(
-    $where: GroupWhereInput
-    $orderBy: GroupOrderByInput
-    $after: GroupWhereUniqueInput
-    $before: GroupWhereUniqueInput
-    $skip: Int
-    $first: Int
-    $last: Int
-  ) {
-    findManyGroupCount(
-      where: $where
-      orderBy: $orderBy
-      after: $after
-      before: $before
-      skip: $skip
-      first: $first
-      last: $last
-    )
-  }
-`;
-
-/**
- * __useFindManyGroupCountQuery__
- *
- * To run a query within a React component, call `useFindManyGroupCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindManyGroupCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindManyGroupCountQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      last: // value for 'last'
- *   },
- * });
- */
-export function useFindManyGroupCountQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<FindManyGroupCountQuery, FindManyGroupCountQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<FindManyGroupCountQuery, FindManyGroupCountQueryVariables>(
-    FindManyGroupCountDocument,
-    baseOptions,
-  );
-}
-export function useFindManyGroupCountLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindManyGroupCountQuery, FindManyGroupCountQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<FindManyGroupCountQuery, FindManyGroupCountQueryVariables>(
-    FindManyGroupCountDocument,
-    baseOptions,
-  );
-}
-export type FindManyGroupCountQueryHookResult = ReturnType<typeof useFindManyGroupCountQuery>;
-export type FindManyGroupCountLazyQueryHookResult = ReturnType<typeof useFindManyGroupCountLazyQuery>;
-export type FindManyGroupCountQueryResult = ApolloReactCommon.QueryResult<
-  FindManyGroupCountQuery,
-  FindManyGroupCountQueryVariables
->;
 export const CreateOneGroupDocument = gql`
   mutation createOneGroup($data: GroupCreateInput!) {
     createOneGroup(data: $data) {
@@ -2355,6 +2181,7 @@ export const FindManyPostDocument = gql`
     ) {
       ...Post
     }
+    findManyPostCount(where: $where)
   }
   ${PostFragmentDoc}
 `;
@@ -2397,72 +2224,6 @@ export function useFindManyPostLazyQuery(
 export type FindManyPostQueryHookResult = ReturnType<typeof useFindManyPostQuery>;
 export type FindManyPostLazyQueryHookResult = ReturnType<typeof useFindManyPostLazyQuery>;
 export type FindManyPostQueryResult = ApolloReactCommon.QueryResult<FindManyPostQuery, FindManyPostQueryVariables>;
-export const FindManyPostCountDocument = gql`
-  query findManyPostCount(
-    $where: PostWhereInput
-    $orderBy: PostOrderByInput
-    $after: PostWhereUniqueInput
-    $before: PostWhereUniqueInput
-    $skip: Int
-    $first: Int
-    $last: Int
-  ) {
-    findManyPostCount(
-      where: $where
-      orderBy: $orderBy
-      after: $after
-      before: $before
-      skip: $skip
-      first: $first
-      last: $last
-    )
-  }
-`;
-
-/**
- * __useFindManyPostCountQuery__
- *
- * To run a query within a React component, call `useFindManyPostCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindManyPostCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindManyPostCountQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      last: // value for 'last'
- *   },
- * });
- */
-export function useFindManyPostCountQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<FindManyPostCountQuery, FindManyPostCountQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<FindManyPostCountQuery, FindManyPostCountQueryVariables>(
-    FindManyPostCountDocument,
-    baseOptions,
-  );
-}
-export function useFindManyPostCountLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindManyPostCountQuery, FindManyPostCountQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<FindManyPostCountQuery, FindManyPostCountQueryVariables>(
-    FindManyPostCountDocument,
-    baseOptions,
-  );
-}
-export type FindManyPostCountQueryHookResult = ReturnType<typeof useFindManyPostCountQuery>;
-export type FindManyPostCountLazyQueryHookResult = ReturnType<typeof useFindManyPostCountLazyQuery>;
-export type FindManyPostCountQueryResult = ApolloReactCommon.QueryResult<
-  FindManyPostCountQuery,
-  FindManyPostCountQueryVariables
->;
 export const CreateOnePostDocument = gql`
   mutation createOnePost($data: PostCreateInput!) {
     createOnePost(data: $data) {
@@ -2768,6 +2529,7 @@ export const FindManyUserDocument = gql`
     ) {
       ...User
     }
+    findManyUserCount(where: $where)
   }
   ${UserFragmentDoc}
 `;
@@ -2810,72 +2572,6 @@ export function useFindManyUserLazyQuery(
 export type FindManyUserQueryHookResult = ReturnType<typeof useFindManyUserQuery>;
 export type FindManyUserLazyQueryHookResult = ReturnType<typeof useFindManyUserLazyQuery>;
 export type FindManyUserQueryResult = ApolloReactCommon.QueryResult<FindManyUserQuery, FindManyUserQueryVariables>;
-export const FindManyUserCountDocument = gql`
-  query findManyUserCount(
-    $where: UserWhereInput
-    $orderBy: UserOrderByInput
-    $after: UserWhereUniqueInput
-    $before: UserWhereUniqueInput
-    $skip: Int
-    $first: Int
-    $last: Int
-  ) {
-    findManyUserCount(
-      where: $where
-      orderBy: $orderBy
-      after: $after
-      before: $before
-      skip: $skip
-      first: $first
-      last: $last
-    )
-  }
-`;
-
-/**
- * __useFindManyUserCountQuery__
- *
- * To run a query within a React component, call `useFindManyUserCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindManyUserCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindManyUserCountQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      last: // value for 'last'
- *   },
- * });
- */
-export function useFindManyUserCountQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<FindManyUserCountQuery, FindManyUserCountQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<FindManyUserCountQuery, FindManyUserCountQueryVariables>(
-    FindManyUserCountDocument,
-    baseOptions,
-  );
-}
-export function useFindManyUserCountLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindManyUserCountQuery, FindManyUserCountQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<FindManyUserCountQuery, FindManyUserCountQueryVariables>(
-    FindManyUserCountDocument,
-    baseOptions,
-  );
-}
-export type FindManyUserCountQueryHookResult = ReturnType<typeof useFindManyUserCountQuery>;
-export type FindManyUserCountLazyQueryHookResult = ReturnType<typeof useFindManyUserCountLazyQuery>;
-export type FindManyUserCountQueryResult = ApolloReactCommon.QueryResult<
-  FindManyUserCountQuery,
-  FindManyUserCountQueryVariables
->;
 export const CreateOneUserDocument = gql`
   mutation createOneUser($data: UserCreateInput!) {
     createOneUser(data: $data) {

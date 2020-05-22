@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Checkbox, Col, InputGroup, Row } from 'oah-ui';
 import { useUpdateFieldMutation, FieldFragment } from '../../generated';
 
-type Fields = 'read' | 'create' | 'update' | 'filter' | 'sort' | 'title';
+type Fields = 'read' | 'create' | 'update' | 'filter' | 'sort' | 'title' | 'editor';
 
-const fieldsArray: Fields[] = ['read', 'create', 'update', 'filter', 'sort'];
+const fieldsArray: Fields[] = ['read', 'create', 'update', 'filter', 'sort', 'editor'];
 
 const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field, model }) => {
   const [updateField] = useUpdateFieldMutation();
@@ -65,7 +65,7 @@ const UpdateField: React.FC<{ field: FieldFragment; model: string }> = ({ field,
           <Checkbox
             disabled={!!(field.relationField && ['create', 'update'].includes(item))}
             status="Success"
-            checked={field[item] as boolean}
+            checked={!!field[item]}
             onChange={(value) => onChangeHandler(item, value)}
           >
             {item}

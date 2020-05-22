@@ -40,26 +40,7 @@ query findManyPost(
   ) {
     ...Post
   }
-}
-
-query findManyPostCount(
-  $where: PostWhereInput
-  $orderBy: PostOrderByInput
-  $after: PostWhereUniqueInput
-  $before: PostWhereUniqueInput
-  $skip: Int
-  $first: Int
-  $last: Int
-) {
-  findManyPostCount(
-    where: $where
-    orderBy: $orderBy
-    after: $after
-    before: $before
-    skip: $skip
-    first: $first
-    last: $last
-  )
+  findManyPostCount(where: $where)
 }
 
 mutation createOnePost($data: PostCreateInput!) {

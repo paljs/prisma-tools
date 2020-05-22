@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import { EvaIcon } from 'oah-ui';
 
 const SocialsStyle = styled.section`
   margin-top: 1.5rem;
@@ -21,13 +22,13 @@ export default function Socials() {
       <p>or enter with:</p>
       <div className="links">
         <a href="https://github.com/AhmedElywa">
-          <i className="icon ion-logo-github" />
+          <EvaIcon name="github" />
         </a>
         <a href="https://www.facebook.com/AhmedElywa">
-          <i className="icon ion-logo-facebook" />
+          <EvaIcon name="facebook" />
         </a>
         <a href="https://twitter.com/AhmedElywh">
-          <i className="icon ion-logo-twitter" />
+          <EvaIcon name="twitter" />
         </a>
       </div>
     </SocialsStyle>

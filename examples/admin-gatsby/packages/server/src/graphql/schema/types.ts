@@ -31,6 +31,7 @@ const FieldDefinition = {
     t.boolean('read')
     t.boolean('filter')
     t.boolean('sort')
+    t.boolean('editor', { nullable: true })
     t.boolean('relationField', { nullable: true })
     t.int('order')
     t.field('kind', { type: 'KindEnum' })

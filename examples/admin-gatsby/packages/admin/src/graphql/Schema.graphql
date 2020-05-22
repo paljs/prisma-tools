@@ -27,6 +27,7 @@ fragment Field on Field {
   update
   sort
   filter
+  editor
   relationField
 }
 

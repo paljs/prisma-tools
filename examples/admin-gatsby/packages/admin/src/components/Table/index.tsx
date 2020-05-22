@@ -110,7 +110,6 @@ export const Table: React.FC<TableProps> = ({
     update: model?.update,
     delete: model?.delete,
   };
-  const hasActions = actions.create || actions.update || actions.delete;
   // Render the UI for your table
   return (
     <Card style={{ marginBottom: 0, maxHeight: '100vh' }}>
@@ -126,7 +125,7 @@ export const Table: React.FC<TableProps> = ({
             {headerGroups.map((headerGroup: any, index: number) => (
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {connect ? <th>Actions</th> : hasActions && <th colSpan={2}>Actions</th>}
+                  <th colSpan={2}>Actions</th>
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th key={index2} {...column.getHeaderProps(column.getSortByToggleProps())}>
                       {column.render('Header')}
@@ -136,17 +135,15 @@ export const Table: React.FC<TableProps> = ({
                 </tr>
                 <tr>
                   {connect ? (
-                    <th />
+                    <th colSpan={2} />
                   ) : (
-                    hasActions && (
-                      <th colSpan={2}>
-                        {actions.create && (
-                          <Button size="Tiny" onClick={() => onAction('create')}>
-                            <EvaIcon name="plus-outline" />
-                          </Button>
-                        )}
-                      </th>
-                    )
+                    <th colSpan={2}>
+                      {actions.create && (
+                        <Button size="Tiny" onClick={() => onAction('create')}>
+                          <EvaIcon name="plus-outline" />
+                        </Button>
+                      )}
+                    </th>
                   )}
                   {headerGroup.headers.map((column: any, index: number) => (
                     <th key={index}>
@@ -163,7 +160,7 @@ export const Table: React.FC<TableProps> = ({
               return (
                 <tr key={index} {...row.getRowProps()}>
                   {connect && (
-                    <td>
+                    <td colSpan={2}>
                       <Button
                         size="Small"
                         appearance="ghost"
@@ -180,29 +177,34 @@ export const Table: React.FC<TableProps> = ({
                       </Button>
                     </td>
                   )}
-                  {actions.update && !connect && (
+                  {!connect && (
                     <td colSpan={actions.delete ? 1 : 2}>
                       <Tooltip
                         className="inline-block"
                         status="Primary"
                         trigger="hint"
                         placement="top"
-                        content="Edit Row"
+                        content={actions.update ? 'Edit Row' : 'View Row'}
                       >
                         <Button
                           style={{ padding: 0 }}
                           appearance="ghost"
                           onClick={() =>
-                            model && navigate(`/models/${modelName}?update=${row.original[model.idField]}`)
+                            model &&
+                            navigate(
+                              `/models/${modelName}?${actions.update ? 'update' : 'view'}=${
+                                row.original[model.idField]
+                              }`,
+                            )
                           }
                         >
-                          <EvaIcon name="edit-outline" />
+                          <EvaIcon name={actions.update ? 'edit-outline' : 'eye-outline'} />
                         </Button>
                       </Tooltip>
                     </td>
                   )}
                   {actions.delete && !connect && (
-                    <td colSpan={actions.update ? 1 : 2}>
+                    <td colSpan={1}>
                       <Tooltip
                         className="inline-block"
                         status="Danger"

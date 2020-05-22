@@ -216,6 +216,7 @@ type Enum {
 
 type Field {
   create: Boolean!
+  editor: Boolean
   filter: Boolean!
   id: String!
   isId: Boolean!
@@ -712,6 +713,7 @@ input StringFilter {
 
 input UpdateFieldInput {
   create: Boolean
+  editor: Boolean
   filter: Boolean
   id: String
   isId: Boolean
