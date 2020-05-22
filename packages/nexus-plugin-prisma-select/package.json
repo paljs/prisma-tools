@@ -46,7 +46,7 @@
     "typescript": "3.9.3"
   },
   "dependencies": {
-    "nexus": "0.22.0-next.25",
+    "nexus": "0.22.0",
     "nexus-schema-plugin-prisma-select": "^0.0.1"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
