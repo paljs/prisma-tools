@@ -12,7 +12,7 @@
 - [**@prisma-tools/select**](./packages/select) convert `info: GraphQLResolveInfo` to be available prisma select object.
 - [**@prisma-tools/delete**](./packages/delete) Prisma Migrate cli not supported Cascading deletes so this tool is workaround this option.
 - [**@prisma-tools/schema**](./packages/schema) convert your `schema.prisma` file into `JavaScript` object.
-- [**@prisma-tools/admin**](./packages/admin) Auto generate pages, Queries and mutations in our Admin project [prisma-admin](./examples/admin-gatsby)
+- [**@prisma-tools/admin**](./packages/admin) Auto generate pages, Queries and mutations in our Admin project [prisma-admin](https://github.com/AhmedElywa/prisma-admin)
 
 ### Examples
 
@@ -20,7 +20,7 @@
 - [**apollo with nexus schema**](./examples/apollo-nexus-schema) Using Apollo as graphql server, @nexus/schema for build graphql schema and `@prisma-tools/nexus` to auto generate CRUD system
 - [**apollo with graphql modules**](./examples/graphql-modules) Using Apollo as graphql server, graphql-modules for build graphql schema and `@prisma-tools/graphql-modules` to auto generate CRUD system
 - [**apollo with sdl first**](./examples/apollo-sdl-first) Using Apollo as graphql server with sdl first for build graphql and `@prisma-tools/sdl` to auto generate CRUD system
-- [**Prisma Admin**](./examples/admin-gatsby) Build project with typescript nexus framework backend gatsbyJs
+- [**Prisma Admin**](https://github.com/AhmedElywa/prisma-admin) Build project with typescript nexus framework backend gatsbyJs
 - [**Online demo has all tools** ](http://prisma-admin.ahmedelywa.com/) You need to SignUp first then login
 
 ### Have questions?
