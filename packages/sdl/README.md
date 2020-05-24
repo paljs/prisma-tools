@@ -1,6 +1,6 @@
 # Introduction
 
-This tool built on [Prisma](https://prisma.io) to auto generate graphql schema types and CURD system from Prisma Client
+This tool built on [Prisma](https://prisma.io) to auto generate graphql schema types and CRUD system from Prisma Client
 
 > For any custom use in any framework you can open an issue with feature request to support generate for this framework by adding option to tool settings
 
