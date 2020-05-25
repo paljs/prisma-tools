@@ -14,12 +14,18 @@ const shared: Partial<DefaultTheme> = {
           "Segoe UI Emoji","Segoe UI Symbol"`,
 };
 
-export default function themeService(theme: DefaultTheme['name']) {
+const lightTheme: Partial<DefaultTheme> = {
+  headerBackgroundColor: '#212935',
+  actionsTextColor: 'backgroundBasicColor1',
+};
+
+export default function themeService(theme: DefaultTheme['name']): DefaultTheme {
   switch (theme) {
     case 'dark':
     case 'cosmic':
+      return createTheme(theme, shared);
     case 'corporate':
     default:
-      return createTheme(theme, shared);
+      return createTheme(theme, { ...shared, ...lightTheme });
   }
 }
