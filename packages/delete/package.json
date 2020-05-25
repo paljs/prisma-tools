@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/delete",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -8,6 +8,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/delete"
   },
+  "homepage": "https://prisma-tools.ahmedelywa.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

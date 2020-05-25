@@ -1,10 +1,11 @@
 # nexus-schema-plugin-prisma-select <!-- omit in toc -->
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 **Contents**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Installation](#installation)
 - [Example Usage](#example-usage)

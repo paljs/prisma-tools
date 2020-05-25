@@ -18,6 +18,8 @@ This tool is built for [Prisma](https://prisma.io)
 
 Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround this option
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 ## Install
 
 ```

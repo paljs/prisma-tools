@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -8,6 +8,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/admin"
   },
+  "homepage": "https://prisma-tools.ahmedelywa.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -16,7 +17,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/schema": "^0.0.2",
+    "@prisma-tools/schema": "^0.0.3",
     "prettier": "^2.0.4"
   },
   "devDependencies": {

@@ -6,6 +6,8 @@ It's a small tool to generate pages and .graphql files for every model in your p
 
 you can't use this tool outside our project [prisma-admin](https://github.com/AhmedElywa/prisma-admin)
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 ## Api
 
 ```typescript

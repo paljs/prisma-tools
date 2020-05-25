@@ -1,0 +1,250 @@
+import SEO from '../components/SEO';
+import { CardBody } from 'oah-ui';
+import MdxCard from '../components/MdxCard';
+
+<SEO title="Select Convert" />
+
+<MdxCard>
+<CardBody>
+
+## Prisma select
+
+It's a small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
+
+**CONTENT**
+
+- [Install](#install)
+- [Use](#use)
+- [Example query](#example-query)
+- [Performance Example](#performance-example)
+
+</CardBody>
+</MdxCard>
+
+<MdxCard>
+<CardBody>
+
+## Install
+
+```shell
+npm i @prisma-tools/select
+```
+
+## Use
+
+```ts
+import { PrismaSelect } from '@prisma-tools/select';
+
+// nexus
+t.field('findOneUser', {
+  type: 'User',
+  nullable: true,
+  args: {
+    where: arg({
+      type: 'UserWhereUniqueInput',
+      nullable: false,
+    }),
+  },
+  resolve(_parent, { where }, { prisma }, info) {
+    const select = new PrismaSelect(info);
+    return prisma.user.findOne({
+      where,
+      ...select.value,
+    });
+  },
+});
+// normal resolver
+const resolvers = {
+  Query: {
+    user(_parent, { where }, { prisma }, info) {
+      const select = new PrismaSelect(info);
+      return prisma.user.findOne({
+        where,
+        ...select.value,
+      });
+    },
+  },
+};
+```
+
+</CardBody>
+</MdxCard>
+
+<MdxCard>
+<CardBody>
+
+## Example query
+
+```graphql
+query {
+  findOneUser(where: { id: 1 }) {
+    id
+    email
+    name
+    posts(where: { title: { contains: "a" } }, orderBy: { createdAt: asc }, first: 10, skip: 5) {
+      id
+      title
+      comments(where: { contain: { contains: "a" } }) {
+        id
+        contain
+      }
+    }
+  }
+}
+```
+
+convert to
+
+```js
+const result = {
+  select: {
+    id: true,
+    email: true,
+    name: true,
+    posts: {
+      select: {
+        id: true,
+        title: true,
+        comments: {
+          select: { id: true, contain: true },
+          where: { contain: { contains: 'a' } },
+        },
+      },
+      where: { title: { contains: 'a' } },
+      orderBy: { createdAt: 'asc' },
+      first: 10,
+      skip: 5,
+    },
+  },
+};
+```
+
+</CardBody>
+</MdxCard>
+
+<MdxCard>
+<CardBody>
+
+## Performance Example
+
+We have `Prisma Schema` with three models.
+
+```prisma
+model User {
+  id        Int       @default(autoincrement()) @id
+  email     String    @unique
+  password  String
+  posts     Post[]
+}
+
+model Post {
+  id        Int       @default(autoincrement()) @id
+  published Boolean   @default(false)
+  title     String
+  author    User?     @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int      @default(autoincrement()) @id
+  contain   String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+}
+```
+
+So the normal `GraphQL Resolvers` to get one User will be like this:
+
+```js
+const resolvers = {
+  Query: {
+    findOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.findOne(args);
+    },
+  },
+  User: {
+    posts: (parent, args, { prisma }) => {
+      return prisma.user.findOne({ where: { id: parent.id } }).posts(args);
+    },
+  },
+  Post: {
+    comments: (parent, args, { prisma }) => {
+      return prisma.post.findOne({ where: { id: parent.id } }).comments(args);
+    },
+  },
+};
+```
+
+Let me do GraphQL query to get one user with his posts and comments inside posts and see what is the result:
+
+```graphql
+{
+  findOneUser(where: { id: 1 }) {
+    id
+    posts {
+      id
+      comments {
+        id
+      }
+    }
+  }
+}
+```
+
+In the GraphQL query we just need id form every record and what is happen we select all tables fields from db like you see in log of queries we have 5 queries to do our request.
+
+```
+prisma:query SELECT `dev`.`User`.`id`, `dev`.`User`.`createdAt`, `dev`.`User`.`email`, `dev`.`User`.`name`, `dev`.`User`.`password`, `dev`.`User`.`groupId` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`User`.`id` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`Post`.`id`, `dev`.`Post`.`published`, `dev`.`Post`.`title`, `dev`.`Post`.`authorId`, `dev`.`Post`.`createdAt`, `dev`.`Post`.`updatedAt`, `dev`.`Post`.`authorId` FROM `dev`.`Post` WHERE `dev`.`Post`.`authorId` IN (?) LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`Post`.`id` FROM `dev`.`Post` WHERE `dev`.`Post`.`id` IN (?,?,?) LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`Comment`.`id`, `dev`.`Comment`.`contain`, `dev`.`Comment`.`postId`, `dev`.`Comment`.`authorId`, `dev`.`Comment`.`createdAt`, `dev`.`Comment`.`updatedAt`, `dev`.`Comment`.`postId` FROM `dev`.`Comment` WHERE `dev`.`Comment`.`postId` IN (?,?,?) LIMIT ? OFFSET ?
+```
+
+Ok with my way `GraphQL Resolvers`:
+
+```js
+import { PrismaSelect } from '@prisma-tools/select';
+
+{
+  Query: {
+    findOneUser: (_parent, args, { prisma }, info) => {
+      const select = new PrismaSelect(info).value;
+      return prisma.user.findOne({
+        ...args,
+        ...select,
+      });
+    },
+  },
+}
+```
+
+Will do same GraphQL query :
+
+```graphql
+{
+  findOneUser(where: { id: 1 }) {
+    id
+    posts {
+      id
+      comments {
+        id
+      }
+    }
+  }
+}
+```
+
+And here our db queries log for our request.
+First we have just 3 queries so we saved one query for every relation in our request.
+second we just select `id` from db that we asked in GraphQl query:
+
+```
+prisma:query SELECT `dev`.`User`.`id` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`Post`.`id`, `dev`.`Post`.`authorId` FROM `dev`.`Post` WHERE `dev`.`Post`.`authorId` IN (?) LIMIT ? OFFSET ?
+prisma:query SELECT `dev`.`Comment`.`id`, `dev`.`Comment`.`postId` FROM `dev`.`Comment` WHERE `dev`.`Comment`.`postId` IN (?,?,?) LIMIT ? OFFSET ?
+```
+
+</CardBody>
+</MdxCard>

@@ -6,6 +6,8 @@ This tool built on [Prisma](https://prisma.io) to auto generate graphql schema t
 
 > NOTE: You must be familiar with `Prisma` and `graphql` before use this tool.
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 

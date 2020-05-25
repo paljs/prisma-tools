@@ -1,16 +1,10 @@
-import { readFile } from 'fs';
+import { readFileSync } from 'fs';
 import { SchemaObject, Model, Enums, Field } from './types';
 export * from './types';
 
-export default function convertSchemaToObject(
-  path: string,
-  callback: (schema: SchemaObject) => void
-) {
-  readFile(path, { encoding: 'utf-8' }, function (err, data) {
-    if (!err) {
-      callback(getSchemaInObject(data));
-    }
-  });
+export default function convertSchemaToObject(path: string) {
+  const data = readFileSync(path, { encoding: 'utf-8' });
+  return getSchemaInObject(data);
 }
 
 function getSchemaInObject(data: string) {
@@ -89,7 +83,7 @@ function getSchemaInObject(data: string) {
                   .forEach((field) => {
                     if (!relationField) {
                       relationField = !!field.relation?.fields?.includes(
-                        item.name
+                        item.name,
                       );
                     }
                   });

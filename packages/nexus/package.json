@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/nexus",
-  "version": "0.6.11",
+  "version": "0.6.12",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -8,6 +8,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/nexus"
   },
+  "homepage": "https://prisma-tools.ahmedelywa.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

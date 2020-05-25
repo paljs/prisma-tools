@@ -1,6 +1,6 @@
 {
   "name": "nexus-plugin-prisma-select",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/nexus-plugin-prisma-select.esm.js",
@@ -10,6 +10,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/nexus-plugin-prisma-select"
   },
+  "homepage": "https://prisma-tools.ahmedelywa.com/",
   "files": [
     "dist"
   ],

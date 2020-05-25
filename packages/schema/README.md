@@ -15,9 +15,7 @@ yarn add @prisma-tools/schema
 ```ts
 import convertSchema from '@prisma-tools/schema';
 
-convertSchema(path, (schema) => {
-  // your use here
-});
+const schemaObject = convertSchema(path);
 ```
 
 ## schema Type

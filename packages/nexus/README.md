@@ -4,6 +4,8 @@
 
 > NOTE: You must be familiar with `Prisma` and `Nexus` before use this tools.
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 

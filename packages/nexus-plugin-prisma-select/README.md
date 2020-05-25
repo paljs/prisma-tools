@@ -1,10 +1,11 @@
 # nexus-plugin-prisma-select <!-- omit in toc -->
 
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
 **Contents**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Installation](#installation)
 - [Example Usage](#example-usage)
@@ -30,10 +31,10 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 `server.ts`
 
 ```ts
-import { use } from 'nexus';
-import { prismaSelect } from 'nexus-plugin-prisma-select';
+import { use } from 'nexus'
+import { prismaSelect } from 'nexus-plugin-prisma-select'
 
-use(prismaSelect());
+use(prismaSelect())
 ```
 
 This plugin is take `info` and convert it to Prisma select object and add to resolve context
@@ -41,7 +42,7 @@ This plugin is take `info` and convert it to Prisma select object and add to res
 ### Use
 
 ```ts
-import { schema } from 'nexus';
+import { schema } from 'nexus'
 
 schema.extendType({
   type: 'Query',
@@ -59,11 +60,11 @@ schema.extendType({
         return prisma.user.findOne({
           where,
           ...select,
-        });
+        })
       },
-    });
+    })
   },
-});
+})
 ```
 
 ### Example query
