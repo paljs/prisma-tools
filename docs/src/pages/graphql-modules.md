@@ -212,7 +212,7 @@ This command will run two commands
 - build prisma client
 - use our tool to auto generate your crud system
 
-**Output**
+**Output For User Model**
 
 <Tabs>
 <Tab title="typeDefs.ts">

@@ -161,7 +161,7 @@ This command will run two commands
 - build prisma client
 - use our tool to auto generate your crud system
 
-**Output**
+**Output For User Model**
 
 To understand this code structure please look to [Nexus Docs](https://www.nexusjs.org/#/guides/schema?id=schema)
 

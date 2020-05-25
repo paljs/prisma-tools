@@ -165,7 +165,7 @@ This command will run three commands
 - use our tool to auto generate your crud system
 - build nexus type gen and schema.graphql file
 
-**Output**
+**Output For User Model**
 
 To understand this code structure please look to [Nexus schema Docs](https://www.nexusjs.org/#/components/schema/api/index)
 

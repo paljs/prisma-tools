@@ -214,7 +214,7 @@ This command will run two commands
 - build prisma client
 - use our tool to auto generate your crud system
 
-**Output**
+**Output For User Model**
 
 <Tabs>
 <Tab title="typeDefs.ts">
@@ -322,21 +322,29 @@ export default {
 `context.ts`
 
 ```ts
-import { PrismaClient } from '@prisma/client';
-import DeleteCascade from '@prisma-tools/delete';
-import schema from './onDeleteSchema';
+import { PrismaClient, PrismaClientOptions } from '@prisma/client';
+import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 
-const prisma = new PrismaClient();
+class Prisma extends PrismaClient {
+  constructor(options?: PrismaClientOptions) {
+    super(options);
+  }
+
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this);
+    await prismaDelete.onDelete(args);
+  }
+}
+
+const prisma = new Prisma();
 
 export interface Context {
-  prisma: PrismaClient;
-  onDelete: DeleteCascade;
+  prisma: Prisma;
 }
 
 export function createContext(): Context {
   return {
     prisma,
-    onDelete: new DeleteCascade(prisma, schema),
   };
 }
 ```
