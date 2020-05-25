@@ -7,21 +7,17 @@ import { CardBody } from 'oah-ui';
 <MdxCard>
 <CardBody>
 
-# Introduction
+## Introduction
 
 Admin pages for Prisma project db with [`@prisma-tools/admin`](/admin/generator) tool to generate pages and apollo (queries and mutations) hooks and `schema.json` to custom your models
 
 - [Features](#features)
 - [Online demo](#online-demo)
-- [How to use](#how-to-use)
-  - [Download example](#download-example)
-    - [Unix (Mac OS, Linux)](#unix-mac-os-linux)
-    - [Windows](#windows)
-  - [Install dependencies](#install-dependencies)
+- [Download example](#download-example)
+- [Install dependencies](#install-dependencies)
 - [Ui package used](#ui-package-used)
-- [Have questions?](#have-questions)
 
-# Features
+## Features
 
 - Have settings system to control of your models.
   - Control of models
@@ -51,13 +47,11 @@ Admin pages for Prisma project db with [`@prisma-tools/admin`](/admin/generator)
   - Has a form to add model fields.
   - Relation fields has a search icon to search in relation records and connect. has close icon to delete relation if field not required.
 
-# Online demo
+## Online demo
 
 [https://prisma-admin.ahmedelywa.com/](https://prisma-admin.ahmedelywa.com/)
 
 For online version you need to signup new account then login
-
-## How to use
 
 ## Download example
 
