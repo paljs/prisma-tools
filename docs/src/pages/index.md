@@ -2,7 +2,7 @@ import SEO from '../components/SEO';
 import { CardBody, Tabs, Tab } from 'oah-ui';
 import MdxCard from '../components/MdxCard';
 
-<SEO title="SDL first" />
+<SEO title="Home Page" />
 
 <MdxCard>
 <CardBody>
