@@ -11,6 +11,7 @@ const MdxCard = styled(Card)`
     }
     p > img {
       text-align: center;
+      max-width: 100%;
     }
 
     li {

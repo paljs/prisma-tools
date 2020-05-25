@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                     isSearchable={false}
                     shape="SemiRound"
                     placeholder="Themes"
-                    defaultValue={themeOptions.find((item) => item.value === props.theme.value)}
+                    value={themeOptions.find((item) => item.value === props.theme.value)}
                     options={themeOptions}
                     onChange={({ value }: { value: DefaultTheme['name'] }) => props.theme.set(value)}
                   />
