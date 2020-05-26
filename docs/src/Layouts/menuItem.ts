@@ -84,6 +84,14 @@ const items: MenuItemType[] = [
       },
     ],
   },
+  {
+    group: true,
+    title: 'CLI',
+  },
+  {
+    title: 'Nexus Prisma Plugin',
+    link: { to: '/cnt' },
+  },
 ];
 
 export default items;

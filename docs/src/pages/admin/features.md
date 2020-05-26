@@ -1,11 +1,9 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="Admin features" />
 
 <MdxCard>
-<CardBody>
 
 ## Introduction
 
@@ -85,5 +83,4 @@ Navigate to [http://localhost:8000](http://localhost:8000/) in your browser to e
 
 This admin ui template built on [oah-ui](http://oah-ui.ahmedelywa.com/getting-started)
 
-</CardBody>
 </MdxCard>

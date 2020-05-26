@@ -1,11 +1,10 @@
 import SEO from '../components/SEO';
-import { CardBody } from 'oah-ui';
+
 import MdxCard from '../components/MdxCard';
 
 <SEO title="nexus-plugin-prisma-select" />
 
 <MdxCard>
-<CardBody>
 
 # nexus-schema-plugin-prisma-select
 
@@ -130,5 +129,4 @@ const result = {
 };
 ```
 
-</CardBody>
 </MdxCard>

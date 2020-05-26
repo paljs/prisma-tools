@@ -1,11 +1,9 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="Nexus Api" />
 
 <MdxCard>
-<CardBody>
 
 ## Tool settings
 
@@ -16,11 +14,9 @@ You can optionally pass some settings to the plugin.
 - [Type definition](#type-definition)
 - [Example](#example)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Type definition
 
@@ -66,11 +62,9 @@ type QueriesAndMutations =
   | 'deleteMany';
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Example
 
@@ -97,5 +91,4 @@ createTypes({
 });
 ```
 
-</CardBody>
 </MdxCard>

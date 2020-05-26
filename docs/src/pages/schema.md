@@ -1,10 +1,8 @@
 import SEO from '../components/SEO';
 import MdxCard from '../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="Convert schema" />
 <MdxCard>
-<CardBody>
 
 ## Prisma schema
 
@@ -63,5 +61,4 @@ You can import this types from our tool
 import convertSchema, { SchemaObject, Model, Enums, Field } from '@prisma-tools/schema';
 ```
 
-</CardBody>
 </MdxCard>

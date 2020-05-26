@@ -1,11 +1,10 @@
 import SEO from '../../components/SEO';
-import { CardBody, Tabs, Tab } from 'oah-ui';
+import { Tabs, Tab } from 'oah-ui';
 import MdxCard from '../../components/MdxCard';
 
 <SEO title="Nexus Schema" />
 
 <MdxCard>
-<CardBody>
 
 ## @nexus/schema
 
@@ -18,11 +17,9 @@ This guide uses a small starter project that has Prisma configured against a SQL
 - [Example Usage](#example-usage)
 - [Add select plugin](#add-select-plugin)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Download nexus starter project
 
@@ -45,11 +42,9 @@ curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master
 </Tab>
 </Tabs>
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Install dependencies
 
@@ -80,17 +75,13 @@ yarn dev
 </Tab>
 </Tabs>
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Example Usage
 
 For more information about Prisma look at they [Docs](https://www.prisma.io/docs)
-
-**_Example_**
 
 `package.json`
 
@@ -165,7 +156,7 @@ This command will run three commands
 - use our tool to auto generate your crud system
 - build nexus type gen and schema.graphql file
 
-**Output For User Model**
+#### Output For User Model
 
 To understand this code structure please look to [Nexus schema Docs](https://www.nexusjs.org/#/components/schema/api/index)
 
@@ -373,11 +364,9 @@ export const UserMutations = extendType({
 </Tab>
 </Tabs>
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Add select plugin
 
@@ -443,5 +432,4 @@ export const UserQueries = extendType({
 });
 ```
 
-</CardBody>
 </MdxCard>

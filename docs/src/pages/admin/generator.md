@@ -1,11 +1,9 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="Admin Generator" />
 
 <MdxCard>
-<CardBody>
 
 ### Generate pages, Queries and Mutations
 
@@ -74,5 +72,4 @@ generateAdmin('./server/prisma/schema.prisma', defaultSchema as Schema, {
 });
 ```
 
-</CardBody>
 </MdxCard>

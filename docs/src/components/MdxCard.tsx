@@ -1,7 +1,8 @@
+import React from 'react';
 import { Card, CardBody } from 'oah-ui';
 import styled, { css } from 'styled-components';
 
-const MdxCard = styled(Card)`
+const StyledCard = styled(Card)`
   ${({ theme }) => css`
     ${CardBody} {
       margin-top: -3.75rem;
@@ -87,4 +88,13 @@ const MdxCard = styled(Card)`
     }
   `}
 `;
+
+const MdxCard: React.FC = ({ children }) => {
+  return (
+    <StyledCard>
+      <CardBody>{children}</CardBody>
+    </StyledCard>
+  );
+};
+
 export default MdxCard;

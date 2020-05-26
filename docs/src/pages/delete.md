@@ -1,11 +1,9 @@
 import SEO from '../components/SEO';
 import MdxCard from '../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="On Delete" />
 
 <MdxCard>
-<CardBody>
 
 ## Introduction
 
@@ -24,11 +22,9 @@ Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround 
 - [Add to Context](#add-to-context)
 - [Have questions?](#have-questions)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Install
 
@@ -36,11 +32,9 @@ Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround 
 npm i @prisma-tools/delete
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Example
 
@@ -157,11 +151,9 @@ const resolvers = {
 };
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## `PrismaDelete` class
 
@@ -219,5 +211,4 @@ resolve(_, { where }, { prisma }) {
 }
 ```
 
-</CardBody>
 </MdxCard>

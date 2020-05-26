@@ -1,11 +1,9 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
-import { CardBody } from 'oah-ui';
 
 <SEO title="Nexus features" />
 
 <MdxCard>
-<CardBody>
 
 ### Features
 
@@ -45,5 +43,4 @@ import { CardBody } from 'oah-ui';
   - exclude fields from custom model.
   - For more options [Tool settings](/nexus/api)
 
-</CardBody>
 </MdxCard>

@@ -1,11 +1,10 @@
 import SEO from '../components/SEO';
-import { CardBody, Tabs, Tab } from 'oah-ui';
+import { Tabs, Tab } from 'oah-ui';
 import MdxCard from '../components/MdxCard';
 
 <SEO title="Graphql Modules" />
 
 <MdxCard>
-<CardBody>
 
 ## Introduction
 
@@ -26,11 +25,9 @@ This tool built on [Prisma](https://prisma.io) and [graphql-modules](https://gra
   - [Type definition](#type-definition)
   - [Example](#example)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Features
 
@@ -66,11 +63,9 @@ This tool built on [Prisma](https://prisma.io) and [graphql-modules](https://gra
   - exclude fields from custom model.
   - For more options [Tool settings](#tool-settings)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Download starter project
 
@@ -95,11 +90,9 @@ curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master
 </Tab>
 </Tabs>
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Install dependencies
 
@@ -130,17 +123,13 @@ yarn dev
 </Tab>
 </Tabs>
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ### Example Usage
 
 For more information about Prisma look at they [Docs](https://www.prisma.io/docs)
-
-**Example**
 
 `package.json`
 
@@ -212,7 +201,7 @@ This command will run two commands
 - build prisma client
 - use our tool to auto generate your crud system
 
-**Output For User Model**
+#### Output For User Model
 
 <Tabs>
 <Tab title="typeDefs.ts">
@@ -397,11 +386,9 @@ export const addSelect = (next) => async (root, args, context, info) => {
 };
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Tool settings
 
@@ -472,5 +459,4 @@ createTypes({
 });
 ```
 
-</CardBody>
 </MdxCard>

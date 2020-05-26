@@ -1,11 +1,10 @@
 import SEO from '../components/SEO';
-import { CardBody } from 'oah-ui';
+
 import MdxCard from '../components/MdxCard';
 
 <SEO title="Select Convert" />
 
 <MdxCard>
-<CardBody>
 
 ## Prisma select
 
@@ -18,11 +17,9 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 - [Example query](#example-query)
 - [Performance Example](#performance-example)
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Install
 
@@ -67,11 +64,9 @@ const resolvers = {
 };
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Example query
 
@@ -119,11 +114,9 @@ const result = {
 };
 ```
 
-</CardBody>
 </MdxCard>
 
 <MdxCard>
-<CardBody>
 
 ## Performance Example
 
@@ -246,5 +239,4 @@ prisma:query SELECT `dev`.`Post`.`id`, `dev`.`Post`.`authorId` FROM `dev`.`Post`
 prisma:query SELECT `dev`.`Comment`.`id`, `dev`.`Comment`.`postId` FROM `dev`.`Comment` WHERE `dev`.`Comment`.`postId` IN (?,?,?) LIMIT ? OFFSET ?
 ```
 
-</CardBody>
 </MdxCard>

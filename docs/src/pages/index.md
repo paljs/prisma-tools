@@ -1,11 +1,10 @@
 import SEO from '../components/SEO';
-import { CardBody, Tabs, Tab } from 'oah-ui';
+import { Tabs, Tab } from 'oah-ui';
 import MdxCard from '../components/MdxCard';
 
 <SEO title="Home Page" />
 
 <MdxCard>
-<CardBody>
 
 ![image](https://i.ibb.co/Xpfw1Ry/prisma-dark.png)
 
@@ -31,5 +30,4 @@ Didn't find something here? Look through the [issues](https://github.com/AhmedEl
 
 ## Like my tools give me star
 
-</CardBody>
 </MdxCard>
