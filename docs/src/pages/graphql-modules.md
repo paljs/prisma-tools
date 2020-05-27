@@ -336,7 +336,7 @@ export const AppModule = new GraphQLModule({
 
 ### create `Prisma.provider.ts`
 
-`Prisma.provider.ts`
+`src/app/common/Prisma.provider.ts`
 
 ```ts
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
@@ -369,7 +369,7 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 
 This middleware is take `info` and convert it to Prisma select object and add to resolve args
 
-`server.ts`
+`src/app/common/addSelect.ts`
 
 ```ts
 import { PrismaSelect } from '@prisma-tools/select';
@@ -436,14 +436,14 @@ type QueriesAndMutations =
 
 ### Example
 
-`src/createTypes.ts`
+`src/createModules.ts`
 
 ```ts
-import { createTypes } from '@prisma-tools/sdl';
+import { createModules } from '@prisma-tools/graphql-modules';
 
-// for include every thing just createTypes() without any args
+// for include every thing just createModules() without any args
 
-createTypes({
+createModules({
   // don't include 'createdAt', 'updatedAt' from any model
   fieldsExclude: ['createdAt', 'updatedAt'],
   // don't include 'password' field form 'User' model
