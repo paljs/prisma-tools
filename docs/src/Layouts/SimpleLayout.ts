@@ -161,7 +161,8 @@ ${({ theme }) => css`
     color: rgb(255, 88, 116);
   }
 
-  .token.property {
+  .token.property,
+  .token.annotation {
     color: rgb(128, 203, 196);
   }
 

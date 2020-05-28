@@ -39,15 +39,21 @@ module.exports = {
               languageExtensions: [
                 {
                   language: 'prisma',
-                  extend: 'graphql',
+                  extend: 'javascript',
                   definition: {
                     keyword: /(enum|model|generator|datasource)/,
                     'class-name': {
-                      pattern: /(\b(?:enum|model|generator|datasource)\s+|\bcatch\s+\()[\w.\\]+/i,
+                      pattern: /^(\w+)(\s)(\w+)|(\s)[A-Z](\w+)/gm,
                       lookbehind: true,
-                      inside: {
-                        punctuation: /[.\\]/,
+                    },
+                  },
+                  insertBefore: {
+                    'class-name': {
+                      annotation: {
+                        pattern: /(^|[^.])@+\w+/,
+                        lookbehind: true,
                       },
+                      constant: /\b[A-Z](?:[A-Z_]|\dx?)*\b/,
                     },
                   },
                 },
