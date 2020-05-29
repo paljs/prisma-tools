@@ -10,11 +10,9 @@ export default gql`
     comments(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
+      cursor: CommentWhereUniqueInput
+      take: Int
       skip: Int
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
-      first: Int
-      last: Int
     ): [Comment!]!
   }
 
@@ -23,20 +21,16 @@ export default gql`
     findManyPost(
       where: PostWhereInput
       orderBy: PostOrderByInput
-      after: PostWhereUniqueInput
-      before: PostWhereUniqueInput
+      cursor: PostWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [Post!]
     findManyPostCount(
       where: PostWhereInput
       orderBy: PostOrderByInput
-      after: PostWhereUniqueInput
-      before: PostWhereUniqueInput
+      cursor: PostWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!
   }
   type Mutation {

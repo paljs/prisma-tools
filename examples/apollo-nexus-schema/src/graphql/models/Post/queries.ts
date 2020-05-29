@@ -27,11 +27,9 @@ export const PostQueries = extendType({
       args: {
         where: 'PostWhereInput',
         orderBy: 'PostOrderByInput',
-        after: 'PostWhereUniqueInput',
-        before: 'PostWhereUniqueInput',
+        cursor: 'PostWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma, select }) {
         return prisma.post.findMany({
@@ -46,11 +44,9 @@ export const PostQueries = extendType({
       args: {
         where: 'PostWhereInput',
         orderBy: 'PostOrderByInput',
-        after: 'PostWhereUniqueInput',
-        before: 'PostWhereUniqueInput',
+        cursor: 'PostWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma }) {
         return prisma.post.count(args)

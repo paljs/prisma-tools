@@ -27,11 +27,9 @@ export const GroupQueries = extendType({
       args: {
         where: 'GroupWhereInput',
         orderBy: 'GroupOrderByInput',
-        after: 'GroupWhereUniqueInput',
-        before: 'GroupWhereUniqueInput',
+        cursor: 'GroupWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma, select }) {
         return prisma.group.findMany({
@@ -46,11 +44,9 @@ export const GroupQueries = extendType({
       args: {
         where: 'GroupWhereInput',
         orderBy: 'GroupOrderByInput',
-        after: 'GroupWhereUniqueInput',
-        before: 'GroupWhereUniqueInput',
+        cursor: 'GroupWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma }) {
         return prisma.group.count(args)

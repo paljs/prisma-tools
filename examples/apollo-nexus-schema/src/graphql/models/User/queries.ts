@@ -27,11 +27,9 @@ export const UserQueries = extendType({
       args: {
         where: 'UserWhereInput',
         orderBy: 'UserOrderByInput',
-        after: 'UserWhereUniqueInput',
-        before: 'UserWhereUniqueInput',
+        cursor: 'UserWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma, select }) {
         return prisma.user.findMany({
@@ -46,11 +44,9 @@ export const UserQueries = extendType({
       args: {
         where: 'UserWhereInput',
         orderBy: 'UserOrderByInput',
-        after: 'UserWhereUniqueInput',
-        before: 'UserWhereUniqueInput',
+        cursor: 'UserWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma }) {
         return prisma.user.count(args)

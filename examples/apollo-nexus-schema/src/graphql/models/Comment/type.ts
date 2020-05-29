@@ -8,7 +8,7 @@ export const Comment = objectType({
     t.field('post', {
       nullable: false,
       type: 'Post',
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['post']
       },
     })
@@ -16,7 +16,7 @@ export const Comment = objectType({
     t.field('author', {
       nullable: true,
       type: 'User',
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['author']
       },
     })

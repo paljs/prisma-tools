@@ -13,20 +13,18 @@ export const User = objectType({
       args: {
         where: 'PostWhereInput',
         orderBy: 'PostOrderByInput',
+        cursor: 'PostWhereUniqueInput',
+        take: 'Int',
         skip: 'Int',
-        after: 'PostWhereUniqueInput',
-        before: 'PostWhereUniqueInput',
-        first: 'Int',
-        last: 'Int',
       },
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['posts']
       },
     })
     t.field('group', {
       nullable: true,
       type: 'Group',
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['group']
       },
     })
@@ -38,13 +36,11 @@ export const User = objectType({
       args: {
         where: 'CommentWhereInput',
         orderBy: 'CommentOrderByInput',
+        cursor: 'CommentWhereUniqueInput',
+        take: 'Int',
         skip: 'Int',
-        after: 'CommentWhereUniqueInput',
-        before: 'CommentWhereUniqueInput',
-        first: 'Int',
-        last: 'Int',
       },
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['comments']
       },
     })

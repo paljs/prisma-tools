@@ -8,10 +8,10 @@ import {
 export const DateTime = scalarType({
   name: 'DateTime',
   description: 'Date custom scalar type',
-  parseValue(value) {
+  parseValue(value: any) {
     return value ? new Date(value) : null
   },
-  serialize(value) {
+  serialize(value: any) {
     return value ? new Date(value) : null
   },
   parseLiteral(ast: any) {

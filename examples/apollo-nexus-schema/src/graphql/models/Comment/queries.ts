@@ -27,11 +27,9 @@ export const CommentQueries = extendType({
       args: {
         where: 'CommentWhereInput',
         orderBy: 'CommentOrderByInput',
-        after: 'CommentWhereUniqueInput',
-        before: 'CommentWhereUniqueInput',
+        cursor: 'CommentWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma, select }) {
         return prisma.comment.findMany({
@@ -46,11 +44,9 @@ export const CommentQueries = extendType({
       args: {
         where: 'CommentWhereInput',
         orderBy: 'CommentOrderByInput',
-        after: 'CommentWhereUniqueInput',
-        before: 'CommentWhereUniqueInput',
+        cursor: 'CommentWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve(_parent, args, { prisma }) {
         return prisma.comment.count(args)

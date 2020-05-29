@@ -15,20 +15,16 @@ export default gql`
     findManyComment(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
+      cursor: CommentWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [Comment!]
     findManyCommentCount(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
+      cursor: CommentWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!
   }
   type Mutation {

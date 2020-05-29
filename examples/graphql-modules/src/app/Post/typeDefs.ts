@@ -15,11 +15,9 @@ export default gql`
     posts(
       where: PostWhereInput
       orderBy: PostOrderByInput
+      cursor: PostWhereUniqueInput
+      take: Int
       skip: Int
-      after: PostWhereUniqueInput
-      before: PostWhereUniqueInput
-      first: Int
-      last: Int
     ): [Post!]!
   }
 
@@ -28,20 +26,16 @@ export default gql`
     findManyPost(
       where: PostWhereInput
       orderBy: PostOrderByInput
-      after: PostWhereUniqueInput
-      before: PostWhereUniqueInput
+      cursor: PostWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [Post!]
     findManyPostCount(
       where: PostWhereInput
       orderBy: PostOrderByInput
-      after: PostWhereUniqueInput
-      before: PostWhereUniqueInput
+      cursor: PostWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!
   }
   type Mutation {

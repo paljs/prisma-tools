@@ -16,11 +16,9 @@ export default gql`
     comments(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
+      cursor: CommentWhereUniqueInput
+      take: Int
       skip: Int
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
-      first: Int
-      last: Int
     ): [Comment!]!
   }
 
@@ -28,11 +26,9 @@ export default gql`
     comments(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
+      cursor: CommentWhereUniqueInput
+      take: Int
       skip: Int
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
-      first: Int
-      last: Int
     ): [Comment!]!
   }
 
@@ -41,20 +37,16 @@ export default gql`
     findManyComment(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
+      cursor: CommentWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [Comment!]
     findManyCommentCount(
       where: CommentWhereInput
       orderBy: CommentOrderByInput
-      after: CommentWhereUniqueInput
-      before: CommentWhereUniqueInput
+      cursor: CommentWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!
   }
   type Mutation {

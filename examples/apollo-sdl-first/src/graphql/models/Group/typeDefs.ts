@@ -7,11 +7,9 @@ export default gql`
     users(
       where: UserWhereInput
       orderBy: UserOrderByInput
+      cursor: UserWhereUniqueInput
+      take: Int
       skip: Int
-      after: UserWhereUniqueInput
-      before: UserWhereUniqueInput
-      first: Int
-      last: Int
     ): [User!]!
   }
 
@@ -20,20 +18,16 @@ export default gql`
     findManyGroup(
       where: GroupWhereInput
       orderBy: GroupOrderByInput
-      after: GroupWhereUniqueInput
-      before: GroupWhereUniqueInput
+      cursor: GroupWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [Group!]
     findManyGroupCount(
       where: GroupWhereInput
       orderBy: GroupOrderByInput
-      after: GroupWhereUniqueInput
-      before: GroupWhereUniqueInput
+      cursor: GroupWhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!
   }
 `;

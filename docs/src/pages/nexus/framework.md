@@ -175,11 +175,12 @@ schema.objectType({
       args: {
         where: 'PostWhereInput',
         orderBy: 'PostOrderByInput',
+        cursor: 'PostWhereUniqueInput',
+        take: 'Int',
         skip: 'Int',
-        after: 'PostWhereUniqueInput',
-        before: 'PostWhereUniqueInput',
-        first: 'Int',
-        last: 'Int',
+      },
+      resolve(parent: any) {
+        return parent['posts'];
       },
     });
   },
@@ -219,11 +220,9 @@ schema.extendType({
       args: {
         where: 'UserWhereInput',
         orderBy: 'UserOrderByInput',
-        after: 'UserWhereUniqueInput',
-        before: 'UserWhereUniqueInput',
+        cursor: 'UserWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve: async (_root, args, { prisma, select }) => {
         return prisma.user.findMany({
@@ -238,11 +237,9 @@ schema.extendType({
       args: {
         where: 'UserWhereInput',
         orderBy: 'UserOrderByInput',
-        after: 'UserWhereUniqueInput',
-        before: 'UserWhereUniqueInput',
+        cursor: 'UserWhereUniqueInput',
         skip: 'Int',
-        first: 'Int',
-        last: 'Int',
+        take: 'Int',
       },
       resolve: async (_root, args, { prisma }) => {
         return prisma.user.count({ ...args });

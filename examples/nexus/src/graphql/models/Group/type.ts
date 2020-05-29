@@ -12,13 +12,11 @@ schema.objectType({
       args: {
         where: 'UserWhereInput',
         orderBy: 'UserOrderByInput',
+        cursor: 'UserWhereUniqueInput',
+        take: 'Int',
         skip: 'Int',
-        after: 'UserWhereUniqueInput',
-        before: 'UserWhereUniqueInput',
-        first: 'Int',
-        last: 'Int',
       },
-      resolve(parent) {
+      resolve(parent: any) {
         return parent['users']
       },
     })
