@@ -1,6 +1,6 @@
 import { Schema } from './types';
 import { format } from 'prettier';
-import { writeFile } from 'fs';
+import { createFile } from './createFile';
 
 export function buildPages(schema: Schema, path: string) {
   schema.models.forEach((model) => {
@@ -12,22 +12,16 @@ export function buildPages(schema: Schema, path: string) {
       tabWidth: 2,
       parser: 'babel-ts',
     });
-    writeFile(`${path}/${model.id}.tsx`, fileContent, () => {});
+    createFile(path, `${model.id}.tsx`, fileContent);
   });
 }
 
 const page = (id: string, name: string) => `
 import React from 'react';
-import SEO from '../../components/SEO';
-import DynamicTable from '../../components/dynamicTable';
+import DynamicTable from 'Components/Admin/dynamicTable';
 
 const ${id}: React.FC = () => {
-  return (
-    <>
-      <SEO title="${name}" />
-      <DynamicTable model="${id}" />
-    </>
-  );
+  return <DynamicTable model="${id}" />;
 };
 
 export default ${id};

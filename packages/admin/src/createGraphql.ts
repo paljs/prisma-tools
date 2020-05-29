@@ -1,5 +1,5 @@
+import { createFile } from './createFile';
 import { Options, Schema } from './types';
-import { writeFile, mkdir } from 'fs';
 import { format } from 'prettier';
 
 export function createGraphql(schemaObject: Schema, options: Options) {
@@ -194,11 +194,6 @@ mutation updateMany${model.id}($where: ${model.id}WhereInput, $data: ${model.id}
       parser: 'graphql',
     });
 
-    mkdir(options.graphqlOutput, () => {});
-    writeFile(
-      `${options.graphqlOutput}/${model.id}.graphql`,
-      fileContent,
-      () => {},
-    );
+    createFile(options.graphqlOutput, `${model.id}.graphql`, fileContent);
   });
 }

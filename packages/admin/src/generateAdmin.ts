@@ -1,5 +1,5 @@
 import convertSchema from '@prisma-tools/schema';
-import { writeFile } from 'fs';
+import { writeFileSync } from 'fs';
 import { format } from 'prettier';
 import { Options, Schema } from './types';
 import { createGraphql } from './createGraphql';
@@ -7,9 +7,9 @@ import { buildPages } from './buildPages';
 import { mergeSchema } from './mergeSchema';
 
 const defaultOptions: Options = {
-  schemaOutput: './server/src/graphql/schema/schema.json',
-  graphqlOutput: './admin/src/graphql',
-  pagesOutput: './admin/src/pages/models',
+  schemaOutput: './src/Api/graphql/schema/schema.json',
+  graphqlOutput: './src/graphql',
+  pagesOutput: './src/pages/models/admin',
   fieldsExclude: [],
   modelsExclude: [],
   excludeFieldsByModel: {},
@@ -38,5 +38,5 @@ function createSchemaObject(path: string, schema: Schema) {
     parser: 'json',
   });
 
-  writeFile(path, fileContent, () => {});
+  writeFileSync(path, fileContent);
 }
