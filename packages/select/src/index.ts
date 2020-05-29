@@ -1,7 +1,7 @@
-import { GraphQLResolveInfo } from "graphql";
-const graphqlFields = require("graphql-fields");
-import { dmmf } from "@prisma/client";
-import { DMMF } from "@prisma/client/runtime";
+import { GraphQLResolveInfo } from 'graphql';
+const graphqlFields = require('graphql-fields');
+import { dmmf } from '@prisma/client';
+import { DMMF } from '@prisma/client/runtime';
 
 const dataModel: DMMF.Datamodel = dmmf.datamodel;
 
@@ -45,22 +45,14 @@ const dataModel: DMMF.Datamodel = dmmf.datamodel;
  **/
 export class PrismaSelect {
   value: any;
-  private availableArgs = [
-    "where",
-    "orderBy",
-    "skip",
-    "after",
-    "before",
-    "first",
-    "last",
-  ];
+  private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
 
   constructor(private info: GraphQLResolveInfo) {
     const returnType = this.info.returnType
       .toString()
-      .replace(/\]/g, "")
-      .replace(/\[/g, "")
-      .replace(/!/g, "");
+      .replace(/\]/g, '')
+      .replace(/\[/g, '')
+      .replace(/!/g, '');
     this.value = this.filterBy(returnType, this.getSelect(this.fields));
   }
 
@@ -69,9 +61,9 @@ export class PrismaSelect {
       this.info,
       {},
       {
-        excludedFields: ["__typename"],
+        excludedFields: ['__typename'],
         processArguments: true,
-      }
+      },
     );
   }
   /**
@@ -104,11 +96,11 @@ export class PrismaSelect {
    *
    **/
   valueOf(field: string, filterBy?: string) {
-    const splitItem = field.split(".");
+    const splitItem = field.split('.');
     let newValue = this.getSelect(this.fields);
     for (const field of splitItem) {
       if (
-        newValue.hasOwnProperty("select") &&
+        newValue.hasOwnProperty('select') &&
         newValue.select.hasOwnProperty(field)
       ) {
         newValue = newValue.select[field];
@@ -129,12 +121,12 @@ export class PrismaSelect {
       Object.keys(selectObject.select).forEach((key) => {
         const field = model.fields.find((item) => item.name === key);
         if (field) {
-          if (field.kind !== "object") {
+          if (field.kind !== 'object') {
             filteredObject.select[key] = true;
           } else {
             filteredObject.select[key] = this.filterBy(
               field.type,
-              selectObject.select[key]
+              selectObject.select[key],
             );
           }
         }
@@ -150,7 +142,7 @@ export class PrismaSelect {
     Object.keys(fields).forEach((key) => {
       if (Object.keys(fields[key]).length === 0) {
         selectObject.select[key] = true;
-      } else if (key === "__arguments") {
+      } else if (key === '__arguments') {
         fields[key].forEach((arg: any) => {
           Object.keys(arg).forEach((key2) => {
             if (this.availableArgs.includes(key2)) {

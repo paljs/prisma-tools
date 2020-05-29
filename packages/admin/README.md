@@ -12,7 +12,7 @@ you can't use this tool outside our project [prisma-admin](https://github.com/Ah
 
 ```typescript
 import { generateAdmin, Schema } from '@prisma-tools/admin';
-import defaultSchema from './server/src/graphql/schema/schema.json';
+import defaultSchema from '../src/Api/graphql/schema/schema.json';
 
 // accept three args
 // first one path to your schema.prisma file
@@ -20,7 +20,7 @@ import defaultSchema from './server/src/graphql/schema/schema.json';
 // {models: [], enums: []}
 // third arg is options look to the interface to know options
 
-generateAdmin('./server/prisma/schema.prisma', defaultSchema as Schema, {
+generateAdmin('./prisma/schema.prisma', defaultSchema as Schema, {
   excludeFieldsByModel: {
     User: ['password'],
   },

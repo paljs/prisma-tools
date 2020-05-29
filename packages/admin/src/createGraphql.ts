@@ -69,20 +69,16 @@ ${
 query findMany${model.id}(
   $where: ${model.id}WhereInput
   $orderBy: ${model.id}OrderByInput
-  $after: ${model.id}WhereUniqueInput
-  $before: ${model.id}WhereUniqueInput
+  $cursor: ${model.id}WhereUniqueInput
   $skip: Int
-  $first: Int
-  $last: Int
+  $take: Int
 ) {
   findMany${model.id}(
     where: $where
     orderBy: $orderBy
-    after: $after
-    before: $before
+    cursor: $cursor
     skip: $skip
-    first: $first
-    last: $last
+    take: $take
   ) {
     ...${model.id}
   }
@@ -99,20 +95,16 @@ ${
 query findMany${model.id}Count(
   $where: ${model.id}WhereInput
   $orderBy: ${model.id}OrderByInput
-  $after: ${model.id}WhereUniqueInput
-  $before: ${model.id}WhereUniqueInput
+  $cursor: ${model.id}WhereUniqueInput
   $skip: Int
-  $first: Int
-  $last: Int
+  $take: Int
 ) {
   findMany${model.id}Count(
     where: $where
     orderBy: $orderBy
-    after: $after
-    before: $before
+    cursor: $cursor
     skip: $skip
-    first: $first
-    last: $last
+    take: $take
   )
 }`
     : ''

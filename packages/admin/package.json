@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -17,7 +17,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/schema": "^0.0.3",
+    "@prisma-tools/schema": "^0.0.4",
     "prettier": "^2.0.4"
   },
   "devDependencies": {

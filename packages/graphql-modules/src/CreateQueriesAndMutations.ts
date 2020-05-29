@@ -33,11 +33,9 @@ export function createQueriesAndMutations(
     findMany${name}(
       where: ${name}WhereInput
       orderBy: ${name}OrderByInput
-      after: ${name}WhereUniqueInput
-      before: ${name}WhereUniqueInput
+      cursor: ${name}WhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): [${name}!]`;
     operations.queries.resolver += `
     findMany${name}: (_parent, args, { injector }: ModuleContext) => {
@@ -50,11 +48,9 @@ export function createQueriesAndMutations(
     findMany${name}Count(
       where: ${name}WhereInput
       orderBy: ${name}OrderByInput
-      after: ${name}WhereUniqueInput
-      before: ${name}WhereUniqueInput
+      cursor: ${name}WhereUniqueInput
       skip: Int
-      first: Int
-      last: Int
+      take: Int
     ): Int!`;
     operations.queries.resolver += `
     findMany${name}Count: (_parent, args, { injector }: ModuleContext) => {

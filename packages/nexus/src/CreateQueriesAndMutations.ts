@@ -51,11 +51,9 @@ export function createQueriesAndMutations(
           args: {
             where: '${name}WhereInput',
             orderBy: '${name}OrderByInput',
-            after: '${name}WhereUniqueInput',
-            before: '${name}WhereUniqueInput',
+            cursor: '${name}WhereUniqueInput',
             skip: 'Int',
-            first: 'Int',
-            last: 'Int',
+            take: 'Int',
           },
           resolve(_parent, args, {prisma, select}) {
             return prisma.${model}.findMany({
@@ -74,11 +72,9 @@ export function createQueriesAndMutations(
           args: {
             where: '${name}WhereInput',
             orderBy: '${name}OrderByInput',
-            after: '${name}WhereUniqueInput',
-            before: '${name}WhereUniqueInput',
+            cursor: '${name}WhereUniqueInput',
             skip: 'Int',
-            first: 'Int',
-            last: 'Int',
+            take: 'Int',
           },
           resolve(_parent, args, {prisma}) {
             return prisma.${model}.count(args)

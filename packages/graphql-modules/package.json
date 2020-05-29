@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/graphql-modules",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -21,7 +21,7 @@
     "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "@prisma/client": "2.0.0-beta.6",
+    "@prisma/client": "2.0.0-beta.7",
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.1",
     "doctoc": "1.4.0",
