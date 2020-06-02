@@ -82,9 +82,6 @@ query findMany${model.id}(
   ) {
     ...${model.id}
   }
-  findMany${model.id}Count(
-    where: $where
-  )
 }`
     : ''
 }  
