@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.1",
+    "graphql-tag": "^2.10.3",
     "typescript": "3.9.3"
   },
   "files": [
