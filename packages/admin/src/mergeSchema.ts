@@ -15,11 +15,6 @@ export function mergeSchema(object: SchemaObject, schema: Schema): Schema {
     } else {
       const newItem: SchemaModel = {
         ...schemaItem,
-        idField:
-          schemaItem.idField ?? item.fields.find((field) => field.isId)?.name,
-        displayFields: schemaItem.displayFields ?? [
-          item.fields.find((field) => field.isId)?.name,
-        ],
         fields: [],
       };
       item.fields.forEach((field) => {
