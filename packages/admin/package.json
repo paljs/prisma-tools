@@ -1,7 +1,9 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "0.0.23",
-  "main": "dist/index.js",
+  "version": "0.0.24",
+  "main": "dist/index.cjs.js",
+  "jsnext:main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -13,17 +15,36 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc",
+    "build": "rollup -c",
     "prepublish": "yarn build"
   },
   "dependencies": {
     "@prisma-tools/schema": "^0.0.4",
-    "prettier": "^2.0.4"
+    "moment": "^2.26.0",
+    "prettier": "^2.0.4",
+    "query-string": "^6.12.1",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-datepicker": "^2.16.0",
+    "react-hook-form": "^5.7.2",
+    "react-table": "^7.1.0"
   },
   "devDependencies": {
-    "@types/node": "13.13.5",
+    "@apollo/client": "^3.0.0-rc.0",
+    "@types/node": "^14.0.9",
     "@types/prettier": "2.0.1",
+    "@types/react": "^16.9.35",
+    "@types/react-beautiful-dnd": "^13.0.0",
+    "@types/react-datepicker": "^2.11.1",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-table": "^7.0.18",
+    "@types/styled-components": "^5.1.0",
     "graphql-tag": "2.10.3",
+    "oah-ui": "^2.1.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rollup": "^2.13.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "styled-components": "^5.1.1",
     "typescript": "3.9.3"
   },
   "files": [

@@ -1,4 +1,4 @@
-import { Schema, SchemaModel, SchemaField } from './types';
+import { Schema, SchemaModel, SchemaField } from '../types';
 import { SchemaObject, Model, Field } from '@prisma-tools/schema';
 
 export function mergeSchema(object: SchemaObject, schema: Schema): Schema {

@@ -1,5 +1,5 @@
 import { createFile } from './createFile';
-import { Options, Schema } from './types';
+import { Options, Schema } from '../types';
 import { format } from 'prettier';
 
 export function createGraphql(schemaObject: Schema, options: Options) {

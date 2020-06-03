@@ -1,7 +1,7 @@
 import convertSchema from '@prisma-tools/schema';
 import { writeFileSync } from 'fs';
 import { format } from 'prettier';
-import { Options, Schema } from './types';
+import { Options, Schema } from '../types';
 import { createGraphql } from './createGraphql';
 import { buildPages } from './buildPages';
 import { mergeSchema } from './mergeSchema';
@@ -27,7 +27,7 @@ export function generateAdmin(
   const newSchema = mergeSchema(modelsObject, schema);
   createSchemaObject(options.schemaOutput, newSchema);
   !options.disableCreateGraphql && createGraphql(newSchema, options);
-  !options.disableCreatePages && buildPages(newSchema, options.pagesOutput);
+  !options.disableCreatePages && buildPages(newSchema, options);
 }
 
 function createSchemaObject(path: string, schema: Schema) {
