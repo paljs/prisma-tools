@@ -5,7 +5,12 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_MODEL } from '../SchemaQueries';
 
 type Fields = 'delete' | 'create' | 'update' | 'name';
-type Option = { label: string; value?: string; options?: Option[] };
+type Option = {
+  label: string;
+  value?: string;
+  model?: string;
+  options?: Option[];
+};
 const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
 const UpdateModel: React.FC<{
@@ -68,13 +73,19 @@ const UpdateModel: React.FC<{
           }
           parent ? options.push(option) : allOptions.push(option);
         } else {
-          getOptions(
-            models.find((item2) => item2.id === item.type)!,
-            parent ? parent + '.' + item.name : item.name,
+          const modelExiting = allOptions.find(
+            (option) => option.model === item.type,
           );
+          if (!modelExiting) {
+            getOptions(
+              models.find((item2) => item2.id === item.type)!,
+              parent ? parent + '.' + item.name : item.name,
+            );
+          }
         }
       });
     allOptions.push({
+      model: model.id,
       label: parent
         .split('.')
         .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
