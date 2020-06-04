@@ -26,6 +26,10 @@ export function generatePages(options?: GeneratePagesOptions) {
       tabWidth: 2,
       parser: 'babel-ts',
     });
-    createFile(options?.outPut ?? '', `${model.id}.tsx`, fileContent);
+    createFile(
+      options?.outPut ?? 'src/pages/admin/models/',
+      `${model.id}.tsx`,
+      fileContent,
+    );
   });
 }

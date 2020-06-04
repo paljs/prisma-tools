@@ -13,6 +13,7 @@ const settings = {
     ...Object.keys(pkg.devDependencies || {}),
     ...Object.keys(pkg.dependencies || {}),
     'fs',
+    'lowdb/adapters/FileSync',
   ],
 };
 
@@ -27,7 +28,12 @@ export default [
   },
   {
     input: 'src/generateAdmin/index.ts',
-    output: [{ file: 'dist/generateAdmin.js', format: 'cjs' }],
+    output: [{ file: 'dist/generateAdmin.js', format: 'esm' }],
+    ...settings,
+  },
+  {
+    input: 'src/backend/nexus.ts',
+    output: [{ file: 'dist/nexus.js', format: 'esm' }],
     ...settings,
   },
 ];
