@@ -31,7 +31,7 @@
     "react-table": "7.1.0"
   },
   "devDependencies": {
-    "@apollo/client": "3.0.0-rc.0",
+    "@apollo/client": "3.0.0-rc.1",
     "@nexus/schema": "0.14.0",
     "@types/lowdb": "1.0.9",
     "@types/node": "14.0.9",
