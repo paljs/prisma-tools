@@ -14,9 +14,9 @@ const #{id}: React.FC = () => {
 export default #{id};
 `;
 
-export function generatePages(options: GeneratePagesOptions) {
-  const schema = options.schema ?? parseSchema('./prisma/schema.json');
-  const content = options.pageContent ?? page;
+export function generatePages(options?: GeneratePagesOptions) {
+  const schema = options?.schema ?? parseSchema('./prisma/schema.json');
+  const content = options?.pageContent ?? page;
   schema.models.forEach((model) => {
     const fileContent = format(content.replace(/#{id}/g, model.id), {
       semi: true,
@@ -26,6 +26,6 @@ export function generatePages(options: GeneratePagesOptions) {
       tabWidth: 2,
       parser: 'babel-ts',
     });
-    createFile(options.outPut ?? '', `${model.id}.tsx`, fileContent);
+    createFile(options?.outPut ?? '', `${model.id}.tsx`, fileContent);
   });
 }
