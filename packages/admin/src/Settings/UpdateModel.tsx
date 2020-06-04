@@ -56,8 +56,10 @@ const UpdateModel: React.FC<{
 
   const values: { label: string; value: string }[] = [];
   const allOptions: Option[] = [];
+  const modelsList: string[] = [];
   const getOptions = (model: SchemaModel, parent = '') => {
     const options: Option[] = [];
+    modelsList.push(model.id);
     model.fields
       .filter((item) => !item.list)
       .slice()
@@ -73,10 +75,7 @@ const UpdateModel: React.FC<{
           }
           parent ? options.push(option) : allOptions.push(option);
         } else {
-          const modelExiting = allOptions.find(
-            (option) => option.model === item.type,
-          );
-          if (!modelExiting) {
+          if (item.type !== model.id && !parent) {
             getOptions(
               models.find((item2) => item2.id === item.type)!,
               parent ? parent + '.' + item.name : item.name,
@@ -84,14 +83,15 @@ const UpdateModel: React.FC<{
           }
         }
       });
-    allOptions.push({
-      model: model.id,
-      label: parent
-        .split('.')
-        .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
-        .join(' '),
-      options,
-    });
+    if (parent) {
+      allOptions.push({
+        label: parent
+          .split('.')
+          .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+          .join(' '),
+        options,
+      });
+    }
   };
 
   getOptions(modelObject);
