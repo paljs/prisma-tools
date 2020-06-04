@@ -1,33 +1,35 @@
 import convertSchema from '@prisma-tools/schema';
 import { writeFileSync } from 'fs';
 import { format } from 'prettier';
-import { Options, Schema } from '../types';
+import { GenerateGraphqlOptions, Schema } from '../types';
 import { createGraphql } from './createGraphql';
-import { buildPages } from './buildPages';
-import { mergeSchema } from './mergeSchema';
+import { mergeSchema, parseSchema } from './mergeSchema';
+export { generatePages } from './buildPages';
 
-const defaultOptions: Options = {
-  schemaOutput: './src/Api/graphql/schema/schema.json',
+const defaultOptions: GenerateGraphqlOptions = {
   graphqlOutput: './src/graphql',
-  pagesOutput: './src/pages/models/admin',
-  fieldsExclude: [],
-  modelsExclude: [],
+  excludeFields: [],
+  excludeModels: [],
   excludeFieldsByModel: {},
   excludeQueriesAndMutations: [],
   excludeQueriesAndMutationsByModel: {},
 };
 
-export function generateAdmin(
-  path: string,
-  schema: Schema,
-  customOptions?: Partial<Options>,
+export function generateGraphql(
+  customOptions?: Partial<GenerateGraphqlOptions>,
 ) {
-  const options: Options = { ...defaultOptions, ...customOptions };
-  const modelsObject = convertSchema(path);
-  const newSchema = mergeSchema(modelsObject, schema);
-  createSchemaObject(options.schemaOutput, newSchema);
-  !options.disableCreateGraphql && createGraphql(newSchema, options);
-  !options.disableCreatePages && buildPages(newSchema, options);
+  const options: GenerateGraphqlOptions = {
+    ...defaultOptions,
+    ...customOptions,
+  };
+  const schema = options.schema ?? parseSchema('./prisma/schema.json');
+  createGraphql(schema, options);
+}
+
+export function buildSettingsSchema(folder = './prisma/') {
+  const modelsObject = convertSchema(folder + 'schema.prisma');
+  const newSchema = mergeSchema(modelsObject, folder + 'schema.json');
+  createSchemaObject(folder + 'schema.json', newSchema);
 }
 
 function createSchemaObject(path: string, schema: Schema) {

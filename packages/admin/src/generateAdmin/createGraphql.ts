@@ -1,10 +1,13 @@
 import { createFile } from './createFile';
-import { Options, Schema } from '../types';
+import { GenerateGraphqlOptions, Schema } from '../types';
 import { format } from 'prettier';
 
-export function createGraphql(schemaObject: Schema, options: Options) {
+export function createGraphql(
+  schemaObject: Schema,
+  options: GenerateGraphqlOptions,
+) {
   schemaObject.models.forEach((model) => {
-    if (options.modelsExclude.includes(model.id)) {
+    if (options.excludeModels.includes(model.id)) {
       return;
     }
     const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
@@ -13,7 +16,7 @@ export function createGraphql(schemaObject: Schema, options: Options) {
     let fileContent = `fragment ${model.id}Fields on ${model.id} {
     `;
     model.fields.forEach((field) => {
-      const fieldsExclude = options.fieldsExclude.concat(
+      const fieldsExclude = options.excludeFields.concat(
         options.excludeFieldsByModel[model.id],
       );
       if (fieldsExclude.includes(field.name)) {
@@ -30,7 +33,7 @@ export function createGraphql(schemaObject: Schema, options: Options) {
       ...${model.id}Fields
       `;
     model.fields.forEach((field) => {
-      const fieldsExclude = options.fieldsExclude.concat(
+      const fieldsExclude = options.excludeFields.concat(
         options.excludeFieldsByModel[model.id],
       );
       if (fieldsExclude.includes(field.name)) {
@@ -47,7 +50,7 @@ export function createGraphql(schemaObject: Schema, options: Options) {
     fileContent += `}
 ${
   !options.disableQueries &&
-  !options.modelsExclude.find(
+  !options.excludeModels.find(
     (item) =>
       typeof item !== 'string' && item.name === model.id && item.queries,
   )
@@ -112,7 +115,7 @@ query findMany${model.id}Count(
 
 ${
   !options.disableMutations &&
-  !options.modelsExclude.find(
+  !options.excludeModels.find(
     (item) =>
       typeof item !== 'string' && item.name === model.id && item.mutations,
   )

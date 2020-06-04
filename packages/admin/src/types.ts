@@ -65,13 +65,12 @@ type QueriesAndMutations =
   | 'updateMany'
   | 'deleteMany';
 
-export interface Options {
-  schemaOutput: string;
+export interface GenerateGraphqlOptions {
+  schema?: Schema;
   graphqlOutput: string;
-  pagesOutput: string;
-  pageContent?: string;
-  fieldsExclude: string[];
-  modelsExclude: (
+  excludeFields: string[];
+  excludeFieldsByModel: { [modelName: string]: string[] };
+  excludeModels: (
     | string
     | { name: string; queries?: boolean; mutations?: boolean }
   )[];
@@ -81,7 +80,10 @@ export interface Options {
   excludeQueriesAndMutations: QueriesAndMutations[];
   disableQueries?: boolean;
   disableMutations?: boolean;
-  disableCreatePages?: boolean;
-  disableCreateGraphql?: boolean;
-  excludeFieldsByModel: { [modelName: string]: string[] };
+}
+
+export interface GeneratePagesOptions {
+  schema?: Schema;
+  pageContent?: string;
+  outPut?: string;
 }

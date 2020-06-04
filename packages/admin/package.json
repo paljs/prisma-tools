@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "0.0.26",
+  "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.0.0-rc.0",
+    "@nexus/schema": "^0.14.0",
+    "@types/lowdb": "^1.0.9",
     "@types/node": "^14.0.9",
     "@types/prettier": "2.0.1",
     "@types/react": "^16.9.35",
@@ -40,6 +42,7 @@
     "@types/react-table": "^7.0.18",
     "@types/styled-components": "^5.1.0",
     "graphql-tag": "2.10.3",
+    "lowdb": "^1.0.0",
     "oah-ui": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

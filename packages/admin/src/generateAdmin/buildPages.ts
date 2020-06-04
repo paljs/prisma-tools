@@ -1,6 +1,7 @@
-import { Schema, Options } from '../types';
+import { GeneratePagesOptions } from '../types';
 import { format } from 'prettier';
 import { createFile } from './createFile';
+import { parseSchema } from './mergeSchema';
 
 const page = `
 import React from 'react';
@@ -13,7 +14,8 @@ const #{id}: React.FC = () => {
 export default #{id};
 `;
 
-export function buildPages(schema: Schema, options: Options) {
+export function generatePages(options: GeneratePagesOptions) {
+  const schema = options.schema ?? parseSchema('./prisma/schema.json');
   const content = options.pageContent ?? page;
   schema.models.forEach((model) => {
     const fileContent = format(content.replace(/#{id}/g, model.id), {
@@ -24,6 +26,6 @@ export function buildPages(schema: Schema, options: Options) {
       tabWidth: 2,
       parser: 'babel-ts',
     });
-    createFile(options.pagesOutput, `${model.id}.tsx`, fileContent);
+    createFile(options.outPut ?? '', `${model.id}.tsx`, fileContent);
   });
 }
