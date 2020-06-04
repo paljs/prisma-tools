@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -52,9 +52,7 @@
     "typescript": "3.9.3"
   },
   "files": [
-    "dist",
-    "nexus.js",
-    "generateAdmin.js"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

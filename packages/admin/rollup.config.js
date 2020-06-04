@@ -28,12 +28,12 @@ export default [
   },
   {
     input: 'src/generateAdmin/index.ts',
-    output: [{ file: 'dist/generateAdmin.js', format: 'esm' }],
+    output: [{ file: 'dist/generateAdmin.js', format: 'cjs' }],
     ...settings,
   },
   {
-    input: 'src/backend/nexus.ts',
-    output: [{ file: 'dist/nexus.js', format: 'esm' }],
+    input: 'src/nexus.ts',
+    output: [{ file: 'dist/nexus.js', format: 'cjs' }],
     ...settings,
   },
 ];
