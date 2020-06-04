@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useContext } from 'react';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 import { FormProps } from './index';
 import { mutationDocument } from '../QueryDocument';
 import { SchemaModel } from '../../types';

@@ -22,7 +22,7 @@ import MdxCard from '../components/MdxCard';
 - [**@prisma-tools/select**](/select) convert `info: GraphQLResolveInfo` to be available prisma select object.
 - [**@prisma-tools/delete**](/delete) Prisma Migrate cli not supported Cascading deletes so this tool is workaround this option.
 - [**@prisma-tools/schema**](/schema) convert your `schema.prisma` file into `JavaScript` object.
-- [**@prisma-tools/admin**](/admin) Auto generate pages, Queries and mutations in our Admin project [prisma-admin](https://github.com/AhmedElywa/prisma-admin)
+- [**@prisma-tools/admin**](/admin/features) Auto generate pages, Queries and mutations in our Admin project [prisma-admin](https://github.com/AhmedElywa/prisma-admin)
 
 ### Have questions?
 

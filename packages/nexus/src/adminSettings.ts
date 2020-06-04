@@ -1,4 +1,3 @@
-import { Schema } from './types';
 import {
   extendType,
   stringArg,
@@ -10,7 +9,9 @@ import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
 export function adminNexusSettings(path = 'prisma/schema.json') {
-  const adapter = new FileSync<Schema>(path);
+  const adapter = new FileSync<{
+    [key: string]: { [key: string]: { [key: string]: any }[] }[];
+  }>(path);
   const db = low(adapter);
   return {
     SchemaQueries: extendType({

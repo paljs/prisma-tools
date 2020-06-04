@@ -87,3 +87,27 @@ export interface GeneratePagesOptions {
   pageContent?: string;
   outPut?: string;
 }
+
+export interface ContextProps extends RequireContextProps, SameProps {
+  schema: Schema;
+  children?: React.ReactNode;
+}
+
+interface RequireContextProps {
+  pagesPath: string;
+  pageSizeOptions: number[];
+  paginationOptions: number;
+}
+
+interface SameProps {
+  tableColumns?: GetColumnsPartial;
+  formInputs?: Partial<FormInputs>;
+  push: (url: string) => void;
+  query: { [key: string]: any };
+}
+
+export interface ModelTableProps
+  extends Partial<RequireContextProps>,
+    SameProps {
+  model: string;
+}

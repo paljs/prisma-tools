@@ -17,7 +17,7 @@ import { useEnum } from '../useSchema';
 import { getDisplayName } from '../Table/utils';
 import DynamicTable from '../dynamicTable';
 import { queryDocument } from '../QueryDocument';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 import { FormInputs } from '../../types';
 
 const ReactQuill =

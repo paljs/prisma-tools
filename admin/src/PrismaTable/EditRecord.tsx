@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import DynamicTable from './dynamicTable';
 import { useLazyQuery } from '@apollo/client';
 import { queryDocument } from './QueryDocument';
-import { TableContext } from './index';
+import { TableContext } from './Context';
 
 interface EditRecordProps {
   model: string;

@@ -16,7 +16,7 @@ import {
   GetColumnsPartial,
   GetColumns,
 } from '../../types';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 
 const columnsObject: GetColumns = (field, model) => ({
   boolean: {

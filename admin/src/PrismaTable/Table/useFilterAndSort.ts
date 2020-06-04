@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 
 const filterMemo = (modelName: string, filter?: any) => {
   const {

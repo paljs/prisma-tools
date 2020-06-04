@@ -4,7 +4,7 @@ import { Table } from './Table';
 import { useFilterAndSort } from './Table/useFilterAndSort';
 import Form from './Form';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { TableContext } from './index';
+import { TableContext } from './Context';
 import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
 

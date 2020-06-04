@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useRef,
-  useState,
-  PropsWithChildren,
-  ReactElement,
-} from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
 import {
@@ -22,7 +16,7 @@ import {
 } from 'oah-ui';
 import { columns } from './Columns';
 import { initPages } from './utils';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 
 interface TableProps {
   inEdit?: boolean;

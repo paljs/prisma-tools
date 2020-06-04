@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Card, CardBody, Row, CardFooter } from 'oah-ui';
 import { Inputs } from './Inputs';
 import useActions from './useActions';
-import { TableContext } from '../index';
+import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
 
 export interface FormProps {

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { TableContext } from './index';
+import { TableContext } from './Context';
 
 export const useModel = (name: string) => {
   const {
