@@ -20,7 +20,7 @@
   "devDependencies": {
     "@prisma/client": "2.0.0-beta.8",
     "doctoc": "1.4.0",
-    "typescript": "3.9.3"
+    "typescript": "3.9.5"
   },
   "files": [
     "dist"
