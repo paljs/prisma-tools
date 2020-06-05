@@ -24,10 +24,10 @@ const useActions = (
     schema: { models },
   } = useContext(TableContext);
   const [updateModel] = useMutation(
-    mutationDocument(models, model.name, 'update'),
+    mutationDocument(models, model.id, 'update'),
   );
   const [createModel] = useMutation(
-    mutationDocument(models, model.name, 'create'),
+    mutationDocument(models, model.id, 'create'),
   );
   const getField = (name: string) => {
     return model.fields.find((item) => item.name === name);

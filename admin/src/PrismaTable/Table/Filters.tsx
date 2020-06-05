@@ -166,8 +166,8 @@ export const BooleanFilter: React.FC<any> = ({
 }) => {
   const options: Option[] = [
     { value: undefined, label: 'All' },
-    { value: true, label: 'true' },
-    { value: false, label: 'false' },
+    { value: true, label: 'yes' },
+    { value: false, label: 'no' },
   ];
   return (
     <StyledSelect

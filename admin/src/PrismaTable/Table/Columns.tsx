@@ -25,7 +25,7 @@ const columnsObject: GetColumns = (field, model) => ({
     Filter: BooleanFilter,
     disableFilters: !field.filter,
     defaultCanSort: field.sort,
-    Cell: ({ value }) => (value ? 'true' : 'false'),
+    Cell: ({ value }) => (value ? 'yes' : 'no'),
   },
   number: {
     Header: field.title,

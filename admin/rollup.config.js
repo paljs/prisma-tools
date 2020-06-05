@@ -27,7 +27,7 @@ export default [
   },
   {
     input: 'src/Settings/index.tsx',
-    output: [{ file: 'dist/Settings.js', format: 'esm' }],
+    output: [{ file: 'dist/Settings.js', format: 'cjs' }],
     ...settings,
   },
   {
