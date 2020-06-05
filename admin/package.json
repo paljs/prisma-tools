@@ -21,7 +21,7 @@
   "dependencies": {
     "@prisma-tools/schema": "0.0.4",
     "moment": "2.26.0",
-    "prettier": "2.0.4",
+    "prettier": "2.0.5",
     "query-string": "6.12.1",
     "react-beautiful-dnd": "13.0.0",
     "react-datepicker": "2.16.0",
