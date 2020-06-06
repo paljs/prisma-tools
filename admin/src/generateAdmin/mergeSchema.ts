@@ -1,9 +1,14 @@
 import { Schema, SchemaModel, SchemaField } from '../types';
 import { SchemaObject, Model, Field } from '@prisma-tools/schema';
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 export function parseSchema(path: string): Schema {
-  return JSON.parse(readFileSync(path, { encoding: 'utf-8' }));
+  return existsSync(path)
+    ? JSON.parse(readFileSync(path, { encoding: 'utf-8' }))
+    : {
+        models: [],
+        enums: [],
+      };
 }
 
 export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {

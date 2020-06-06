@@ -75,8 +75,8 @@ const items: MenuItemType[] = [
     title: 'Admin UI',
     children: [
       {
-        title: 'Introduction',
-        link: { to: '/admin/features' },
+        title: 'Examples',
+        link: { to: '/admin/examples' },
       },
       {
         title: 'Generator',

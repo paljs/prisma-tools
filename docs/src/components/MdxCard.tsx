@@ -10,7 +10,7 @@ const StyledCard = styled(Card)`
       padding-right: 40px;
       padding-left: 40px;
     }
-    p > img {
+    img {
       text-align: center;
       max-width: 100%;
     }

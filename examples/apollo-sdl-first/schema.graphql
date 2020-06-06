@@ -708,125 +708,37 @@ type Comment {
 
 type Query {
   findOneComment(where: CommentWhereUniqueInput!): Comment
-  findManyComment(
-    where: CommentWhereInput
-    orderBy: CommentOrderByInput
-    after: CommentWhereUniqueInput
-    before: CommentWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): [Comment!]
-  findManyCommentCount(
-    where: CommentWhereInput
-    orderBy: CommentOrderByInput
-    after: CommentWhereUniqueInput
-    before: CommentWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): Int!
+  findManyComment(where: CommentWhereInput, orderBy: CommentOrderByInput, cursor: CommentWhereUniqueInput, skip: Int, take: Int): [Comment!]
+  findManyCommentCount(where: CommentWhereInput, orderBy: CommentOrderByInput, cursor: CommentWhereUniqueInput, skip: Int, take: Int): Int!
   findOnePost(where: PostWhereUniqueInput!): Post
-  findManyPost(
-    where: PostWhereInput
-    orderBy: PostOrderByInput
-    after: PostWhereUniqueInput
-    before: PostWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): [Post!]
-  findManyPostCount(
-    where: PostWhereInput
-    orderBy: PostOrderByInput
-    after: PostWhereUniqueInput
-    before: PostWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): Int!
+  findManyPost(where: PostWhereInput, orderBy: PostOrderByInput, cursor: PostWhereUniqueInput, skip: Int, take: Int): [Post!]
+  findManyPostCount(where: PostWhereInput, orderBy: PostOrderByInput, cursor: PostWhereUniqueInput, skip: Int, take: Int): Int!
   findOneGroup(where: GroupWhereUniqueInput!): Group
-  findManyGroup(
-    where: GroupWhereInput
-    orderBy: GroupOrderByInput
-    after: GroupWhereUniqueInput
-    before: GroupWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): [Group!]
-  findManyGroupCount(
-    where: GroupWhereInput
-    orderBy: GroupOrderByInput
-    after: GroupWhereUniqueInput
-    before: GroupWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): Int!
+  findManyGroup(where: GroupWhereInput, orderBy: GroupOrderByInput, cursor: GroupWhereUniqueInput, skip: Int, take: Int): [Group!]
+  findManyGroupCount(where: GroupWhereInput, orderBy: GroupOrderByInput, cursor: GroupWhereUniqueInput, skip: Int, take: Int): Int!
   findOneUser(where: UserWhereUniqueInput!): User
-  findManyUser(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    after: UserWhereUniqueInput
-    before: UserWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): [User!]
-  findManyUserCount(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    after: UserWhereUniqueInput
-    before: UserWhereUniqueInput
-    skip: Int
-    first: Int
-    last: Int
-  ): Int!
+  findManyUser(where: UserWhereInput, orderBy: UserOrderByInput, cursor: UserWhereUniqueInput, skip: Int, take: Int): [User!]
+  findManyUserCount(where: UserWhereInput, orderBy: UserOrderByInput, cursor: UserWhereUniqueInput, skip: Int, take: Int): Int!
 }
 
 type Mutation {
   createOneComment(data: CommentCreateInput!): Comment!
-  updateOneComment(
-    where: CommentWhereUniqueInput!
-    data: CommentUpdateInput!
-  ): Comment!
+  updateOneComment(where: CommentWhereUniqueInput!, data: CommentUpdateInput!): Comment!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
-  upsertOneComment(
-    where: CommentWhereUniqueInput!
-    create: CommentCreateInput!
-    update: CommentUpdateInput!
-  ): Comment
+  upsertOneComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment
   deleteManyComment(where: CommentWhereInput): BatchPayload
-  updateManyComment(
-    where: CommentWhereInput
-    data: CommentUpdateManyMutationInput
-  ): BatchPayload
+  updateManyComment(where: CommentWhereInput, data: CommentUpdateManyMutationInput): BatchPayload
   createOnePost(data: PostCreateInput!): Post!
   updateOnePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post!
   deleteOnePost(where: PostWhereUniqueInput!): Post
-  upsertOnePost(
-    where: PostWhereUniqueInput!
-    create: PostCreateInput!
-    update: PostUpdateInput!
-  ): Post
-  updateManyPost(
-    where: PostWhereInput
-    data: PostUpdateManyMutationInput
-  ): BatchPayload
+  upsertOnePost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post
+  updateManyPost(where: PostWhereInput, data: PostUpdateManyMutationInput): BatchPayload
   createOneUser(data: UserCreateInput!): User!
   updateOneUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
   deleteOneUser(where: UserWhereUniqueInput!): User
-  upsertOneUser(
-    where: UserWhereUniqueInput!
-    create: UserCreateInput!
-    update: UserUpdateInput!
-  ): User
+  upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
   deleteManyUser(where: UserWhereInput): BatchPayload
-  updateManyUser(
-    where: UserWhereInput
-    data: UserUpdateManyMutationInput
-  ): BatchPayload
+  updateManyUser(where: UserWhereInput, data: UserUpdateManyMutationInput): BatchPayload
 }
 
 type Post {
@@ -835,53 +747,21 @@ type Post {
   title: String!
   author: User
   authorId: Int
-  comments(
-    where: CommentWhereInput
-    orderBy: CommentOrderByInput
-    skip: Int
-    after: CommentWhereUniqueInput
-    before: CommentWhereUniqueInput
-    first: Int
-    last: Int
-  ): [Comment!]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, cursor: CommentWhereUniqueInput, take: Int, skip: Int): [Comment!]!
 }
 
 type Group {
   id: Int!
   name: String!
-  users(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    skip: Int
-    after: UserWhereUniqueInput
-    before: UserWhereUniqueInput
-    first: Int
-    last: Int
-  ): [User!]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, cursor: UserWhereUniqueInput, take: Int, skip: Int): [User!]!
 }
 
 type User {
   id: Int!
   email: String!
   name: String
-  posts(
-    where: PostWhereInput
-    orderBy: PostOrderByInput
-    skip: Int
-    after: PostWhereUniqueInput
-    before: PostWhereUniqueInput
-    first: Int
-    last: Int
-  ): [Post!]!
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, cursor: PostWhereUniqueInput, take: Int, skip: Int): [Post!]!
   group: Group
   groupId: Int
-  comments(
-    where: CommentWhereInput
-    orderBy: CommentOrderByInput
-    skip: Int
-    after: CommentWhereUniqueInput
-    before: CommentWhereUniqueInput
-    first: Int
-    last: Int
-  ): [Comment!]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, cursor: CommentWhereUniqueInput, take: Int, skip: Int): [Comment!]!
 }

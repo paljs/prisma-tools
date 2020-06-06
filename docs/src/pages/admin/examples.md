@@ -1,5 +1,6 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
+import { Tabs, Tab } from 'oah-ui';
 
 <SEO title="Admin features" />
 
@@ -14,6 +15,10 @@ Admin pages for Prisma project db with [`@prisma-tools/admin`](/admin/generator)
 - [Download example](#download-example)
 - [Install dependencies](#install-dependencies)
 - [Ui package used](#ui-package-used)
+
+</MdxCard>
+
+<MdxCard>
 
 ## Features
 
@@ -40,16 +45,27 @@ Admin pages for Prisma project db with [`@prisma-tools/admin`](/admin/generator)
   - Has a form to edit model fields.
   - Relation fields has a search icon to search in relation records and connect. has close icon to delete relation if field not required.
   - Tabs card has a table with list relation records.
-    - You can add a new record to parent record you edit.
-- Add new record modal.
+    - You can add a record to parent record you edit.
+- Add a record modal.
   - Has a form to add model fields.
   - Relation fields has a search icon to search in relation records and connect. has close icon to delete relation if field not required.
+
+</MdxCard>
+
+<MdxCard>
 
 ## Online demo
 
 [https://prisma-admin.ahmedelywa.com/](https://prisma-admin.ahmedelywa.com/)
 
-For online version you need to signup new account then login
+For an online version you need to signup new account then login
+
+</MdxCard>
+
+<MdxCard>
+
+<Tabs>
+<Tab title="NextJS">
 
 ## Download example
 
@@ -77,7 +93,45 @@ yarn generate
 yarn dev
 ```
 
+Navigate to [http://localhost:3000](http://localhost:3000/) in your browser to explore admin pages
+
+</Tab>
+<Tab title="GatsbyJS">
+
+## Download example
+
+```shell
+git clone https://github.com/AhmedElywa/prisma-gatsby.git
+```
+
+## Install dependencies
+
+```shell
+cd prisma-gatsby
+yarn
+```
+
+Start service
+
+```shell
+yarn dev
+```
+
+After change your `schema.prisma`
+
+```shell
+yarn generate
+yarn dev
+```
+
 Navigate to [http://localhost:8000](http://localhost:8000/) in your browser to explore admin pages
+
+</Tab>
+</Tabs>
+
+</MdxCard>
+
+<MdxCard>
 
 ### Ui package used
 
