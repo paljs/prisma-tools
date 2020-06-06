@@ -3,7 +3,7 @@
   "useWorkspaces": true,
   "packages": [
     "packages/*",
-    "examples/*"
+    "admin"
   ],
   "npmClient": "yarn",
   "command": {
