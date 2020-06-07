@@ -1,5 +1,4 @@
 import SEO from '../components/SEO';
-
 import MdxCard from '../components/MdxCard';
 
 <SEO title="nexus-plugin-prisma-select" />

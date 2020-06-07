@@ -1,7 +1,5 @@
 import SEO from '../../components/SEO';
 import MdxCard from '../../components/MdxCard';
-import table from '../../images/table.png';
-import settings from '../../images/settings.png';
 
 <SEO title="Admin Generator" />
 
@@ -167,7 +165,7 @@ export default function SettingsPage() {
 
 When you open this in your browser will get it like this image.
 
-<img src={settings} alt="settings" />
+<img src="/settings.png" alt="settings" />
 
 #### Models card 
 
@@ -207,7 +205,7 @@ React component to list, create, update and delete your model data.
 
 > NOTE: This component use 3 queries (findOne, findMany, findManyCount) and 3 mutations (createOne, updateOne, deleteOne) be sure to add them in your backend by our tool [@prisma-tools/nexus](/nexus/schema)
 
-<img src={table} alt="table" />
+<img src="/table.png" alt="table" />
 
 ### Using with NextJS
 

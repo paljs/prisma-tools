@@ -1,13 +1,12 @@
 import SEO from '../components/SEO';
 import { Tabs, Tab } from 'oah-ui';
 import MdxCard from '../components/MdxCard';
-import logo from '../images/prisma-dark.png';
 
 <SEO title="Home Page" />
 
 <MdxCard>
 
-<img src={logo} alt="logo" />
+<img src="/logo.png" alt="logo" />
 
 ## Prisma Tools
 
