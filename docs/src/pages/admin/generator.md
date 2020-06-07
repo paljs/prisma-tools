@@ -11,24 +11,32 @@ We try to build Prisma db CRUD tables with ability to customize this tables with
 
 > NOTE: We have already Full stack projects [With NextJS and GatsbyJS](/admin/examples)
 
+**Install**
+
+```shell
+yarn add @prisma-tools/admin
+or
+npm i @prisma-tools/admin
+```
+
 **CONTENT**
 
 - [Settings](#settings)
-    - [Generate settings schema](#generate-settings-schema)
-        - [schema object type](#schema-object-type)
-    - [Add graphql queries and mutation](#add-graphql-queries-and-mutation)
-    - [Add Settings React Component](#add-settings-react-component)
-        - [Models card](#models-card)
-        - [Fields Accordions](#fields-accordions)
+  - [Generate settings schema](#generate-settings-schema)
+    - [schema object type](#schema-object-type)
+  - [Add graphql queries and mutation](#add-graphql-queries-and-mutation)
+  - [Add Settings React Component](#add-settings-react-component)
+    - [Models card](#models-card)
+    - [Fields Accordions](#fields-accordions)
 - [Prisma table](#prisma-table)
-    - [Using with NextJS](#using-with-nextjs)
-    - [Using with GatsbyJS](#using-with-gatsbyjs)
-    - [Props](#props)
-    - [Generate pages](#generate-pages)
-    - [Add pages to menu](#add-pages-to-menu)
+  - [Using with NextJS](#using-with-nextjs)
+  - [Using with GatsbyJS](#using-with-gatsbyjs)
+  - [Props](#props)
+  - [Generate pages](#generate-pages)
+  - [Add pages to menu](#add-pages-to-menu)
 - [GraphQL CRUD system](#graphql-crud-system)
-    - [Api](#api)
-    
+  - [Api](#api)
+
 </MdxCard>
 
 <MdxCard>
@@ -73,7 +81,7 @@ export interface SchemaField {
   required: boolean;
   isId: boolean;
   unique: boolean;
-  kind: "object" | "enum" | "scalar";
+  kind: 'object' | 'enum' | 'scalar';
   relationField?: boolean;
   title: string;
   read: boolean;
@@ -111,13 +119,13 @@ To be able to update `schema.json` file with your custom setting in a beautiful 
 In your backend nexus schema builder will add types from [@prisma-tools/nexus](/nexus/schema) package.
 
 ```ts{4,7,10}
-import { makeSchema } from '@nexus/schema'
-import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select'
-import { join } from 'path'
-import { adminNexusSettings } from '@prisma-tools/nexus/dist/adminSettings'
+import { makeSchema } from '@nexus/schema';
+import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select';
+import { join } from 'path';
+import { adminNexusSettings } from '@prisma-tools/nexus/dist/adminSettings';
 
 // you can send schema.json file path as string in this function default is `/prisma/schema.json`
-export const adminSettings = adminNexusSettings()
+export const adminSettings = adminNexusSettings();
 
 export const schema = makeSchema({
   types: [adminSettings],
@@ -139,7 +147,7 @@ export const schema = makeSchema({
     ],
     contextType: 'Context.Context',
   },
-})
+});
 ```
 
 ### Add Settings React Component
@@ -167,7 +175,7 @@ When you open this in your browser will get it like this image.
 
 <img src="/settings.png" alt="settings" />
 
-#### Models card 
+#### Models card
 
 - **Models select menu:** to change between your schema models.
 - **Database Name:** your original Model name like your schema.prisma.
@@ -185,12 +193,12 @@ Every field has Accordion with this content:
 - **Database Name:** your original Field name like your schema.prisma.
 - **Display Name:** it will display into table page, update form and create form.
 - **Actions**
-    - **read** show this field in table view.
-    - **create** show this field in create record form.
-    - **update** show this field in update record form.
-    - **filter** add filter option to this field in table if read checked.
-    - **sort** add sortBy option to this field in table if read checked.
-    - **editor** convert update and create input type to use quill editor or any custom editor you will add.
+  - **read** show this field in table view.
+  - **create** show this field in create record form.
+  - **update** show this field in update record form.
+  - **filter** add filter option to this field in table if read checked.
+  - **sort** add sortBy option to this field in table if read checked.
+  - **editor** convert update and create input type to use quill editor or any custom editor you will add.
 
 </MdxCard>
 
@@ -288,10 +296,7 @@ interface ModelTableProps {
   formInputs?: Partial<FormInputs>;
 }
 
-type FormInputs = Record<
-  'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean',
-  React.FC<InputProps>
->;
+type FormInputs = Record<'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean', React.FC<InputProps>>;
 
 interface InputProps {
   field: SchemaField;
@@ -309,10 +314,7 @@ type Columns = Record<
   Column & UseFiltersColumnOptions<any> & UseSortByColumnOptions<any>
 >;
 
-export type GetColumnsPartial = (
-  field: SchemaField,
-  model?: SchemaModel,
-) => Partial<Columns>;
+export type GetColumnsPartial = (field: SchemaField, model?: SchemaModel) => Partial<Columns>;
 ```
 
 ### Generate pages
@@ -343,6 +345,7 @@ generatePages({
   schema: defaultSchema as Schema,
 });
 ```
+
 - **pageContent** it's your generated page content as string. default:
 
 ```
@@ -358,7 +361,7 @@ export default #{id};
 
 will replace `#{id}` to model name.
 
-You can now generate pages by this command: 
+You can now generate pages by this command:
 
 ```shell
 yarn generate:admin
@@ -398,9 +401,9 @@ export default items;
 
 ## GraphQL CRUD system
 
-Ok now I have tables to manage my db what if I need to add more logic functions and need to build query body. 
+Ok now I have tables to manage my db what if I need to add more logic functions and need to build query body.
 
-like this 
+like this
 
 ```graphql
 query findManyUser(
@@ -514,12 +517,11 @@ mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInp
     count
   }
 }
-``` 
+```
 
 ### Api
 
 **generateGraphql** accept an object with custom settings.
-
 
 ```typescript
 interface Options {
@@ -561,16 +563,16 @@ type QueriesAndMutations =
 
 ```ts
 generateGraphql({
-// will exclude updatedAt and createdAt fields from all models fragment
+  // will exclude updatedAt and createdAt fields from all models fragment
   graphqlOutput: ['updatedAt', 'createdAt'],
-// will exclude password from user fragment
+  // will exclude password from user fragment
   excludeFieldsByModel: {
     User: ['password'],
   },
-// will exclude all Admin model file.
-// will exclude all mutations for Post model
-  modelsExclude: ['Admin', {name: 'Post', mutations: true }],
-// will exclude updateMany and deleteMany from all models
+  // will exclude all Admin model file.
+  // will exclude all mutations for Post model
+  modelsExclude: ['Admin', { name: 'Post', mutations: true }],
+  // will exclude updateMany and deleteMany from all models
   excludeQueriesAndMutations: ['updateMany', 'deleteMany'],
 });
 ```
