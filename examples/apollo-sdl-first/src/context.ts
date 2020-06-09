@@ -13,7 +13,7 @@ class Prisma extends PrismaClient {
   }
 }
 
-const prisma = new Prisma({ log: ['query'] });
+const prisma = new Prisma();
 
 export interface Context {
   prisma: Prisma;
