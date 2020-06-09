@@ -3,6 +3,7 @@ import convertSchemaToObject, {
   SchemaObject,
   Field,
 } from '@prisma-tools/schema';
+import { join } from 'path';
 
 interface DeleteData {
   name: string;
@@ -15,12 +16,15 @@ export interface onDeleteArgs {
   deleteParent?: boolean;
 }
 
+const defaultSchemaPath = join(process.cwd(), 'prisma', 'schema.prisma');
+
 /**
  * Handle all relation onDelete type
  * @param prisma - optional arg you can send your clint class.
+ * @param schemaPath - your schema.prisma file path default: 'prisma/schema.prisma'.
  * @example
  * const prisma = new PrismaClient({log: ['query']});
- * const prismaDelete = new PrismaDelete(prisma);
+ * const prismaDelete = new PrismaDelete(prisma, join(process.cwd(), 'db', 'schema.prisma'););
  *
  * // or new PrismaDelete(); we will create new client and use
  *
@@ -37,7 +41,7 @@ export default class PrismaDelete {
 
   constructor(
     private prisma: any = new PrismaClient(),
-    schemaPath = '/prisma/schema.prisma',
+    schemaPath = defaultSchemaPath,
   ) {
     this.schema = convertSchemaToObject(schemaPath);
   }

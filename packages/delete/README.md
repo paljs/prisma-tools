@@ -144,9 +144,13 @@ const resolvers = {
 ## `PrismaDelete` class
 
 - `prisma` prisma client class
+- `schemaPath` your schema.prisma file path default: `prisma/schema.prisma`.
 
 ```ts
-const prismaDelete = new PrismaDelete(prisma);
+const prismaDelete = new PrismaDelete(
+  prisma,
+  join(process.cwd(), 'db', 'schema.prisma'),
+);
 ```
 
 `prismaDelete.onDelete` accept object
