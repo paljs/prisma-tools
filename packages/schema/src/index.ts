@@ -23,6 +23,7 @@ function getSchemaInObject(data: string) {
     fields: [],
   };
   let inModel = '';
+  let documentation = '';
   lines.forEach((line) => {
     if (line !== '') {
       const clearedLine = line.replace(/[\n\r]/g, '');
@@ -37,11 +38,14 @@ function getSchemaInObject(data: string) {
         inModel = filteredArray[0];
       } else if (
         inModel !== '' &&
-        !filteredArray[0].includes('//') &&
         filteredArray[0] !== '{' &&
         !filteredArray[0].includes('@@')
       ) {
-        if (filteredArray[0] !== '}') {
+        if (filteredArray[0].includes('//')) {
+          documentation += documentation
+            ? '\n' + filteredArray.join(' ')
+            : filteredArray.join(' ');
+        } else if (filteredArray[0] !== '}') {
           if (inModel === 'enum') {
             currentEnum.fields.push(filteredArray[0]);
           } else {
@@ -60,11 +64,13 @@ function getSchemaInObject(data: string) {
                 : data.includes(`model ${type} `)
                 ? 'object'
                 : 'scalar',
+              documentation: documentation ?? undefined,
             };
             if (field.kind === 'object') {
               field.relation = getRelation(filteredArray);
             }
             currentModel.fields.push(field);
+            documentation = '';
           }
         } else if (filteredArray[0] === '}') {
           if (inModel === 'enum') {

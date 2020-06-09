@@ -15,8 +15,9 @@ export interface Field {
   required: boolean;
   isId: boolean;
   unique: boolean;
-  kind: "object" | "enum" | "scalar";
+  kind: 'object' | 'enum' | 'scalar';
   relationField?: boolean;
+  documentation?: string;
   relation?: { name?: string; fields?: string[]; references?: [] };
 }
 

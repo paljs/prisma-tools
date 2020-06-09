@@ -8,11 +8,12 @@ class Prisma extends PrismaClient {
 
   async onDelete(args: onDeleteArgs) {
     const prismaDelete = new PrismaDelete(this);
+    console.log(args);
     await prismaDelete.onDelete(args);
   }
 }
 
-const prisma = new Prisma();
+const prisma = new Prisma({ log: ['query'] });
 
 export interface Context {
   prisma: Prisma;
