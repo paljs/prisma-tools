@@ -122,7 +122,7 @@ In your backend nexus schema builder will add types from [@prisma-tools/nexus](/
 import { makeSchema } from '@nexus/schema';
 import { prismaSelectObject } from 'nexus-schema-plugin-prisma-select';
 import { join } from 'path';
-import { adminNexusSettings } from '@prisma-tools/nexus/dist/adminSettings';
+import { adminNexusSettings } from '@prisma-tools/nexus';
 
 // you can send schema.json file path as string in this function default is `/prisma/schema.json`
 export const adminSettings = adminNexusSettings();
