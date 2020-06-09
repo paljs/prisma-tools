@@ -1,246 +1,80 @@
-import { QueriesAndMutationsOptions } from './types';
+import { Options, Query, Mutation } from './types';
+import { getCrud } from './templates';
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { formation } from './createTypes';
 
-export function createQueriesAndMutations(
-  name: string,
-  options: QueriesAndMutationsOptions,
-) {
+export const createFile = (path: string, fileName: string, content: string) => {
+  !existsSync(path) && mkdirSync(path, { recursive: true });
+  !existsSync(`${path}/${fileName}`) &&
+    writeFileSync(`${path}/${fileName}`, content);
+};
+
+const queries: Query[] = ['findOne', 'findMany', 'findCount'];
+const mutations: Mutation[] = [
+  'createOne',
+  'updateOne',
+  'upsertOne',
+  'deleteOne',
+  'updateMany',
+  'deleteMany',
+];
+
+export function createQueriesAndMutations(name: string, options: Options) {
   const exclude = options.excludeQueriesAndMutations.concat(
     options.excludeQueriesAndMutationsByModel[name] ?? [],
   );
-  const model = name.charAt(0).toLowerCase() + name.slice(1);
-  return {
-    queries: `${
-      options.nexusSchema
-        ? `import { extendType, arg } from '@nexus/schema'`
-        : `import { schema } from 'nexus'`
+  let modelIndex = '';
+  if (
+    !options.disableQueries &&
+    !options.modelsExclude.find((item) => item.name === name && item.queries)
+  ) {
+    let queriesIndex = '';
+    const path = `${options.modelsOutput}/${name}/queries`;
+    queries
+      .filter((item) => !exclude.includes(item))
+      .map((item) => {
+        const itemContent = getCrud(
+          name,
+          'query',
+          item,
+          options.onDelete,
+          options.nexusSchema,
+        );
+        createFile(path, `${item}.ts`, formation(itemContent));
+        queriesIndex += `export * from './${item}'
+        `;
+      });
+    if (queriesIndex && !options.nexusSchema) {
+      modelIndex += `export * from './queries'
+      `;
+      writeFileSync(`${path}/index.ts`, queriesIndex);
     }
-    
-    ${
-      options.nexusSchema ? `export const ${name}Queries = ` : 'schema.'
-    }extendType({
-      type: 'Query',
-      definition(t) {
-        ${
-          !exclude.includes('findOne')
-            ? `
-        t.field('findOne${name}', {
-          type: '${name}',
-          nullable: true,
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereUniqueInput',
-              nullable: false,
-            }),
-          },
-          resolve(_parent, { where }, {prisma, select}) {
-            return prisma.${model}.findOne({
-              where,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('findMany')
-            ? `
-        t.field('findMany${name}', {
-          type: '${name}',
-          nullable: true,
-          list: true,
-          args: {
-            where: '${name}WhereInput',
-            orderBy: '${name}OrderByInput',
-            cursor: '${name}WhereUniqueInput',
-            skip: 'Int',
-            take: 'Int',
-          },
-          resolve(_parent, args, {prisma, select}) {
-            return prisma.${model}.findMany({
-              ...args,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('findCount')
-            ? `
-        t.field('findMany${name}Count', {
-          type: 'Int',
-          args: {
-            where: '${name}WhereInput',
-            orderBy: '${name}OrderByInput',
-            cursor: '${name}WhereUniqueInput',
-            skip: 'Int',
-            take: 'Int',
-          },
-          resolve(_parent, args, {prisma}) {
-            return prisma.${model}.count(args)
-          },
-        })`
-            : ''
-        }
-        }
-        })`,
-    mutations: `${
-      options.nexusSchema
-        ? `import { extendType, arg } from '@nexus/schema'`
-        : `import { schema } from 'nexus'`
+  }
+
+  if (
+    !options.disableMutations &&
+    !options.modelsExclude.find((item) => item.name === name && item.mutations)
+  ) {
+    let mutationsIndex = '';
+    const path = `${options.modelsOutput}/${name}/mutations`;
+    mutations
+      .filter((item) => !exclude.includes(item))
+      .map((item) => {
+        const itemContent = getCrud(
+          name,
+          'mutation',
+          item,
+          options.onDelete,
+          options.nexusSchema,
+        );
+        createFile(path, `${item}.ts`, formation(itemContent));
+        mutationsIndex += `export * from './${item}'
+        `;
+      });
+    if (mutationsIndex && !options.nexusSchema) {
+      modelIndex += `export * from './mutations'`;
+      writeFileSync(`${path}/index.ts`, mutationsIndex);
     }
-    
-    ${
-      options.nexusSchema ? `export const ${name}Mutations = ` : 'schema.'
-    }extendType({
-      type: 'Mutation',
-      definition(t) {
-        ${
-          !exclude.includes('createOne')
-            ? `
-        t.field('createOne${name}', {
-          type: '${name}',
-          nullable: false,
-          args: {
-            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}CreateInput',
-              nullable: false,
-            }),
-          },
-          resolve(_parent, { data }, {prisma, select}) {
-            return prisma.${model}.create({
-              data,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('updateOne')
-            ? `
-        t.field('updateOne${name}', {
-          type: '${name}',
-          nullable: false,
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereUniqueInput',
-              nullable: false,
-            }),
-            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}UpdateInput',
-              nullable: false,
-            }),
-          },
-          resolve(_parent, { data, where }, {prisma, select}) {
-            return prisma.${model}.update({
-              data,
-              where,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('upsertOne')
-            ? `
-        t.field('upsertOne${name}', {
-          type: '${name}',
-          nullable: false,
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereUniqueInput',
-              nullable: false,
-            }),
-            create: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}CreateInput',
-              nullable: false,
-            }),
-            update: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}UpdateInput',
-              nullable: false,
-            }),
-          },
-          resolve(_parent, args, {prisma, select}) {
-            return prisma.${model}.upsert({
-              ...args,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('deleteOne')
-            ? `
-        t.field('deleteOne${name}', {
-          type: '${name}',
-          nullable: true,
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereUniqueInput',
-              nullable: false,
-            }),
-          },
-          resolve: async (_parent, { where }, {prisma, select}) => {
-            ${
-              options.onDelete
-                ? `await prisma.onDelete({ model: '${name}', where })`
-                : ''
-            }
-            return prisma.${model}.delete({
-              where,
-              ...select,
-            })
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('deleteMany')
-            ? `
-        t.field('deleteMany${name}', {
-          type: 'BatchPayload',
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereInput',
-              nullable: true,
-            }),
-          },
-          resolve: async (_parent, {where}, {prisma}) => {
-            ${
-              options.onDelete
-                ? `await prisma.onDelete({ model: '${name}', where })`
-                : ''
-            }
-            return prisma.${model}.deleteMany({where})
-          },
-        })`
-            : ''
-        }
-        ${
-          !exclude.includes('updateMany')
-            ? `
-        t.field('updateMany${name}', {
-          type: 'BatchPayload',
-          args: {
-            where: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}WhereInput',
-              nullable: true,
-            }),
-            data: ${!options.nexusSchema ? 'schema.' : ''}arg({
-              type: '${name}UpdateManyMutationInput',
-              nullable: false,
-            }),
-          },
-          resolve(_parent, args, {prisma}) {
-            return prisma.${model}.updateMany(args)
-          },
-        })`
-            : ''
-        }
-        }
-        })`,
-  };
+  }
+  return modelIndex;
 }

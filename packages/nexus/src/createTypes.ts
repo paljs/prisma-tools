@@ -1,5 +1,5 @@
 import { Options } from './types';
-import { writeFile, mkdir } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { schema } from './schema';
 import { format } from 'prettier';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
@@ -7,8 +7,7 @@ import { createInput } from './InputTypes';
 import { DMMF } from '@prisma/client/runtime';
 
 const defaultOptions: Options = {
-  inputTypesOutput: 'src/graphql',
-  modelsOutput: 'src/graphql/models',
+  modelsOutput: 'src/graphql',
   fieldsExclude: [],
   modelsExclude: [],
   excludeFieldsByModel: {},
@@ -18,11 +17,13 @@ const defaultOptions: Options = {
 
 export function createTypes(customOptions: Partial<Options>) {
   const options: Options = { ...defaultOptions, ...customOptions };
-  let index = '';
-  writeFile(
-    `${options.inputTypesOutput}/inputTypes.ts`,
+  let indexPath = `${options.modelsOutput}/index.ts`;
+  let index = existsSync(indexPath)
+    ? readFileSync(indexPath, { encoding: 'utf-8' })
+    : '';
+  writeFileSync(
+    `${options.modelsOutput}/inputTypes.ts`,
     formation(createInput(options.nexusSchema)),
-    () => {},
   );
   if (options.onlyInputType) {
     return;
@@ -31,10 +32,14 @@ export function createTypes(customOptions: Partial<Options>) {
     if (
       !['Query', 'Mutation'].includes(model.name) &&
       !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload'
+      model.name !== 'BatchPayload' &&
+      (!options.models || options.models.includes(model.name))
     ) {
-      index += `export * from './${model.name}';
-`;
+      const exportString = `export * from './${model.name}'`;
+      if (!index.includes(exportString)) {
+        index = `export * from './${model.name}'
+${index}`;
+      }
       let fileContent = `${
         options.nexusSchema
           ? `import { objectType } from '@nexus/schema'`
@@ -71,53 +76,20 @@ export function createTypes(customOptions: Partial<Options>) {
 })
   
 `;
-      const operations = createQueriesAndMutations(model.name, options);
       let modelIndex = `export * from './type'
-      `;
-      mkdir(`${options.modelsOutput}/${model.name}`, () => {});
-      if (
-        !options.disableQueries &&
-        !options.modelsExclude.find(
-          (item) => item.name === model.name && item.queries,
-        )
-      ) {
-        writeFile(
-          `${options.modelsOutput}/${model.name}/queries.ts`,
-          formation(operations.queries),
-          () => {},
-        );
-        modelIndex += `export * from './queries'
-        `;
-      }
-      if (
-        !options.disableMutations &&
-        !options.modelsExclude.find(
-          (item) => item.name === model.name && item.mutations,
-        )
-      ) {
-        writeFile(
-          `${options.modelsOutput}/${model.name}/mutations.ts`,
-          formation(operations.mutations),
-          () => {},
-        );
-        modelIndex += `export * from './mutations'`;
-      }
+`;
+      modelIndex += createQueriesAndMutations(model.name, options);
+      const path = `${options.modelsOutput}/${model.name}`;
+      !existsSync(path) && mkdirSync(path);
+
       if (options.nexusSchema) {
-        writeFile(
-          `${options.modelsOutput}/${model.name}/index.ts`,
-          formation(modelIndex),
-          () => {},
-        );
+        writeFileSync(`${path}/index.ts`, formation(modelIndex));
       }
-      writeFile(
-        `${options.modelsOutput}/${model.name}/type.ts`,
-        formation(fileContent),
-        () => {},
-      );
+      writeFileSync(`${path}/type.ts`, formation(fileContent));
     }
   });
   if (options.nexusSchema) {
-    writeFile(`${options.modelsOutput}/index.ts`, formation(index), () => {});
+    writeFileSync(`${options.modelsOutput}/index.ts`, formation(index));
   }
 }
 
