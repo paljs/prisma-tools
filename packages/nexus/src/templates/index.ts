@@ -30,9 +30,9 @@ export function getCrud(
 ) {
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
   const importString = schema
-    ? `import { ${
-        type === 'query' ? 'mutationField' : 'queryField'
-      }, arg } from '@nexus/schema'`
+    ? `import { ${type === 'query' ? 'queryField' : 'mutationField'}${
+        !['findMany', 'findCount'].includes(key) ? ', arg' : ''
+      } } from '@nexus/schema'`
     : `import { schema } from 'nexus'`;
   return crud[key](schema)
     .replace(/#{Model}/g, model)

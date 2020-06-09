@@ -42,12 +42,12 @@ export function createQueriesAndMutations(name: string, options: Options) {
         );
         createFile(path, `${item}.ts`, formation(itemContent));
         queriesIndex += `export * from './${item}'
-        `;
+`;
       });
-    if (queriesIndex && !options.nexusSchema) {
+    if (queriesIndex && options.nexusSchema) {
       modelIndex += `export * from './queries'
-      `;
-      writeFileSync(`${path}/index.ts`, queriesIndex);
+`;
+      writeFileSync(`${path}/index.ts`, formation(queriesIndex));
     }
   }
 
@@ -69,11 +69,11 @@ export function createQueriesAndMutations(name: string, options: Options) {
         );
         createFile(path, `${item}.ts`, formation(itemContent));
         mutationsIndex += `export * from './${item}'
-        `;
+`;
       });
-    if (mutationsIndex && !options.nexusSchema) {
+    if (mutationsIndex && options.nexusSchema) {
       modelIndex += `export * from './mutations'`;
-      writeFileSync(`${path}/index.ts`, mutationsIndex);
+      writeFileSync(`${path}/index.ts`, formation(mutationsIndex));
     }
   }
   return modelIndex;

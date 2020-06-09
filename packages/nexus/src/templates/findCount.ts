@@ -18,9 +18,7 @@ schema.extendType({
 `;
 
 const staticData = `('findMany#{Model}Count', {
-  type: '#{Model}',
-  nullable: true,
-  list: true,
+  type: 'Int',
   args: {
     where: '#{Model}WhereInput',
     orderBy: '#{Model}OrderByInput',
@@ -28,7 +26,7 @@ const staticData = `('findMany#{Model}Count', {
     skip: 'Int',
     take: 'Int',
   },
-  resolve(_parent, args, {prisma, select}) {
+  resolve(_parent, args, {prisma}) {
     return prisma.#{model}.count(args)
   },
 })`;

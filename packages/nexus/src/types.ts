@@ -11,7 +11,6 @@ export type QueriesAndMutations = Query | Mutation;
 
 export interface Options {
   models?: string[];
-  onlyInputType?: boolean;
   modelsOutput: string;
   fieldsExclude: string[];
   modelsExclude: { name: string; queries?: boolean; mutations?: boolean }[];

@@ -21,13 +21,13 @@ export function createTypes(customOptions: Partial<Options>) {
   let index = existsSync(indexPath)
     ? readFileSync(indexPath, { encoding: 'utf-8' })
     : '';
-  writeFileSync(
-    `${options.modelsOutput}/inputTypes.ts`,
-    formation(createInput(options.nexusSchema)),
-  );
-  if (options.onlyInputType) {
-    return;
+
+  const exportInput = "export * from './inputTypes'";
+  if (!index.includes(exportInput)) {
+    index = `${exportInput}
+${index}`;
   }
+
   schema.outputTypes.forEach((model) => {
     if (
       !['Query', 'Mutation'].includes(model.name) &&
@@ -80,7 +80,7 @@ ${index}`;
 `;
       modelIndex += createQueriesAndMutations(model.name, options);
       const path = `${options.modelsOutput}/${model.name}`;
-      !existsSync(path) && mkdirSync(path);
+      !existsSync(path) && mkdirSync(path, { recursive: true });
 
       if (options.nexusSchema) {
         writeFileSync(`${path}/index.ts`, formation(modelIndex));
@@ -88,6 +88,11 @@ ${index}`;
       writeFileSync(`${path}/type.ts`, formation(fileContent));
     }
   });
+
+  writeFileSync(
+    `${options.modelsOutput}/inputTypes.ts`,
+    formation(createInput(options.nexusSchema)),
+  );
   if (options.nexusSchema) {
     writeFileSync(`${options.modelsOutput}/index.ts`, formation(index));
   }
