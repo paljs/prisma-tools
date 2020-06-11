@@ -22,7 +22,7 @@
     "@prisma-tools/schema": "0.0.5",
     "moment": "2.26.0",
     "prettier": "2.0.5",
-    "query-string": "6.13.0",
+    "query-string": "6.13.1",
     "react-beautiful-dnd": "13.0.0",
     "react-datepicker": "3.0.0",
     "react-hook-form": "5.7.2",
