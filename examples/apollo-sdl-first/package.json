@@ -20,7 +20,7 @@
   "dependencies": {
     "@prisma-tools/delete": "^0.0.8",
     "@prisma-tools/sdl": "^0.0.9",
-    "@prisma-tools/select": "^0.0.7",
+    "@prisma-tools/select": "^0.0.8",
     "@prisma/client": "2.0.0",
     "apollo-server": "^2.12.0",
     "graphql": "^15.0.0",

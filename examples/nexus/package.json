@@ -21,7 +21,7 @@
     "@prisma-tools/delete": "^0.0.8",
     "@prisma-tools/nexus": "^0.6.24",
     "nexus": "0.23.0",
-    "nexus-plugin-prisma-select": "^0.0.6"
+    "nexus-plugin-prisma-select": "^0.0.7"
   },
   "devDependencies": {
     "@prisma/cli": "2.0.0",

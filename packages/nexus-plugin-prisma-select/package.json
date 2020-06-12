@@ -1,6 +1,6 @@
 {
   "name": "nexus-plugin-prisma-select",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/nexus-plugin-prisma-select.esm.js",
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "nexus": "0.23.0",
-    "nexus-schema-plugin-prisma-select": "^0.0.3"
+    "nexus-schema-plugin-prisma-select": "0.0.4"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
 }

@@ -22,7 +22,7 @@
     "@graphql-modules/di": "^0.7.17",
     "@prisma-tools/delete": "^0.0.8",
     "@prisma-tools/graphql-modules": "^0.0.4",
-    "@prisma-tools/select": "^0.0.7",
+    "@prisma-tools/select": "^0.0.8",
     "@prisma/client": "2.0.0",
     "apollo-server": "^2.12.0",
     "graphql": "^15.0.0",

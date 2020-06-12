@@ -47,13 +47,16 @@ export class PrismaSelect {
   value: any;
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
 
-  constructor(private info: GraphQLResolveInfo) {
+  constructor(private info: GraphQLResolveInfo, mergeObject: any = {}) {
     const returnType = this.info.returnType
       .toString()
       .replace(/\]/g, '')
       .replace(/\[/g, '')
       .replace(/!/g, '');
-    this.value = this.filterBy(returnType, this.getSelect(this.fields));
+    this.value = this.mergeDeep(
+      this.filterBy(returnType, this.getSelect(this.fields)),
+      mergeObject,
+    );
   }
 
   private get fields() {
@@ -66,6 +69,29 @@ export class PrismaSelect {
       },
     );
   }
+
+  private isObject(item: any) {
+    return item && typeof item === 'object' && !Array.isArray(item);
+  }
+
+  mergeDeep(target: any, ...sources: any[]): any {
+    if (!sources.length) return target;
+    const source: any = sources.shift();
+
+    if (this.isObject(target) && this.isObject(source)) {
+      for (const key in source) {
+        if (this.isObject(source[key])) {
+          if (!target[key]) Object.assign(target, { [key]: {} });
+          this.mergeDeep(target[key], source[key]);
+        } else {
+          Object.assign(target, { [key]: source[key] });
+        }
+      }
+    }
+
+    return this.mergeDeep(target, ...sources);
+  }
+
   /**
    * Get nested value from select object.
    * @param field - name of field in select object.
@@ -95,7 +121,7 @@ export class PrismaSelect {
    * { select: { id: true, comments: { select: { id: true } } } }
    *
    **/
-  valueOf(field: string, filterBy?: string) {
+  valueOf(field: string, filterBy?: string, mergeObject: any = {}) {
     const splitItem = field.split('.');
     let newValue = this.getSelect(this.fields);
     for (const field of splitItem) {
@@ -108,7 +134,9 @@ export class PrismaSelect {
         return {};
       }
     }
-    return filterBy ? this.filterBy(filterBy, newValue) : newValue;
+    return filterBy
+      ? this.mergeDeep(this.filterBy(filterBy, newValue), mergeObject)
+      : newValue;
   }
 
   private filterBy(modelName: string, selectObject: any) {
