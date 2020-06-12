@@ -24,18 +24,25 @@ export const initPages = (
 };
 
 export const getDisplayName = (value: any, model: SchemaModel) => {
-  const values: string[] = [];
-  model.displayFields.forEach((item) => {
-    const splitItem = item.split('.');
-    if (splitItem.length === 1) {
-      values.push(value[splitItem[0]]);
-    } else {
-      let nameValue: any = { ...value };
-      splitItem.forEach((field) => {
-        nameValue = nameValue[field];
-      });
-      values.push(nameValue);
-    }
-  });
-  return values.join(' ');
+  if (Object.keys(value).length > 0) {
+    const values: string[] = [];
+    model.displayFields.forEach((item) => {
+      const splitItem = item.split('.');
+      if (splitItem.length === 1) {
+        values.push(value[splitItem[0]]);
+      } else {
+        let nameValue: any = { ...value };
+        splitItem.forEach((field) => {
+          if (nameValue) {
+            nameValue = nameValue[field];
+          }
+        });
+        if (nameValue) {
+          values.push(nameValue);
+        }
+      }
+    });
+    return values.join(' ');
+  }
+  return '';
 };

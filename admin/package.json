@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -16,7 +16,7 @@
   "private": false,
   "scripts": {
     "build": "rollup -c",
-    "prepublish": "yarn build"
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@prisma-tools/schema": "0.0.5",
