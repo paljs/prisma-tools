@@ -65,7 +65,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
           onSave={onSave}
         />
       </Col>
-      {!!tabs?.length && (
+      {!!tabs?.length && !!Object.keys(record).length && (
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <StyledTabs>
@@ -75,9 +75,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
                     <DynamicTable
                       model={field.type}
                       inEdit
-                      filter={
-                        record ? { [model]: record[modelObject.idField] } : {}
-                      }
+                      filter={{ [model]: record[modelObject.idField] }}
                       parent={{ name: model, value: record }}
                     />
                   </Tab>

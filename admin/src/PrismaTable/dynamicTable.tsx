@@ -43,7 +43,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     initialFilter,
   } = useFilterAndSort(model, inEdit ? filter : query);
 
-  const [getData, { data, loading }] = useLazyQuery(
+  const [getData, { data, loading, error }] = useLazyQuery(
     queryDocument(models, model),
     {
       variables: {
@@ -59,7 +59,12 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
 
   useEffect(() => {
     let timeOut = 0;
-    if ((!(query?.update || query?.view) || inEdit) && !data && !loading) {
+    if (
+      (!(query?.update || query?.view) || inEdit) &&
+      !data &&
+      !loading &&
+      !error
+    ) {
       timeOut = setTimeout(() => {
         getData();
       }, 5);
