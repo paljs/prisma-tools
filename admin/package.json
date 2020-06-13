@@ -43,7 +43,7 @@
     "oah-ui": "2.1.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "rollup": "2.16.0",
+    "rollup": "2.16.1",
     "rollup-plugin-typescript2": "0.27.1",
     "styled-components": "5.1.1",
     "typescript": "3.9.5"
