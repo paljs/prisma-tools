@@ -1,5 +1,6 @@
 export interface Model {
   name: string;
+  documentation?: string;
   fields: Field[];
 }
 

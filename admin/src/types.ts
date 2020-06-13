@@ -43,7 +43,7 @@ export interface SchemaField extends Omit<Field, 'relation'> {
   editor: boolean;
 }
 
-export interface SchemaModel extends Model {
+export interface SchemaModel extends Omit<Model, 'documentation'> {
   id: string;
   idField: string;
   displayFields: string[];
