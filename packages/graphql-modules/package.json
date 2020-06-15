@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/graphql-modules",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/graphql-modules"
   },
-  "homepage": "https://prisma-tools.ahmedelywa.com/",
+  "homepage": "https://prisma-tools.ahmedelywa.com/graphql-modules",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

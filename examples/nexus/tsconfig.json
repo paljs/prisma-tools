@@ -5,7 +5,7 @@
     "module": "commonjs",
     "lib": ["esnext"],
     "strict": true,
-    "rootDir": "src"
+    "rootDir": "."
   },
-  "include": ["src", "../apollo-sdl-first/src/index.ts"]
+  "include": ["src", "prisma/schema.ts"]
 }
