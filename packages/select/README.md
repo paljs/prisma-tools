@@ -1,8 +1,12 @@
 ## Prisma select
 
+[![Version](https://img.shields.io/npm/v/@prisma-tools/select.svg)](https://npmjs.org/package/@prisma-tools/select)
+[![Downloads/week](https://img.shields.io/npm/dw/@prisma-tools/select.svg)](https://npmjs.org/package/@prisma-tools/select)
+[![License](https://img.shields.io/npm/l/@prisma-tools/select.svg)](https://prisma-tools.ahmedelywa.com/)
+
 It's a small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
 
-[Docs Site](https://prisma-tools.ahmedelywa.com/)
+[Docs Site](https://prisma-tools.ahmedelywa.com/select)
 
 I wrote a post [Improve Your GraphQL performance with Prisma](https://dev.to/ahmedelywa/improve-your-graphql-performance-with-prisma-2jia)
 

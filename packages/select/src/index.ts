@@ -53,7 +53,7 @@ export class PrismaSelect {
       .replace(/\]/g, '')
       .replace(/\[/g, '')
       .replace(/!/g, '');
-    this.value = this.mergeDeep(
+    this.value = PrismaSelect.mergeDeep(
       this.filterBy(returnType, this.getSelect(this.fields)),
       mergeObject,
     );
@@ -70,26 +70,26 @@ export class PrismaSelect {
     );
   }
 
-  private isObject(item: any) {
+  static isObject(item: any) {
     return item && typeof item === 'object' && !Array.isArray(item);
   }
 
-  mergeDeep(target: any, ...sources: any[]): any {
+  static mergeDeep(target: any, ...sources: any[]): any {
     if (!sources.length) return target;
     const source: any = sources.shift();
 
-    if (this.isObject(target) && this.isObject(source)) {
+    if (PrismaSelect.isObject(target) && PrismaSelect.isObject(source)) {
       for (const key in source) {
-        if (this.isObject(source[key])) {
+        if (PrismaSelect.isObject(source[key])) {
           if (!target[key]) Object.assign(target, { [key]: {} });
-          this.mergeDeep(target[key], source[key]);
+          PrismaSelect.mergeDeep(target[key], source[key]);
         } else {
           Object.assign(target, { [key]: source[key] });
         }
       }
     }
 
-    return this.mergeDeep(target, ...sources);
+    return PrismaSelect.mergeDeep(target, ...sources);
   }
 
   /**
@@ -135,7 +135,7 @@ export class PrismaSelect {
       }
     }
     return filterBy
-      ? this.mergeDeep(this.filterBy(filterBy, newValue), mergeObject)
+      ? PrismaSelect.mergeDeep(this.filterBy(filterBy, newValue), mergeObject)
       : newValue;
   }
 

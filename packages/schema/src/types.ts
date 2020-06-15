@@ -1,6 +1,7 @@
 export interface Model {
   name: string;
   documentation?: string;
+  map?: string;
   fields: Field[];
 }
 
@@ -17,9 +18,10 @@ export interface Field {
   isId: boolean;
   unique: boolean;
   kind: 'object' | 'enum' | 'scalar';
+  map?: string;
   relationField?: boolean;
   documentation?: string;
-  relation?: { name?: string; fields?: string[]; references?: [] };
+  relation?: { name?: string; fields?: string[]; references?: string[] };
 }
 
 export type SchemaObject = { models: Model[]; enums: Enums[] };

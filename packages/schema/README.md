@@ -1,67 +1,21 @@
-## Prisma schema
+# @prisma-tools/schema
 
-It's tool to convert your `schema.prisma` file into `JavaScript` object.
+convert prisma schema file to javascript object and convert fields to camel case
 
-## Install
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Version](https://img.shields.io/npm/v/@prisma-tools/schema.svg)](https://npmjs.org/package/@prisma-tools/schema)
+[![Downloads/week](https://img.shields.io/npm/dw/@prisma-tools/schema.svg)](https://npmjs.org/package/@prisma-tools/schema)
+[![License](https://img.shields.io/npm/l/@prisma-tools/schema.svg)](https://prisma-tools.ahmedelywa.com/)
 
-```shell
-npm i @prisma-tools/schema
-or
-yarn add @prisma-tools/schema
-```
+<!-- toc -->
 
-## Use
+## Prisma schema CLI
 
-```ts
-import convertSchema from '@prisma-tools/schema';
+- Convert your `schema.prisma` file into `JavaScript`, `TypeScript` and `Json` files.
+- Convert your `schema.prisma` file from `Snake case` eg `first_name` to `Camel case` eg `firstName`.
 
-const schemaObject = convertSchema(path);
-```
+## Schema function
 
-## schema Type
+Convert your current `schema.prisma` file in runtime with `convertSchemaToObject` function
 
-```ts
-type SchemaObject = {
-  models: Model[];
-  enums: Enums[];
-};
-
-interface Model {
-  name: string;
-  fields: Field[];
-}
-
-interface Enums {
-  name: string;
-  fields: string[];
-}
-
-interface Field {
-  name: string;
-  type: string;
-  list: boolean;
-  required: boolean;
-  isId: boolean;
-  unique: boolean;
-  kind: 'object' | 'enum' | 'scalar';
-  relationField?: boolean;
-  relation?: { name?: string; fields?: string[]; references?: [] };
-}
-```
-
-You can import this types from our tool
-
-```ts
-import convertSchema, {
-  SchemaObject,
-  Model,
-  Enums,
-  Field,
-} from '@prisma-tools/schema';
-```
-
-### Have questions?
-
-Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
-
-## Like my tool give me star
+[**Full Docs**](https://prisma-tools.ahmedelywa.com/schema)

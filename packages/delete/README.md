@@ -1,6 +1,17 @@
+## Introduction
+
+This tool is built for [Prisma](https://prisma.io)
+
+Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround this option
+
+[Docs Site](https://prisma-tools.ahmedelywa.com/)
+
+[![Version](https://img.shields.io/npm/v/@prisma-tools/delete.svg)](https://npmjs.org/package/@prisma-tools/delete)
+[![Downloads/week](https://img.shields.io/npm/dw/@prisma-tools/delete.svg)](https://npmjs.org/package/@prisma-tools/delete)
+[![License](https://img.shields.io/npm/l/@prisma-tools/delete.svg)](https://prisma-tools.ahmedelywa.com/)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Introduction](#introduction)
 - [Install](#install)
@@ -12,14 +23,6 @@
 - [Have questions?](#have-questions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Introduction
-
-This tool is built for [Prisma](https://prisma.io)
-
-Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround this option
-
-[Docs Site](https://prisma-tools.ahmedelywa.com/)
 
 ## Install
 

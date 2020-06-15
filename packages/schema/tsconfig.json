@@ -1,19 +1,14 @@
 {
-  "include": ["src"],
-  "exclude": ["node_modules"],
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "CommonJS",
-    "lib": ["esnext"],
-    "importHelpers": true,
     "declaration": true,
-    "outDir": "dist",
-    "sourceMap": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "lib",
     "rootDir": "src",
     "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true
-  }
+    "target": "es2017"
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

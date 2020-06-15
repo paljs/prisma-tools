@@ -8,19 +8,18 @@ import MdxCard from '../../components/MdxCard';
 ### Features
 
 - Auto generate CRUD system from your `schema.prisma` file.
-  - **Every model will have folder contain 3 files:**
-    - **_type.ts_** contain `objectType` for this model.
-    - **_queries.ts_** contain 3 queries:
-      - `findOne`
-      - `findMany`
-      - `findCount`
-    - **_mutations.ts_** contain 6 mutations:
-      - `createOne`
-      - `updateOne`
-      - `upsertOne`
-      - `deleteOne`
-      - `updateMany`
-      - `deleteMany`
+  - **Every model will have folder contain 10 files:**
+    - You can customize all this files and add your logic code inside it just `User/type.ts` will rewrite on it.
+    - `User/mutations/createOne.ts`
+    - `User/mutations/deleteOne.ts`
+    - `User/mutations/updateOne.ts`
+    - `User/mutations/upsertOne.ts`
+    - `User/mutations/deleteMany.ts`
+    - `User/mutations/updateMany.ts`
+    - `User/queries/findCount.ts`
+    - `User/queries/findMany.ts`
+    - `User/queries/findOne.ts`
+    - `User/type.ts`
   - Add to **_inputTypes.ts_** file list of inputs:
     - `UserWhereInput`
     - `UserWhereUniqueInput`

@@ -1,5 +1,5 @@
 import SEO from '../components/SEO';
-
+import SelectExample from '../components/SelectExample';
 import MdxCard from '../components/MdxCard';
 
 <SEO title="Select Convert" />
@@ -8,14 +8,22 @@ import MdxCard from '../components/MdxCard';
 
 ## Prisma select
 
-It's a small tool to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want
+Convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want in RootQuery this mean one resolver so no more `N + 1` issue.
 
 **CONTENT**
 
 - [Install](#install)
-- [Use](#use)
+- [Normal Use](#normal-use)
 - [Example query](#example-query)
+- [Api](#api)
+  - [constructor](#constructor)
+  - [value](#value)
+  - [valueOf](#valueof)
+  - [mergeDeep](#mergedeep)
+  - [filter](#filter)
 - [Performance Example](#performance-example)
+- [nexus-plugin-prisma-select](/nexus-plugin-prisma-select)
+- [nexus-schema-plugin-prisma-select](/nexus-schema-plugin-prisma-select)
 
 </MdxCard>
 
@@ -27,37 +35,19 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 npm i @prisma-tools/select
 ```
 
-## Use
+## Normal Use
 
 ```ts
 import { PrismaSelect } from '@prisma-tools/select';
 
-// nexus
-t.field('findOneUser', {
-  type: 'User',
-  nullable: true,
-  args: {
-    where: arg({
-      type: 'UserWhereUniqueInput',
-      nullable: false,
-    }),
-  },
-  resolve(_parent, { where }, { prisma }, info) {
-    const select = new PrismaSelect(info);
-    return prisma.user.findOne({
-      where,
-      ...select.value,
-    });
-  },
-});
 // normal resolver
 const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
-      const select = new PrismaSelect(info);
+      const select = new PrismaSelect(info).value;
       return prisma.user.findOne({
         where,
-        ...select.value,
+        ...select,
       });
     },
   },
@@ -65,50 +55,135 @@ const resolvers = {
 ```
 
 </MdxCard>
+<SelectExample/>
 
 <MdxCard>
 
-## Example query
+## API
+
+### constructor
+
+Take two args:
+
+- `info` : `GraphQLResolveInfo`
+- `mergeObject` : any object to merge with client requested fields good to always returned fixed data like `id`.
+
+### Methods
+
+#### value
+
+Return your converted object.
+
+#### valueOf
+
+function take 3 args:
+
+- `field`: path to field you want inside type. You can deeb inside nested relation with this `user.posts.comments`
+- `filterBy`: take schema Model name to filter returned object by his schema type
+- `mergeObject` : like constructor you can pass here any object to merge with returned data.
+
+**Example of use**
+
+We have mutation call login and return non schema model type `AuthPayload` and it's contain schema model type.
+
+I need to return User type with filter.
 
 ```graphql
-query {
-  findOneUser(where: { id: 1 }) {
-    id
-    email
-    name
-    posts(where: { title: { contains: "a" } }, orderBy: { createdAt: asc }, first: 10, skip: 5) {
-      id
-      title
-      comments(where: { contain: { contains: "a" } }) {
-        id
-        contain
-      }
-    }
-  }
+type AuthPayload {
+  token: String
+  user: User
+}
+type Mutation {
+  login(email: String!, password: String!): AuthPayload
 }
 ```
 
-convert to
+Here how to go in nested type, filter and merge custom object.
 
-```js
-const result = {
-  select: {
-    id: true,
-    email: true,
-    name: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-        comments: {
-          select: { id: true, contain: true },
-          where: { contain: { contains: 'a' } },
-        },
-      },
-      where: { title: { contains: 'a' } },
-      orderBy: { createdAt: 'asc' },
-      first: 10,
-      skip: 5,
+```ts
+const resolver = {
+  Mutation: {
+    login: (_parent, { email, password }, { prisma }: Context, info) => {
+      const select = new PrismaSelect(info).valueOf('user', 'User', { select: { id: true } });
+      return {
+        token: 'token',
+        user: prisma.user.findOne({
+          where: { email },
+          ...select,
+        }),
+      };
+    },
+  },
+};
+```
+
+### mergeDeep
+
+Static method you can use to merge our converted object with your custom object.
+
+Also you can use it to merge any object with another object.
+
+You can use if you pass select object inside context.
+
+```js{4}
+const resolvers = {
+  Query: {
+    user(_parent, { where }, { prisma, select }, info) {
+      const mergedObject = PrismaSelect.mergeDeep(select, { select: { id: true } });
+      return prisma.user.findOne({
+        where,
+        ...mergedObject,
+      });
+    },
+  },
+};
+```
+
+### filter
+
+We have private method to filter your client requested fields if not inside your prisma schema Model. This give you ability to customize your type and add more fields not in schema model
+
+**_Example_**
+
+```prisma
+// prisma.schema
+model User {
+  id        Int      @default(autoincrement()) @id
+  firstName      String
+  lastName      String
+}
+```
+
+```graphql
+# graphql type
+type User {
+  id: Int
+  firstName: String
+  lastName: String
+  fullName: String
+}
+```
+
+AS you see here we must return `firstName` and `lastName` even if client not request them to use in `fullName`.
+
+```ts{6,17}
+import { PrismaSelect } from '@prisma-tools/select';
+
+const resolvers = {
+  Query: {
+    user(_parent, { where }, { prisma }, info) {
+      const select = new PrismaSelect(info, { select: { firstName: true, lastName: true } }).value;
+      return prisma.user.findOne({
+        where,
+        // this object must not have `fullName` because will throw error it's not in our db
+        // So we have built in filter to remove any field not in our schema model
+        ...select,
+      });
+    },
+  },
+  User: {
+    fullName: (parent, args, { prisma }: Context) => {
+      return parent.firstName + parent.lastName;
     },
   },
 };

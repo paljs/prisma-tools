@@ -1,27 +1,47 @@
 {
   "name": "@prisma-tools/schema",
-  "version": "0.0.6",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:AhmedElywa/prisma-tools.git",
-    "directory": "packages/schema"
+  "description": "convert prisma schema file to javascript object and convert fields to camel case",
+  "version": "0.0.7",
+  "author": "Ahmed Elywa @AhmedElywa",
+  "bin": {
+    "schema": "./bin/run"
   },
-  "author": "Ahmed Elywa",
-  "license": "MIT",
-  "private": false,
-  "scripts": {
-    "build": "tsc",
-    "prepublish": "yarn build"
+  "bugs": "https://github.com/AhmedElywa/prisma-tools/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
+    "tslib": "^1",
+    "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "typescript": "3.9.5"
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^10",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   },
   "files": [
-    "dist"
+    "/bin",
+    "/lib"
   ],
-  "publishConfig": {
-    "access": "public"
-  }
+  "homepage": "https://github.com/AhmedElywa/prisma-tools",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "bin": "schema"
+  },
+  "repository": "AhmedElywa/prisma-tools",
+  "scripts": {
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
 }

@@ -1,5 +1,5 @@
 import SEO from '../components/SEO';
-
+import SelectExample from '../components/SelectExample';
 import MdxCard from '../components/MdxCard';
 
 <SEO title="nexus-plugin-prisma-select" />
@@ -83,50 +83,6 @@ export const UserQueries = extendType({
 });
 ```
 
-### Example query
-
-```graphql
-query {
-  findOneUser(where: { id: 1 }) {
-    id
-    email
-    name
-    posts(where: { title: { contains: "a" } }, orderBy: { createdAt: asc }, first: 10, skip: 5) {
-      id
-      title
-      comments(where: { contain: { contains: "a" } }) {
-        id
-        contain
-      }
-    }
-  }
-}
-```
-
-convert to
-
-```js
-const result = {
-  select: {
-    id: true,
-    email: true,
-    name: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-        comments: {
-          select: { id: true, contain: true },
-          where: { contain: { contains: 'a' } },
-        },
-      },
-      where: { title: { contains: 'a' } },
-      orderBy: { createdAt: 'asc' },
-      first: 10,
-      skip: 5,
-    },
-  },
-};
-```
-
 </MdxCard>
+
+<SelectExample/>

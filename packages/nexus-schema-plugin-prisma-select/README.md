@@ -1,12 +1,15 @@
-# nexus-schema-plugin-prisma-select <!-- omit in toc -->
+# nexus-schema-plugin-prisma-select
 
-[Docs Site](https://prisma-tools.ahmedelywa.com/)
+[![Version](https://img.shields.io/npm/v/nexus-schema-plugin-prisma-select.svg)](https://npmjs.org/package/nexus-schema-plugin-prisma-select)
+[![Downloads/week](https://img.shields.io/npm/dw/nexus-schema-plugin-prisma-select.svg)](https://npmjs.org/package/nexus-schema-plugin-prisma-select)
+[![License](https://img.shields.io/npm/l/nexus-schema-plugin-prisma-select.svg)](https://prisma-tools.ahmedelywa.com/)
+
+[Docs Site](https://prisma-tools.ahmedelywa.com/nexus-schema-plugin-prisma-select)
 
 **Contents**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Installation](#installation)
 - [Example Usage](#example-usage)
