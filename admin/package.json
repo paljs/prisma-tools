@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -19,7 +19,7 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/schema": "0.0.7",
+    "@prisma-tools/schema": "0.0.9",
     "moment": "2.26.0",
     "prettier": "2.0.5",
     "query-string": "6.13.1",

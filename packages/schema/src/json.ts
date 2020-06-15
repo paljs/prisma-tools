@@ -48,7 +48,7 @@ function getSchemaInObject(data: string) {
           };
 
           if (field.kind === 'object') {
-            field.relation = getRelation(line);
+            field.relation = getRelation(lines[i]);
           }
           modelObject.fields.push(field);
           documentation = '';
@@ -89,31 +89,31 @@ function getSchemaInObject(data: string) {
   return modelsObject;
 }
 
-function getRelation(line: string[]) {
-  line.splice(0, 2);
-  let str = line
-    .join(' ')
-    .split('@')
-    .find((item) => item.includes('relation('))
-    ?.replace('relation(', '')
-    .replace(')', '');
-  if (str) {
-    if (str.includes('"') && !str.includes('name')) {
-      str = 'name: ' + str;
+function getRelation(line: string) {
+  const relationString = line.match(/@relation\((.*?)\)/);
+  if (relationString) {
+    const relation: Field['relation'] = {};
+    const name = relationString[1].match(/"(\w+)"/);
+    if (name) {
+      relation.name = name[1];
     }
-    str
-      .replace(/\]/g, ' ')
-      .replace(/\[/g, ' ')
-      .replace(/,/g, ' ')
-      .replace(/:/g, ' ')
-      .split(' ')
-      .filter((item) => item && !item.includes('"'))
-      .forEach((item) => {
-        str = str?.replace(item, `"${item}"`);
-      });
-    return JSON.parse(`{${str}}`);
+    ['fields', 'references'].forEach((item) => {
+      const pattern = new RegExp(`${item}:[\\s\\S]\\[(.*?)\\]`);
+      const values = relationString[1].match(pattern);
+      if (values) {
+        const asArray = values[1]
+          .replace(/ /g, '')
+          .split(',')
+          .filter((v) => v);
+        if (asArray.length > 0) {
+          relation[item as 'fields' | 'references'] = asArray;
+        }
+      }
+    });
+    console.log(relation);
+    return relation;
   }
-  return null;
+  return undefined;
 }
 
 function getClassName(lines: string[]) {
