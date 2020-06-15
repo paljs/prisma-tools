@@ -8,8 +8,9 @@
   "scripts": {
     "build": "nexus build",
     "start": "node node_modules/.build",
-    "generate": "npm -s run generate:prisma && npm -s run generate:crud",
+    "generate": "npm -s run generate:prisma && npm -s run generate:schema && npm -s run generate:crud",
     "generate:prisma": "prisma generate",
+    "generate:schema": "schema json",
     "generate:crud": "ts-node --transpile-only src/createTypes",
     "seed": "ts-node --transpile-only prisma/seed",
     "create-migration": "prisma migrate save --experimental",
@@ -17,7 +18,7 @@
     "dev": "nexus dev"
   },
   "dependencies": {
-    "@prisma-tools/delete": "^0.0.12",
+    "@prisma-tools/delete": "^0.0.14",
     "@prisma-tools/nexus": "^0.6.25",
     "@prisma-tools/schema": "^0.0.7",
     "@prisma/client": "2.0.0",

@@ -2,6 +2,7 @@ import { PrismaClient, PrismaClientOptions } from '@prisma/client'
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
 import { schema, use, settings } from 'nexus'
 import { prismaSelect } from 'nexus-plugin-prisma-select'
+import { schema as prismaSchema } from '../prisma/schema'
 
 class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {
@@ -9,7 +10,7 @@ class Prisma extends PrismaClient {
   }
 
   async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this)
+    const prismaDelete = new PrismaDelete(this, prismaSchema)
     await prismaDelete.onDelete(args)
   }
 }

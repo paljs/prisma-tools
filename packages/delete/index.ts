@@ -81,16 +81,18 @@ export default class PrismaDelete {
         },
       });
       for (const result of results) {
-        await this.prisma[name].update({
-          where: {
-            [modelId]: result[modelId],
-          },
-          data: {
-            [field.name]: {
-              disconnect: field.list ? result[field.name] : true,
+        if (!(field.list && result[field.name].length === 0)) {
+          await this.prisma[name].update({
+            where: {
+              [modelId]: result[modelId],
             },
-          },
-        });
+            data: {
+              [field.name]: {
+                disconnect: field.list ? result[field.name] : true,
+              },
+            },
+          });
+        }
       }
     }
   }

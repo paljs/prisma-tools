@@ -1,17 +1,16 @@
 import { Options } from './types';
-import { writeFile, mkdir } from 'fs';
+import { writeFileSync, mkdir } from 'fs';
 import { createInput } from './InputTypes';
 import { formatter } from '.';
 
 export const createCommon = (options: Options) => {
   mkdir(`${options.modelsOutput}/common`, () => {});
-  writeFile(
+  writeFileSync(
     `${options.modelsOutput}/common/inputTypes.ts`,
     formatter(createInput()),
-    () => {},
   );
   if (!options.excludeCommon) {
-    writeFile(
+    writeFileSync(
       `${options.modelsOutput}/common/addSelect.ts`,
       formatter(`import { PrismaSelect } from '@prisma-tools/select';
 
@@ -26,39 +25,37 @@ export const createCommon = (options: Options) => {
       return next(root, args, context, info);
     };    
     `),
-      () => {},
     );
 
-    writeFile(
+    writeFileSync(
       `${options.modelsOutput}/common/Prisma.provider.ts`,
       formatter(`import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
-      import { OnRequest, OnResponse } from '@graphql-modules/core';
-      import { PrismaClient } from '@prisma/client';
-      import { Injectable } from '@graphql-modules/di';
-      
-      @Injectable()
-      export class PrismaProvider extends PrismaClient
-        implements OnRequest, OnResponse {
-        constructor() {
-          super();
-        }
-        onRequest() {
-          this.connect();
-        }
-        onResponse() {
-          this.disconnect();
-        }
-      
-        async onDelete(args: onDeleteArgs) {
-          const prismaDelete = new PrismaDelete(this);
-          await prismaDelete.onDelete(args);
-        }
-      }      
-    `),
-      () => {},
+import { OnRequest, OnResponse } from '@graphql-modules/core';
+import { PrismaClient } from '@prisma/client';
+import { Injectable } from '@graphql-modules/di';
+import { schema } from '../prisma/schema';
+
+@Injectable()
+export class PrismaProvider extends PrismaClient
+  implements OnRequest, OnResponse {
+  constructor() {
+    super();
+  }
+  onRequest() {
+    this.connect();
+  }
+  onResponse() {
+    this.disconnect();
+  }
+
+  async onDelete(args: onDeleteArgs) {
+    const prismaDelete = new PrismaDelete(this, schema);
+    await prismaDelete.onDelete(args);
+  }
+}`),
     );
 
-    writeFile(
+    writeFileSync(
       `${options.modelsOutput}/common/common.module.ts`,
       formatter(`import { GraphQLModule } from '@graphql-modules/core';
     import { PrismaProvider } from './Prisma.provider';
@@ -69,7 +66,6 @@ export const createCommon = (options: Options) => {
       providers: [PrismaProvider],
     });
     `),
-      () => {},
     );
   }
 };

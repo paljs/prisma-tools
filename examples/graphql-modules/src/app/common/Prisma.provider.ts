@@ -2,6 +2,7 @@ import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 import { OnRequest, OnResponse } from '@graphql-modules/core';
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@graphql-modules/di';
+import { schema } from '../prisma/schema';
 
 @Injectable()
 export class PrismaProvider extends PrismaClient
@@ -17,7 +18,7 @@ export class PrismaProvider extends PrismaClient
   }
 
   async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this);
+    const prismaDelete = new PrismaDelete(this, schema);
     await prismaDelete.onDelete(args);
   }
 }
