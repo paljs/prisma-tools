@@ -1,9 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import {
-  convertSchemaToObject,
-  SchemaObject,
-  Field,
-} from '@prisma-tools/schema';
+import { SchemaObject, Field } from '@prisma-tools/schema';
 import { join } from 'path';
 
 interface DeleteData {
@@ -38,14 +34,10 @@ const defaultSchemaPath = join(process.cwd(), 'prisma', 'schema.prisma');
  *
  **/
 export default class PrismaDelete {
-  schema: SchemaObject;
-
   constructor(
     private prisma: any = new PrismaClient(),
-    schemaPath = defaultSchemaPath,
-  ) {
-    this.schema = convertSchemaToObject(schemaPath);
-  }
+    private schema: SchemaObject,
+  ) {}
 
   private getModel(modelName: string) {
     return this.schema.models.find((item) => item.name === modelName);
