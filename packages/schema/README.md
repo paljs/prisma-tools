@@ -8,6 +8,8 @@ convert prisma schema file to javascript object and convert fields to camel case
 [![License](https://img.shields.io/npm/l/@prisma-tools/schema.svg)](https://prisma-tools.ahmedelywa.com/)
 
 <!-- toc -->
+* [@prisma-tools/schema](#prisma-toolsschema)
+<!-- tocstop -->
 
 ## Prisma schema CLI
 

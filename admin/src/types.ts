@@ -31,7 +31,8 @@ export type FormInputs = Record<
   React.FC<InputProps>
 >;
 
-export interface SchemaField extends Omit<Field, 'relation'> {
+export interface SchemaField
+  extends Omit<Field, 'relation' | 'documentation' | 'map'> {
   id: string;
   title: string;
   read: boolean;
@@ -43,7 +44,7 @@ export interface SchemaField extends Omit<Field, 'relation'> {
   editor: boolean;
 }
 
-export interface SchemaModel extends Omit<Model, 'documentation'> {
+export interface SchemaModel extends Omit<Model, 'documentation' | 'map'> {
   id: string;
   idField: string;
   displayFields: string[];

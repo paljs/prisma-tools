@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/admin",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -10,7 +10,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/admin"
   },
-  "homepage": "https://prisma-tools.ahmedelywa.com/",
+  "homepage": "https://prisma-tools.ahmedelywa.com/admin/generator",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

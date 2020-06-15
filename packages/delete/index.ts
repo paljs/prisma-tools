@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import convertSchemaToObject, {
+import {
+  convertSchemaToObject,
   SchemaObject,
   Field,
 } from '@prisma-tools/schema';

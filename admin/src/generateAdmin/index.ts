@@ -1,4 +1,4 @@
-import convertSchema from '@prisma-tools/schema';
+import { convertSchemaToObject } from '@prisma-tools/schema';
 import { writeFileSync } from 'fs';
 import { format } from 'prettier';
 import { GenerateGraphqlOptions, Schema } from '../types';
@@ -27,7 +27,7 @@ export function generateGraphql(
 }
 
 export function buildSettingsSchema(folder = './prisma/') {
-  const modelsObject = convertSchema(folder + 'schema.prisma');
+  const modelsObject = convertSchemaToObject(folder + 'schema.prisma');
   const newSchema = mergeSchema(modelsObject, folder + 'schema.json');
   createSchemaObject(folder + 'schema.json', newSchema);
 }

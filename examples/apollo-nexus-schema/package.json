@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
-    "@prisma-tools/delete": "^0.0.9",
+    "@prisma-tools/delete": "^0.0.10",
     "@prisma-tools/nexus": "^0.6.25",
     "@prisma/client": "2.0.0",
     "apollo-server": "^2.12.0",

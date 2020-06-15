@@ -94,7 +94,7 @@ function getTitle(id: string) {
 function getOriginalField(
   field: Field,
   modelName: string,
-): Omit<Field, 'relation' | 'documentation'> & { id: string } {
+): Omit<Field, 'relation' | 'documentation' | 'map'> & { id: string } {
   delete field.relation;
   delete field.documentation;
   return {
