@@ -17,7 +17,7 @@
     "dev": "nexus dev"
   },
   "dependencies": {
-    "@prisma-tools/delete": "^0.0.10",
+    "@prisma-tools/delete": "^0.0.11",
     "@prisma-tools/nexus": "^0.6.25",
     "@prisma-tools/schema": "^0.0.7",
     "@prisma/client": "2.0.0",

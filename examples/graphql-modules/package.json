@@ -20,7 +20,7 @@
   "dependencies": {
     "@graphql-modules/core": "^0.7.17",
     "@graphql-modules/di": "^0.7.17",
-    "@prisma-tools/delete": "^0.0.10",
+    "@prisma-tools/delete": "^0.0.11",
     "@prisma-tools/graphql-modules": "^0.0.5",
     "@prisma-tools/select": "^0.0.9",
     "@prisma/client": "2.0.0",
