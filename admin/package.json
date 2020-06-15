@@ -19,7 +19,7 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/schema": "0.0.8",
+    "@prisma-tools/schema": "0.0.10",
     "moment": "2.26.0",
     "prettier": "2.0.5",
     "query-string": "6.13.1",
