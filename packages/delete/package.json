@@ -1,6 +1,6 @@
 {
   "name": "@prisma-tools/delete",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -30,6 +30,6 @@
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da",
   "dependencies": {
-    "@prisma-tools/schema": "0.0.9"
+    "@prisma-tools/schema": "0.0.10"
   }
 }

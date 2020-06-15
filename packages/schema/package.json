@@ -1,7 +1,7 @@
 {
   "name": "@prisma-tools/schema",
   "description": "convert prisma schema file to javascript object and convert fields to camel case",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Ahmed Elywa @AhmedElywa",
   "bin": {
     "schema": "./bin/run"

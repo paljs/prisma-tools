@@ -110,7 +110,6 @@ function getRelation(line: string) {
         }
       }
     });
-    console.log(relation);
     return relation;
   }
   return undefined;
