@@ -1,7 +1,7 @@
 {
   "name": "@prisma-tools/schema",
   "description": "convert prisma schema file to javascript object and convert fields to camel case",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Ahmed Elywa @AhmedElywa",
   "bin": {
     "schema": "./bin/run"
@@ -27,7 +27,7 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/AhmedElywa/prisma-tools",
+  "homepage": "https://prisma-tools.ahmedelywa.com/schema",
   "keywords": [
     "oclif"
   ],

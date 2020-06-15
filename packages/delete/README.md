@@ -13,7 +13,7 @@ Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Introduction](#introduction)
+
 - [Install](#install)
 - [Example](#example)
   - [`schema.prisma`](#schemaprisma)
