@@ -50,11 +50,11 @@ const items: MenuItemType[] = [
         link: { to: '/select' },
       },
       {
-        title: 'nexus-plugin-prisma-select',
+        title: 'Nexus plugin',
         link: { to: '/nexus-plugin-prisma-select' },
       },
       {
-        title: 'nexus-schema-plugin-prisma-select',
+        title: 'Nexus schema plugin',
         link: { to: '/nexus-schema-plugin-prisma-select' },
       },
     ],
