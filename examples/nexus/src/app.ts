@@ -2,7 +2,7 @@ import { PrismaClient, PrismaClientOptions } from '@prisma/client'
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
 import { schema, use, settings } from 'nexus'
 import { prismaSelect } from 'nexus-plugin-prisma-select'
-import { schema as prismaSchema } from '../prisma/schema'
+import { schema as prismaSchema } from './schema'
 
 class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {

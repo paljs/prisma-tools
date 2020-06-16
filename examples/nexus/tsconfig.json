@@ -7,5 +7,5 @@
     "strict": true,
     "rootDir": "."
   },
-  "include": ["src", "prisma/schema.ts"]
+  "include": ["src"]
 }

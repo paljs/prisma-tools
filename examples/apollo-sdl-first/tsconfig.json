@@ -10,6 +10,6 @@
     "strictNullChecks": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "prisma/schema.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

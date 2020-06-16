@@ -1,4 +1,4 @@
-import { schema } from '../prisma/schema';
+import { schema } from './schema';
 import { PrismaClient, PrismaClientOptions } from '@prisma/client';
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 

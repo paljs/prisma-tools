@@ -11,7 +11,7 @@
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:schema && npm -s run generate:crud && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
-    "generate:schema": "schema json",
+    "generate:schema": "schema json -o=src",
     "generate:crud": "ts-node --transpile-only src/createTypes",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "seed": "ts-node --transpile-only prisma/seed",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
-    "@prisma-tools/delete": "^0.0.14",
+    "@prisma-tools/delete": "^0.0.15",
     "@prisma-tools/nexus": "^0.6.25",
     "@prisma-tools/schema": "0.0.11",
     "@prisma/client": "2.0.0",

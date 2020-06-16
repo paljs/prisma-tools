@@ -2,7 +2,7 @@ import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
 import { OnRequest, OnResponse } from '@graphql-modules/core';
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@graphql-modules/di';
-import { schema } from '../../../prisma/schema';
+import { schema } from '../../schema';
 
 @Injectable()
 export class PrismaProvider extends PrismaClient
