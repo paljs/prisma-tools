@@ -19,9 +19,14 @@ class PrismaToolsSchema extends Command {
       default: 'prisma/',
       description: 'Add your schema.prisma file folder',
     }),
-    output: flags.enum({
+    'output-path': flags.string({
       char: 'o',
-      description: 'Output file type when you convert to json',
+      default: 'prisma/',
+      description: 'folder path for converted file',
+    }),
+    type: flags.enum({
+      char: 't',
+      description: 'type of output file type when you convert to json',
       options: ['js', 'ts', 'json'],
       default: 'ts',
     }),
@@ -43,7 +48,7 @@ class PrismaToolsSchema extends Command {
       const schemaObject = convertSchemaToObject(
         join(flags.path, 'schema.prisma'),
       );
-      schemaFile(flags.path, schemaObject, flags.output as Output);
+      schemaFile(flags['output-path'], schemaObject, flags.type as Output);
     } else if (args.converter === 'camel-case') {
       camelCase(join(flags.path, 'schema.prisma'));
     }

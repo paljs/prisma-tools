@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@prisma-tools/delete": "^0.0.14",
+    "@prisma-tools/schema": "0.0.11",
     "@prisma-tools/sdl": "^0.0.10",
     "@prisma-tools/select": "^0.0.9",
     "@prisma/client": "2.0.0",

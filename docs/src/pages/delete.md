@@ -116,6 +116,7 @@ Here when we delete `user` will go thought schema and look to model
 
 ```ts
 import PrismaDelete from '@prisma-tools/delete';
+import { schema } from '../prisma/schema';
 
 t.field('deleteOneUser', {
   type: 'User',
@@ -127,7 +128,7 @@ t.field('deleteOneUser', {
     }),
   },
   resolve(_, { where }, { prisma, select }) {
-    const prismaDelete = new PrismaDelete();
+    const prismaDelete = new PrismaDelete(prisma, schema);
     await prismaDelete.onDelete({ model: 'User', where });
     return prisma.user.delete({
       where,
@@ -140,7 +141,7 @@ t.field('deleteOneUser', {
 const resolvers = {
   Query: {
     deleteOneUser(_parent, { where }, { prisma }) {
-      const prismaDelete = new PrismaDelete();
+      const prismaDelete = new PrismaDelete(prisma, schema);
       await prismaDelete.onDelete({ model: 'User', where });
       return prisma.user.delete({
         where,
@@ -158,12 +159,7 @@ const resolvers = {
 ## `PrismaDelete` class
 
 - `prisma` prisma client class
-- `schemaPath` your schema.prisma file path default: `prisma/schema.prisma`.
-
-```ts
-// customize schema path into db folder
-const prismaDelete = new PrismaDelete(prisma, join(process.cwd(), 'db', 'schema.prisma'));
-```
+- `schema` schema as object converted by our [schema cli](/schema#convert-to-file).
 
 `prismaDelete.onDelete` accept object
 
@@ -180,6 +176,7 @@ await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
 ```ts
 import { PrismaClient, PrismaClientOptions } from '@prisma/client';
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete';
+import { schema } from '../prisma/schema';
 
 class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {
@@ -187,7 +184,7 @@ class Prisma extends PrismaClient {
   }
 
   async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this);
+    const prismaDelete = new PrismaDelete(this, schema);
     await prismaDelete.onDelete(args);
   }
 }

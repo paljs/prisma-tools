@@ -44,8 +44,9 @@ Convert your `schema.prisma` file into `JavaScript`, `TypeScript` and `Json` fil
 
 ```
 -h, --help                 show CLI help
--o, --output=(js|ts|json)  [default: ts] Output file type when you convert to json
--p, --path=path            [default: prisma/] Add your schema.prisma file folder
+-o, --output-path=output-path  [default: prisma/] folder path for converted file
+-p, --path=path                [default: prisma/] Add your schema.prisma file folder
+-t, --type=(js|ts|json)        [default: ts] type of output file type when you convert to json
 -v, --version              show CLI version
 ```
 
