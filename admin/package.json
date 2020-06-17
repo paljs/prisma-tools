@@ -33,7 +33,7 @@
     "@apollo/client": "3.0.0-rc.4",
     "@types/node": "14.0.13",
     "@types/prettier": "2.0.1",
-    "@types/react": "16.9.36",
+    "@types/react": "16.9.38",
     "@types/react-beautiful-dnd": "13.0.0",
     "@types/react-datepicker": "2.11.1",
     "@types/react-dom": "16.9.8",
