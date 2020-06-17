@@ -40,7 +40,7 @@
     "@types/react-table": "7.0.19",
     "@types/styled-components": "5.1.0",
     "graphql-tag": "2.10.3",
-    "oah-ui": "2.1.4",
+    "oah-ui": "2.1.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "rollup": "2.16.1",
