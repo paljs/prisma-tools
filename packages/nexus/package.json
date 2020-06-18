@@ -22,7 +22,7 @@
     "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "@prisma/client": "2.0.0",
+    "@prisma/client": "2.0.1",
     "@types/lowdb": "1.0.9",
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.1",
