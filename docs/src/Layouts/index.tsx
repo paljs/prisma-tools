@@ -37,7 +37,7 @@ const LayoutPage: React.FC = (props) => {
     <ThemeProvider theme={themes(theme)}>
       <Fragment>
         <SimpleLayout />
-        <Layout windowMode evaIcons={icons}>
+        <Layout evaIcons={icons}>
           <Header theme={{ set: changeTheme, value: theme }} toggleSidebar={() => sidebarRef.current?.toggle()} />
           <LayoutContainer>
             <SidebarCustom ref={sidebarRef} />
