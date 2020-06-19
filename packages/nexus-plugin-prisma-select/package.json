@@ -31,7 +31,7 @@
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "@paljs/prisma": "0.0.0",
+    "@paljs/plugins": "0.0.0",
     "nexus": "0.24.2"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"

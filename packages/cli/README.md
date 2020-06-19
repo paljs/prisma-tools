@@ -33,6 +33,7 @@ USAGE
 <!-- commands -->
 * [`pal hello [FILE]`](#pal-hello-file)
 * [`pal help [COMMAND]`](#pal-help-command)
+* [`pal schema [FILE]`](#pal-schema-file)
 
 ## `pal hello [FILE]`
 
@@ -70,4 +71,20 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+
+## `pal schema [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ pal schema [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/schema.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/schema.ts)_
 <!-- commandsstop -->

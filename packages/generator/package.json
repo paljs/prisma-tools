@@ -1,14 +1,14 @@
 {
-  "name": "@paljs/plugins",
+  "name": "@paljs/generator",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:paljs/prisma-tools.git",
-    "directory": "packages/plugins"
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/generator"
   },
-  "homepage": "http://www.paljs.com/",
+  "homepage": "https://prisma-tools.ahmedelywa.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -18,17 +18,24 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "graphql-fields": "2.0.3"
-  },
-  "publishConfig": {
-    "access": "public"
+    "lowdb": "^1.0.0",
+    "prettier": "^2.0.4"
   },
   "devDependencies": {
-    "@paljs/schema": "0.0.0",
+    "graphql-tag": "2.10.3",
     "@prisma/client": "2.0.1",
-    "@nexus/schema": "0.14.0",
+    "@types/lowdb": "1.0.9",
+    "@types/node": "13.13.5",
+    "@types/prettier": "2.0.1",
     "doctoc": "1.4.0",
+    "nexus": "0.24.2",
     "typescript": "3.9.5"
+  },
+  "files": [
+    "./dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
 }

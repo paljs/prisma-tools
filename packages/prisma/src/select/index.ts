@@ -1,10 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { dataModel } from '../schema';
 const graphqlFields = require('graphql-fields');
-import { dmmf } from '@prisma/client';
-import { DMMF } from '@prisma/client/runtime';
 export * from './nexusPlugin';
-
-const dataModel: DMMF.Datamodel = dmmf.datamodel;
 
 /**
  * Convert `info` to select object accepted by `prisma client`.

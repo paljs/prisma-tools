@@ -1,5 +1,5 @@
 import { RuntimePlugin } from 'nexus/plugin'
-import { prismaSelectObject } from '@paljs/prisma'
+import { prismaSelectObject } from '@paljs/plugins'
 
 export const plugin: RuntimePlugin = () => () => {
   return {

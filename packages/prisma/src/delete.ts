@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { SchemaObject, Field } from './schema/types';
+import { SchemaObject, Field } from '@paljs/schema';
 
 interface DeleteData {
   name: string;
@@ -15,7 +15,7 @@ export interface onDeleteArgs {
 /**
  * Handle all relation onDelete type
  * @param prisma - optional arg you can send your clint class.
- * @param schema - your schema.prisma converted object by @prisma-tools/schema package.
+ * @param schema - your schema.prisma converted object .
  * @example
  * const prisma = new PrismaClient({log: ['query']});
  * const prismaDelete = new PrismaDelete(prisma, schema);
