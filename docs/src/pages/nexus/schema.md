@@ -29,14 +29,14 @@ Open your terminal and download the starter project with the following command:
 <Tab title="Unix (Mac OS, Linux)">
 
 ```shell
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/apollo-nexus-schema
+curl https://codeload.github.com/paljs/prisma/tar.gz/master | tar -xz --strip=2 prisma-master/examples/apollo-nexus-schema
 ```
 
 </Tab>
 <Tab title="Windows">
 
 ```shell
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/apollo-nexus-schema && move prisma-tools-master/examples/apollo-nexus-schema apollo-nexus-schema && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
+curl https://codeload.github.com/paljs/prisma/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-master/examples/apollo-nexus-schema && move prisma-master/examples/apollo-nexus-schema apollo-nexus-schema && rmdir /S /Q prisma-master && del /Q master.tar.gz
 ```
 
 </Tab>

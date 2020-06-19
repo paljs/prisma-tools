@@ -13,13 +13,13 @@ Open your terminal and download the starter project with the following command:
 ### Unix (Mac OS, Linux)
 
 ```shell script
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/apollo-nexus-schema
+curl https://codeload.github.com/paljs/prisma/tar.gz/master | tar -xz --strip=2 prisma-master/examples/apollo-nexus-schema
 ```
 
 ### Windows
 
 ```shell script
-curl https://codeload.github.com/AhmedElywa/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/apollo-nexus-schema && move prisma-tools-master/examples/apollo-nexus-schema apollo-nexus-schema && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
+curl https://codeload.github.com/paljs/prisma/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-master/examples/apollo-nexus-schema && move prisma-master/examples/apollo-nexus-schema apollo-nexus-schema && rmdir /S /Q prisma-master && del /Q master.tar.gz
 ```
 
 ## Install dependencies
@@ -75,6 +75,6 @@ Feel free to adjust any operation by adding or removing fields. The GraphQL Play
 
 ### Have questions?
 
-Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+Didn't find something here? Look through the [issues](https://github.com/paljs/prisma/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
 ***Like my tool give me star***

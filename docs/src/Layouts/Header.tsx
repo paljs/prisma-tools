@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           actions={[
             {
               icon: 'github',
-              url: { href: 'https://github.com/AhmedElywa/prisma-tools', target: '_blank' },
+              url: { href: 'https://github.com/paljs/prisma', target: '_blank' },
             },
             {
               icon: 'twitter',

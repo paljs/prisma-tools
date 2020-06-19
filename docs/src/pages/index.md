@@ -26,6 +26,6 @@ import MdxCard from '../components/MdxCard';
 
 ### Have questions?
 
-Didn't find something here? Look through the [issues](https://github.com/AhmedElywa/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+Didn't find something here? Look through the [issues](https://github.com/paljs/prisma/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
 
 </MdxCard>

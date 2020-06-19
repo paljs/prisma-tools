@@ -6,7 +6,7 @@
   "bin": {
     "schema": "./bin/run"
   },
-  "bugs": "https://github.com/AhmedElywa/prisma-tools/issues",
+  "bugs": "https://github.com/paljs/prisma/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
