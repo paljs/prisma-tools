@@ -62,6 +62,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paljs/prisma"
+    "url": "https://github.com/paljs/prisma-tools"
   }
 }

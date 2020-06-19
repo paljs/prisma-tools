@@ -269,7 +269,7 @@ export default Table;
 
 Prisma Table has many props to can custom it like you want.
 
-To customize [`tableColumns`](https://github.com/paljs/prisma/blob/master/admin/src/PrismaTable/Table/Columns.tsx) and [`formInputs`](https://github.com/paljs/prisma/blob/master/admin/src/PrismaTable/Form/Inputs.tsx) components you need to look to default components and have good react skills.
+To customize [`tableColumns`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx) and [`formInputs`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx) components you need to look to default components and have good react skills.
 
 ```ts{3,5,7,10,13,16,19,22}
 interface ModelTableProps {
@@ -289,10 +289,10 @@ interface ModelTableProps {
   // default: 4
   paginationOptions?: number;
   // it's function return object with react table columns https://github.com/tannerlinsley/react-table
-  // default here: https://github.com/paljs/prisma/blob/master/admin/src/PrismaTable/Table/Columns.tsx
+  // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx
   tableColumns?: GetColumnsPartial;
   // it's object with form input components for every field type we use this package https://react-hook-form.com/
-  // default here: https://github.com/paljs/prisma/blob/master/admin/src/PrismaTable/Form/Inputs.tsx
+  // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx
   formInputs?: Partial<FormInputs>;
 }
 

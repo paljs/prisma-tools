@@ -239,14 +239,14 @@ prisma:query SELECT `dev`.`Comment`.`id`, `dev`.`Comment`.`postId` FROM `dev`.`C
 
 ## In the End
 
-We have perfect GraphQL server with [Prisma](https://prisma.io) And [PrismaSelect](https://github.com/paljs/prisma) tool.
+We have perfect GraphQL server with [Prisma](https://prisma.io) And [PrismaSelect](https://github.com/paljs/prisma-tools) tool.
 
 You can try my tool with my ready examples:
 
-- [**nexus framework**](https://github.com/paljs/prisma/tree/master/examples/nexus) Using nexus framework to build graphql server and `@prisma-tools/nexus` to create CRUD system
-- [**apollo with nexus schema**](https://github.com/paljs/prisma/tree/master/examples/apollo-nexus-schema) Using Apollo as graphql server, @nexus/schema for build graphql schema and `@prisma-tools/nexus` to create CRUD system
-- [**apollo with graphql modules**](https://github.com/paljs/prisma/tree/master/examples/graphql-modules) Using Apollo as graphql server, graphql-modules for build graphql schema and `@prisma-tools/graphql-modules` to create CRUD system
-- [**apollo with sdl first**](https://github.com/paljs/prisma/tree/master/examples/apollo-sdl-first) Using Apollo as graphql server with sdl first for build graphql and `@prisma-tools/sdl` to create CRUD system
+- [**nexus framework**](https://github.com/paljs/prisma-tools/tree/master/examples/nexus) Using nexus framework to build graphql server and `@prisma-tools/nexus` to create CRUD system
+- [**apollo with nexus schema**](https://github.com/paljs/prisma-tools/tree/master/examples/apollo-nexus-schema) Using Apollo as graphql server, @nexus/schema for build graphql schema and `@prisma-tools/nexus` to create CRUD system
+- [**apollo with graphql modules**](https://github.com/paljs/prisma-tools/tree/master/examples/graphql-modules) Using Apollo as graphql server, graphql-modules for build graphql schema and `@prisma-tools/graphql-modules` to create CRUD system
+- [**apollo with sdl first**](https://github.com/paljs/prisma-tools/tree/master/examples/apollo-sdl-first) Using Apollo as graphql server with sdl first for build graphql and `@prisma-tools/sdl` to create CRUD system
 
 ## Conclusion
 

@@ -77,14 +77,14 @@ Open your terminal and download the starter project with the following command:
 <Tab title="Unix (Mac OS, Linux)">
 
 ```shell
-curl https://codeload.github.com/paljs/prisma/tar.gz/master | tar -xz --strip=2 prisma-master/examples/graphql-modules
+curl https://codeload.github.com/paljs/prisma-tools/tar.gz/master | tar -xz --strip=2 prisma-tools-master/examples/graphql-modules
 ```
 
 </Tab>
 <Tab title="Windows">
 
 ```shell
-curl https://codeload.github.com/paljs/prisma/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-master/examples/graphql-modules && move prisma-master/examples/graphql-modules graphql-modules && rmdir /S /Q prisma-master && del /Q master.tar.gz
+curl https://codeload.github.com/paljs/prisma-tools/tar.gz/master -o master.tar.gz && tar -zxvf master.tar.gz prisma-tools-master/examples/graphql-modules && move prisma-tools-master/examples/graphql-modules graphql-modules && rmdir /S /Q prisma-tools-master && del /Q master.tar.gz
 ```
 
 </Tab>
