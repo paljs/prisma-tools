@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { SchemaObject, Field } from '@prisma-tools/schema';
+import { SchemaObject, Field } from './schema/types';
 
 interface DeleteData {
   name: string;

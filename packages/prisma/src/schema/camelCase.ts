@@ -3,7 +3,7 @@ import { lineArray } from './json';
 
 export function camelCase(path: string) {
   const data = readFileSync(path, { encoding: 'utf-8' });
-  const models = data.match(/model[\s\S]*?\}/g);
+  const models = data.match(/model[\s\S]*?}/g);
   let newData = data;
   if (models) {
     for (const model of models) {

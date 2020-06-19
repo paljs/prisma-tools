@@ -72,7 +72,7 @@ const schemaFile = (path: string, schema: SchemaObject, output: Output) => {
       parser: 'babel',
     },
     ts: {
-      text: `import { SchemaObject } from '@prisma-tools/schema';
+      text: `import { SchemaObject } from '@paljs/prisma';
 
 export const schema: SchemaObject = ${JSON.stringify(schema)}`,
       parser: 'babel-ts',

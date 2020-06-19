@@ -1,33 +1,33 @@
 {
-  "name": "@prisma-tools/delete",
-  "version": "0.0.15",
+  "name": "@paljs/prisma",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:AhmedElywa/prisma-tools.git",
-    "directory": "packages/delete"
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/prisma"
   },
-  "homepage": "https://prisma-tools.ahmedelywa.com/delete",
+  "homepage": "http://www.paljs.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "yarn doc && tsc",
+    "build": "tsc",
     "doc": "doctoc README.md --notitle",
     "prepublish": "yarn build"
   },
-  "devDependencies": {
-    "@prisma-tools/schema": "0.0.11",
-    "@prisma/client": "2.0.1",
-    "doctoc": "1.4.0",
-    "typescript": "3.9.5"
+  "dependencies": {
+    "graphql-fields": "2.0.3"
   },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@prisma/client": "2.0.1",
+    "@nexus/schema": "0.14.0",
+    "doctoc": "1.4.0",
+    "typescript": "3.9.5"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
 }

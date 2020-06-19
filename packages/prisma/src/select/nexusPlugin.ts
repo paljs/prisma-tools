@@ -1,4 +1,4 @@
-import { PrismaSelect } from '@prisma-tools/select';
+import { PrismaSelect } from '.';
 import { plugin } from '@nexus/schema';
 
 export const prismaSelectObject = () =>

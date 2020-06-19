@@ -19,10 +19,6 @@
     "build:doc": "doctoc README.md --notitle",
     "build:ts": "tsc",
     "build": "yarn -s build:ts && yarn -s build:doc",
-    "test": "jest",
-    "publish:stable": "dripip stable",
-    "publish:preview": "dripip preview",
-    "publish:pr": "dripip pr",
     "prepack": "yarn -s build"
   },
   "prettier": {
@@ -30,25 +26,13 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ]
-  },
   "devDependencies": {
-    "@types/jest": "26.0.0",
     "doctoc": "1.4.0",
-    "jest": "26.0.1",
-    "jest-watch-typeahead": "0.6.0",
-    "ts-jest": "26.1.0",
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "nexus": "0.24.2",
-    "nexus-schema-plugin-prisma-select": "0.0.5"
+    "@paljs/prisma": "0.0.0",
+    "nexus": "0.24.2"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
 }

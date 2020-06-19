@@ -2,6 +2,7 @@ import { GraphQLResolveInfo } from 'graphql';
 const graphqlFields = require('graphql-fields');
 import { dmmf } from '@prisma/client';
 import { DMMF } from '@prisma/client/runtime';
+export * from './nexusPlugin';
 
 const dataModel: DMMF.Datamodel = dmmf.datamodel;
 
@@ -50,7 +51,7 @@ export class PrismaSelect {
   constructor(private info: GraphQLResolveInfo, mergeObject: any = {}) {
     const returnType = this.info.returnType
       .toString()
-      .replace(/\]/g, '')
+      .replace(/]/g, '')
       .replace(/\[/g, '')
       .replace(/!/g, '');
     this.value = PrismaSelect.mergeDeep(
@@ -96,6 +97,7 @@ export class PrismaSelect {
    * Get nested value from select object.
    * @param field - name of field in select object.
    * @param filterBy - Model name as you have in schema.prisma file.
+   * @param mergeObject
    * @example
    * // Graphql query
    * {
