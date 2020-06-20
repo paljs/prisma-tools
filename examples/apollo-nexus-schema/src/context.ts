@@ -1,6 +1,6 @@
 import { PrismaClient, PrismaClientOptions } from '@prisma/client'
 import PrismaDelete, { onDeleteArgs } from '@prisma-tools/delete'
-import { schema } from '../prisma/schema'
+import { schema } from './schema'
 
 class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {

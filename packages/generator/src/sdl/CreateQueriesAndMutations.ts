@@ -1,4 +1,4 @@
-import { Options } from '../types';
+import { Options } from '@paljs/types';
 
 export function createQueriesAndMutations(name: string, options: Options) {
   const exclude = options.excludeQueriesAndMutations.concat(

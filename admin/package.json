@@ -1,16 +1,16 @@
 {
-  "name": "@prisma-tools/admin",
-  "version": "1.0.14",
+  "name": "@paljs/admin",
+  "version": "0.0.0",
   "main": "dist/index.cjs.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "url": "git@github.com:paljs/prisma-tools.git",
     "directory": "packages/admin"
   },
-  "homepage": "https://prisma-tools.ahmedelywa.com/admin/generator",
+  "homepage": "https://www.paljs.com",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -19,7 +19,7 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@prisma-tools/schema": "0.0.11",
+    "@paljs/types": "0.0.0",
     "moment": "2.26.0",
     "prettier": "2.0.5",
     "query-string": "6.13.1",

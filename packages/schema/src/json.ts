@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { SchemaObject, Model, Enums, Field } from './types';
+import { SchemaObject, Model, Enums, Field } from '@paljs/types';
 
 export function convertSchemaToObject(path: string) {
   const data = readFileSync(path, { encoding: 'utf-8' });

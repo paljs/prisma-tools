@@ -31,9 +31,26 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`pal generate [FILE]`](#pal-generate-file)
 * [`pal hello [FILE]`](#pal-hello-file)
 * [`pal help [COMMAND]`](#pal-help-command)
-* [`pal schema [FILE]`](#pal-schema-file)
+* [`pal schema CONVERTER`](#pal-schema-converter)
+
+## `pal generate [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ pal generate [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/generate.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/generate.ts)_
 
 ## `pal hello [FILE]`
 
@@ -72,18 +89,22 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 
-## `pal schema [FILE]`
+## `pal schema CONVERTER`
 
-describe the command here
+Prisma schema file converter to json object or change Snack case to Camel case
 
 ```
 USAGE
-  $ pal schema [FILE]
+  $ pal schema CONVERTER
+
+ARGUMENTS
+  CONVERTER  (json|camel-case) specify what is the function you need
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help                     show CLI help
+  -o, --output-path=output-path  [default: prisma/] folder path for converted file
+  -t, --type=(js|ts|json)        [default: ts] type of output file type when you convert to json
+  -v, --version                  show CLI version
 ```
 
 _See code: [src/commands/schema.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/schema.ts)_

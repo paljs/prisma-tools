@@ -19,6 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "@paljs/types": "0.0.0"
+  },
   "devDependencies": {
     "typescript": "3.9.5"
   },

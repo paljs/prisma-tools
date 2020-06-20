@@ -1,13 +1,13 @@
-import { Options } from '../types';
+import { Options } from '@paljs/types';
 import { writeFileSync, mkdirSync } from 'fs';
 import { schema } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { formation } from '../fs';
 
 const defaultOptions: Options = {
-  modelsOutput: 'src/graphql/models',
-  fieldsExclude: [],
-  modelsExclude: [],
+  output: 'src/graphql/models',
+  excludeFields: [],
+  excludeModels: [],
   excludeFieldsByModel: {},
   excludeQueriesAndMutations: [],
   excludeQueriesAndMutationsByModel: {},
@@ -25,7 +25,7 @@ export function createSdl(customOptions: Partial<Options>) {
   };
   let typeDefs: Index = {
     import: `import { mergeTypes } from 'merge-graphql-schemas';
-    import {sdlInputs} from '@paljs/plugin'
+    import {sdlInputs} from '@paljs/plugins'
     `,
     export: ['sdlInputs'],
   };
@@ -33,14 +33,15 @@ export function createSdl(customOptions: Partial<Options>) {
     if (
       !['Query', 'Mutation'].includes(model.name) &&
       !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload'
+      model.name !== 'BatchPayload' &&
+      (!options.models || options.models.includes(model.name))
     ) {
       let fileContent = `type ${model.name} {`;
-      const fieldsExclude = options.fieldsExclude.concat(
+      const excludeFields = options.excludeFields.concat(
         options.excludeFieldsByModel[model.name],
       );
       model.fields.forEach((field) => {
-        if (!fieldsExclude.includes(field.name)) {
+        if (!excludeFields.includes(field.name)) {
           fileContent += `
           ${field.name}`;
           if (field.args.length > 0) {
@@ -63,12 +64,12 @@ export function createSdl(customOptions: Partial<Options>) {
 `;
       const operations = createQueriesAndMutations(model.name, options);
 
-      mkdirSync(`${options.modelsOutput}/${model.name}`, { recursive: true });
+      mkdirSync(`${options.output}/${model.name}`, { recursive: true });
       let resolvers = '';
 
       if (
         !options.disableQueries &&
-        !options.modelsExclude.find(
+        !options.excludeModels.find(
           (item) => item.name === model.name && item.queries,
         )
       ) {
@@ -77,7 +78,7 @@ export function createSdl(customOptions: Partial<Options>) {
       }
       if (
         !options.disableMutations &&
-        !options.modelsExclude.find(
+        !options.excludeModels.find(
           (item) => item.name === model.name && item.mutations,
         )
       ) {
@@ -93,7 +94,7 @@ export function createSdl(customOptions: Partial<Options>) {
       }
         `;
         writeFileSync(
-          `${options.modelsOutput}/${model.name}/resolvers.ts`,
+          `${options.output}/${model.name}/resolvers.ts`,
           formation(resolvers, 'babel-ts'),
         );
 
@@ -114,13 +115,13 @@ export function createSdl(customOptions: Partial<Options>) {
       typeDefs.export.push(model.name);
 
       writeFileSync(
-        `${options.modelsOutput}/${model.name}/typeDefs.ts`,
+        `${options.output}/${model.name}/typeDefs.ts`,
         formation(fileContent, 'babel-ts'),
       );
     }
   });
   writeFileSync(
-    options.modelsOutput,
+    options.output,
     'resolvers.ts',
     formation(
       `${resolversIndex.import}
@@ -132,7 +133,7 @@ export function createSdl(customOptions: Partial<Options>) {
   );
 
   writeFileSync(
-    `${options.modelsOutput}/typeDefs.ts`,
+    `${options.output}/typeDefs.ts`,
     formation(
       `${typeDefs.import}
 

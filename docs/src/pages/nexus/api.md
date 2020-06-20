@@ -68,7 +68,7 @@ type QueriesAndMutations =
 
 ### Example
 
-`src/createTypes.ts`
+`src/index.ts`
 
 ```ts
 import { createTypes } from '@prisma-tools/nexus';

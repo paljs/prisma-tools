@@ -1,0 +1,26 @@
+{
+  "name": "@paljs/types",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/types"
+  },
+  "homepage": "http://www.paljs.com/",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "3.9.5"
+  },
+  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+}

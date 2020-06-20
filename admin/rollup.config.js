@@ -30,9 +30,4 @@ export default [
     output: [{ file: 'dist/Settings.js', format: 'cjs' }],
     ...settings,
   },
-  {
-    input: 'src/generateAdmin/index.ts',
-    output: [{ file: 'dist/generateAdmin.js', format: 'cjs' }],
-    ...settings,
-  },
 ];

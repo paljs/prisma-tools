@@ -1,4 +1,4 @@
-import { Options, Query, Mutation } from '../types';
+import { Options, Query, Mutation } from '@paljs/types';
 import { getCrud } from './templates';
 import { writeFileSync } from 'fs';
 import { createFileIfNotfound, formation } from '../fs';
@@ -20,10 +20,10 @@ export function createQueriesAndMutations(name: string, options: Options) {
   let modelIndex = '';
   if (
     !options.disableQueries &&
-    !options.modelsExclude.find((item) => item.name === name && item.queries)
+    !options.excludeModels.find((item) => item.name === name && item.queries)
   ) {
     let queriesIndex = '';
-    const path = `${options.modelsOutput}/${name}/queries`;
+    const path = `${options.output}/${name}/queries`;
     queries
       .filter((item) => !exclude.includes(item))
       .map((item) => {
@@ -47,10 +47,10 @@ export function createQueriesAndMutations(name: string, options: Options) {
 
   if (
     !options.disableMutations &&
-    !options.modelsExclude.find((item) => item.name === name && item.mutations)
+    !options.excludeModels.find((item) => item.name === name && item.mutations)
   ) {
     let mutationsIndex = '';
-    const path = `${options.modelsOutput}/${name}/mutations`;
+    const path = `${options.output}/${name}/mutations`;
     mutations
       .filter((item) => !exclude.includes(item))
       .map((item) => {

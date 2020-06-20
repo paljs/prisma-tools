@@ -1,0 +1,35 @@
+{
+  "name": "@paljs/nexus",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/nexus"
+  },
+  "homepage": "http://www.paljs.com/",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "doc": "doctoc README.md --notitle",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "@paljs/plugins": "0.0.0",
+    "lowdb": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@prisma/client": "2.0.1",
+    "@types/lowdb": "1.0.9",
+    "@nexus/schema": "0.14.0",
+    "doctoc": "1.4.0",
+    "typescript": "3.9.5"
+  },
+  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+}

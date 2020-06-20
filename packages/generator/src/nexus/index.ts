@@ -1,31 +1,24 @@
-import { Options } from '../types';
+import { Options } from '@paljs/types';
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { schema, DMMF } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
-import { createInput } from './InputTypes';
 import { formation } from '../fs';
 
 const defaultOptions: Options = {
-  modelsOutput: 'src/graphql',
-  fieldsExclude: [],
-  modelsExclude: [],
+  output: 'src/graphql',
+  excludeModels: [],
+  excludeFields: [],
   excludeFieldsByModel: {},
   excludeQueriesAndMutations: [],
   excludeQueriesAndMutationsByModel: {},
 };
 
-export function createSchema(customOptions: Partial<Options>) {
+export function createSchema(customOptions?: Partial<Options>) {
   const options: Options = { ...defaultOptions, ...customOptions };
-  let indexPath = `${options.modelsOutput}/index.ts`;
+  let indexPath = `${options.output}/index.ts`;
   let index = existsSync(indexPath)
     ? readFileSync(indexPath, { encoding: 'utf-8' })
     : '';
-
-  const exportInput = "export * from './inputTypes'";
-  if (!index.includes(exportInput)) {
-    index = `${exportInput}
-${index}`;
-  }
 
   schema.outputTypes.forEach((model) => {
     if (
@@ -52,11 +45,11 @@ ${index}`;
   name: '${model.name}',
   definition(t) {
     `;
-      const fieldsExclude = options.fieldsExclude.concat(
+      const excludeFields = options.excludeFields.concat(
         options.excludeFieldsByModel[model.name],
       );
       model.fields.forEach((field) => {
-        if (!fieldsExclude.includes(field.name)) {
+        if (!excludeFields.includes(field.name)) {
           const options = getOptions(field);
           if (
             field.outputType.kind === 'scalar' &&
@@ -78,7 +71,7 @@ ${index}`;
       let modelIndex = `export * from './type'
 `;
       modelIndex += createQueriesAndMutations(model.name, options);
-      const path = `${options.modelsOutput}/${model.name}`;
+      const path = `${options.output}/${model.name}`;
       !existsSync(path) && mkdirSync(path, { recursive: true });
 
       if (options.nexusSchema) {
@@ -88,12 +81,8 @@ ${index}`;
     }
   });
 
-  writeFileSync(
-    `${options.modelsOutput}/inputTypes.ts`,
-    formation(createInput(options.nexusSchema)),
-  );
   if (options.nexusSchema) {
-    writeFileSync(`${options.modelsOutput}/index.ts`, formation(index));
+    writeFileSync(`${options.output}/index.ts`, formation(index));
   }
 }
 

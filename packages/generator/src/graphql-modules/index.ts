@@ -1,13 +1,13 @@
-import { Options } from '../types';
+import { Options } from '@paljs/types';
 import { writeFileSync, mkdirSync } from 'fs';
 import { schema, datamodel, DMMF } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { formation } from '../fs';
 
 const defaultOptions: Options = {
-  modelsOutput: 'src/app/',
-  fieldsExclude: [],
-  modelsExclude: [],
+  output: 'src/app/',
+  excludeFields: [],
+  excludeModels: [],
   excludeFieldsByModel: {},
   excludeQueriesAndMutations: [],
   excludeQueriesAndMutationsByModel: {},
@@ -30,14 +30,14 @@ export function createModules(customOptions: Partial<Options>) {
       appImports += `import { ${model.name}Module } from './${model.name}/${model.name}.module';
       `;
       let fileContent = `type ${model.name} {`;
-      const fieldsExclude = options.fieldsExclude.concat(
+      const excludeFields = options.excludeFields.concat(
         options.excludeFieldsByModel[model.name],
       );
       const dataModel = datamodel.models.find(
         (item) => item.name === model.name,
       );
       model.fields.forEach((field) => {
-        if (!fieldsExclude.includes(field.name)) {
+        if (!excludeFields.includes(field.name)) {
           const dataField = dataModel?.fields.find(
             (item) => item.name === field.name,
           );
@@ -79,13 +79,13 @@ export function createModules(customOptions: Partial<Options>) {
 
       const operations = createQueriesAndMutations(model.name, options);
 
-      mkdirSync(`${options.modelsOutput}/${model.name}`, { recursive: true });
+      mkdirSync(`${options.output}/${model.name}`, { recursive: true });
       let resolvers = '';
       let resolversComposition = '';
 
       if (
         !options.disableQueries &&
-        !options.modelsExclude.find(
+        !options.excludeModels.find(
           (item) => item.name === model.name && item.queries,
         )
       ) {
@@ -95,7 +95,7 @@ export function createModules(customOptions: Partial<Options>) {
       }
       if (
         !options.disableMutations &&
-        !options.modelsExclude.find(
+        !options.excludeModels.find(
           (item) => item.name === model.name && item.mutations,
         )
       ) {
@@ -113,7 +113,7 @@ export function createModules(customOptions: Partial<Options>) {
       }
         `;
         writeFileSync(
-          `${options.modelsOutput}/${model.name}/resolvers.ts`,
+          `${options.output}/${model.name}/resolvers.ts`,
           formation(resolvers, 'babel-ts'),
         );
       }
@@ -126,12 +126,12 @@ export function createModules(customOptions: Partial<Options>) {
       `;
 
       writeFileSync(
-        `${options.modelsOutput}/${model.name}/typeDefs.ts`,
+        `${options.output}/${model.name}/typeDefs.ts`,
         formation(fileContent, 'babel-ts'),
       );
 
       writeFileSync(
-        `${options.modelsOutput}/${model.name}/${model.name}.module.ts`,
+        `${options.output}/${model.name}/${model.name}.module.ts`,
         formation(
           getModule(model.name, imports, modules, resolversComposition),
           'babel-ts',
@@ -141,7 +141,7 @@ export function createModules(customOptions: Partial<Options>) {
   });
 
   writeFileSync(
-    `${options.modelsOutput}/app.module.ts`,
+    `${options.output}/app.module.ts`,
     formation(AppModule(appImports, appModules), 'babel-ts'),
   );
 }

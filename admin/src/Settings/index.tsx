@@ -20,8 +20,7 @@ import UpdateField from './UpdateField';
 import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
-import { ContextProps } from '../PrismaTable';
-import { SchemaModel } from '../types';
+import { SchemaModel, ContextProps } from '../types';
 
 export const Settings: React.FC = () => {
   const { data } = useQuery<{ getSchema: ContextProps['schema'] }>(GET_SCHEMA);

@@ -1,0 +1,38 @@
+{
+  "name": "nexus-plugin-paljs",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/nexus-plugin-paljs.esm.js",
+  "description": "A Nexus framework plugin for paljs tools",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "directory": "packages/nexus-plugin-paljs"
+  },
+  "homepage": "https://www.paljs.com/",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "build:doc": "doctoc README.md --notitle",
+    "build:ts": "tsc",
+    "build": "yarn -s build:ts && yarn -s build:doc",
+    "prepack": "yarn -s build"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "doctoc": "1.4.0",
+    "typescript": "3.9.5"
+  },
+  "dependencies": {
+    "@paljs/nexus": "0.0.0",
+    "nexus": "0.24.2"
+  },
+  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+}

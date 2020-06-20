@@ -1,11 +1,13 @@
 import React from 'react';
-import { Field, Model, Enums } from '@prisma-tools/schema';
 import {
   Column,
   UseFiltersColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
 import { FormContextValues } from 'react-hook-form';
+import { Schema, SchemaField, SchemaModel } from '@paljs/types';
+
+export { Schema, SchemaField, SchemaModel };
 
 export type Columns = Record<
   'boolean' | 'number' | 'enum' | 'DateTime' | 'object' | 'string' | 'list',
@@ -30,64 +32,6 @@ export type FormInputs = Record<
   'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean',
   React.FC<InputProps>
 >;
-
-export interface SchemaField
-  extends Omit<Field, 'relation' | 'documentation' | 'map'> {
-  id: string;
-  title: string;
-  read: boolean;
-  create: boolean;
-  update: boolean;
-  filter: boolean;
-  sort: boolean;
-  order: number;
-  editor: boolean;
-}
-
-export interface SchemaModel extends Omit<Model, 'documentation' | 'map'> {
-  id: string;
-  idField: string;
-  displayFields: string[];
-  update: boolean;
-  delete: boolean;
-  create: boolean;
-  fields: SchemaField[];
-}
-
-export type Schema = { models: SchemaModel[]; enums: Enums[] };
-
-type QueriesAndMutations =
-  | 'findOne'
-  | 'findMany'
-  | 'findCount'
-  | 'createOne'
-  | 'updateOne'
-  | 'deleteOne'
-  | 'updateMany'
-  | 'deleteMany';
-
-export interface GenerateGraphqlOptions {
-  schema?: Schema;
-  graphqlOutput: string;
-  excludeFields: string[];
-  excludeFieldsByModel: { [modelName: string]: string[] };
-  excludeModels: (
-    | string
-    | { name: string; queries?: boolean; mutations?: boolean }
-  )[];
-  excludeQueriesAndMutationsByModel: {
-    [modelName: string]: QueriesAndMutations[];
-  };
-  excludeQueriesAndMutations: QueriesAndMutations[];
-  disableQueries?: boolean;
-  disableMutations?: boolean;
-}
-
-export interface GeneratePagesOptions {
-  schema?: Schema;
-  pageContent?: string;
-  outPut?: string;
-}
 
 export interface ContextProps extends RequireContextProps, SameProps {
   schema: Schema;

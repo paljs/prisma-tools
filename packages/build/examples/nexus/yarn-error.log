@@ -1,0 +1,69 @@
+Arguments: 
+  /usr/local/Cellar/node/14.4.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js install
+
+PATH: 
+  /Users/ahmed/Library/Python/3.7/bin/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/ahmed/flutter/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  14.4.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/nexus-plugin-paljs: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141720:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141642:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1224:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "name": "nexus-example",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "description": "prisma, nexus example to create CRUD system by one command",
+    "scripts": {
+      "build": "nexus build",
+      "start": "node node_modules/.build",
+      "generate": "npm -s run generate:prisma && npm -s run generate:schema",
+      "generate:prisma": "prisma generate",
+      "generate:pal": "pal generate",
+      "create-migration": "prisma migrate save --experimental",
+      "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
+      "dev": "nexus dev"
+    },
+    "dependencies": {
+      "@prisma/client": "2.0.1",
+      "nexus": "0.23.0",
+      "nexus-plugin-paljs": "0.0.0"
+    },
+    "devDependencies": {
+      "@prisma/cli": "2.0.1",
+      "prettier": "^2.0.4",
+      "ts-node": "^8.8.2",
+      "typescript": "^3.9.5"
+    },
+    "prettier": {
+      "singleQuote": true,
+      "semi": false,
+      "trailingComma": "all"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

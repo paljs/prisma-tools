@@ -11,12 +11,14 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "@paljs/generator": "0.0.0",
     "fs-extra": "^9.0.1",
     "tslib": "^1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
+    "@prisma/client": "^2.0.1",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.1",
     "@types/mocha": "^5",
