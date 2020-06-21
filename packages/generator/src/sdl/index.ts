@@ -1,45 +1,39 @@
 import { Options } from '@paljs/types';
-import { writeFileSync, mkdirSync } from 'fs';
-import { schema } from '../schema';
+import { writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
-import { formation } from '../fs';
+import { Generators } from '../Generators';
 
-const defaultOptions: Options = {
-  output: 'src/graphql/models',
-  excludeFields: [],
-  excludeModels: [],
-  excludeFieldsByModel: {},
-  excludeQueriesAndMutations: [],
-  excludeQueriesAndMutationsByModel: {},
-};
 interface Index {
   import: string;
   export: string[];
 }
-export function createSdl(customOptions: Partial<Options>) {
-  const options: Options = { ...defaultOptions, ...customOptions };
 
-  let resolversIndex: Index = {
+export class GenerateSdl extends Generators {
+  constructor(customOptions?: Partial<Options>) {
+    super(customOptions);
+  }
+
+  run() {
+    this.createModels();
+    this.createMaster();
+  }
+
+  resolversIndex: Index = {
     import: '',
     export: [],
   };
-  let typeDefs: Index = {
+
+  typeDefs: Index = {
     import: `import { mergeTypes } from 'merge-graphql-schemas';
     import {sdlInputs} from '@paljs/plugins'
     `,
     export: ['sdlInputs'],
   };
-  schema.outputTypes.forEach((model) => {
-    if (
-      !['Query', 'Mutation'].includes(model.name) &&
-      !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload' &&
-      (!options.models || options.models.includes(model.name))
-    ) {
+
+  createModels() {
+    this.models.forEach((model) => {
       let fileContent = `type ${model.name} {`;
-      const excludeFields = options.excludeFields.concat(
-        options.excludeFieldsByModel[model.name],
-      );
+      const excludeFields = this.excludeFields(model.name);
       model.fields.forEach((field) => {
         if (!excludeFields.includes(field.name)) {
           fileContent += `
@@ -59,90 +53,98 @@ export function createSdl(customOptions: Partial<Options>) {
           }`;
         }
       });
-      fileContent += `}
-  
-`;
-      const operations = createQueriesAndMutations(model.name, options);
 
-      mkdirSync(`${options.output}/${model.name}`, { recursive: true });
-      let resolvers = '';
+      fileContent += `}\n\n`;
+      this.createFiles(model.name, fileContent);
+    });
+  }
 
-      if (
-        !options.disableQueries &&
-        !options.excludeModels.find(
-          (item) => item.name === model.name && item.queries,
-        )
-      ) {
-        resolvers += operations.queries.resolver;
-        fileContent += operations.queries.type;
-      }
-      if (
-        !options.disableMutations &&
-        !options.excludeModels.find(
-          (item) => item.name === model.name && item.mutations,
-        )
-      ) {
-        resolvers += operations.mutations.resolver;
-        fileContent += operations.mutations.type;
-      }
+  getOperations(model: string) {
+    const exclude = this.excludedOperations(model);
+    return createQueriesAndMutations(
+      model,
+      this.smallModel(model),
+      exclude,
+      this.options.onDelete,
+    );
+  }
 
-      if (resolvers) {
-        resolvers = `import { Context } from '../../../context'
+  createFiles(model: string, typeContent: string) {
+    const operations = this.getOperations(model);
+    this.mkdir(`${this.options.output}/${model}`);
+
+    let resolvers = '';
+    if (this.disableQueries(model)) {
+      resolvers += operations.queries.resolver;
+      typeContent += operations.queries.type;
+    }
+    if (this.disableMutations(model)) {
+      resolvers += operations.mutations.resolver;
+      typeContent += operations.mutations.type;
+    }
+    this.createResolvers(resolvers, model);
+    this.createTypes(typeContent, model);
+  }
+
+  createResolvers(resolvers: string, model: string) {
+    if (resolvers) {
+      resolvers = `import { Context } from '../../../context'
       
       export default {
         ${resolvers}
       }
         `;
-        writeFileSync(
-          `${options.output}/${model.name}/resolvers.ts`,
-          formation(resolvers, 'babel-ts'),
-        );
-
-        resolversIndex.import += `import ${model.name} from './${model.name}/resolvers'
-        `;
-        resolversIndex.export.push(model.name);
-      }
-
-      fileContent = `import gql from 'graphql-tag';
-
-      export default gql\`
-      ${fileContent}
-      \`;
-      `;
-
-      typeDefs.import += `import ${model.name} from './${model.name}/typeDefs'
-        `;
-      typeDefs.export.push(model.name);
-
       writeFileSync(
-        `${options.output}/${model.name}/typeDefs.ts`,
-        formation(fileContent, 'babel-ts'),
+        `${this.options.output}/${model}/resolvers.ts`,
+        this.formation(resolvers, 'babel-ts'),
       );
+
+      this.resolversIndex.import += `import ${model} from './${model}/resolvers'\n`;
+      this.resolversIndex.export.push(model);
     }
-  });
-  writeFileSync(
-    options.output,
-    'resolvers.ts',
-    formation(
-      `${resolversIndex.import}
+  }
 
-    export default ${JSON.stringify(resolversIndex.export).replace(/"/g, '')}
+  createTypes(fileContent: string, model: string) {
+    fileContent = `import gql from 'graphql-tag';\n
+    export default gql\`\n${fileContent}\n\`;\n`;
+
+    this.typeDefs.import += `import ${model} from './${model}/typeDefs'\n`;
+    this.typeDefs.export.push(model);
+
+    writeFileSync(
+      `${this.options.output}/${model}/typeDefs.ts`,
+      this.formation(fileContent, 'babel-ts'),
+    );
+  }
+
+  createMaster() {
+    writeFileSync(
+      this.options.output,
+      'resolvers.ts',
+      this.formation(
+        `${this.resolversIndex.import}
+
+    export default ${JSON.stringify(this.resolversIndex.export).replace(
+      /"/g,
+      '',
+    )}
     `,
-      'babel-ts',
-    ),
-  );
+        'babel-ts',
+      ),
+    );
 
-  writeFileSync(
-    `${options.output}/typeDefs.ts`,
-    formation(
-      `${typeDefs.import}
+    writeFileSync(
+      `${this.options.output}/typeDefs.ts`,
+      this.formation(
+        `${this.typeDefs.import}
 
-    export default mergeTypes(${JSON.stringify(typeDefs.export).replace(
+    export default mergeTypes(${JSON.stringify(this.typeDefs.export).replace(
       /"/g,
       '',
     )})
     `,
-      'babel-ts',
-    ),
-  );
+        'babel-ts',
+      ),
+    );
+  }
 }

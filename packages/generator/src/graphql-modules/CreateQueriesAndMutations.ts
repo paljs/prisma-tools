@@ -1,10 +1,11 @@
-import { Options } from '@paljs/types';
+import { QueriesAndMutations } from '@paljs/types';
 
-export function createQueriesAndMutations(name: string, options: Options) {
-  const exclude = options.excludeQueriesAndMutations.concat(
-    options.excludeQueriesAndMutationsByModel[name] ?? [],
-  );
-  const model = name.charAt(0).toLowerCase() + name.slice(1);
+export function createQueriesAndMutations(
+  name: string,
+  model: string,
+  exclude: QueriesAndMutations[],
+  onDelete?: boolean,
+) {
   const operations = {
     queries: {
       type: 'type Query {',
@@ -82,7 +83,7 @@ export function createQueriesAndMutations(name: string, options: Options) {
     operations.mutations.resolver += `
     deleteOne${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
-        options.onDelete
+        onDelete
           ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
           : ''
       }
@@ -109,7 +110,7 @@ export function createQueriesAndMutations(name: string, options: Options) {
     operations.mutations.resolver += `
     deleteMany${name}: async (_parent, args, { injector }: ModuleContext) => {
       ${
-        options.onDelete
+        onDelete
           ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
           : ''
       }

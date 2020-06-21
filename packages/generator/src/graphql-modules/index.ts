@@ -1,43 +1,43 @@
 import { Options } from '@paljs/types';
-import { writeFileSync, mkdirSync } from 'fs';
-import { schema, datamodel, DMMF } from '../schema';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { datamodel, DMMF } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
-import { formation } from '../fs';
+import { Generators } from '../Generators';
 
-const defaultOptions: Options = {
-  output: 'src/app/',
-  excludeFields: [],
-  excludeModels: [],
-  excludeFieldsByModel: {},
-  excludeQueriesAndMutations: [],
-  excludeQueriesAndMutationsByModel: {},
-};
+export class GenerateModules extends Generators {
+  constructor(customOptions?: Partial<Options>) {
+    super({ output: 'src/app', ...customOptions });
+  }
 
-export function createModules(customOptions: Partial<Options>) {
-  const options: Options = { ...defaultOptions, ...customOptions };
-  let appModules: string[] = ['CommonModule'];
-  let appImports = '';
-  schema.outputTypes.forEach((model) => {
-    let imports = '';
-    let modules: string[] = ['CommonModule'];
-    let extendsTypes = '';
-    if (
-      !['Query', 'Mutation'].includes(model.name) &&
-      !model.name.startsWith('Aggregate') &&
-      model.name !== 'BatchPayload'
-    ) {
-      appModules.push(model.name + 'Module');
-      appImports += `import { ${model.name}Module } from './${model.name}/${model.name}.module';
-      `;
+  run() {
+    this.createModules();
+    this.createApp();
+  }
+
+  private indexPath = `${this.options.output}/app.module.ts`;
+  private index = existsSync(this.indexPath)
+    ? readFileSync(this.indexPath, { encoding: 'utf-8' })
+    : defaultAppContent;
+  private appModules: string[] = getAppModules(this.index);
+
+  private createModules() {
+    this.models.forEach((model) => {
+      let imports = '';
+      let modules: string[] = ['CommonModule'];
+      let extendsTypes = '';
+
+      if (!this.appModules.includes(model.name + 'Module')) {
+        this.appModules.push(model.name + 'Module');
+        this.index = `import { ${model.name}Module } from './${model.name}/${model.name}.module';/n${this.index}`;
+      }
+
       let fileContent = `type ${model.name} {`;
-      const excludeFields = options.excludeFields.concat(
-        options.excludeFieldsByModel[model.name],
-      );
+
       const dataModel = datamodel.models.find(
         (item) => item.name === model.name,
       );
       model.fields.forEach((field) => {
-        if (!excludeFields.includes(field.name)) {
+        if (!this.excludeFields(model.name).includes(field.name)) {
           const dataField = dataModel?.fields.find(
             (item) => item.name === field.name,
           );
@@ -50,16 +50,14 @@ export function createModules(customOptions: Partial<Options>) {
               imports += `import { ${dataField.type}Module } from '../${dataField.type}/${dataField.type}.module';
               `;
               extendsTypes += `extend type ${dataField.type} {`;
-              schema.outputTypes
+              this.models
                 .find((item) => item.name === dataField.type)
                 ?.fields.filter((item) => item.outputType.type === model.name)
                 .forEach((item) => {
                   extendsTypes = getField(item, extendsTypes);
                 });
 
-              extendsTypes += `}
-              
-              `;
+              extendsTypes += `}\n\n`;
             }
 
             fileContent = getField(field, fileContent);
@@ -71,79 +69,96 @@ export function createModules(customOptions: Partial<Options>) {
           }
         }
       });
-      fileContent += `}
-  
-`;
+      fileContent += `}\n\n`;
 
       fileContent += extendsTypes;
+      this.createFiles(model.name, fileContent, imports, modules);
+    });
+  }
 
-      const operations = createQueriesAndMutations(model.name, options);
+  getOperations(model: string) {
+    const exclude = this.excludedOperations(model);
+    return createQueriesAndMutations(
+      model,
+      this.smallModel(model),
+      exclude,
+      this.options.onDelete,
+    );
+  }
 
-      mkdirSync(`${options.output}/${model.name}`, { recursive: true });
-      let resolvers = '';
-      let resolversComposition = '';
+  private createFiles(
+    model: string,
+    content: string,
+    imports: string,
+    modules: string[],
+  ) {
+    const operations = this.getOperations(model);
 
-      if (
-        !options.disableQueries &&
-        !options.excludeModels.find(
-          (item) => item.name === model.name && item.queries,
-        )
-      ) {
-        resolvers += operations.queries.resolver;
-        fileContent += operations.queries.type;
-        resolversComposition += `Query: [addSelect],`;
-      }
-      if (
-        !options.disableMutations &&
-        !options.excludeModels.find(
-          (item) => item.name === model.name && item.mutations,
-        )
-      ) {
-        resolvers += operations.mutations.resolver;
-        fileContent += operations.mutations.type;
-        resolversComposition += `Mutation: [addSelect],`;
-      }
+    this.mkdir(`${this.options.output}/${model}`);
 
-      if (resolvers) {
-        resolvers = `import { ModuleContext } from '@graphql-modules/core';
+    let resolvers = '';
+    let resolversComposition = '';
+
+    if (this.disableQueries(model)) {
+      resolvers += operations.queries.resolver;
+      content += operations.queries.type;
+      resolversComposition += `Query: [addSelect],`;
+    }
+    if (this.disableMutations(model)) {
+      resolvers += operations.mutations.resolver;
+      content += operations.mutations.type;
+      resolversComposition += `Mutation: [addSelect],`;
+    }
+
+    this.createResolver(resolvers, model);
+
+    this.createTypes(content, model);
+
+    writeFileSync(
+      `${this.options.output}/${model}/${model}.module.ts`,
+      this.formation(
+        getModule(model, imports, modules, resolversComposition),
+        'babel-ts',
+      ),
+    );
+  }
+
+  private createTypes(content: string, model: string) {
+    content = `import gql from 'graphql-tag';
+
+      export default gql\`
+      ${content}
+      \`;
+      `;
+
+    writeFileSync(
+      `${this.options.output}/${model}/typeDefs.ts`,
+      this.formation(content, 'babel-ts'),
+    );
+  }
+
+  private createResolver(resolvers: string, model: string) {
+    if (resolvers) {
+      resolvers = `import { ModuleContext } from '@graphql-modules/core';
         import { PrismaProvider } from '../common/Prisma.provider';
       
       export default {
         ${resolvers}
       }
         `;
-        writeFileSync(
-          `${options.output}/${model.name}/resolvers.ts`,
-          formation(resolvers, 'babel-ts'),
-        );
-      }
-
-      fileContent = `import gql from 'graphql-tag';
-
-      export default gql\`
-      ${fileContent}
-      \`;
-      `;
-
       writeFileSync(
-        `${options.output}/${model.name}/typeDefs.ts`,
-        formation(fileContent, 'babel-ts'),
-      );
-
-      writeFileSync(
-        `${options.output}/${model.name}/${model.name}.module.ts`,
-        formation(
-          getModule(model.name, imports, modules, resolversComposition),
-          'babel-ts',
-        ),
+        `${this.options.output}/${model}/resolvers.ts`,
+        this.formation(resolvers, 'babel-ts'),
       );
     }
-  });
+  }
 
-  writeFileSync(
-    `${options.output}/app.module.ts`,
-    formation(AppModule(appImports, appModules), 'babel-ts'),
-  );
+  private createApp() {
+    writeFileSync(
+      `${this.options.output}/app.module.ts`,
+      this.formation(AppModule(this.appModules, this.index), 'babel-ts'),
+    );
+  }
 }
 
 const getModule = (
@@ -176,17 +191,6 @@ export const ${name}Module = new GraphQLModule({
 `;
 };
 
-const AppModule = (imports: string, modules: string[]) => {
-  return `import { GraphQLModule } from '@graphql-modules/core';
-  import { CommonModule } from './common/common.module';
-  ${imports}
-
-  export const AppModule = new GraphQLModule({
-    imports: ${JSON.stringify(modules).replace(/"/g, '')},
-  });
-  `;
-};
-
 const getField = (field: DMMF.SchemaField, content: string) => {
   content += `
     ${field.name}`;
@@ -205,3 +209,38 @@ const getField = (field: DMMF.SchemaField, content: string) => {
   }`;
   return content;
 };
+
+const AppModule = (modules: string[], index: string) => {
+  const importObject = index.match(/imports:[\S\s]*?]/);
+  if (importObject) {
+    const modulesMatch = importObject[0].match(/\[[\S\s]*?]/);
+    if (modulesMatch) {
+      return index.replace(
+        importObject[0],
+        JSON.stringify(modules).replace(/"/g, ''),
+      );
+    }
+  }
+  return '';
+};
+
+const getAppModules = (text: string) => {
+  const importObject = text.match(/imports:[\S\s]*?]/);
+  if (importObject) {
+    const modules = importObject[0].match(/\[([\S\s]*?)]/);
+    if (modules) {
+      return modules[1]
+        .split(',')
+        .filter((a) => a)
+        .map((a) => a.replace(/\s/g, ''));
+    }
+  }
+  return ['CommonModule'];
+};
+
+const defaultAppContent = `import { GraphQLModule } from '@graphql-modules/core';
+import { CommonModule } from './common/common.module';
+
+export const AppModule = new GraphQLModule({
+  imports: [CommonModule],
+});`;

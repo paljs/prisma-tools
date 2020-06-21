@@ -1,5 +1,5 @@
 import { createFile } from './createFile';
-import {Schema} from '@paljs/types';
+import { Schema } from '@paljs/types';
 import { GenerateGraphqlOptions } from '@paljs/types';
 import { format } from 'prettier';
 
@@ -7,51 +7,50 @@ export function createGraphql(
   schemaObject: Schema,
   options: GenerateGraphqlOptions,
 ) {
-  schemaObject.models.forEach((model) => {
-    const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
-      options.excludeQueriesAndMutationsByModel[model.id] ?? [],
-    );
-    let fileContent = `fragment ${model.id}Fields on ${model.id} {
-    `;
-    model.fields.forEach((field) => {
-      const fieldsExclude = options.excludeFields.concat(
-        options.excludeFieldsByModel[model.id],
+  schemaObject.models
+    .filter((model) => !options.models || options.models.includes(model.name))
+    .forEach((model) => {
+      const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
+        options.excludeQueriesAndMutationsByModel[model.id] ?? [],
       );
-      if (fieldsExclude.includes(field.name)) {
-        return;
-      }
-      if (field.kind !== 'object') {
-        fileContent += `${field.name}
+      let fileContent = `fragment ${model.id}Fields on ${model.id} {
+    `;
+      model.fields.forEach((field) => {
+        const fieldsExclude = options.excludeFields.concat(
+          options.excludeFieldsByModel[model.id],
+        );
+        if (fieldsExclude.includes(field.name)) {
+          return;
+        }
+        if (field.kind !== 'object') {
+          fileContent += `${field.name}
         `;
-      }
-    });
-    fileContent += `}
+        }
+      });
+      fileContent += `}
     
     fragment ${model.id} on ${model.id} {
       ...${model.id}Fields
       `;
-    model.fields.forEach((field) => {
-      const fieldsExclude = options.excludeFields.concat(
-        options.excludeFieldsByModel[model.id],
-      );
-      if (fieldsExclude.includes(field.name)) {
-        return;
-      }
-      if (field.kind === 'object' && !field.list) {
-        fileContent += `${field.name} {
+      model.fields.forEach((field) => {
+        const fieldsExclude = options.excludeFields.concat(
+          options.excludeFieldsByModel[model.id],
+        );
+        if (fieldsExclude.includes(field.name)) {
+          return;
+        }
+        if (field.kind === 'object' && !field.list) {
+          fileContent += `${field.name} {
             ...${field.type}Fields
           }
           `;
-      }
-    });
+        }
+      });
 
-    fileContent += `}
+      fileContent += `}
 ${
   !options.disableQueries &&
-  !options.excludeModels.find(
-    (item) =>
-      item.name === model.id && item.queries,
-  )
+  !options.excludeModels.find((item) => item.name === model.id && item.queries)
     ? `
 ${
   !excludeQueriesAndMutations.includes('findOne')
@@ -114,8 +113,7 @@ query findMany${model.id}Count(
 ${
   !options.disableMutations &&
   !options.excludeModels.find(
-    (item) =>
-      item.name === model.id && item.mutations,
+    (item) => item.name === model.id && item.mutations,
   )
     ? `
 ${
@@ -176,14 +174,14 @@ mutation updateMany${model.id}($where: ${model.id}WhereInput, $data: ${model.id}
     : ''
 }
 `;
-    fileContent = format(fileContent, {
-      trailingComma: 'all',
-      singleQuote: true,
-      printWidth: 120,
-      tabWidth: 2,
-      parser: 'graphql',
-    });
+      fileContent = format(fileContent, {
+        trailingComma: 'all',
+        singleQuote: true,
+        printWidth: 120,
+        tabWidth: 2,
+        parser: 'graphql',
+      });
 
-    createFile(options.output, `${model.id}.graphql`, fileContent);
-  });
+      createFile(options.output, `${model.id}.graphql`, fileContent);
+    });
 }
