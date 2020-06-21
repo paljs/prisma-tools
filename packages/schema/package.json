@@ -20,7 +20,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@paljs/types": "0.0.0"
+    "@paljs/types": "0.0.0",
+    "colors": "1.4.0"
   },
   "devDependencies": {
     "typescript": "3.9.5"
