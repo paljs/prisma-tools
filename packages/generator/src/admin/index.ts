@@ -1,13 +1,13 @@
 import { writeFileSync } from 'fs';
 import { format } from 'prettier';
-import { GenerateGraphqlOptions } from '@paljs/types';
+import { Options, AdminPagesOptions, SchemaObject } from '@paljs/types';
 import { createGraphql } from './createGraphql';
-import { mergeSchema, parseSchema } from './mergeSchema';
-export { generatePages } from './buildPages';
-import { Schema } from '@paljs/types';
-import { convertSchemaToObject } from '@paljs/schema';
+import { mergeSchema } from './mergeSchema';
+import { ConvertSchemaToObject } from '@paljs/schema';
+import { createFile } from './createFile';
+import { join } from 'path';
 
-const defaultOptions: GenerateGraphqlOptions = {
+const defaultOptions: Options = {
   output: './src/graphql',
   excludeFields: [],
   excludeModels: [],
@@ -16,31 +16,68 @@ const defaultOptions: GenerateGraphqlOptions = {
   excludeQueriesAndMutationsByModel: {},
 };
 
-export function generateGraphql(
-  customOptions?: Partial<GenerateGraphqlOptions>,
-) {
-  const options: GenerateGraphqlOptions = {
-    ...defaultOptions,
-    ...customOptions,
-  };
-  const schema = options.schema ?? parseSchema('./prisma/adminSettings.json');
-  createGraphql(schema, options);
+export class UIGenerator {
+  schema: SchemaObject;
+
+  constructor(private path?: string) {
+    this.schema = new ConvertSchemaToObject(
+      join(path ?? 'prisma', 'schema.prisma'),
+    ).run();
+  }
+
+  buildSettingsSchema(folder = './prisma/') {
+    const newSchema = mergeSchema(this.schema, folder + 'adminSettings.json');
+    const fileContent = format(`${JSON.stringify(newSchema)}`, {
+      singleQuote: true,
+      semi: false,
+      trailingComma: 'all',
+      parser: 'json',
+    });
+
+    writeFileSync(folder + 'adminSettings.json', fileContent);
+
+    return newSchema;
+  }
+
+  generateGraphql(customOptions?: Omit<Partial<Options>, 'nexusSchema'>) {
+    const options: Options = {
+      ...defaultOptions,
+      ...customOptions,
+    };
+    createGraphql(this.schema, options);
+  }
+
+  generatePages(options?: AdminPagesOptions) {
+    const content = options?.pageContent ?? page;
+    this.schema.models
+      .filter(
+        (model) => !options?.models || options?.models.includes(model.name),
+      )
+      .forEach((model) => {
+        const fileContent = format(content.replace(/#{id}/g, model.name), {
+          semi: true,
+          trailingComma: 'all',
+          singleQuote: true,
+          printWidth: 120,
+          tabWidth: 2,
+          parser: 'babel-ts',
+        });
+        createFile(
+          options?.outPut ?? 'src/pages/admin/models/',
+          `${model.name}.tsx`,
+          fileContent,
+        );
+      });
+  }
 }
 
-export function buildSettingsSchema(folder = './prisma/') {
-  const modelsObject = convertSchemaToObject(folder + 'schema.prisma');
-  const newSchema = mergeSchema(modelsObject, folder + 'adminSettings.json');
-  createSchemaObject(folder + 'adminSettings.json', newSchema);
-  return newSchema;
-}
+const page = `
+import React from 'react';
+import PrismaTable from 'Components/PrismaTable';
 
-function createSchemaObject(path: string, schema: Schema) {
-  const fileContent = format(`${JSON.stringify(schema)}`, {
-    singleQuote: true,
-    semi: false,
-    trailingComma: 'all',
-    parser: 'json',
-  });
+const #{id}: React.FC = () => {
+  return <PrismaTable model="#{id}" />;
+};
 
-  writeFileSync(path, fileContent);
-}
+export default #{id};
+`;

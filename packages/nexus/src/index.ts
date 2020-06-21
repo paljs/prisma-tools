@@ -78,9 +78,11 @@ export const paljs = (settings?: Settings) =>
           }),
         );
       });
-      nexusSchemaInputs.push(
-        ...adminNexusSchemaSettings(settings?.adminSchemaPath),
-      );
+      if (settings?.includeAdmin) {
+        nexusSchemaInputs.push(
+          ...adminNexusSchemaSettings(settings?.adminSchemaPath),
+        );
+      }
       return { types: nexusSchemaInputs };
     },
     onCreateFieldResolver() {

@@ -51,25 +51,24 @@ export interface SchemaModel extends Omit<Model, 'documentation' | 'map'> {
 
 export type Schema = { models: SchemaModel[]; enums: Enums[] };
 
+export type GeneratorsType =
+  | 'nexus'
+  | 'nexus-schema'
+  | 'sdl'
+  | 'graphql-modules';
+
 export interface Config {
   schemaFolder?: string;
   backend?: {
-    generator: 'nexus' | 'nexus-schema' | 'sdl' | 'graphql-modules';
-  } & Omit<Partial<Options>, 'nexusSchema'>;
+    generator: GeneratorsType;
+  } & PartialOptions;
   frontEnd?: {
-    pages?:
-      | {
-          content?: string;
-          output?: string;
-        }
-      | boolean;
-    graphql?: ConfigGraphql | boolean;
+    admin?: AdminPagesOptions | boolean;
+    graphql?: PartialOptions | boolean;
   };
 }
 
-export type ConfigGraphql = Omit<Partial<Options>, 'nexusSchema'> & {
-  schema?: Schema;
-};
+export type PartialOptions = Omit<Partial<Options>, 'nexusSchema'>;
 
 export interface Options {
   models?: string[];
@@ -87,10 +86,6 @@ export interface Options {
   excludeQueriesAndMutations: QueriesAndMutations[];
 }
 
-export interface GenerateGraphqlOptions extends Options {
-  schema?: Schema;
-}
-
 export type Query = 'findOne' | 'findMany' | 'findCount';
 export type Mutation =
   | 'createOne'
@@ -102,8 +97,8 @@ export type Mutation =
 
 export type QueriesAndMutations = Query | Mutation;
 
-export interface GeneratePagesOptions {
-  schema?: Schema;
+export interface AdminPagesOptions {
+  models?: string[];
   pageContent?: string;
   outPut?: string;
 }

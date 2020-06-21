@@ -1,6 +1,6 @@
 {
   "name": "@paljs/cli",
-  "description": "Pal cli will be your friend in developing nodejs full stack projects to auto generate everything for you",
+  "description": "Pal cli will be your friend in developing nodejs full-stack projects to auto generate everything for you",
   "version": "0.0.0",
   "author": "Ahmed Elewa @AhmedElywa",
   "bin": {
@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^3",
     "@paljs/generator": "0.0.0",
     "fs-extra": "^9.0.1",
+    "pkg-dir": "^4.2.0",
     "tslib": "^1"
   },
   "devDependencies": {
