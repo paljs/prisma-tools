@@ -1,12 +1,7 @@
 import { Options } from '@paljs/types';
-import { writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
-
-interface Index {
-  import: string;
-  export: string[];
-}
 
 export class GenerateSdl extends Generators {
   constructor(customOptions?: Partial<Options>) {
@@ -18,17 +13,17 @@ export class GenerateSdl extends Generators {
     this.createMaster();
   }
 
-  resolversIndex: Index = {
-    import: '',
-    export: [],
-  };
+  private resolversPath = `${this.options.output}/resolvers.ts`;
+  private resolversIndex = existsSync(this.resolversPath)
+    ? readFileSync(this.resolversPath, { encoding: 'utf-8' })
+    : defaultResolverFile;
+  private resolversExport: string[] = getCurrentExport(this.resolversIndex);
 
-  typeDefs: Index = {
-    import: `import { mergeTypes } from 'merge-graphql-schemas';
-    import {sdlInputs} from '@paljs/plugins'
-    `,
-    export: ['sdlInputs'],
-  };
+  private typeDefsPath = `${this.options.output}/typeDefs.ts`;
+  private typeDefsIndex = existsSync(this.typeDefsPath)
+    ? readFileSync(this.typeDefsPath, { encoding: 'utf-8' })
+    : defaultTypeFile;
+  private typeDefsExport: string[] = getCurrentExport(this.typeDefsIndex);
 
   createModels() {
     this.models.forEach((model) => {
@@ -99,8 +94,10 @@ export class GenerateSdl extends Generators {
         this.formation(resolvers, 'babel-ts'),
       );
 
-      this.resolversIndex.import += `import ${model} from './${model}/resolvers'\n`;
-      this.resolversIndex.export.push(model);
+      if (!this.resolversExport.includes(model)) {
+        this.resolversExport.push(model);
+        this.resolversIndex = `import ${model} from './${model}/resolvers'\n${this.resolversIndex}`;
+      }
     }
   }
 
@@ -108,43 +105,60 @@ export class GenerateSdl extends Generators {
     fileContent = `import gql from 'graphql-tag';\n
     export default gql\`\n${fileContent}\n\`;\n`;
 
-    this.typeDefs.import += `import ${model} from './${model}/typeDefs'\n`;
-    this.typeDefs.export.push(model);
-
     writeFileSync(
       `${this.options.output}/${model}/typeDefs.ts`,
       this.formation(fileContent, 'babel-ts'),
     );
+
+    if (!this.typeDefsExport.includes(model)) {
+      this.typeDefsExport.push(model);
+      this.typeDefsIndex = `import ${model} from './${model}/typeDefs'\n${this.typeDefsIndex}`;
+    }
   }
 
   createMaster() {
     writeFileSync(
-      this.options.output,
-      'resolvers.ts',
+      this.resolversPath,
       this.formation(
-        `${this.resolversIndex.import}
-
-    export default ${JSON.stringify(this.resolversIndex.export).replace(
-      /"/g,
-      '',
-    )}
-    `,
+        replaceExports(this.resolversExport, this.resolversIndex),
         'babel-ts',
       ),
     );
 
     writeFileSync(
-      `${this.options.output}/typeDefs.ts`,
+      this.resolversPath,
       this.formation(
-        `${this.typeDefs.import}
-
-    export default mergeTypes(${JSON.stringify(this.typeDefs.export).replace(
-      /"/g,
-      '',
-    )})
-    `,
+        replaceExports(this.typeDefsExport, this.typeDefsIndex),
         'babel-ts',
       ),
     );
   }
 }
+
+const replaceExports = (exports: string[], text: string) => {
+  const matchText = text.match(/\[([\S\s]*?)]/);
+  if (matchText) {
+    return text.replace(
+      matchText[0],
+      JSON.stringify(exports).replace(/"/g, ''),
+    );
+  }
+  return '';
+};
+
+const getCurrentExport = (text: string) => {
+  const matchText = text.match(/\[([\S\s]*?)]/);
+  if (matchText) {
+    return matchText[1]
+      .split(',')
+      .filter((a) => a)
+      .map((a) => a.replace(/\s/g, ''));
+  }
+  return [];
+};
+
+const defaultResolverFile = `export default [];`;
+const defaultTypeFile = `import { mergeTypes } from 'merge-graphql-schemas';
+import { sdlInputs } from '@paljs/plugins';
+
+export default mergeTypes([sdlInputs]);`;

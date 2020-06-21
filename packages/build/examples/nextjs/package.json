@@ -7,11 +7,10 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "generate": "yarn generate:prisma && yarn generate:pal && yarn generate:nexus && yarn generate:graphql",
+    "generate": "yarn generate:prisma && yarn generate:nexus",
     "generate:prisma": "prisma generate",
-    "generate:pal": "pal generate",
     "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json src/Api/schema",
-    "generate:graphql": "graphql-codegen --config codegen.yml",
+    "codegen": "graphql-codegen --config codegen.yml",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db"
   },

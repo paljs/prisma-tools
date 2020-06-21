@@ -8,9 +8,7 @@
   "scripts": {
     "build": "nexus build",
     "start": "node node_modules/.build",
-    "generate": "npm -s run generate:prisma && npm -s run generate:schema",
-    "generate:prisma": "prisma generate",
-    "generate:pal": "pal generate",
+    "generate": "prisma generate",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
     "dev": "nexus dev"

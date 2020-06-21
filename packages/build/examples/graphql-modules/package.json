@@ -9,9 +9,7 @@
     "start": "node dist/server",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
-    "generate": "npm -s run generate:prisma && npm -s run generate:pal",
-    "generate:prisma": "prisma generate",
-    "generate:pal": "pal generate",
+    "generate": "prisma generate",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/index"

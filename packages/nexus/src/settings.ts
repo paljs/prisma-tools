@@ -1,4 +1,4 @@
 export interface Settings {
   adminSchemaPath?: string;
-  includeAdmin?: boolean;
+  excludeAdmin?: boolean;
 }

@@ -3,8 +3,8 @@ import { ApolloServer } from 'apollo-server';
 import { applyMiddleware } from 'graphql-middleware';
 import { makeExecutableSchema } from 'graphql-tools';
 import { createContext, Context } from './context';
-import typeDefs from './graphql/models/typeDefs';
-import resolvers from './graphql/models/resolvers';
+import typeDefs from './graphql/typeDefs';
+import resolvers from './graphql/resolvers';
 import { GraphQLResolveInfo } from 'graphql';
 
 let schema = makeExecutableSchema({ typeDefs, resolvers });

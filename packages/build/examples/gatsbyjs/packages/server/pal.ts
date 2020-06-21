@@ -17,9 +17,9 @@ const config: Config = {
     onDelete: true,
   },
   frontEnd: {
-    pages: {
-      output: '../ui/src/pages/admin/models',
-      content: pageContent,
+    admin: {
+      outPut: '../ui/src/pages/admin/models',
+      pageContent,
     },
   },
 }

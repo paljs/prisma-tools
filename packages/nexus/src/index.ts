@@ -78,7 +78,8 @@ export const paljs = (settings?: Settings) =>
           }),
         );
       });
-      if (settings?.includeAdmin) {
+
+      if (!settings?.excludeAdmin) {
         nexusSchemaInputs.push(
           ...adminNexusSchemaSettings(settings?.adminSchemaPath),
         );

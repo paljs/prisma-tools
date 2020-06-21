@@ -6,7 +6,7 @@ const config: Config = {
     onDelete: true,
   },
   frontEnd: {
-    pages: true,
-  }
-}
+    admin: true,
+  },
+};
 export default config;
