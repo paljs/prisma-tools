@@ -18,7 +18,7 @@ export class Generator {
     private options?: Partial<Options>,
   ) {}
 
-  run() {
-    this.generators[this.generator].run();
+  async run() {
+    await this.generators[this.generator].run();
   }
 }

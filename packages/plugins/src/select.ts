@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { dataModel } from './schema';
-const graphqlFields = require('graphql-fields');
+import { dataModel } from 'schema';
+// @ts-ignore
+import graphqlFields from 'graphql-fields';
 
 /**
  * Convert `info` to select object accepted by `prisma client`.

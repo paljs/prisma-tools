@@ -1,12 +1,14 @@
 import { Command, flags } from '@oclif/command';
 import { PartialOptions, AdminPagesOptions } from '@paljs/types';
 import { Generator, UIGenerator } from '@paljs/generator';
-import * as colors from 'colors';
+import chalk from 'chalk';
 import { getConfig } from '../util/getGonfig';
 import { ifPrismaExitAndGenerated } from '../util/ifPrismaExitAndGenerated';
+import spawn from 'cross-spawn';
+import { log } from '@paljs/display';
+import { join } from 'path';
 
-const commandStyle = (text: string) =>
-  `${colors.red('>')} ${colors.blue(text)}`;
+const commandStyle = (text: string) => `${chalk.red('>')} ${chalk.blue(text)}`;
 
 export default class Generate extends Command {
   static description =
@@ -33,7 +35,7 @@ export default class Generate extends Command {
       required: false,
       description:
         'Type of files to generate you can send one or more like queries,mutations',
-      options: ['queries', 'mutations', 'admin', 'graphql'],
+      options: ['crud', 'queries', 'mutations', 'admin', 'graphql'],
     },
   ];
 
@@ -43,7 +45,7 @@ export default class Generate extends Command {
     `# To generate everything for all models in your schema\n${commandStyle(
       'pal g',
     )}\n`,
-    `${colors.yellow('Note:')} you need to change ${colors.blue(
+    `${chalk.yellow('Note:')} you need to change ${chalk.blue(
       'User,Post',
     )} with your schema models\n`,
     `# To generate everything for model or more \n${commandStyle(
@@ -61,57 +63,68 @@ export default class Generate extends Command {
     `# To generate graphql for one model or more \n${commandStyle(
       'pal g User,Post graphql',
     )}\n`,
-    `# To generate one type or more for one model or more \n${commandStyle(
-      'pal g User,Post queries,mutations',
+    `# To generate queries and mutations for one model or more \n${commandStyle(
+      'pal g User,Post crud',
     )}`,
   ];
 
   async run() {
+    const spinner = log.spinner(log.withBrand('Generating your files')).start();
     const { args, flags } = this.parse(Generate);
     const config = await getConfig(flags);
     await ifPrismaExitAndGenerated();
 
     if (config?.backend?.generator) {
       const options: PartialOptions = {};
-      const queries = !args.type || args.type.split(',').include('queries');
-      const mutations = !args.type || args.type.split(',').include('mutations');
+      const queries = !args.type || ['queries', 'crud'].includes(args.type);
+      const mutations = !args.type || ['mutations', 'crud'].includes(args.type);
 
       if (args.models && (queries || mutations)) {
         options.models = args.models.split(',');
         options.disableQueries = !queries;
         options.disableMutations = !mutations;
       }
-      new Generator(config.backend.generator, {
+      await new Generator(config.backend.generator, {
         ...config.backend,
         ...options,
       }).run();
+      if (config.backend.onDelete !== false) {
+        spawn.sync('pal', [
+          's',
+          'json',
+          '-o=' + join(config.backend.output ?? 'src/graphql', '../'),
+        ]);
+      }
     }
 
-    if (config?.frontEnd) {
+    if (config?.frontend) {
       const uiGenerator = new UIGenerator(config.schemaFolder);
-      const admin = !args.type || args.type.split(',').include('admin');
-      const graphql = !args.type || args.type.split(',').include('graphql');
+      const admin = !args.type || args.type === 'admin';
+      const graphql = !args.type || args.type === 'graphql';
 
-      if (config.frontEnd.admin && admin) {
-        uiGenerator.buildSettingsSchema();
+      if (config.frontend.admin && admin) {
+        uiGenerator.buildSettingsSchema(
+          config.backend?.adminSettingsPath ?? config.schemaFolder,
+        );
         const options: AdminPagesOptions = {
-          ...(typeof config.frontEnd.admin !== 'boolean'
-            ? config.frontEnd.admin
+          ...(typeof config.frontend.admin !== 'boolean'
+            ? config.frontend.admin
             : {}),
           models: args.models?.split(','),
         };
         uiGenerator.generatePages(options);
       }
 
-      if (config.frontEnd.graphql && graphql) {
+      if (config.frontend.graphql && graphql) {
         const options: PartialOptions = {
-          ...(typeof config.frontEnd.graphql !== 'boolean'
-            ? config.frontEnd.graphql
+          ...(typeof config.frontend.graphql !== 'boolean'
+            ? config.frontend.graphql
             : {}),
           models: args.models?.split(','),
         };
         uiGenerator.generateGraphql(options);
       }
     }
+    spinner.succeed();
   }
 }

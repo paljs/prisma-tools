@@ -1,0 +1,37 @@
+{
+  "name": "root",
+  "version": "0.0.1",
+  "description": "prisma example with gatsbyjs project to control your db",
+  "main": "index.js",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AhmedElywa/prisma-gatsby.git"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "postinstall": "yarn generate",
+    "generate": "lerna run generate --stream",
+    "dev": "lerna run dev --stream"
+  },
+  "devDependencies": {
+    "husky": "4.x",
+    "lerna": "3.x",
+    "prettier": "2.x",
+    "pretty-quick": "2.x"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
+    }
+  }
+}

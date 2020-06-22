@@ -2,6 +2,7 @@
   "name": "@paljs/types",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -13,8 +14,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc",
-    "prepublish": "yarn build"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "publishConfig": {
     "access": "public"

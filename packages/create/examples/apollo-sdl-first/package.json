@@ -1,0 +1,34 @@
+{
+  "name": "apollo-sdl-first-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "description": "prisma and apollo server  example to create CUED system by one command",
+  "scripts": {
+    "start": "node dist/server",
+    "clean": "rm -rf dist",
+    "build": "npm -s run clean && npm -s run generate && tsc",
+    "generate": "prisma generate",
+    "create-migration": "prisma migrate save --experimental",
+    "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
+  },
+  "dependencies": {
+    "@paljs/plugins": "0.0.0",
+    "@prisma/client": "2.x",
+    "apollo-server": "2.x",
+    "graphql": "15.x",
+    "graphql-middleware": "4.x",
+    "graphql-tools": "6.x",
+    "merge-graphql-schemas": "1.x"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.x",
+    "@types/node": "13.x",
+    "prettier": "2.x",
+    "ts-node": "8.x",
+    "ts-node-dev": "1.x",
+    "typescript": "3.x"
+  }
+}

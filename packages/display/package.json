@@ -1,0 +1,32 @@
+{
+  "name": "@paljs/display",
+  "version": "0.0.0",
+  "description": "Display package for the paljs CLI",
+  "homepage": "https://www.paljs.com",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsdx watch --verbose",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "test:watch": "tsdx test --watch"
+  },
+  "author": {
+    "name": "Ahmed Elywa",
+    "email": "ahmed.elywa@icloud.com",
+    "url": "https://twitter.com/AhmedElywh"
+  },
+  "main": "dist/index.js",
+  "module": "dist/display.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paljs/prisma-tools.git"
+  },
+  "dependencies": {
+    "chalk": "4.0.0",
+    "ora": "4.0.4"
+  }
+}

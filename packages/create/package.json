@@ -1,0 +1,42 @@
+{
+  "name": "@paljs/new",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "module": "dist/new.esm.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/new"
+  },
+  "homepage": "http://www.paljs.com/",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build && yarn build:examples",
+    "build:examples": "wait-on dist/index.js && rimraf examples/**/node_modules && cpy --dot --parents '!/node_modules/' examples dist && node updatePalversion.js",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "@paljs/display": "0.0.0",
+    "@paljs/types": "0.0.0",
+    "babel-plugin-transform-async-to-promises": "^0.8.15",
+    "chalk": "^4.1.0",
+    "cross-spawn": "^7.0.3",
+    "fs-extra": "^9.0.1",
+    "got": "^11.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "cross-spawn": "^7.0.3",
+    "typescript": "3.9.5",
+    "wait-on": "^5.0.1"
+  }
+}

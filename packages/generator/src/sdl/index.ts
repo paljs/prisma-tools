@@ -8,25 +8,25 @@ export class GenerateSdl extends Generators {
     super(customOptions);
   }
 
-  run() {
-    this.createModels();
+  async run() {
+    await this.createModels();
     this.createMaster();
   }
 
-  private resolversPath = `${this.options.output}/resolvers.ts`;
+  private resolversPath = this.output('resolvers.ts');
   private resolversIndex = existsSync(this.resolversPath)
     ? readFileSync(this.resolversPath, { encoding: 'utf-8' })
     : defaultResolverFile;
   private resolversExport: string[] = getCurrentExport(this.resolversIndex);
 
-  private typeDefsPath = `${this.options.output}/typeDefs.ts`;
+  private typeDefsPath = this.output('typeDefs.ts');
   private typeDefsIndex = existsSync(this.typeDefsPath)
     ? readFileSync(this.typeDefsPath, { encoding: 'utf-8' })
     : defaultTypeFile;
   private typeDefsExport: string[] = getCurrentExport(this.typeDefsIndex);
 
-  createModels() {
-    this.models.forEach((model) => {
+  private async createModels() {
+    (await this.models()).forEach((model) => {
       let fileContent = `type ${model.name} {`;
       const excludeFields = this.excludeFields(model.name);
       model.fields.forEach((field) => {
@@ -54,7 +54,7 @@ export class GenerateSdl extends Generators {
     });
   }
 
-  getOperations(model: string) {
+  private getOperations(model: string) {
     const exclude = this.excludedOperations(model);
     return createQueriesAndMutations(
       model,
@@ -64,9 +64,9 @@ export class GenerateSdl extends Generators {
     );
   }
 
-  createFiles(model: string, typeContent: string) {
+  private createFiles(model: string, typeContent: string) {
     const operations = this.getOperations(model);
-    this.mkdir(`${this.options.output}/${model}`);
+    this.mkdir(this.output(model));
 
     let resolvers = '';
     if (this.disableQueries(model)) {
@@ -81,7 +81,7 @@ export class GenerateSdl extends Generators {
     this.createTypes(typeContent, model);
   }
 
-  createResolvers(resolvers: string, model: string) {
+  private createResolvers(resolvers: string, model: string) {
     if (resolvers) {
       resolvers = `import { Context } from '../../../context'
       
@@ -90,7 +90,7 @@ export class GenerateSdl extends Generators {
       }
         `;
       writeFileSync(
-        `${this.options.output}/${model}/resolvers.ts`,
+        this.output(model, 'resolvers.ts'),
         this.formation(resolvers, 'babel-ts'),
       );
 
@@ -101,12 +101,12 @@ export class GenerateSdl extends Generators {
     }
   }
 
-  createTypes(fileContent: string, model: string) {
+  private createTypes(fileContent: string, model: string) {
     fileContent = `import gql from 'graphql-tag';\n
     export default gql\`\n${fileContent}\n\`;\n`;
 
     writeFileSync(
-      `${this.options.output}/${model}/typeDefs.ts`,
+      this.output(model, 'typeDefs.ts'),
       this.formation(fileContent, 'babel-ts'),
     );
 
@@ -116,7 +116,7 @@ export class GenerateSdl extends Generators {
     }
   }
 
-  createMaster() {
+  private createMaster() {
     writeFileSync(
       this.resolversPath,
       this.formation(

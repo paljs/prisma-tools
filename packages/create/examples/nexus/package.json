@@ -1,0 +1,32 @@
+{
+  "name": "nexus-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "description": "prisma, nexus example to create CRUD system by one command",
+  "scripts": {
+    "build": "nexus build",
+    "start": "node node_modules/.build",
+    "generate": "prisma generate",
+    "create-migration": "prisma migrate save --experimental",
+    "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
+    "dev": "nexus dev"
+  },
+  "dependencies": {
+    "@prisma/client": "2.x",
+    "nexus": "0.x",
+    "nexus-plugin-paljs": "0.0.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.x",
+    "prettier": "2.x",
+    "ts-node": "8.x",
+    "typescript": "3.x"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  }
+}

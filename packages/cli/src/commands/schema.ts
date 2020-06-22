@@ -5,6 +5,7 @@ import { SchemaObject } from '@paljs/types';
 import { format, Options } from 'prettier';
 import { writeFileSync } from 'fs';
 import { getConfig } from '../util/getGonfig';
+import { log } from '@paljs/display';
 
 export default class Schema extends Command {
   static description =
@@ -14,7 +15,7 @@ export default class Schema extends Command {
     help: flags.help({ char: 'h' }),
     'output-path': flags.string({
       char: 'o',
-      default: 'prisma/',
+      default: 'src/',
       description: 'folder path for converted file',
     }),
     type: flags.enum({
@@ -44,18 +45,22 @@ export default class Schema extends Command {
     const config = await getConfig(flags, false);
 
     if (args.converter === 'json') {
+      const spinner = log
+        .spinner(log.withBrand('Generating your file'))
+        .start();
       const schemaObject = new ConvertSchemaToObject(
         join(config?.schemaFolder || 'prisma/', 'schema.prisma'),
       ).run();
-      schemaFile(
-        config?.schemaFolder || flags['output-path'],
-        schemaObject,
-        flags.type as Output,
-      );
+      schemaFile(flags['output-path'], schemaObject, flags.type as Output);
+      spinner.succeed();
     } else if (args.converter === 'camel-case') {
+      const spinner = log
+        .spinner(log.withBrand('Converting your schema'))
+        .start();
       new CamelCase(
         join(config?.schemaFolder || 'prisma/', 'schema.prisma'),
       ).convert();
+      spinner.succeed();
     }
   }
 }

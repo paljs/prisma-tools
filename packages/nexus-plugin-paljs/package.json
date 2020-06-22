@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "module": "dist/nexus-plugin-paljs.esm.js",
   "description": "A Nexus framework plugin for paljs tools",
   "repository": {
@@ -15,11 +16,11 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build:doc": "doctoc README.md --notitle",
-    "build:ts": "tsc",
-    "build": "yarn -s build:ts && yarn -s build:doc",
-    "prepack": "yarn -s build"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "prettier": {
     "semi": false,
@@ -27,7 +28,6 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "doctoc": "1.4.0",
     "typescript": "3.9.5"
   },
   "dependencies": {

@@ -1,4 +1,11 @@
-import { SchemaObject, Model, Field, Schema, SchemaModel, SchemaField } from '@paljs/types';
+import {
+  SchemaObject,
+  Model,
+  Field,
+  Schema,
+  SchemaModel,
+  SchemaField,
+} from '@paljs/types';
 import { existsSync, readFileSync } from 'fs';
 
 export function parseSchema(path: string): Schema {

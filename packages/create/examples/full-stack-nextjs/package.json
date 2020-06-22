@@ -1,0 +1,74 @@
+{
+  "name": "prisma-with-admin",
+  "version": "0.0.2",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "generate": "yarn generate:prisma && yarn generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json src/Api/schema",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "create-migration": "prisma migrate save --experimental",
+    "migrate-database": "prisma migrate up --experimental --auto-approve --create-db"
+  },
+  "dependencies": {
+    "@apollo/client": "3.x",
+    "@apollo/react-ssr": "4.x",
+    "@nexus/schema": "0.x",
+    "@paljs/nexus": "0.0.0",
+    "@paljs/admin": "0.0.0",
+    "@paljs/ui": "0.0.0",
+    "@paljs/eva-icon": "0.0.0",
+    "@prisma/client": "2.x",
+    "apollo-server-micro": "2.x",
+    "bcryptjs": "2.x",
+    "cookie": "0.x",
+    "graphql": "14.x",
+    "graphql-tag": "2.x",
+    "graphql-tools": "6.x",
+    "jsonwebtoken": "8.x",
+    "next": "latest",
+    "react": "16.x",
+    "react-dom": "16.x",
+    "styled-components": "5.x",
+    "ts-node": "8.x"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.x",
+    "@graphql-codegen/typescript": "1.x",
+    "@graphql-codegen/typescript-operations": "1.x",
+    "@graphql-codegen/typescript-react-apollo": "1.x",
+    "@prisma/cli": "2.x",
+    "@types/bcryptjs": "2.x",
+    "@types/cookie": "0.x",
+    "@types/graphql": "14.x",
+    "@types/jsonwebtoken": "8.x",
+    "@types/node": "12.x",
+    "@types/react": "16.x",
+    "@types/react-dom": "16.x",
+    "@types/styled-components": "4.x",
+    "@typescript-eslint/eslint-plugin": "3.x",
+    "@typescript-eslint/parser": "3.x",
+    "babel-plugin-graphql-tag": "2.x",
+    "babel-plugin-styled-components": "1.x",
+    "eslint": "7.x",
+    "eslint-config-prettier": "6.x",
+    "eslint-plugin-prettier": "3.x",
+    "eslint-plugin-react": "7.x",
+    "husky": "4.x",
+    "prettier": "2.x",
+    "pretty-quick": "2.x",
+    "typescript": "3.x"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
+    }
+  },
+  "cacheDirectories": [
+    ".next/cache"
+  ]
+}

@@ -21,12 +21,15 @@ export class UIGenerator {
 
   constructor(private path?: string) {
     this.schema = new ConvertSchemaToObject(
-      join(path ?? 'prisma', 'schema.prisma'),
+      join(this.path ?? 'prisma', 'schema.prisma'),
     ).run();
   }
 
   buildSettingsSchema(folder = './prisma/') {
-    const newSchema = mergeSchema(this.schema, folder + 'adminSettings.json');
+    const newSchema = mergeSchema(
+      this.schema,
+      join(folder, 'adminSettings.json'),
+    );
     const fileContent = format(`${JSON.stringify(newSchema)}`, {
       singleQuote: true,
       semi: false,
@@ -34,7 +37,7 @@ export class UIGenerator {
       parser: 'json',
     });
 
-    writeFileSync(folder + 'adminSettings.json', fileContent);
+    writeFileSync(join(folder, 'adminSettings.json'), fileContent);
 
     return newSchema;
   }

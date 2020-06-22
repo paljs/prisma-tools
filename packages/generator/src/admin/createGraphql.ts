@@ -1,12 +1,8 @@
 import { createFile } from './createFile';
-import { SchemaObject } from '@paljs/types';
-import { GenerateGraphqlOptions } from '@paljs/types';
+import { SchemaObject, Options } from '@paljs/types';
 import { format } from 'prettier';
 
-export function createGraphql(
-  schemaObject: SchemaObject,
-  options: GenerateGraphqlOptions,
-) {
+export function createGraphql(schemaObject: SchemaObject, options: Options) {
   schemaObject.models
     .filter((model) => !options.models || options.models.includes(model.name))
     .forEach((model) => {

@@ -1,18 +1,18 @@
 {
   "include": [
-    "src"
+    "src",
+    "types"
   ],
-  "types" : ["mocha", "jest"],
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "CommonJS",
-    "lib": ["esnext"],
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
     "importHelpers": true,
     "declaration": true,
-    "outDir": "dist",
     "sourceMap": true,
-    "rootDir": "src",
+    "rootDir": "./src",
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",

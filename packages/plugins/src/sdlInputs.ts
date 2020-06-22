@@ -1,4 +1,4 @@
-import { schema, DMMF } from './schema';
+import { schema, DMMF } from 'schema';
 import gql from 'graphql-tag';
 import { GraphQLSchema, printSchema } from 'graphql';
 import { writeFileSync } from 'fs';

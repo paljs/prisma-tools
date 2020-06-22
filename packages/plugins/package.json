@@ -2,6 +2,7 @@
   "name": "@paljs/plugins",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "module": "dist/plugins.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -13,9 +14,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc",
-    "doc": "doctoc README.md --notitle",
-    "prepublish": "yarn build"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "dependencies": {
     "graphql-tag": "2.10.3",
@@ -27,7 +30,6 @@
   },
   "devDependencies": {
     "@prisma/client": "2.0.1",
-    "doctoc": "1.4.0",
     "typescript": "3.9.5"
   },
   "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"

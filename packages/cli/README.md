@@ -31,18 +31,17 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`pal generate [FILE]`](#pal-generate-file)
-* [`pal hello [FILE]`](#pal-hello-file)
+* [`pal create [FILE]`](#pal-create-file)
 * [`pal help [COMMAND]`](#pal-help-command)
 * [`pal schema CONVERTER`](#pal-schema-converter)
 
-## `pal generate [FILE]`
+## `pal create [FILE]`
 
 describe the command here
 
 ```
 USAGE
-  $ pal generate [FILE]
+  $ pal create [FILE]
 
 OPTIONS
   -f, --force
@@ -50,27 +49,7 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/generate.ts)_
-
-## `pal hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ pal hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ pal hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/create.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/create.ts)_
 
 ## `pal help [COMMAND]`
 
@@ -101,10 +80,13 @@ ARGUMENTS
   CONVERTER  (json|camel-case) specify what is the function you need
 
 OPTIONS
+  -c, --config=config            [default: pal] You can pass custom config file name
   -h, --help                     show CLI help
   -o, --output-path=output-path  [default: prisma/] folder path for converted file
   -t, --type=(js|ts|json)        [default: ts] type of output file type when you convert to json
-  -v, --version                  show CLI version
+
+ALIASES
+  $ pal s
 ```
 
 _See code: [src/commands/schema.ts](https://github.com/paljs/prisma-tools/blob/v0.0.0/src/commands/schema.ts)_

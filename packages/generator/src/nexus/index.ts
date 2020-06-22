@@ -3,22 +3,24 @@ import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { DMMF } from '../schema';
 import { Generators } from '../Generators';
 import { getCrud } from './templates';
+import { join } from 'path';
 
 export class GenerateNexus extends Generators {
   constructor(customOptions?: Partial<Options>) {
     super(customOptions);
   }
 
-  private indexPath = `${this.options.output}/index.ts`;
+  private indexPath = this.output('index.ts');
   private index = this.readIndex();
 
-  run() {
-    this.createModels();
+  async run() {
+    await this.createModels();
     this.createIndex();
   }
 
-  private createModels() {
-    this.models.forEach((model) => {
+  private async createModels() {
+    const models = await this.models();
+    models.forEach((model) => {
       const exportString = `export * from './${model.name}'`;
       if (!this.index.includes(exportString)) {
         this.index = `export * from './${model.name}'\n${this.index}`;
@@ -52,9 +54,9 @@ export class GenerateNexus extends Generators {
       });
 
       fileContent += `},\n})\n\n`;
-      const path = `${this.options.output}/${model.name}`;
+      const path = this.output(model.name);
       this.mkdir(path);
-      writeFileSync(`${path}/type.ts`, this.formation(fileContent));
+      writeFileSync(join(path, 'type.ts'), this.formation(fileContent));
 
       let modelIndex = `export * from './type'\n`;
       modelIndex += this.createQueriesAndMutations(model.name);
@@ -67,7 +69,7 @@ export class GenerateNexus extends Generators {
     let modelIndex = '';
     if (this.disableQueries(name)) {
       let queriesIndex = '';
-      const path = `${this.options.output}/${name}/queries`;
+      const path = this.output(name, 'queries');
       this.queries
         .filter((item) => !exclude.includes(item))
         .map((item) => {
@@ -89,13 +91,13 @@ export class GenerateNexus extends Generators {
       if (queriesIndex && this.options.nexusSchema) {
         modelIndex += `export * from './queries'
 `;
-        writeFileSync(`${path}/index.ts`, this.formation(queriesIndex));
+        writeFileSync(join(path, 'index.ts'), this.formation(queriesIndex));
       }
     }
 
     if (this.disableMutations(name)) {
       let mutationsIndex = '';
-      const path = `${this.options.output}/${name}/mutations`;
+      const path = this.output(name, 'mutations');
       this.mutations
         .filter((item) => !exclude.includes(item))
         .map((item) => {
@@ -116,7 +118,7 @@ export class GenerateNexus extends Generators {
         });
       if (mutationsIndex && this.options.nexusSchema) {
         modelIndex += `export * from './mutations'`;
-        writeFileSync(`${path}/index.ts`, this.formation(mutationsIndex));
+        writeFileSync(join(path, 'index.ts'), this.formation(mutationsIndex));
       }
     }
     return modelIndex;
@@ -125,12 +127,9 @@ export class GenerateNexus extends Generators {
   private createIndex(path?: string, content?: string) {
     if (this.options.nexusSchema) {
       if (path && content) {
-        writeFileSync(`${path}/index.ts`, this.formation(content));
+        writeFileSync(join(path, 'index.ts'), this.formation(content));
       } else {
-        writeFileSync(
-          `${this.options.output}/index.ts`,
-          this.formation(this.index),
-        );
+        writeFileSync(this.output('index.ts'), this.formation(this.index));
       }
     }
   }

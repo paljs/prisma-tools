@@ -1,6 +1,6 @@
 import { Options } from '@paljs/types';
 import { writeFileSync, readFileSync, existsSync } from 'fs';
-import { datamodel, DMMF } from '../schema';
+import { DMMF } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 
@@ -9,19 +9,21 @@ export class GenerateModules extends Generators {
     super({ output: 'src/app', ...customOptions });
   }
 
-  run() {
-    this.createModules();
+  async run() {
+    await this.createModules();
     this.createApp();
   }
 
-  private indexPath = `${this.options.output}/app.module.ts`;
+  private indexPath = this.output('app.module.ts');
   private index = existsSync(this.indexPath)
     ? readFileSync(this.indexPath, { encoding: 'utf-8' })
     : defaultAppContent;
   private appModules: string[] = getAppModules(this.index);
 
-  private createModules() {
-    this.models.forEach((model) => {
+  private async createModules() {
+    const models = await this.models();
+    const datamodel = await this.datamodel();
+    models.forEach((model) => {
       let imports = '';
       let modules: string[] = ['CommonModule'];
       let extendsTypes = '';
@@ -50,7 +52,7 @@ export class GenerateModules extends Generators {
               imports += `import { ${dataField.type}Module } from '../${dataField.type}/${dataField.type}.module';
               `;
               extendsTypes += `extend type ${dataField.type} {`;
-              this.models
+              models
                 .find((item) => item.name === dataField.type)
                 ?.fields.filter((item) => item.outputType.type === model.name)
                 .forEach((item) => {
@@ -94,7 +96,7 @@ export class GenerateModules extends Generators {
   ) {
     const operations = this.getOperations(model);
 
-    this.mkdir(`${this.options.output}/${model}`);
+    this.mkdir(this.output(model));
 
     let resolvers = '';
     let resolversComposition = '';
@@ -115,7 +117,7 @@ export class GenerateModules extends Generators {
     this.createTypes(content, model);
 
     writeFileSync(
-      `${this.options.output}/${model}/${model}.module.ts`,
+      this.output(model, `${model}.module.ts`),
       this.formation(
         getModule(model, imports, modules, resolversComposition),
         'babel-ts',
@@ -132,7 +134,7 @@ export class GenerateModules extends Generators {
       `;
 
     writeFileSync(
-      `${this.options.output}/${model}/typeDefs.ts`,
+      this.output(model, 'typeDefs.ts'),
       this.formation(content, 'babel-ts'),
     );
   }
@@ -147,7 +149,7 @@ export class GenerateModules extends Generators {
       }
         `;
       writeFileSync(
-        `${this.options.output}/${model}/resolvers.ts`,
+        this.output(model, 'resolvers.ts'),
         this.formation(resolvers, 'babel-ts'),
       );
     }
@@ -155,7 +157,7 @@ export class GenerateModules extends Generators {
 
   private createApp() {
     writeFileSync(
-      `${this.options.output}/app.module.ts`,
+      this.indexPath,
       this.formation(AppModule(this.appModules, this.index), 'babel-ts'),
     );
   }

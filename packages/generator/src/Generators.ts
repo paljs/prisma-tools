@@ -1,11 +1,14 @@
 import { Mutation, Options, Query } from '@paljs/types';
-import { schema } from './schema';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { format, Options as PrettierOptions } from 'prettier';
+import pkgDir from 'pkg-dir';
+import { join } from 'path';
+import { DMMF } from '@prisma/client/runtime';
+const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
   protected options: Options = {
-    output: 'src/graphql',
+    output: join(projectRoot, 'src/graphql'),
     excludeFields: [],
     excludeModels: [],
     excludeFieldsByModel: {},
@@ -27,7 +30,20 @@ export class Generators {
     this.options = { ...this.options, ...customOptions };
   }
 
-  protected get models() {
+  protected async dmmf() {
+    const { dmmf } = await import(
+      join(projectRoot, 'node_modules', '@prisma/client')
+    );
+    return dmmf;
+  }
+
+  protected async datamodel() {
+    const { datamodel }: { datamodel: DMMF.Datamodel } = await this.dmmf();
+    return datamodel;
+  }
+
+  protected async models() {
+    const { schema }: { schema: DMMF.Schema } = await this.dmmf();
     return schema.outputTypes.filter(
       (model) =>
         !['Query', 'Mutation'].includes(model.name) &&
@@ -75,14 +91,18 @@ export class Generators {
     !existsSync(path) && mkdirSync(path, { recursive: true });
   }
 
+  protected output(...paths: string[]): string {
+    return join(this.options.output, ...paths);
+  }
+
   protected createFileIfNotfound(
     path: string,
     fileName: string,
     content: string,
   ) {
     !existsSync(path) && this.mkdir(path);
-    !existsSync(`${path}/${fileName}`) &&
-      writeFileSync(`${path}/${fileName}`, content);
+    !existsSync(join(path, fileName)) &&
+      writeFileSync(join(path, fileName), content);
   }
 
   protected formation(
