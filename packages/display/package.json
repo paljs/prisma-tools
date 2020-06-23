@@ -30,5 +30,8 @@
     "chalk": "4.0.0",
     "ora": "4.0.4"
   },
-  "gitHead": "b6ab8d786c9b4b9e3912bac18bbc788f8d0775f0"
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "29e04378d4b34ed2731b67df629851ec09bba395"
 }
