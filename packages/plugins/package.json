@@ -1,6 +1,6 @@
 {
   "name": "@paljs/plugins",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/plugins.esm.js",
   "types": "dist/index.d.ts",
@@ -21,9 +21,9 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "graphql-tag": "2.10.3",
-    "@paljs/types": "0.0.0",
-    "graphql-fields": "2.0.3"
+    "@paljs/types": "^0.0.1",
+    "graphql-fields": "2.0.3",
+    "graphql-tag": "2.10.3"
   },
   "publishConfig": {
     "access": "public"
