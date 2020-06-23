@@ -9,7 +9,7 @@
     "url": "git@github.com:paljs/prisma-tools.git",
     "directory": "packages/nexus"
   },
-  "homepage": "http://www.paljs.com/",
+  "homepage": "https://paljs.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -31,8 +31,6 @@
     "@prisma/client": "2.0.1",
     "@types/lowdb": "1.0.9",
     "@nexus/schema": "0.14.0",
-    "doctoc": "1.4.0",
     "typescript": "3.9.5"
-  },
-  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+  }
 }

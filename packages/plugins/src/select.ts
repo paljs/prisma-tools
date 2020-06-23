@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { dataModel } from 'schema';
+import { dataModel } from './schema';
 // @ts-ignore
 import graphqlFields from 'graphql-fields';
 

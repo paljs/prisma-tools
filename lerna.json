@@ -1,9 +1,8 @@
 {
-  "version": "independent",
+  "version": "0.0.1",
   "useWorkspaces": true,
   "packages": [
-    "packages/*",
-    "admin"
+    "packages/*"
   ],
   "npmClient": "yarn",
   "command": {

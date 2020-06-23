@@ -11,7 +11,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/nexus-plugin-paljs"
   },
-  "homepage": "https://www.paljs.com/",
+  "homepage": "https://paljs.com/",
   "files": [
     "dist"
   ],
@@ -33,6 +33,5 @@
   "dependencies": {
     "@paljs/nexus": "0.0.0",
     "nexus": "0.24.2"
-  },
-  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+  }
 }

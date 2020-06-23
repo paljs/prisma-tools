@@ -83,7 +83,7 @@ export class GenerateSdl extends Generators {
 
   private createResolvers(resolvers: string, model: string) {
     if (resolvers) {
-      resolvers = `import { Context } from '../../../context'
+      resolvers = `import { Context } from '../../context'
       
       export default {
         ${resolvers}

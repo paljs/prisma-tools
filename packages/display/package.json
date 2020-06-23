@@ -2,13 +2,14 @@
   "name": "@paljs/display",
   "version": "0.0.0",
   "description": "Display package for the paljs CLI",
-  "homepage": "https://www.paljs.com",
+  "homepage": "https://paljs.com",
   "license": "MIT",
   "scripts": {
-    "dev": "tsdx watch --verbose",
+    "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "test:watch": "tsdx test --watch"
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "author": {
     "name": "Ahmed Elywa",

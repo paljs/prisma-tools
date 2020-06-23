@@ -1,9 +1,8 @@
 {
   "name": "@paljs/admin",
   "version": "0.0.0",
-  "main": "dist/index.cjs.js",
-  "jsnext:main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/admin.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -15,8 +14,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rollup -c",
-    "prepare": "yarn build"
+    "start": "tsdx watch",
+    "build": "tsdx build  --transpileOnly",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "dependencies": {
     "@paljs/types": "0.0.0",
@@ -43,8 +45,6 @@
     "@paljs/ui": "1.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "rollup": "2.17.0",
-    "rollup-plugin-typescript2": "0.27.1",
     "styled-components": "5.1.1",
     "typescript": "3.9.5"
   },

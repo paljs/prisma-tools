@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { Field } from '@paljs/types';
-const colors = require('colors');
+import { log } from '@paljs/display';
+import chalk from 'chalk';
 
 export class PrismaReader {
   protected data: string;
@@ -24,10 +25,10 @@ export class PrismaReader {
 
   protected checkIfSchemaExit() {
     if (!existsSync(this.path)) {
-      console.error(
-        `${colors.red('Error:')} ${colors.blue(
-          'schema.prisma',
-        )} file not found in ${colors.blue(this.path)}`,
+      log.error(
+        `Error: ${chalk.blue('schema.prisma')} file not found in ${chalk.blue(
+          this.path,
+        )}`,
       );
       process.exit();
     }

@@ -9,7 +9,7 @@
     "url": "git@github.com:AhmedElywa/prisma-tools.git",
     "directory": "packages/generator"
   },
-  "homepage": "https://www.paljs.com/",
+  "homepage": "http://paljs.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
@@ -22,14 +22,12 @@
   },
   "dependencies": {
     "@paljs/types": "0.0.0",
-    "colors": "1.4.0",
     "prettier": "^2.0.4"
   },
   "devDependencies": {
     "@prisma/client": "2.0.1",
     "@types/node": "13.13.5",
     "@types/prettier": "2.0.1",
-    "doctoc": "1.4.0",
     "typescript": "3.9.5"
   },
   "files": [
@@ -37,6 +35,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "c0cc83406c055b8d99502299547287019ca0e6da"
+  }
 }

@@ -7,9 +7,9 @@
     "prettier": "2.0.5",
     "pretty-quick": "2.0.1"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": ["packages/*"]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx)\" --staged"

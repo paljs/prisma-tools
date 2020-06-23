@@ -50,7 +50,7 @@ export class UIGenerator {
     createGraphql(this.schema, options);
   }
 
-  generatePages(options?: AdminPagesOptions) {
+  generateAdminPages(options?: AdminPagesOptions) {
     const content = options?.pageContent ?? page;
     this.schema.models
       .filter(

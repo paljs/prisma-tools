@@ -1,15 +1,15 @@
 {
-  "name": "@paljs/new",
+  "name": "@paljs/create",
   "version": "0.0.0",
   "main": "dist/index.js",
-  "module": "dist/new.esm.js",
+  "module": "dist/create.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:paljs/prisma-tools.git",
-    "directory": "packages/new"
+    "directory": "packages/create"
   },
-  "homepage": "http://www.paljs.com/",
+  "homepage": "https://paljs.com/",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,

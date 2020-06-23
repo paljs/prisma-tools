@@ -59,7 +59,6 @@ export class AppGenerator {
       for (const dep of ['dependencies', 'devDependencies']) {
         if (pkg[dep]) {
           const { value, isFallback } = await fetchLatestVersionsFor(pkg[dep]);
-          console.log(value);
           pkg[dep] = value;
           if (!fallbackUsed) fallbackUsed = isFallback;
         }
@@ -180,6 +179,8 @@ export class AppGenerator {
       } else {
         formattingSpinner.succeed();
       }
+    } else if (this.options.skipInstall) {
+      spinner.succeed();
     } else {
       console.log(''); // New line needed
       spinner.fail(
