@@ -1,6 +1,6 @@
 {
   "name": "nexus-plugin-paljs",
-  "version": "0.0.1",
+  "version": null,
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

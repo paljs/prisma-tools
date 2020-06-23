@@ -1,6 +1,6 @@
 {
   "name": "@paljs/plugins",
-  "version": "0.0.1",
+  "version": null,
   "main": "dist/index.js",
   "module": "dist/plugins.esm.js",
   "types": "dist/index.d.ts",
