@@ -1,6 +1,6 @@
 {
   "name": "@paljs/schema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/schema.esm.js",
   "types": "dist/index.d.ts",
@@ -24,8 +24,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@paljs/display": "^0.0.1",
-    "@paljs/types": "^0.0.1"
+    "@paljs/display": "^0.0.2",
+    "@paljs/types": "^0.0.2"
   },
   "devDependencies": {
     "typescript": "3.9.5"
