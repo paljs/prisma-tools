@@ -104,14 +104,9 @@ export default class Create extends Command {
       );
       this.log('Go inside your project folder\n');
       this.log(log.withCaret(chalk.bold.blue(`cd ${answers.name}\n`)));
-      this.log('Generate Prisma client by running:\n');
-      this.log(log.withCaret(chalk.bold.blue(`${packageCommand} generate\n`)));
       this.log(
-        'Update schema.prisma file and generate your CRUD, admin run:\n ',
+        `Please open ${chalk.bold.blue('README.md')} file and go with steps\n`,
       );
-      this.log(log.withCaret(chalk.bold.blue(`pal g\n`)));
-      this.log('Start your server by running: \n');
-      this.log(log.withCaret(chalk.bold.blue(`${packageCommand} dev\n`)));
     } catch (err) {
       this.error(err);
     }

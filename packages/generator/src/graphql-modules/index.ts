@@ -218,7 +218,7 @@ const AppModule = (modules: string[], index: string) => {
     const modulesMatch = importObject[0].match(/\[[\S\s]*?]/);
     if (modulesMatch) {
       return index.replace(
-        importObject[0],
+        modulesMatch[0],
         JSON.stringify(modules).replace(/"/g, ''),
       );
     }

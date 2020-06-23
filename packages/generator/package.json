@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@paljs/types": "^0.0.3",
-    "prettier": "^2.0.4"
+    "prettier": "^2.0.5"
   },
   "devDependencies": {
     "@prisma/client": "2.0.1",

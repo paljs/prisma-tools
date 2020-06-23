@@ -5,7 +5,7 @@ import { join } from 'path'
 
 export const schema = makeSchema({
   types,
-  plugins: [paljs()],
+  plugins: [paljs({ includeAdmin: true })],
   outputs: {
     schema: join(process.cwd(), 'src', 'generated', 'schema.graphql'),
     typegen: join(process.cwd(), 'src', 'generated', 'nexus-typegen.ts'),

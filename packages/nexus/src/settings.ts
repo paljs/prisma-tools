@@ -1,5 +1,5 @@
 export interface Settings {
   adminSchemaPath?: string;
-  excludeAdmin?: boolean;
+  includeAdmin?: boolean;
   isNexus?: boolean;
 }

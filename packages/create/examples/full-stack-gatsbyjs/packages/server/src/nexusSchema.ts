@@ -4,7 +4,7 @@ import { paljs } from '@paljs/nexus'
 
 export const schema = makeSchema({
   types,
-  plugins: [paljs()],
+  plugins: [paljs({ includeAdmin: true })],
   outputs: {
     schema: __dirname + '/../schema.graphql',
     typegen: __dirname + '/generated/nexus.ts',
