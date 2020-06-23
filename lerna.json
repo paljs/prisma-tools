@@ -10,7 +10,8 @@
       "ignoreChanges": [
         "ignored-file",
         "*.md"
-      ]
+      ],
+      "bump": "from-package"
     }
   }
 }
