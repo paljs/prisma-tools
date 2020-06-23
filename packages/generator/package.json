@@ -1,6 +1,6 @@
 {
   "name": "@paljs/generator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@paljs/types": "^0.0.2",
+    "@paljs/types": "^0.0.3",
     "prettier": "^2.0.4"
   },
   "devDependencies": {
