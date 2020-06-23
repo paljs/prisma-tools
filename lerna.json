@@ -10,11 +10,7 @@
       "ignoreChanges": [
         "ignored-file",
         "*.md"
-      ],
-      "bump": "from-package"
-    },
-    "version": {
-      "allowBranch": "master"
+      ]
     }
   }
 }
