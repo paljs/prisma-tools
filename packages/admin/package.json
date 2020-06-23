@@ -18,7 +18,7 @@
     "build": "tsdx build  --transpileOnly",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@paljs/types": "^0.0.1",
@@ -53,5 +53,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "b6ab8d786c9b4b9e3912bac18bbc788f8d0775f0"
 }

@@ -33,5 +33,6 @@
   "dependencies": {
     "@paljs/nexus": "^0.0.1",
     "nexus": "0.24.2"
-  }
+  },
+  "gitHead": "b6ab8d786c9b4b9e3912bac18bbc788f8d0775f0"
 }
