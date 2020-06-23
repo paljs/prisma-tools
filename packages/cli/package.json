@@ -11,7 +11,9 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "@paljs/create": "0.0.0",
     "@paljs/display": "0.0.0",
+    "@paljs/schema": "0.0.0",
     "@paljs/generator": "0.0.0",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.5",
@@ -22,11 +24,10 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
-    "@prisma/client": "^2.0.1",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.1",
     "@types/mocha": "^5",
-    "@types/node": "^10",
+    "@types/node": "14.0.13",
     "chai": "^4",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
@@ -35,7 +36,7 @@
     "mocha": "^5",
     "nyc": "^14",
     "ts-node": "^8",
-    "typescript": "^3.3"
+    "typescript": "3.9.5"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -46,7 +47,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/paljs/prisma-tools",
+  "homepage": "https://paljs.com",
   "keywords": [
     "oclif"
   ],

@@ -112,7 +112,7 @@ export default class Generate extends Command {
             : {}),
           models: args.models?.split(','),
         };
-        uiGenerator.generatePages(options);
+        uiGenerator.generateAdminPages(options);
       }
 
       if (config.frontend.graphql && graphql) {

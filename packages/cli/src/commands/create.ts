@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import { AppGenerator, AppGeneratorOptions } from '@paljs/new';
+import { AppGenerator, AppGeneratorOptions } from '@paljs/create';
 import { prompt } from 'enquirer';
 import { Examples } from '@paljs/types';
 import chalk from 'chalk';
@@ -7,17 +7,17 @@ import { log } from '@paljs/display';
 import { readdirSync, existsSync } from 'fs';
 
 const examples: Examples[] = [
-  'apollo-nexus-schema',
-  'apollo-sdl-first',
-  'nexus',
-  'graphql-modules',
   'full-stack-nextjs',
   'full-stack-gatsbyjs',
+  'apollo-nexus-schema',
+  'nexus',
+  'apollo-sdl-first',
+  'graphql-modules',
 ];
 
 export default class Create extends Command {
   static description = 'Start new project from our examples';
-
+  static aliases = ['c'];
   static flags = {
     help: flags.help({ char: 'h' }),
   };
@@ -58,22 +58,22 @@ export default class Create extends Command {
               : 'this folder not empty'
             : 'name is require',
         name: 'name',
-        message: 'please type your project name',
+        message: 'please enter your project name',
       },
       {
         type: 'input',
         name: 'description',
-        message: 'please type your project descriptions',
+        message: 'please enter your project description',
       },
       {
         type: 'input',
         name: 'author',
-        message: 'please type your project author',
+        message: 'please enter your project author',
       },
       {
         type: 'input',
         name: 'repository',
-        message: 'please type your project repository',
+        message: 'please enter your project repository',
       },
       {
         type: 'select',
@@ -91,6 +91,7 @@ export default class Create extends Command {
 
     let answers = await prompt<AppGeneratorOptions>(question);
     const generator = new AppGenerator(answers);
+    const packageCommand = answers.manager === 'yarn' ? 'yarn' : 'npm run';
     try {
       this.log(
         '\n' +
@@ -101,10 +102,16 @@ export default class Create extends Command {
       this.log(
         '\n' + log.withBrand('Your new great app is ready! Next steps:') + '\n',
       );
-      this.log(chalk.blue.bold(`   1. cd ${answers.name}`));
-      this.log(chalk.blue.bold(`   2. yarn generate`));
-      this.log(chalk.blue.bold(`   3. pal g`));
-      this.log(chalk.blue.bold(`   4. yarn dev\n`));
+      this.log('Go inside your project folder\n');
+      this.log(log.withCaret(chalk.bold.blue(`cd ${answers.name}\n`)));
+      this.log('Generate Prisma client by running:\n');
+      this.log(log.withCaret(chalk.bold.blue(`${packageCommand} generate\n`)));
+      this.log(
+        'Update schema.prisma file and generate your CRUD, admin run:\n ',
+      );
+      this.log(log.withCaret(chalk.bold.blue(`pal g\n`)));
+      this.log('Start your server by running: \n');
+      this.log(log.withCaret(chalk.bold.blue(`${packageCommand} dev\n`)));
     } catch (err) {
       this.error(err);
     }

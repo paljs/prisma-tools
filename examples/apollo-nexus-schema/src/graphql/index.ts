@@ -1,5 +1,0 @@
-export * from './User'
-export * from './Group'
-export * from './Post'
-export * from './Comment'
-export * from './inputTypes'
