@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "3.x",
-    "@paljs/admin": "0.0.1",
+    "@paljs/admin": "0.0.2",
     "@paljs/ui": "1.x",
     "@paljs/eva-icon": "1.x",
     "babel-plugin-styled-components": "1.x",
@@ -31,7 +31,7 @@
     "build": "gatsby build",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
-    "generate": "graphql-codegen --config codegen.yml",
+    "codegen": "graphql-codegen --config codegen.yml",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "lint": "eslint src --max-warnings=0 --ext=.tsx,.jsx"
   },

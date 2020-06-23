@@ -1,6 +1,6 @@
 import React from 'react';
 import SEO from '../../components/SEO';
-import { Settings } from '@paljs/admin/dist/Settings';
+import { Settings } from '@paljs/admin';
 
 const Home = () => {
   return (

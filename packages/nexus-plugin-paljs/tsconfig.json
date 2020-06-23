@@ -1,22 +1,24 @@
 {
-  "include": ["src", "types"],
+  "include": [
+    "src",
+    "types"
+  ],
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": [
+      "esnext"
+    ],
     "importHelpers": true,
     "declaration": true,
+    "outDir": "dist",
     "sourceMap": true,
-    "rootDir": "./src",
+    "rootDir": "src",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*", "node_modules/*"]
-    },
+    "skipLibCheck": true,
     "esModuleInterop": true
   }
 }

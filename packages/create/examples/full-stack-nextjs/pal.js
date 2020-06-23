@@ -1,12 +1,10 @@
-import { Config } from '@paljs/types';
-
-const config: Config = {
+module.exports = {
   backend: {
     generator: 'nexus-schema',
     onDelete: true,
+    output: 'src/Api/graphql',
   },
   frontend: {
     admin: true,
   },
 };
-export default config;

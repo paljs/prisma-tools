@@ -14,8 +14,7 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "yarn generate",
-    "generate": "lerna run generate --stream",
+    "generate": "lerna run generate && lerna run codegen",
     "dev": "lerna run dev --stream"
   },
   "devDependencies": {

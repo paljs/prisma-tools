@@ -2,8 +2,8 @@ import React from 'react';
 import { InputGroup, Button } from '@paljs/ui';
 import { Link } from 'gatsby';
 
-import SEO from '../../components/SEO';
-import Auth, { Group } from '../../components/Auth';
+import SEO from '../../../components/SEO';
+import Auth, { Group } from '../../../components/Auth';
 
 export default function RequestPassword() {
   return (

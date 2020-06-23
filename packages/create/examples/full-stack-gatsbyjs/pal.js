@@ -1,5 +1,3 @@
-import { Config } from '@paljs/types'
-
 const pageContent = `
 import React from 'react';
 import PrismaTable from '../../../components/PrismaTable';
@@ -11,18 +9,17 @@ const #{id}: React.FC = () => {
 export default #{id};
 `
 
-const config: Config = {
-  schemaFolder: 'server/prisma',
+module.exports = {
+  schemaFolder: 'packages/server/prisma',
   backend: {
     generator: 'nexus-schema',
-    output: 'server/src/graphql',
+    output: 'packages/server/src/graphql',
     onDelete: true,
   },
   frontend: {
     admin: {
-      outPut: 'ui/src/pages/admin/models',
+      outPut: 'packages/ui/src/pages/admin/models',
       pageContent,
     },
   },
 }
-export default config

@@ -30,7 +30,7 @@ export class GenerateModules extends Generators {
 
       if (!this.appModules.includes(model.name + 'Module')) {
         this.appModules.push(model.name + 'Module');
-        this.index = `import { ${model.name}Module } from './${model.name}/${model.name}.module';/n${this.index}`;
+        this.index = `import { ${model.name}Module } from './${model.name}/${model.name}.module';${this.index}`;
       }
 
       let fileContent = `type ${model.name} {`;

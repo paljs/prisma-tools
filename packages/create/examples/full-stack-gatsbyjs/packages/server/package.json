@@ -11,14 +11,14 @@
     "build": "yarn clean && yarn generate && tsc",
     "generate": "yarn generate:prisma && yarn generate:nexus",
     "generate:prisma": "prisma generate",
-    "generate:nexus": "ts-node --transpile-only src/schema",
+    "generate:nexus": "ts-node --transpile-only src/nexusSchema",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
   },
   "dependencies": {
     "@nexus/schema": "0.x",
-    "@paljs/nexus": "0.0.1",
+    "@paljs/nexus": "0.0.2",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "bcryptjs": "2.x",

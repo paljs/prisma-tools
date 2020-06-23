@@ -1,6 +1,6 @@
 {
   "name": "nexus-plugin-paljs",
-  "version": "0.0.2",
+  "version": "0.0.2-2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,11 +16,8 @@
     "dist"
   ],
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "build": "tsc",
+    "prepare": "yarn build"
   },
   "prettier": {
     "semi": false,
@@ -31,7 +28,7 @@
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "@paljs/nexus": "^0.0.2",
+    "@paljs/nexus": "^0.0.2-0",
     "nexus": "0.24.2"
   },
   "gitHead": "4f264ee9c5285122230c457c10b1eabfb06d7b0b"

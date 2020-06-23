@@ -126,7 +126,7 @@ export class GenerateSdl extends Generators {
     );
 
     writeFileSync(
-      this.resolversPath,
+      this.typeDefsPath,
       this.formation(
         replaceExports(this.typeDefsExport, this.typeDefsIndex),
         'babel-ts',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrismaTable } from '@prisma-tools/admin';
+import { PrismaTable } from '@paljs/admin';
 import { useUrlQuery } from './useUrlQuery';
 import { navigate } from 'gatsby';
 import 'react-quill/dist/quill.snow.css';

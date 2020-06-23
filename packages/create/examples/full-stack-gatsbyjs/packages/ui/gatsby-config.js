@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: 'Prisma Admin',
-    description: 'Admin dashboard template based on Gatsby with oah-ui component package.',
+    title: 'paljs-full-stack',
+    description: 'Example full stack with prisma graphql gatsbyjs',
     author: 'Ahmed Elywa',
   },
   plugins: [
@@ -26,11 +26,11 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'hub-backstage',
-        short_name: 'HUB',
+        name: 'paljs',
+        short_name: 'pal',
         start_url: '/dashboard',
         display: 'minimal-ui',
-        icon: 'src/images/Logo.png', // This path is relative to the root of the site.
+        icon: 'src/images/logo.png', // This path is relative to the root of the site.
       },
     },
   ],

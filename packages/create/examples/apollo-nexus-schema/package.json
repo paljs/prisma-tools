@@ -11,7 +11,7 @@
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
-    "generate:nexus": "ts-node --transpile-only src/schema",
+    "generate:nexus": "ts-node --transpile-only src/nexusSchema",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
@@ -19,6 +19,7 @@
   "dependencies": {
     "@nexus/schema": "0.x",
     "@prisma/client": "2.x",
+    "@paljs/nexus": "0.0.2",
     "apollo-server": "2.x",
     "graphql": "15.x"
   },

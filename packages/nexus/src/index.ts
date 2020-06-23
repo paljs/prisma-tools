@@ -29,20 +29,24 @@ export const paljs = (settings?: Settings) =>
             t.int('count', { nullable: false });
           },
         }),
-        scalarType({
-          name: 'DateTime',
-          description: 'Date custom scalar type',
-          parseValue(value: any) {
-            return value ? new Date(value) : null;
-          },
-          serialize(value: any) {
-            return value ? new Date(value) : null;
-          },
-          parseLiteral(ast: any) {
-            return ast.value ? new Date(ast.value) : null;
-          },
-        }),
       ];
+      if (!settings?.isNexus) {
+        nexusSchemaInputs.push(
+          scalarType({
+            name: 'DateTime',
+            description: 'Date custom scalar type',
+            parseValue(value: any) {
+              return value ? new Date(value) : null;
+            },
+            serialize(value: any) {
+              return value ? new Date(value) : null;
+            },
+            parseLiteral(ast: any) {
+              return ast.value ? new Date(ast.value) : null;
+            },
+          }),
+        );
+      }
       data.enums.forEach((item) => {
         nexusSchemaInputs.push(
           enumType({
