@@ -16,7 +16,7 @@ export const plugin: RuntimePlugin<Settings> = (settings) => () => {
       },
     },
     schema: {
-      plugins: [paljs(settings)],
+      plugins: [paljs({ isNexus: true, ...settings })],
     },
   }
 }
