@@ -32,5 +32,8 @@
     "@prisma/client": "2.0.1",
     "typescript": "3.9.5"
   },
+  "files": [
+    "dist"
+  ],
   "gitHead": "4f264ee9c5285122230c457c10b1eabfb06d7b0b"
 }

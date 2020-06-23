@@ -26,5 +26,8 @@
   "devDependencies": {
     "typescript": "3.9.5"
   },
+  "files": [
+    "dist"
+  ],
   "gitHead": "29e04378d4b34ed2731b67df629851ec09bba395"
 }
