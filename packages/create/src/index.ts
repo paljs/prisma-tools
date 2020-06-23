@@ -6,7 +6,7 @@ import { fetchLatestVersionsFor } from './utils/fetch-latest-version-for';
 import { log } from '@paljs/display';
 import { Examples } from '@paljs/types';
 import * as path from 'path';
-import { readdirSync, lstatSync } from 'fs';
+import { readdirSync, lstatSync, renameSync } from 'fs';
 
 export interface AppGeneratorOptions {
   example: Examples;
@@ -222,6 +222,7 @@ export class AppGenerator {
   async run() {
     await copy(this.sourceRoot, this.destinationPath());
     process.chdir(this.options.destinationRoot!);
+    renameSync('gitignore', '.gitignore');
     this.loadFiles('.');
     await this.postWrite();
   }

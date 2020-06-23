@@ -16,7 +16,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build && yarn build:examples",
-    "build:examples": "wait-on dist/index.js && rimraf examples/**/node_modules && cpy --dot --parents '!/node_modules/' examples dist && node updatePalversion.js",
+    "build:examples": "wait-on dist/index.js && node updatePalversion.js && rimraf examples/**/node_modules && cpy --dot --parents '!/node_modules/' examples dist",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "yarn build"

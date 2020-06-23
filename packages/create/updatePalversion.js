@@ -33,4 +33,4 @@ function loadFiles(path) {
   }
 }
 
-loadFiles('dist/examples');
+loadFiles('examples');
