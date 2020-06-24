@@ -1,6 +1,6 @@
 {
   "name": "nexus-plugin-paljs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,7 +28,7 @@
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "@paljs/nexus": "^0.0.4",
+    "@paljs/nexus": "^0.0.5",
     "nexus": "0.24.2"
   },
   "gitHead": "4f264ee9c5285122230c457c10b1eabfb06d7b0b"
