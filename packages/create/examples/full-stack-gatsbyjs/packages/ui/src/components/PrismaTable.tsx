@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const Table: React.FC<{ model: string }> = ({ model }) => {
   const query = useUrlQuery();
-  return <PrismaTable model={model} push={navigate} query={query} pagesPath="/models/" />;
+  return <PrismaTable model={model} push={navigate} query={query} />;
 };
 
 export default Table;

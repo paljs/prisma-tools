@@ -99,7 +99,7 @@ export default function Register() {
       </form>
       <Socials />
       <p>
-        Already have an account? <Link to="/auth/login">Log In</Link>
+        Already have an account? <Link to="/admin/auth/login">Log In</Link>
       </p>
     </Auth>
   );

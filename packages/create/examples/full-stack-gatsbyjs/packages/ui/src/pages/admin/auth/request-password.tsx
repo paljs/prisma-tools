@@ -18,8 +18,8 @@ export default function RequestPassword() {
         </Button>
       </form>
       <Group>
-        <Link to="/auth/login">Back to Log In</Link>
-        <Link to="/auth/register">Register</Link>
+        <Link to="/admin/auth/login">Back to Log In</Link>
+        <Link to="/admin/auth/register">Register</Link>
       </Group>
     </Auth>
   );

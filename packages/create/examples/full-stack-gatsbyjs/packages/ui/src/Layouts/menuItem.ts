@@ -1,23 +1,23 @@
 import { MenuItemType } from '@paljs/ui';
 
 const items: MenuItemType[] = [
-  { title: 'Home Page', icon: { name: 'home' }, link: { to: '/' } },
+  { title: 'Home Page', icon: { name: 'home' }, link: { to: '/admin' } },
   {
     title: 'Models',
     icon: { name: 'layers-outline' },
     children: [
-      { title: 'Users', link: { to: '/models/User' } },
+      { title: 'Users', link: { to: '/admin/models/User' } },
       {
         title: 'Posts',
-        link: { to: '/models/Post' },
+        link: { to: '/admin/models/Post' },
       },
       {
         title: 'Comments',
-        link: { to: '/models/Comment' },
+        link: { to: '/admin/models/Comment' },
       },
       {
         title: 'Groups',
-        link: { to: '/models/Group' },
+        link: { to: '/admin/models/Group' },
       },
     ],
   },

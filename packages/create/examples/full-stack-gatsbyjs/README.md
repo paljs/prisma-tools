@@ -5,24 +5,31 @@ We added `sqlite` as db provider in `schema.prisma` you can change it to your cu
 after an update your `schema.prisma` run
 
 ```shell
+> cd packages/server
 > yarn create-migration
 > yarn migrate-database
+> yarn generate:prisma
 ```
 
-this commands will save your schema into db
+- create new migration
+- push this migration to your db
+- build prisma client
 
 now run
 
 ```shell
-> lerna run generate:prisma
+> cd ../../
 > pal g
 > yarn generate
 > yarn dev
 ```
 
-- build prisma client
+- back to root
 - build crud system
 - build client graphql hooks
 - start dev server
+
+frontend in http://localhost:8000/
+backend api http://localhost:4000/
 
 `Good work`

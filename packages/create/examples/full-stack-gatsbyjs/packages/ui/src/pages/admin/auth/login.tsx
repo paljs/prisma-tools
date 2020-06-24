@@ -62,7 +62,7 @@ export default function Login() {
           <Checkbox checked={state.checkbox} onChange={(value) => onChange(value, 'checkbox')}>
             Remember me
           </Checkbox>
-          <Link to="/auth/request-password">Forgot Password?</Link>
+          <Link to="/admin/auth/request-password">Forgot Password?</Link>
         </Group>
         <Button disabled={!state.email || !state.password} status="Success" shape="SemiRound" fullWidth>
           Login
@@ -70,7 +70,7 @@ export default function Login() {
       </form>
       <Socials />
       <p>
-        Don&apos;t have account? <Link to="/auth/register">Register</Link>
+        Don&apos;t have account? <Link to="/admin/auth/register">Register</Link>
       </p>
     </Auth>
   );

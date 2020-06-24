@@ -74,27 +74,9 @@ Look to our examples contains [here](https://paljs.com/cli/create#starter-exampl
 cd hello
 ```
 
-2 Generate Prisma client
+Open `README.md` file to see next steps.
 
-```shell
-yarn generate
-or
-npm run generate 
-```
-
-3 Build your [schema.prisma](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema) file then 
-
-```shell
-pal generate
-```
-
-4 start your server in dev mode
-
-```shell
-yarn dev
-or
-npm run dev
-```
+To build your `schema.prisma` file look [here](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema) 
 
 ### Have questions?
 
