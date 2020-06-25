@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@paljs/types": "^0.0.5",
+    "pkg-dir": "^4.2.0",
     "prettier": "^2.0.5"
   },
   "devDependencies": {
