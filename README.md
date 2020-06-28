@@ -80,4 +80,4 @@ To build your `schema.prisma` file look [here](https://www.prisma.io/docs/refere
 
 ### Have questions?
 
-Didn't find something here? Look through the [issues](https://github.com/paljs/prisma-tools/issues) or simply drop us a line at <ahmed.elywa@icloud.com>.
+Didn't find something here? Look through the [issues](https://github.com/paljs/prisma-tools/issues) or simply drop us a line at <hello@paljs.com>.
