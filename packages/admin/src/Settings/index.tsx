@@ -1,18 +1,14 @@
 import React, { useRef, useState } from 'react';
+import { Accordion, AccordionItem } from '@paljs/ui/Accordion';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { EvaIcon } from '@paljs/ui/Icon';
+import Select from '@paljs/ui/Select';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import {
-  Accordion,
-  AccordionItem,
-  Card,
-  CardBody,
-  Col,
-  EvaIcon,
-  Row,
-  Select,
-} from '@paljs/ui';
-import {
-  Droppable,
-  Draggable,
   DragDropContext,
+  Draggable,
+  Droppable,
   DropResult,
 } from 'react-beautiful-dnd';
 import UpdateModel from './UpdateModel';
@@ -20,7 +16,7 @@ import UpdateField from './UpdateField';
 import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
-import { SchemaModel, ContextProps } from '../types';
+import { ContextProps, SchemaModel } from '../types';
 
 export const Settings: React.FC = () => {
   const { data } = useQuery<{ getSchema: ContextProps['schema'] }>(GET_SCHEMA);

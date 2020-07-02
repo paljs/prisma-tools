@@ -1,22 +1,19 @@
 import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
-import {
-  breakpointDown,
-  Button,
-  Card,
-  CardBody,
-  Col,
-  EvaIcon,
-  InputGroup,
-  Popover,
-  Row,
-  Spinner,
-  Tooltip,
-} from '@paljs/ui';
+import { breakpointDown } from '@paljs/ui/breakpoints';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { Button } from '@paljs/ui/Button';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { InputGroup } from '@paljs/ui/Input';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+import Popover from '@paljs/ui/Popover';
 import { columns } from './Columns';
 import { initPages } from './utils';
 import { TableContext } from '../Context';
+import Spinner from '@paljs/ui/Spinner';
+import Tooltip from '@paljs/ui/Tooltip';
 
 interface TableProps {
   inEdit?: boolean;
@@ -105,6 +102,7 @@ export const Table: React.FC<TableProps> = ({
         setColumnSize(clientRect.width / columnList.length);
       }
     }
+
     if (columnList.length > 0) columnHandler();
     window.addEventListener('resize', columnHandler);
     return () => {

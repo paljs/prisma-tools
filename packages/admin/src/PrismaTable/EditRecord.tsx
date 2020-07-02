@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
-import { Card, Col, Row, Spinner, Tab, Tabs } from '@paljs/ui';
+import { Card } from '@paljs/ui/Card';
+import { Tab, Tabs } from '@paljs/ui/Tabs';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+import Spinner from '@paljs/ui/Spinner';
 import Form from './Form';
 import styled from 'styled-components';
 import DynamicTable from './dynamicTable';

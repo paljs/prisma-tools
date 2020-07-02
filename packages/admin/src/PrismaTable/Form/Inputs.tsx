@@ -1,14 +1,12 @@
 import React, { useContext, useRef, useState } from 'react';
-import {
-  Button,
-  Checkbox,
-  Col,
-  EvaIcon,
-  InputGroup,
-  Modal,
-  Row,
-  Select,
-} from '@paljs/ui';
+import { Modal } from '@paljs/ui/Modal';
+import { Button } from '@paljs/ui/Button';
+import { Checkbox } from '@paljs/ui/Checkbox';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { InputGroup } from '@paljs/ui/Input';
+import Select from '@paljs/ui/Select';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import DatePicker from 'react-datepicker';
 import styled, { css } from 'styled-components';
 import { useLazyQuery } from '@apollo/client';

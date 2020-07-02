@@ -1,5 +1,6 @@
 import React from 'react';
-import { InputGroup, Button } from '@paljs/ui';
+import { Button } from '@paljs/ui/Button';
+import { InputGroup } from '@paljs/ui/Input';
 import Auth, { Group } from 'Components/Auth';
 import Link from 'next/link';
 

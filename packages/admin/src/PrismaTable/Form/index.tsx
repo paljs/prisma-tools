@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Card, CardBody, Row, CardFooter } from '@paljs/ui';
+import { Card, CardBody, CardFooter } from '@paljs/ui/Card';
+import { Button } from '@paljs/ui/Button';
+import Row from '@paljs/ui/Row';
 import { Inputs } from './Inputs';
 import useActions from './useActions';
 import { TableContext } from '../Context';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, ButtonLink } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { ButtonLink } from '@paljs/ui/Button';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 

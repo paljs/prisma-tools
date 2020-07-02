@@ -8,7 +8,7 @@ import {
   StringFilter,
 } from './Filters';
 import moment from 'moment';
-import { Button } from '@paljs/ui';
+import { Button } from '@paljs/ui/Button';
 import { getDisplayName } from './utils';
 import {
   SchemaField,

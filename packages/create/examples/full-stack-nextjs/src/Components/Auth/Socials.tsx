@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import { EvaIcon } from '@paljs/ui';
+import { EvaIcon } from '@paljs/ui/Icon';
 
 const SocialsStyle = styled.section`
   margin-top: 1.5rem;

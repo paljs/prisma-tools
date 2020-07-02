@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, CardBody, breakpointDown } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { breakpointDown } from '@paljs/ui/breakpoints';
 
 const AuthStyle = styled.div<{ subTitle?: string }>`
   margin: auto;

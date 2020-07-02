@@ -1,21 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import themes from './themes';
-import {
-  Layout,
-  LayoutColumn,
-  LayoutColumns,
-  LayoutContainer,
-  LayoutContent,
-  Menu,
-  MenuRefObject,
-  Sidebar,
-  SidebarBody,
-  SidebarRefObject,
-  Spinner,
-} from '@paljs/ui';
-import icons from '@paljs/eva-icon';
-
+import { Layout, LayoutContent, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
+import { SidebarRefObject, Sidebar, SidebarBody } from '@paljs/ui/Sidebar';
+import icons from '@paljs/icons';
+import { Menu, MenuRefObject } from '@paljs/ui/Menu';
 import Header from './Header';
 import SimpleLayout from './SimpleLayout';
 import { Location } from '@reach/router';
@@ -24,6 +13,7 @@ import menuItems from './menuItem';
 import { MeQuery, MeQueryVariables, useMeQuery } from '../generated';
 import { ApolloQueryResult } from '@apollo/client';
 import SEO from '../components/SEO';
+import Spinner from '@paljs/ui/Spinner';
 
 export const getPathReady = (path: string) => {
   return path.endsWith('/') ? path.slice(0, -1) : path;

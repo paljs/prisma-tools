@@ -1,4 +1,4 @@
-import { createTheme } from '@paljs/ui';
+import { createTheme } from '@paljs/theme';
 import { DefaultTheme } from 'styled-components';
 
 const shared: Partial<DefaultTheme> = {

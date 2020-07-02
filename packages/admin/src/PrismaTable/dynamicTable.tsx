@@ -1,4 +1,4 @@
-import { Modal } from '@paljs/ui';
+import { Modal } from '@paljs/ui/Modal';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from './Table';
 import { useFilterAndSort } from './Table/useFilterAndSort';

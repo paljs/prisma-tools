@@ -1,22 +1,18 @@
 import React, { useContext, useState } from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  Col,
-  EvaIcon,
-  InputGroup,
-  OverLayContext,
-  Popover,
-  Row,
-  Select,
-  Tab,
-  Tabs,
-} from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { Tab, Tabs } from '@paljs/ui/Tabs';
+import { Button } from '@paljs/ui/Button';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { InputGroup } from '@paljs/ui/Input';
+import Select from '@paljs/ui/Select';
+import Row from '@paljs/ui/Row';
+import Popover from '@paljs/ui/Popover';
+import Col from '@paljs/ui/Col';
 import styled from 'styled-components';
 import { useFilter } from './useFilter';
 import { useEnum, useModel } from '../useSchema';
 import { SchemaField } from '../../types';
+import { OverLayContext } from '@paljs/ui/PopoverLay';
 
 interface Option {
   value: any;

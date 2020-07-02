@@ -4,7 +4,7 @@ import { prompt } from 'enquirer';
 import { Examples } from '@paljs/types';
 import chalk from 'chalk';
 import { log } from '@paljs/display';
-import { readdirSync, existsSync } from 'fs';
+import { existsSync, readdirSync } from 'fs';
 
 const examples: Examples[] = [
   'full-stack-nextjs',
@@ -17,7 +17,9 @@ const examples: Examples[] = [
 
 export default class Create extends Command {
   static description = 'Start new project from our examples';
+
   static aliases = ['c'];
+
   static flags = {
     help: flags.help({ char: 'h' }),
   };
@@ -52,7 +54,7 @@ export default class Create extends Command {
       {
         type: 'input',
         validate: (v: any) =>
-          !!v
+          v
             ? this.dirIsEmpty(v)
               ? true
               : 'this folder not empty'
@@ -89,9 +91,9 @@ export default class Create extends Command {
       },
     ];
 
-    let answers = await prompt<AppGeneratorOptions>(question);
+    const answers = await prompt<AppGeneratorOptions>(question);
     const generator = new AppGenerator(answers);
-    const packageCommand = answers.manager === 'yarn' ? 'yarn' : 'npm run';
+
     try {
       this.log(
         '\n' +
@@ -107,8 +109,8 @@ export default class Create extends Command {
       this.log(
         `Please open ${chalk.bold.blue('README.md')} file and go with steps\n`,
       );
-    } catch (err) {
-      this.error(err);
+    } catch (error) {
+      this.error(error);
     }
   }
 }

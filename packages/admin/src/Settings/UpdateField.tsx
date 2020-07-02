@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Checkbox, Col, InputGroup, Row } from '@paljs/ui';
+import { Checkbox } from '@paljs/ui/Checkbox';
+import { InputGroup } from '@paljs/ui/Input';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import { SchemaField } from '../types';
 import { useMutation } from '@apollo/client';
 import { UPDATE_FIELD } from '../SchemaQueries';

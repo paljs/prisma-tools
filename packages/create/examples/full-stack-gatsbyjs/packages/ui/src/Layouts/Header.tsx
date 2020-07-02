@@ -1,7 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import styled, { DefaultTheme } from 'styled-components';
-import { Actions, Select, LayoutHeader, User, ContextMenu, breakpointDown, EvaIcon } from '@paljs/ui';
+import Select from '@paljs/ui/Select';
+import { LayoutHeader } from '@paljs/ui/Layout';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { breakpointDown } from '@paljs/ui/breakpoints';
+import { Actions } from '@paljs/ui/Actions';
+import ContextMenu from '@paljs/ui/ContextMenu';
+import User from '@paljs/ui/User';
 import { Location } from '@reach/router';
 import { getPathReady, LayoutContext } from './index';
 
