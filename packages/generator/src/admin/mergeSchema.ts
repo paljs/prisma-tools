@@ -42,6 +42,7 @@ export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
           newItem.fields.push(handleNewField(field, schemaItem.name));
         } else {
           newItem.fields.push({
+            upload: false,
             ...schemaField,
             ...getOriginalField(field, schemaItem.name),
           });
@@ -84,6 +85,7 @@ function handleNewField(field: Field, modelName: string): SchemaField {
     create: !defaultField.includes(field.name) && !field.relationField,
     update: !defaultField.includes(field.name) && !field.relationField,
     editor: false,
+    upload: false,
     read: true,
     filter: true,
     sort: true,

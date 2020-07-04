@@ -111,6 +111,8 @@ const Form: React.FC<FormProps> = ({
                   );
                 if (field.editor)
                   return <InputComponents.Editor {...options} />;
+                if (field.upload)
+                  return <InputComponents.Upload {...options} />;
                 switch (field.type) {
                   case 'Boolean':
                     return <InputComponents.Boolean {...options} />;

@@ -14,6 +14,7 @@ import { initPages } from './utils';
 import { TableContext } from '../Context';
 import Spinner from '@paljs/ui/Spinner';
 import Tooltip from '@paljs/ui/Tooltip';
+import { Checkbox } from '@paljs/ui';
 
 interface TableProps {
   inEdit?: boolean;
@@ -49,6 +50,7 @@ export const Table: React.FC<TableProps> = ({
     pageSizeOptions,
     paginationOptions,
     tableColumns,
+    onSelect,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName);
   const columnList = columns(model, tableColumns);
@@ -82,7 +84,27 @@ export const Table: React.FC<TableProps> = ({
   );
   const tableRef = useRef<HTMLTableElement>(null);
   const [columnSize, setColumnSize] = useState(1);
+  const [selected, setSelected] = useState<number[]>([]);
   // Listen for changes in pagination and use the state to fetch our new data
+
+  const onSelectHandler = (state: boolean, id?: any) => {
+    let newValues: any[];
+    if (!state && !id) {
+      newValues = [];
+      setSelected(newValues);
+    } else if (state && !id && model) {
+      newValues = data.map((row) => row[model.idField]);
+      setSelected(newValues);
+    } else if (!state && id) {
+      newValues = selected.filter((value) => value !== id);
+      setSelected(newValues);
+    } else {
+      newValues = [...selected, id];
+      setSelected(newValues);
+    }
+    onSelect && onSelect(newValues);
+  };
+
   React.useEffect(() => {
     fetchMore(pageSize, pageIndex);
   }, [fetchMore, pageIndex, pageSize]);
@@ -115,6 +137,8 @@ export const Table: React.FC<TableProps> = ({
     update: model?.update,
     delete: model?.delete,
   };
+
+  const isSelect = onSelect && !inEdit;
   // Render the UI for your table
   return (
     <Card style={{ marginBottom: 0, maxHeight: '100vh' }}>
@@ -140,6 +164,7 @@ export const Table: React.FC<TableProps> = ({
             {headerGroups.map((headerGroup: any, index: number) => (
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
+                  {isSelect && <th>Select</th>}
                   <th colSpan={2}>Actions</th>
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th
@@ -158,6 +183,19 @@ export const Table: React.FC<TableProps> = ({
                   ))}
                 </tr>
                 <tr>
+                  {isSelect && (
+                    <th>
+                      <Checkbox
+                        onChange={onSelectHandler}
+                        checked={
+                          data.length > 0 && selected.length === data.length
+                        }
+                        indeterminate={
+                          selected.length > 0 && selected.length !== data.length
+                        }
+                      />
+                    </th>
+                  )}
                   {connect ? (
                     <th colSpan={2} />
                   ) : (
@@ -185,6 +223,24 @@ export const Table: React.FC<TableProps> = ({
               prepareRow(row);
               return (
                 <tr key={index} {...row.getRowProps()}>
+                  {isSelect && (
+                    <td>
+                      <Checkbox
+                        onChange={(value) =>
+                          onSelectHandler(
+                            value,
+                            model && row.original[model.idField],
+                          )
+                        }
+                        checked={
+                          !!(
+                            model &&
+                            selected.includes(row.original[model.idField])
+                          )
+                        }
+                      />
+                    </td>
+                  )}
                   {connect && (
                     <td colSpan={2}>
                       <Button

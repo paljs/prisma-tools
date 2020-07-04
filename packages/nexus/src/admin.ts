@@ -97,6 +97,7 @@ export function adminNexusSchemaSettings(path = 'prisma/adminSettings.json') {
           t.boolean('filter');
           t.boolean('sort');
           t.boolean('editor');
+          t.boolean('upload');
           t.boolean('relationField', { nullable: true });
           t.int('order');
           t.field('kind', { type: 'KindEnum' });
@@ -137,6 +138,7 @@ export function adminNexusSchemaSettings(path = 'prisma/adminSettings.json') {
           t.boolean('filter');
           t.boolean('sort');
           t.boolean('editor');
+          t.boolean('upload');
           t.boolean('relationField', { nullable: true });
           t.int('order');
           t.field('kind', { type: 'KindEnum' });

@@ -18,6 +18,7 @@ const fieldFragment = gql`
     sort
     filter
     editor
+    upload
     relationField
   }
 `;

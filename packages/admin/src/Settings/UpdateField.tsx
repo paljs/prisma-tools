@@ -14,15 +14,17 @@ type Fields =
   | 'filter'
   | 'sort'
   | 'title'
-  | 'editor';
+  | 'editor'
+  | 'upload';
 
 const fieldsArray: Fields[] = [
   'read',
-  'create',
-  'update',
   'filter',
   'sort',
+  'create',
+  'update',
   'editor',
+  'upload',
 ];
 
 const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({

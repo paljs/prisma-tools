@@ -29,7 +29,7 @@ export type GetColumnsPartial = (
   model?: SchemaModel,
 ) => Partial<Columns>;
 export type FormInputs = Record<
-  'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean',
+  'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean' | 'Upload',
   React.FC<InputProps>
 >;
 
@@ -49,6 +49,7 @@ interface SameProps {
   formInputs?: Partial<FormInputs>;
   push: (url: string) => void;
   query: { [key: string]: any };
+  onSelect?: (values: any[]) => void;
 }
 
 export interface ModelTableProps

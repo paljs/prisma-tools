@@ -37,6 +37,7 @@ export interface SchemaField
   sort: boolean;
   order: number;
   editor: boolean;
+  upload: boolean;
 }
 
 export interface SchemaModel extends Omit<Model, 'documentation' | 'map'> {
