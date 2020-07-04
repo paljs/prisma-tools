@@ -41,8 +41,10 @@ export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
         if (!schemaField) {
           newItem.fields.push(handleNewField(field, schemaItem.name));
         } else {
+          const newFields =
+            typeof schemaField.upload === 'undefined' ? { upload: false } : {};
           newItem.fields.push({
-            upload: false,
+            ...newFields,
             ...schemaField,
             ...getOriginalField(field, schemaItem.name),
           });
