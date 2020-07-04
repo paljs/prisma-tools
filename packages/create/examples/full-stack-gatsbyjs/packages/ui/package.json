@@ -6,9 +6,9 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "3.x",
-    "@paljs/admin": "1.0.1",
+    "@paljs/admin": "1.0.2",
     "@paljs/ui": "1.x",
-    "@paljs/icons": "1.x",
+    "@paljs/icons": "1.0.2",
     "babel-plugin-styled-components": "1.x",
     "gatsby": "2.x",
     "gatsby-image": "2.x",
