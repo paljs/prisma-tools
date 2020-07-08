@@ -21,7 +21,7 @@
     "@paljs/nexus": "1.0.3",
     "@paljs/admin": "1.0.3",
     "@paljs/ui": "1.x",
-    "@paljs/icons": "1.0.3",
+    "@paljs/icons": "1.x",
     "@prisma/client": "2.x",
     "apollo-server-micro": "2.x",
     "bcryptjs": "2.x",

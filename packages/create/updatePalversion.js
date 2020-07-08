@@ -20,7 +20,7 @@ function loadFiles(path) {
                 pkg[dep].hasOwnProperty(pkgKey) &&
                 (pkgKey.startsWith('@paljs') ||
                   pkgKey === 'nexus-plugin-paljs') &&
-                !['@paljs/ui', '@paljs/eva-icon'].includes(pkgKey)
+                !['@paljs/ui', '@paljs/icons'].includes(pkgKey)
               ) {
                 pkg[dep][pkgKey] = version;
               }
