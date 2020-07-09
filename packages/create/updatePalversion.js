@@ -2,9 +2,6 @@ const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
 const { readJSONSync, writeJsonSync } = require('fs-extra');
 
-const pkg = readJSONSync('package.json');
-const version = pkg.version;
-
 function loadFiles(path) {
   const files = readdirSync(path);
   for (const file of files) {
@@ -22,7 +19,10 @@ function loadFiles(path) {
                   pkgKey === 'nexus-plugin-paljs') &&
                 !['@paljs/ui', '@paljs/icons'].includes(pkgKey)
               ) {
-                pkg[dep][pkgKey] = version;
+                let folder = pkgKey.split('/');
+                folder = folder.length > 1 ? folder[1] : folder[0];
+                const pkg2 = readJSONSync(`../${folder}/package.json`);
+                pkg[dep][pkgKey] = pkg2.version;
               }
             }
           }
