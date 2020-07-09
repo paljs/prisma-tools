@@ -47,7 +47,7 @@ export class Generators {
     return schema.outputTypes.filter(
       (model) =>
         !['Query', 'Mutation'].includes(model.name) &&
-        !model.name.startsWith('Aggregate') &&
+        !model.name.includes('Aggregate') &&
         model.name !== 'BatchPayload' &&
         (!this.options.models || this.options.models.includes(model.name)),
     );
