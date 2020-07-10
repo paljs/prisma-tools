@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:AhmedElywa/prisma-tools.git",
+    "url": "git@github.com:paljs/prisma-tools.git",
     "directory": "packages/generator"
   },
   "homepage": "http://paljs.com/",

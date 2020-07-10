@@ -12,10 +12,10 @@
     "generate": "prisma generate",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
-    "@paljs/plugins": "1.0.3",
+    "@paljs/plugins": "1.0.6-next.0",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",

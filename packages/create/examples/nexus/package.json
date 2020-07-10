@@ -16,7 +16,7 @@
   "dependencies": {
     "@prisma/client": "2.x",
     "nexus": "0.x",
-    "nexus-plugin-paljs": "1.0.3"
+    "nexus-plugin-paljs": "1.0.6-next.0"
   },
   "devDependencies": {
     "@prisma/cli": "2.x",

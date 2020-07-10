@@ -12,12 +12,12 @@
     "generate": "prisma generate",
     "create-migration": "prisma migrate save --experimental",
     "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/index"
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index"
   },
   "dependencies": {
     "@graphql-modules/core": "0.x",
     "@graphql-modules/di": "0.x",
-    "@paljs/plugins": "1.0.3",
+    "@paljs/plugins": "1.0.6-next.0",
     "@prisma-tools/graphql-modules": "0.x",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
