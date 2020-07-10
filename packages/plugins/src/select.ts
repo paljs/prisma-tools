@@ -170,7 +170,7 @@ export class PrismaSelect {
   }
 
   private getSelect(fields: any) {
-    const selectObject: any = this.isAggregate ? { select: {} } : {};
+    const selectObject: any = this.isAggregate ? {} : { select: {} };
     Object.keys(fields).forEach((key) => {
       if (Object.keys(fields[key]).length === 0) {
         if (this.isAggregate) {

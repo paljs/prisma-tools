@@ -20,7 +20,7 @@ const middleware = async (
   info: GraphQLResolveInfo,
 ) => {
   const result = new PrismaSelect(info).value;
-  if (Object.keys(result.select).length > 0) {
+  if (!result.select || Object.keys(result.select).length > 0) {
     args = {
       ...args,
       ...result,
