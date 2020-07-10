@@ -7,6 +7,7 @@ import deleteOne from './deleteOne';
 import upsertOne from './upsertOne';
 import deleteMany from './deleteMany';
 import updateMany from './updateMany';
+import aggregate from './aggregate';
 import { QueriesAndMutations } from '@paljs/types';
 
 const crud: { [key in QueriesAndMutations]: (schema?: boolean) => string } = {
@@ -19,6 +20,7 @@ const crud: { [key in QueriesAndMutations]: (schema?: boolean) => string } = {
   upsertOne,
   deleteMany,
   updateMany,
+  aggregate,
 };
 
 export function getCrud(

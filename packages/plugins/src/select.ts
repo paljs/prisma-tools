@@ -44,6 +44,7 @@ import graphqlFields from 'graphql-fields';
 export class PrismaSelect {
   value: any;
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
+  private readonly isAggregate: boolean = false;
 
   constructor(private info: GraphQLResolveInfo, mergeObject: any = {}) {
     const returnType = this.info.returnType
@@ -51,6 +52,7 @@ export class PrismaSelect {
       .replace(/]/g, '')
       .replace(/\[/g, '')
       .replace(/!/g, '');
+    this.isAggregate = returnType.includes('Aggregate');
     this.value = PrismaSelect.mergeDeep(
       this.filterBy(returnType, this.getSelect(this.fields)),
       mergeObject,
@@ -124,7 +126,10 @@ export class PrismaSelect {
     const splitItem = field.split('.');
     let newValue = this.getSelect(this.fields);
     for (const field of splitItem) {
-      if (
+      if (this.isAggregate && newValue.hasOwnProperty(field)) {
+        newValue = newValue[field];
+      } else if (
+        !this.isAggregate &&
         newValue.hasOwnProperty('select') &&
         newValue.select.hasOwnProperty(field)
       ) {
@@ -165,10 +170,14 @@ export class PrismaSelect {
   }
 
   private getSelect(fields: any) {
-    const selectObject: any = { select: {} };
+    const selectObject: any = this.isAggregate ? { select: {} } : {};
     Object.keys(fields).forEach((key) => {
       if (Object.keys(fields[key]).length === 0) {
-        selectObject.select[key] = true;
+        if (this.isAggregate) {
+          selectObject[key] = true;
+        } else {
+          selectObject.select[key] = true;
+        }
       } else if (key === '__arguments') {
         fields[key].forEach((arg: any) => {
           Object.keys(arg).forEach((key2) => {
@@ -178,7 +187,11 @@ export class PrismaSelect {
           });
         });
       } else {
-        selectObject.select[key] = this.getSelect(fields[key]);
+        if (this.isAggregate) {
+          selectObject[key] = this.getSelect(fields[key]);
+        } else {
+          selectObject.select[key] = this.getSelect(fields[key]);
+        }
       }
     });
     return selectObject;

@@ -16,7 +16,12 @@ export class Generators {
     excludeQueriesAndMutationsByModel: {},
   };
 
-  protected queries: Query[] = ['findOne', 'findMany', 'findCount'];
+  protected queries: Query[] = [
+    'findOne',
+    'findMany',
+    'findCount',
+    'aggregate',
+  ];
   protected mutations: Mutation[] = [
     'createOne',
     'updateOne',

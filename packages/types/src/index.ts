@@ -88,7 +88,7 @@ export interface Options {
   excludeQueriesAndMutations: QueriesAndMutations[];
 }
 
-export type Query = 'findOne' | 'findMany' | 'findCount';
+export type Query = 'findOne' | 'findMany' | 'findCount' | 'aggregate';
 export type Mutation =
   | 'createOne'
   | 'updateOne'

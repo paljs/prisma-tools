@@ -56,6 +56,15 @@ export function createQueriesAndMutations(
     },`;
   }
 
+  if (!exclude.includes('aggregate')) {
+    operations.queries.type += `
+    aggregate${name}: Aggregate${name}`;
+    operations.queries.resolver += `
+    aggregate${name}: (_parent, args, {prisma}: Context) => {
+      return prisma.${model}.aggregate(args)
+    },`;
+  }
+
   if (!exclude.includes('createOne')) {
     operations.mutations.type += `
     createOne${name}(data: ${name}CreateInput!): ${name}!`;

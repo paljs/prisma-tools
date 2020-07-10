@@ -45,6 +45,24 @@ function createInput() {
   
 `;
   });
+
+  schema.outputTypes
+    .filter((type) => type.name.includes('Aggregate'))
+    .forEach((type) => {
+      fileContent += `type ${type.name} {
+    `;
+      type.fields.forEach((field) => {
+        fileContent += `${field.name}: ${
+          field.outputType.isList
+            ? `[${field.outputType.type}!]`
+            : field.outputType.type
+        }${field.outputType.isRequired ? '!' : ''}
+      `;
+      });
+      fileContent += `}
+  
+`;
+    });
   return fileContent;
 }
 

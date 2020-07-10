@@ -83,6 +83,27 @@ export const paljs = (settings?: Settings) =>
         );
       });
 
+      data.outputTypes
+        .filter((type) => type.name.includes('Aggregate'))
+        .forEach((type) => {
+          nexusSchemaInputs.push(
+            objectType({
+              name: type.name,
+              definition(t) {
+                type.fields.forEach((field) => {
+                  const fieldConfig: { [key: string]: any; type: string } = {
+                    type: field.outputType.type as string,
+                  };
+                  if (field.outputType.isRequired)
+                    fieldConfig['nullable'] = false;
+                  if (field.outputType.isList) fieldConfig['list'] = true;
+                  t.field(field.name, fieldConfig);
+                });
+              },
+            }),
+          );
+        });
+
       if (settings?.includeAdmin) {
         nexusSchemaInputs.push(
           ...adminNexusSchemaSettings(settings?.adminSchemaPath),
