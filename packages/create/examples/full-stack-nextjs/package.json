@@ -18,7 +18,7 @@
     "@apollo/client": "3.x",
     "@apollo/react-ssr": "4.x",
     "@nexus/schema": "0.x",
-    "@paljs/nexus": "1.1.0",
+    "@paljs/nexus": "1.1.1",
     "@paljs/admin": "1.1.0",
     "@paljs/ui": "1.x",
     "@paljs/icons": "1.x",
