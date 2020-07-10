@@ -15,6 +15,7 @@ module.exports = {
     generator: 'nexus-schema',
     output: 'packages/server/src/graphql',
     onDelete: true,
+    excludeQueriesAndMutations: ['aggregate'],
   },
   frontend: {
     admin: {

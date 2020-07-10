@@ -21,6 +21,6 @@ const staticData = `('aggregate#{Model}', {
   type: 'Aggregate#{Model}',
   nullable: true,
   resolve(_parent, _args, { prisma, select }) {
-    return prisma.#{model}.aggregate(select)
+    return prisma.#{model}.aggregate(select) as any
   },
 })`;
