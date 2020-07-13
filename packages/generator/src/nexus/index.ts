@@ -56,7 +56,10 @@ export class GenerateNexus extends Generators {
       fileContent += `},\n})\n\n`;
       const path = this.output(model.name);
       this.mkdir(path);
-      writeFileSync(join(path, 'type.ts'), this.formation(fileContent));
+      writeFileSync(
+        join(path, 'type.ts'),
+        this.formation(fileContent, 'babel-ts'),
+      );
 
       let modelIndex = `export * from './type'\n`;
       modelIndex += this.createQueriesAndMutations(model.name);
@@ -83,7 +86,7 @@ export class GenerateNexus extends Generators {
           this.createFileIfNotfound(
             path,
             `${item}.ts`,
-            this.formation(itemContent),
+            this.formation(itemContent, 'babel-ts'),
           );
           queriesIndex += `export * from './${item}'
 `;
@@ -91,7 +94,10 @@ export class GenerateNexus extends Generators {
       if (queriesIndex && this.options.nexusSchema) {
         modelIndex += `export * from './queries'
 `;
-        writeFileSync(join(path, 'index.ts'), this.formation(queriesIndex));
+        writeFileSync(
+          join(path, 'index.ts'),
+          this.formation(queriesIndex, 'babel-ts'),
+        );
       }
     }
 
@@ -111,14 +117,17 @@ export class GenerateNexus extends Generators {
           this.createFileIfNotfound(
             path,
             `${item}.ts`,
-            this.formation(itemContent),
+            this.formation(itemContent, 'babel-ts'),
           );
           mutationsIndex += `export * from './${item}'
 `;
         });
       if (mutationsIndex && this.options.nexusSchema) {
         modelIndex += `export * from './mutations'`;
-        writeFileSync(join(path, 'index.ts'), this.formation(mutationsIndex));
+        writeFileSync(
+          join(path, 'index.ts'),
+          this.formation(mutationsIndex, 'babel-ts'),
+        );
       }
     }
     return modelIndex;
@@ -127,9 +136,15 @@ export class GenerateNexus extends Generators {
   private createIndex(path?: string, content?: string) {
     if (this.options.nexusSchema) {
       if (path && content) {
-        writeFileSync(join(path, 'index.ts'), this.formation(content));
+        writeFileSync(
+          join(path, 'index.ts'),
+          this.formation(content, 'babel-ts'),
+        );
       } else {
-        writeFileSync(this.output('index.ts'), this.formation(this.index));
+        writeFileSync(
+          this.output('index.ts'),
+          this.formation(this.index, 'babel-ts'),
+        );
       }
     }
   }

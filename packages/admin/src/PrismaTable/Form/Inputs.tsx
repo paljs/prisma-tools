@@ -56,7 +56,7 @@ const formats = [
   'video',
 ];
 
-export const Inputs: FormInputs = {
+const defaultInputs: Omit<FormInputs, 'Upload'> = {
   Default({ field, value, error, register, setValue, disabled }) {
     const valueRef = useRef(value);
 
@@ -365,6 +365,11 @@ export const Inputs: FormInputs = {
       </StyledCol>
     );
   },
+};
+
+export const Inputs: FormInputs = {
+  ...defaultInputs,
+  Upload: defaultInputs.Default,
 };
 
 const StyledInputGroup = styled(InputGroup)`
