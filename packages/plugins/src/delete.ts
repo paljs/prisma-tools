@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { SchemaObject, Field } from '@paljs/types';
+import { dataModel, DMMF } from './schema';
 
 interface DeleteData {
   name: string;
@@ -15,10 +15,9 @@ export interface onDeleteArgs {
 /**
  * Handle all relation onDelete type
  * @param prisma - optional arg you can send your clint class.
- * @param schema - your schema.prisma converted object .
  * @example
  * const prisma = new PrismaClient({log: ['query']});
- * const prismaDelete = new PrismaDelete(prisma, schema);
+ * const prismaDelete = new PrismaDelete(prisma);
  *
  * // or new PrismaDelete(); we will create new client and use
  *
@@ -31,13 +30,10 @@ export interface onDeleteArgs {
  *
  **/
 export class PrismaDelete {
-  constructor(
-    private prisma: any = new PrismaClient(),
-    private schema: SchemaObject,
-  ) {}
+  constructor(private prisma: any = new PrismaClient()) {}
 
   private getModel(modelName: string) {
-    return this.schema.models.find((item) => item.name === modelName);
+    return dataModel.models.find((item) => item.name === modelName);
   }
 
   private getModelName(modelName: string) {
@@ -62,12 +58,12 @@ export class PrismaDelete {
     );
   }
 
-  private async setFieldNull(modelName: string, field: Field, where: any) {
+  private async setFieldNull(modelName: string, field: DMMF.Field, where: any) {
     const name = this.getModelName(modelName);
     const modelId = this.getModelIdFieldName(modelName);
     const fieldModelId = this.getModelIdFieldName(field.type);
-    if (modelId && fieldModelId && !field.required) {
-      const fieldSelect = field.list
+    if (modelId && fieldModelId && !field.isRequired) {
+      const fieldSelect = field.isList
         ? { [field.name]: { select: { [fieldModelId]: true } } }
         : {};
       const results = await this.prisma[name].findMany({
@@ -85,7 +81,7 @@ export class PrismaDelete {
             },
             data: {
               [field.name]: {
-                disconnect: field.list ? result[field.name] : true,
+                disconnect: field.isList ? result[field.name] : true,
               },
             },
           });

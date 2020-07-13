@@ -4,9 +4,7 @@ import { Generator, UIGenerator } from '@paljs/generator';
 import chalk from 'chalk';
 import { getConfig } from '../util/get-config';
 import { ifPrismaExitAndGenerated } from '../util/if-prisma-exit-and-generated';
-import spawn from 'cross-spawn';
 import { log } from '@paljs/display';
-import { join } from 'path';
 
 const commandStyle = (text: string) => `${chalk.red('>')} ${chalk.blue(text)}`;
 
@@ -88,13 +86,6 @@ export default class Generate extends Command {
         ...config.backend,
         ...options,
       }).run();
-      if (config.backend.onDelete !== false) {
-        spawn.sync('pal', [
-          's',
-          'json',
-          '-o=' + join(config.backend.output ?? 'src/graphql', '../'),
-        ]);
-      }
     }
 
     if (config?.frontend) {

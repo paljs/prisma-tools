@@ -26,9 +26,7 @@ export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
   object.models.forEach((item) => {
     const schemaItem = schema.models.find((model) => model.id === item.name);
     if (!schemaItem) {
-      if (checkIdFieldExist(item)) {
-        newSchema.models.push(handleNewModel(item));
-      }
+      newSchema.models.push(handleNewModel(item));
     } else {
       const newItem: SchemaModel = {
         ...schemaItem,
@@ -65,11 +63,11 @@ function handleNewModel(model: Model) {
   const newItem: SchemaModel = {
     id: model.name,
     name: getTitle(model.name),
-    idField: model.fields.find((field) => field.isId)!.name,
+    idField: model.fields.find((field) => field.isId)?.name ?? '',
     displayFields: [model.fields.find((field) => field.isId)!.name],
     create: true,
-    update: true,
-    delete: true,
+    update: checkIdFieldExist(model),
+    delete: checkIdFieldExist(model),
     fields: [],
   };
   model.fields.forEach((field) => {

@@ -102,7 +102,7 @@ const UpdateModel: React.FC<{
 
   const idField = modelObject.fields.find(
     (item) => item.name === modelObject.idField,
-  )!;
+  );
   return (
     <Row middle="xs">
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
@@ -141,7 +141,10 @@ const UpdateModel: React.FC<{
             <Select
               status="Primary"
               shape="SemiRound"
-              value={{ value: idField.name, label: idField.title }}
+              value={{
+                value: idField?.name ?? '',
+                label: idField?.title ?? 'No ID',
+              }}
               onChange={(option: any) =>
                 onChangeHandler('idField', option.value)
               }
