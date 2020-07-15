@@ -64,7 +64,9 @@ function handleNewModel(model: Model) {
     id: model.name,
     name: getTitle(model.name),
     idField: model.fields.find((field) => field.isId)?.name ?? '',
-    displayFields: [model.fields.find((field) => field.isId)!.name],
+    displayFields: [
+      model.fields.find((field, index) => field.isId || index === 0)!.name,
+    ],
     create: true,
     update: checkIdFieldExist(model),
     delete: checkIdFieldExist(model),
