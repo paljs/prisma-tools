@@ -92,6 +92,7 @@ const Form: React.FC<FormProps> = ({
               .map((field) => {
                 const options = {
                   key: field.id,
+                  data,
                   field: field,
                   value: data[field.name],
                   error: errors[field.name],

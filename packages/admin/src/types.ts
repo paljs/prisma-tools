@@ -17,6 +17,7 @@ export type Columns = Record<
 export interface InputProps {
   field: SchemaField;
   value: any;
+  data: any;
   error: any;
   register: FormContextValues['register'];
   setValue: FormContextValues['setValue'];
