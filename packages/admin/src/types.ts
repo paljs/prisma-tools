@@ -21,6 +21,8 @@ export interface InputProps {
   error: any;
   register: FormContextValues['register'];
   setValue: FormContextValues['setValue'];
+  getValues: FormContextValues['getValues'];
+  watch: FormContextValues['watch'];
   disabled: boolean;
 }
 

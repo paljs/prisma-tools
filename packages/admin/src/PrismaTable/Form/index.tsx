@@ -52,7 +52,14 @@ const Form: React.FC<FormProps> = ({
   const model = models.find((item) => item.id === modelName)!;
   const { onSubmit } = useActions(model, data, action, onCancel, onSave);
 
-  const { register, errors, handleSubmit, setValue } = useForm({
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setValue,
+    getValues,
+    watch,
+  } = useForm({
     defaultValues: getDefaultValues(action, model, data),
   });
 
@@ -96,8 +103,10 @@ const Form: React.FC<FormProps> = ({
                   field: field,
                   value: data[field.name],
                   error: errors[field.name],
-                  register: register,
-                  setValue: setValue,
+                  register,
+                  setValue,
+                  getValues,
+                  watch,
                   disabled:
                     (action === 'update' && !field.update) || action === 'view',
                 };
