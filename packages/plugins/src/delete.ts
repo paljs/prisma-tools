@@ -74,7 +74,7 @@ export class PrismaDelete {
         },
       });
       for (const result of results) {
-        if (!(field.list && result[field.name].length === 0)) {
+        if (!(field.isList && result[field.name].length === 0)) {
           await this.prisma[name].update({
             where: {
               [modelId]: result[modelId],
