@@ -25,11 +25,11 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "nexus": "0.25.0",
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "@paljs/nexus": "^1.1.7",
-    "nexus": "0.24.2"
+    "@paljs/nexus": "^1.1.7"
   },
   "gitHead": "3b5125827b3596175c7fb614b6cf90381b18e1a9"
 }

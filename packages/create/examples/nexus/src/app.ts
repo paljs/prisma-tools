@@ -3,7 +3,7 @@ import { PrismaDelete, onDeleteArgs } from '@paljs/plugins'
 import { schema, use } from 'nexus'
 import { paljs } from 'nexus-plugin-paljs'
 
-class Prisma extends PrismaClient {
+export class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {
     super(options)
   }
