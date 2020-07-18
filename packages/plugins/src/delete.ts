@@ -8,7 +8,7 @@ interface DeleteData {
 
 export interface onDeleteArgs {
   model: string;
-  where: object;
+  where?: any;
   deleteParent?: boolean;
 }
 
@@ -92,7 +92,7 @@ export class PrismaDelete {
 
   private async getDeleteArray(
     modelName: string,
-    whereInput: object,
+    whereInput: any,
     includeParent = true,
   ) {
     const deleteArray: DeleteData[] = includeParent
