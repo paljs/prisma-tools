@@ -7,6 +7,7 @@ import { Inputs } from './Inputs';
 import useActions from './useActions';
 import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
+import Spinner from '@paljs/ui/Spinner';
 
 export interface FormProps {
   action: 'update' | 'create' | 'view';
@@ -50,7 +51,13 @@ const Form: React.FC<FormProps> = ({
     formInputs,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName)!;
-  const { onSubmit } = useActions(model, data, action, onCancel, onSave);
+  const { onSubmit, loading } = useActions(
+    model,
+    data,
+    action,
+    onCancel,
+    onSave,
+  );
 
   const {
     register,
@@ -84,6 +91,7 @@ const Form: React.FC<FormProps> = ({
       </header>
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
         <CardBody style={{ overflow: 'visible' }}>
+          {loading && <Spinner size="Large" />}
           <Row between="lg">
             {model.fields
               .filter(

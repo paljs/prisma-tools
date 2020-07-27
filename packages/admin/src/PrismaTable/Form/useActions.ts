@@ -23,10 +23,10 @@ const useActions = (
   const {
     schema: { models },
   } = useContext(TableContext);
-  const [updateModel] = useMutation(
+  const [updateModel, { loading: updateLoading }] = useMutation(
     mutationDocument(models, model.id, 'update'),
   );
-  const [createModel] = useMutation(
+  const [createModel, { loading: createLoading }] = useMutation(
     mutationDocument(models, model.id, 'create'),
   );
   const getField = (name: string) => {
@@ -75,7 +75,7 @@ const useActions = (
           data: updateData,
         },
       }).then(() => {
-        onCancel();
+        // onCancel();
         onSave();
       });
     }
@@ -120,6 +120,7 @@ const useActions = (
 
   return {
     onSubmit,
+    loading: updateLoading || createLoading,
   };
 };
 
