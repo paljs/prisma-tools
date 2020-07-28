@@ -72,7 +72,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
           model={model}
           action={view ? 'view' : 'update'}
           data={record}
-          onCancel={() => onUpdateCancel(model)}
+          onCancel={() => onUpdateCancel({ model })}
           onSave={onSave}
         />
       </Col>

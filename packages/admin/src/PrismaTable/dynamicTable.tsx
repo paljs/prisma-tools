@@ -146,8 +146,14 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
           model={model}
           action="create"
           data={inEdit && parentName ? { [parentName]: parent?.value } : {}}
-          onCancel={() => onCreateCancel(model, setCreate)}
-          onSave={() => onCreateSave(model, setCreate, getData)}
+          onCancel={() => onCreateCancel({ model, setCreateModal: setCreate })}
+          onSave={() =>
+            onCreateSave({
+              model,
+              setCreateModal: setCreate,
+              refetchTable: getData,
+            })
+          }
         />
       </Modal>
       {(query?.update || query?.view) && !inEdit ? (
@@ -155,7 +161,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
           model={model}
           update={query.update}
           view={query?.view}
-          onSave={() => onUpdateSave(model, getData)}
+          onSave={() => onUpdateSave({ model, refetchTable: getData })}
         />
       ) : (
         <Table
