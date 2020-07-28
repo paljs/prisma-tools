@@ -32,6 +32,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const {
     schema: { models },
     query,
+    onCancelCreate,
+    onSaveCreate,
+    onSaveUpdate,
+    push,
+    pagesPath,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
 
@@ -109,6 +114,27 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
         break;
     }
   };
+
+  const onCreateCancel =
+    onCancelCreate ||
+    function () {
+      setCreate(false);
+    };
+
+  const onCreateSave =
+    onSaveCreate ||
+    function () {
+      setCreate(false);
+      getData();
+    };
+
+  const onUpdateSave =
+    onSaveUpdate ||
+    function () {
+      push(pagesPath + model);
+      getData();
+    };
+
   const parentName = modelObject?.fields.find(
     (item) => item.type === parent?.name,
   )?.name;
@@ -120,8 +146,8 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
           model={model}
           action="create"
           data={inEdit && parentName ? { [parentName]: parent?.value } : {}}
-          onCancel={() => setCreate(false)}
-          onSave={getData}
+          onCancel={() => onCreateCancel(model, setCreate)}
+          onSave={() => onCreateSave(model, setCreate, getData)}
         />
       </Modal>
       {(query?.update || query?.view) && !inEdit ? (
@@ -129,7 +155,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
           model={model}
           update={query.update}
           view={query?.view}
-          onSave={getData}
+          onSave={() => onUpdateSave(model, getData)}
         />
       ) : (
         <Table

@@ -51,13 +51,7 @@ const Form: React.FC<FormProps> = ({
     formInputs,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName)!;
-  const { onSubmit, loading } = useActions(
-    model,
-    data,
-    action,
-    onCancel,
-    onSave,
-  );
+  const { onSubmit, loading } = useActions(model, data, action, onSave);
 
   const {
     register,

@@ -53,6 +53,17 @@ interface SameProps {
   push: (url: string) => void;
   query: { [key: string]: any };
   onSelect?: (values: any[]) => void;
+  onCancelCreate?: (
+    model: string,
+    setCreateModal: (state: boolean) => void,
+  ) => void;
+  onSaveCreate?: (
+    model: string,
+    setCreateModal: (state: boolean) => void,
+    refetchTable: (options: any) => void,
+  ) => void;
+  onCancelUpdate?: (model: string) => void;
+  onSaveUpdate?: (model: string, refetchTable: (options: any) => void) => void;
 }
 
 export interface ModelTableProps

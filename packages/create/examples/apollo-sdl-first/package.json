@@ -15,7 +15,7 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
-    "@paljs/plugins": "1.1.7",
+    "@paljs/plugins": "1.1.9",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",

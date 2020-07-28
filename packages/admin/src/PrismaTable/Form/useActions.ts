@@ -17,7 +17,6 @@ const useActions = (
   model: SchemaModel,
   data: any,
   action: FormProps['action'],
-  onCancel: () => void,
   onSave: () => void,
 ) => {
   const {
@@ -75,7 +74,6 @@ const useActions = (
           data: updateData,
         },
       }).then(() => {
-        // onCancel();
         onSave();
       });
     }
@@ -109,7 +107,6 @@ const useActions = (
         data: createData,
       },
     }).then(() => {
-      onCancel();
       onSave();
     });
   };
