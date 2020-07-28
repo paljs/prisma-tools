@@ -60,12 +60,12 @@ interface SameProps {
   onSaveCreate?: (options: {
     model: string;
     setCreateModal: (state: boolean) => void;
-    refetchTable: (options: any) => void;
+    refetchTable: (options?: any) => void;
   }) => void;
   onCancelUpdate?: (options: { model: string }) => void;
   onSaveUpdate?: (options: {
     model: string;
-    refetchTable: (options: any) => void;
+    refetchTable: (options?: any) => void;
   }) => void;
 }
 
