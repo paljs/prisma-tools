@@ -37,11 +37,11 @@ const EditRecord: React.FC<EditRecordProps> = ({
     onCancelUpdate,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
-  const [getRecord, { data, loading }] = useLazyQuery(
+  const [getRecord, { data, loading, error }] = useLazyQuery(
     queryDocument(models, model, true, true),
   );
 
-  if (modelObject && !data && !loading) {
+  if (modelObject && !data && !loading && !error) {
     getRecord({
       variables: {
         where: { [modelObject.idField]: parseInt(update || view) },
