@@ -116,6 +116,13 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     };
 
     React.useEffect(() => {
+      if (data && data[`findOne${field.type}`]) {
+        setState(data[`findOne${field.type}`]);
+        setValue(field.name, data[`findOne${field.type}`]);
+      }
+    }, [data]);
+    
+    React.useEffect(() => {
       register({ name: field.name, required: field.required });
     }, [register]);
 
