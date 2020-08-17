@@ -63,7 +63,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
       push(pagesPath + model);
     };
 
-  return loading || !modelObject ? (
+  return loading || !modelObject || !data ? (
     <Spinner size="Giant" />
   ) : (
     <Row>

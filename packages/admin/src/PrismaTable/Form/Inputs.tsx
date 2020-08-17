@@ -57,14 +57,7 @@ const formats = [
 ];
 
 const defaultInputs: Omit<FormInputs, 'Upload'> = {
-  Default({ field, value, error, register, setValue, disabled }) {
-    const valueRef = useRef(value);
-
-    if (valueRef.current !== value) {
-      valueRef.current = value;
-      setValue(field.name, value);
-    }
-
+  Default({ field, error, register, disabled }) {
     const options: any = {
       name: field.name,
       disabled,
@@ -101,20 +94,6 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     );
   },
   Editor({ field, value, error, register, setValue, disabled }) {
-    const [state, setState] = useState(value);
-    const valueRef = useRef(value);
-
-    if (valueRef.current !== value) {
-      valueRef.current = value;
-      setState(value);
-      setValue(field.name, value);
-    }
-
-    const onChangeHandler = (value: string) => {
-      setValue(field.name, value);
-      setState(value);
-    };
-
     React.useEffect(() => {
       register({ name: field.name, required: field.required });
     }, [register]);
@@ -131,8 +110,8 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
               theme="snow"
               modules={modules}
               formats={formats}
-              value={state}
-              onChange={(value: string) => onChangeHandler(value)}
+              defaultValue={value}
+              onChange={(value: string) => setValue(field.name, value)}
             />
           </StyledReactQuillCol>
         </Row>
@@ -145,13 +124,6 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   Enum({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value);
     const enumType = useEnum(field.type);
-    const valueRef = useRef(value);
-
-    if (valueRef.current !== value) {
-      valueRef.current = value;
-      setState(value);
-      setValue(field.name, value);
-    }
 
     React.useEffect(() => {
       register({ name: field.name, required: field.required });
@@ -199,13 +171,6 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     const model = models.find((item) => item.id === field.type)!;
     const [modal, setModal] = useState(false);
     const [state, setSate] = useState(value);
-    const valueRef = useRef(value[model.idField]);
-
-    if (valueRef.current !== value[model.idField]) {
-      valueRef.current = value[model.idField];
-      setSate(value);
-      setValue(field.name, value);
-    }
 
     const [getData, { data, loading }] = useLazyQuery(
       queryDocument(models, field.type, true),
@@ -287,13 +252,6 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   },
   Date({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value ? new Date(value) : new Date());
-    const valueRef = useRef(value);
-
-    if (valueRef.current !== value) {
-      valueRef.current = value;
-      setState(value ? new Date(value) : new Date());
-      setValue(field.name, value);
-    }
 
     const onChangeHandler = (value: Date) => {
       setValue(field.name, value.toISOString());
@@ -330,13 +288,6 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   },
   Boolean({ field, value, register, setValue, disabled }) {
     const [state, setState] = useState(value);
-    const valueRef = useRef(value);
-
-    if (valueRef.current !== value) {
-      valueRef.current = value;
-      setState(value);
-      setValue(field.name, value);
-    }
 
     const onChangeHandler = (value: boolean) => {
       setValue(field.name, value);
