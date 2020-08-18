@@ -21,7 +21,7 @@ const staticData = `('findMany#{Model}Count', {
   type: 'Int',
   args: {
     where: '#{Model}WhereInput',
-    orderBy:  #{schema}arg({ type: '#{Model}OrderByInput', list: true }),,
+    orderBy: #{schema}arg({ type: '#{Model}OrderByInput', list: true }),
     cursor: '#{Model}WhereUniqueInput',
     skip: 'Int',
     take: 'Int',
