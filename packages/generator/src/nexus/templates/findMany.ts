@@ -23,7 +23,7 @@ const staticData = `('findMany#{Model}', {
   list: true,
   args: {
     where: '#{Model}WhereInput',
-    orderBy: '#{Model}OrderByInput',
+    orderBy:  #{schema}arg({ type: '#{Model}OrderByInput', list: true }),,
     cursor: '#{Model}WhereUniqueInput',
     skip: 'Int',
     take: 'Int',
@@ -32,6 +32,6 @@ const staticData = `('findMany#{Model}', {
     return prisma.#{model}.findMany({
       ...args,
       ...select,
-    })
+    }) as any
   },
 })`;

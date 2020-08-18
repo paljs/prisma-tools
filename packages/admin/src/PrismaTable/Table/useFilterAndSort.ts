@@ -54,7 +54,7 @@ const handleFilter = (filters: { id: string; value: any }[]) => {
 export const useFilterAndSort = (model: string, filter?: any) => {
   const initialFilter = filterMemo(model, filter);
   const [where, setWhere] = useState<any>();
-  const [orderBy, setOrderBy] = useState<any>();
+  const [orderBy, setOrderBy] = useState<any[]>();
 
   const filterHandler = (filters: { id: string; value: any }[]) => {
     setWhere(handleFilter(filters));
@@ -62,9 +62,11 @@ export const useFilterAndSort = (model: string, filter?: any) => {
 
   const sortByHandler = (sortBy: { id: string; desc: boolean }[]) => {
     if (sortBy.length > 0) {
-      const newOrderBy: { [key: string]: 'asc' | 'desc' } = {};
+      const newOrderBy: { [key: string]: 'asc' | 'desc' }[] = [];
       sortBy.forEach((item) => {
-        newOrderBy[item.id.split('.')[0]] = item.desc ? 'desc' : 'asc';
+        newOrderBy.push({
+          [item.id.split('.')[0]]: item.desc ? 'desc' : 'asc',
+        });
       });
       setOrderBy(newOrderBy);
     } else if (orderBy) {

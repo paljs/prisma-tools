@@ -20,7 +20,14 @@ schema.extendType({
 const staticData = `('aggregate#{Model}', {
   type: 'Aggregate#{Model}',
   nullable: true,
-  resolve(_parent, _args, { prisma, select }) {
-    return prisma.#{model}.aggregate(select) as any
+  args: {
+    where: '#{Model}WhereInput',
+    orderBy:  #{schema}arg({ type: '#{Model}OrderByInput', list: true }),,
+    cursor: '#{Model}WhereUniqueInput',
+    skip: 'Int',
+    take: 'Int',
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.#{model}.aggregate({...args, ...select}) as any
   },
 })`;

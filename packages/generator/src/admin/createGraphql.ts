@@ -66,7 +66,7 @@ ${
     ? `
 query findMany${model.name}(
   $where: ${model.name}WhereInput
-  $orderBy: ${model.name}OrderByInput
+  $orderBy: [${model.name}OrderByInput!]
   $cursor: ${model.name}WhereUniqueInput
   $skip: Int
   $take: Int
@@ -89,7 +89,7 @@ ${
     ? `
 query findMany${model.name}Count(
   $where: ${model.name}WhereInput
-  $orderBy: ${model.name}OrderByInput
+  $orderBy: [${model.name}OrderByInput!]
   $cursor: ${model.name}WhereUniqueInput
   $skip: Int
   $take: Int

@@ -30,7 +30,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findMany${name}(
       where: ${name}WhereInput
-      orderBy: ${name}OrderByInput
+      orderBy: [${name}OrderByInput!]
       cursor: ${name}WhereUniqueInput
       skip: Int
       take: Int
@@ -45,7 +45,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findMany${name}Count(
       where: ${name}WhereInput
-      orderBy: ${name}OrderByInput
+      orderBy: [${name}OrderByInput!]
       cursor: ${name}WhereUniqueInput
       skip: Int
       take: Int
@@ -58,7 +58,13 @@ export function createQueriesAndMutations(
 
   if (!exclude.includes('aggregate')) {
     operations.queries.type += `
-    aggregate${name}: Aggregate${name}`;
+    aggregate${name}(
+      where: ${name}WhereInput
+      orderBy: [${name}OrderByInput!]
+      cursor: ${name}WhereUniqueInput
+      skip: Int
+      take: Int
+    ): Aggregate${name}`;
     operations.queries.resolver += `
     aggregate${name}: (_parent, args, { injector }: ModuleContext) => {
       return injector.get(PrismaProvider).${model}.aggregate(args);
