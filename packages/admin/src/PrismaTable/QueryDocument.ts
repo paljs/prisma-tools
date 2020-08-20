@@ -18,28 +18,30 @@ const getFields = (
     ) {
       if (field.kind !== 'object') {
         fieldsString += `${field.name} `;
-      } else if (!field.list) {
+      } else if (!(field.list && !update)) {
         const fieldModel = models.find((item) => item.id === field.type);
         if (fieldModel) {
           fieldsString += `${field.name} {${fieldModel.idField} `;
-          fieldModel.displayFields.forEach((item) => {
-            const splitItems = item.split('.');
-            for (let i = 0; i < splitItems.length; i++) {
-              if (i + 1 < splitItems.length) {
-                fieldsString += `${splitItems[i]} { `;
-              } else if (
-                !(
-                  splitItems.length === 1 &&
-                  splitItems[i] === fieldModel.idField
-                )
-              ) {
-                fieldsString += `${splitItems[i]} `;
+          if (!field.list) {
+            fieldModel.displayFields.forEach((item) => {
+              const splitItems = item.split('.');
+              for (let i = 0; i < splitItems.length; i++) {
+                if (i + 1 < splitItems.length) {
+                  fieldsString += `${splitItems[i]} { `;
+                } else if (
+                  !(
+                    splitItems.length === 1 &&
+                    splitItems[i] === fieldModel.idField
+                  )
+                ) {
+                  fieldsString += `${splitItems[i]} `;
+                }
               }
-            }
-            for (let i = 1; i < splitItems.length; i++) {
-              fieldsString += `} `;
-            }
-          });
+              for (let i = 1; i < splitItems.length; i++) {
+                fieldsString += `} `;
+              }
+            });
+          }
           fieldsString += '} ';
         }
       }

@@ -9,7 +9,7 @@ import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
 
 interface DynamicTableProps {
-  parent?: { name: string; value: any };
+  parent?: { name: string; value: any; field: string };
   inEdit?: boolean;
   model: string;
   filter?: unknown;
@@ -165,6 +165,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
         />
       ) : (
         <Table
+          parent={parent}
           connect={connect}
           inEdit={inEdit}
           onAction={onAction}

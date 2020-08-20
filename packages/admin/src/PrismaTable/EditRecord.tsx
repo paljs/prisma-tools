@@ -87,7 +87,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
                       model={field.type}
                       inEdit
                       filter={{ [model]: record[modelObject.idField] }}
-                      parent={{ name: model, value: record }}
+                      parent={{ name: model, value: record, field: field.name }}
                     />
                   </Tab>
                 );

@@ -15,6 +15,7 @@ import { TableContext } from '../Context';
 import Spinner from '@paljs/ui/Spinner';
 import Tooltip from '@paljs/ui/Tooltip';
 import { Checkbox } from '@paljs/ui';
+import { ListConnect } from './ListConnect';
 
 interface TableProps {
   inEdit?: boolean;
@@ -28,6 +29,7 @@ interface TableProps {
   filterHandler: (filters: { id: string; value: any }[]) => void;
   onAction: (action: 'create' | 'delete' | 'connect', value?: unknown) => void;
   connect?: any;
+  parent?: { name: string; value: any; field: string };
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -42,6 +44,7 @@ export const Table: React.FC<TableProps> = ({
   onAction,
   inEdit,
   connect,
+  parent,
 }) => {
   const {
     schema: { models },
@@ -270,7 +273,10 @@ export const Table: React.FC<TableProps> = ({
                       </Button>
                     </td>
                   )}
-                  {!connect && (
+                  {parent && model && (
+                    <ListConnect parent={parent} row={row} model={model} />
+                  )}
+                  {!connect && !parent && (
                     <td colSpan={actions.delete ? 1 : 2}>
                       <Tooltip
                         className="inline-block"
@@ -300,7 +306,7 @@ export const Table: React.FC<TableProps> = ({
                       </Tooltip>
                     </td>
                   )}
-                  {actions.delete && !connect && (
+                  {actions.delete && !connect && !parent && (
                     <td colSpan={1}>
                       <Tooltip
                         className="inline-block"
