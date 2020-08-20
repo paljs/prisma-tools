@@ -44,5 +44,6 @@ export const useListConnectToOne = (parent: {
   return {
     listConnectToOne,
     updateLoading,
+    modelObject,
   };
 };

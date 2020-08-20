@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@paljs/ui/Button';
 import { useListConnectToOne } from '../useListConnectToOne';
 import { SchemaModel } from '@paljs/types';
-import { Spinner } from '@paljs/ui';
+import Spinner from '@paljs/ui/Spinner';
 
 interface ListConnectProps {
   parent: { name: string; value: any; field: string };

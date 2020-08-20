@@ -51,7 +51,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
 
   const record = data ? data[`findOne${model}`] : {};
   const tabs = modelObject?.fields.filter(
-    (field) => field.kind === 'object' && field.list && field.update,
+    (field) => field.kind === 'object' && field.list && field.read,
   );
 
   if (!loading && data && !data[`findOne${model}`] && modelObject)

@@ -14,7 +14,7 @@ import { initPages } from './utils';
 import { TableContext } from '../Context';
 import Spinner from '@paljs/ui/Spinner';
 import Tooltip from '@paljs/ui/Tooltip';
-import { Checkbox } from '@paljs/ui';
+import { Checkbox } from '@paljs/ui/Checkbox';
 import { ListConnect } from './ListConnect';
 
 interface TableProps {
@@ -70,6 +70,7 @@ export const Table: React.FC<TableProps> = ({
     nextPage,
     previousPage,
     setPageSize,
+    setAllFilters,
     state: { pageIndex, pageSize, filters, sortBy },
   } = useTable(
     {
@@ -142,6 +143,12 @@ export const Table: React.FC<TableProps> = ({
   };
 
   const isSelect = onSelect && !inEdit;
+
+  const hasFilters = filters.length > 0;
+
+  const parentModel = models.find((item) => item.id === parent?.name);
+  const fieldUpdate = parentModel?.fields.find((f) => f.name === parent?.field)
+    ?.update;
   // Render the UI for your table
   return (
     <Card style={{ marginBottom: 0, maxHeight: '100vh' }}>
@@ -158,6 +165,21 @@ export const Table: React.FC<TableProps> = ({
       )}
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
+        {parent && fieldUpdate && (
+          <Button
+            style={{ marginBottom: '10px' }}
+            size="Small"
+            onClick={() => {
+              if (hasFilters) {
+                setAllFilters([]);
+              } else {
+                setAllFilters(initialFilter);
+              }
+            }}
+          >
+            {hasFilters ? 'View All' : 'View Related'}
+          </Button>
+        )}
         <StyledTable
           ref={tableRef}
           {...getTableProps()}
@@ -168,7 +190,7 @@ export const Table: React.FC<TableProps> = ({
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {isSelect && <th>Select</th>}
-                  <th colSpan={2}>Actions</th>
+                  {!(!fieldUpdate && parent) && <th colSpan={2}>Actions</th>}
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th
                       key={index2}
@@ -202,13 +224,18 @@ export const Table: React.FC<TableProps> = ({
                   {connect ? (
                     <th colSpan={2} />
                   ) : (
-                    <th colSpan={2}>
-                      {actions.create && (
-                        <Button size="Tiny" onClick={() => onAction('create')}>
-                          <EvaIcon name="plus-outline" />
-                        </Button>
-                      )}
-                    </th>
+                    !(!fieldUpdate && parent) && (
+                      <th colSpan={2}>
+                        {actions.create && (
+                          <Button
+                            size="Tiny"
+                            onClick={() => onAction('create')}
+                          >
+                            <EvaIcon name="plus-outline" />
+                          </Button>
+                        )}
+                      </th>
+                    )
                   )}
                   {headerGroup.headers.map((column: any, index: number) => (
                     <th key={index}>
@@ -273,7 +300,7 @@ export const Table: React.FC<TableProps> = ({
                       </Button>
                     </td>
                   )}
-                  {parent && model && (
+                  {parent && model && fieldUpdate && (
                     <ListConnect parent={parent} row={row} model={model} />
                   )}
                   {!connect && !parent && (
