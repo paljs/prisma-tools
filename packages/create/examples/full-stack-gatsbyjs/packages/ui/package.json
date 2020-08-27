@@ -40,7 +40,7 @@
     "@graphql-codegen/typescript": "1.x",
     "@graphql-codegen/typescript-operations": "1.x",
     "@graphql-codegen/typescript-react-apollo": "1.x",
-    "@types/node": "13.x",
+    "@types/node": "14.x",
     "@types/react": "16.x",
     "@types/react-dom": "16.x",
     "@types/react-helmet": "6.x",
@@ -53,7 +53,7 @@
     "eslint-plugin-react": "7.x",
     "prettier": "2.x",
     "react-live": "2.x",
-    "ts-node": "8.x",
-    "typescript": "3.x"
+    "ts-node": "9.x",
+    "typescript": "4.x"
   }
 }

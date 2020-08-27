@@ -21,7 +21,7 @@
     "husky": "4.x",
     "lerna": "3.x",
     "prettier": "2.x",
-    "pretty-quick": "2.x"
+    "pretty-quick": "3.x"
   },
   "prettier": {
     "singleQuote": true,

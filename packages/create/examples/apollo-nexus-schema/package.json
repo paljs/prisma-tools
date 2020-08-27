@@ -29,7 +29,7 @@
     "prettier": "2.x",
     "ts-node": "8.x",
     "ts-node-dev": "1.x",
-    "typescript": "3.x"
+    "typescript": "4.x"
   },
   "prettier": {
     "singleQuote": true,

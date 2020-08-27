@@ -165,21 +165,6 @@ export const Table: React.FC<TableProps> = ({
       )}
       <CardBody id="popoverScroll">
         {loading && <Spinner size="Giant" />}
-        {parent && fieldUpdate && (
-          <Button
-            style={{ marginBottom: '10px' }}
-            size="Small"
-            onClick={() => {
-              if (hasFilters) {
-                setAllFilters([]);
-              } else {
-                setAllFilters(initialFilter);
-              }
-            }}
-          >
-            {hasFilters ? 'View All' : 'View Related'}
-          </Button>
-        )}
         <StyledTable
           ref={tableRef}
           {...getTableProps()}
@@ -190,7 +175,8 @@ export const Table: React.FC<TableProps> = ({
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {isSelect && <th>Select</th>}
-                  {!(!fieldUpdate && parent) && <th colSpan={2}>Actions</th>}
+                  <th colSpan={2}>Actions</th>
+                  {fieldUpdate && parent && <th>Relation</th>}
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th
                       key={index2}
@@ -224,18 +210,30 @@ export const Table: React.FC<TableProps> = ({
                   {connect ? (
                     <th colSpan={2} />
                   ) : (
-                    !(!fieldUpdate && parent) && (
-                      <th colSpan={2}>
-                        {actions.create && (
-                          <Button
-                            size="Tiny"
-                            onClick={() => onAction('create')}
-                          >
-                            <EvaIcon name="plus-outline" />
-                          </Button>
-                        )}
-                      </th>
-                    )
+                    <th colSpan={2}>
+                      {actions.create && (
+                        <Button size="Tiny" onClick={() => onAction('create')}>
+                          <EvaIcon name="plus-outline" />
+                        </Button>
+                      )}
+                    </th>
+                  )}
+                  {fieldUpdate && parent && (
+                    <th>
+                      <Button
+                        size="Small"
+                        shape="SemiRound"
+                        onClick={() => {
+                          if (hasFilters) {
+                            setAllFilters([]);
+                          } else {
+                            setAllFilters(initialFilter);
+                          }
+                        }}
+                      >
+                        {hasFilters ? 'View All' : 'View Related'}
+                      </Button>
+                    </th>
                   )}
                   {headerGroup.headers.map((column: any, index: number) => (
                     <th key={index}>
@@ -300,10 +298,7 @@ export const Table: React.FC<TableProps> = ({
                       </Button>
                     </td>
                   )}
-                  {parent && model && fieldUpdate && (
-                    <ListConnect parent={parent} row={row} model={model} />
-                  )}
-                  {!connect && !parent && (
+                  {!connect && (
                     <td colSpan={actions.delete ? 1 : 2}>
                       <Tooltip
                         className="inline-block"
@@ -333,7 +328,7 @@ export const Table: React.FC<TableProps> = ({
                       </Tooltip>
                     </td>
                   )}
-                  {actions.delete && !connect && !parent && (
+                  {actions.delete && !connect && (
                     <td colSpan={1}>
                       <Tooltip
                         className="inline-block"
@@ -361,6 +356,9 @@ export const Table: React.FC<TableProps> = ({
                   )}
                   {actions.create && !actions.update && !actions.delete && (
                     <td colSpan={2} />
+                  )}
+                  {parent && model && fieldUpdate && (
+                    <ListConnect parent={parent} row={row} model={model} />
                   )}
                   {row.cells.map((cell: any, index2: number) => {
                     return (

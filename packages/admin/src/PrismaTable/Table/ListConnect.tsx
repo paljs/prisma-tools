@@ -23,7 +23,7 @@ export const ListConnect: React.FC<ListConnectProps> = ({
   );
 
   return (
-    <td colSpan={2} style={{ position: 'relative' }}>
+    <td style={{ position: 'relative' }}>
       <Button
         size="Small"
         appearance="ghost"

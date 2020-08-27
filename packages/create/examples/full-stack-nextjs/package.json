@@ -60,8 +60,8 @@
     "eslint-plugin-react": "7.x",
     "husky": "4.x",
     "prettier": "2.x",
-    "pretty-quick": "2.x",
-    "typescript": "3.x"
+    "pretty-quick": "3.x",
+    "typescript": "4.x"
   },
   "husky": {
     "hooks": {
