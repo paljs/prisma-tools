@@ -69,7 +69,7 @@ export default class Generate extends Command {
   async run() {
     const { args, flags } = this.parse(Generate);
     const config = await getConfig(flags);
-    await ifPrismaExitAndGenerated();
+    await ifPrismaExitAndGenerated(config);
     const spinner = log.spinner(log.withBrand('Generating your files')).start();
 
     if (config?.backend?.generator) {

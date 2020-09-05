@@ -75,6 +75,7 @@ export type PartialOptions = Omit<Partial<Options>, 'nexusSchema'>;
 export interface Options {
   models?: string[];
   output: string;
+  prismaClientPath: string;
   excludeFields: string[];
   excludeModels: { name: string; queries?: boolean; mutations?: boolean }[];
   disableQueries?: boolean;

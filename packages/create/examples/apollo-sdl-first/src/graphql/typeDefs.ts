@@ -1,4 +1,4 @@
-import { mergeTypes } from 'merge-graphql-schemas';
+import { mergeTypeDefs } from '@graphql-tools/merge';
 import { sdlInputs } from '@paljs/plugins';
 
-export default mergeTypes([sdlInputs]);
+export default mergeTypeDefs([sdlInputs]);

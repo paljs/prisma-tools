@@ -9,6 +9,7 @@ const projectRoot = pkgDir.sync() || process.cwd();
 export class Generators {
   protected options: Options = {
     output: join(projectRoot, 'src/graphql'),
+    prismaClientPath: join(projectRoot, 'node_modules', '@prisma/client'),
     excludeFields: [],
     excludeModels: [],
     excludeFieldsByModel: {},
@@ -36,9 +37,7 @@ export class Generators {
   }
 
   protected async dmmf() {
-    const { dmmf } = await import(
-      join(projectRoot, 'node_modules', '@prisma/client')
-    );
+    const { dmmf } = await import(this.options.prismaClientPath);
     return dmmf;
   }
 

@@ -158,7 +158,7 @@ const getCurrentExport = (text: string) => {
 };
 
 const defaultResolverFile = `export default [];`;
-const defaultTypeFile = `import { mergeTypes } from 'merge-graphql-schemas';
+const defaultTypeFile = `import { mergeTypeDefs } from '@graphql-tools/merge';
 import { sdlInputs } from '@paljs/plugins';
 
-export default mergeTypes([sdlInputs]);`;
+export default mergeTypeDefs([sdlInputs]);`;
