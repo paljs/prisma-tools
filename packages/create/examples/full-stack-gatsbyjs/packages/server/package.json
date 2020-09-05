@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@nexus/schema": "0.x",
-    "@paljs/nexus": "1.2.6",
+    "@paljs/nexus": "1.2.7",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "bcryptjs": "2.x",
