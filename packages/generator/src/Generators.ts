@@ -16,7 +16,7 @@ export class Generators {
     excludeQueriesAndMutationsByModel: {},
   };
 
-  protected isJS = false;
+  protected isJS?: boolean = false;
 
   protected queries: Query[] = [
     'findOne',
