@@ -16,7 +16,7 @@ export class Generators {
     excludeQueriesAndMutationsByModel: {},
   };
 
-  protected isJS = this.options.javaScript;
+  protected isJS = false;
 
   protected queries: Query[] = [
     'findOne',
@@ -35,6 +35,7 @@ export class Generators {
 
   constructor(customOptions?: Partial<Options>) {
     this.options = { ...this.options, ...customOptions };
+    this.isJS = this.options.javaScript;
   }
 
   protected async dmmf() {
