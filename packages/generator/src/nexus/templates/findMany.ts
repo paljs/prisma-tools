@@ -33,6 +33,6 @@ const staticData = `('findMany#{Model}', {
     return prisma.#{model}.findMany({
       ...args,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

@@ -32,6 +32,6 @@ const staticData = `('deleteOne#{Model}', {
     return prisma.#{model}.delete({
       where,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

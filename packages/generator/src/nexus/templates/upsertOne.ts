@@ -39,6 +39,6 @@ const staticData = `('upsertOne#{Model}', {
     return prisma.#{model}.upsert({
       ...args,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

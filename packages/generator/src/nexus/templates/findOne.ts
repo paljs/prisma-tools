@@ -31,6 +31,6 @@ const staticData = `('findOne#{Model}', {
     return prisma.#{model}.findOne({
       where,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

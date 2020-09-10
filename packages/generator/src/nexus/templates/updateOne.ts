@@ -36,6 +36,6 @@ const staticData = `('updateOne#{Model}', {
       where,
       data,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

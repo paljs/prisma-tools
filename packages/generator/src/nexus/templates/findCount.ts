@@ -4,7 +4,7 @@ export default (schema?: boolean) => `
 ${
   schema
     ? `
-#{exportTs}const #{Model}FindManyCountQuery = queryField${staticData};
+#{exportTs}const #{Model}FindCountQuery = queryField${staticData};
 #{exportJs}
 `
     : `

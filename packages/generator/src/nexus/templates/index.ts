@@ -23,6 +23,10 @@ const crud: { [key in QueriesAndMutations]: (schema?: boolean) => string } = {
   aggregate,
 };
 
+function caplital(name: string) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 export function getCrud(
   model: string,
   type: 'query' | 'mutation',
@@ -48,8 +52,14 @@ export function getCrud(
     .replace(/#{model}/g, modelLower)
     .replace(/#{import}/g, importString)
     .replace(/#{schema}/g, schema ? '' : 'schema.')
+    .replace(/#{as}/g, isJS ? '' : ' as any')
     .replace(/#{exportTs}/g, isJS ? '' : 'export ')
-    .replace(/#{exportJs}/g, isJS ? `module.exports = {${model}}` : '')
+    .replace(
+      /#{exportJs}/g,
+      isJS
+        ? `module.exports = {${model}${caplital(key)}${caplital(type)}}`
+        : '',
+    )
     .replace(
       /#{onDelete}/g,
       onDelete ? `await prisma.onDelete({ model: '${model}', where })` : '',

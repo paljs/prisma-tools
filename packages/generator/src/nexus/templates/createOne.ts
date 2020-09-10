@@ -31,6 +31,6 @@ const staticData = `('createOne#{Model}', {
     return prisma.#{model}.create({
       data,
       ...select,
-    }) as any
+    })#{as}
   },
 })`;

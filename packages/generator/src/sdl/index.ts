@@ -86,12 +86,12 @@ export class GenerateSdl extends Generators {
     if (resolvers) {
       if (this.isJS) {
         resolvers = `
-      const ${model}Resolvers = {
+      const ${model} = {
         ${resolvers}
       }
       
       module.exports = { 
-      ${model}Resolvers
+      ${model}
       }
         `;
       } else {
@@ -110,8 +110,8 @@ export class GenerateSdl extends Generators {
       if (!this.resolversExport.includes(model)) {
         this.resolversExport.push(model);
         this.resolversIndex = `${this.getImport(
-          this.isJS ? `{ ${model}Resolvers }` : model,
-          `${model}/resolvers`,
+          this.isJS ? `{ ${model} }` : model,
+          `./${model}/resolvers`,
         )}\n${this.resolversIndex}`;
       }
     }
@@ -120,9 +120,9 @@ export class GenerateSdl extends Generators {
   private createTypes(fileContent: string, model: string) {
     if (this.isJS) {
       fileContent = `const { default: gql } = require('graphql-tag');\n
-    const ${model}TypeDefs = gql\`\n${fileContent}\n\`;\n
+    const ${model} = gql\`\n${fileContent}\n\`;\n
     module.exports = { 
-      ${model}TypeDefs
+      ${model}
       }`;
     } else {
       fileContent = `import gql from 'graphql-tag';\n
@@ -137,8 +137,8 @@ export class GenerateSdl extends Generators {
     if (!this.typeDefsExport.includes(model)) {
       this.typeDefsExport.push(model);
       this.typeDefsIndex = `${this.getImport(
-        this.isJS ? `{ ${model}TypeDefs }` : model,
-        `${model}/typeDefs`,
+        this.isJS ? `{ ${model} }` : model,
+        `./${model}/typeDefs`,
       )}\n${this.typeDefsIndex}`;
     }
   }
@@ -180,16 +180,19 @@ const getCurrentExport = (text: string) => {
 
 const defaultResolverFile = (isJs?: boolean) =>
   isJs
-    ? `const resolvers = [];
+    ? `
+    const resolvers = [];
+    
     module.exports = {resolvers};`
     : `export default [];`;
 const defaultTypeFile = (isJs?: boolean) =>
   isJs
-    ? `const { mergeTypeDefs } require('@graphql-tools/merge');
-const { sdlInputs } require('@paljs/plugins');
+    ? `const { mergeTypeDefs } = require('@graphql-tools/merge');
+const { sdlInputs } = require('@paljs/plugins');
 
-const typeDevs = mergeTypeDefs([sdlInputs]);
-module.exports = {typeDevs};`
+const typeDefs = mergeTypeDefs([sdlInputs]);
+
+module.exports = {typeDefs};`
     : `import { mergeTypeDefs } from '@graphql-tools/merge';
 import { sdlInputs } from '@paljs/plugins';
 

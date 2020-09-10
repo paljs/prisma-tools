@@ -113,13 +113,12 @@ export class Generators {
     if (this.isJS) lines.push('module.exports = {');
     files.forEach((file) => {
       if (this.isJS) {
-        files.push(`  ...require('./${file}'),`);
+        lines.push(`  ...require('./${file}'),`);
       } else {
-        files.push(`export * from './${file}'`);
+        lines.push(`export * from './${file}'`);
       }
     });
     if (this.isJS) lines.push('}');
-
     return lines.join('\n');
   }
 
