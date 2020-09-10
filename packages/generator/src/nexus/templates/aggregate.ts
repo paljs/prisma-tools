@@ -4,7 +4,8 @@ export default (schema?: boolean) => `
 ${
   schema
     ? `
-export const #{Model}AggregateQuery = queryField${staticData};
+#{exportTs}const #{Model}AggregateQuery = queryField${staticData};
+#{exportJs}
 `
     : `
 schema.extendType({

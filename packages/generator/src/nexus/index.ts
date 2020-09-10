@@ -10,8 +10,9 @@ export class GenerateNexus extends Generators {
     super(customOptions);
   }
 
-  private indexPath = this.output('index.ts');
-  private index = this.readIndex();
+  private indexPath = this.output(this.withExtension('index'));
+  private indexTS = this.readIndex();
+  private indexJS: string[] = [];
 
   async run() {
     await this.createModels();
@@ -21,19 +22,25 @@ export class GenerateNexus extends Generators {
   private async createModels() {
     const models = await this.models();
     models.forEach((model) => {
-      const exportString = `export * from './${model.name}'`;
-      if (!this.index.includes(exportString)) {
-        this.index = `export * from './${model.name}'\n${this.index}`;
+      if (this.isJS) {
+        this.indexJS.push(model.name);
+      } else {
+        const exportString = `export * from './${model.name}'`;
+        if (!this.indexTS.includes(exportString)) {
+          this.indexTS = `export * from './${model.name}'\n${this.indexTS}`;
+        }
       }
 
       let fileContent = `${
         this.options.nexusSchema
-          ? `import { objectType } from '@nexus/schema'`
-          : `import { schema } from 'nexus'`
+          ? this.getImport('{ objectType }', '@nexus/schema')
+          : this.getImport('{ schema }', 'nexus')
       }\n\n`;
 
       fileContent += `${
-        this.options.nexusSchema ? `export const ${model.name} = ` : 'schema.'
+        this.options.nexusSchema
+          ? `${!this.isJS ? 'export ' : ''}const ${model.name} = `
+          : 'schema.'
       }objectType({
   name: '${model.name}',
   definition(t) {
@@ -53,25 +60,30 @@ export class GenerateNexus extends Generators {
         }
       });
 
-      fileContent += `},\n})\n\n`;
+      fileContent += `},\n})\n\n${
+        this.isJS && this.options.nexusSchema
+          ? `module.exports = {${model.name}}`
+          : ''
+      }`;
       const path = this.output(model.name);
       this.mkdir(path);
       writeFileSync(
-        join(path, 'type.ts'),
-        this.formation(fileContent, 'babel-ts'),
+        join(path, this.withExtension('type')),
+        this.formation(fileContent),
       );
 
-      let modelIndex = `export * from './type'\n`;
-      modelIndex += this.createQueriesAndMutations(model.name);
-      this.createIndex(path, modelIndex);
+      this.createIndex(
+        path,
+        ['type'].concat(this.createQueriesAndMutations(model.name)),
+      );
     });
   }
 
   private createQueriesAndMutations(name: string) {
     const exclude = this.excludedOperations(name);
-    let modelIndex = '';
+    let modelIndex: string[] = [];
     if (this.disableQueries(name)) {
-      let queriesIndex = '';
+      const queriesIndex: string[] = [];
       const path = this.output(name, 'queries');
       this.queries
         .filter((item) => !exclude.includes(item))
@@ -82,27 +94,26 @@ export class GenerateNexus extends Generators {
             item,
             this.options.onDelete,
             this.options.nexusSchema,
+            this.isJS,
           );
           this.createFileIfNotfound(
             path,
-            `${item}.ts`,
-            this.formation(itemContent, 'babel-ts'),
+            this.withExtension(item),
+            this.formation(itemContent),
           );
-          queriesIndex += `export * from './${item}'
-`;
+          queriesIndex.push(item);
         });
       if (queriesIndex && this.options.nexusSchema) {
-        modelIndex += `export * from './queries'
-`;
+        modelIndex.push('queries');
         writeFileSync(
-          join(path, 'index.ts'),
-          this.formation(queriesIndex, 'babel-ts'),
+          join(path, this.withExtension('index')),
+          this.formation(this.getIndexContent(queriesIndex)),
         );
       }
     }
 
     if (this.disableMutations(name)) {
-      let mutationsIndex = '';
+      const mutationsIndex: string[] = [];
       const path = this.output(name, 'mutations');
       this.mutations
         .filter((item) => !exclude.includes(item))
@@ -113,37 +124,39 @@ export class GenerateNexus extends Generators {
             item,
             this.options.onDelete,
             this.options.nexusSchema,
+            this.isJS,
           );
           this.createFileIfNotfound(
             path,
-            `${item}.ts`,
-            this.formation(itemContent, 'babel-ts'),
+            this.withExtension('item'),
+            this.formation(itemContent),
           );
-          mutationsIndex += `export * from './${item}'
-`;
+          mutationsIndex.push(item);
         });
       if (mutationsIndex && this.options.nexusSchema) {
-        modelIndex += `export * from './mutations'`;
+        modelIndex.push('mutations');
         writeFileSync(
-          join(path, 'index.ts'),
-          this.formation(mutationsIndex, 'babel-ts'),
+          join(path, this.withExtension('index')),
+          this.formation(this.getIndexContent(mutationsIndex)),
         );
       }
     }
     return modelIndex;
   }
 
-  private createIndex(path?: string, content?: string) {
+  private createIndex(path?: string, content?: string[]) {
     if (this.options.nexusSchema) {
       if (path && content) {
         writeFileSync(
-          join(path, 'index.ts'),
-          this.formation(content, 'babel-ts'),
+          join(path, this.withExtension('index')),
+          this.formation(this.getIndexContent(content)),
         );
       } else {
         writeFileSync(
-          this.output('index.ts'),
-          this.formation(this.index, 'babel-ts'),
+          this.output(this.withExtension('index')),
+          this.formation(
+            this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS,
+          ),
         );
       }
     }

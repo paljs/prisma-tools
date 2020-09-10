@@ -76,6 +76,7 @@ export interface Options {
   models?: string[];
   output: string;
   prismaClientPath?: string;
+  javaScript?: boolean;
   excludeFields: string[];
   excludeModels: { name: string; queries?: boolean; mutations?: boolean }[];
   disableQueries?: boolean;

@@ -16,6 +16,8 @@ export class Generators {
     excludeQueriesAndMutationsByModel: {},
   };
 
+  protected isJS = this.options.javaScript;
+
   protected queries: Query[] = [
     'findOne',
     'findMany',
@@ -57,6 +59,10 @@ export class Generators {
         model.name !== 'BatchPayload' &&
         (!this.options.models || this.options.models.includes(model.name)),
     );
+  }
+
+  protected withExtension(filename: string) {
+    return filename + (this.isJS ? '.js' : '.ts');
   }
 
   protected excludeFields(model: string) {
@@ -101,6 +107,27 @@ export class Generators {
     return join(this.options.output, ...paths);
   }
 
+  protected getIndexContent(files: string[]) {
+    const lines: string[] = [];
+    if (this.isJS) lines.push('module.exports = {');
+    files.forEach((file) => {
+      if (this.isJS) {
+        files.push(`  ...require('./${file}'),`);
+      } else {
+        files.push(`export * from './${file}'`);
+      }
+    });
+    if (this.isJS) lines.push('}');
+
+    return lines.join('\n');
+  }
+
+  protected getImport(content: string, path: string) {
+    return this.isJS
+      ? `const ${content} = require('${path}')`
+      : `import ${content} from '${path}'`;
+  }
+
   protected createFileIfNotfound(
     path: string,
     fileName: string,
@@ -111,9 +138,13 @@ export class Generators {
       writeFileSync(join(path, fileName), content);
   }
 
+  protected get parser() {
+    return this.isJS ? 'babel' : 'babel-ts';
+  }
+
   protected formation(
     text: string,
-    parser: PrettierOptions['parser'] = 'babel',
+    parser: PrettierOptions['parser'] = this.parser,
   ) {
     return format(text, {
       singleQuote: true,

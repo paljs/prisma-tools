@@ -29,18 +29,27 @@ export function getCrud(
   key: QueriesAndMutations,
   onDelete?: boolean,
   schema?: boolean,
+  isJS?: boolean,
 ) {
+  function getImport(content: string, path: string) {
+    return isJS
+      ? `const ${content} = require('${path}')`
+      : `import ${content} from '${path}'`;
+  }
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
   const importString = schema
-    ? `import { ${
-        type === 'query' ? 'queryField' : 'mutationField'
-      }, arg } from '@nexus/schema'`
-    : `import { schema } from 'nexus'`;
+    ? getImport(
+        `{ ${type === 'query' ? 'queryField' : 'mutationField'}, arg }`,
+        '@nexus/schema',
+      )
+    : getImport('{ schema }', 'nexus');
   return crud[key](schema)
     .replace(/#{Model}/g, model)
     .replace(/#{model}/g, modelLower)
     .replace(/#{import}/g, importString)
     .replace(/#{schema}/g, schema ? '' : 'schema.')
+    .replace(/#{exportTs}/g, isJS ? '' : 'export ')
+    .replace(/#{exportJs}/g, isJS ? `module.exports = {${model}}` : '')
     .replace(
       /#{onDelete}/g,
       onDelete ? `await prisma.onDelete({ model: '${model}', where })` : '',

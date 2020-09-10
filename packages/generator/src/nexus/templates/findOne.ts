@@ -4,7 +4,8 @@ export default (schema?: boolean) => `
 ${
   schema
     ? `
-export const #{Model}FindOneQuery = queryField${staticData};
+#{exportTs}const #{Model}FindOneQuery = queryField${staticData};
+#{exportJs}
 `
     : `
 schema.extendType({

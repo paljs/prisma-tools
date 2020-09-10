@@ -4,7 +4,8 @@ export default (schema?: boolean) => `
 ${
   schema
     ? `
-export const #{Model}UpdateOneMutation = mutationField${staticData};
+#{exportTs}const #{Model}UpdateOneMutation = mutationField${staticData};
+#{exportJs}
 `
     : `
 schema.extendType({
