@@ -1,6 +1,6 @@
 {
   "name": "@paljs/types",
-  "version": "1.3.0-dev.1",
+  "version": "1.3.0",
   "main": "dist/index.js",
   "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",

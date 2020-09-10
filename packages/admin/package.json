@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "1.3.0-dev.1",
+  "version": "1.3.0",
   "main": "dist/index.js",
   "module": "dist/admin.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@paljs/types": "^1.3.0-dev.1",
+    "@paljs/types": "^1.3.0",
     "moment": "2.26.0",
     "prettier": "2.0.5",
     "query-string": "6.13.1",
