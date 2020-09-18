@@ -7,10 +7,10 @@ import { SchemaModel } from '../../types';
 
 export const getValueByType = (type: string | undefined, value: string) => {
   return type === 'Int'
-    ? parseInt(value)
+    ? { set: parseInt(value) }
     : type === 'Float'
-    ? parseFloat(value)
-    : value;
+    ? { set: parseFloat(value) }
+    : { set: value };
 };
 
 const useActions = (
@@ -21,6 +21,7 @@ const useActions = (
 ) => {
   const {
     schema: { models },
+    valueHandler,
   } = useContext(TableContext);
   const [updateModel, { loading: updateLoading }] = useMutation(
     mutationDocument(models, model.id, 'update'),
@@ -61,7 +62,9 @@ const useActions = (
             updateData[key] = { disconnect: true };
           }
         } else if (newData[key] !== data[key]) {
-          updateData[key] = getValueByType(field?.type, newData[key]);
+          updateData[key] = valueHandler
+            ? valueHandler(newData[key], field?.type)
+            : getValueByType(field?.type, newData[key]);
         }
       }
     });
@@ -99,7 +102,9 @@ const useActions = (
           };
         }
       } else {
-        createData[key] = getValueByType(field?.type, newData[key]);
+        createData[key] = valueHandler
+          ? valueHandler(newData[key], field?.type)
+          : getValueByType(field?.type, newData[key]);
       }
     });
     createModel({

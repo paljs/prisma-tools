@@ -67,6 +67,7 @@ interface SameProps {
     model: string;
     refetchTable: (options?: any) => void;
   }) => void;
+  valueHandler?: (value: string, type?: string) => any;
 }
 
 export interface ModelTableProps
