@@ -79,17 +79,21 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
       disabled,
       ref: register(field.required ? { required: true } : {}),
     };
-    switch (field.type) {
-      case 'Int':
-        options['type'] = 'number';
-        break;
-      case 'Flout':
-        options['type'] = 'number';
-        options['step'] = 'any';
-        break;
-      case 'String':
-        options['type'] = 'text';
-        break;
+    if (field.list) {
+      options['type'] = 'text';
+    } else {
+      switch (field.type) {
+        case 'Int':
+          options['type'] = 'number';
+          break;
+        case 'Flout':
+          options['type'] = 'number';
+          options['step'] = 'any';
+          break;
+        case 'String':
+          options['type'] = 'text';
+          break;
+      }
     }
     return (
       <StyledCol breakPoint={{ xs: 12, lg: 6 }}>

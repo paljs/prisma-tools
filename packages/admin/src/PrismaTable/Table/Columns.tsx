@@ -23,29 +23,31 @@ const columnsObject: GetColumns = (field, model) => ({
     Header: field.title,
     accessor: field.name,
     Filter: BooleanFilter,
-    disableFilters: !field.filter,
+    disableFilters: !field.filter || field.list,
     defaultCanSort: field.sort,
-    Cell: ({ value }) => (value ? 'yes' : 'no'),
+    Cell: ({ value }) => (field.list ? value.join(',') : value ? 'yes' : 'no'),
   },
   number: {
     Header: field.title,
     accessor: field.name,
     Filter: NumberFilter,
-    disableFilters: !field.filter,
+    disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
+    Cell: ({ value }) => (field.list ? value.join(',') : value),
   },
   enum: {
     Header: field.title,
     accessor: field.name,
     Filter: EnumFilter(field),
-    disableFilters: !field.filter,
+    disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
+    Cell: ({ value }) => (field.list ? value.join(',') : value),
   },
   DateTime: {
     Header: field.title,
     accessor: field.name,
     minWidth: 200,
-    Filter: DateTimeFilter,
+    Filter: DateTimeFilter || field.list,
     disableFilters: !field.filter,
     disableSortBy: !field.sort,
     Cell: ({ value }) => (value ? moment(value).format('YYYY-MM-DD h:mm') : ''),
@@ -93,8 +95,17 @@ const columnsObject: GetColumns = (field, model) => ({
     Header: field.title,
     accessor: field.name,
     Filter: StringFilter,
-    disableFilters: !field.filter,
+    disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
+    Cell: ({ value }) => (field.list ? value.join(',') : value),
+  },
+  json: {
+    Header: field.title,
+    accessor: field.name,
+    Filter: StringFilter,
+    disableFilters: true,
+    disableSortBy: true,
+    Cell: ({ value }) => (value ? JSON.stringify(value) : value),
   },
   list: {
     Header: field.title,
@@ -155,6 +166,8 @@ export const columns = (
                 return getColumn(field).DateTime;
               case 'String':
                 return getColumn(field).string;
+              case 'Json':
+                return getColumn(field).json;
               default:
                 return getColumn(field).string;
             }

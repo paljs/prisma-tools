@@ -10,7 +10,14 @@ import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 export { Schema, SchemaField, SchemaModel };
 
 export type Columns = Record<
-  'boolean' | 'number' | 'enum' | 'DateTime' | 'object' | 'string' | 'list',
+  | 'boolean'
+  | 'number'
+  | 'enum'
+  | 'DateTime'
+  | 'object'
+  | 'string'
+  | 'list'
+  | 'json',
   Column & UseFiltersColumnOptions<any> & UseSortByColumnOptions<any>
 >;
 
@@ -67,7 +74,7 @@ interface SameProps {
     model: string;
     refetchTable: (options?: any) => void;
   }) => void;
-  valueHandler?: (value: string, type?: string) => any;
+  valueHandler?: (value: string, field?: SchemaField, create?: boolean) => any;
 }
 
 export interface ModelTableProps

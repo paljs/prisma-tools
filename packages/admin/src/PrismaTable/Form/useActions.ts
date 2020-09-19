@@ -4,13 +4,49 @@ import { TableContext } from '../Context';
 import { FormProps } from './index';
 import { mutationDocument } from '../QueryDocument';
 import { SchemaModel } from '../../types';
+import { SchemaField } from '@paljs/types';
 
-export const getValueByType = (type: string | undefined, value: string) => {
-  return type === 'Int'
-    ? { set: parseInt(value) }
-    : type === 'Float'
-    ? { set: parseFloat(value) }
-    : { set: value };
+export const getValueByType = (
+  value: string,
+  field?: SchemaField,
+  create = false,
+) => {
+  if (field?.type === 'Json') {
+    const result = value ? JSON.parse(value) : field.list ? [] : {};
+    return field.list ? { set: result } : result;
+  }
+  if (field?.list) {
+    if (!value) {
+      return { set: [] };
+    }
+    const result: any[] = value.split(',');
+    switch (field?.type) {
+      case 'Int':
+        result.forEach((value1, index) => {
+          result[index] = parseInt(value1);
+        });
+        break;
+      case 'Float':
+        result.forEach((value1, index) => {
+          result[index] = parseFloat(value1);
+        });
+        break;
+      case 'Boolean':
+        result.forEach((value1, index) => {
+          result[index] = value1 === 'true';
+        });
+        break;
+    }
+    return { set: result };
+  } else {
+    const result =
+      field?.type === 'Int'
+        ? parseInt(value)
+        : field?.type === 'Float'
+        ? parseFloat(value)
+        : value;
+    return create ? result : { set: result };
+  }
 };
 
 const useActions = (
@@ -52,10 +88,7 @@ const useActions = (
             )!;
             updateData[key] = {
               connect: {
-                id: getValueByType(
-                  editField.type,
-                  newData[key][fieldModel.idField],
-                ),
+                id: getValueByType(newData[key][fieldModel.idField], editField),
               },
             };
           } else if (!newData[key] && data[key]) {
@@ -63,8 +96,8 @@ const useActions = (
           }
         } else if (newData[key] !== data[key]) {
           updateData[key] = valueHandler
-            ? valueHandler(newData[key], field?.type)
-            : getValueByType(field?.type, newData[key]);
+            ? valueHandler(newData[key], field)
+            : getValueByType(newData[key], field);
         }
       }
     });
@@ -95,16 +128,17 @@ const useActions = (
           createData[key] = {
             connect: {
               id: getValueByType(
-                editField.type,
                 newData[key][fieldModel.idField],
+                editField,
+                true,
               ),
             },
           };
         }
       } else {
         createData[key] = valueHandler
-          ? valueHandler(newData[key], field?.type)
-          : getValueByType(field?.type, newData[key]);
+          ? valueHandler(newData[key], field, true)
+          : getValueByType(newData[key], field, true);
       }
     });
     createModel({

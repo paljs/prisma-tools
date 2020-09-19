@@ -33,7 +33,7 @@ export const useFilter = (
       ...state.value,
       [name]: search
         ? number
-          ? parseInt(event.target.value)
+          ? parseFloat(event.target.value)
           : event.target.value
         : undefined,
     };

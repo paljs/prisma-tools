@@ -325,7 +325,10 @@ const ObjectCard: React.FC<FiltersProps & { field: SchemaField }> = ({
             }
           }}
           options={model.fields
-            .filter((item) => item.kind !== 'object')
+            .filter(
+              (item) =>
+                item.kind !== 'object' && !item.list && item.type !== 'Json',
+            )
             .sort((a, b) => a.order - b.order)
             .map((item) => ({
               value: item.name,

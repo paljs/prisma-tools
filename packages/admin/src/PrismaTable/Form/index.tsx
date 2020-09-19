@@ -28,13 +28,22 @@ const getDefaultValues = (
       (field) =>
         (((field.update || field.read) && action !== 'create') ||
           (action === 'create' && field.create)) &&
-        !field.list &&
+        !(field.list && field.kind === 'object') &&
         !field.relationField,
     )
     .slice()
     .sort((a, b) => a.order - b.order)
     .forEach((field) => {
-      defaultValues[field.name] = data[field.name];
+      if (!data[field.name]) {
+        defaultValues[field.name] = data[field.name];
+      } else {
+        defaultValues[field.name] =
+          field.type === 'Json'
+            ? JSON.stringify(data[field.name])
+            : field.list
+            ? data[field.name].join(',')
+            : data[field.name];
+      }
     });
   return defaultValues;
 };
@@ -93,7 +102,7 @@ const Form: React.FC<FormProps> = ({
                   ((action !== 'view' && field[action]) ||
                     (['update', 'view'].includes(action) &&
                       (field.read || field.update))) &&
-                  !field.list &&
+                  !(field.list && field.kind === 'object') &&
                   !field.relationField,
               )
               .slice()
@@ -112,6 +121,9 @@ const Form: React.FC<FormProps> = ({
                   disabled:
                     (action === 'update' && !field.update) || action === 'view',
                 };
+                if (field.list) {
+                  return <InputComponents.Default {...options} />;
+                }
                 if (field.kind === 'enum')
                   return <InputComponents.Enum {...options} />;
                 if (field.kind === 'object')
