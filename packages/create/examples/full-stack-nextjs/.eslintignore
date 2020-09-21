@@ -3,3 +3,4 @@ dist
 public
 .cache
 generated
+nexus-typegen.ts

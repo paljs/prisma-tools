@@ -8,7 +8,7 @@ export const schema = makeSchema({
   plugins: [paljs({ includeAdmin: true })],
   outputs: {
     schema: join(process.cwd(), 'src', 'generated', 'schema.graphql'),
-    typegen: join(process.cwd(), 'src', 'Api', 'generated', 'nexus-typegen.ts'),
+    typegen: join(process.cwd(), 'nexus-typegen.ts'),
   },
   typegenAutoConfig: {
     sources: [
