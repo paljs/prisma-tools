@@ -48,7 +48,7 @@ export class PrismaSelect {
 
   constructor(
     private info: GraphQLResolveInfo,
-    private defaultFields?: { [key: string]: any },
+    private defaultFields?: { [key: string]: { [key: string]: boolean } },
     mergeObject: any = {},
   ) {
     const returnType = this.info.returnType

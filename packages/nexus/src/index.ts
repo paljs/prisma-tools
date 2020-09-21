@@ -121,7 +121,10 @@ export const paljs = (settings?: Settings) =>
     },
     onCreateFieldResolver() {
       return async (root, args, ctx, info: any, next) => {
-        ctx.select = new PrismaSelect(info).value;
+        ctx.select = new PrismaSelect(
+          info,
+          settings?.prismaSelectDefaultFields,
+        ).value;
         return await next(root, args, ctx, info);
       };
     },
