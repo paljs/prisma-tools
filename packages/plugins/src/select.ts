@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { dataModel } from './schema';
+import { dataModel, DMMF } from './schema';
 // @ts-ignore
 import graphqlFields from 'graphql-fields';
 
@@ -46,7 +46,11 @@ export class PrismaSelect {
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
   private readonly isAggregate: boolean = false;
 
-  constructor(private info: GraphQLResolveInfo, mergeObject: any = {}) {
+  constructor(
+    private info: GraphQLResolveInfo,
+    private defaultFields: { [key: string]: any },
+    mergeObject: any = {},
+  ) {
     const returnType = this.info.returnType
       .toString()
       .replace(/]/g, '')
@@ -54,7 +58,7 @@ export class PrismaSelect {
       .replace(/!/g, '');
     this.isAggregate = returnType.includes('Aggregate');
     this.value = PrismaSelect.mergeDeep(
-      this.filterBy(returnType, this.getSelect(this.fields)),
+      this.filterBy(returnType, this.getSelect(this.fields, returnType)),
       mergeObject,
     );
   }
@@ -68,6 +72,14 @@ export class PrismaSelect {
         processArguments: true,
       },
     );
+  }
+
+  private model(name?: string) {
+    return dataModel.models.find((item) => item.name === name);
+  }
+
+  private field(name: string, model?: DMMF.Model) {
+    return model?.fields.find((item) => item.name === name);
   }
 
   static isObject(item: any) {
@@ -124,7 +136,7 @@ export class PrismaSelect {
    **/
   valueOf(field: string, filterBy?: string, mergeObject: any = {}) {
     const splitItem = field.split('.');
-    let newValue = this.getSelect(this.fields);
+    let newValue = this.getSelect(this.fields, filterBy);
     for (const field of splitItem) {
       if (this.isAggregate && newValue.hasOwnProperty(field)) {
         newValue = newValue[field];
@@ -144,14 +156,14 @@ export class PrismaSelect {
   }
 
   private filterBy(modelName: string, selectObject: any) {
-    const model = dataModel.models.find((item) => item.name === modelName);
+    const model = this.model(modelName);
     if (model) {
       const filteredObject = {
         ...selectObject,
         select: {},
       };
       Object.keys(selectObject.select).forEach((key) => {
-        const field = model.fields.find((item) => item.name === key);
+        const field = this.field(key, model);
         if (field) {
           if (field.kind !== 'object') {
             filteredObject.select[key] = true;
@@ -169,8 +181,15 @@ export class PrismaSelect {
     }
   }
 
-  private getSelect(fields: any) {
-    const selectObject: any = this.isAggregate ? {} : { select: {} };
+  private getSelect(fields: any, modelName?: string) {
+    let defaultFields = {};
+    if (modelName && this.defaultFields && this.defaultFields[modelName]) {
+      defaultFields = this.defaultFields[modelName];
+    }
+    const model = this.model(modelName);
+    const selectObject: any = this.isAggregate
+      ? {}
+      : { select: { ...defaultFields } };
     Object.keys(fields).forEach((key) => {
       if (Object.keys(fields[key]).length === 0) {
         if (this.isAggregate) {
@@ -190,7 +209,8 @@ export class PrismaSelect {
         if (this.isAggregate) {
           selectObject[key] = this.getSelect(fields[key]);
         } else {
-          selectObject.select[key] = this.getSelect(fields[key]);
+          const field = this.field(key, model);
+          selectObject.select[key] = this.getSelect(fields[key], field?.type);
         }
       }
     });
