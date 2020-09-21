@@ -29,6 +29,14 @@ export const paljs = (settings?: Settings) =>
             t.int('count', { nullable: false });
           },
         }),
+        scalarType({
+          name: 'Json',
+          asNexusMethod: 'json',
+          description: 'Json custom scalar type',
+          serialize(value) {
+            return value;
+          },
+        }),
       ];
       if (!settings?.isNexus) {
         nexusSchemaInputs.push(
