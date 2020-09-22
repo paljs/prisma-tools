@@ -47,7 +47,7 @@ export class GenerateNexus extends Generators {
     `;
       model.fields.forEach((field) => {
         if (!this.excludeFields(model.name).includes(field.name)) {
-          const options = this.getOptions(field, this.isJS);
+          const options = this.getOptions(field);
           if (
             field.outputType.kind === 'scalar' &&
             field.outputType.type !== 'DateTime'
@@ -168,7 +168,7 @@ export class GenerateNexus extends Generators {
       : '';
   }
 
-  private getOptions(field: DMMF.SchemaField, isJs?: boolean) {
+  private getOptions(field: DMMF.SchemaField) {
     const options: any = field.outputType.isList
       ? { nullable: false, list: [true] }
       : { nullable: !field.outputType.isRequired };
@@ -184,13 +184,13 @@ export class GenerateNexus extends Generators {
       });
     }
     let toString = JSON.stringify(options);
-    if (field.outputType.kind === 'object') {
+    /*    if (field.outputType.kind === 'object') {
       toString = toString.slice(0, -1);
       toString += `, resolve(parent${isJs ? '' : ': any'}) {
       return parent['${field.name}']
     },
     }`;
-    }
+    }*/
     return ', ' + toString;
   }
 }

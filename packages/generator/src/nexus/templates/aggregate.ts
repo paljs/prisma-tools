@@ -25,6 +25,7 @@ const staticData = `('aggregate#{Model}', {
     where: '#{Model}WhereInput',
     orderBy: #{schema}arg({ type: '#{Model}OrderByInput', list: true }),
     cursor: '#{Model}WhereUniqueInput',
+    distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',
     take: 'Int',
   },

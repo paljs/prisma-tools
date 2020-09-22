@@ -24,10 +24,11 @@ const staticData = `('findMany#{Model}Count', {
     where: '#{Model}WhereInput',
     orderBy: #{schema}arg({ type: '#{Model}OrderByInput', list: true }),
     cursor: '#{Model}WhereUniqueInput',
+    distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',
     take: 'Int',
   },
   resolve(_parent, args, {prisma}) {
-    return prisma.#{model}.count(args)#{as}
+    return prisma.#{model}.count(args)
   },
 })`;
