@@ -1,7 +1,7 @@
 {
   "name": "@paljs/cli",
   "description": "Pal cli will be your friend in developing nodejs full-stack projects to auto generate everything for you",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "author": "Ahmed Elewa @AhmedElywa",
   "bin": {
     "pal": "./bin/run"
@@ -13,7 +13,7 @@
     "@oclif/plugin-help": "^3",
     "@paljs/create": "^1.5.2",
     "@paljs/display": "^1.2.6",
-    "@paljs/generator": "^1.5.3",
+    "@paljs/generator": "^1.5.4",
     "@paljs/schema": "^1.4.0",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.5",
