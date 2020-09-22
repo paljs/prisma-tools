@@ -31,6 +31,6 @@ const staticData = `('updateMany#{Model}', {
     }),
   },
   resolve(_parent, args, { prisma }) {
-    return prisma.#{model}.updateMany(args)
+    return prisma.#{model}.updateMany(args#{as})
   },
 })`;

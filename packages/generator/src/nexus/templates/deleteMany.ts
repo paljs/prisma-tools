@@ -28,6 +28,6 @@ const staticData = `('deleteMany#{Model}', {
   },
   resolve: async (_parent, { where }, { prisma }) => {
     #{onDelete}
-    return prisma.#{model}.deleteMany({where})
+    return prisma.#{model}.deleteMany({where}#{as})
   },
 })`;
