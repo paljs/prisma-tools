@@ -155,6 +155,21 @@ export class PrismaSelect {
       : newValue;
   }
 
+  /**
+   * Work with this method if your GraphQL type name not like Schema model name.
+   * @param modelName - Model name as you have in schema.prisma file.
+   * @example
+   * // normal call
+   * const select = new PrismaSelect(info).value
+   *
+   * // With filter will filter select object with provided schema model name
+   * const select = new PrismaSelect(info).valueWithFilter('User');
+   *
+   **/
+  valueWithFilter(modelName: string) {
+    return this.filterBy(modelName, this.getSelect(this.fields, modelName));
+  }
+
   private filterBy(modelName: string, selectObject: any) {
     const model = this.model(modelName);
     if (model) {
