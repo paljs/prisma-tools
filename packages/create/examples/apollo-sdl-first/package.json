@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@graphql-tools/merge": "6.x",
-    "@paljs/plugins": "1.5.1",
+    "@paljs/plugins": "1.5.5",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",

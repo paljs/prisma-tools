@@ -17,7 +17,7 @@
   "dependencies": {
     "@graphql-modules/core": "0.x",
     "@graphql-modules/di": "0.x",
-    "@paljs/plugins": "1.5.1",
+    "@paljs/plugins": "1.5.5",
     "@prisma-tools/graphql-modules": "0.x",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
