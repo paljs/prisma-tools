@@ -58,7 +58,7 @@ export class PrismaSelect {
       .replace(/!/g, '');
     this.isAggregate = returnType.includes('Aggregate');
     this.value = PrismaSelect.mergeDeep(
-      this.filterBy(returnType, this.getSelect(this.fields, returnType)),
+      this.valueWithFilter(returnType),
       mergeObject,
     );
   }
@@ -74,8 +74,24 @@ export class PrismaSelect {
     );
   }
 
+  private static getModelMap(docs?: string, name?: string) {
+    const value = docs?.match(/@PrismaSelect.map\(\[(.*?)\]\)/);
+    if (value && name) {
+      const asArray = value[1]
+        .replace(/ /g, '')
+        .split(',')
+        .filter((v) => v);
+      return asArray.includes(name);
+    }
+    return false;
+  }
+
   private model(name?: string) {
-    return dataModel.models.find((item) => item.name === name);
+    return dataModel.models.find(
+      (item) =>
+        item.name === name ||
+        PrismaSelect.getModelMap(item.documentation, name),
+    );
   }
 
   private field(name: string, model?: DMMF.Model) {
