@@ -43,7 +43,7 @@ export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
           newItem.fields.push({
             ...newFields,
             ...schemaField,
-            ...getOriginalField(field, schemaItem.name),
+            ...getOriginalField(field, schemaItem.id),
           });
         }
       });

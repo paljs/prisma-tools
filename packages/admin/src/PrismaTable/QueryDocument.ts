@@ -21,7 +21,16 @@ const getFields = (
       } else if (!(field.list && !update)) {
         const fieldModel = models.find((item) => item.id === field.type);
         if (fieldModel) {
-          fieldsString += `${field.name} {${fieldModel.idField} `;
+          fieldsString += `${field.name} {`;
+          if (fieldModel.idField) {
+            fieldsString += `${fieldModel.idField} `;
+          } else {
+            fieldModel.fields
+              .filter((item) => item.kind === 'scalar')
+              .forEach((field) => {
+                fieldsString += `${field.name} `;
+              });
+          }
           if (!field.list) {
             fieldModel.displayFields.forEach((item) => {
               const splitItems = item.split('.');
@@ -51,6 +60,12 @@ const getFields = (
   return fieldsString;
 };
 
+const allScalar = (model?: SchemaModel) => {
+  return model?.fields
+    .filter((item) => item.kind === 'scalar')
+    .map((item) => item.name)
+    .join(' ');
+};
 export const queryDocument = (
   models: SchemaModel[],
   modelName: string,
@@ -95,13 +110,13 @@ export const mutationDocument = (
     case 'create':
       return tag`mutation createOne${model}($data: ${model}CreateInput!) {
   createOne${model}(data: $data) {
-    ${modelObject?.idField}
+    ${modelObject?.idField || allScalar(modelObject)}
   }
 }`;
     case 'delete':
       return tag`mutation deleteOne${model} ($where: ${model}WhereUniqueInput!) {
   deleteOne${model} (where: $where) {
-    ${modelObject?.idField}
+    ${modelObject?.idField || allScalar(modelObject)}
   }
 }`;
     case 'update':

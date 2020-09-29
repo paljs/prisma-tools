@@ -354,9 +354,6 @@ export const Table: React.FC<TableProps> = ({
                       </Tooltip>
                     </td>
                   )}
-                  {actions.create && !actions.update && !actions.delete && (
-                    <td colSpan={2} />
-                  )}
                   {parent && model && fieldUpdate && (
                     <ListConnect parent={parent} row={row} model={model} />
                   )}

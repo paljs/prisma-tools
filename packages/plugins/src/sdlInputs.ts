@@ -26,17 +26,11 @@ export const hasEmptyTypeFields = (type: string) => {
 };
 
 export const getInputType = (field: DMMF.SchemaArg) => {
-  let inputType: DMMF.SchemaArgInputType;
-  if (
-    field.inputTypes.length > 1 &&
-    field.inputTypes[1].type !== 'null' &&
-    field.name !== 'not'
-  ) {
-    inputType = field.inputTypes[1];
-  } else {
-    inputType = field.inputTypes[0];
+  let index: number = 0;
+  if (field.inputTypes.length > 1 && field.inputTypes[1].kind === 'object') {
+    index = 1;
   }
-  return inputType;
+  return field.inputTypes[index];
 };
 
 function createInput() {
