@@ -190,10 +190,10 @@ const defaultTypeFile = (isJs?: boolean) =>
     ? `const { mergeTypeDefs } = require('@graphql-tools/merge');
 const { sdlInputs } = require('@paljs/plugins');
 
-const typeDefs = mergeTypeDefs([sdlInputs]);
+const typeDefs = mergeTypeDefs([sdlInputs()]);
 
 module.exports = {typeDefs};`
     : `import { mergeTypeDefs } from '@graphql-tools/merge';
 import { sdlInputs } from '@paljs/plugins';
 
-export default mergeTypeDefs([sdlInputs]);`;
+export default mergeTypeDefs([sdlInputs()]);`;

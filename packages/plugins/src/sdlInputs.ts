@@ -3,6 +3,42 @@ import gql from 'graphql-tag';
 import { GraphQLSchema, printSchema } from 'graphql';
 import { writeFileSync } from 'fs';
 
+const testedTypes: string[] = [];
+
+export const hasEmptyTypeFields = (type: string) => {
+  testedTypes.push(type);
+  const inputType = schema.inputTypes.find((item) => item.name === type);
+  if (inputType) {
+    if (inputType.fields.length === 0) return true;
+    for (const field of inputType.fields) {
+      const fieldType = getInputType(field);
+      if (
+        fieldType.type !== type &&
+        fieldType.kind === 'object' &&
+        !testedTypes.includes(fieldType.type as string)
+      ) {
+        const state = hasEmptyTypeFields(fieldType.type as string);
+        if (state) return true;
+      }
+    }
+  }
+  return false;
+};
+
+export const getInputType = (field: DMMF.SchemaArg) => {
+  let inputType: DMMF.SchemaArgInputType;
+  if (
+    field.inputTypes.length > 1 &&
+    field.inputTypes[1].type !== 'null' &&
+    field.name !== 'not'
+  ) {
+    inputType = field.inputTypes[1];
+  } else {
+    inputType = field.inputTypes[0];
+  }
+  return inputType;
+};
+
 function createInput() {
   let fileContent = `
   scalar DateTime
@@ -23,27 +59,25 @@ function createInput() {
   });
 
   schema.inputTypes.forEach((model) => {
-    fileContent += `input ${model.name} {
+    if (model.fields.length > 0) {
+      fileContent += `input ${model.name} {
     `;
-    model.fields.forEach((field) => {
-      let inputType: DMMF.SchemaArgInputType;
-      if (
-        field.inputTypes.length > 1 &&
-        field.inputTypes[1].type !== 'null' &&
-        field.name !== 'not'
-      ) {
-        inputType = field.inputTypes[1];
-      } else {
-        inputType = field.inputTypes[0];
-      }
-      fileContent += `${field.name}: ${
-        inputType.isList ? `[${inputType.type}!]` : inputType.type
-      }${field.isRequired ? '!' : ''}
+      model.fields.forEach((field) => {
+        const inputType = getInputType(field);
+        const hasEmptyType =
+          inputType.kind === 'object' &&
+          hasEmptyTypeFields(inputType.type as string);
+        if (!hasEmptyType) {
+          fileContent += `${field.name}: ${
+            inputType.isList ? `[${inputType.type}!]` : inputType.type
+          }${field.isRequired ? '!' : ''}
       `;
-    });
-    fileContent += `}
+        }
+      });
+      fileContent += `}
   
 `;
+    }
   });
 
   schema.outputTypes
@@ -66,7 +100,7 @@ function createInput() {
   return fileContent;
 }
 
-export const sdlInputs = gql`
+export const sdlInputs = () => gql`
   ${createInput()}
 `;
 

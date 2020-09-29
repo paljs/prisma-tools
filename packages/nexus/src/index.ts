@@ -1,4 +1,4 @@
-import { PrismaSelect } from '@paljs/plugins';
+import { getInputType, hasEmptyTypeFields, PrismaSelect } from '@paljs/plugins';
 import {
   enumType,
   inputObjectType,
@@ -64,31 +64,29 @@ export const paljs = (settings?: Settings) =>
         );
       });
       data.inputTypes.forEach((input) => {
-        nexusSchemaInputs.push(
-          inputObjectType({
-            name: input.name,
-            definition(t) {
-              input.fields.forEach((field) => {
-                let inputType: DMMF.SchemaArgInputType;
-                if (
-                  field.inputTypes.length > 1 &&
-                  field.inputTypes[1].type !== 'null' &&
-                  field.name !== 'not'
-                ) {
-                  inputType = field.inputTypes[1];
-                } else {
-                  inputType = field.inputTypes[0];
-                }
-                const fieldConfig: { [key: string]: any; type: string } = {
-                  type: inputType.type as string,
-                };
-                if (field.isRequired) fieldConfig['nullable'] = false;
-                if (inputType.isList) fieldConfig['list'] = true;
-                t.field(field.name, fieldConfig);
-              });
-            },
-          }),
-        );
+        if (input.fields.length > 0) {
+          nexusSchemaInputs.push(
+            inputObjectType({
+              name: input.name,
+              definition(t) {
+                input.fields.forEach((field) => {
+                  const inputType = getInputType(field);
+                  const hasEmptyType =
+                    inputType.kind === 'object' &&
+                    hasEmptyTypeFields(inputType.type as string);
+                  if (!hasEmptyType) {
+                    const fieldConfig: { [key: string]: any; type: string } = {
+                      type: inputType.type as string,
+                    };
+                    if (field.isRequired) fieldConfig['nullable'] = false;
+                    if (inputType.isList) fieldConfig['list'] = true;
+                    t.field(field.name, fieldConfig);
+                  }
+                });
+              },
+            }),
+          );
+        }
       });
 
       data.outputTypes

@@ -3,6 +3,6 @@ import { PrismaProvider } from './Prisma.provider';
 import { sdlInputs } from '@paljs/plugins';
 
 export const CommonModule = new GraphQLModule({
-  typeDefs: sdlInputs,
+  typeDefs: sdlInputs(),
   providers: [PrismaProvider],
 });
