@@ -15,7 +15,7 @@
   "private": false,
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build  --transpileOnly",
+    "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "yarn build"

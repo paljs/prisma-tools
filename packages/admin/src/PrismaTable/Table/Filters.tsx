@@ -324,21 +324,23 @@ const ObjectCard: React.FC<FiltersProps & { field: SchemaField }> = ({
               setTimeout(positionHandle, 100);
             }
           }}
-          options={model.fields
-            .filter(
-              (item) =>
-                item.kind !== 'object' && !item.list && item.type !== 'Json',
-            )
-            .sort((a, b) => a.order - b.order)
-            .map((item) => ({
-              value: item.name,
-              label: (
-                <>
-                  <span>{item.title}</span>{' '}
-                  {filter[item.name] && <EvaIcon name="search-outline" />}
-                </>
-              ),
-            }))}
+          options={
+            model.fields
+              .filter(
+                (item) =>
+                  item.kind !== 'object' && !item.list && item.type !== 'Json',
+              )
+              .sort((a, b) => a.order - b.order)
+              .map((item) => ({
+                value: item.name,
+                label: (
+                  <>
+                    <span>{item.title}</span>{' '}
+                    {filter[item.name] && <EvaIcon name="search-outline" />}
+                  </>
+                ),
+              })) as any
+          }
         />
       </header>
       <CardBody style={{ padding: 0, overflow: 'visible' }}>
