@@ -199,7 +199,7 @@ const getField = (field: DMMF.SchemaField, content: string) => {
   if (field.args.length > 0) {
     content += '(';
     field.args.forEach((arg) => {
-      content += `${arg.name}: ${arg.inputType[0].type}
+      content += `${arg.name}: ${arg.inputTypes[0].type}
               `;
     });
     content += ')';
@@ -207,7 +207,7 @@ const getField = (field: DMMF.SchemaField, content: string) => {
   content += `: ${
     field.outputType.isList
       ? `[${field.outputType.type}!]!`
-      : field.outputType.type + (field.outputType.isRequired ? '!' : '')
+      : field.outputType.type + (field.isRequired ? '!' : '')
   }`;
   return content;
 };

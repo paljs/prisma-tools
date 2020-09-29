@@ -28,17 +28,17 @@ function createInput() {
     model.fields.forEach((field) => {
       let inputType: DMMF.SchemaArgInputType;
       if (
-        field.inputType.length > 1 &&
-        field.inputType[1].type !== 'null' &&
+        field.inputTypes.length > 1 &&
+        field.inputTypes[1].type !== 'null' &&
         field.name !== 'not'
       ) {
-        inputType = field.inputType[1];
+        inputType = field.inputTypes[1];
       } else {
-        inputType = field.inputType[0];
+        inputType = field.inputTypes[0];
       }
       fileContent += `${field.name}: ${
         inputType.isList ? `[${inputType.type}!]` : inputType.type
-      }${inputType.isRequired ? '!' : ''}
+      }${field.isRequired ? '!' : ''}
       `;
     });
     fileContent += `}
@@ -56,7 +56,7 @@ function createInput() {
           field.outputType.isList
             ? `[${field.outputType.type}!]`
             : field.outputType.type
-        }${field.outputType.isRequired ? '!' : ''}
+        }${field.isRequired ? '!' : ''}
       `;
       });
       fileContent += `}
