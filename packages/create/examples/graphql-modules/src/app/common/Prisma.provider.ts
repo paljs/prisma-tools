@@ -10,10 +10,10 @@ export class PrismaProvider extends PrismaClient
     super();
   }
   onRequest() {
-    this.connect();
+    this.$connect();
   }
   onResponse() {
-    this.disconnect();
+    this.$disconnect();
   }
 
   async onDelete(args: onDeleteArgs) {
