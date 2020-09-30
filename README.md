@@ -44,7 +44,6 @@ npm install -g @paljs/cli
 ❯ full-stack-nextjs
   full-stack-gatsbyjs
   apollo-nexus-schema
-  nexus
   apollo-sdl-first
   graphql-modules
 
