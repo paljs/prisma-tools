@@ -1,6 +1,6 @@
 module.exports = {
   backend: {
-    generator: 'nexus-schema',
+    generator: 'nexus',
     onDelete: true,
     output: 'src/Api/graphql',
   },

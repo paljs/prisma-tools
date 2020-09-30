@@ -12,7 +12,7 @@ export default #{id};
 module.exports = {
   schemaFolder: 'packages/server/prisma',
   backend: {
-    generator: 'nexus-schema',
+    generator: 'nexus',
     output: 'packages/server/src/graphql',
     onDelete: true,
   },
