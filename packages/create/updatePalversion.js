@@ -15,8 +15,7 @@ function loadFiles(path) {
             for (const pkgKey in pkg[dep]) {
               if (
                 pkg[dep].hasOwnProperty(pkgKey) &&
-                (pkgKey.startsWith('@paljs') ||
-                  pkgKey === 'nexus-plugin-paljs') &&
+                pkgKey.startsWith('@paljs') &&
                 !['@paljs/ui', '@paljs/icons'].includes(pkgKey)
               ) {
                 let folder = pkgKey.split('/');
