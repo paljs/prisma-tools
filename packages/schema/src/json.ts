@@ -35,7 +35,7 @@ export class ConvertSchemaToObject extends PrismaReader {
           } else if (line[0].includes('@@')) {
             modelObject.map = this.getMap(lines[i]);
           } else {
-            const type = line[1].replace('?', '').replace('[]', '');
+            const type = this.getType(line);
             const field: Field = {
               name: line[0],
               type,
@@ -43,11 +43,7 @@ export class ConvertSchemaToObject extends PrismaReader {
               unique: line.includes('@unique'),
               list: line[1].includes('[]'),
               required: !line[1].includes('[]') && !line[1].includes('?'),
-              kind: this.data.includes(`enum ${type} `)
-                ? 'enum'
-                : this.data.includes(`model ${type} `)
-                ? 'object'
-                : 'scalar',
+              kind: this.getKind(type),
               documentation,
               map: this.getMap(lines[i]),
             };

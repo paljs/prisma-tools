@@ -34,6 +34,18 @@ export class PrismaReader {
     }
   }
 
+  protected getType(line: string[]) {
+    return line[1].replace('?', '').replace('[]', '');
+  }
+
+  protected getKind(type: string) {
+    return this.data.includes(`enum ${type} `)
+      ? 'enum'
+      : this.data.includes(`model ${type} `)
+      ? 'object'
+      : 'scalar';
+  }
+
   protected getClassName(lines: string[]) {
     return this.lineArray(lines[0])[1];
   }

@@ -27,7 +27,8 @@ export class CamelCase extends PrismaReader {
           } else if (!lines[i].includes('@@') && !lines[i].includes('//')) {
             const line = lines[i].replace(/[\n\r]/g, '').split(' ');
             const cleanLine = this.lineArray(lines[i]);
-            if (cleanLine[0].includes('_')) {
+            const kind = this.getKind(this.getType(cleanLine));
+            if (cleanLine[0].includes('_') && kind !== 'object') {
               const index = line.indexOf(cleanLine[0]);
               line.push(`@map("${cleanLine[0]}")`);
               line[index] = this.convertWord(cleanLine[0]);
@@ -36,7 +37,7 @@ export class CamelCase extends PrismaReader {
                 new: line[index],
               });
             }
-            if (cleanLine[1].includes('_')) {
+            if (cleanLine[1].includes('_') && kind !== 'enum') {
               const index = line.indexOf(cleanLine[1]);
               line[index] = this.convertWord(cleanLine[1], true);
             }
