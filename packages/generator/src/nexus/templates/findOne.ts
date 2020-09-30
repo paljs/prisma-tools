@@ -1,28 +1,11 @@
-export default (schema?: boolean) => `
+export default `
 #{import}
 
-${
-  schema
-    ? `
-#{exportTs}const #{Model}FindOneQuery = queryField${staticData};
-#{exportJs}
-`
-    : `
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field${staticData};
-  },
-});
-`
-}
-`;
-
-const staticData = `('findOne#{Model}', {
+#{exportTs}const #{Model}FindOneQuery = queryField('findOne#{Model}', {
   type: '#{Model}',
   nullable: true,
   args: {
-    where: #{schema}arg({
+    where: arg({
       type: '#{Model}WhereUniqueInput',
       nullable: false,
     }),
@@ -33,4 +16,6 @@ const staticData = `('findOne#{Model}', {
       ...select,
     })#{as}
   },
-})`;
+});
+#{exportJs}
+`;

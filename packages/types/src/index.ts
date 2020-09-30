@@ -52,11 +52,7 @@ export interface SchemaModel extends Omit<Model, 'documentation' | 'map'> {
 
 export type Schema = { models: SchemaModel[]; enums: Enums[] };
 
-export type GeneratorsType =
-  | 'nexus'
-  | 'nexus-schema'
-  | 'sdl'
-  | 'graphql-modules';
+export type GeneratorsType = 'nexus' | 'sdl' | 'graphql-modules';
 
 export interface Config {
   schemaFolder?: string;
@@ -83,7 +79,6 @@ export interface Options {
   disableMutations?: boolean;
   excludeFieldsByModel: { [modelName: string]: string[] };
   onDelete?: boolean;
-  nexusSchema?: boolean;
   excludeQueriesAndMutationsByModel: {
     [modelName: string]: QueriesAndMutations[];
   };
@@ -110,7 +105,6 @@ export interface AdminPagesOptions {
 export type Examples =
   | 'apollo-nexus-schema'
   | 'apollo-sdl-first'
-  | 'nexus'
   | 'graphql-modules'
   | 'full-stack-nextjs'
   | 'full-stack-gatsbyjs';

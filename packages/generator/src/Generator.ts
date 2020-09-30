@@ -8,7 +8,6 @@ export class Generator {
     [key in GeneratorsType]: GenerateNexus | GenerateSdl | GenerateModules;
   } = {
     nexus: new GenerateNexus(this.options),
-    'nexus-schema': new GenerateNexus({ ...this.options, nexusSchema: true }),
     sdl: new GenerateSdl(this.options),
     'graphql-modules': new GenerateModules(this.options),
   };

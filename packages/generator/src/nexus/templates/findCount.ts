@@ -1,28 +1,11 @@
-export default (schema?: boolean) => `
+export default `
 #{import}
 
-${
-  schema
-    ? `
-#{exportTs}const #{Model}FindCountQuery = queryField${staticData};
-#{exportJs}
-`
-    : `
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field${staticData};
-  },
-});
-`
-}
-`;
-
-const staticData = `('findMany#{Model}Count', {
+#{exportTs}const #{Model}FindCountQuery = queryField('findMany#{Model}Count', {
   type: 'Int',
   args: {
     where: '#{Model}WhereInput',
-    orderBy: #{schema}arg({ type: '#{Model}OrderByInput', list: true }),
+    orderBy: arg({ type: '#{Model}OrderByInput', list: true }),
     cursor: '#{Model}WhereUniqueInput',
     distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',
@@ -31,4 +14,6 @@ const staticData = `('findMany#{Model}Count', {
   resolve(_parent, args, {prisma}) {
     return prisma.#{model}.count(args#{as})
   },
-})`;
+});
+#{exportJs}
+`;

@@ -1,28 +1,11 @@
-export default (schema?: boolean) => `
+export default `
 #{import}
 
-${
-  schema
-    ? `
-#{exportTs}const #{Model}CreateOneMutation = mutationField${staticData};
-#{exportJs}
-`
-    : `
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field${staticData};
-  },
-});
-`
-}
-`;
-
-const staticData = `('createOne#{Model}', {
+#{exportTs}const #{Model}CreateOneMutation = mutationField('createOne#{Model}', {
   type: '#{Model}',
   nullable: false,
   args: {
-    data: #{schema}arg({
+    data: arg({
       type: '#{Model}CreateInput',
       nullable: false,
     }),
@@ -33,4 +16,6 @@ const staticData = `('createOne#{Model}', {
       ...select,
     })#{as}
   },
-})`;
+});
+#{exportJs}
+`;

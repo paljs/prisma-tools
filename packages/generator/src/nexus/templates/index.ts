@@ -10,7 +10,7 @@ import updateMany from './updateMany';
 import aggregate from './aggregate';
 import { QueriesAndMutations } from '@paljs/types';
 
-const crud: { [key in QueriesAndMutations]: (schema?: boolean) => string } = {
+const crud: { [key in QueriesAndMutations]: string } = {
   findOne,
   findMany,
   findCount,
@@ -32,7 +32,6 @@ export function getCrud(
   type: 'query' | 'mutation',
   key: QueriesAndMutations,
   onDelete?: boolean,
-  schema?: boolean,
   isJS?: boolean,
 ) {
   function getImport(content: string, path: string) {
@@ -41,17 +40,14 @@ export function getCrud(
       : `import ${content} from '${path}'`;
   }
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
-  const importString = schema
-    ? getImport(
-        `{ ${type === 'query' ? 'queryField' : 'mutationField'}, arg }`,
-        '@nexus/schema',
-      )
-    : getImport('{ schema }', 'nexus');
-  return crud[key](schema)
+  const importString = getImport(
+    `{ ${type === 'query' ? 'queryField' : 'mutationField'}, arg }`,
+    '@nexus/schema',
+  );
+  return crud[key]
     .replace(/#{Model}/g, model)
     .replace(/#{model}/g, modelLower)
     .replace(/#{import}/g, importString)
-    .replace(/#{schema}/g, schema ? '' : 'schema.')
     .replace(/#{as}/g, isJS ? '' : ' as any')
     .replace(/#{exportTs}/g, isJS ? '' : 'export ')
     .replace(

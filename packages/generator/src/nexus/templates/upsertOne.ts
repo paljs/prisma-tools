@@ -1,36 +1,19 @@
-export default (schema?: boolean) => `
+export default `
 #{import}
 
-${
-  schema
-    ? `
-#{exportTs}const #{Model}UpsertOneMutation = mutationField${staticData};
-#{exportJs}
-`
-    : `
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field${staticData};
-  },
-});
-`
-}
-`;
-
-const staticData = `('upsertOne#{Model}', {
+#{exportTs}const #{Model}UpsertOneMutation = mutationField('upsertOne#{Model}', {
   type: '#{Model}',
   nullable: false,
   args: {
-    where: #{schema}arg({
+    where: arg({
       type: '#{Model}WhereUniqueInput',
       nullable: false,
     }),
-    create: #{schema}arg({
+    create: arg({
       type: '#{Model}CreateInput',
       nullable: false,
     }),
-    update: #{schema}arg({
+    update: arg({
       type: '#{Model}UpdateInput',
       nullable: false,
     }),
@@ -41,4 +24,6 @@ const staticData = `('upsertOne#{Model}', {
       ...select,
     })#{as}
   },
-})`;
+});
+#{exportJs}
+`;

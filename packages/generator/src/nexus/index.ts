@@ -31,17 +31,14 @@ export class GenerateNexus extends Generators {
         }
       }
 
-      let fileContent = `${
-        this.options.nexusSchema
-          ? this.getImport('{ objectType }', '@nexus/schema')
-          : this.getImport('{ schema }', 'nexus')
-      }\n\n`;
+      let fileContent = `${this.getImport(
+        '{ objectType }',
+        '@nexus/schema',
+      )}\n\n`;
 
-      fileContent += `${
-        this.options.nexusSchema
-          ? `${!this.isJS ? 'export ' : ''}const ${model.name} = `
-          : 'schema.'
-      }objectType({
+      fileContent += `${!this.isJS ? 'export ' : ''}const ${
+        model.name
+      } = objectType({
   name: '${model.name}',
   definition(t) {
     `;
@@ -61,9 +58,7 @@ export class GenerateNexus extends Generators {
       });
 
       fileContent += `},\n})\n\n${
-        this.isJS && this.options.nexusSchema
-          ? `module.exports = {${model.name}}`
-          : ''
+        this.isJS ? `module.exports = {${model.name}}` : ''
       }`;
       const path = this.output(model.name);
       this.mkdir(path);
@@ -93,7 +88,6 @@ export class GenerateNexus extends Generators {
             'query',
             item,
             this.options.onDelete,
-            this.options.nexusSchema,
             this.isJS,
           );
           this.createFileIfNotfound(
@@ -103,7 +97,7 @@ export class GenerateNexus extends Generators {
           );
           queriesIndex.push(item);
         });
-      if (queriesIndex && this.options.nexusSchema) {
+      if (queriesIndex) {
         modelIndex.push('queries');
         writeFileSync(
           join(path, this.withExtension('index')),
@@ -123,7 +117,6 @@ export class GenerateNexus extends Generators {
             'mutation',
             item,
             this.options.onDelete,
-            this.options.nexusSchema,
             this.isJS,
           );
           this.createFileIfNotfound(
@@ -133,7 +126,7 @@ export class GenerateNexus extends Generators {
           );
           mutationsIndex.push(item);
         });
-      if (mutationsIndex && this.options.nexusSchema) {
+      if (mutationsIndex) {
         modelIndex.push('mutations');
         writeFileSync(
           join(path, this.withExtension('index')),
@@ -145,20 +138,18 @@ export class GenerateNexus extends Generators {
   }
 
   private createIndex(path?: string, content?: string[]) {
-    if (this.options.nexusSchema) {
-      if (path && content) {
-        writeFileSync(
-          join(path, this.withExtension('index')),
-          this.formation(this.getIndexContent(content)),
-        );
-      } else {
-        writeFileSync(
-          this.output(this.withExtension('index')),
-          this.formation(
-            this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS,
-          ),
-        );
-      }
+    if (path && content) {
+      writeFileSync(
+        join(path, this.withExtension('index')),
+        this.formation(this.getIndexContent(content)),
+      );
+    } else {
+      writeFileSync(
+        this.output(this.withExtension('index')),
+        this.formation(
+          this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS,
+        ),
+      );
     }
   }
 
