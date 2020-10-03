@@ -8,7 +8,6 @@ after an update your `schema.prisma` run
 > cd packages/server
 > yarn create-migration
 > yarn migrate-database
-> yarn generate:prisma
 ```
 
 - create new migration

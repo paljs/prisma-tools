@@ -14,7 +14,6 @@ this commands will save your schema into db
 now run
 
 ```shell
-> yarn generate:prisma
 > pal g
 > yarn generate
 > yarn dev

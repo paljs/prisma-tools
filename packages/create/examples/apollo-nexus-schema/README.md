@@ -14,8 +14,8 @@ this commands will save your schema into db
 now run
 
 ```shell
-yarn generate
 pal g
+yarn generate
 yarn dev
 ```
 
