@@ -30,10 +30,11 @@
   },
   "devDependencies": {
     "@prisma/client": "2.8.0",
+    "graphql": "^15.3.0",
     "typescript": "4.0.2"
   },
   "files": [
     "dist"
   ],
-  "gitHead": "d337dc1153937b4846f6c28a0063b94afa67e505"
+  "gitHead": "7aa11a180a2d302f5183b259dd4ae53074214104"
 }
