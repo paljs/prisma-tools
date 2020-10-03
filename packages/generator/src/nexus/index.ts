@@ -175,13 +175,13 @@ export class GenerateNexus extends Generators {
       });
     }
     let toString = JSON.stringify(options);
-    /*    if (field.outputType.kind === 'object') {
+    if (field.outputType.kind === 'object') {
       toString = toString.slice(0, -1);
-      toString += `, resolve(parent${isJs ? '' : ': any'}) {
+      toString += `, resolve(parent${this.isJS ? '' : ': any'}) {
       return parent['${field.name}']
     },
     }`;
-    }*/
+    }
     return ', ' + toString;
   }
 }

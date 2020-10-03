@@ -14,7 +14,7 @@ export default `
     return prisma.#{model}.create({
       data,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

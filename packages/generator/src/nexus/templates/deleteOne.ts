@@ -15,7 +15,7 @@ export default `
     return prisma.#{model}.delete({
       where,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

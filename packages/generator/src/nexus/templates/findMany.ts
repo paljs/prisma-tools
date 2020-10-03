@@ -17,7 +17,7 @@ export default `
     return prisma.#{model}.findMany({
       ...args,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

@@ -22,7 +22,7 @@ export default `
     return prisma.#{model}.upsert({
       ...args,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

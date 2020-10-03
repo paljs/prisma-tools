@@ -14,7 +14,7 @@ export default `
     return prisma.#{model}.findOne({
       where,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

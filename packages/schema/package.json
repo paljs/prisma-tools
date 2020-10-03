@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@paljs/display": "^2.0.0",
-    "@paljs/types": "^2.1.0"
+    "@paljs/types": "^2.1.0",
+    "@prisma/sdk": "^2.8.0"
   },
   "devDependencies": {
     "typescript": "4.0.2"

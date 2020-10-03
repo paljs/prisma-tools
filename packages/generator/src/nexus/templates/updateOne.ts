@@ -19,7 +19,7 @@ export default `
       where,
       data,
       ...select,
-    })#{as}
+    })
   },
 });
 #{exportJs}

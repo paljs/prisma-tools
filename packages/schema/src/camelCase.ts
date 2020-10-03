@@ -1,11 +1,13 @@
 import { writeFileSync } from 'fs';
 import { PrismaReader } from './PrismaReader';
+import { formatSchema } from '@prisma/sdk';
+import os from 'os';
 
 export class CamelCase extends PrismaReader {
   constructor(path: string) {
     super(path);
   }
-  convert() {
+  async convert() {
     let newData = this.data;
     if (this.models) {
       for (const model of this.models) {
@@ -59,7 +61,13 @@ export class CamelCase extends PrismaReader {
         newData = newData.replace(pattern, newModel);
       }
 
-      writeFileSync(this.path, newData);
+      let output = await formatSchema({
+        schema: newData,
+      });
+
+      output = output.trimEnd() + os.EOL;
+
+      writeFileSync(this.path, output);
     }
   }
 

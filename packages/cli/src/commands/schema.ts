@@ -94,9 +94,10 @@ export default class Schema extends Command {
       const spinner = log
         .spinner(log.withBrand('Converting your schema'))
         .start();
-      new CamelCase(
+      const camelCase = new CamelCase(
         join(config?.schemaFolder || 'prisma/', 'schema.prisma'),
-      ).convert();
+      );
+      await camelCase.convert();
       spinner.succeed();
     }
   }
