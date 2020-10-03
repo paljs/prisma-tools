@@ -10,9 +10,9 @@ export default #{id};
 `
 
 module.exports = {
-  schemaFolder: 'packages/server/prisma',
   backend: {
     generator: 'nexus',
+    adminSettingsPath: 'packages/server/adminSettings.json',
     output: 'packages/server/src/graphql',
     onDelete: true,
   },

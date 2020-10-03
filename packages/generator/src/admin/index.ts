@@ -5,7 +5,6 @@ import { createGraphql } from './createGraphql';
 import { mergeSchema } from './mergeSchema';
 import { ConvertSchemaToObject } from '@paljs/schema';
 import { createFile } from './createFile';
-import { join } from 'path';
 
 const defaultOptions: Options = {
   output: './src/graphql',
@@ -19,17 +18,12 @@ const defaultOptions: Options = {
 export class UIGenerator {
   schema: SchemaObject;
 
-  constructor(private path?: string) {
-    this.schema = new ConvertSchemaToObject(
-      join(this.path ?? 'prisma', 'schema.prisma'),
-    ).run();
+  constructor(schemaPath: string) {
+    this.schema = new ConvertSchemaToObject(schemaPath).run();
   }
 
-  buildSettingsSchema(folder = './prisma/') {
-    const newSchema = mergeSchema(
-      this.schema,
-      join(folder, 'adminSettings.json'),
-    );
+  buildSettingsSchema(path = 'adminSettings.json') {
+    const newSchema = mergeSchema(this.schema, path);
     const fileContent = format(`${JSON.stringify(newSchema)}`, {
       singleQuote: true,
       semi: false,
@@ -37,7 +31,7 @@ export class UIGenerator {
       parser: 'json',
     });
 
-    writeFileSync(join(folder, 'adminSettings.json'), fileContent);
+    writeFileSync(path, fileContent);
 
     return newSchema;
   }

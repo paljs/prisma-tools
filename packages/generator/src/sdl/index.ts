@@ -4,8 +4,8 @@ import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 
 export class GenerateSdl extends Generators {
-  constructor(customOptions?: Partial<Options>) {
-    super(customOptions);
+  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+    super(schemaPath, customOptions);
   }
 
   async run() {

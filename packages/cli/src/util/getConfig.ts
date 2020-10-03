@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { join } from 'path';
 import { log } from '@paljs/display';
 import chalk from 'chalk';

@@ -5,8 +5,8 @@ import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 
 export class GenerateModules extends Generators {
-  constructor(customOptions?: Partial<Options>) {
-    super({ output: 'src/app', ...customOptions });
+  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+    super(schemaPath, { output: 'src/app', ...customOptions });
   }
 
   async run() {

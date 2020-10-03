@@ -4,8 +4,8 @@ import { join } from 'path';
 import { SchemaObject } from '@paljs/types';
 import { format, Options } from 'prettier';
 import { writeFileSync } from 'fs';
-import { getConfig } from '../util/get-config';
 import { log } from '@paljs/display';
+import { getSchemaPath } from '../util/getSchemaPath';
 
 type Output = 'js' | 'ts' | 'json';
 
@@ -59,10 +59,9 @@ export default class Schema extends Command {
       options: ['js', 'ts', 'json'],
       default: 'ts',
     }),
-    config: flags.string({
-      char: 'c',
-      default: 'pal',
-      description: 'You can pass custom config file name',
+    schema: flags.string({
+      char: 's',
+      description: 'You can pass custom schema file path',
     }),
   };
 
@@ -79,26 +78,23 @@ export default class Schema extends Command {
 
   async run() {
     const { args, flags } = this.parse(Schema);
-    const config = await getConfig(flags, false);
+
+    const schemaPath = await getSchemaPath(flags.schema);
 
     if (args.converter === 'json') {
       const spinner = log
         .spinner(log.withBrand('Generating your file'))
         .start();
-      const schemaObject = new ConvertSchemaToObject(
-        join(config?.schemaFolder || 'prisma/', 'schema.prisma'),
-      ).run();
+      const schemaObject = new ConvertSchemaToObject(schemaPath).run();
       schemaFile(flags['output-path'], schemaObject, flags.type as Output);
-      spinner.succeed();
+      spinner.succeed('Your file generated successfully');
     } else if (args.converter === 'camel-case') {
       const spinner = log
         .spinner(log.withBrand('Converting your schema'))
         .start();
-      const camelCase = new CamelCase(
-        join(config?.schemaFolder || 'prisma/', 'schema.prisma'),
-      );
+      const camelCase = new CamelCase(schemaPath);
       await camelCase.convert();
-      spinner.succeed();
+      spinner.succeed('Your schema converted successfully');
     }
   }
 }

@@ -2,9 +2,9 @@ import { Command, flags } from '@oclif/command';
 import { PartialOptions, AdminPagesOptions } from '@paljs/types';
 import { Generator, UIGenerator } from '@paljs/generator';
 import chalk from 'chalk';
-import { getConfig } from '../util/get-config';
-import { ifPrismaExitAndGenerated } from '../util/if-prisma-exit-and-generated';
+import { getConfig } from '../util/getConfig';
 import { log } from '@paljs/display';
+import { getSchemaPath } from '../util/getSchemaPath';
 
 const commandStyle = (text: string) => `${chalk.red('>')} ${chalk.blue(text)}`;
 
@@ -18,6 +18,10 @@ export default class Generate extends Command {
       char: 'c',
       default: 'pal',
       description: 'You can pass custom config file name',
+    }),
+    schema: flags.string({
+      char: 's',
+      description: 'You can pass custom schema file path',
     }),
   };
 
@@ -69,7 +73,8 @@ export default class Generate extends Command {
   async run() {
     const { args, flags } = this.parse(Generate);
     const config = await getConfig(flags);
-    await ifPrismaExitAndGenerated(config);
+    const schemaPath = await getSchemaPath(flags.schema);
+
     const spinner = log.spinner(log.withBrand('Generating your files')).start();
 
     if (config?.backend?.generator) {
@@ -82,35 +87,35 @@ export default class Generate extends Command {
         options.disableQueries = !queries;
         options.disableMutations = !mutations;
       }
-      await new Generator(config.backend.generator, {
-        ...config.backend,
-        ...options,
-      }).run();
+      await new Generator(
+        { name: config.backend.generator, schemaPath },
+        {
+          ...config.backend,
+          ...options,
+        },
+      ).run();
     }
+    const admin =
+      (config?.frontend?.admin && !args.type) || args.type === 'admin';
+    const graphql =
+      (config?.frontend?.graphql && !args.type) || args.type === 'graphql';
 
-    if (config?.frontend) {
-      const uiGenerator = new UIGenerator(config.schemaFolder);
-      const admin = !args.type || args.type === 'admin';
-      const graphql = !args.type || args.type === 'graphql';
+    if (config && (admin || graphql)) {
+      const frontend = config.frontend;
+      const uiGenerator = new UIGenerator(schemaPath);
 
-      if (config.frontend.admin && admin) {
-        uiGenerator.buildSettingsSchema(
-          config.backend?.adminSettingsPath ?? config.schemaFolder,
-        );
+      if (admin) {
+        uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
         const options: AdminPagesOptions = {
-          ...(typeof config.frontend.admin !== 'boolean'
-            ? config.frontend.admin
-            : {}),
+          ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
           models: args.models?.split(','),
         };
         uiGenerator.generateAdminPages(options);
       }
 
-      if (config.frontend.graphql && graphql) {
+      if (graphql) {
         const options: PartialOptions = {
-          ...(typeof config.frontend.graphql !== 'boolean'
-            ? config.frontend.graphql
-            : {}),
+          ...(typeof frontend?.graphql === 'object' ? frontend.graphql : {}),
           models: args.models?.split(','),
         };
         uiGenerator.generateGraphql(options);

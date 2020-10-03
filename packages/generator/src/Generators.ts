@@ -1,9 +1,10 @@
 import { Mutation, Options, Query } from '@paljs/types';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { format, Options as PrettierOptions } from 'prettier';
 import pkgDir from 'pkg-dir';
 import { join } from 'path';
 import { DMMF } from '@prisma/client/runtime';
+import { getDMMF } from '@prisma/sdk';
 const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
@@ -33,17 +34,14 @@ export class Generators {
     'deleteMany',
   ];
 
-  constructor(customOptions?: Partial<Options>) {
+  constructor(private schemaPath: string, customOptions?: Partial<Options>) {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
   }
 
   protected async dmmf() {
-    const { dmmf } = await import(
-      this.options.prismaClientPath ??
-        join(projectRoot, 'node_modules', '@prisma/client')
-    );
-    return dmmf;
+    const schema = readFileSync(this.schemaPath, 'utf-8');
+    return await getDMMF({ datamodel: schema });
   }
 
   protected async datamodel() {

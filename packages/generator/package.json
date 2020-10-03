@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@paljs/types": "^2.1.0",
+    "@prisma/sdk": "^2.8.0",
     "pkg-dir": "^4.2.0",
     "prettier": "^2.0.5"
   },

@@ -13,7 +13,7 @@ import { Schema } from '@paljs/types';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-export function adminNexusSchemaSettings(path = 'prisma/adminSettings.json') {
+export function adminNexusSchemaSettings(path = 'adminSettings.json') {
   if (existsSync(join(process.cwd(), path))) {
     const adapter = new FileSync<Schema>(path);
     const db = low(adapter);

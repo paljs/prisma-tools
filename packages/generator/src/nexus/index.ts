@@ -6,8 +6,8 @@ import { getCrud } from './templates';
 import { join } from 'path';
 
 export class GenerateNexus extends Generators {
-  constructor(customOptions?: Partial<Options>) {
-    super(customOptions);
+  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+    super(schemaPath, customOptions);
   }
 
   private indexPath = this.output(this.withExtension('index'));

@@ -55,7 +55,6 @@ export type Schema = { models: SchemaModel[]; enums: Enums[] };
 export type GeneratorsType = 'nexus' | 'sdl' | 'graphql-modules';
 
 export interface Config {
-  schemaFolder?: string;
   backend?: {
     generator: GeneratorsType;
     adminSettingsPath?: string;
@@ -71,7 +70,6 @@ export type PartialOptions = Omit<Partial<Options>, 'nexusSchema'>;
 export interface Options {
   models?: string[];
   output: string;
-  prismaClientPath?: string;
   javaScript?: boolean;
   excludeFields: string[];
   excludeModels: { name: string; queries?: boolean; mutations?: boolean }[];

@@ -28,6 +28,9 @@
     "semi": false,
     "trailingComma": "all"
   },
+  "prisma": {
+    "schema": "packages/server/prisma/schema.prisma"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx|graphql)\" --staged"
