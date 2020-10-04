@@ -16,6 +16,7 @@ import Spinner from '@paljs/ui/Spinner';
 import Tooltip from '@paljs/ui/Tooltip';
 import { Checkbox } from '@paljs/ui/Checkbox';
 import { ListConnect } from './ListConnect';
+import { sanitize } from 'dompurify';
 
 interface TableProps {
   inEdit?: boolean;
@@ -380,7 +381,7 @@ export const Table: React.FC<TableProps> = ({
                                   <div
                                     style={{ maxWidth: '300px' }}
                                     dangerouslySetInnerHTML={{
-                                      __html: cell.value,
+                                      __html: sanitize(cell.value),
                                     }}
                                   />
                                 </CardBody>
