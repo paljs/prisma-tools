@@ -77,24 +77,27 @@ export default class Generate extends Command {
 
     const spinner = log.spinner(log.withBrand('Generating your files')).start();
 
+    // backend generator
     if (config?.backend?.generator) {
       const options: PartialOptions = {};
       const queries = !args.type || ['queries', 'crud'].includes(args.type);
       const mutations = !args.type || ['mutations', 'crud'].includes(args.type);
 
-      if (args.models && (queries || mutations)) {
-        options.models = args.models.split(',');
+      if (queries || mutations) {
+        options.models = args.models ? args.models.split(',') : undefined;
         options.disableQueries = !queries;
         options.disableMutations = !mutations;
+        await new Generator(
+          { name: config.backend.generator, schemaPath },
+          {
+            ...config.backend,
+            ...options,
+          },
+        ).run();
       }
-      await new Generator(
-        { name: config.backend.generator, schemaPath },
-        {
-          ...config.backend,
-          ...options,
-        },
-      ).run();
     }
+
+    // frontend generator
     const admin =
       (config?.frontend?.admin && !args.type) || args.type === 'admin';
     const graphql =
