@@ -38,23 +38,22 @@ export const paljs = (settings?: Settings) =>
           },
         }),
       ];
-      if (!settings?.isNexus) {
-        nexusSchemaInputs.push(
-          scalarType({
-            name: 'DateTime',
-            description: 'Date custom scalar type',
-            parseValue(value: any) {
-              return value ? new Date(value) : null;
-            },
-            serialize(value: any) {
-              return value ? new Date(value) : null;
-            },
-            parseLiteral(ast: any) {
-              return ast.value ? new Date(ast.value) : null;
-            },
-          }),
-        );
-      }
+      nexusSchemaInputs.push(
+        scalarType({
+          name: 'DateTime',
+          asNexusMethod: 'date',
+          description: 'Date custom scalar type',
+          parseValue(value: any) {
+            return value ? new Date(value) : null;
+          },
+          serialize(value: any) {
+            return value ? new Date(value) : null;
+          },
+          parseLiteral(ast: any) {
+            return ast.value ? new Date(ast.value) : null;
+          },
+        }),
+      );
       data.enums.forEach((item) => {
         nexusSchemaInputs.push(
           enumType({
