@@ -78,7 +78,7 @@ export class GenerateTypes {
   run() {
     const outputTypes: string[] = [
       `export interface Resolvers {`,
-      `[key: string]: any`,
+      `[key: string]: {[key: string]: CustomField}`,
     ];
     const argsTypes: string[] = [];
     const resolversTypes: string[] = [];
