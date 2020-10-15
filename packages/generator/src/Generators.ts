@@ -21,6 +21,7 @@ export class Generators {
 
   protected queries: Query[] = [
     'findOne',
+    'findFirst',
     'findMany',
     'findCount',
     'aggregate',

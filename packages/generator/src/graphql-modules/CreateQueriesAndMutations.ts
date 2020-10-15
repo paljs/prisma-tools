@@ -26,6 +26,22 @@ export function createQueriesAndMutations(
     },`;
   }
 
+  if (!exclude.includes('findFirst')) {
+    operations.queries.type += `
+    findFirst${name}(
+      where: ${name}WhereInput
+      orderBy: [${name}OrderByInput!]
+      cursor: ${name}WhereUniqueInput
+      distinct: ${name}DistinctFieldEnum
+      skip: Int
+      take: Int
+    ): [${name}!]`;
+    operations.queries.resolver += `
+    findFirst${name}: (_parent, args, { injector }: ModuleContext) => {
+      return injector.get(PrismaProvider).${model}.findFirst(args);
+    },`;
+  }
+
   if (!exclude.includes('findMany')) {
     operations.queries.type += `
     findMany${name}(
