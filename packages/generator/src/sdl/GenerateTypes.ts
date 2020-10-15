@@ -6,6 +6,7 @@ export class GenerateTypes {
     `import { Context } from './context'`,
     `import { GraphQLResolveInfo } from 'graphql';`,
     `type Resolver<T extends {}, A extends {}, R extends any> = (parent: T,args: A, context: Context, info: GraphQLResolveInfo) => Promise<R>;`,
+    `type CustomField = (parent: any,args: any, context: Context, info: GraphQLResolveInfo) => any`,
   ];
   scalar: { [key: string]: any } = {
     Int: 'number',
@@ -75,13 +76,19 @@ export class GenerateTypes {
   }
 
   run() {
-    const outputTypes: string[] = [`export interface Resolvers {`];
+    const outputTypes: string[] = [
+      `export interface Resolvers {`,
+      `[key: string]: any`,
+    ];
     const argsTypes: string[] = [];
     const resolversTypes: string[] = [];
     // generate Output types
     this.schema.outputTypes.forEach((type) => {
       outputTypes.push(`${type.name}?: ${type.name};`);
-      const fields: string[] = [`export interface ${type.name} {`];
+      const fields: string[] = [
+        `export interface ${type.name} {`,
+        `[key: string]: CustomField`,
+      ];
 
       // generate fields
       type.fields.forEach((field) => {
