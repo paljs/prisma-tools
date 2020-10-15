@@ -2,6 +2,7 @@ import { Options } from '@paljs/types';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
+import { GenerateTypes } from './GenerateTypes';
 
 export class GenerateSdl extends Generators {
   constructor(schemaPath: string, customOptions?: Partial<Options>) {
@@ -11,6 +12,11 @@ export class GenerateSdl extends Generators {
   async run() {
     await this.createModels();
     this.createMaster();
+    if (!this.isJS) {
+      const generateTypes = new GenerateTypes(await this.dmmf());
+      const code = generateTypes.run();
+      writeFileSync(this.output('../resolversTypes.ts'), this.formation(code));
+    }
   }
 
   private resolversPath = this.output(this.withExtension('resolvers'));
@@ -61,7 +67,6 @@ export class GenerateSdl extends Generators {
       this.smallModel(model),
       exclude,
       this.options.onDelete,
-      this.isJS,
     );
   }
 
@@ -95,11 +100,12 @@ export class GenerateSdl extends Generators {
       }
         `;
       } else {
-        resolvers = `import { Context } from '../../context'
+        resolvers = `import { Resolvers } from '../../resolversTypes';
       
-      export default {
+      const resolvers: Resolvers = {
         ${resolvers}
       }
+      export default resolvers;
         `;
       }
       writeFileSync(

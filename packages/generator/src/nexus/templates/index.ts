@@ -25,7 +25,7 @@ const crud: { [key in QueriesAndMutations]: string } = {
   aggregate,
 };
 
-function caplital(name: string) {
+function capital(name: string) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
@@ -54,9 +54,7 @@ export function getCrud(
     .replace(/#{exportTs}/g, isJS ? '' : 'export ')
     .replace(
       /#{exportJs}/g,
-      isJS
-        ? `module.exports = {${model}${caplital(key)}${caplital(type)}}`
-        : '',
+      isJS ? `module.exports = {${model}${capital(key)}${capital(type)}}` : '',
     )
     .replace(
       /#{onDelete}/g,
