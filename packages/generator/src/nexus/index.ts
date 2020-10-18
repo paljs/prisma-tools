@@ -77,7 +77,7 @@ export class GenerateNexus extends Generators {
   private createQueriesAndMutations(name: string) {
     const exclude = this.excludedOperations(name);
     let modelIndex: string[] = [];
-    if (this.disableQueries(name)) {
+    if (!this.disableQueries(name)) {
       const queriesIndex: string[] = [];
       const path = this.output(name, 'queries');
       this.queries
@@ -106,7 +106,7 @@ export class GenerateNexus extends Generators {
       }
     }
 
-    if (this.disableMutations(name)) {
+    if (!this.disableMutations(name)) {
       const mutationsIndex: string[] = [];
       const path = this.output(name, 'mutations');
       this.mutations

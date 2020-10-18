@@ -73,8 +73,8 @@ export class Generators {
 
   protected disableQueries(model: string) {
     return (
-      !this.options.disableQueries &&
-      !this.options.excludeModels.find(
+      this.options.disableQueries ||
+      !!this.options.excludeModels.find(
         (item) => item.name === model && item.queries,
       )
     );
@@ -82,8 +82,8 @@ export class Generators {
 
   protected disableMutations(model: string) {
     return (
-      !this.options.disableMutations &&
-      !this.options.excludeModels.find(
+      this.options.disableMutations ||
+      !!this.options.excludeModels.find(
         (item) => item.name === model && item.mutations,
       )
     );

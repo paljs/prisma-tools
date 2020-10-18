@@ -101,12 +101,12 @@ export class GenerateModules extends Generators {
     let resolvers = '';
     let resolversComposition = '';
 
-    if (this.disableQueries(model)) {
+    if (!this.disableQueries(model)) {
       resolvers += operations.queries.resolver;
       content += operations.queries.type;
       resolversComposition += `Query: [addSelect],`;
     }
-    if (this.disableMutations(model)) {
+    if (!this.disableMutations(model)) {
       resolvers += operations.mutations.resolver;
       content += operations.mutations.type;
       resolversComposition += `Mutation: [addSelect],`;

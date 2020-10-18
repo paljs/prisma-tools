@@ -75,11 +75,11 @@ export class GenerateSdl extends Generators {
     this.mkdir(this.output(model));
 
     let resolvers = '';
-    if (this.disableQueries(model)) {
+    if (!this.disableQueries(model)) {
       resolvers += operations.queries.resolver;
       typeContent += operations.queries.type;
     }
-    if (this.disableMutations(model)) {
+    if (!this.disableMutations(model)) {
       resolvers += operations.mutations.resolver;
       typeContent += operations.mutations.type;
     }
