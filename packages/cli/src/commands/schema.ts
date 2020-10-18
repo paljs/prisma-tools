@@ -1,5 +1,9 @@
 import { Command, flags } from '@oclif/command';
-import { ConvertSchemaToObject, CamelCase } from '@paljs/schema';
+import {
+  ConvertSchemaToObject,
+  CamelCase,
+  GenerateTypeScript,
+} from '@paljs/schema';
 import { join } from 'path';
 import { SchemaObject } from '@paljs/types';
 import { format, Options } from 'prettier';
@@ -43,8 +47,7 @@ export const schema: SchemaObject = ${JSON.stringify(schema)}`,
 };
 
 export default class Schema extends Command {
-  static description =
-    'Prisma schema file converter to json object or change Snack case to Camel case';
+  static description = `Prisma schema file converter to:\n 1- json object\n 2- change Snack case to Camel case\n 3- TypeScript type definitions `;
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -69,7 +72,7 @@ export default class Schema extends Command {
     {
       name: 'converter',
       required: true,
-      options: ['json', 'camel-case'],
+      options: ['json', 'camel-case', 'typescript'],
       description: 'specify what is the function you need',
     },
   ];
@@ -80,7 +83,7 @@ export default class Schema extends Command {
     const { args, flags } = this.parse(Schema);
 
     const schemaPath = await getSchemaPath(flags.schema);
-
+    // json convertor
     if (args.converter === 'json') {
       const spinner = log
         .spinner(log.withBrand('Generating your file'))
@@ -88,12 +91,31 @@ export default class Schema extends Command {
       const schemaObject = new ConvertSchemaToObject(schemaPath).run();
       schemaFile(flags['output-path'], schemaObject, flags.type as Output);
       spinner.succeed('Your file generated successfully');
-    } else if (args.converter === 'camel-case') {
+    }
+    // camel case convertor
+    else if (args.converter === 'camel-case') {
       const spinner = log
         .spinner(log.withBrand('Converting your schema'))
         .start();
       const camelCase = new CamelCase(schemaPath);
       await camelCase.convert();
+      spinner.succeed('Your schema converted successfully');
+    }
+    // TypeScript convertor
+    else if (args.converter === 'typescript') {
+      const spinner = log
+        .spinner(log.withBrand('Converting your schema'))
+        .start();
+      const code = new GenerateTypeScript(schemaPath).run();
+      writeFileSync(
+        join(flags['output-path'], `schema.ts`),
+        format(code, {
+          singleQuote: true,
+          semi: false,
+          trailingComma: 'all',
+          parser: 'babel-ts',
+        }),
+      );
       spinner.succeed('Your schema converted successfully');
     }
   }

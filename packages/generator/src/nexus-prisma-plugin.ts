@@ -70,18 +70,21 @@ export class GenerateNexusPrismaPlugin extends Generators {
                 );
                 break;
               case 'findCount':
-                fileContent.push(`t.field('${modelName.plural}Count', {
-                  type: 'Int',
-                  args: {
-                    where: '${model.name}WhereInput',
-                  },
-                  async resolve(_root, args, ctx) {
-                    return ctx.prisma.${modelName.singular}.count(args)
-                  },
-                })`);
+                if (!exclude.includes('findMany')) {
+                  fileContent.push(`t.field('${modelName.plural}Count', {
+                    type: 'Int',
+                    args: {
+                      where: '${model.name}WhereInput',
+                    },
+                    async resolve(_root, args, ctx) {
+                      return ctx.prisma.${modelName.singular}.count(args)
+                    },
+                  })`);
+                }
                 break;
               case 'findFirst':
-                fileContent.push(`t.field('findFirst${model.name}', {
+                if (!exclude.includes('findMany')) {
+                  fileContent.push(`t.field('findFirst${model.name}', {
                     type: '${model.name}',
                     args: {
                       where: '${model.name}WhereInput',
@@ -94,6 +97,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                       return ctx.prisma.${modelName.singular}.findFirst(args)
                     },
                   })`);
+                }
                 break;
               default:
                 break;
