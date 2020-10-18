@@ -7,7 +7,7 @@ import {
 import { join } from 'path';
 import { SchemaObject } from '@paljs/types';
 import { format, Options } from 'prettier';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync } from 'fs';
 import { log } from '@paljs/display';
 import { getSchemaPath } from '../util/getSchemaPath';
 
@@ -47,7 +47,7 @@ export const schema: SchemaObject = ${JSON.stringify(schema)}`,
 };
 
 export default class Schema extends Command {
-  static description = `Prisma schema file converter to:\n 1- json object\n 2- change Snack case to Camel case\n 3- TypeScript type definitions `;
+  static description = `Prisma schema file converter to: 1- json object. 2- change Snack case to Camel case. 3- TypeScript type definitions. `;
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -107,11 +107,11 @@ export default class Schema extends Command {
         .spinner(log.withBrand('Converting your schema'))
         .start();
       const code = new GenerateTypeScript(schemaPath).run();
+      mkdirSync(flags['output-path'], { recursive: true });
       writeFileSync(
         join(flags['output-path'], `schema.ts`),
         format(code, {
           singleQuote: true,
-          semi: false,
           trailingComma: 'all',
           parser: 'babel-ts',
         }),
