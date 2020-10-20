@@ -2,6 +2,8 @@ import { GraphQLResolveInfo } from 'graphql';
 import { dataModel, DMMF } from './schema';
 // @ts-ignore
 import graphqlFields from 'graphql-fields';
+import { log } from '@paljs/display';
+import chalk from 'chalk';
 
 /**
  * Convert `info` to select object accepted by `prisma client`.
@@ -42,25 +44,43 @@ import graphqlFields from 'graphql-fields';
  *
  **/
 export class PrismaSelect {
-  value: any;
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
-  private readonly isAggregate: boolean = false;
+  private isAggregate: boolean = false;
 
   constructor(
     private info: GraphQLResolveInfo,
-    private defaultFields?: { [key: string]: { [key: string]: boolean } },
-    mergeObject: any = {},
+    private options?: {
+      defaultFields?: { [key: string]: { [key: string]: boolean } };
+      dmmf?: DMMF.Document;
+    },
   ) {
+    if (this.options && (!this.options.defaultFields || !this.options?.dmmf)) {
+      log.error(
+        `The second arg on ${chalk.blue(
+          'PrismaSelect',
+        )} class changed in ${chalk.blue(
+          'v2.5.0',
+        )} please look at release notes https://github.com/paljs/prisma-tools/releases/tag/v2.5.0`,
+      );
+    }
+  }
+
+  get value() {
     const returnType = this.info.returnType
       .toString()
       .replace(/]/g, '')
       .replace(/\[/g, '')
       .replace(/!/g, '');
     this.isAggregate = returnType.includes('Aggregate');
-    this.value = PrismaSelect.mergeDeep(
-      this.valueWithFilter(returnType),
-      mergeObject,
-    );
+    return this.valueWithFilter(returnType);
+  }
+
+  get dataModel() {
+    return this.options?.dmmf?.datamodel || dataModel;
+  }
+
+  get defaultFields() {
+    return this.options?.defaultFields;
   }
 
   private get fields() {
@@ -87,7 +107,7 @@ export class PrismaSelect {
   }
 
   private model(name?: string) {
-    return dataModel.models.find(
+    return this.dataModel.models.find(
       (item) =>
         item.name === name ||
         PrismaSelect.getModelMap(item.documentation, name),
