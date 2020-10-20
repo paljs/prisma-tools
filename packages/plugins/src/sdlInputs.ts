@@ -1,11 +1,16 @@
-import { schema, DMMF } from './schema';
+import { schema as defaultSchema, DMMF } from './schema';
 import gql from 'graphql-tag';
 import { GraphQLSchema, printSchema } from 'graphql';
 import { writeFileSync } from 'fs';
 
+interface OptionsType {
+  dmmf?: DMMF.Document;
+}
+
 const testedTypes: string[] = [];
 
-export const hasEmptyTypeFields = (type: string) => {
+export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
+  const schema = options?.dmmf?.schema || defaultSchema;
   testedTypes.push(type);
   const inputType = schema.inputTypes.find((item) => item.name === type);
   if (inputType) {
@@ -33,7 +38,8 @@ export const getInputType = (field: DMMF.SchemaArg) => {
   return field.inputTypes[index];
 };
 
-function createInput() {
+function createInput(options?: OptionsType) {
+  const schema = options?.dmmf?.schema || defaultSchema;
   let fileContent = `
   scalar DateTime
   
@@ -94,8 +100,8 @@ function createInput() {
   return fileContent;
 }
 
-export const sdlInputs = () => gql`
-  ${createInput()}
+export const sdlInputs = (options: OptionsType) => gql`
+  ${createInput(options)}
 `;
 
 export const generateGraphQlSDLFile = (

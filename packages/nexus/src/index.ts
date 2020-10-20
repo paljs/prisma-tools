@@ -14,14 +14,13 @@ import { Settings } from './settings';
 
 export { Settings };
 
-const data: DMMF.Schema = dmmf.schema;
-
 export const paljs = (settings?: Settings) =>
   plugin({
     name: 'paljs',
     description:
       'paljs plugin to add Prisma select to your resolver and prisma admin queries and mutations and all models input types',
     onInstall() {
+      const data: DMMF.Schema = settings?.dmmf?.schema || dmmf.schema;
       const nexusSchemaInputs: NexusAcceptedTypeDef[] = [
         objectType({
           name: 'BatchPayload',
@@ -119,7 +118,7 @@ export const paljs = (settings?: Settings) =>
       return async (root, args, ctx, info: any, next) => {
         ctx.select = new PrismaSelect(
           info,
-          settings?.prismaSelectDefaultFields,
+          settings?.prismaSelectOptions,
         ).value;
         return await next(root, args, ctx, info);
       };
