@@ -2,8 +2,6 @@ import { GraphQLResolveInfo } from 'graphql';
 import { dataModel, DMMF } from './schema';
 // @ts-ignore
 import graphqlFields from 'graphql-fields';
-import { log } from '@paljs/display';
-import chalk from 'chalk';
 
 /**
  * Convert `info` to select object accepted by `prisma client`.
@@ -53,17 +51,7 @@ export class PrismaSelect {
       defaultFields?: { [key: string]: { [key: string]: boolean } };
       dmmf?: DMMF.Document;
     },
-  ) {
-    if (this.options && (!this.options.defaultFields || !this.options?.dmmf)) {
-      log.error(
-        `The second arg on ${chalk.blue(
-          'PrismaSelect',
-        )} class changed in ${chalk.blue(
-          'v2.5.0',
-        )} please look at release notes https://github.com/paljs/prisma-tools/releases/tag/v2.5.0`,
-      );
-    }
-  }
+  ) {}
 
   get value() {
     const returnType = this.info.returnType
