@@ -32,7 +32,7 @@ export interface onDeleteArgs {
 export class PrismaDelete {
   constructor(
     private prisma: any = new PrismaClient(),
-    private options: { dmmf?: DMMF.Document },
+    private options?: { dmmf?: DMMF.Document },
   ) {}
 
   get dataModel() {
