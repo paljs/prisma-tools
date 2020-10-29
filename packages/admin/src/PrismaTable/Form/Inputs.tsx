@@ -273,9 +273,11 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   Date({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value ? new Date(value) : new Date());
 
-    const onChangeHandler = (value: Date) => {
-      setValue(field.name, value.toISOString());
-      setState(value);
+    const onChangeHandler = (value: Date | [Date, Date]) => {
+      if (!Array.isArray(value)) {
+        setValue(field.name, value.toISOString());
+        setState(value);
+      }
     };
 
     React.useEffect(() => {
