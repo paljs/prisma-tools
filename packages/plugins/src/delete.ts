@@ -14,7 +14,8 @@ export interface onDeleteArgs {
 
 /**
  * Handle all relation onDelete type
- * @param prisma - optional arg you can send your clint class.
+ * @param prisma - optional arg you can send your client class.
+ * @param options - optional arg you can send your custom options { dmmf?: DMMF.Document }.
  * @example
  * const prisma = new PrismaClient({log: ['query']});
  * const prismaDelete = new PrismaDelete(prisma);
@@ -32,7 +33,7 @@ export interface onDeleteArgs {
 export class PrismaDelete {
   constructor(
     private prisma: any = new PrismaClient(),
-    private options: { dmmf?: DMMF.Document },
+    private options?: { dmmf?: DMMF.Document },
   ) {}
 
   get dataModel() {
@@ -43,7 +44,7 @@ export class PrismaDelete {
     return this.dataModel.models.find((item) => item.name === modelName);
   }
 
-  private getModelName(modelName: string) {
+  private static getModelName(modelName: string) {
     return modelName.charAt(0).toLowerCase() + modelName.slice(1);
   }
 
@@ -66,7 +67,7 @@ export class PrismaDelete {
   }
 
   private async setFieldNull(modelName: string, field: DMMF.Field, where: any) {
-    const name = this.getModelName(modelName);
+    const name = PrismaDelete.getModelName(modelName);
     const modelId = this.getModelIdFieldName(modelName);
     const fieldModelId = this.getModelIdFieldName(field.type);
     if (modelId && fieldModelId && !field.isRequired) {
@@ -105,7 +106,7 @@ export class PrismaDelete {
     const deleteArray: DeleteData[] = includeParent
       ? [
           {
-            name: this.getModelName(modelName),
+            name: PrismaDelete.getModelName(modelName),
             where: whereInput,
           },
         ]

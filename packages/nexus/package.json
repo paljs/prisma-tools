@@ -29,10 +29,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@nexus/schema": "0.14.0",
-    "@prisma/client": "2.9.0",
+    "@nexus/schema": "0.17.0",
+    "@prisma/client": "2.10.1",
     "@types/lowdb": "1.0.9",
-    "typescript": "4.0.2"
+    "typescript": "4.0.5"
   },
   "files": [
     "dist"
