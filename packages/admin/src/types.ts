@@ -4,7 +4,7 @@ import {
   UseFiltersColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import { FormContextValues } from 'react-hook-form';
+import { UseFormMethods } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 
 export { Schema, SchemaField, SchemaModel };
@@ -26,10 +26,10 @@ export interface InputProps {
   value: any;
   data: any;
   error: any;
-  register: FormContextValues['register'];
-  setValue: FormContextValues['setValue'];
-  getValues: FormContextValues['getValues'];
-  watch: FormContextValues['watch'];
+  register: UseFormMethods['register'];
+  setValue: UseFormMethods['setValue'];
+  getValues: UseFormMethods['getValues'];
+  watch: UseFormMethods['watch'];
   disabled: boolean;
 }
 
