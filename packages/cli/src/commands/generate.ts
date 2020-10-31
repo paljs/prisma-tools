@@ -81,10 +81,10 @@ export default class Generate extends Command {
     if (config?.backend?.generator) {
       const options: PartialOptions = {};
       const queries =
-        (!args.type && !options.disableQueries) ||
+        (!args.type && !config.backend.disableQueries) ||
         ['queries', 'crud'].includes(args.type);
       const mutations =
-        (!args.type && !options.disableMutations) ||
+        (!args.type && !config.backend.disableMutations) ||
         ['mutations', 'crud'].includes(args.type);
 
       if (queries || mutations || !args.type) {
