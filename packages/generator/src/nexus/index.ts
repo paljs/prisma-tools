@@ -177,8 +177,8 @@ export class GenerateNexus extends Generators {
     let toString = JSON.stringify(options);
     if (field.outputType.kind === 'object') {
       toString = toString.slice(0, -1);
-      toString += `, resolve(parent${this.isJS ? '' : ': any'}) {
-      return parent['${field.name}']
+      toString += `, resolve(root${this.isJS ? '' : ': any'}) {
+      return root.${field.name}
     },
     }`;
     }
