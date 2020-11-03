@@ -47,7 +47,7 @@ export class GenerateModules extends Generators {
             dataField?.kind === 'object' &&
             dataField.relationFromFields.length > 0
           ) {
-            if (!modules.includes(dataField.type + 'Module')) {
+            if (!modules.includes(dataField.type + 'Module') && model.name !== dataField.type) {
               modules.push(dataField.type + 'Module');
               imports += `import { ${dataField.type}Module } from '../${dataField.type}/${dataField.type}.module';
               `;
