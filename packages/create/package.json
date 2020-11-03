@@ -1,6 +1,6 @@
 {
   "name": "@paljs/create",
-  "version": "2.5.5",
+  "version": "2.5.7",
   "main": "dist/index.js",
   "module": "dist/create.esm.js",
   "types": "dist/index.d.ts",
