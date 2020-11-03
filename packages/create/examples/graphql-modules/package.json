@@ -18,7 +18,6 @@
     "@graphql-modules/core": "0.x",
     "@graphql-modules/di": "0.x",
     "@paljs/plugins": "2.5.4",
-    "@prisma-tools/graphql-modules": "0.x",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",
