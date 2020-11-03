@@ -100,7 +100,7 @@ function createInput(options?: OptionsType) {
   return fileContent;
 }
 
-export const sdlInputs = (options: OptionsType) => gql`
+export const sdlInputs = (options?: OptionsType) => gql`
   ${createInput(options)}
 `;
 
