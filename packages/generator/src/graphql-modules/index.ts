@@ -65,7 +65,8 @@ export class GenerateModules extends Generators {
             fileContent = getField(field, fileContent);
           } else if (
             dataField?.kind !== 'object' ||
-            modules.includes(dataField.type + 'Module')
+            modules.includes(dataField.type + 'Module') ||
+            model.name === dataField.type
           ) {
             fileContent = getField(field, fileContent);
           }
