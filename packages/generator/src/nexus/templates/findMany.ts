@@ -3,7 +3,6 @@ export default `
 
 #{exportTs}const #{Model}FindManyQuery = queryField('findMany#{Model}', {
   type: '#{Model}',
-  nullable: true,
   list: [true],
   args: {
     where: '#{Model}WhereInput',
