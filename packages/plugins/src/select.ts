@@ -207,10 +207,13 @@ export class PrismaSelect {
           if (field.kind !== 'object') {
             filteredObject.select[key] = true;
           } else {
-            filteredObject.select[key] = this.filterBy(
+            const subModelFilter = this.filterBy(
               field.type,
               selectObject.select[key],
             );
+            if (Object.keys(subModelFilter.select).length > 0) {
+              filteredObject.select[key] = subModelFilter;
+            }
           }
         }
       });
