@@ -4,7 +4,6 @@ export default `
 #{exportTs}const #{Model}FindFirstQuery = queryField('findFirst#{Model}', {
   type: '#{Model}',
   nullable: true,
-  list: true,
   args: {
     where: '#{Model}WhereInput',
     orderBy: arg({ type: '#{Model}OrderByInput', list: true }),
