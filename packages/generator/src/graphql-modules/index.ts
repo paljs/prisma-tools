@@ -14,7 +14,7 @@ export class GenerateModules extends Generators {
     this.createApp();
   }
 
-  private indexPath = this.output('app.module.ts');
+  private indexPath = this.output('application.ts');
   private index = existsSync(this.indexPath)
     ? readFileSync(this.indexPath, { encoding: 'utf-8' })
     : defaultAppContent;
@@ -95,17 +95,14 @@ export class GenerateModules extends Generators {
     this.mkdir(this.output(model));
 
     let resolvers = '';
-    let middlewares = '';
 
     if (!this.disableQueries(model)) {
       resolvers += operations.queries.resolver;
       content += operations.queries.type;
-      middlewares += `Query: { "*": [addSelect] },`;
     }
     if (!this.disableMutations(model)) {
       resolvers += operations.mutations.resolver;
       content += operations.mutations.type;
-      middlewares += `Mutation:{ "*": [addSelect] },`;
     }
 
     this.createResolver(resolvers, model);
@@ -115,7 +112,7 @@ export class GenerateModules extends Generators {
     writeFileSync(
       this.output(model, `${model}.module.ts`),
       this.formation(
-        getModule(model, middlewares),
+        getModule(model),
         'babel-ts',
       ),
     );
@@ -137,7 +134,9 @@ export class GenerateModules extends Generators {
 
   private createResolver(resolvers: string, model: string) {
     if (resolvers) {
-      resolvers = `export default {
+      resolvers = `import { PrismaProvider } from '../Prisma.provider';
+      
+      export default {
         ${resolvers}
       }
         `;
@@ -158,25 +157,15 @@ export class GenerateModules extends Generators {
 
 const getModule = (
   name: string,
-  middlewares: string,
 ) => {
   return `import { createModule } from 'graphql-modules';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
-import { addSelect } from '../common/addSelect';
 
 export const ${name}Module = createModule({
   id: '${name}',
   typeDefs,
   resolvers,
-  ${
-    middlewares
-      ? `middlewares: {
-    ${middlewares}
-  },
-  `
-      : ''
-  }
 });
 `;
 };
@@ -229,8 +218,15 @@ const getApplication = (text: string) => {
 };
 
 const defaultAppContent = `import { createApplication } from 'graphql-modules';
+import { InputsModule } from './inputs/inputs.module'
 import { CommonModule } from './common/common.module';
+import { addSelect } from './addSelect';
+import { PrismaProvider } from './Prisma.provider';
 
 export const application = createApplication({
-  modules: [CommonModule],
+  modules: [InputsModule, CommonModule],
+  providers: [PrismaProvider],
+  middlewares: {
+    "*": { "*": [addSelect] }
+  },
 });`;
