@@ -21,7 +21,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@paljs/plugins": "^2.5.8",
+    "@paljs/plugins": "^2.5.11",
     "fs-extra": "^9.0.1",
     "lowdb": "^1.0.0"
   },
