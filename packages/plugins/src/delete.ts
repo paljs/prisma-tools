@@ -41,7 +41,7 @@ export class PrismaDelete {
   }
 
   private getModel(modelName: string) {
-    return this.dataModel.models.find((item) => item.name === modelName);
+    return this.dataModel?.models.find((item) => item.name === modelName);
   }
 
   private static getModelName(modelName: string) {

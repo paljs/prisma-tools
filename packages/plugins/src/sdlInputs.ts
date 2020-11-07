@@ -12,7 +12,7 @@ const testedTypes: string[] = [];
 export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
   const schema = options?.dmmf?.schema || defaultSchema;
   testedTypes.push(type);
-  const inputType = schema.inputTypes.find((item) => item.name === type);
+  const inputType = schema?.inputTypes.find((item) => item.name === type);
   if (inputType) {
     if (inputType.fields.length === 0) return true;
     for (const field of inputType.fields) {
@@ -47,7 +47,7 @@ function createInput(options?: OptionsType) {
   count: Int!
 }
 `;
-  schema.enums.forEach((item) => {
+  schema?.enums.forEach((item) => {
     fileContent += `enum ${item.name} {`;
     item.values.forEach((item2) => {
       fileContent += `
@@ -58,7 +58,7 @@ function createInput(options?: OptionsType) {
 `;
   });
 
-  schema.inputTypes.forEach((model) => {
+  schema?.inputTypes.forEach((model) => {
     if (model.fields.length > 0) {
       fileContent += `input ${model.name} {
     `;
@@ -80,7 +80,7 @@ function createInput(options?: OptionsType) {
     }
   });
 
-  schema.outputTypes
+  schema?.outputTypes
     .filter((type) => type.name.includes('Aggregate'))
     .forEach((type) => {
       fileContent += `type ${type.name} {

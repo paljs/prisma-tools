@@ -20,7 +20,8 @@ export const paljs = (settings?: Settings) =>
     description:
       'paljs plugin to add Prisma select to your resolver and prisma admin queries and mutations and all models input types',
     onInstall() {
-      const data: DMMF.Schema = settings?.dmmf?.schema || dmmf.schema;
+      const data: DMMF.Schema | undefined =
+        settings?.dmmf?.schema || dmmf?.schema;
       const nexusSchemaInputs: NexusAcceptedTypeDef[] = [
         objectType({
           name: 'BatchPayload',
@@ -53,7 +54,7 @@ export const paljs = (settings?: Settings) =>
           },
         }),
       );
-      data.enums.forEach((item) => {
+      data?.enums.forEach((item) => {
         nexusSchemaInputs.push(
           enumType({
             name: item.name,
@@ -61,7 +62,7 @@ export const paljs = (settings?: Settings) =>
           }),
         );
       });
-      data.inputTypes.forEach((input) => {
+      data?.inputTypes.forEach((input) => {
         if (input.fields.length > 0) {
           nexusSchemaInputs.push(
             inputObjectType({
@@ -87,7 +88,7 @@ export const paljs = (settings?: Settings) =>
         }
       });
 
-      data.outputTypes
+      data?.outputTypes
         .filter((type) => type.name.includes('Aggregate'))
         .forEach((type) => {
           nexusSchemaInputs.push(
