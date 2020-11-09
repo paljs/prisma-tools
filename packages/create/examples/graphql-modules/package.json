@@ -6,7 +6,7 @@
   "private": true,
   "description": "prisma and apollo server  example to create CUED system by one command",
   "scripts": {
-    "start": "node dist/server",
+    "start": "node dist/src",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "prisma generate",
