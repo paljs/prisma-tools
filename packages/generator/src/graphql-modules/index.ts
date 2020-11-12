@@ -43,11 +43,12 @@ export class GenerateModules extends Generators {
             (item) => item.name === field.name,
           );
           if (
-            dataField?.kind === 'object' &&
-            dataField.relationFromFields.length > 0
+            dataField?.kind === 'object'
           ) {
             if (!modules.includes(dataField.type + 'Module') && model.name !== dataField.type) {
               modules.push(dataField.type + 'Module');
+            }
+            if (model.name !== dataField.type) {
               extendsTypes += `extend type ${dataField.type} {`;
               models
                 .find((item) => item.name === dataField.type)
@@ -57,14 +58,10 @@ export class GenerateModules extends Generators {
                 });
 
               extendsTypes += `}\n\n`;
+            }else{
+              fileContent = getField(field, fileContent);
             }
-
-            fileContent = getField(field, fileContent);
-          } else if (
-            dataField?.kind !== 'object' ||
-            modules.includes(dataField.type + 'Module') ||
-            model.name === dataField.type
-          ) {
+          } else {
             fileContent = getField(field, fileContent);
           }
         }
