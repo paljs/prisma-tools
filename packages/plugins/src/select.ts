@@ -95,7 +95,7 @@ export class PrismaSelect {
   }
 
   private model(name?: string) {
-    return this.dataModel.models.find(
+    return this.dataModel?.models.find(
       (item) =>
         item.name === name ||
         PrismaSelect.getModelMap(item.documentation, name),
