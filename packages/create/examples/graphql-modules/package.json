@@ -6,7 +6,7 @@
   "private": true,
   "description": "prisma and apollo server  example to create CUED system by one command",
   "scripts": {
-    "start": "node dist/server",
+    "start": "node dist/src",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "prisma generate",
@@ -15,13 +15,11 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index"
   },
   "dependencies": {
-    "@graphql-modules/core": "0.x",
-    "@graphql-modules/di": "0.x",
+    "graphql-modules": "^1.0.0-alpha-adf0de4.0",
     "@paljs/plugins": "2.5.11",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",
-    "graphql-tag": "2.x",
     "reflect-metadata": "0.x"
   },
   "devDependencies": {

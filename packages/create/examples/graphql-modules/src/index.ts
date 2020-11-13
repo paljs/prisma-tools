@@ -1,9 +1,11 @@
 import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server';
-import { AppModule } from './app/app.module';
+import { application } from './app/application';
+
+const schema = application.createSchemaForApollo();
 
 const server = new ApolloServer({
-  modules: [AppModule],
+  schema,
   context: (session) => session,
 });
 

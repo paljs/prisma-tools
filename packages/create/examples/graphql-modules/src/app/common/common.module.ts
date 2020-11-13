@@ -1,8 +1,7 @@
-import { GraphQLModule } from '@graphql-modules/core';
-import { PrismaProvider } from './Prisma.provider';
-import { sdlInputs } from '@paljs/plugins';
+import { createModule, gql } from "graphql-modules";
 
-export const CommonModule = new GraphQLModule({
-  typeDefs: sdlInputs(),
-  providers: [PrismaProvider],
+export const CommonModule = createModule({
+  id: 'Common',
+  typeDefs: gql`type Query {hello: String}
+type Mutation {hello: String}`
 });
