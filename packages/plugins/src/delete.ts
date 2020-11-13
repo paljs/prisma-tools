@@ -10,6 +10,7 @@ export interface onDeleteArgs {
   model: string;
   where?: any;
   deleteParent?: boolean;
+  returnFields?: any;
 }
 
 /**
@@ -144,17 +145,25 @@ export class PrismaDelete {
    *  model: 'User',
    *  where: { id: 1 },
    *  deleteParent: true // if true will also delete user record default false
+   *  returnFields: {id: true, name: true} // you can select what you need to return from parent record
    * });
    *
    **/
-  async onDelete({ model, where, deleteParent }: onDeleteArgs) {
+  async onDelete({ model, where, deleteParent, returnFields }: onDeleteArgs) {
     const results = (
       await this.getDeleteArray(model, where, !!deleteParent)
     ).reverse();
-    for (const result of results) {
-      await this.prisma[result.name].deleteMany({
-        where: result.where,
-      });
+    for (let i = 0; i < results.length; ++i) {
+      if (i + 1 === results.length && deleteParent) {
+        return await this.prisma[results[i].name].deleteMany({
+          where: results[i].where,
+          select: returnFields,
+        });
+      } else {
+        await this.prisma[results[i].name].deleteMany({
+          where: results[i].where,
+        });
+      }
     }
   }
 }
