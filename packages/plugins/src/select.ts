@@ -160,7 +160,7 @@ export class PrismaSelect {
    **/
   valueOf(field: string, filterBy?: string, mergeObject: any = {}) {
     const splitItem = field.split('.');
-    let newValue = this.getSelect(this.fields, filterBy);
+    let newValue = this.getSelect(this.fields);
     for (const field of splitItem) {
       if (this.isAggregate && newValue.hasOwnProperty(field)) {
         newValue = newValue[field];
@@ -191,15 +191,19 @@ export class PrismaSelect {
    *
    **/
   valueWithFilter(modelName: string) {
-    return this.filterBy(modelName, this.getSelect(this.fields, modelName));
+    return this.filterBy(modelName, this.getSelect(this.fields));
   }
 
   private filterBy(modelName: string, selectObject: any) {
     const model = this.model(modelName);
     if (model) {
+      let defaultFields = {};
+      if (this.defaultFields && this.defaultFields[modelName]) {
+        defaultFields = this.defaultFields[modelName];
+      }
       const filteredObject = {
         ...selectObject,
-        select: {},
+        select: { ...defaultFields },
       };
       Object.keys(selectObject.select).forEach((key) => {
         const field = this.field(key, model);
@@ -223,15 +227,8 @@ export class PrismaSelect {
     }
   }
 
-  private getSelect(fields: any, modelName?: string) {
-    let defaultFields = {};
-    if (modelName && this.defaultFields && this.defaultFields[modelName]) {
-      defaultFields = this.defaultFields[modelName];
-    }
-    const model = this.model(modelName);
-    const selectObject: any = this.isAggregate
-      ? {}
-      : { select: { ...defaultFields } };
+  private getSelect(fields: any) {
+    const selectObject: any = this.isAggregate ? {} : { select: {} };
     Object.keys(fields).forEach((key) => {
       if (Object.keys(fields[key]).length === 0) {
         if (this.isAggregate) {
@@ -251,8 +248,7 @@ export class PrismaSelect {
         if (this.isAggregate) {
           selectObject[key] = this.getSelect(fields[key]);
         } else {
-          const field = this.field(key, model);
-          selectObject.select[key] = this.getSelect(fields[key], field?.type);
+          selectObject.select[key] = this.getSelect(fields[key]);
         }
       }
     });

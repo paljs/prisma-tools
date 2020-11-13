@@ -1,6 +1,6 @@
 {
   "name": "@paljs/nexus",
-  "version": "2.5.12",
+  "version": "2.5.13",
   "main": "dist/index.js",
   "module": "dist/nexus.esm.js",
   "types": "dist/index.d.ts",
