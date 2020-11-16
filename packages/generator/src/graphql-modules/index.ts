@@ -14,17 +14,16 @@ export class GenerateModules extends Generators {
     this.createApp();
   }
 
-  private indexPath = this.output('app.module.ts');
+  private indexPath = this.output('application.ts');
   private index = existsSync(this.indexPath)
     ? readFileSync(this.indexPath, { encoding: 'utf-8' })
     : defaultAppContent;
-  private appModules: string[] = getAppModules(this.index);
+  private appModules: string[] = getApplication(this.index);
 
   private async createModules() {
     const models = await this.models();
     const datamodel = await this.datamodel();
     models.forEach((model) => {
-      let imports = '';
       let modules: string[] = ['CommonModule'];
       let extendsTypes = '';
 
@@ -44,13 +43,12 @@ export class GenerateModules extends Generators {
             (item) => item.name === field.name,
           );
           if (
-            dataField?.kind === 'object' &&
-            dataField.relationFromFields.length > 0
+            dataField?.kind === 'object'
           ) {
             if (!modules.includes(dataField.type + 'Module') && model.name !== dataField.type) {
               modules.push(dataField.type + 'Module');
-              imports += `import { ${dataField.type}Module } from '../${dataField.type}/${dataField.type}.module';
-              `;
+            }
+            if (model.name !== dataField.type) {
               extendsTypes += `extend type ${dataField.type} {`;
               models
                 .find((item) => item.name === dataField.type)
@@ -60,14 +58,10 @@ export class GenerateModules extends Generators {
                 });
 
               extendsTypes += `}\n\n`;
+            }else{
+              fileContent = getField(field, fileContent);
             }
-
-            fileContent = getField(field, fileContent);
-          } else if (
-            dataField?.kind !== 'object' ||
-            modules.includes(dataField.type + 'Module') ||
-            model.name === dataField.type
-          ) {
+          } else {
             fileContent = getField(field, fileContent);
           }
         }
@@ -75,7 +69,7 @@ export class GenerateModules extends Generators {
       fileContent += `}\n\n`;
 
       fileContent += extendsTypes;
-      this.createFiles(model.name, fileContent, imports, modules);
+      this.createFiles(model.name, fileContent);
     });
   }
 
@@ -92,25 +86,20 @@ export class GenerateModules extends Generators {
   private createFiles(
     model: string,
     content: string,
-    imports: string,
-    modules: string[],
   ) {
     const operations = this.getOperations(model);
 
     this.mkdir(this.output(model));
 
     let resolvers = '';
-    let resolversComposition = '';
 
     if (!this.disableQueries(model)) {
       resolvers += operations.queries.resolver;
       content += operations.queries.type;
-      resolversComposition += `Query: [addSelect],`;
     }
     if (!this.disableMutations(model)) {
       resolvers += operations.mutations.resolver;
       content += operations.mutations.type;
-      resolversComposition += `Mutation: [addSelect],`;
     }
 
     this.createResolver(resolvers, model);
@@ -120,14 +109,14 @@ export class GenerateModules extends Generators {
     writeFileSync(
       this.output(model, `${model}.module.ts`),
       this.formation(
-        getModule(model, imports, modules, resolversComposition),
+        getModule(model),
         'babel-ts',
       ),
     );
   }
 
   private createTypes(content: string, model: string) {
-    content = `import gql from 'graphql-tag';
+    content = `import { gql } from 'graphql-modules';
 
       export default gql\`
       ${content}
@@ -142,8 +131,7 @@ export class GenerateModules extends Generators {
 
   private createResolver(resolvers: string, model: string) {
     if (resolvers) {
-      resolvers = `import { ModuleContext } from '@graphql-modules/core';
-        import { PrismaProvider } from '../common/Prisma.provider';
+      resolvers = `import { PrismaProvider } from '../Prisma.provider';
       
       export default {
         ${resolvers}
@@ -159,37 +147,22 @@ export class GenerateModules extends Generators {
   private createApp() {
     writeFileSync(
       this.indexPath,
-      this.formation(AppModule(this.appModules, this.index), 'babel-ts'),
+      this.formation(App(this.appModules, this.index), 'babel-ts'),
     );
   }
 }
 
 const getModule = (
   name: string,
-  imports: string,
-  modules: string[],
-  resolversComposition: string,
 ) => {
-  return `import { GraphQLModule } from '@graphql-modules/core';
+  return `import { createModule } from 'graphql-modules';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
-import { addSelect } from '../common/addSelect';
-import { CommonModule } from '../common/common.module';
-${imports}
 
-export const ${name}Module = new GraphQLModule({
-  name: '${name}',
+export const ${name}Module = createModule({
+  id: '${name}',
   typeDefs,
   resolvers,
-  imports: ${JSON.stringify(modules).replace(/"/g, '')},
-  ${
-    resolversComposition
-      ? `resolversComposition: {
-    ${resolversComposition}
-  },
-  `
-      : ''
-  }
 });
 `;
 };
@@ -213,8 +186,8 @@ const getField = (field: DMMF.SchemaField, content: string) => {
   return content;
 };
 
-const AppModule = (modules: string[], index: string) => {
-  const importObject = index.match(/imports:[\S\s]*?]/);
+const App = (modules: string[], index: string) => {
+  const importObject = index.match(/modules:[\S\s]*?]/);
   if (importObject) {
     const modulesMatch = importObject[0].match(/\[[\S\s]*?]/);
     if (modulesMatch) {
@@ -227,8 +200,8 @@ const AppModule = (modules: string[], index: string) => {
   return '';
 };
 
-const getAppModules = (text: string) => {
-  const importObject = text.match(/imports:[\S\s]*?]/);
+const getApplication = (text: string) => {
+  const importObject = text.match(/modules:[\S\s]*?]/);
   if (importObject) {
     const modules = importObject[0].match(/\[([\S\s]*?)]/);
     if (modules) {
@@ -241,9 +214,16 @@ const getAppModules = (text: string) => {
   return ['CommonModule'];
 };
 
-const defaultAppContent = `import { GraphQLModule } from '@graphql-modules/core';
+const defaultAppContent = `import { createApplication } from 'graphql-modules';
+import { InputsModule } from './inputs/inputs.module'
 import { CommonModule } from './common/common.module';
+import { addSelect } from './addSelect';
+import { PrismaProvider } from './Prisma.provider';
 
-export const AppModule = new GraphQLModule({
-  imports: [CommonModule],
+export const application = createApplication({
+  modules: [InputsModule, CommonModule],
+  providers: [PrismaProvider],
+  middlewares: {
+    "*": { "*": [addSelect] }
+  },
 });`;

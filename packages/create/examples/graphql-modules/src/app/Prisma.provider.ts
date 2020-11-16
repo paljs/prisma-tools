@@ -1,18 +1,15 @@
 import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
-import { OnRequest, OnResponse } from '@graphql-modules/core';
+import { Injectable, OnDestroy } from 'graphql-modules';
 import { PrismaClient } from '@prisma/client';
-import { Injectable } from '@graphql-modules/di';
 
 @Injectable()
 export class PrismaProvider extends PrismaClient
-  implements OnRequest, OnResponse {
+  implements OnDestroy {
   constructor() {
     super();
-  }
-  onRequest() {
     this.$connect();
   }
-  onResponse() {
+  onDestroy(): void {
     this.$disconnect();
   }
 

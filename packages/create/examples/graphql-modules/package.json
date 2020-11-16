@@ -15,13 +15,11 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index"
   },
   "dependencies": {
-    "@graphql-modules/core": "0.x",
-    "@graphql-modules/di": "0.x",
-    "@paljs/plugins": "2.5.13",
+    "graphql-modules": "1.x",
+    "@paljs/plugins": "2.5.12",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",
-    "graphql-tag": "2.x",
     "reflect-metadata": "0.x"
   },
   "devDependencies": {
