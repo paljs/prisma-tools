@@ -24,7 +24,6 @@ export class GenerateModules extends Generators {
     const models = await this.models();
     const datamodel = await this.datamodel();
     models.forEach((model) => {
-      let modules: string[] = ['CommonModule'];
       let extendsTypes = '';
 
       if (!this.appModules.includes(model.name + 'Module')) {
@@ -42,13 +41,8 @@ export class GenerateModules extends Generators {
           const dataField = dataModel?.fields.find(
             (item) => item.name === field.name,
           );
-          if (
-            dataField?.kind === 'object'
-          ) {
-            if (!modules.includes(dataField.type + 'Module') && model.name !== dataField.type) {
-              modules.push(dataField.type + 'Module');
-            }
-            if (model.name !== dataField.type) {
+          if (dataField?.kind === 'object' && model.name !== dataField.type) {
+            if (!extendsTypes.includes(`extend type ${dataField.type}`)) {
               extendsTypes += `extend type ${dataField.type} {`;
               models
                 .find((item) => item.name === dataField.type)
@@ -58,8 +52,6 @@ export class GenerateModules extends Generators {
                 });
 
               extendsTypes += `}\n\n`;
-            }else{
-              fileContent = getField(field, fileContent);
             }
           } else {
             fileContent = getField(field, fileContent);
@@ -83,10 +75,7 @@ export class GenerateModules extends Generators {
     );
   }
 
-  private createFiles(
-    model: string,
-    content: string,
-  ) {
+  private createFiles(model: string, content: string) {
     const operations = this.getOperations(model);
 
     this.mkdir(this.output(model));
@@ -108,10 +97,7 @@ export class GenerateModules extends Generators {
 
     writeFileSync(
       this.output(model, `${model}.module.ts`),
-      this.formation(
-        getModule(model),
-        'babel-ts',
-      ),
+      this.formation(getModule(model), 'babel-ts'),
     );
   }
 
@@ -152,9 +138,7 @@ export class GenerateModules extends Generators {
   }
 }
 
-const getModule = (
-  name: string,
-) => {
+const getModule = (name: string) => {
   return `import { createModule } from 'graphql-modules';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
@@ -207,7 +191,7 @@ const getApplication = (text: string) => {
     if (modules) {
       return modules[1]
         .split(',')
-        .filter((a) => a)
+        .filter((a) => !!a.replace(/\s/g, ''))
         .map((a) => a.replace(/\s/g, ''));
     }
   }

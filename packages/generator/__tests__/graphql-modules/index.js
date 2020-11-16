@@ -8,7 +8,7 @@ async function main() {
         name: 'graphql-modules',
         schemaPath: './schema.prisma',
       },
-      { output: join(process.cwd(), './app'), javaScript: true },
+      { output: join(process.cwd(), './app') },
     );
     await generator.run();
   } catch (error) {
