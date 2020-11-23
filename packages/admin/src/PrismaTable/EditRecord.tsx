@@ -40,11 +40,18 @@ const EditRecord: React.FC<EditRecordProps> = ({
   const [getRecord, { data, loading, error }] = useLazyQuery(
     queryDocument(models, model, true, true),
   );
-
+  const isField = modelObject?.fields.find(
+    (field) => field.name === modelObject?.idField,
+  );
   if (modelObject && !data && !loading && !error) {
     getRecord({
       variables: {
-        where: { [modelObject.idField]: parseInt(update || view) },
+        where: {
+          [modelObject.idField]:
+            isField?.type === 'String'
+              ? update || view
+              : parseInt(update || view),
+        },
       },
     });
   }

@@ -14,9 +14,15 @@ const filterMemo = (modelName: string, filter?: any) => {
           const field = model.fields.find((item) => item.type === key);
           const fieldModel = models.find((item) => item.id === field?.type);
           if (fieldModel) {
+            const isField = fieldModel.fields.find(
+              (field) => field.name === fieldModel.idField,
+            );
             const filterValue = {
               [fieldModel.idField]: {
-                equals: parseInt(filter[key]),
+                equals:
+                  isField?.type === 'String'
+                    ? filter[key]
+                    : parseInt(filter[key]),
               },
             };
             const value = field?.list ? { some: filterValue } : filterValue;
