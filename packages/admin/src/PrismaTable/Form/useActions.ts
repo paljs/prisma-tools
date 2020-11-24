@@ -6,18 +6,26 @@ import { mutationDocument } from '../QueryDocument';
 import { SchemaModel } from '../../types';
 import { SchemaField } from '@paljs/types';
 
-export const getValueByType = (
-  value: string,
-  field?: SchemaField,
-  create = false,
-) => {
+interface GetValueOptions {
+  value: string;
+  field?: SchemaField;
+  create?: boolean;
+  useSet?: boolean;
+}
+
+export const getValueByType = ({
+  value,
+  field,
+  create,
+  useSet = true,
+}: GetValueOptions) => {
   if (field?.type === 'Json') {
     const result = value ? JSON.parse(value) : field.list ? [] : {};
-    return field.list ? { set: result } : result;
+    return field.list && useSet ? { set: result } : result;
   }
   if (field?.list) {
     if (!value) {
-      return { set: [] };
+      return useSet ? { set: [] } : [];
     }
     const result: any[] = value.split(',');
     switch (field?.type) {
@@ -37,7 +45,7 @@ export const getValueByType = (
         });
         break;
     }
-    return { set: result };
+    return useSet ? { set: result } : result;
   } else {
     const result =
       field?.type === 'Int'
@@ -45,7 +53,7 @@ export const getValueByType = (
         : field?.type === 'Float'
         ? parseFloat(value)
         : value;
-    return create ? result : { set: result };
+    return create && !useSet ? result : { set: result };
   }
 };
 
@@ -58,6 +66,7 @@ const useActions = (
   const {
     schema: { models },
     valueHandler,
+    useSet,
   } = useContext(TableContext);
   const [updateModel, { loading: updateLoading }] = useMutation(
     mutationDocument(models, model.id, 'update'),
@@ -88,7 +97,11 @@ const useActions = (
             )!;
             updateData[key] = {
               connect: {
-                id: getValueByType(newData[key][fieldModel.idField], editField),
+                id: getValueByType({
+                  value: newData[key][fieldModel.idField],
+                  field: editField,
+                  useSet,
+                }),
               },
             };
           } else if (!newData[key] && data[key]) {
@@ -97,7 +110,7 @@ const useActions = (
         } else if (newData[key] !== data[key]) {
           updateData[key] = valueHandler
             ? valueHandler(newData[key], field)
-            : getValueByType(newData[key], field);
+            : getValueByType({ value: newData[key], field, useSet });
         }
       }
     });
@@ -127,18 +140,24 @@ const useActions = (
         if (newData[key]) {
           createData[key] = {
             connect: {
-              id: getValueByType(
-                newData[key][fieldModel.idField],
-                editField,
-                true,
-              ),
+              id: getValueByType({
+                value: newData[key][fieldModel.idField],
+                field: editField,
+                create: true,
+                useSet,
+              }),
             },
           };
         }
       } else {
         createData[key] = valueHandler
           ? valueHandler(newData[key], field, true)
-          : getValueByType(newData[key], field, true);
+          : getValueByType({
+              value: newData[key],
+              field,
+              create: true,
+              useSet,
+            });
       }
     });
     createModel({

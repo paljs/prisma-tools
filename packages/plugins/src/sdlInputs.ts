@@ -5,6 +5,7 @@ import { writeFileSync } from 'fs';
 
 interface OptionsType {
   dmmf?: DMMF.Document;
+  doNotUseFieldUpdateOperationsInput?: boolean;
 }
 
 const testedTypes: string[] = [];
@@ -16,7 +17,7 @@ export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
   if (inputType) {
     if (inputType.fields.length === 0) return true;
     for (const field of inputType.fields) {
-      const fieldType = getInputType(field);
+      const fieldType = getInputType(field, options);
       if (
         fieldType.type !== type &&
         fieldType.kind === 'object' &&
@@ -30,8 +31,18 @@ export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
   return false;
 };
 
-export const getInputType = (field: DMMF.SchemaArg) => {
+export const getInputType = (
+  field: DMMF.SchemaArg,
+  options?: { doNotUseFieldUpdateOperationsInput?: boolean },
+) => {
   let index: number = 0;
+  if (
+    options?.doNotUseFieldUpdateOperationsInput &&
+    field.inputTypes.length > 1 &&
+    (field.inputTypes[1].type as string).endsWith('FieldUpdateOperationsInput')
+  ) {
+    return field.inputTypes[index];
+  }
   if (field.inputTypes.length > 1 && field.inputTypes[1].kind === 'object') {
     index = 1;
   }
@@ -63,7 +74,7 @@ function createInput(options?: OptionsType) {
       fileContent += `input ${model.name} {
     `;
       model.fields.forEach((field) => {
-        const inputType = getInputType(field);
+        const inputType = getInputType(field, options);
         const hasEmptyType =
           inputType.kind === 'object' &&
           hasEmptyTypeFields(inputType.type as string);

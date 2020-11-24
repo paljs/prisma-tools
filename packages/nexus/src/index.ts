@@ -69,7 +69,7 @@ export const paljs = (settings?: Settings) =>
               name: input.name,
               definition(t) {
                 input.fields.forEach((field) => {
-                  const inputType = getInputType(field);
+                  const inputType = getInputType(field, settings);
                   const hasEmptyType =
                     inputType.kind === 'object' &&
                     hasEmptyTypeFields(inputType.type as string);

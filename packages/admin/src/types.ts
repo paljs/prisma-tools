@@ -55,6 +55,7 @@ interface RequireContextProps {
 }
 
 interface SameProps {
+  useSet?: boolean;
   tableColumns?: GetColumnsPartial;
   formInputs?: Partial<FormInputs>;
   push: (url: string) => void;
