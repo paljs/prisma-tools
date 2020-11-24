@@ -35,7 +35,10 @@ const filterMemo = (modelName: string, filter?: any) => {
             initialValue.push({
               id: key,
               value: {
-                equals: parseInt(filter[key]),
+                equals:
+                  field?.type === 'String'
+                    ? filter[key]
+                    : parseInt(filter[key]),
               },
             });
           }
