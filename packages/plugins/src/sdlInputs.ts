@@ -49,7 +49,7 @@ export const getInputType = (
   }
   if (
     field.inputTypes.length > 1 &&
-    field.inputTypes[1].location !== 'scalar'
+    field.inputTypes[1].location === 'inputObjectTypes'
   ) {
     index = 1;
   }
