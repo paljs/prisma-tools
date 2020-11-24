@@ -113,7 +113,9 @@ export class GenerateTypes {
       type.fields.forEach((field) => {
         const parentType = ['Query', 'Mutation'].includes(type.name)
           ? '{}'
-          : `Client.${type.name}`;
+          : `Client.${type.name === 'BatchPayload' ? 'Prisma.' : ''}${
+              type.name
+            }`;
         const argsType =
           field.args.length > 0 ? `${this.capital(field.name)}Args` : '{}';
         fields.push(

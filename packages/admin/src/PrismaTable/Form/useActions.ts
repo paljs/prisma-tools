@@ -21,7 +21,7 @@ export const getValueByType = ({
 }: GetValueOptions) => {
   if (field?.type === 'Json') {
     const result = value ? JSON.parse(value) : field.list ? [] : {};
-    return field.list && useSet ? { set: result } : result;
+    return field.list || useSet ? { set: result } : result;
   }
   if (field?.list) {
     if (!value) {
@@ -53,7 +53,7 @@ export const getValueByType = ({
         : field?.type === 'Float'
         ? parseFloat(value)
         : value;
-    return create && !useSet ? result : { set: result };
+    return create || !useSet ? result : { set: result };
   }
 };
 
