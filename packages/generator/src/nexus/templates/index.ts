@@ -1,4 +1,4 @@
-import findOne from './findOne';
+import findUnique from './findUnique';
 import findFirst from './findFirst';
 import findMany from './findMany';
 import findCount from './findCount';
@@ -12,7 +12,7 @@ import aggregate from './aggregate';
 import { QueriesAndMutations } from '@paljs/types';
 
 const crud: { [key in QueriesAndMutations]: string } = {
-  findOne,
+  findUnique,
   findFirst,
   findMany,
   findCount,

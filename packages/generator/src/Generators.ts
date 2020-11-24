@@ -20,7 +20,7 @@ export class Generators {
   protected isJS?: boolean = false;
 
   protected queries: Query[] = [
-    'findOne',
+    'findUnique',
     'findFirst',
     'findMany',
     'findCount',

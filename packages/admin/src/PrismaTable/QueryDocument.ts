@@ -69,14 +69,14 @@ const allScalar = (model?: SchemaModel) => {
 export const queryDocument = (
   models: SchemaModel[],
   modelName: string,
-  findOne = false,
+  findUnique = false,
   update = false,
 ) => {
   const fields = getFields(models, modelName, update);
-  if (findOne) {
+  if (findUnique) {
     return tag`
-query findOne${modelName}($where: ${modelName}WhereUniqueInput!) {
-  findOne${modelName}(where: $where) {
+query findUnique${modelName}($where: ${modelName}WhereUniqueInput!) {
+  findUnique${modelName}(where: $where) {
     ${fields}
   }
 }

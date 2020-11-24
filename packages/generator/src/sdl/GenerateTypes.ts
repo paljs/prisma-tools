@@ -2,7 +2,7 @@ import { DMMF } from '../schema';
 
 export class GenerateTypes {
   code: string[] = [
-    `import * as Prisma from '@prisma/client'`,
+    `import * as Client from '@prisma/client'`,
     `import { Context } from './context'`,
     `import { GraphQLResolveInfo } from 'graphql';`,
     `type Resolver<T extends {}, A extends {}, R extends any> = (parent: T,args: A, context: Context, info: GraphQLResolveInfo) => Promise<R>;`,
@@ -42,7 +42,9 @@ export class GenerateTypes {
               .toString()
               .replace('Aggregate', '')}AggregateType<${options.type}Args>`
           : options.type;
-        return `${!input ? 'Prisma.' : ''}${type}${options.isList ? '[]' : ''}`;
+        return `${!input ? 'Client.Prisma.' : ''}${type}${
+          options.isList ? '[]' : ''
+        }`;
     }
   }
 
@@ -130,10 +132,10 @@ export class GenerateTypes {
               .replace('Aggregate', '');
             args.push(
               `count?: true`,
-              `avg?: Prisma.${modelName}AvgAggregateInputType`,
-              `sum?: Prisma.${modelName}SumAggregateInputType`,
-              `min?: Prisma.${modelName}MinAggregateInputType`,
-              `max?: Prisma.${modelName}MaxAggregateInputType`,
+              `avg?: Client.Prisma.${modelName}AvgAggregateInputType`,
+              `sum?: Client.Prisma.${modelName}SumAggregateInputType`,
+              `min?: Client.Prisma.${modelName}MinAggregateInputType`,
+              `max?: Client.Prisma.${modelName}MaxAggregateInputType`,
             );
           }
           args.push('}');

@@ -88,7 +88,7 @@ export interface Options {
 }
 
 export type Query =
-  | 'findOne'
+  | 'findUnique'
   | 'findFirst'
   | 'findMany'
   | 'findCount'

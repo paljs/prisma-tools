@@ -1,7 +1,7 @@
 export default `
 #{import}
 
-#{exportTs}const #{Model}FindOneQuery = queryField('findOne#{Model}', {
+#{exportTs}const #{Model}FindUniqueQuery = queryField('findUnique#{Model}', {
   type: '#{Model}',
   nullable: true,
   args: {
@@ -11,7 +11,7 @@ export default `
     }),
   },
   resolve(_parent, { where }, { prisma, select }) {
-    return prisma.#{model}.findOne({
+    return prisma.#{model}.findUnique({
       where,
       ...select,
     })

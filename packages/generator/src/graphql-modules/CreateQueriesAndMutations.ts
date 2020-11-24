@@ -17,12 +17,12 @@ export function createQueriesAndMutations(
     },
   };
 
-  if (!exclude.includes('findOne')) {
+  if (!exclude.includes('findUnique')) {
     operations.queries.type += `
-    findOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
+    findUnique${name}(where: ${name}WhereUniqueInput!): ${name}`;
     operations.queries.resolver += `
-    findOne${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
-      return injector.get(PrismaProvider).${model}.findOne(args);
+    findUnique${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).${model}.findUnique(args);
     },`;
   }
 

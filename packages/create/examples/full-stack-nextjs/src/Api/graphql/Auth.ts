@@ -13,7 +13,7 @@ export const AuthQueries = extendType({
       nullable: true,
       resolve: async (_, __, { prisma, select, userId }) => {
         if (!userId) return null
-        return prisma.user.findOne({
+        return prisma.user.findUnique({
           where: {
             id: userId,
           },
@@ -64,7 +64,7 @@ export const AuthMutations = extendType({
         password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { email, password }, ctx) => {
-        const user = await ctx.prisma.user.findOne({
+        const user = await ctx.prisma.user.findUnique({
           where: {
             email,
           },
@@ -114,7 +114,7 @@ export const AuthMutations = extendType({
       resolve: async (_, { currentPassword, password }, ctx) => {
         if (currentPassword && password) {
           // get current user and verify currentPassword before changing;
-          const user = await ctx.prisma.user.findOne({
+          const user = await ctx.prisma.user.findUnique({
             where: { id: ctx.userId },
             select: { password: true },
           })

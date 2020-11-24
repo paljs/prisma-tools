@@ -51,10 +51,10 @@ ${
   )
     ? `
 ${
-  !excludeQueriesAndMutations.includes('findOne')
+  !excludeQueriesAndMutations.includes('findUnique')
     ? `
-query findOne${model.name}($where: ${model.name}WhereUniqueInput!) {
-  findOne${model.name}(where: $where) {
+query findUnique${model.name}($where: ${model.name}WhereUniqueInput!) {
+  findUnique${model.name}(where: $where) {
     ...${model.name}
   }
 }`

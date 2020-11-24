@@ -22,13 +22,13 @@
   },
   "dependencies": {
     "@paljs/types": "^2.5.4",
-    "@prisma/sdk": "2.11.0",
+    "@prisma/sdk": "2.12.0",
     "pkg-dir": "^5.0.0",
     "pluralize": "^8.0.0",
     "prettier": "^2.1.2"
   },
   "devDependencies": {
-    "@prisma/client": "2.11.0",
+    "@prisma/client": "2.12.0",
     "@types/node": "14.14.7",
     "@types/pluralize": "^0.0.29",
     "@types/prettier": "2.1.5",

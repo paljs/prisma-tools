@@ -1,10 +1,10 @@
-import { PrismaClient, PrismaClientOptions } from '@prisma/client'
+import { PrismaClient, Prisma as PrismaTypes } from '@prisma/client'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
 import { PrismaDelete, onDeleteArgs } from '@paljs/plugins'
 import { getUserId } from './utils'
 
 class Prisma extends PrismaClient {
-  constructor(options?: PrismaClientOptions) {
+  constructor(options?: PrismaTypes.PrismaClientOptions) {
     super(options)
   }
 

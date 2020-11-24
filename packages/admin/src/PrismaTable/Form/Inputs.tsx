@@ -195,7 +195,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     const [getData, { data, loading }] = useLazyQuery(
       queryDocument(models, field.type, true),
     );
-    const result = data ? data[`findOne${field.type}`] : {};
+    const result = data ? data[`findUnique${field.type}`] : {};
 
     if (
       state &&

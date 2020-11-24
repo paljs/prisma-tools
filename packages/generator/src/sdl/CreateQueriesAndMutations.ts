@@ -17,12 +17,12 @@ export function createQueriesAndMutations(
     },
   };
 
-  if (!exclude.includes('findOne')) {
+  if (!exclude.includes('findUnique')) {
     operations.queries.type += `
-    findOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
+    findUnique${name}(where: ${name}WhereUniqueInput!): ${name}`;
     operations.queries.resolver += `
-    findOne${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.findOne(args)
+    findUnique${name}: (_parent, args, {prisma}) => {
+      return prisma.${model}.findUnique(args)
     },`;
   }
 

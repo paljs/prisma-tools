@@ -61,7 +61,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
           .filter((item) => !exclude.includes(item))
           .forEach((item) => {
             switch (item) {
-              case 'findOne':
+              case 'findUnique':
                 fileContent.push(`t.crud.${modelName.singular}()`);
                 break;
               case 'findMany':

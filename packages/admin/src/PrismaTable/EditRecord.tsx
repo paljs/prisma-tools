@@ -56,12 +56,12 @@ const EditRecord: React.FC<EditRecordProps> = ({
     });
   }
 
-  const record = data ? data[`findOne${model}`] : {};
+  const record = data ? data[`findUnique${model}`] : {};
   const tabs = modelObject?.fields.filter(
     (field) => field.kind === 'object' && field.list && field.read,
   );
 
-  if (!loading && data && !data[`findOne${model}`] && modelObject)
+  if (!loading && data && !data[`findUnique${model}`] && modelObject)
     push(pagesPath + model);
 
   const onUpdateCancel =
