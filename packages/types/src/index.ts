@@ -85,6 +85,7 @@ export interface Options {
     [modelName: string]: QueriesAndMutations[];
   };
   excludeQueriesAndMutations: QueriesAndMutations[];
+  doNotUseFieldUpdateOperationsInput?: boolean;
 }
 
 export type Query =

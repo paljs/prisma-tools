@@ -54,60 +54,68 @@ export const paljs = (settings?: Settings) =>
           },
         }),
       );
-      data?.enums.forEach((item) => {
-        nexusSchemaInputs.push(
-          enumType({
-            name: item.name,
-            members: item.values,
-          }),
-        );
-      });
-      data?.inputTypes.forEach((input) => {
-        if (input.fields.length > 0) {
+      if (data) {
+        const enums = [...data.enumTypes.prisma];
+        if (data.enumTypes.model) enums.push(...data.enumTypes.model);
+        enums.forEach((item) => {
           nexusSchemaInputs.push(
-            inputObjectType({
-              name: input.name,
-              definition(t) {
-                input.fields.forEach((field) => {
-                  const inputType = getInputType(field, settings);
-                  const hasEmptyType =
-                    inputType.kind === 'object' &&
-                    hasEmptyTypeFields(inputType.type as string);
-                  if (!hasEmptyType) {
-                    const fieldConfig: { [key: string]: any; type: string } = {
-                      type: inputType.type as string,
-                    };
-                    if (field.isRequired) fieldConfig['nullable'] = false;
-                    if (inputType.isList) fieldConfig['list'] = true;
-                    t.field(field.name, fieldConfig);
-                  }
-                });
-              },
-            }),
-          );
-        }
-      });
-
-      data?.outputTypes
-        .filter((type) => type.name.includes('Aggregate'))
-        .forEach((type) => {
-          nexusSchemaInputs.push(
-            objectType({
-              name: type.name,
-              definition(t) {
-                type.fields.forEach((field) => {
-                  const fieldConfig: { [key: string]: any; type: string } = {
-                    type: field.outputType.type as string,
-                  };
-                  if (field.isRequired) fieldConfig['nullable'] = false;
-                  if (field.outputType.isList) fieldConfig['list'] = true;
-                  t.field(field.name, fieldConfig);
-                });
-              },
+            enumType({
+              name: item.name,
+              members: item.values,
             }),
           );
         });
-
+        const inputObjectTypes = [...data.inputObjectTypes.prisma];
+        if (data.inputObjectTypes.model)
+          inputObjectTypes.push(...data.inputObjectTypes.model);
+        inputObjectTypes.forEach((input) => {
+          if (input.fields.length > 0) {
+            nexusSchemaInputs.push(
+              inputObjectType({
+                name: input.name,
+                definition(t) {
+                  input.fields.forEach((field) => {
+                    const inputType = getInputType(field, settings);
+                    const hasEmptyType =
+                      inputType.location === 'inputObjectTypes' &&
+                      hasEmptyTypeFields(inputType.type as string);
+                    if (!hasEmptyType) {
+                      const fieldConfig: {
+                        [key: string]: any;
+                        type: string;
+                      } = {
+                        type: inputType.type as string,
+                      };
+                      if (field.isRequired) fieldConfig['nullable'] = false;
+                      if (inputType.isList) fieldConfig['list'] = true;
+                      t.field(field.name, fieldConfig);
+                    }
+                  });
+                },
+              }),
+            );
+          }
+        });
+        data.outputObjectTypes.prisma
+          .filter((type) => type.name.includes('Aggregate'))
+          .forEach((type) => {
+            nexusSchemaInputs.push(
+              objectType({
+                name: type.name,
+                definition(t) {
+                  type.fields.forEach((field) => {
+                    const fieldConfig: { [key: string]: any; type: string } = {
+                      type: field.outputType.type as string,
+                    };
+                    if (field.isRequired) fieldConfig['nullable'] = false;
+                    if (field.outputType.isList) fieldConfig['list'] = true;
+                    t.field(field.name, fieldConfig);
+                  });
+                },
+              }),
+            );
+          });
+      }
       if (settings?.includeAdmin) {
         nexusSchemaInputs.push(
           ...adminNexusSchemaSettings(settings?.adminSchemaPath),

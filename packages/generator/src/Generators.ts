@@ -40,7 +40,7 @@ export class Generators {
     this.isJS = this.options.javaScript;
   }
 
-  protected async dmmf() {
+  protected async dmmf(): Promise<DMMF.Document> {
     const schema = readFileSync(this.schemaPath, 'utf-8');
     return await getDMMF({ datamodel: schema });
   }
@@ -52,12 +52,9 @@ export class Generators {
 
   protected async models() {
     const { schema }: { schema: DMMF.Schema } = await this.dmmf();
-    return schema.outputTypes.filter(
+    return schema.outputObjectTypes.model.filter(
       (model) =>
-        !['Query', 'Mutation'].includes(model.name) &&
-        !model.name.includes('Aggregate') &&
-        model.name !== 'BatchPayload' &&
-        (!this.options.models || this.options.models.includes(model.name)),
+        !this.options.models || this.options.models.includes(model.name),
     );
   }
 

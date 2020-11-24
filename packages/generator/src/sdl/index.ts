@@ -13,7 +13,7 @@ export class GenerateSdl extends Generators {
     await this.createModels();
     this.createMaster();
     if (!this.isJS) {
-      const generateTypes = new GenerateTypes(await this.dmmf());
+      const generateTypes = new GenerateTypes(await this.dmmf(), this.options);
       const code = generateTypes.run();
       writeFileSync(this.output('../resolversTypes.ts'), this.formation(code));
     }

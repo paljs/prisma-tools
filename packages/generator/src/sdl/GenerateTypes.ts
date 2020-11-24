@@ -1,3 +1,4 @@
+import { Options } from '@paljs/types';
 import { DMMF } from '../schema';
 
 export class GenerateTypes {
@@ -17,7 +18,7 @@ export class GenerateTypes {
 
   testedTypes: string[] = [];
 
-  constructor(private dmmf: DMMF.Document) {}
+  constructor(private dmmf: DMMF.Document, private options: Partial<Options>) {}
 
   get schema() {
     return this.dmmf.schema;
@@ -31,33 +32,35 @@ export class GenerateTypes {
     options: DMMF.SchemaField['outputType'] | DMMF.SchemaArgInputType,
     input = false,
   ) {
-    switch (options.kind) {
+    switch (options.location) {
       case 'scalar':
         return `${this.scalar[options.type as string]}${
           options.isList ? '[]' : ''
         }`;
       default:
         const type = options.type.toString().startsWith('Aggregate')
-          ? `Get${options.type
+          ? `Prisma.Get${options.type
               .toString()
               .replace('Aggregate', '')}AggregateType<${options.type}Args>`
+          : options.type.toString() === 'BatchPayload'
+          ? 'Prisma.BatchPayload'
           : options.type;
-        return `${!input ? 'Client.Prisma.' : ''}${type}${
-          options.isList ? '[]' : ''
-        }`;
+        return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
     }
   }
 
   hasEmptyTypeFields(type: string) {
     this.testedTypes.push(type);
-    const inputType = this.schema.inputTypes.find((item) => item.name === type);
+    const inputType = this.schema.inputObjectTypes.prisma.find(
+      (item) => item.name === type,
+    );
     if (inputType) {
       if (inputType.fields.length === 0) return true;
       for (const field of inputType.fields) {
         const fieldType = this.getInputType(field);
         if (
           fieldType.type !== type &&
-          fieldType.kind === 'object' &&
+          fieldType.location === 'inputObjectTypes' &&
           !this.testedTypes.includes(fieldType.type as string)
         ) {
           const state = this.hasEmptyTypeFields(fieldType.type as string);
@@ -70,7 +73,19 @@ export class GenerateTypes {
 
   getInputType(field: DMMF.SchemaArg) {
     let index = 0;
-    if (field.inputTypes.length > 1 && field.inputTypes[1].kind === 'object') {
+    if (
+      this.options.doNotUseFieldUpdateOperationsInput &&
+      field.inputTypes.length > 1 &&
+      (field.inputTypes[1].type as string).endsWith(
+        'FieldUpdateOperationsInput',
+      )
+    ) {
+      return field.inputTypes[index];
+    }
+    if (
+      field.inputTypes.length > 1 &&
+      field.inputTypes[1].location === 'inputObjectTypes'
+    ) {
       index = 1;
     }
     return field.inputTypes[index];
@@ -84,7 +99,10 @@ export class GenerateTypes {
     const argsTypes: string[] = [];
     const resolversTypes: string[] = [];
     // generate Output types
-    this.schema.outputTypes.forEach((type) => {
+    [
+      ...this.schema.outputObjectTypes.model,
+      ...this.schema.outputObjectTypes.prisma,
+    ].forEach((type) => {
       outputTypes.push(`${type.name}?: ${type.name};`);
       const fields: string[] = [
         `export interface ${type.name} {`,
@@ -95,7 +113,7 @@ export class GenerateTypes {
       type.fields.forEach((field) => {
         const parentType = ['Query', 'Mutation'].includes(type.name)
           ? '{}'
-          : `Prisma.${type.name}`;
+          : `Client.${type.name}`;
         const argsType =
           field.args.length > 0 ? `${this.capital(field.name)}Args` : '{}';
         fields.push(
@@ -154,13 +172,13 @@ export class GenerateTypes {
 
     // generate input types
     const inputTypes: string[] = [];
-    this.schema.inputTypes.forEach((input) => {
+    this.schema.inputObjectTypes.prisma.forEach((input) => {
       if (input.fields.length > 0) {
         const fields: string[] = [`export interface ${input.name} {`];
         input.fields.forEach((field) => {
           const inputType = this.getInputType(field);
           const hasEmptyType =
-            inputType.kind === 'object' &&
+            inputType.location === 'inputObjectTypes' &&
             this.hasEmptyTypeFields(inputType.type as string);
           if (!hasEmptyType) {
             fields.push(
@@ -180,7 +198,7 @@ export class GenerateTypes {
 
     // generate enums
     const enumsTypes: string[] = [];
-    this.schema.enums.forEach((item) => {
+    this.schema.enumTypes.prisma.forEach((item) => {
       const values: string[] = [`export enum ${item.name} {`];
       item.values.forEach((item2) => {
         values.push(`${item2} = "${item2}",`);

@@ -46,7 +46,7 @@ export class GenerateNexus extends Generators {
         if (!this.excludeFields(model.name).includes(field.name)) {
           const options = this.getOptions(field);
           if (
-            field.outputType.kind === 'scalar' &&
+            field.outputType.location === 'scalar' &&
             field.outputType.type !== 'DateTime'
           ) {
             fileContent += `t.${(field.outputType
@@ -164,7 +164,7 @@ export class GenerateNexus extends Generators {
       ? { nullable: false, list: [true] }
       : { nullable: !field.isRequired };
     if (
-      field.outputType.kind !== 'scalar' ||
+      field.outputType.location !== 'scalar' ||
       field.outputType.type === 'DateTime'
     )
       options['type'] = field.outputType.type;
@@ -175,7 +175,7 @@ export class GenerateNexus extends Generators {
       });
     }
     let toString = JSON.stringify(options);
-    if (field.outputType.kind === 'object') {
+    if (field.outputType.location === 'outputObjectTypes') {
       toString = toString.slice(0, -1);
       toString += `, resolve(root${this.isJS ? '' : ': any'}) {
       return root.${field.name}
