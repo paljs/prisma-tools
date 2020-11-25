@@ -174,7 +174,8 @@ export class GenerateTypes {
 
     // generate input types
     const inputTypes: string[] = [];
-    this.schema.inputObjectTypes.prisma.forEach((input) => {
+    const inputModel = this.schema.inputObjectTypes.model || [];
+    [...this.schema.inputObjectTypes.prisma, ...inputModel].forEach((input) => {
       if (input.fields.length > 0) {
         const fields: string[] = [`export interface ${input.name} {`];
         input.fields.forEach((field) => {
@@ -200,7 +201,8 @@ export class GenerateTypes {
 
     // generate enums
     const enumsTypes: string[] = [];
-    this.schema.enumTypes.prisma.forEach((item) => {
+    const enumModel = this.schema.enumTypes.model || [];
+    [...this.schema.enumTypes.prisma, ...enumModel].forEach((item) => {
       const values: string[] = [`export enum ${item.name} {`];
       item.values.forEach((item2) => {
         values.push(`${item2} = "${item2}",`);
