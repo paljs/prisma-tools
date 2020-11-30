@@ -30,6 +30,13 @@ export class Generator {
   ) {}
 
   async run() {
-    await this.generators[this.generator.name].run();
+    if (this.generators[this.generator.name]) {
+      await this.generators[this.generator.name].run();
+    } else {
+      console.error(
+        `Your generator name: "${this.generator.name}" not correct.\nPlease use one of this`,
+        Object.keys(this.generators),
+      );
+    }
   }
 }

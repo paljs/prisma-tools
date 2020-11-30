@@ -196,7 +196,7 @@ export class PrismaSelect {
 
   private filterBy(modelName: string, selectObject: any) {
     const model = this.model(modelName);
-    if (model) {
+    if (model && typeof selectObject === 'object') {
       let defaultFields = {};
       if (this.defaultFields && this.defaultFields[modelName]) {
         defaultFields = this.defaultFields[modelName];
