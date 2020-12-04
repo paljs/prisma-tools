@@ -29,6 +29,10 @@ export class GenerateNexusPrismaPlugin extends Generators {
           }}`,
           '@nexus/schema',
         ),
+        this.isJS ? '' : this.getImport(
+          `{ Prisma }`,
+          '@prisma/client',
+        ),
         '\n',
       ];
 
@@ -77,7 +81,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                       where: '${model.name}WhereInput',
                     },
                     async resolve(_root, args, ctx) {
-                      return ctx.prisma.${modelName.singular}.count(args)
+                      return ctx.prisma.${modelName.singular}.count(args${this.isJS ? '' : ` as Prisma.FindMany${model.name}Args`})
                     },
                   })`);
                 }
@@ -94,7 +98,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                       take: 'Int',
                     },
                     async resolve(_root, args, ctx) {
-                      return ctx.prisma.${modelName.singular}.findFirst(args)
+                      return ctx.prisma.${modelName.singular}.findFirst(args${this.isJS ? '' : ` as Prisma.FindMany${model.name}Args`})
                     },
                   })`);
                 }
