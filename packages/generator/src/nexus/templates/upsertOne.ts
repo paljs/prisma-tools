@@ -2,21 +2,17 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}UpsertOneMutation = mutationField('upsertOne#{Model}', {
-  type: '#{Model}',
-  nullable: false,
+  type: nonNull('#{Model}'),
   args: {
-    where: arg({
+    where: nonNull(arg({
       type: '#{Model}WhereUniqueInput',
-      nullable: false,
-    }),
-    create: arg({
+    })),
+    create: nonNull(arg({
       type: '#{Model}CreateInput',
-      nullable: false,
-    }),
-    update: arg({
+    })),
+    update: nonNull(arg({
       type: '#{Model}UpdateInput',
-      nullable: false,
-    }),
+    })),
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.#{model}.upsert({

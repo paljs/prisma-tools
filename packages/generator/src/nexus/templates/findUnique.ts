@@ -2,12 +2,10 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}FindUniqueQuery = queryField('findUnique#{Model}', {
-  type: '#{Model}',
-  nullable: true,
+  type: nonNull('#{Model}'),
   args: {
     where: arg({
       type: '#{Model}WhereUniqueInput',
-      nullable: false,
     }),
   },
   resolve(_parent, { where }, { prisma, select }) {

@@ -1,10 +1,11 @@
 import {
-  mutationField,
-  queryField,
   stringArg,
   objectType,
   enumType,
   inputObjectType,
+  extendType,
+  nonNull,
+  nullable,
 } from '@nexus/schema';
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
@@ -18,40 +19,53 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
     const adapter = new FileSync<Schema>(path);
     const db = low(adapter);
     const nexusSchemaInputs: NexusAcceptedTypeDef[] = [
-      queryField('getSchema', {
-        type: 'Schema',
-        resolve: async () => {
-          return db.value();
+      extendType({
+        type: 'Query',
+        definition(t) {
+          t.field('getSchema', {
+            type: nonNull('Schema'),
+            resolve: async () => {
+              return db.value();
+            },
+          });
         },
       }),
-      mutationField('updateModel', {
-        type: 'Model',
-        args: {
-          id: stringArg({ nullable: false }),
-          data: 'UpdateModelInput',
-        },
-        resolve: async (_, { id, data }) => {
-          return db.get('models').find({ id }).assign(data).write();
-        },
-      }),
-      mutationField('updateField', {
-        type: 'Field',
-        args: {
-          id: stringArg({ nullable: false }),
-          modelId: stringArg({ nullable: false }),
-          data: 'UpdateFieldInput',
-        },
-        resolve: async (_, { id, modelId, data }) => {
-          return db
-            .get('models')
-            .find({ id: modelId })
-            .get('fields')
-            .find({ id })
-            .assign(data)
-            .write();
+      extendType({
+        type: 'Mutation',
+        definition(t) {
+          t.field('updateField', {
+            type: nonNull('Field'),
+            args: {
+              id: nonNull(stringArg()),
+              modelId: nonNull(stringArg()),
+              data: nonNull('UpdateFieldInput'),
+            },
+            resolve: async (_, { id, modelId, data }) => {
+              return db
+                .get('models')
+                .find({ id: modelId })
+                .get('fields')
+                .find({ id })
+                .assign(data)
+                .write();
+            },
+          });
+          t.field('updateModel', {
+            type: nonNull('Model'),
+            args: {
+              id: nonNull(stringArg()),
+              data: nonNull('UpdateModelInput'),
+            },
+            resolve: async (_, { id, data }) => {
+              return db.get('models').find({ id }).assign(data).write();
+            },
+          });
         },
       }),
       objectType({
+        nonNullDefaults: {
+          output: true,
+        },
         name: 'Enum',
         definition(t) {
           t.string('name');
@@ -59,6 +73,9 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         },
       }),
       objectType({
+        nonNullDefaults: {
+          output: true,
+        },
         name: 'Schema',
         definition(t) {
           t.list.field('models', { type: 'Model' });
@@ -66,6 +83,9 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         },
       }),
       objectType({
+        nonNullDefaults: {
+          output: true,
+        },
         name: 'Model',
         definition(t) {
           t.string('id');
@@ -81,6 +101,9 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         },
       }),
       objectType({
+        nonNullDefaults: {
+          output: true,
+        },
         name: 'Field',
         definition(t) {
           t.string('id');
@@ -98,7 +121,7 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
           t.boolean('sort');
           t.boolean('editor');
           t.boolean('upload');
-          t.boolean('relationField', { nullable: true });
+          t.nullable.boolean('relationField');
           t.int('order');
           t.field('kind', { type: 'KindEnum' });
         },
@@ -108,6 +131,9 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         members: ['object', 'enum', 'scalar'],
       }),
       inputObjectType({
+        nonNullDefaults: {
+          input: false,
+        },
         name: 'UpdateModelInput',
         definition(t) {
           t.string('name');
@@ -122,6 +148,9 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         },
       }),
       inputObjectType({
+        nonNullDefaults: {
+          input: false,
+        },
         name: 'UpdateFieldInput',
         definition(t) {
           t.string('id');
@@ -139,7 +168,7 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
           t.boolean('sort');
           t.boolean('editor');
           t.boolean('upload');
-          t.boolean('relationField', { nullable: true });
+          t.nullable.boolean('relationField');
           t.int('order');
           t.field('kind', { type: 'KindEnum' });
         },

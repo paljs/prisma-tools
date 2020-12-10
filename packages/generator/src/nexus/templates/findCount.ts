@@ -2,10 +2,10 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}FindCountQuery = queryField('findMany#{Model}Count', {
-  type: 'Int',
+  type: nonNull('Int'),
   args: {
     where: '#{Model}WhereInput',
-    orderBy: arg({ type: '#{Model}OrderByInput', list: true }),
+    orderBy: list(arg({ type: '#{Model}OrderByInput' })),
     cursor: '#{Model}WhereUniqueInput',
     distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',

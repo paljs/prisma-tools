@@ -2,13 +2,11 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}CreateOneMutation = mutationField('createOne#{Model}', {
-  type: '#{Model}',
-  nullable: false,
+  type: nonNull('#{Model}'),
   args: {
-    data: arg({
-      type: '#{Model}CreateInput',
-      nullable: false,
-    }),
+    data: nonNull(arg({
+      type: '#{Model}CreateInput'
+    })),
   },
   resolve(_parent, { data }, { prisma, select }) {
     return prisma.#{model}.create({

@@ -19,14 +19,14 @@ export const paljs = (settings?: Settings) =>
     name: 'paljs',
     description:
       'paljs plugin to add Prisma select to your resolver and prisma admin queries and mutations and all models input types',
-    onInstall() {
+    onInstall(builder) {
       const data: DMMF.Schema | undefined =
         settings?.dmmf?.schema || dmmf?.schema;
       const nexusSchemaInputs: NexusAcceptedTypeDef[] = [
         objectType({
           name: 'BatchPayload',
           definition(t) {
-            t.int('count', { nullable: false });
+            t.nonNull.int('count');
           },
         }),
         scalarType({
@@ -72,6 +72,9 @@ export const paljs = (settings?: Settings) =>
           if (input.fields.length > 0) {
             nexusSchemaInputs.push(
               inputObjectType({
+                nonNullDefaults: {
+                  input: false,
+                },
                 name: input.name,
                 definition(t) {
                   input.fields.forEach((field) => {
@@ -86,9 +89,13 @@ export const paljs = (settings?: Settings) =>
                       } = {
                         type: inputType.type as string,
                       };
-                      if (field.isRequired) fieldConfig['nullable'] = false;
-                      if (inputType.isList) fieldConfig['list'] = true;
-                      t.field(field.name, fieldConfig);
+                      if (field.isRequired) {
+                        t.nonNull.field(field.name, fieldConfig);
+                      } else if (inputType.isList) {
+                        t.list.field(field.name, fieldConfig);
+                      } else {
+                        t.field(field.name, fieldConfig);
+                      }
                     }
                   });
                 },
@@ -101,15 +108,22 @@ export const paljs = (settings?: Settings) =>
           .forEach((type) => {
             nexusSchemaInputs.push(
               objectType({
+                nonNullDefaults: {
+                  output: true,
+                },
                 name: type.name,
                 definition(t) {
                   type.fields.forEach((field) => {
                     const fieldConfig: { [key: string]: any; type: string } = {
                       type: field.outputType.type as string,
                     };
-                    if (field.isRequired) fieldConfig['nullable'] = false;
-                    if (field.outputType.isList) fieldConfig['list'] = true;
-                    t.field(field.name, fieldConfig);
+                    if (!field.isRequired) {
+                      t.nullable.field(field.name, fieldConfig);
+                    } else if (field.outputType.isList) {
+                      t.list.field(field.name, fieldConfig);
+                    } else {
+                      t.field(field.name, fieldConfig);
+                    }
                   });
                 },
               }),
@@ -121,7 +135,9 @@ export const paljs = (settings?: Settings) =>
           ...adminNexusSchemaSettings(settings?.adminSchemaPath),
         );
       }
-      return { types: nexusSchemaInputs };
+      for (const type of nexusSchemaInputs) {
+        builder.addType(type);
+      }
     },
     onCreateFieldResolver() {
       return async (root, args, ctx, info: any, next) => {

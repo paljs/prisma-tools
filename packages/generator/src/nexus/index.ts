@@ -39,6 +39,10 @@ export class GenerateNexus extends Generators {
       fileContent += `${!this.isJS ? 'export ' : ''}const ${
         model.name
       } = objectType({
+        nonNullDefaults: {
+          output: true,
+          input: false,
+        },
   name: '${model.name}',
   definition(t) {
     `;
@@ -49,10 +53,12 @@ export class GenerateNexus extends Generators {
             field.outputType.location === 'scalar' &&
             field.outputType.type !== 'DateTime'
           ) {
-            fileContent += `t.${(field.outputType
-              .type as String).toLowerCase()}('${field.name}'${options})\n`;
+            fileContent += `t${this.getNullOrList(field)}.${(field.outputType
+              .type as String).toLowerCase()}('${field.name}')\n`;
           } else {
-            fileContent += `t.field('${field.name}'${options})\n`;
+            fileContent += `t${this.getNullOrList(field)}.field('${
+              field.name
+            }'${options})\n`;
           }
         }
       });
@@ -160,9 +166,7 @@ export class GenerateNexus extends Generators {
   }
 
   private getOptions(field: DMMF.SchemaField) {
-    const options: any = field.outputType.isList
-      ? { nullable: false, list: [true] }
-      : { nullable: !field.isRequired };
+    const options: any = {};
     if (
       field.outputType.location !== 'scalar' ||
       field.outputType.type === 'DateTime'
@@ -183,5 +187,13 @@ export class GenerateNexus extends Generators {
     }`;
     }
     return ', ' + toString;
+  }
+
+  private getNullOrList(field: DMMF.SchemaField) {
+    return field.outputType.isList
+      ? '.list'
+      : field.isRequired
+      ? ''
+      : '.nullable';
   }
 }

@@ -90,9 +90,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                     type: '${model.name}',
                     args: {
                       where: '${model.name}WhereInput',
-                      orderBy: arg({ type: '${
-                        model.name
-                      }OrderByInput', list: true }),
+                      orderBy: arg({ type: '${model.name}OrderByInput' }),
                       cursor: '${model.name}WhereUniqueInput',
                       skip: 'Int',
                       take: 'Int',

@@ -3,10 +3,9 @@ export default `
 
 #{exportTs}const #{Model}AggregateQuery = queryField('aggregate#{Model}', {
   type: 'Aggregate#{Model}',
-  nullable: true,
   args: {
     where: '#{Model}WhereInput',
-    orderBy: arg({ type: '#{Model}OrderByInput', list: true }),
+    orderBy: list(arg({ type: '#{Model}OrderByInput' })),
     cursor: '#{Model}WhereUniqueInput',
     distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',

@@ -2,11 +2,10 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}FindManyQuery = queryField('findMany#{Model}', {
-  type: '#{Model}',
-  list: [true],
+  type: nonNull(list(nonNull('#{Model}'))),
   args: {
     where: '#{Model}WhereInput',
-    orderBy: arg({ type: '#{Model}OrderByInput', list: true }),
+    orderBy: list(arg({ type: '#{Model}OrderByInput' })),
     cursor: '#{Model}WhereUniqueInput',
     distinct: '#{Model}DistinctFieldEnum',
     skip: 'Int',
