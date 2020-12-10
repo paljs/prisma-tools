@@ -77,7 +77,9 @@ export class GenerateNexusPrismaPlugin extends Generators {
                       where: '${model.name}WhereInput',
                     },
                     async resolve(_root, args, ctx) {
-                      return ctx.prisma.${modelName.singular}.count(args)
+                      return ctx.prisma.${modelName.singular}.count(args${
+                    this.isJS ? '' : 'as any'
+                  })
                     },
                   })`);
                 }
@@ -88,13 +90,17 @@ export class GenerateNexusPrismaPlugin extends Generators {
                     type: '${model.name}',
                     args: {
                       where: '${model.name}WhereInput',
-                      orderBy: arg({ type: '${model.name}OrderByInput', list: true }),
+                      orderBy: arg({ type: '${
+                        model.name
+                      }OrderByInput', list: true }),
                       cursor: '${model.name}WhereUniqueInput',
                       skip: 'Int',
                       take: 'Int',
                     },
                     async resolve(_root, args, ctx) {
-                      return ctx.prisma.${modelName.singular}.findFirst(args)
+                      return ctx.prisma.${modelName.singular}.findFirst(args${
+                    this.isJS ? '' : 'as any'
+                  })
                     },
                   })`);
                 }
