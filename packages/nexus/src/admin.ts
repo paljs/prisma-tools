@@ -5,7 +5,6 @@ import {
   inputObjectType,
   extendType,
   nonNull,
-  nullable,
 } from '@nexus/schema';
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
