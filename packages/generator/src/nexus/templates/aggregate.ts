@@ -7,7 +7,7 @@ export default `
     where: '#{Model}WhereInput',
     orderBy: list(arg({ type: '#{Model}OrderByInput' })),
     cursor: '#{Model}WhereUniqueInput',
-    distinct: '#{Model}DistinctFieldEnum',
+    distinct: '#{Model}ScalarFieldEnum',
     skip: 'Int',
     take: 'Int',
   },

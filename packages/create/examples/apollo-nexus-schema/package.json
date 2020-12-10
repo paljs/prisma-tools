@@ -12,14 +12,14 @@
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only src/nexusSchema",
-    "create-migration": "prisma migrate save --experimental",
-    "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
+    "create-migration": "prisma migrate dev --preview-feature",
+    "migrate-database": "prisma db push --preview-feature",
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
     "@nexus/schema": "0.x",
     "@prisma/client": "2.x",
-    "@paljs/nexus": "2.8.5",
+    "@paljs/nexus": "2.9.0",
     "apollo-server": "2.x",
     "graphql": "15.x"
   },

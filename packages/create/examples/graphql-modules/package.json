@@ -10,13 +10,13 @@
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "prisma generate",
-    "create-migration": "prisma migrate save --experimental",
-    "migrate-database": "prisma migrate up --experimental --auto-approve --create-db",
+    "create-migration": "prisma migrate dev --preview-feature",
+    "migrate-database": "prisma db push --preview-feature",
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index"
   },
   "dependencies": {
-    "graphql-modules": "^1.0.0-alpha.2",
-    "@paljs/plugins": "2.8.5",
+    "graphql-modules": "^1.0.0",
+    "@paljs/plugins": "2.9.0",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",
     "graphql": "15.x",
