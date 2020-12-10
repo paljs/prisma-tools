@@ -1,6 +1,6 @@
 {
   "name": "@paljs/schema",
-  "version": "2.8.5",
+  "version": "2.9.0",
   "main": "dist/index.js",
   "module": "dist/schema.esm.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@paljs/display": "^2.5.4",
-    "@paljs/types": "^2.8.5",
+    "@paljs/types": "^2.9.0",
     "@prisma/sdk": "2.13.0"
   },
   "devDependencies": {

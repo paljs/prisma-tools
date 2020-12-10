@@ -1,6 +1,6 @@
 {
   "name": "@paljs/create",
-  "version": "2.8.5",
+  "version": "2.9.0",
   "main": "dist/index.js",
   "module": "dist/create.esm.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@paljs/display": "^2.5.4",
-    "@paljs/types": "^2.8.5",
+    "@paljs/types": "^2.9.0",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
     "chalk": "^4.1.0",
     "cross-spawn": "^7.0.3",
