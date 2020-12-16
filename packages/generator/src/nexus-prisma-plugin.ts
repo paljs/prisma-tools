@@ -78,7 +78,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                     },
                     async resolve(_root, args, ctx) {
                       return ctx.prisma.${modelName.singular}.count(args${
-                    this.isJS ? '' : 'as any'
+                    this.isJS ? '' : ' as any'
                   })
                     },
                   })`);
@@ -97,7 +97,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
                     },
                     async resolve(_root, args, ctx) {
                       return ctx.prisma.${modelName.singular}.findFirst(args${
-                    this.isJS ? '' : 'as any'
+                    this.isJS ? '' : ' as any'
                   })
                     },
                   })`);
