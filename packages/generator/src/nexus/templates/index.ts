@@ -64,7 +64,7 @@ export function getCrud(
     `{ ${
       type === 'query' ? 'queryField' : 'mutationField'
     }, arg${getImportArgs()} }`,
-    '@nexus/schema',
+    'nexus',
   );
   return crud[key]
     .replace(/#{Model}/g, model)

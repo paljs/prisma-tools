@@ -1,4 +1,4 @@
-import { extendType, objectType, stringArg } from '@nexus/schema'
+import { extendType, nonNull, objectType, stringArg } from 'nexus'
 import { compare, hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { APP_SECRET } from '../utils'
@@ -14,9 +14,8 @@ export const AuthPayload = objectType({
 export const AuthQueries = extendType({
   type: 'Query',
   definition(t) {
-    t.field('me', {
+    t.nullable.field('me', {
       type: 'User',
-      nullable: true,
       resolve: async (_, __, { prisma, select, userId }) => {
         if (!userId) return null
         return prisma.user.findUnique({
@@ -37,8 +36,8 @@ export const AuthMutations = extendType({
       type: 'AuthPayload',
       args: {
         name: stringArg(),
-        email: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        email: nonNull('String'),
+        password: nonNull('String'),
       },
       resolve: async (_parent, { name, email, password }, ctx) => {
         const hashedPassword = await hash(password, 10)
@@ -55,12 +54,11 @@ export const AuthMutations = extendType({
         }
       },
     })
-    t.field('login', {
+    t.nullable.field('login', {
       type: 'AuthPayload',
-      nullable: true,
       args: {
-        email: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        email: nonNull('String'),
+        password: nonNull('String'),
       },
       resolve: async (_parent, { email, password }, ctx) => {
         const user = await ctx.prisma.user.findUnique({
@@ -84,8 +82,8 @@ export const AuthMutations = extendType({
     t.field('updatePassword', {
       type: 'Boolean',
       args: {
-        currentPassword: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        currentPassword: nonNull('String'),
+        password: nonNull('String'),
       },
       resolve: async (_, { currentPassword, password }, ctx) => {
         if (currentPassword && password) {

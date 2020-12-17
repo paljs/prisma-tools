@@ -5,10 +5,10 @@ import {
   inputObjectType,
   extendType,
   nonNull,
-} from '@nexus/schema';
+} from 'nexus';
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
-import { NexusAcceptedTypeDef } from '@nexus/schema/dist/builder';
+import { NexusAcceptedTypeDef } from 'nexus/dist/builder';
 import { Schema } from '@paljs/types';
 import { existsSync } from 'fs';
 import { join } from 'path';

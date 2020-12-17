@@ -17,7 +17,7 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
-    "@nexus/schema": "0.x",
+    "nexus": "1.x",
     "@paljs/nexus": "2.9.1",
     "@prisma/client": "2.x",
     "apollo-server": "2.x",

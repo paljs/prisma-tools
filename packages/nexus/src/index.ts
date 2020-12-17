@@ -5,8 +5,8 @@ import {
   objectType,
   plugin,
   scalarType,
-} from '@nexus/schema';
-import { NexusAcceptedTypeDef } from '@nexus/schema/dist/builder';
+} from 'nexus';
+import { NexusAcceptedTypeDef } from 'nexus/dist/builder';
 import { dmmf } from '@prisma/client';
 import { DMMF } from '@prisma/client/runtime';
 import { adminNexusSchemaSettings } from './admin';

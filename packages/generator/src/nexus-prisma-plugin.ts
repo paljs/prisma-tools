@@ -27,7 +27,7 @@ export class GenerateNexusPrismaPlugin extends Generators {
               ? ', extendType'
               : ''
           }}`,
-          '@nexus/schema',
+          'nexus',
         ),
         '\n',
       ];

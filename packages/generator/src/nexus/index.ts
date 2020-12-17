@@ -31,10 +31,7 @@ export class GenerateNexus extends Generators {
         }
       }
 
-      let fileContent = `${this.getImport(
-        '{ objectType }',
-        '@nexus/schema',
-      )}\n\n`;
+      let fileContent = `${this.getImport('{ objectType }', 'nexus')}\n\n`;
 
       fileContent += `${!this.isJS ? 'export ' : ''}const ${
         model.name
