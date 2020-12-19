@@ -10,7 +10,10 @@ export interface onDeleteArgs {
   model: string;
   where?: any;
   deleteParent?: boolean;
-  returnFields?: any;
+}
+
+interface BatchPayload {
+  count: number;
 }
 
 /**
@@ -139,17 +142,21 @@ export class PrismaDelete {
   /**
    * Handle all relation onDelete type
    * @param onDeleteArgs - Object with model data.
+   * @return count of deleted records if deleteParent is true
    * @example
    * const prismaDelete = new PrismaDelete();
    * prismaDelete.onDelete({
    *  model: 'User',
    *  where: { id: 1 },
    *  deleteParent: true // if true will also delete user record default false
-   *  returnFields: {id: true, name: true} // you can select what you need to return from parent record
    * });
    *
    **/
-  async onDelete({ model, where, deleteParent, returnFields }: onDeleteArgs) {
+  async onDelete({
+    model,
+    where,
+    deleteParent,
+  }: onDeleteArgs): Promise<BatchPayload | void> {
     const results = (
       await this.getDeleteArray(model, where, !!deleteParent)
     ).reverse();
@@ -157,7 +164,6 @@ export class PrismaDelete {
       if (i + 1 === results.length && deleteParent) {
         return await this.prisma[results[i].name].deleteMany({
           where: results[i].where,
-          select: returnFields,
         });
       } else {
         await this.prisma[results[i].name].deleteMany({
