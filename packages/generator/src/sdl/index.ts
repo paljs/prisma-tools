@@ -32,13 +32,20 @@ export class GenerateSdl extends Generators {
   private typeDefsExport: string[] = getCurrentExport(this.typeDefsIndex);
 
   private async createModels() {
+    const dataModels = await this.datamodel();
     (await this.models()).forEach((model) => {
-      let fileContent = `type ${model.name} {`;
+      const dataModel = this.dataModel(dataModels.models, model.name);
+      const modelDocs = this.filterDocs(dataModel?.documentation);
+      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${
+        model.name
+      } {`;
       const excludeFields = this.excludeFields(model.name);
       model.fields.forEach((field) => {
         if (!excludeFields.includes(field.name)) {
+          const dataField = this.dataField(field.name, dataModel);
+          const fieldDocs = this.filterDocs(dataField?.documentation);
           fileContent += `
-          ${field.name}`;
+          ${fieldDocs ? `"""${fieldDocs}"""\n` : ''}${field.name}`;
           if (field.args.length > 0) {
             fileContent += '(';
             field.args.forEach((arg) => {

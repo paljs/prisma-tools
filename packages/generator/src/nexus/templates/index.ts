@@ -63,7 +63,7 @@ export function getCrud(
   const importString = getImport(
     `{ ${
       type === 'query' ? 'queryField' : 'mutationField'
-    }, arg${getImportArgs()} }`,
+    }${getImportArgs()} }`,
     'nexus',
   );
   return crud[key]

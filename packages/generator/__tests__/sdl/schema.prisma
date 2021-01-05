@@ -7,15 +7,19 @@ generator client {
   provider = "prisma-client-js"
 }
 
+/// User Model
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
   name      String?
   password  String
+  /// user Posts relation
+  /// Must delete if user delete
   posts     Post[]
 }
 
+/// Posts Model
 model Post {
   id         Int      @id @default(autoincrement())
   published  Boolean  @default(false)

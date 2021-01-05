@@ -21,6 +21,7 @@ export class GenerateNexus extends Generators {
 
   private async createModels() {
     const models = await this.models();
+    const dataModels = await this.datamodel();
     models.forEach((model) => {
       if (this.isJS) {
         this.indexJS.push(model.name);
@@ -30,9 +31,9 @@ export class GenerateNexus extends Generators {
           this.indexTS = `export * from './${model.name}'\n${this.indexTS}`;
         }
       }
-
+      const dataModel = this.dataModel(dataModels.models, model.name);
+      const modelDocs = this.filterDocs(dataModel?.documentation);
       let fileContent = `${this.getImport('{ objectType }', 'nexus')}\n\n`;
-
       fileContent += `${!this.isJS ? 'export ' : ''}const ${
         model.name
       } = objectType({
@@ -41,17 +42,22 @@ export class GenerateNexus extends Generators {
           input: false,
         },
   name: '${model.name}',
+  ${modelDocs ? `description: '${modelDocs}',` : ''}
   definition(t) {
     `;
       model.fields.forEach((field) => {
         if (!this.excludeFields(model.name).includes(field.name)) {
-          const options = this.getOptions(field);
+          const dataField = this.dataField(field.name, dataModel);
+          const fieldDocs = this.filterDocs(dataField?.documentation);
+          const options = this.getOptions(field, fieldDocs);
           if (
             field.outputType.location === 'scalar' &&
             field.outputType.type !== 'DateTime'
           ) {
             fileContent += `t${this.getNullOrList(field)}.${(field.outputType
-              .type as String).toLowerCase()}('${field.name}')\n`;
+              .type as String).toLowerCase()}('${field.name}'${
+              fieldDocs ? `, {description: '${fieldDocs}'}` : ''
+            })\n`;
           } else {
             fileContent += `t${this.getNullOrList(field)}.field('${
               field.name
@@ -162,8 +168,8 @@ export class GenerateNexus extends Generators {
       : '';
   }
 
-  private getOptions(field: DMMF.SchemaField) {
-    const options: any = {};
+  private getOptions(field: DMMF.SchemaField, docs?: string) {
+    const options: any = docs ? { description: docs } : {};
     if (
       field.outputType.location !== 'scalar' ||
       field.outputType.type === 'DateTime'

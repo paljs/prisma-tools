@@ -4,9 +4,7 @@ export default `
 #{exportTs}const #{Model}DeleteOneMutation = mutationField('deleteOne#{Model}', {
   type: '#{Model}',
   args: {
-    where: nonNull(arg({
-      type: '#{Model}WhereUniqueInput',
-    })),
+    where: nonNull('#{Model}WhereUniqueInput'),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
     #{onDelete}

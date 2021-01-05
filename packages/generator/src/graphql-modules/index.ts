@@ -30,17 +30,16 @@ export class GenerateModules extends Generators {
         this.appModules.push(model.name + 'Module');
         this.index = `import { ${model.name}Module } from './${model.name}/${model.name}.module';${this.index}`;
       }
+      const dataModel = this.dataModel(datamodel.models, model.name);
+      const modelDocs = this.filterDocs(dataModel?.documentation);
+      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${
+        model.name
+      } {`;
 
-      let fileContent = `type ${model.name} {`;
-
-      const dataModel = datamodel.models.find(
-        (item) => item.name === model.name,
-      );
       model.fields.forEach((field) => {
         if (!this.excludeFields(model.name).includes(field.name)) {
-          const dataField = dataModel?.fields.find(
-            (item) => item.name === field.name,
-          );
+          const dataField = this.dataField(field.name, dataModel);
+          const fieldDocs = this.filterDocs(dataField?.documentation);
           if (dataField?.kind === 'object' && model.name !== dataField.type) {
             if (!extendsTypes.includes(`extend type ${dataField.type}`)) {
               extendsTypes += `extend type ${dataField.type} {`;
@@ -48,13 +47,13 @@ export class GenerateModules extends Generators {
                 .find((item) => item.name === dataField.type)
                 ?.fields.filter((item) => item.outputType.type === model.name)
                 .forEach((item) => {
-                  extendsTypes = getField(item, extendsTypes);
+                  extendsTypes = getField(item, extendsTypes, fieldDocs);
                 });
 
               extendsTypes += `}\n\n`;
             }
           } else {
-            fileContent = getField(field, fileContent);
+            fileContent = getField(field, fileContent, fieldDocs);
           }
         }
       });
@@ -151,9 +150,9 @@ export const ${name}Module = createModule({
 `;
 };
 
-const getField = (field: DMMF.SchemaField, content: string) => {
+const getField = (field: DMMF.SchemaField, content: string, docs?: string) => {
   content += `
-    ${field.name}`;
+  ${docs ? `"""${docs}"""\n` : ''}${field.name}`;
   if (field.args.length > 0) {
     content += '(';
     field.args.forEach((arg) => {

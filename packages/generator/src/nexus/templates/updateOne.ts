@@ -4,12 +4,8 @@ export default `
 #{exportTs}const #{Model}UpdateOneMutation = mutationField('updateOne#{Model}', {
   type: nonNull('#{Model}'),
   args: {
-    where: nonNull(arg({
-      type: '#{Model}WhereUniqueInput',
-    })),
-    data: nonNull(arg({
-      type: '#{Model}UpdateInput',
-    })),
+    where: nonNull('#{Model}WhereUniqueInput'),
+    data: nonNull('#{Model}UpdateInput'),
   },
   resolve(_parent, { data, where }, { prisma, select }) {
     return prisma.#{model}.update({

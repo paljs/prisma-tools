@@ -42,6 +42,8 @@ export class GenerateTypes {
           ? `Prisma.Get${options.type
               .toString()
               .replace('Aggregate', '')}AggregateType<${options.type}Args>`
+          : options.type.toString().endsWith('AggregateOutputType')
+          ? `Prisma.${options.type}`
           : options.type.toString() === 'BatchPayload'
           ? 'Prisma.BatchPayload'
           : options.type;
@@ -113,9 +115,13 @@ export class GenerateTypes {
       type.fields.forEach((field) => {
         const parentType = ['Query', 'Mutation'].includes(type.name)
           ? '{}'
-          : `Client.${type.name === 'BatchPayload' ? 'Prisma.' : ''}${
-              type.name
-            }`;
+          : `Client.${
+              type.name === 'BatchPayload' ||
+              type.name.startsWith('Aggregate') ||
+              type.name.endsWith('AggregateOutputType')
+                ? 'Prisma.'
+                : ''
+            }${type.name}`;
         const argsType =
           field.args.length > 0 ? `${this.capital(field.name)}Args` : '{}';
         fields.push(

@@ -5,7 +5,7 @@ export default `
   type: nonNull(list(nonNull('#{Model}'))),
   args: {
     where: '#{Model}WhereInput',
-    orderBy: list(arg({ type: '#{Model}OrderByInput' })),
+    orderBy: list('#{Model}OrderByInput'),
     cursor: '#{Model}WhereUniqueInput',
     distinct: '#{Model}ScalarFieldEnum',
     skip: 'Int',

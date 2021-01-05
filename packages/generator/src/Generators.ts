@@ -50,6 +50,14 @@ export class Generators {
     return datamodel;
   }
 
+  protected dataModel(models: DMMF.Model[], name: string) {
+    return models.find((m) => m.name === name);
+  }
+
+  protected dataField(name: string, model?: DMMF.Model) {
+    return model?.fields.find((f) => f.name === name);
+  }
+
   protected async models() {
     const { schema }: { schema: DMMF.Schema } = await this.dmmf();
     return schema.outputObjectTypes.model.filter(
@@ -122,6 +130,12 @@ export class Generators {
     return this.isJS
       ? `const ${content} = require('${path}')`
       : `import ${content} from '${path}'`;
+  }
+
+  protected filterDocs(docs?: string) {
+    return docs
+      ?.replace(/@PrismaSelect.map\(\[(.*?)\]\)/, '')
+      .replace(/@onDelete\((.*?)\)/, '');
   }
 
   protected createFileIfNotfound(

@@ -7,19 +7,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
+/// user docs
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  /// email docs
   email     String   @unique
   name      String?
   password  String
+  /// @onDelete(CASCADE)
+  /// posts docs
   posts     Post[]
 }
 
+/// posts docs
 model Post {
   id        Int      @id @default(autoincrement())
   published Boolean  @default(false)
   title     String
+  /// @PrismaSelect.map([Account, Profile]) auther of posts
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
   createdAt DateTime @default(now())
