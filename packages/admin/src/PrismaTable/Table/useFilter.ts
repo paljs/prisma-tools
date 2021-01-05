@@ -5,9 +5,11 @@ export const useFilter = (
   setFilter: (value: any) => void,
   number?: boolean,
 ) => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    value: any;
+    typingTimeout?: NodeJS.Timeout;
+  }>({
     value: init ?? {},
-    typingTimeout: 0,
   });
 
   const onChangeHandler = (newValue: any) => {

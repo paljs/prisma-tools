@@ -22,9 +22,11 @@ const UpdateModel: React.FC<{
   modelObject: SchemaModel;
 }> = ({ models, modelObject }) => {
   const [updateModel] = useMutation(UPDATE_MODEL);
-  const [title, setTitle] = useState({
+  const [title, setTitle] = useState<{
+    value: string;
+    typingTimeout?: NodeJS.Timeout;
+  }>({
     value: modelObject.name,
-    typingTimeout: 0,
   });
   const titleRef = useRef(modelObject.name);
 
@@ -32,7 +34,6 @@ const UpdateModel: React.FC<{
     titleRef.current = modelObject.name;
     setTitle({
       value: modelObject.name,
-      typingTimeout: 0,
     });
   }
 

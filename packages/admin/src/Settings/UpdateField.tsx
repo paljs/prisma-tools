@@ -32,9 +32,11 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({
   model,
 }) => {
   const [updateField] = useMutation(UPDATE_FIELD);
-  const [title, setTitle] = useState({
+  const [title, setTitle] = useState<{
+    value: string;
+    typingTimeout?: NodeJS.Timeout;
+  }>({
     value: field.title,
-    typingTimeout: 0,
   });
 
   const onChangeHandler = (name: string, value: boolean | string) => {
