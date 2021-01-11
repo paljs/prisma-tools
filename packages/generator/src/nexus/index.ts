@@ -41,8 +41,7 @@ export class GenerateNexus extends Generators {
           output: true,
           input: false,
         },
-  name: '${model.name}',
-  ${modelDocs ? `description: '${modelDocs}',` : ''}
+  name: '${model.name}',${modelDocs ? `\ndescription: '${modelDocs}',` : ''}
   definition(t) {
     `;
       model.fields.forEach((field) => {
