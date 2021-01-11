@@ -35,7 +35,7 @@ export function createQueriesAndMutations(
       distinct: ${name}ScalarFieldEnum
       skip: Int
       take: Int
-    ): [${name}!]`;
+    ): ${name}`;
     operations.queries.resolver += `
     findFirst${name}: (_parent, args, {prisma}) => {
       return prisma.${model}.findFirst(args)
