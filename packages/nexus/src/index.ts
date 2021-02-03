@@ -124,7 +124,7 @@ export const paljs = (settings?: Settings) =>
                     const fieldConfig: { [key: string]: any; type: string } = {
                       type: field.outputType.type as string,
                     };
-                    if (!field.isRequired) {
+                    if (field.isNullable) {
                       t.nullable.field(field.name, fieldConfig);
                     } else if (field.outputType.isList) {
                       t.list.field(field.name, fieldConfig);
