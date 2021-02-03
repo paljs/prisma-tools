@@ -86,7 +86,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
         case 'Int':
           options['type'] = 'number';
           break;
-        case 'Flout':
+        case 'Float':
           options['type'] = 'number';
           options['step'] = 'any';
           break;
