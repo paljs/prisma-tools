@@ -14,6 +14,7 @@ export class GenerateTypes {
     String: 'string',
     Boolean: 'boolean',
     DateTime: 'Date',
+    Json: 'any',
   };
 
   testedTypes: string[] = [];
@@ -44,7 +45,7 @@ export class GenerateTypes {
               .replace('Aggregate', '')}AggregateType<${options.type}Args>`
           : options.type.toString().endsWith('AggregateOutputType')
           ? `Prisma.${options.type}`
-          : options.type.toString() === 'BatchPayload'
+          : options.type.toString() === 'AffectedRowsOutput'
           ? 'Prisma.BatchPayload'
           : options.type;
         return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
@@ -116,12 +117,15 @@ export class GenerateTypes {
         const parentType = ['Query', 'Mutation'].includes(type.name)
           ? '{}'
           : `Client.${
-              type.name === 'BatchPayload' ||
               type.name.startsWith('Aggregate') ||
               type.name.endsWith('AggregateOutputType')
                 ? 'Prisma.'
                 : ''
-            }${type.name}`;
+            }${
+              type.name === 'AffectedRowsOutput'
+                ? 'Prisma.BatchPayload'
+                : type.name
+            }`;
         const argsType =
           field.args.length > 0 ? `${this.capital(field.name)}Args` : '{}';
         fields.push(

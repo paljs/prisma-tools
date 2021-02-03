@@ -1,5 +1,4 @@
 import { schema as defaultSchema, DMMF } from './schema';
-import gql from 'graphql-tag';
 import { GraphQLSchema } from 'graphql';
 import { writeFileSync } from 'fs';
 
@@ -125,9 +124,12 @@ function createInput(options?: OptionsType) {
   return fileContent;
 }
 
-export const sdlInputs = (options?: OptionsType) => gql`
-  ${createInput(options)}
-`;
+export const sdlInputs = (options?: OptionsType) => {
+  const { gql } = require('graphql-tag');
+  return gql`
+    ${createInput(options)}
+  `;
+};
 
 export const generateGraphQlSDLFile = (
   schema: GraphQLSchema,
