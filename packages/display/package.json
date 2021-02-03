@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "chalk": "4.1.0",
-    "ora": "5.2.0"
+    "ora": "5.3.0"
   },
   "publishConfig": {
     "access": "public"
