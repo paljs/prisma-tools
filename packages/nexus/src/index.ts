@@ -37,6 +37,13 @@ export const paljs = (settings?: Settings) =>
             return value;
           },
         }),
+        scalarType({
+          name: 'Decimal',
+          asNexusMethod: 'decimal',
+          description: 'Decimal custom scalar type',
+          serialize: (val) => parseFloat(val),
+          parseValue: (val) => parseFloat(val),
+        }),
       ];
       nexusSchemaInputs.push(
         scalarType({
