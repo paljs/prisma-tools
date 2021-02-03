@@ -55,6 +55,7 @@ export const Table: React.FC<TableProps> = ({
     paginationOptions,
     tableColumns,
     onSelect,
+    actions: userActions,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName);
   const columnList = columns(model, tableColumns);
@@ -140,11 +141,17 @@ export const Table: React.FC<TableProps> = ({
     };
   }, [columnList]);
 
-  const actions = {
-    create: model?.create,
-    update: model?.update,
-    delete: model?.delete,
-  };
+  const actions = userActions
+    ? {
+        create: userActions.includes('create'),
+        update: userActions.includes('update'),
+        delete: userActions.includes('delete'),
+      }
+    : {
+        create: model?.create,
+        update: model?.update,
+        delete: model?.delete,
+      };
 
   const isSelect = onSelect && !inEdit;
 

@@ -35,6 +35,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
     push,
     pagesPath,
     onCancelUpdate,
+    actions,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
   const [getRecord, { data, loading, error }] = useLazyQuery(
@@ -61,7 +62,11 @@ const EditRecord: React.FC<EditRecordProps> = ({
     (field) => field.kind === 'object' && field.list && field.read,
   );
 
-  if (!loading && data && !data[`findUnique${model}`] && modelObject)
+  if (
+    (!loading && data && !data[`findUnique${model}`] && modelObject) ||
+    (modelObject && !modelObject.update && !actions && !view) ||
+    (actions && !actions.includes('update') && !view)
+  )
     push(pagesPath + model);
 
   const onUpdateCancel =

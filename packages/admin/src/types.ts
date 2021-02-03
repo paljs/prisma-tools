@@ -55,6 +55,7 @@ interface RequireContextProps {
 }
 
 interface SameProps {
+  actions?: ('create' | 'update' | 'delete')[];
   useSet?: boolean;
   tableColumns?: GetColumnsPartial;
   formInputs?: Partial<FormInputs>;
