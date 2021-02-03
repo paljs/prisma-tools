@@ -1,6 +1,6 @@
 import { schema as defaultSchema, DMMF } from './schema';
 import gql from 'graphql-tag';
-import { GraphQLSchema, printSchema } from 'graphql';
+import { GraphQLSchema } from 'graphql';
 import { writeFileSync } from 'fs';
 
 interface OptionsType {
@@ -114,7 +114,7 @@ function createInput(options?: OptionsType) {
             field.outputType.isList
               ? `[${field.outputType.type}!]`
               : field.outputType.type
-          }${field.isRequired ? '!' : ''}
+          }${!field.isNullable ? '!' : ''}
         `;
         });
         fileContent += `}
@@ -133,5 +133,6 @@ export const generateGraphQlSDLFile = (
   schema: GraphQLSchema,
   path: string = 'schema.graphql',
 ) => {
+  const { printSchema } = require('graphql');
   writeFileSync(path, printSchema(schema));
 };

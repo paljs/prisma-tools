@@ -29,8 +29,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/client": "2.14.0",
-    "graphql": "^15.4.0",
+    "@prisma/client": "2.16.0",
+    "graphql": "^15.5.0",
     "typescript": "4.1.3"
   },
   "files": [

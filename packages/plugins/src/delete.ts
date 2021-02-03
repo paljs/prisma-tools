@@ -54,7 +54,7 @@ export class PrismaDelete {
 
   private getFieldByType(modelName: string, fieldType: string) {
     return this.getModel(modelName)?.fields.find(
-      (item) => item.type === fieldType,
+      (item) => item.type === fieldType && !item.isList,
     );
   }
 
@@ -128,11 +128,20 @@ export class PrismaDelete {
       for (const cascadeField of cascadeFields) {
         const childField = this.getFieldByType(cascadeField.type, modelName);
         if (childField) {
-          deleteArray.push(
-            ...(await this.getDeleteArray(cascadeField.type, {
-              [childField.name]: whereInput,
-            })),
-          );
+          if (cascadeField.type !== modelName) {
+            deleteArray.push(
+              ...(await this.getDeleteArray(cascadeField.type, {
+                [childField.name]: whereInput,
+              })),
+            );
+          } else {
+            deleteArray.push({
+              name: PrismaDelete.getModelName(modelName),
+              where: {
+                [childField.name]: whereInput,
+              },
+            });
+          }
         }
       }
     }
