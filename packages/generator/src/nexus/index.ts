@@ -194,7 +194,7 @@ export class GenerateNexus extends Generators {
   private getNullOrList(field: DMMF.SchemaField) {
     return field.outputType.isList
       ? '.list'
-      : field.isRequired
+      : !field.isNullable
       ? ''
       : '.nullable';
   }

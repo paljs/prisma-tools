@@ -8,7 +8,7 @@ generator client {
 }
 
 /// user docs
-model User {
+model user {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   /// email docs
@@ -26,7 +26,7 @@ model Post {
   published Boolean  @default(false)
   title     String
   /// @PrismaSelect.map([Account, Profile]) auther of posts
-  author    User?    @relation(fields: [authorId], references: [id])
+  author    user?    @relation(fields: [authorId], references: [id])
   authorId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

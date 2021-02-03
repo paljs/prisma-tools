@@ -2,7 +2,7 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}CreateOneMutation = mutationField('createOne#{Model}', {
-  type: nonNull('#{Model}'),
+  type: nonNull('#{ModelName}'),
   args: {
     data: nonNull('#{Model}CreateInput'),
   },

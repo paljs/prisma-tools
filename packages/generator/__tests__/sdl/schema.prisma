@@ -8,7 +8,7 @@ generator client {
 }
 
 /// User Model
-model User {
+model user {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
@@ -26,7 +26,7 @@ model Post {
   title      String
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
-  author     User?    @relation(fields: [authorId], references: [id])
+  author     user?    @relation(fields: [authorId], references: [id])
   authorId   Int?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

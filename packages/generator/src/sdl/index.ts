@@ -57,7 +57,7 @@ export class GenerateSdl extends Generators {
           fileContent += `: ${
             field.outputType.isList
               ? `[${field.outputType.type}!]!`
-              : field.outputType.type + (field.isRequired ? '!' : '')
+              : field.outputType.type + (!field.isNullable ? '!' : '')
           }`;
         }
       });
@@ -69,12 +69,7 @@ export class GenerateSdl extends Generators {
 
   private getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(
-      model,
-      this.smallModel(model),
-      exclude,
-      this.options.onDelete,
-    );
+    return createQueriesAndMutations(model, exclude, this.options.onDelete);
   }
 
   private createFiles(model: string, typeContent: string) {

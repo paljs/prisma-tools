@@ -2,7 +2,7 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}DeleteOneMutation = mutationField('deleteOne#{Model}', {
-  type: '#{Model}',
+  type: '#{ModelName}',
   args: {
     where: nonNull('#{Model}WhereUniqueInput'),
   },

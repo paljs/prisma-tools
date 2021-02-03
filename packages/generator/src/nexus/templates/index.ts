@@ -60,6 +60,7 @@ export function getCrud(
     }
   }
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
+  const modelUpper = capital(model);
   const importString = getImport(
     `{ ${
       type === 'query' ? 'queryField' : 'mutationField'
@@ -67,14 +68,17 @@ export function getCrud(
     'nexus',
   );
   return crud[key]
-    .replace(/#{Model}/g, model)
+    .replace(/#{ModelName}/g, model)
+    .replace(/#{Model}/g, modelUpper)
     .replace(/#{model}/g, modelLower)
     .replace(/#{import}/g, importString)
     .replace(/#{as}/g, isJS ? '' : ' as any')
     .replace(/#{exportTs}/g, isJS ? '' : 'export ')
     .replace(
       /#{exportJs}/g,
-      isJS ? `module.exports = {${model}${capital(key)}${capital(type)}}` : '',
+      isJS
+        ? `module.exports = {${modelUpper}${capital(key)}${capital(type)}}`
+        : '',
     )
     .replace(
       /#{onDelete}/g,

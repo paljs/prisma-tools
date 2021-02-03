@@ -98,6 +98,10 @@ export class Generators {
     return name.charAt(0).toLowerCase() + name.slice(1);
   }
 
+  protected upperModel(name: string) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
   protected excludedOperations(model: string) {
     return this.options.excludeQueriesAndMutations.concat(
       this.options.excludeQueriesAndMutationsByModel[model] ?? [],

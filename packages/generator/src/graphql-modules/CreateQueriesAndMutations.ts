@@ -1,8 +1,7 @@
 import { QueriesAndMutations } from '@paljs/types';
 
 export function createQueriesAndMutations(
-  name: string,
-  model: string,
+  modelName: string,
   exclude: QueriesAndMutations[],
   onDelete?: boolean,
 ) {
@@ -17,9 +16,12 @@ export function createQueriesAndMutations(
     },
   };
 
+  const model = modelName.charAt(0).toLowerCase() + modelName.slice(1);
+  const name = modelName.charAt(0).toUpperCase() + modelName.slice(1);
+
   if (!exclude.includes('findUnique')) {
     operations.queries.type += `
-    findUnique${name}(where: ${name}WhereUniqueInput!): ${name}`;
+    findUnique${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.queries.resolver += `
     findUnique${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.findUnique(args);
@@ -35,7 +37,7 @@ export function createQueriesAndMutations(
       distinct: ${name}ScalarFieldEnum
       skip: Int
       take: Int
-    ): ${name}`;
+    ): ${modelName}`;
     operations.queries.resolver += `
     findFirst${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.findFirst(args);
@@ -51,7 +53,7 @@ export function createQueriesAndMutations(
       distinct: ${name}ScalarFieldEnum
       skip: Int
       take: Int
-    ): [${name}!]`;
+    ): [${modelName}!]`;
     operations.queries.resolver += `
     findMany${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.findMany(args);
@@ -92,7 +94,7 @@ export function createQueriesAndMutations(
 
   if (!exclude.includes('createOne')) {
     operations.mutations.type += `
-    createOne${name}(data: ${name}CreateInput!): ${name}!`;
+    createOne${name}(data: ${name}CreateInput!): ${modelName}!`;
     operations.mutations.resolver += `
     createOne${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.create(args);
@@ -104,7 +106,7 @@ export function createQueriesAndMutations(
     updateOne${name}(
       where: ${name}WhereUniqueInput!
       data: ${name}UpdateInput!
-    ): ${name}!`;
+    ): ${modelName}!`;
     operations.mutations.resolver += `
     updateOne${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.update(args);
@@ -113,12 +115,12 @@ export function createQueriesAndMutations(
 
   if (!exclude.includes('deleteOne')) {
     operations.mutations.type += `
-    deleteOne${name}(where: ${name}WhereUniqueInput!): ${name}`;
+    deleteOne${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.mutations.resolver += `
     deleteOne${name}: async (_parent, args, { injector }: GraphQLModules.Context) => {
       ${
         onDelete
-          ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
+          ? `await injector.get(PrismaProvider).onDelete({model: '${modelName}', where: args.where})`
           : ''
       }
       return injector.get(PrismaProvider).${model}.delete(args);
@@ -131,7 +133,7 @@ export function createQueriesAndMutations(
       where: ${name}WhereUniqueInput!
       create: ${name}CreateInput!
       update: ${name}UpdateInput!
-    ): ${name}`;
+    ): ${modelName}`;
     operations.mutations.resolver += `
     upsertOne${name}: async (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.upsert(args);
@@ -145,7 +147,7 @@ export function createQueriesAndMutations(
     deleteMany${name}: async (_parent, args, { injector }: GraphQLModules.Context) => {
       ${
         onDelete
-          ? `await injector.get(PrismaProvider).onDelete({model: '${name}', where: args.where})`
+          ? `await injector.get(PrismaProvider).onDelete({model: '${modelName}', where: args.where})`
           : ''
       }
       return injector.get(PrismaProvider).${model}.deleteMany(args);

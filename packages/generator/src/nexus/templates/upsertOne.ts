@@ -2,7 +2,7 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}UpsertOneMutation = mutationField('upsertOne#{Model}', {
-  type: nonNull('#{Model}'),
+  type: nonNull('#{ModelName}'),
   args: {
     where: nonNull('#{Model}WhereUniqueInput'),
     create: nonNull('#{Model}CreateInput'),

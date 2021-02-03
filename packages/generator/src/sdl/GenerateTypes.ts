@@ -129,9 +129,7 @@ export class GenerateTypes {
             field.name
           }?: Resolver<${parentType}, ${argsType}, ${this.getOutputType(
             field.outputType,
-          )}${field.isNullable ? ' | null' : ''}${
-            !field.isRequired ? ' | undefined' : ''
-          }>`,
+          )}${field.isNullable ? ' | null' : ''}>`,
         );
 
         // add findManyCount

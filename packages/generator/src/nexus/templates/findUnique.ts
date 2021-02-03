@@ -2,7 +2,7 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}FindUniqueQuery = queryField('findUnique#{Model}', {
-  type: '#{Model}',
+  type: '#{ModelName}',
   args: {
     where: nonNull('#{Model}WhereUniqueInput'),
   },

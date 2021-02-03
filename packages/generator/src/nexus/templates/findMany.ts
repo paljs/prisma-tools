@@ -2,7 +2,7 @@ export default `
 #{import}
 
 #{exportTs}const #{Model}FindManyQuery = queryField('findMany#{Model}', {
-  type: nonNull(list(nonNull('#{Model}'))),
+  type: nonNull(list(nonNull('#{ModelName}'))),
   args: {
     where: '#{Model}WhereInput',
     orderBy: list('#{Model}OrderByInput'),

@@ -66,12 +66,7 @@ export class GenerateModules extends Generators {
 
   getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(
-      model,
-      this.smallModel(model),
-      exclude,
-      this.options.onDelete,
-    );
+    return createQueriesAndMutations(model, exclude, this.options.onDelete);
   }
 
   private createFiles(model: string, content: string) {
@@ -164,7 +159,7 @@ const getField = (field: DMMF.SchemaField, content: string, docs?: string) => {
   content += `: ${
     field.outputType.isList
       ? `[${field.outputType.type}!]!`
-      : field.outputType.type + (field.isRequired ? '!' : '')
+      : field.outputType.type + (!field.isNullable ? '!' : '')
   }`;
   return content;
 };
