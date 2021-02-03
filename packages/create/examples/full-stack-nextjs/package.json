@@ -41,7 +41,7 @@
     "@graphql-codegen/typescript": "1.x",
     "@graphql-codegen/typescript-operations": "1.x",
     "@graphql-codegen/typescript-react-apollo": "1.x",
-    "@prisma/cli": "2.x",
+    "prisma": "2.x",
     "@types/bcryptjs": "2.x",
     "@types/cookie": "0.x",
     "@types/graphql": "14.x",
