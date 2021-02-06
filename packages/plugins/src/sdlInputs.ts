@@ -125,7 +125,7 @@ function createInput(options?: OptionsType) {
 }
 
 export const sdlInputs = (options?: OptionsType) => {
-  const { gql } = require('graphql-tag');
+  const gql = require('graphql-tag');
   return gql`
     ${createInput(options)}
   `;
