@@ -41,7 +41,7 @@ export class GenerateNexus extends Generators {
           output: true,
           input: false,
         },
-  name: '${model.name}',${modelDocs ? `\ndescription: '${modelDocs}',` : ''}
+  name: '${model.name}',${modelDocs ? `\ndescription: \`${modelDocs}\`,` : ''}
   definition(t) {
     `;
       model.fields.forEach((field) => {
@@ -55,7 +55,7 @@ export class GenerateNexus extends Generators {
           ) {
             fileContent += `t${this.getNullOrList(field)}.${(field.outputType
               .type as String).toLowerCase()}('${field.name}'${
-              fieldDocs ? `, {description: '${fieldDocs}'}` : ''
+              fieldDocs ? `, {description: \`${fieldDocs}\`}` : ''
             })\n`;
           } else {
             fileContent += `t${this.getNullOrList(field)}.field('${
