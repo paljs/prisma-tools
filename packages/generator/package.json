@@ -1,6 +1,6 @@
 {
   "name": "@paljs/generator",
-  "version": "2.12.1",
+  "version": "2.12.3",
   "main": "dist/index.js",
   "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",
