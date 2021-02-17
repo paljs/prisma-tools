@@ -48,7 +48,11 @@ export class PrismaSelect {
   constructor(
     private info: GraphQLResolveInfo,
     private options?: {
-      defaultFields?: { [key: string]: { [key: string]: boolean } };
+      defaultFields?: {
+        [key: string]:
+          | { [key: string]: boolean }
+          | ((select: any) => { [key: string]: boolean });
+      };
       dmmf?: DMMF.Document;
     },
   ) {}
@@ -199,7 +203,11 @@ export class PrismaSelect {
     if (model && typeof selectObject === 'object') {
       let defaultFields = {};
       if (this.defaultFields && this.defaultFields[modelName]) {
-        defaultFields = this.defaultFields[modelName];
+        const modelFields = this.defaultFields[modelName];
+        defaultFields =
+          typeof modelFields === 'function'
+            ? modelFields(selectObject.select)
+            : modelFields;
       }
       const filteredObject = {
         ...selectObject,
