@@ -19,7 +19,7 @@
   "dependencies": {
     "nexus": "1.x",
     "@prisma/client": "2.x",
-    "@paljs/nexus": "2.12.2",
+    "@paljs/nexus": "2.13.0",
     "apollo-server": "2.x",
     "graphql": "15.x"
   },

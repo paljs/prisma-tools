@@ -1,18 +1,18 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "postinstall": "husky install"
+  },
   "devDependencies": {
-    "husky": "4.3.6",
+    "husky": "5.0.9",
     "lerna": "3.22.1",
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0"
   },
-  "workspaces": ["packages/*"],
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx)\" --staged"
-    }
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "prettier": {
     "singleQuote": true,
     "trailingComma": "all"
