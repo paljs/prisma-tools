@@ -4,6 +4,7 @@ import { ContextProps } from '..';
 
 export const defaultSettings = {
   pagesPath: '/admin/models/',
+  pageSize: 10,
   pageSizeOptions: [10, 20, 30, 40, 50, 100],
   paginationOptions: 4,
   push: typeof window !== 'undefined' ? window.location.replace : () => {},

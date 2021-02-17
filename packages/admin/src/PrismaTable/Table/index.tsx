@@ -51,6 +51,7 @@ export const Table: React.FC<TableProps> = ({
     schema: { models },
     push,
     pagesPath,
+    pageSize: defaultPageSize,
     pageSizeOptions,
     paginationOptions,
     tableColumns,
@@ -63,7 +64,11 @@ export const Table: React.FC<TableProps> = ({
     {
       columns: columnList,
       data,
-      initialState: { pageIndex: 0, filters: initialFilter }, // Pass our hoisted table state
+      initialState: {
+        pageIndex: 0,
+        pageSize: defaultPageSize,
+        filters: initialFilter,
+      }, // Pass our hoisted table state
       manualFilters: true,
       manualSortBy: true,
       manualPagination: true,

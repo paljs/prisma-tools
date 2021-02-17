@@ -24,11 +24,6 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   connect,
   onConnect,
 }) => {
-  const [page, setPage] = useState({
-    take: 10,
-    skip: 0,
-  });
-  const [create, setCreate] = useState(false);
   const {
     schema: { models },
     query,
@@ -37,7 +32,13 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     onSaveUpdate,
     push,
     pagesPath,
+    pageSize,
   } = useContext(TableContext);
+  const [page, setPage] = useState({
+    take: pageSize,
+    skip: 0,
+  });
+  const [create, setCreate] = useState(false);
   const modelObject = models.find((item) => item.id === model);
 
   const {

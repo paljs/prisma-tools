@@ -50,6 +50,7 @@ export interface ContextProps extends RequireContextProps, SameProps {
 
 interface RequireContextProps {
   pagesPath: string;
+  pageSize: number;
   pageSizeOptions: number[];
   paginationOptions: number;
 }
