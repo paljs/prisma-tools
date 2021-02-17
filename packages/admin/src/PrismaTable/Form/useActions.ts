@@ -98,7 +98,7 @@ const useActions = (
                 id: getValueByType({
                   value: newData[key][fieldModel.idField],
                   field: editField,
-                  useSet,
+                  useSet: false,
                 }),
               },
             };
