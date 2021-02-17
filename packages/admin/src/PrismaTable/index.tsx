@@ -29,3 +29,4 @@ const PrismaTable: React.FC<ModelTableProps> = (props) => {
 PrismaTable.defaultProps = defaultSettings;
 
 export { PrismaTable, TableContext };
+export * from './Table/Filters';

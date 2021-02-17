@@ -24,9 +24,7 @@ export const getValueByType = ({
     return field.list || useSet ? { set: result } : result;
   }
   if (field?.list) {
-    if (!value) {
-      return useSet ? { set: [] } : [];
-    }
+    if (!value) return [];
     const result: any[] = value.split(',');
     switch (field?.type) {
       case 'Int':
@@ -45,7 +43,7 @@ export const getValueByType = ({
         });
         break;
     }
-    return useSet ? { set: result } : result;
+    return result;
   } else {
     const result =
       field?.type === 'Int'
