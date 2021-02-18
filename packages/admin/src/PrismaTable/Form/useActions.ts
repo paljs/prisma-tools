@@ -21,7 +21,7 @@ export const getValueByType = ({
 }: GetValueOptions) => {
   if (field?.type === 'Json') {
     const result = value ? JSON.parse(value) : field.list ? [] : {};
-    return field.list || useSet ? { set: result } : result;
+    return result;
   }
   if (field?.list) {
     if (!value) return [];
@@ -142,7 +142,7 @@ const useActions = (
                 value: newData[key][fieldModel.idField],
                 field: editField,
                 create: true,
-                useSet,
+                useSet: false,
               }),
             },
           };
@@ -154,7 +154,7 @@ const useActions = (
               value: newData[key],
               field,
               create: true,
-              useSet,
+              useSet: false,
             });
       }
     });
