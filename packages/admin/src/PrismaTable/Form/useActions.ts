@@ -9,19 +9,16 @@ import { SchemaField } from '@paljs/types';
 interface GetValueOptions {
   value: string;
   field?: SchemaField;
-  create?: boolean;
   useSet?: boolean;
 }
 
 export const getValueByType = ({
   value,
   field,
-  create,
   useSet = true,
 }: GetValueOptions) => {
   if (field?.type === 'Json') {
-    const result = value ? JSON.parse(value) : field.list ? [] : {};
-    return result;
+    return value ? JSON.parse(value) : field.list ? [] : {};
   }
   if (field?.list) {
     if (!value) return [];
@@ -51,7 +48,7 @@ export const getValueByType = ({
         : field?.type === 'Float'
         ? parseFloat(value)
         : value;
-    return create || !useSet ? result : { set: result };
+    return !useSet ? result : { set: result };
   }
 };
 
@@ -141,7 +138,6 @@ const useActions = (
               id: getValueByType({
                 value: newData[key][fieldModel.idField],
                 field: editField,
-                create: true,
                 useSet: false,
               }),
             },
@@ -153,7 +149,6 @@ const useActions = (
           : getValueByType({
               value: newData[key],
               field,
-              create: true,
               useSet: false,
             });
       }
