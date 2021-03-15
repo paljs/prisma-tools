@@ -71,63 +71,69 @@ export default class Generate extends Command {
   ];
 
   async run() {
-    const { args, flags } = this.parse(Generate);
-    const config = await getConfig(flags);
-    const schemaPath = await getSchemaPath(flags.schema);
+    try {
+      const { args, flags } = this.parse(Generate);
+      const config = await getConfig(flags);
+      const schemaPath = await getSchemaPath(flags.schema);
 
-    const spinner = log.spinner(log.withBrand('Generating your files')).start();
+      const spinner = log
+        .spinner(log.withBrand('Generating your files'))
+        .start();
 
-    // backend generator
-    if (config?.backend?.generator) {
-      const options: PartialOptions = {};
-      const queries =
-        (!args.type && !config.backend.disableQueries) ||
-        ['queries', 'crud'].includes(args.type);
-      const mutations =
-        (!args.type && !config.backend.disableMutations) ||
-        ['mutations', 'crud'].includes(args.type);
+      // backend generator
+      if (config?.backend?.generator) {
+        const options: PartialOptions = {};
+        const queries =
+          (!args.type && !config.backend.disableQueries) ||
+          ['queries', 'crud'].includes(args.type);
+        const mutations =
+          (!args.type && !config.backend.disableMutations) ||
+          ['mutations', 'crud'].includes(args.type);
 
-      if (queries || mutations || !args.type) {
-        options.models = args.models ? args.models.split(',') : undefined;
-        options.disableQueries = !queries;
-        options.disableMutations = !mutations;
-        await new Generator(
-          { name: config.backend.generator, schemaPath },
-          {
-            ...config.backend,
-            ...options,
-          },
-        ).run();
+        if (queries || mutations || !args.type) {
+          options.models = args.models ? args.models.split(',') : undefined;
+          options.disableQueries = !queries;
+          options.disableMutations = !mutations;
+          await new Generator(
+            { name: config.backend.generator, schemaPath },
+            {
+              ...config.backend,
+              ...options,
+            },
+          ).run();
+        }
       }
+
+      // frontend generator
+      const admin =
+        (config?.frontend?.admin && !args.type) || args.type === 'admin';
+      const graphql =
+        (config?.frontend?.graphql && !args.type) || args.type === 'graphql';
+
+      if (config && (admin || graphql)) {
+        const frontend = config.frontend;
+        const uiGenerator = new UIGenerator(schemaPath);
+
+        if (admin) {
+          uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
+          const options: AdminPagesOptions = {
+            ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
+            models: args.models?.split(','),
+          };
+          uiGenerator.generateAdminPages(options);
+        }
+
+        if (graphql) {
+          const options: PartialOptions = {
+            ...(typeof frontend?.graphql === 'object' ? frontend.graphql : {}),
+            models: args.models?.split(','),
+          };
+          uiGenerator.generateGraphql(options);
+        }
+      }
+      spinner.succeed();
+    } catch (error) {
+      throw error;
     }
-
-    // frontend generator
-    const admin =
-      (config?.frontend?.admin && !args.type) || args.type === 'admin';
-    const graphql =
-      (config?.frontend?.graphql && !args.type) || args.type === 'graphql';
-
-    if (config && (admin || graphql)) {
-      const frontend = config.frontend;
-      const uiGenerator = new UIGenerator(schemaPath);
-
-      if (admin) {
-        uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
-        const options: AdminPagesOptions = {
-          ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
-          models: args.models?.split(','),
-        };
-        uiGenerator.generateAdminPages(options);
-      }
-
-      if (graphql) {
-        const options: PartialOptions = {
-          ...(typeof frontend?.graphql === 'object' ? frontend.graphql : {}),
-          models: args.models?.split(','),
-        };
-        uiGenerator.generateGraphql(options);
-      }
-    }
-    spinner.succeed();
   }
 }

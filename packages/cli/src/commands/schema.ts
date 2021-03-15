@@ -80,43 +80,47 @@ export default class Schema extends Command {
   static aliases = ['s'];
 
   async run() {
-    const { args, flags } = this.parse(Schema);
+    try {
+      const { args, flags } = this.parse(Schema);
 
-    const schemaPath = await getSchemaPath(flags.schema);
-    // json convertor
-    if (args.converter === 'json') {
-      const spinner = log
-        .spinner(log.withBrand('Generating your file'))
-        .start();
-      const schemaObject = new ConvertSchemaToObject(schemaPath).run();
-      schemaFile(flags['output-path'], schemaObject, flags.type as Output);
-      spinner.succeed('Your file generated successfully');
-    }
-    // camel case convertor
-    else if (args.converter === 'camel-case') {
-      const spinner = log
-        .spinner(log.withBrand('Converting your schema'))
-        .start();
-      const camelCase = new CamelCase(schemaPath);
-      await camelCase.convert();
-      spinner.succeed('Your schema converted successfully');
-    }
-    // TypeScript convertor
-    else if (args.converter === 'typescript') {
-      const spinner = log
-        .spinner(log.withBrand('Converting your schema'))
-        .start();
-      const code = new GenerateTypeScript(schemaPath).run();
-      mkdirSync(flags['output-path'], { recursive: true });
-      writeFileSync(
-        join(flags['output-path'], `schema.ts`),
-        format(code, {
-          singleQuote: true,
-          trailingComma: 'all',
-          parser: 'babel-ts',
-        }),
-      );
-      spinner.succeed('Your schema converted successfully');
+      const schemaPath = await getSchemaPath(flags.schema);
+      // json convertor
+      if (args.converter === 'json') {
+        const spinner = log
+          .spinner(log.withBrand('Generating your file'))
+          .start();
+        const schemaObject = new ConvertSchemaToObject(schemaPath).run();
+        schemaFile(flags['output-path'], schemaObject, flags.type as Output);
+        spinner.succeed('Your file generated successfully');
+      }
+      // camel case convertor
+      else if (args.converter === 'camel-case') {
+        const spinner = log
+          .spinner(log.withBrand('Converting your schema'))
+          .start();
+        const camelCase = new CamelCase(schemaPath);
+        await camelCase.convert();
+        spinner.succeed('Your schema converted successfully');
+      }
+      // TypeScript convertor
+      else if (args.converter === 'typescript') {
+        const spinner = log
+          .spinner(log.withBrand('Converting your schema'))
+          .start();
+        const code = new GenerateTypeScript(schemaPath).run();
+        mkdirSync(flags['output-path'], { recursive: true });
+        writeFileSync(
+          join(flags['output-path'], `schema.ts`),
+          format(code, {
+            singleQuote: true,
+            trailingComma: 'all',
+            parser: 'babel-ts',
+          }),
+        );
+        spinner.succeed('Your schema converted successfully');
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }
