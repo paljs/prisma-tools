@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "main": "dist/index.js",
   "module": "dist/admin.esm.js",
   "types": "dist/index.d.ts",
