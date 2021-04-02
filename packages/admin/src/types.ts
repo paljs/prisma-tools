@@ -4,7 +4,7 @@ import {
   UseFiltersColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import { UseFormMethods } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 
 export { Schema, SchemaField, SchemaModel };
@@ -26,10 +26,10 @@ export interface InputProps {
   value: any;
   data: any;
   error: any;
-  register: UseFormMethods['register'];
-  setValue: UseFormMethods['setValue'];
-  getValues: UseFormMethods['getValues'];
-  watch: UseFormMethods['watch'];
+  register: UseFormReturn['register'];
+  setValue: UseFormReturn['setValue'];
+  getValues: UseFormReturn['getValues'];
+  watch: UseFormReturn['watch'];
   disabled: boolean;
 }
 
@@ -78,6 +78,11 @@ interface SameProps {
     refetchTable: (options?: any) => void;
   }) => void;
   valueHandler?: (value: string, field?: SchemaField, create?: boolean) => any;
+  actionButtons?: {
+    Add?: React.FC;
+    Update?: React.FC<{ id: any }>;
+    Delete?: React.FC<{ id: any }>;
+  };
 }
 
 export interface ModelTableProps

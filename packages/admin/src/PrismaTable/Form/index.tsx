@@ -8,6 +8,7 @@ import useActions from './useActions';
 import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
 import Spinner from '@paljs/ui/Spinner';
+import { useTheme } from 'styled-components';
 
 export interface FormProps {
   action: 'update' | 'create' | 'view';
@@ -64,14 +65,16 @@ const Form: React.FC<FormProps> = ({
 
   const {
     register,
-    errors,
     handleSubmit,
     setValue,
     getValues,
     watch,
+    formState: { errors },
   } = useForm({
     defaultValues: getDefaultValues(action, model, data),
   });
+
+  const theme = useTheme();
 
   const InputComponents = formInputs
     ? {
@@ -151,7 +154,11 @@ const Form: React.FC<FormProps> = ({
         <CardFooter>
           {action !== 'view' && (
             <Button
-              style={{ marginRight: '20px' }}
+              style={
+                theme.dir === 'rtl'
+                  ? { marginLeft: '20px' }
+                  : { marginRight: '20px' }
+              }
               type="submit"
               status="Success"
               disabled={Object.keys(errors).length !== 0}

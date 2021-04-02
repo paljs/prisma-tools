@@ -57,6 +57,7 @@ export const Table: React.FC<TableProps> = ({
     tableColumns,
     onSelect,
     actions: userActions,
+    actionButtons,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName);
   const columnList = columns(model, tableColumns);
@@ -158,6 +159,46 @@ export const Table: React.FC<TableProps> = ({
         delete: model?.delete,
       };
 
+  const ActionButtons = {
+    Add: () => (
+      <Button size="Tiny" onClick={() => onAction('create')}>
+        <EvaIcon name="plus-outline" />
+      </Button>
+    ),
+    Update: (id: any) => (
+      <Button
+        style={{ padding: 0 }}
+        appearance="ghost"
+        onClick={() =>
+          model &&
+          push(
+            `${pagesPath}${modelName}?${
+              actions.update ? 'update' : 'view'
+            }=${id}`,
+          )
+        }
+      >
+        <EvaIcon name={actions.update ? 'edit-outline' : 'eye-outline'} />
+      </Button>
+    ),
+    Delete: (id: any) => (
+      <Button
+        style={{ padding: 0 }}
+        status="Danger"
+        appearance="ghost"
+        onClick={() => {
+          const confirm = window.confirm(
+            'Are you sure you want to delete this record ?',
+          );
+          if (confirm && model) onAction('delete', id);
+        }}
+      >
+        <EvaIcon name="trash-2-outline" />
+      </Button>
+    ),
+    ...actionButtons,
+  };
+
   const isSelect = onSelect && !inEdit;
 
   const hasFilters = filters.length > 0;
@@ -227,11 +268,7 @@ export const Table: React.FC<TableProps> = ({
                     <th colSpan={2} />
                   ) : (
                     <th colSpan={2}>
-                      {actions.create && (
-                        <Button size="Tiny" onClick={() => onAction('create')}>
-                          <EvaIcon name="plus-outline" />
-                        </Button>
-                      )}
+                      {actions.create && <ActionButtons.Add />}
                     </th>
                   )}
                   {fieldUpdate && parent && (
@@ -323,24 +360,9 @@ export const Table: React.FC<TableProps> = ({
                         placement="top"
                         content={actions.update ? 'Edit Row' : 'View Row'}
                       >
-                        <Button
-                          style={{ padding: 0 }}
-                          appearance="ghost"
-                          onClick={() =>
-                            model &&
-                            push(
-                              `${pagesPath}${modelName}?${
-                                actions.update ? 'update' : 'view'
-                              }=${row.original[model.idField]}`,
-                            )
-                          }
-                        >
-                          <EvaIcon
-                            name={
-                              actions.update ? 'edit-outline' : 'eye-outline'
-                            }
-                          />
-                        </Button>
+                        <ActionButtons.Update
+                          id={model ? row.original[model.idField] : 0}
+                        />
                       </Tooltip>
                     </td>
                   )}
@@ -353,20 +375,9 @@ export const Table: React.FC<TableProps> = ({
                         placement="top"
                         content="Delete Row"
                       >
-                        <Button
-                          style={{ padding: 0 }}
-                          status="Danger"
-                          appearance="ghost"
-                          onClick={() => {
-                            const confirm = window.confirm(
-                              'Are you sure you want to delete this record ?',
-                            );
-                            if (confirm && model)
-                              onAction('delete', row.original[model.idField]);
-                          }}
-                        >
-                          <EvaIcon name="trash-2-outline" />
-                        </Button>
+                        <ActionButtons.Delete
+                          id={model ? row.original[model.idField] : 0}
+                        />
                       </Tooltip>
                     </td>
                   )}
