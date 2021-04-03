@@ -70,10 +70,12 @@ const Form: React.FC<FormProps> = ({
     setValue,
     getValues,
     watch,
-    formState: { errors },
+    formState,
   } = useForm({
     defaultValues: getDefaultValues(action, model, data),
   });
+
+  const { errors, isDirty } = formState;
 
   const theme = useTheme();
 
@@ -160,7 +162,7 @@ const Form: React.FC<FormProps> = ({
               }
               type="submit"
               status="Success"
-              disabled={Object.keys(errors).length !== 0}
+              disabled={Object.keys(errors).length !== 0 || !isDirty}
             >
               {lang.save}
             </Button>
