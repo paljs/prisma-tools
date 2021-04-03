@@ -58,6 +58,7 @@ export const Table: React.FC<TableProps> = ({
     onSelect,
     actions: userActions,
     actionButtons,
+    lang,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName);
   const columnList = columns(model, tableColumns);
@@ -165,7 +166,7 @@ export const Table: React.FC<TableProps> = ({
         <EvaIcon name="plus-outline" />
       </Button>
     ),
-    Update: (id: any) => (
+    Update: ({ id }: { id: any }) => (
       <Button
         style={{ padding: 0 }}
         appearance="ghost"
@@ -181,15 +182,13 @@ export const Table: React.FC<TableProps> = ({
         <EvaIcon name={actions.update ? 'edit-outline' : 'eye-outline'} />
       </Button>
     ),
-    Delete: (id: any) => (
+    Delete: ({ id }: { id: any }) => (
       <Button
         style={{ padding: 0 }}
         status="Danger"
         appearance="ghost"
         onClick={() => {
-          const confirm = window.confirm(
-            'Are you sure you want to delete this record ?',
-          );
+          const confirm = window.confirm(lang.deleteConfirm);
           if (confirm && model) onAction('delete', id);
         }}
       >
@@ -231,9 +230,9 @@ export const Table: React.FC<TableProps> = ({
             {headerGroups.map((headerGroup: any, index: number) => (
               <React.Fragment key={index}>
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {isSelect && <th>Select</th>}
-                  <th colSpan={2}>Actions</th>
-                  {fieldUpdate && parent && <th>Relation</th>}
+                  {isSelect && <th>{lang.select}</th>}
+                  <th colSpan={2}>{lang.actions}</th>
+                  {fieldUpdate && parent && <th>{lang.relation}</th>}
                   {headerGroup.headers.map((column: any, index2: number) => (
                     <th
                       key={index2}
@@ -284,7 +283,7 @@ export const Table: React.FC<TableProps> = ({
                           }
                         }}
                       >
-                        {hasFilters ? 'View All' : 'View Related'}
+                        {hasFilters ? lang.viewAll : lang.viewRelated}
                       </Button>
                     </th>
                   )}
@@ -346,8 +345,8 @@ export const Table: React.FC<TableProps> = ({
                       >
                         {model &&
                         connect[model.idField] === row.original[model.idField]
-                          ? 'Connected'
-                          : 'Connect'}
+                          ? lang.connected
+                          : lang.connect}
                       </Button>
                     </td>
                   )}
@@ -358,7 +357,7 @@ export const Table: React.FC<TableProps> = ({
                         status="Primary"
                         trigger="hint"
                         placement="top"
-                        content={actions.update ? 'Edit Row' : 'View Row'}
+                        content={actions.update ? lang.editRow : lang.viewRow}
                       >
                         <ActionButtons.Update
                           id={model ? row.original[model.idField] : 0}
@@ -373,7 +372,7 @@ export const Table: React.FC<TableProps> = ({
                         status="Danger"
                         trigger="hint"
                         placement="top"
-                        content="Delete Row"
+                        content={lang.deleteRow}
                       >
                         <ActionButtons.Delete
                           id={model ? row.original[model.idField] : 0}
@@ -426,8 +425,8 @@ export const Table: React.FC<TableProps> = ({
             })}
             <tr>
               <td colSpan={10000}>
-                Showing {page.length} of ~{controlledPageCount * pageSize}{' '}
-                results
+                {lang.showing} {page.length} {lang.of} ~
+                {controlledPageCount * pageSize} {lang.results}
               </td>
             </tr>
           </tbody>
@@ -441,7 +440,7 @@ export const Table: React.FC<TableProps> = ({
               status="Primary"
               trigger="hint"
               placement="top"
-              content="Go to first page"
+              content={lang.goToFirstPage}
             >
               <StyledButton
                 onClick={() => gotoPage(0)}
@@ -475,7 +474,7 @@ export const Table: React.FC<TableProps> = ({
               status="Primary"
               trigger="hint"
               placement="top"
-              content="Go to last page"
+              content={lang.goToLastPage}
             >
               <StyledButton
                 onClick={() => gotoPage(pageCount - 1)}
@@ -488,7 +487,7 @@ export const Table: React.FC<TableProps> = ({
           <Col breakPoint={{ md: 12, lg: 4 }}>
             <InputGroup size="Small" style={{ justifyContent: 'center' }}>
               <input
-                placeholder="Go Page Number"
+                placeholder={lang.goPageNumber}
                 type="number"
                 value={pageIndex + 1}
                 onChange={(e) => {
@@ -506,7 +505,7 @@ export const Table: React.FC<TableProps> = ({
                 status="Primary"
                 trigger="hint"
                 placement="top"
-                content={'Set page size ' + item}
+                content={lang.setPageSize + item}
               >
                 <StyledButton
                   onClick={() => setPageSize(item)}

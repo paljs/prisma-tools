@@ -18,7 +18,30 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
 import { ContextProps, SchemaModel } from '../types';
 
-export const Settings: React.FC = () => {
+const defaultLanguage = {
+  header: 'Update models Tables',
+  dbName: 'Database Name',
+  displayName: 'Display Name',
+  modelName: 'Model Name',
+  idField: 'Id Field',
+  displayFields: 'Display Fields',
+  fieldName: 'Field Name',
+  actions: 'Actions',
+  create: 'create',
+  update: 'update',
+  delete: 'delete',
+  read: 'read',
+  filter: 'filter',
+  sort: 'sort',
+  editor: 'editor',
+  upload: 'upload',
+};
+
+export type SettingLanguage = typeof defaultLanguage;
+
+export const Settings: React.FC<{
+  language?: Partial<SettingLanguage>;
+}> = ({ language }) => {
   const { data } = useQuery<{ getSchema: ContextProps['schema'] }>(GET_SCHEMA);
   const models = data?.getSchema.models ?? [];
   const [updateModel] = useMutation(UPDATE_MODEL);
@@ -56,12 +79,12 @@ export const Settings: React.FC = () => {
       });
     }
   };
-
+  const mergeLanguage = { ...defaultLanguage, ...language };
   return (
     <Row>
       <Col breakPoint={{ xs: 12, md: 6 }}>
         <Card>
-          <header>Update models Tables</header>
+          <header>{mergeLanguage.header}</header>
           <CardBody style={{ overflow: 'visible' }}>
             <Row>
               <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
@@ -84,7 +107,11 @@ export const Settings: React.FC = () => {
               </Col>
               <Col breakPoint={{ xs: 12 }}>
                 {currentModel && (
-                  <UpdateModel models={models} modelObject={currentModel} />
+                  <UpdateModel
+                    models={models}
+                    modelObject={currentModel}
+                    language={mergeLanguage}
+                  />
                 )}
               </Col>
             </Row>
@@ -136,6 +163,7 @@ export const Settings: React.FC = () => {
                                 <UpdateField
                                   field={field}
                                   model={currentModel?.id}
+                                  language={mergeLanguage}
                                 />
                               </AccordionItem>
                             </StyledDragItem>

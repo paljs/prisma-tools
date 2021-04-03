@@ -13,6 +13,7 @@ import { useFilter } from './useFilter';
 import { useEnum, useModel } from '../useSchema';
 import { SchemaField } from '../../types';
 import { OverLayContext } from '@paljs/ui/PopoverLay';
+import { TableContext } from '../Context';
 
 interface Option {
   value: any;
@@ -36,6 +37,7 @@ interface FiltersProps {
 export const NumberFilter: React.FC<any> = ({
   column: { filterValue, setFilter },
 }) => {
+  const { lang } = useContext(TableContext);
   return (
     <Popover
       eventListener="#popoverScroll"
@@ -54,7 +56,7 @@ export const NumberFilter: React.FC<any> = ({
           alignItems: 'center',
         }}
       >
-        <span>Filter</span>
+        <span>{lang.filter}</span>
         {filterValue && <EvaIcon name="search-outline" />}
       </Button>
     </Popover>
@@ -63,25 +65,26 @@ export const NumberFilter: React.FC<any> = ({
 
 const Number: React.FC<FiltersProps> = ({ filterValue, setFilter }) => {
   const { value, onChange } = useFilter(filterValue, setFilter, true);
+  const { lang } = useContext(TableContext);
   return (
     <Tabs activeIndex={0} fullWidth>
-      <Tab title="Equals">
+      <Tab title={lang.equals}>
         <Input size="Medium" fullWidth status="Primary">
           <input
-            placeholder="Equals"
+            placeholder={lang.equals}
             type="number"
             value={value?.equals ?? ''}
             onChange={(e) => onChange(e, 'equals')}
           />
         </Input>
       </Tab>
-      <Tab title="Range">
+      <Tab title={lang.range}>
         <Row between="xs">
           <Col breakPoint={{ xs: 6 }}>
             <Input size="Medium" fullWidth status="Primary">
               <input
                 style={{ maxWidth: '85px' }}
-                placeholder="min"
+                placeholder={lang.min}
                 type="text"
                 value={value?.gte ?? ''}
                 onChange={(e) => onChange(e, 'gte')}
@@ -92,7 +95,7 @@ const Number: React.FC<FiltersProps> = ({ filterValue, setFilter }) => {
             <Input size="Medium" fullWidth status="Primary">
               <input
                 style={{ maxWidth: '85px' }}
-                placeholder="max"
+                placeholder={lang.max}
                 type="text"
                 value={value?.lte ?? ''}
                 onChange={(e) => onChange(e, 'lte')}
@@ -108,6 +111,7 @@ const Number: React.FC<FiltersProps> = ({ filterValue, setFilter }) => {
 export const DateTimeFilter: React.FC<any> = ({
   column: { filterValue, setFilter },
 }) => {
+  const { lang } = useContext(TableContext);
   return (
     <Popover
       eventListener="#popoverScroll"
@@ -123,7 +127,8 @@ export const DateTimeFilter: React.FC<any> = ({
         shape="SemiRound"
         style={{ justifyContent: 'center' }}
       >
-        <span>Filter</span> {filterValue && <EvaIcon name="search-outline" />}
+        <span>{lang.filter}</span>{' '}
+        {filterValue && <EvaIcon name="search-outline" />}
       </Button>
     </Popover>
   );
@@ -131,22 +136,23 @@ export const DateTimeFilter: React.FC<any> = ({
 
 const DateTime: React.FC<FiltersProps> = ({ filterValue, setFilter }) => {
   const { value, onChange } = useFilter(filterValue, setFilter);
+  const { lang } = useContext(TableContext);
   return (
     <Tabs activeIndex={0} fullWidth>
-      <Tab title="Start Date">
+      <Tab title={lang.startDate}>
         <Input size="Medium" fullWidth status="Primary">
           <input
-            placeholder="min"
+            placeholder={lang.min}
             type="date"
             value={value?.gte ?? ''}
             onChange={(e) => onChange(e, 'gte')}
           />
         </Input>
       </Tab>
-      <Tab title="End Date">
+      <Tab title={lang.endDate}>
         <Input size="Medium" fullWidth status="Primary">
           <input
-            placeholder="max"
+            placeholder={lang.max}
             type="date"
             value={value?.lte ?? ''}
             onChange={(e) => onChange(e, 'lte')}
@@ -160,10 +166,11 @@ const DateTime: React.FC<FiltersProps> = ({ filterValue, setFilter }) => {
 export const BooleanFilter: React.FC<any> = ({
   column: { filterValue, setFilter },
 }) => {
+  const { lang } = useContext(TableContext);
   const options: Option[] = [
-    { value: undefined, label: 'All' },
-    { value: true, label: 'yes' },
-    { value: false, label: 'no' },
+    { value: undefined, label: lang.all },
+    { value: true, label: lang.yes },
+    { value: false, label: lang.no },
   ];
   return (
     <StyledSelect
@@ -199,8 +206,9 @@ export const StringFilter: React.FC<any> = ({
 
 export const EnumFilter: (field: SchemaField) => React.FC<any> = (field) => {
   return ({ column: { filterValue, setFilter } }) => {
+    const { lang } = useContext(TableContext);
     const enumType = useEnum(field.type);
-    const options: Option[] = [{ value: undefined, label: 'All' }];
+    const options: Option[] = [{ value: undefined, label: lang.all }];
     if (enumType) {
       options.push(
         ...enumType.fields.map((item) => ({ value: item, label: item })),
@@ -226,6 +234,7 @@ export const EnumFilter: (field: SchemaField) => React.FC<any> = (field) => {
 
 export const ObjectFilter: (field: SchemaField) => React.FC<any> = (field) => {
   return ({ column: { filterValue, setFilter } }) => {
+    const { lang } = useContext(TableContext);
     return (
       <Popover
         eventListener="#popoverScroll"
@@ -247,7 +256,8 @@ export const ObjectFilter: (field: SchemaField) => React.FC<any> = (field) => {
           shape="SemiRound"
           style={{ justifyContent: 'center' }}
         >
-          <span>Filter</span> {filterValue && <EvaIcon name="search-outline" />}
+          <span>{lang.filter}</span>{' '}
+          {filterValue && <EvaIcon name="search-outline" />}
         </Button>
       </Popover>
     );

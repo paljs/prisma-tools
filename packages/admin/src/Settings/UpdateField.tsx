@@ -6,6 +6,7 @@ import Col from '@paljs/ui/Col';
 import { SchemaField } from '../types';
 import { useMutation } from '@apollo/client';
 import { UPDATE_FIELD } from '../SchemaQueries';
+import { SettingLanguage } from '.';
 
 type Fields =
   | 'read'
@@ -13,7 +14,6 @@ type Fields =
   | 'update'
   | 'filter'
   | 'sort'
-  | 'title'
   | 'editor'
   | 'upload';
 
@@ -27,10 +27,11 @@ const fieldsArray: Fields[] = [
   'upload',
 ];
 
-const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({
-  field,
-  model,
-}) => {
+const UpdateField: React.FC<{
+  field: SchemaField;
+  model: string;
+  language: SettingLanguage;
+}> = ({ field, model, language }) => {
   const [updateField] = useMutation(UPDATE_FIELD);
   const [title, setTitle] = useState<{
     value: string;
@@ -67,7 +68,7 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Database Name</span>
+            <span className="subtitle text-hint">{language.dbName}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <span className="subtitle text-hint">{field.name}</span>
@@ -77,14 +78,14 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Display Name</span>
+            <span className="subtitle text-hint">{language.displayName}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup>
               <input
                 name="name"
                 value={title.value}
-                placeholder="Field Name"
+                placeholder={language.fieldName}
                 onChange={onChange}
               />
             </InputGroup>
@@ -101,7 +102,7 @@ const UpdateField: React.FC<{ field: SchemaField; model: string }> = ({
             checked={!!field[item]}
             onChange={(value) => onChangeHandler(item, value)}
           >
-            {item}
+            {language[item]}
           </Checkbox>
         </Col>
       ))}

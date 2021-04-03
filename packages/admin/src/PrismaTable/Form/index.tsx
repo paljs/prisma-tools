@@ -18,7 +18,7 @@ export interface FormProps {
   onSave: () => void;
 }
 
-const getDefaultValues = (
+/* const getDefaultValues = (
   action: FormProps['action'],
   model: SchemaModel,
   data: any,
@@ -47,7 +47,7 @@ const getDefaultValues = (
       }
     });
   return defaultValues;
-};
+}; */
 
 const Form: React.FC<FormProps> = ({
   action,
@@ -59,6 +59,7 @@ const Form: React.FC<FormProps> = ({
   const {
     schema: { models },
     formInputs,
+    lang,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName)!;
   const { onSubmit, loading } = useActions(model, data, action, onSave);
@@ -70,9 +71,9 @@ const Form: React.FC<FormProps> = ({
     getValues,
     watch,
     formState: { errors },
-  } = useForm({
+  } = useForm(/* {
     defaultValues: getDefaultValues(action, model, data),
-  });
+  } */);
 
   const theme = useTheme();
 
@@ -92,9 +93,7 @@ const Form: React.FC<FormProps> = ({
           : {}
       }
     >
-      <header>
-        {action.charAt(0).toUpperCase() + action.slice(1) + ' ' + model.name}
-      </header>
+      <header>{lang[action] + ' ' + model.name}</header>
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
         <CardBody style={{ overflow: 'visible' }}>
           {loading && <Spinner size="Large" />}
@@ -163,11 +162,11 @@ const Form: React.FC<FormProps> = ({
               status="Success"
               disabled={Object.keys(errors).length !== 0}
             >
-              Save
+              {lang.save}
             </Button>
           )}
           <Button type="button" status="Danger" onClick={onCancel}>
-            {action !== 'view' ? 'Cancel' : 'close'}
+            {action !== 'view' ? lang.cancel : lang.close}
           </Button>
         </CardFooter>
       </form>

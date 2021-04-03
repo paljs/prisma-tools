@@ -6,6 +6,7 @@ import {
 } from 'react-table';
 import { UseFormReturn } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
+import Language from './PrismaTable/language';
 
 export { Schema, SchemaField, SchemaModel };
 
@@ -53,6 +54,7 @@ interface RequireContextProps {
   pageSize: number;
   pageSizeOptions: number[];
   paginationOptions: number;
+  lang: typeof Language;
 }
 
 interface SameProps {
@@ -86,7 +88,8 @@ interface SameProps {
 }
 
 export interface ModelTableProps
-  extends Partial<RequireContextProps>,
+  extends Partial<Omit<RequireContextProps, 'lang'>>,
     SameProps {
   model: string;
+  language?: Partial<typeof Language>;
 }

@@ -7,8 +7,9 @@ import Col from '@paljs/ui/Col';
 import { SchemaModel } from '../types';
 import { useMutation } from '@apollo/client';
 import { UPDATE_MODEL } from '../SchemaQueries';
+import { SettingLanguage } from './index';
 
-type Fields = 'delete' | 'create' | 'update' | 'name';
+type Fields = 'delete' | 'create' | 'update';
 type Option = {
   label: string;
   value?: string;
@@ -20,7 +21,8 @@ const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 const UpdateModel: React.FC<{
   models: SchemaModel[];
   modelObject: SchemaModel;
-}> = ({ models, modelObject }) => {
+  language: SettingLanguage;
+}> = ({ models, modelObject, language }) => {
   const [updateModel] = useMutation(UPDATE_MODEL);
   const [title, setTitle] = useState<{
     value: string;
@@ -109,7 +111,7 @@ const UpdateModel: React.FC<{
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Database Name</span>
+            <span className="subtitle text-hint">{language.dbName}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <span className="subtitle text-hint">{modelObject.id}</span>
@@ -119,14 +121,14 @@ const UpdateModel: React.FC<{
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Display Name</span>
+            <span className="subtitle text-hint">{language.displayName}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup>
               <input
                 name="name"
                 value={title.value}
-                placeholder="Model Name"
+                placeholder={language.modelName}
                 onChange={onChange}
               />
             </InputGroup>
@@ -136,7 +138,7 @@ const UpdateModel: React.FC<{
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Id Field</span>
+            <span className="subtitle text-hint">{language.idField}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <Select
@@ -159,7 +161,7 @@ const UpdateModel: React.FC<{
       <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Display Fields</span>
+            <span className="subtitle text-hint">{language.displayFields}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <Select
@@ -183,7 +185,7 @@ const UpdateModel: React.FC<{
       <Col breakPoint={{ xs: 12 }}>
         <Row around="xs" middle="xs">
           <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">Actions</span>
+            <span className="subtitle text-hint">{language.actions}</span>
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <Row around="xs" middle="xs">
@@ -194,7 +196,7 @@ const UpdateModel: React.FC<{
                     checked={modelObject[key] as boolean}
                     onChange={(value) => onChangeHandler(key, value)}
                   >
-                    {key}
+                    {language[key]}
                   </Checkbox>
                 </Col>
               ))}

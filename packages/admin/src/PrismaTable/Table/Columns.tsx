@@ -25,7 +25,10 @@ const columnsObject: GetColumns = (field, model) => ({
     Filter: BooleanFilter,
     disableFilters: !field.filter || field.list,
     defaultCanSort: field.sort,
-    Cell: ({ value }) => (field.list ? value.join(',') : value ? 'yes' : 'no'),
+    Cell: ({ value }) => {
+      const { lang } = useContext(TableContext);
+      return field.list ? value.join(',') : value ? lang.yes : lang.no;
+    },
   },
   number: {
     Header: field.title,

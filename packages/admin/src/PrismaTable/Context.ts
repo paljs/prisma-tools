@@ -1,6 +1,7 @@
 import React from 'react';
 import * as queryString from 'query-string';
 import { ContextProps } from '..';
+import defaultLanguage from './language';
 
 export const defaultSettings = {
   pagesPath: '/admin/models/',
@@ -15,6 +16,7 @@ export const defaultSettings = {
 };
 
 const initialContext: ContextProps = {
+  lang: defaultLanguage,
   schema: {
     models: [],
     enums: [],

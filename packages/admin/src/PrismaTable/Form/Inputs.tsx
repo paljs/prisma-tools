@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal } from '@paljs/ui/Modal';
 import { Button } from '@paljs/ui/Button';
 import { Checkbox } from '@paljs/ui/Checkbox';
@@ -73,11 +73,17 @@ const formats = [
 ];
 
 const defaultInputs: Omit<FormInputs, 'Upload'> = {
-  Default({ field, error, register, disabled }) {
+  Default({ field, error, register, disabled, value }) {
+    const { lang } = useContext(TableContext);
     const options: any = {
-      name: field.name,
       disabled,
-      ref: register(field.required ? { required: true } : {}),
+      defaultValue: value
+        ? field.type === 'Json'
+          ? JSON.stringify(value)
+          : field.list
+          ? value.join(',')
+          : value
+        : value,
     };
     if (field.list) {
       options['type'] = 'text';
@@ -103,19 +109,23 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
           </Col>
           <Col breakPoint={{ xs: 8 }}>
             <InputGroup status={error ? 'Danger' : 'Primary'} fullWidth>
-              <input {...options} />
+              <input
+                {...register(field.name, { required: field.required })}
+                {...options}
+              />
             </InputGroup>
           </Col>
         </Row>
         <span className="caption-2 status-Danger">
-          {error ? field.title + ' is required' : ''}
+          {error ? field.title + lang.isRequired : ''}
         </span>
       </StyledCol>
     );
   },
   Editor({ field, value, error, register, setValue, disabled }) {
+    const { lang } = useContext(TableContext);
     React.useEffect(() => {
-      register({ name: field.name, required: field.required });
+      register(field.name, { required: field.required });
     }, [register]);
 
     return (
@@ -136,7 +146,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
           </StyledReactQuillCol>
         </Row>
         <span className="caption-2 status-Danger">
-          {error ? field.title + ' is required' : ''}
+          {error ? field.title + lang.isRequired : ''}
         </span>
       </StyledCol>
     );
@@ -144,14 +154,15 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   Enum({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value);
     const enumType = useEnum(field.type);
+    const { lang } = useContext(TableContext);
 
     React.useEffect(() => {
-      register({ name: field.name, required: field.required });
+      register(field.name, { required: field.required });
     }, [register]);
 
     const options: Option[] = field.required
       ? []
-      : [{ value: null, label: 'All' }];
+      : [{ value: null, label: lang.all }];
     if (enumType) {
       options.push(
         ...enumType.fields.map((item) => ({ value: item, label: item })),
@@ -178,7 +189,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
           </Col>
         </Row>
         <span className="caption-2 status-Danger">
-          {error ? field.title + ' is required' : ''}
+          {error ? field.title + lang.isRequired : ''}
         </span>
       </StyledCol>
     );
@@ -187,6 +198,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
   Object({ field, value, error, register, setValue, disabled }) {
     const {
       schema: { models },
+      lang,
     } = useContext(TableContext);
     const model = models.find((item) => item.id === field.type)!;
     const [modal, setModal] = useState(false);
@@ -213,7 +225,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     }
 
     React.useEffect(() => {
-      register({ name: field.name, required: field.required });
+      register(field.name, { required: field.required });
     }, [register]);
 
     return (
@@ -265,14 +277,14 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
           </Col>
         </Row>
         <span className="caption-2 status-Danger">
-          {error ? field.title + ' is required' : ''}
+          {error ? field.title + lang.isRequired : ''}
         </span>
       </StyledCol>
     );
   },
   Date({ field, value, error, register, setValue, disabled }) {
-    const [state, setState] = useState(value ? new Date(value) : new Date());
-
+    const [state, setState] = useState(value ? new Date(value) : undefined);
+    const { lang } = useContext(TableContext);
     const onChangeHandler = (value: Date | [Date, Date]) => {
       if (!Array.isArray(value)) {
         setValue(field.name, value.toISOString());
@@ -281,7 +293,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     };
 
     React.useEffect(() => {
-      register({ name: field.name, required: field.required });
+      register(field.name, { required: field.required });
     }, [register]);
 
     return (
@@ -303,7 +315,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
           </Col>
         </Row>
         <span className="caption-2 status-Danger">
-          {error ? field.title + ' is required' : ''}
+          {error ? field.title + lang.isRequired : ''}
         </span>
       </StyledCol>
     );
@@ -317,7 +329,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     };
 
     React.useEffect(() => {
-      register({ name: field.name });
+      register(field.name);
     }, [register]);
 
     return (
