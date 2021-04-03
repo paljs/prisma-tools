@@ -117,7 +117,7 @@ const columnsObject: GetColumns = (field, model) => ({
     disableFilters: !field.filter,
     disableSortBy: true,
     Cell: ({ row }) => {
-      const { push, pagesPath } = useContext(TableContext);
+      const { push, pagesPath, lang } = useContext(TableContext);
       if (!model) return <></>;
       const id = (row.original as any).id;
       return (
@@ -126,7 +126,7 @@ const columnsObject: GetColumns = (field, model) => ({
           appearance="ghost"
           size="Small"
         >
-          Show
+          {lang.show}
         </Button>
       );
     },

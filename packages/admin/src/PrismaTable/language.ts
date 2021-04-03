@@ -35,4 +35,5 @@ export default {
   update: 'update',
   view: 'view',
   isRequired: ' is required',
+  show: 'SHOW',
 };

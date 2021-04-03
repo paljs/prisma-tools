@@ -18,7 +18,7 @@ export interface FormProps {
   onSave: () => void;
 }
 
-/* const getDefaultValues = (
+const getDefaultValues = (
   action: FormProps['action'],
   model: SchemaModel,
   data: any,
@@ -47,7 +47,7 @@ export interface FormProps {
       }
     });
   return defaultValues;
-}; */
+};
 
 const Form: React.FC<FormProps> = ({
   action,
@@ -71,9 +71,9 @@ const Form: React.FC<FormProps> = ({
     getValues,
     watch,
     formState: { errors },
-  } = useForm(/* {
+  } = useForm({
     defaultValues: getDefaultValues(action, model, data),
-  } */);
+  });
 
   const theme = useTheme();
 
