@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { Card, CardBody } from '@paljs/ui/Card';
@@ -523,22 +523,28 @@ export const Table: React.FC<TableProps> = ({
 };
 
 const StyledTable = styled.table<{ columnSize: number }>`
-  border-spacing: 0;
+  ${({ theme, columnSize }) =>
+    css`
+    border-spacing: 0;
   width: 100%;
   tbody tr:nth-child(2n) {
-    background-color: ${(props) => props.theme.backgroundBasicColor2};
+    background-color: ${theme.backgroundBasicColor2};
   }
   tbody tr:hover {
-    background: ${(props) => props.theme.backgroundBasicColor3} !important;
+    background: ${theme.backgroundBasicColor3} !important;
   }
 
   thead tr {
-    background: ${(props) => props.theme.backgroundBasicColor2};
+    background: ${theme.backgroundBasicColor2};
     th {
-      border-top: 1px solid ${(props) => props.theme.backgroundBasicColor3};
-      border-left: 1px solid ${(props) => props.theme.backgroundBasicColor3};
+      border-top: 1px solid ${theme.backgroundBasicColor3};
+      border-${theme.dir === 'rtl' ? 'right' : 'left'}: 1px solid ${
+      theme.backgroundBasicColor3
+    };
       :last-child {
-        border-right: 1px solid ${(props) => props.theme.backgroundBasicColor3};
+        border-${theme.dir === 'rtl' ? 'left' : 'right'}: 1px solid ${
+      theme.backgroundBasicColor3
+    };
       }
     }
   }
@@ -547,7 +553,7 @@ const StyledTable = styled.table<{ columnSize: number }>`
     :last-child {
       td {
         text-align: start;
-        border: 1px solid ${(props) => props.theme.backgroundBasicColor2};
+        border: 1px solid ${theme.backgroundBasicColor2};
       }
     }
   }
@@ -560,16 +566,20 @@ const StyledTable = styled.table<{ columnSize: number }>`
 
   th,
   td {
-    max-width: ${({ columnSize }) => (columnSize > 150 ? columnSize : 150)}px;
+    max-width: ${columnSize > 150 ? columnSize : 150}px;
     margin: 0;
     padding: 0.5rem;
-    border-top: 1px solid ${(props) => props.theme.backgroundBasicColor2};
-    border-left: 1px solid ${(props) => props.theme.backgroundBasicColor2};
+    border-top: 1px solid ${theme.backgroundBasicColor2};
+    border-${theme.dir === 'rtl' ? 'right' : 'left'}: 1px solid ${
+      theme.backgroundBasicColor2
+    };
     text-align: center;
     :last-child {
-      border-right: 1px solid ${(props) => props.theme.backgroundBasicColor2};
+      border-${theme.dir === 'rtl' ? 'left' : 'right'}: 1px solid ${
+      theme.backgroundBasicColor2
+    };
     }
-  }
+  `}
 `;
 
 const StyledButton = styled(Button)`
