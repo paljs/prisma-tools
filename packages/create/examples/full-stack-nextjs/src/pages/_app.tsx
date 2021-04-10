@@ -6,8 +6,7 @@ import Layout from 'Layouts/Admin';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from 'Api/client';
 
-import 'react-quill/dist/quill.snow.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import '@paljs/admin/tailwind.css';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps.initialApolloState);

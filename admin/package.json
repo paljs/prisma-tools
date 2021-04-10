@@ -1,0 +1,70 @@
+{
+  "name": "@paljs/admin",
+  "version": "2.14.0",
+  "main": "build/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/admin"
+  },
+  "homepage": "http://paljs.com",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "yarn build:types && yarn build:cjs && yarn build:esm && yarn build:copy-files && yarn build:css",
+    "build:cjs": "node ./scripts/build cjs",
+    "build:esm": "node ./scripts/build esm",
+    "build:es": "node ./scripts/build es",
+    "build:copy-files": "node ./scripts/copyFiles",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:css": "NODE_ENV=production tailwindcss-cli build -o build/tailwind.css",
+    "prepare": "yarn build && yarn build-css"
+  },
+  "dependencies": {
+    "@headlessui/react": "^0.3.2",
+    "@heroicons/react": "^1.0.0",
+    "@paljs/types": "^2.14.0",
+    "react-beautiful-dnd": "13.1.0",
+    "react-hook-form": "7.0.5",
+    "react-quill": "1.3.5",
+    "react-table": "7.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/node": "^7.12.16",
+    "@babel/plugin-transform-object-assign": "^7.12.13",
+    "@babel/plugin-transform-react-constant-elements": "^7.12.13",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.16",
+    "@apollo/client": "3.3.14",
+    "@tailwindcss/forms": "^0.3.2",
+    "@types/node": "14.14.37",
+    "@types/react": "17.0.3",
+    "@types/react-beautiful-dnd": "13.0.0",
+    "@types/react-dom": "17.0.3",
+    "@types/react-table": "7.0.29",
+    "autoprefixer": "^10.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "graphql-tag": "2.11.0",
+    "fs-extra": "^9.1.0",
+    "gh-pages": "3.1.0",
+    "glob": "^7.1.6",
+    "postcss": "^8.2.9",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "tailwindcss": "^2.1.1",
+    "tailwindcss-cli": "^0.1.2",
+    "typescript": "4.2.4",
+    "yargs": "^16.2.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "build"
+  },
+  "gitHead": "8ea3a3ba5792d102345c22606f5d14edb63d7ad8"
+}
