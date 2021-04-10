@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Checkbox } from '@paljs/ui/Checkbox';
-import { InputGroup } from '@paljs/ui/Input';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import { SchemaField } from '../types';
 import { useMutation } from '@apollo/client';
+
+import { SchemaField } from '../types';
 import { UPDATE_FIELD } from '../SchemaQueries';
 import { SettingLanguage } from '.';
+import Checkbox from '../components/Checkbox';
+import { inputClasses } from '../components/css';
 
 type Fields =
   | 'read'
@@ -17,15 +16,11 @@ type Fields =
   | 'editor'
   | 'upload';
 
-const fieldsArray: Fields[] = [
-  'read',
-  'filter',
-  'sort',
-  'create',
-  'update',
-  'editor',
-  'upload',
-];
+const fields: { [key in keyof SettingLanguage]?: Fields[] } = {
+  tableView: ['read', 'filter', 'sort'],
+  actions: ['create', 'update'],
+  inputType: ['editor', 'upload'],
+};
 
 const UpdateField: React.FC<{
   field: SchemaField;
@@ -64,49 +59,48 @@ const UpdateField: React.FC<{
   };
 
   return (
-    <Row middle="xs">
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.dbName}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <span className="subtitle text-hint">{field.name}</span>
-          </Col>
-        </Row>
-      </Col>
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.displayName}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <InputGroup>
-              <input
-                name="name"
-                value={title.value}
-                placeholder={language.fieldName}
-                onChange={onChange}
-              />
-            </InputGroup>
-          </Col>
-        </Row>
-      </Col>
-      {fieldsArray.map((item) => (
-        <Col breakPoint={{ xs: 4 }} key={item}>
-          <Checkbox
-            disabled={
-              !!(field.relationField && ['create', 'update'].includes(item))
-            }
-            status="Success"
-            checked={!!field[item]}
-            onChange={(value) => onChangeHandler(item, value)}
-          >
-            {language[item]}
-          </Checkbox>
-        </Col>
+    <div className="flex flex-wrap w-full space-y-2.5">
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">{language.dbName}</div>
+        <div className="w-2/3 text-gray-400 font-bold">{field.name}</div>
+      </div>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">
+          {language.displayName}
+        </div>
+        <div className="w-2/3">
+          <input
+            name="name"
+            value={title.value}
+            placeholder={language.fieldName}
+            onChange={onChange}
+            className={inputClasses}
+          />
+        </div>
+      </div>
+      {(Object.keys(fields) as (keyof SettingLanguage)[]).map((key) => (
+        <div key={key} className="flex w-full items-center">
+          <div className="w-1/3 text-gray-400 font-bold">{language[key]}</div>
+          <div className="flex w-2/3">
+            {fields[key]?.map((item) => (
+              <div key={item} className="w-1/3">
+                <Checkbox
+                  label={language[item]}
+                  id={field.id + item}
+                  disabled={
+                    !!(
+                      field.relationField && ['create', 'update'].includes(item)
+                    )
+                  }
+                  checked={field[item]}
+                  onChange={(e) => onChangeHandler(item, e.target.checked)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       ))}
-    </Row>
+    </div>
   );
 };
 export default UpdateField;

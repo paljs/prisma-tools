@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const useFilter = (
   init: any,
@@ -12,10 +12,14 @@ export const useFilter = (
     value: init ?? {},
   });
 
+  useEffect(() => {
+    setState({ value: init || {} });
+  }, [init]);
+
   const onChangeHandler = (newValue: any) => {
     let search: any = false;
     Object.keys(newValue).forEach((key) => {
-      if (newValue[key]) {
+      if (newValue[key] !== undefined) {
         if (!search) {
           search = {};
         }
@@ -25,26 +29,37 @@ export const useFilter = (
     setFilter(search ?? undefined);
   };
 
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    name: string,
-  ) => {
-    const search = event.target.value;
-    if (state.typingTimeout) clearTimeout(state.typingTimeout);
-    const newValue = {
-      ...state.value,
-      [name]: search
-        ? number
-          ? parseFloat(event.target.value)
-          : event.target.value
-        : undefined,
-    };
-    setState({
-      value: newValue,
-      typingTimeout: setTimeout(function () {
-        onChangeHandler(newValue);
-      }, 1000),
-    });
+  const onChange: (options?: {
+    event?: React.ChangeEvent<HTMLInputElement>;
+    name?: string;
+    value?: any;
+  }) => void = (options) => {
+    if (!options) {
+      setState({ value: {} });
+      onChangeHandler({});
+    } else if (options.name) {
+      const { event, name, value } = options;
+      const search = event?.target.value || value;
+      if (state.typingTimeout) clearTimeout(state.typingTimeout);
+      const newValue = {
+        ...state.value,
+        [name]:
+          search || value === false
+            ? number
+              ? parseFloat(search)
+              : search
+            : undefined,
+      };
+      setState({
+        value: newValue,
+        typingTimeout: setTimeout(
+          function () {
+            onChangeHandler(newValue);
+          },
+          !event ? 1 : 1000,
+        ),
+      });
+    }
   };
 
   return {

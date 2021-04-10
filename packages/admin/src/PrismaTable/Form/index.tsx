@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Card, CardBody, CardFooter } from '@paljs/ui/Card';
-import { Button } from '@paljs/ui/Button';
-import Row from '@paljs/ui/Row';
+
+import Spinner from '../../components/Spinner';
 import { Inputs } from './Inputs';
 import useActions from './useActions';
 import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
-import Spinner from '@paljs/ui/Spinner';
-import { useTheme } from 'styled-components';
+import { buttonClasses } from '../../components/css';
+import { getDate } from './getdate';
 
 export interface FormProps {
   action: 'update' | 'create' | 'view';
@@ -39,7 +38,9 @@ const getDefaultValues = (
         defaultValues[field.name] = data[field.name];
       } else {
         defaultValues[field.name] =
-          field.type === 'Json'
+          field.type === 'DateTime'
+            ? getDate(new Date(data[field.name]))
+            : field.type === 'Json'
             ? JSON.stringify(data[field.name])
             : field.list
             ? data[field.name].join(',')
@@ -77,8 +78,6 @@ const Form: React.FC<FormProps> = ({
 
   const { errors, isDirty } = formState;
 
-  const theme = useTheme();
-
   const InputComponents = formInputs
     ? {
         ...Inputs,
@@ -87,19 +86,22 @@ const Form: React.FC<FormProps> = ({
     : Inputs;
 
   return (
-    <Card
-      status={action === 'update' ? 'Warning' : 'Success'}
+    <div
+      className="flex flex-col bg-white rounded shadow-lg text-gray-800 text-base mb-5"
       style={
-        action === 'create'
-          ? { maxWidth: '1200px', maxHeight: '100vh', minWidth: '50vw' }
-          : {}
+        action === 'create' ? { maxWidth: '800px', maxHeight: '100vh' } : {}
       }
     >
-      <header>{lang[action] + ' ' + model.name}</header>
+      <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold text-2xl">
+        {lang[action] + ' ' + model.name}
+      </header>
       <form onSubmit={handleSubmit(onSubmit)} style={{ overflow: 'auto' }}>
-        <CardBody style={{ overflow: 'visible' }}>
-          {loading && <Spinner size="Large" />}
-          <Row between="lg">
+        <div
+          className="relative py-4 px-5 flex-auto overflow-auto"
+          style={{ overflow: 'visible' }}
+        >
+          {loading && <Spinner />}
+          <div className="flex flex-wrap w-full">
             {model.fields
               .filter(
                 (field) =>
@@ -150,29 +152,34 @@ const Form: React.FC<FormProps> = ({
                     return <InputComponents.Default {...options} />;
                 }
               })}
-          </Row>
-        </CardBody>
-        <CardFooter>
+          </div>
+        </div>
+        <div className="flex justify-end py-4 px-5 rounded-b border-t border-gray-100">
+          <button
+            className={
+              buttonClasses +
+              'rounded-md py-2 px-4 bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
+            }
+            type="button"
+            onClick={onCancel}
+          >
+            {action !== 'view' ? lang.cancel : lang.close}
+          </button>
           {action !== 'view' && (
-            <Button
-              style={
-                theme.dir === 'rtl'
-                  ? { marginLeft: '20px' }
-                  : { marginRight: '20px' }
+            <button
+              className={
+                buttonClasses +
+                'rounded-md py-2 px-4 bg-green-500 text-white active:bg-green-600 shadow hover:bg-green-800'
               }
               type="submit"
-              status="Success"
               disabled={Object.keys(errors).length !== 0 || !isDirty}
             >
               {lang.save}
-            </Button>
+            </button>
           )}
-          <Button type="button" status="Danger" onClick={onCancel}>
-            {action !== 'view' ? lang.cancel : lang.close}
-          </Button>
-        </CardFooter>
+        </div>
       </form>
-    </Card>
+    </div>
   );
 };
 export default Form;

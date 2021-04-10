@@ -1,20 +1,18 @@
 import React, { useRef, useState } from 'react';
-import Select from '@paljs/ui/Select';
-import { Checkbox } from '@paljs/ui/Checkbox';
-import { InputGroup } from '@paljs/ui/Input';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import { SchemaModel } from '../types';
 import { useMutation } from '@apollo/client';
+
+import { SchemaModel } from '../types';
 import { UPDATE_MODEL } from '../SchemaQueries';
 import { SettingLanguage } from './index';
+import Select from '../components/Select';
+import Checkbox from '../components/Checkbox';
+import { inputClasses } from '../components/css';
 
 type Fields = 'delete' | 'create' | 'update';
 type Option = {
-  label: string;
-  value?: string;
-  model?: string;
-  options?: Option[];
+  name: string;
+  id: string;
+  unavailable?: boolean;
 };
 const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
@@ -39,7 +37,10 @@ const UpdateModel: React.FC<{
     });
   }
 
-  const onChangeHandler = (name: string, value: boolean | string) => {
+  const onChangeHandler = (
+    name: string,
+    value: boolean | string | string[],
+  ) => {
     updateModel({
       variables: {
         id: modelObject.id,
@@ -61,7 +62,7 @@ const UpdateModel: React.FC<{
     });
   };
 
-  const values: { label: string; value: string }[] = [];
+  const values: { id: string; name: string }[] = [];
   const allOptions: Option[] = [];
   const modelsList: string[] = [];
   const getOptions = (model: SchemaModel, parent = '') => {
@@ -70,14 +71,18 @@ const UpdateModel: React.FC<{
     model.fields
       .filter((item) => !item.list)
       .slice()
-      .sort((a, b) => a.order - b.order)
+      .sort((a, b) => {
+        const aObject = Number(a.kind === 'object');
+        const bObject = Number(b.kind === 'object');
+        return aObject - bObject || a.order - b.order;
+      })
       .forEach((item) => {
         if (item.kind !== 'object') {
           const option = {
-            value: parent ? parent + '.' + item.name : item.name,
-            label: item.title,
+            id: parent ? parent + '.' + item.name : item.name,
+            name: item.title,
           };
-          if (modelObject.displayFields.includes(option.value)) {
+          if (modelObject.displayFields.includes(option.id)) {
             values.push(option);
           }
           parent ? options.push(option) : allOptions.push(option);
@@ -92,119 +97,91 @@ const UpdateModel: React.FC<{
       });
     if (parent) {
       allOptions.push({
-        label: parent
-          .split('.')
-          .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
-          .join(' '),
-        options,
+        id: model.id,
+        unavailable: true,
+        name: model.name,
       });
+      allOptions.push(...options);
     }
   };
 
   getOptions(modelObject);
 
+  const onChangeMultiSelect = (option: Option) => {
+    const isFound = !!values.find((v) => v.id === option.id);
+    const value = isFound
+      ? values.filter((v) => v.id !== option.id).map((v) => v.id)
+      : [...values, option].map((v) => v.id);
+    if (value && value.length > 0) {
+      onChangeHandler('displayFields', value);
+    }
+  };
+
   const idField = modelObject.fields.find(
     (item) => item.name === modelObject.idField,
   );
   return (
-    <Row middle="xs">
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.dbName}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <span className="subtitle text-hint">{modelObject.id}</span>
-          </Col>
-        </Row>
-      </Col>
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.displayName}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <InputGroup>
-              <input
-                name="name"
-                value={title.value}
-                placeholder={language.modelName}
-                onChange={onChange}
-              />
-            </InputGroup>
-          </Col>
-        </Row>
-      </Col>
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.idField}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <Select
-              status="Primary"
-              shape="SemiRound"
-              value={{
-                value: idField?.name ?? '',
-                label: idField?.title ?? 'No ID',
-              }}
-              onChange={(option: any) =>
-                onChangeHandler('idField', option.value)
-              }
-              options={modelObject.fields
-                .filter((item) => item.isId || item.unique)
-                .map((item) => ({ value: item.name, label: item.title }))}
+    <>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">{language.dbName}</div>
+        <div className="w-2/3 col-span-2 text-gray-400 font-bold">
+          {modelObject.id}
+        </div>
+      </div>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">
+          {language.displayName}
+        </div>
+        <div className="w-2/3">
+          <input
+            name="name"
+            value={title.value}
+            placeholder={language.modelName}
+            onChange={onChange}
+            className={inputClasses}
+          />
+        </div>
+      </div>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">{language.idField}</div>
+        <Select
+          className="w-2/3"
+          value={{
+            id: idField?.name ?? '',
+            name: idField?.title ?? 'No ID',
+          }}
+          onChange={(option: any) => onChangeHandler('idField', option.id)}
+          options={modelObject.fields
+            .filter((item) => item.isId || item.unique)
+            .map((item) => ({ id: item.name, name: item.title }))}
+        />
+      </div>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">
+          {language.displayFields}
+        </div>
+        <Select
+          className="w-2/3"
+          value={values}
+          onChange={onChangeMultiSelect}
+          options={allOptions}
+        />
+      </div>
+      <div className="flex w-full items-center">
+        <div className="w-1/3 text-gray-400 font-bold">{language.actions}</div>
+        <div className="w-2/3 flex">
+          {fieldsArray.map((key, index) => (
+            <Checkbox
+              key={key}
+              id={key + index}
+              label={language[key]}
+              checked={modelObject[key] as boolean}
+              onChange={(e) => onChangeHandler(key, e.target.checked)}
             />
-          </Col>
-        </Row>
-      </Col>
-      <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.displayFields}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <Select
-              isMulti
-              status="Primary"
-              shape="SemiRound"
-              value={values}
-              onChange={(option: any) => {
-                if (option) {
-                  onChangeHandler(
-                    'displayFields',
-                    option.map((item: any) => item.value),
-                  );
-                }
-              }}
-              options={allOptions as any}
-            />
-          </Col>
-        </Row>
-      </Col>
-      <Col breakPoint={{ xs: 12 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{language.actions}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <Row around="xs" middle="xs">
-              {fieldsArray.map((key, index) => (
-                <Col breakPoint={{ xs: 4 }} key={index}>
-                  <Checkbox
-                    status="Success"
-                    checked={modelObject[key] as boolean}
-                    onChange={(value) => onChangeHandler(key, value)}
-                  >
-                    {language[key]}
-                  </Checkbox>
-                </Col>
-              ))}
-            </Row>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 export default UpdateModel;

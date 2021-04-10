@@ -1,14 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  BooleanFilter,
-  DateTimeFilter,
-  EnumFilter,
-  NumberFilter,
-  ObjectFilter,
-  StringFilter,
-} from './Filters';
-import moment from 'moment';
-import { Button } from '@paljs/ui/Button';
+
 import { getDisplayName } from './utils';
 import {
   SchemaField,
@@ -17,12 +8,12 @@ import {
   GetColumns,
 } from '../../types';
 import { TableContext } from '../Context';
+import { buttonClasses } from '../../components/css';
 
 const columnsObject: GetColumns = (field, model) => ({
   boolean: {
     Header: field.title,
     accessor: field.name,
-    Filter: BooleanFilter,
     disableFilters: !field.filter || field.list,
     defaultCanSort: field.sort,
     Cell: ({ value }) => {
@@ -33,7 +24,6 @@ const columnsObject: GetColumns = (field, model) => ({
   number: {
     Header: field.title,
     accessor: field.name,
-    Filter: NumberFilter,
     disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
     Cell: ({ value }) => (field.list ? value.join(',') : value),
@@ -41,7 +31,6 @@ const columnsObject: GetColumns = (field, model) => ({
   enum: {
     Header: field.title,
     accessor: field.name,
-    Filter: EnumFilter(field),
     disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
     Cell: ({ value }) => (field.list ? value.join(',') : value),
@@ -50,15 +39,13 @@ const columnsObject: GetColumns = (field, model) => ({
     Header: field.title,
     accessor: field.name,
     minWidth: 200,
-    Filter: DateTimeFilter || field.list,
     disableFilters: !field.filter,
     disableSortBy: !field.sort,
-    Cell: ({ value }) => (value ? moment(value).format('YYYY-MM-DD h:mm') : ''),
+    Cell: ({ value }) => (value ? new Date(value).toLocaleString() : ''),
   },
   object: {
     Header: field.title,
     accessor: field.name,
-    Filter: ObjectFilter(field),
     disableFilters: !field.filter,
     disableSortBy: true,
     Cell: ({ value }) => {
@@ -70,7 +57,7 @@ const columnsObject: GetColumns = (field, model) => ({
       const model = models.find((item) => item.id === field.type);
       if (!model || !value) return <></>;
       return (
-        <Button
+        <button
           onClick={() =>
             push(
               `${pagesPath}${field.type}?${model.idField}=${
@@ -78,9 +65,6 @@ const columnsObject: GetColumns = (field, model) => ({
               }`,
             )
           }
-          appearance="ghost"
-          size="Small"
-          fullWidth
           style={{
             textOverflow: 'ellipsis',
             overflow: 'hidden',
@@ -88,16 +72,19 @@ const columnsObject: GetColumns = (field, model) => ({
             padding: 0,
             textTransform: 'none',
           }}
+          className={
+            buttonClasses +
+            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
+          }
         >
           {getDisplayName(value, model)}
-        </Button>
+        </button>
       );
     },
   },
   string: {
     Header: field.title,
     accessor: field.name,
-    Filter: StringFilter,
     disableFilters: !field.filter || field.list,
     disableSortBy: !field.sort,
     Cell: ({ value }) => (field.list ? value.join(',') : value),
@@ -105,7 +92,6 @@ const columnsObject: GetColumns = (field, model) => ({
   json: {
     Header: field.title,
     accessor: field.name,
-    Filter: StringFilter,
     disableFilters: true,
     disableSortBy: true,
     Cell: ({ value }) => (value ? JSON.stringify(value) : value),
@@ -113,7 +99,6 @@ const columnsObject: GetColumns = (field, model) => ({
   list: {
     Header: field.title,
     accessor: field.name,
-    Filter: ObjectFilter(field),
     disableFilters: !field.filter,
     disableSortBy: true,
     Cell: ({ row }) => {
@@ -121,13 +106,15 @@ const columnsObject: GetColumns = (field, model) => ({
       if (!model) return <></>;
       const id = (row.original as any).id;
       return (
-        <Button
+        <button
+          className={
+            buttonClasses +
+            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
+          }
           onClick={() => push(`${pagesPath}${field.type}?${model.id}=${id}`)}
-          appearance="ghost"
-          size="Small"
         >
           {lang.show}
-        </Button>
+        </button>
       );
     },
   },

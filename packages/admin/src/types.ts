@@ -8,7 +8,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
 
-export { Schema, SchemaField, SchemaModel };
+export type { Schema, SchemaField, SchemaModel };
 
 export type Columns = Record<
   | 'boolean'
@@ -19,7 +19,9 @@ export type Columns = Record<
   | 'string'
   | 'list'
   | 'json',
-  Column & UseFiltersColumnOptions<any> & UseSortByColumnOptions<any>
+  Column<{ [key: string]: any }> &
+    UseFiltersColumnOptions<any> &
+    UseSortByColumnOptions<any>
 >;
 
 export interface InputProps {
@@ -55,6 +57,7 @@ interface RequireContextProps {
   pageSizeOptions: number[];
   paginationOptions: number;
   lang: typeof Language;
+  dir: 'rtl' | 'ltr';
 }
 
 interface SameProps {

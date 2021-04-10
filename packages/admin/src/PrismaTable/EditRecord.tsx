@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
-import { Card } from '@paljs/ui/Card';
-import { Tab, Tabs } from '@paljs/ui/Tabs';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import Spinner from '@paljs/ui/Spinner';
-import Form from './Form';
-import styled from 'styled-components';
-import DynamicTable from './dynamicTable';
+import React, { useContext, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
+
+import Spinner from '../components/Spinner';
+import Form from './Form';
+import DynamicTable from './dynamicTable';
 import { queryDocument } from './QueryDocument';
 import { TableContext } from './Context';
+import Select, { Option } from '../components/Select';
 
 interface EditRecordProps {
   model: string;
@@ -17,12 +14,6 @@ interface EditRecordProps {
   view?: any;
   onSave: () => void;
 }
-
-const StyledTabs = styled(Tabs)<{ children: any }>`
-  .tab-content {
-    padding: 0;
-  }
-`;
 
 const EditRecord: React.FC<EditRecordProps> = ({
   model,
@@ -36,11 +27,22 @@ const EditRecord: React.FC<EditRecordProps> = ({
     pagesPath,
     onCancelUpdate,
     actions,
+    lang,
+    dir,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
   const [getRecord, { data, loading, error }] = useLazyQuery(
     queryDocument(models, model, true, true),
   );
+
+  const tabs = modelObject?.fields.filter(
+    (field) => field.kind === 'object' && field.list && field.read,
+  );
+  const options: Option[] =
+    tabs?.map((t) => ({ id: t.id, name: t.title })) || [];
+  const [option, setOption] = useState(options[0]);
+  const relationField = tabs?.find((t) => t.id === option.id);
+
   const isField = modelObject?.fields.find(
     (field) => field.name === modelObject?.idField,
   );
@@ -58,9 +60,6 @@ const EditRecord: React.FC<EditRecordProps> = ({
   }
 
   const record = data ? data[`findUnique${model}`] : {};
-  const tabs = modelObject?.fields.filter(
-    (field) => field.kind === 'object' && field.list && field.read,
-  );
 
   if (
     (!loading && data && !data[`findUnique${model}`] && modelObject) ||
@@ -76,10 +75,10 @@ const EditRecord: React.FC<EditRecordProps> = ({
     };
 
   return loading || !modelObject || !data ? (
-    <Spinner size="Giant" />
+    <Spinner />
   ) : (
-    <Row>
-      <Col breakPoint={{ xs: 12 }}>
+    <div className="flex flex-wrap w-full">
+      <div className="w-full">
         <Form
           model={model}
           action={view ? 'view' : 'update'}
@@ -87,28 +86,36 @@ const EditRecord: React.FC<EditRecordProps> = ({
           onCancel={() => onUpdateCancel({ model })}
           onSave={onSave}
         />
-      </Col>
+      </div>
       {!!tabs?.length && !!Object.keys(record).length && (
-        <Col breakPoint={{ xs: 12 }}>
-          <Card>
-            <StyledTabs>
-              {tabs.map((field) => {
-                return (
-                  <Tab title={field.title} key={field.id}>
-                    <DynamicTable
-                      model={field.type}
-                      inEdit
-                      filter={{ [model]: record[modelObject.idField] }}
-                      parent={{ name: model, value: record, field: field.name }}
-                    />
-                  </Tab>
-                );
-              })}
-            </StyledTabs>
-          </Card>
-        </Col>
+        <div className="w-full">
+          <div className="flex items-center bg-white rounded shadow-lg mb-4 p-4">
+            <div
+              className={`text-gray-700 font-bold ${
+                dir === 'rtl' ? 'ml-4' : 'mr-4'
+              }`}
+            >
+              {lang.relation}
+            </div>
+            <Select
+              className="max-w-xs"
+              value={option}
+              onChange={setOption}
+              options={options}
+            />
+          </div>
+          {relationField && (
+            <DynamicTable
+              key={relationField.type}
+              model={relationField.type}
+              inEdit
+              filter={{ [model]: record[modelObject.idField] }}
+              parent={{ name: model, value: record, field: relationField.name }}
+            />
+          )}
+        </div>
       )}
-    </Row>
+    </div>
   );
 };
 

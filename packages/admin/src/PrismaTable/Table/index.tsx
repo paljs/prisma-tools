@@ -1,22 +1,30 @@
-import React, { useContext, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useContext, useState } from 'react';
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
-import { breakpointDown } from '@paljs/ui/breakpoints';
-import { Card, CardBody } from '@paljs/ui/Card';
-import { Button } from '@paljs/ui/Button';
-import { EvaIcon } from '@paljs/ui/Icon';
-import { InputGroup } from '@paljs/ui/Input';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import Popover from '@paljs/ui/Popover';
+
 import { columns } from './Columns';
 import { initPages } from './utils';
 import { TableContext } from '../Context';
-import Spinner from '@paljs/ui/Spinner';
-import Tooltip from '@paljs/ui/Tooltip';
-import { Checkbox } from '@paljs/ui/Checkbox';
+import Spinner from '../../components/Spinner';
+import Checkbox from '../../components/Checkbox';
 import { ListConnect } from './ListConnect';
-import { sanitize } from 'dompurify';
+import {
+  PencilAltIcon,
+  EyeIcon,
+  TrashIcon,
+  PlusIcon,
+} from '@heroicons/react/outline';
+
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+  ArrowNarrowDownIcon,
+  ArrowNarrowUpIcon,
+  SearchCircleIcon,
+} from '@heroicons/react/solid';
+import { Filter } from './Filters';
+import { buttonClasses } from '../../components/css';
 
 interface TableProps {
   inEdit?: boolean;
@@ -59,6 +67,7 @@ export const Table: React.FC<TableProps> = ({
     actions: userActions,
     actionButtons,
     lang,
+    dir,
   } = useContext(TableContext);
   const model = models.find((item) => item.id === modelName);
   const columnList = columns(model, tableColumns);
@@ -98,9 +107,8 @@ export const Table: React.FC<TableProps> = ({
     state: { pageIndex, pageSize, filters, sortBy },
   } = tableInstance as any;
 
-  const tableRef = useRef<HTMLTableElement>(null);
-  const [columnSize, setColumnSize] = useState(1);
   const [selected, setSelected] = useState<number[]>([]);
+  const [showFilter, setShowFilter] = useState(initialFilter.length > 0);
   // Listen for changes in pagination and use the state to fetch our new data
 
   const onSelectHandler = (state: boolean, id?: any) => {
@@ -133,21 +141,6 @@ export const Table: React.FC<TableProps> = ({
     filterHandler(filters);
   }, [filters]);
 
-  React.useEffect(() => {
-    function columnHandler() {
-      const clientRect = tableRef?.current?.getBoundingClientRect();
-      if (clientRect) {
-        setColumnSize(clientRect.width / columnList.length);
-      }
-    }
-
-    if (columnList.length > 0) columnHandler();
-    window.addEventListener('resize', columnHandler);
-    return () => {
-      window.removeEventListener('resize', columnHandler);
-    };
-  }, [columnList]);
-
   const actions = userActions
     ? {
         create: userActions.includes('create'),
@@ -162,14 +155,22 @@ export const Table: React.FC<TableProps> = ({
 
   const ActionButtons = {
     Add: () => (
-      <Button size="Tiny" onClick={() => onAction('create')}>
-        <EvaIcon name="plus-outline" />
-      </Button>
+      <button
+        className={
+          buttonClasses +
+          'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
+        }
+        onClick={() => onAction('create')}
+      >
+        <PlusIcon className="h-5 w-5" />
+      </button>
     ),
     Update: ({ id }: { id: any }) => (
-      <Button
-        style={{ padding: 0 }}
-        appearance="ghost"
+      <button
+        className={
+          buttonClasses +
+          'bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
+        }
         onClick={() =>
           model &&
           push(
@@ -179,21 +180,26 @@ export const Table: React.FC<TableProps> = ({
           )
         }
       >
-        <EvaIcon name={actions.update ? 'edit-outline' : 'eye-outline'} />
-      </Button>
+        {actions.update ? (
+          <PencilAltIcon className="h-5 w-5" />
+        ) : (
+          <EyeIcon className="h-5 w-5" />
+        )}
+      </button>
     ),
     Delete: ({ id }: { id: any }) => (
-      <Button
-        style={{ padding: 0 }}
-        status="Danger"
-        appearance="ghost"
+      <button
+        className={
+          buttonClasses +
+          'bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
+        }
         onClick={() => {
           const confirm = window.confirm(lang.deleteConfirm);
           if (confirm && model) onAction('delete', id);
         }}
       >
-        <EvaIcon name="trash-2-outline" />
-      </Button>
+        <TrashIcon className="h-5 w-5" />
+      </button>
     ),
     ...actionButtons,
   };
@@ -206,392 +212,344 @@ export const Table: React.FC<TableProps> = ({
   const fieldUpdate = parentModel?.fields.find((f) => f.name === parent?.field)
     ?.update;
   // Render the UI for your table
+
+  const thClasses =
+    'px-4 py-2 text-center text-sm font-medium text-gray-500 whitespace-nowrap tracking-wider overflow-hidden overflow-ellipsis';
+  const tdClasses =
+    'px-4 py-2 text-center whitespace-nowrap overflow-hidden overflow-ellipsis text-gray-500';
   return (
-    <Card style={{ marginBottom: 0, maxHeight: '100vh' }}>
-      {!inEdit && (
-        <header
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          {model?.name}
-        </header>
+    <>
+      {showFilter && model && (
+        <Filter filters={filters} setAllFilters={setAllFilters} model={model} />
       )}
-      <CardBody id="popoverScroll">
-        {loading && <Spinner size="Giant" />}
-        <StyledTable
-          ref={tableRef}
-          {...getTableProps()}
-          columnSize={columnSize}
+      <div className="flex flex-col rounded-lg shadow bg-white overflow-hidden">
+        <div
+          className={`w-full inline-flex space-x-4  space-y-2.5 space-y-reverse mt-4 ${
+            dir === 'rtl' ? 'mr-4 space-x-reverse' : 'ml-4'
+          }`}
         >
-          <thead>
-            {headerGroups.map((headerGroup: any, index: number) => (
-              <React.Fragment key={index}>
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {isSelect && <th>{lang.select}</th>}
-                  <th colSpan={2}>{lang.actions}</th>
-                  {fieldUpdate && parent && <th>{lang.relation}</th>}
-                  {headerGroup.headers.map((column: any, index2: number) => (
-                    <th
-                      key={index2}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render('Header')}
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? ' 🔽'
-                            : ' 🔼'
-                          : ''}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-                <tr>
-                  {isSelect && (
-                    <th>
-                      <Checkbox
-                        onChange={onSelectHandler}
-                        checked={
-                          data.length > 0 && selected.length === data.length
-                        }
-                        indeterminate={
-                          selected.length > 0 && selected.length !== data.length
-                        }
-                      />
-                    </th>
-                  )}
-                  {connect ? (
-                    <th colSpan={2} />
-                  ) : (
-                    <th colSpan={2}>
-                      {actions.create && <ActionButtons.Add />}
-                    </th>
-                  )}
-                  {fieldUpdate && parent && (
-                    <th>
-                      <Button
-                        size="Small"
-                        shape="SemiRound"
-                        onClick={() => {
-                          if (hasFilters) {
-                            setAllFilters([]);
-                          } else {
-                            setAllFilters(initialFilter);
-                          }
-                        }}
-                      >
-                        {hasFilters ? lang.viewAll : lang.viewRelated}
-                      </Button>
-                    </th>
-                  )}
-                  {headerGroup.headers.map((column: any, index: number) => (
-                    <th key={index}>
-                      <div>
-                        {column.canFilter ? column.render('Filter') : null}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </React.Fragment>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row: any, index: number) => {
-              prepareRow(row);
-              return (
-                <tr key={index} {...row.getRowProps()}>
-                  {isSelect && (
-                    <td>
-                      <Checkbox
-                        onChange={(value) =>
-                          onSelectHandler(
-                            value,
-                            model && row.original[model.idField],
-                          )
-                        }
-                        checked={
-                          !!(
-                            model &&
-                            selected.includes(row.original[model.idField])
-                          )
-                        }
-                      />
-                    </td>
-                  )}
-                  {connect && (
-                    <td colSpan={2}>
-                      <Button
-                        size="Small"
-                        appearance="ghost"
-                        status="Success"
-                        disabled={
-                          model &&
-                          connect[model.idField] === row.original[model.idField]
-                        }
-                        onClick={() =>
-                          onAction(
-                            'connect',
-                            data.find(
-                              (item) =>
-                                model &&
-                                item[model.idField] ===
-                                  row.original[model.idField],
-                            ),
-                          )
-                        }
-                      >
-                        {model &&
-                        connect[model.idField] === row.original[model.idField]
-                          ? lang.connected
-                          : lang.connect}
-                      </Button>
-                    </td>
-                  )}
-                  {!connect && (
-                    <td colSpan={actions.delete ? 1 : 2}>
-                      <Tooltip
-                        className="inline-block"
-                        status="Primary"
-                        trigger="hint"
-                        placement="top"
-                        content={actions.update ? lang.editRow : lang.viewRow}
-                      >
-                        <ActionButtons.Update
-                          id={model ? row.original[model.idField] : 0}
-                        />
-                      </Tooltip>
-                    </td>
-                  )}
-                  {actions.delete && !connect && (
-                    <td colSpan={1}>
-                      <Tooltip
-                        className="inline-block"
-                        status="Danger"
-                        trigger="hint"
-                        placement="top"
-                        content={lang.deleteRow}
-                      >
-                        <ActionButtons.Delete
-                          id={model ? row.original[model.idField] : 0}
-                        />
-                      </Tooltip>
-                    </td>
-                  )}
-                  {parent && model && fieldUpdate && (
-                    <ListConnect parent={parent} row={row} model={model} />
-                  )}
-                  {row.cells.map((cell: any, index2: number) => {
-                    return (
-                      <td key={index2} {...cell.getCellProps()}>
-                        {cell.value &&
-                        cell.value.length > Math.floor(columnSize / 6) ? (
-                          <Popover
-                            eventListener="#popoverScroll"
-                            trigger="click"
-                            placement="top"
-                            overlay={
-                              <Card
-                                style={{
-                                  marginBottom: '0',
-                                  maxHeight: '300px',
-                                }}
-                              >
-                                <CardBody>
-                                  <div
-                                    style={{ maxWidth: '300px' }}
-                                    dangerouslySetInnerHTML={{
-                                      __html: sanitize(cell.value),
-                                    }}
-                                  />
-                                </CardBody>
-                              </Card>
-                            }
-                          >
-                            <div style={{ cursor: 'pointer' }}>
-                              {cell.render('Cell')}
-                            </div>
-                          </Popover>
-                        ) : (
-                          cell.render('Cell')
+          <div>
+            <ActionButtons.Add />
+          </div>
+          <button
+            className={
+              buttonClasses +
+              'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
+            }
+            onClick={() => {
+              setShowFilter(!showFilter);
+              setAllFilters([]);
+            }}
+          >
+            {showFilter ? lang.clearAll : lang.filter}
+          </button>
+        </div>
+        <div className="-my-2 overflow-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="overflow-hidden relative">
+              {loading && <Spinner />}
+              <table
+                className="min-w-full divide-y divide-gray-200 border-b border-t border-gray-200"
+                {...getTableProps()}
+              >
+                <thead className="bg-gray-100">
+                  {headerGroups.map((headerGroup: any, index: number) => (
+                    <React.Fragment key={index}>
+                      <tr {...headerGroup.getHeaderGroupProps()}>
+                        {isSelect && (
+                          <th scope="col" className={thClasses}>
+                            <Checkbox
+                              onChange={(e) =>
+                                onSelectHandler(e.target.checked)
+                              }
+                              checked={
+                                data.length > 0 &&
+                                selected.length === data.length
+                              }
+                              indeterminate={
+                                selected.length > 0 &&
+                                selected.length !== data.length
+                              }
+                            />
+                          </th>
                         )}
-                      </td>
+                        <th scope="col" className={thClasses} colSpan={2}>
+                          {lang.actions}
+                        </th>
+                        {fieldUpdate && parent && (
+                          <th scope="col" className={thClasses}>
+                            <button
+                              className={
+                                buttonClasses +
+                                'bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
+                              }
+                              onClick={() => {
+                                if (hasFilters) {
+                                  setAllFilters([]);
+                                } else {
+                                  setAllFilters(initialFilter);
+                                }
+                              }}
+                            >
+                              {hasFilters ? lang.viewAll : lang.viewRelated}
+                            </button>
+                          </th>
+                        )}
+                        {headerGroup.headers.map(
+                          (column: any, index2: number) => (
+                            <th
+                              scope="col"
+                              className={thClasses}
+                              key={index2}
+                              {...column.getHeaderProps(
+                                column.getSortByToggleProps(),
+                              )}
+                            >
+                              <div className="flex justify-center items-center">
+                                {column.render('Header')}
+                                <span>
+                                  {column.isSorted ? (
+                                    column.isSortedDesc ? (
+                                      <ArrowNarrowDownIcon className="h-5 w-5" />
+                                    ) : (
+                                      <ArrowNarrowUpIcon className="h-5 w-5" />
+                                    )
+                                  ) : (
+                                    ''
+                                  )}
+                                </span>
+                                {column.filterValue ? (
+                                  <SearchCircleIcon className="h-5 w-5 text-green-500" />
+                                ) : (
+                                  ''
+                                )}
+                              </div>
+                            </th>
+                          ),
+                        )}
+                      </tr>
+                    </React.Fragment>
+                  ))}
+                </thead>
+                <tbody
+                  className="bg-white divide-y divide-gray-200"
+                  {...getTableBodyProps()}
+                >
+                  {page.map((row: any, index: number) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        className="hover:bg-gray-100 even:bg-gray-50"
+                        key={index}
+                        {...row.getRowProps()}
+                      >
+                        {isSelect && (
+                          <td className={tdClasses}>
+                            <Checkbox
+                              onChange={(e) =>
+                                onSelectHandler(
+                                  e.target.checked,
+                                  model && row.original[model.idField],
+                                )
+                              }
+                              checked={
+                                !!(
+                                  model &&
+                                  selected.includes(row.original[model.idField])
+                                )
+                              }
+                            />
+                          </td>
+                        )}
+                        {connect && (
+                          <td colSpan={2} className={tdClasses}>
+                            <button
+                              className={
+                                buttonClasses +
+                                'bg-transparent text-green-600 hover:bg-green-100 hover:bg-opacity-25'
+                              }
+                              disabled={
+                                model &&
+                                connect[model.idField] ===
+                                  row.original[model.idField]
+                              }
+                              onClick={() =>
+                                onAction(
+                                  'connect',
+                                  data.find(
+                                    (item) =>
+                                      model &&
+                                      item[model.idField] ===
+                                        row.original[model.idField],
+                                  ),
+                                )
+                              }
+                            >
+                              {model &&
+                              connect[model.idField] ===
+                                row.original[model.idField]
+                                ? lang.connected
+                                : lang.connect}
+                            </button>
+                          </td>
+                        )}
+                        {!connect && (
+                          <td
+                            className={tdClasses}
+                            title={actions.update ? lang.editRow : lang.viewRow}
+                            colSpan={actions.delete ? 1 : 2}
+                          >
+                            <ActionButtons.Update
+                              id={model ? row.original[model.idField] : 0}
+                            />
+                          </td>
+                        )}
+                        {actions.delete && !connect && (
+                          <td
+                            className={tdClasses}
+                            title={lang.deleteRow}
+                            colSpan={1}
+                          >
+                            <ActionButtons.Delete
+                              id={model ? row.original[model.idField] : 0}
+                            />
+                          </td>
+                        )}
+                        {parent && model && fieldUpdate && (
+                          <ListConnect
+                            parent={parent}
+                            row={row}
+                            model={model}
+                          />
+                        )}
+                        {row.cells.map((cell: any, index2: number) => {
+                          return (
+                            <td
+                              style={{ maxWidth: '9rem' }}
+                              className={tdClasses}
+                              key={index2}
+                              {...cell.getCellProps()}
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
+                        })}
+                      </tr>
                     );
                   })}
-                </tr>
-              );
-            })}
-            <tr>
-              <td colSpan={10000}>
-                {lang.showing} {page.length} {lang.of} ~
-                {controlledPageCount * pageSize} {lang.results}
-              </td>
-            </tr>
-          </tbody>
-        </StyledTable>
-      </CardBody>
-      <footer>
-        <StyledRow middle="xs">
-          <Col breakPoint={{ md: 12, lg: 4 }}>
-            <Tooltip
-              className="inline-block"
-              status="Primary"
-              trigger="hint"
-              placement="top"
-              content={lang.goToFirstPage}
+                  <tr>
+                    <td className={tdClasses} colSpan={10000}>
+                      {lang.showing} {page.length} {lang.of} ~
+                      {controlledPageCount * pageSize} {lang.results}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className={`flex flex-wrap w-full ${tdClasses}`}>
+          <nav
+            className={`"w-full md:w-1/2 justify-center mb-4 md:justify-start md:mb-0 relative z-0 inline-flex -space-x-px ${
+              dir === 'rtl' ? 'space-x-reverse' : ''
+            }`}
+            aria-label="Pagination"
+          >
+            <button
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+              className={`relative inline-flex items-center px-2 py-2 ${
+                dir === 'rtl' ? 'rounded-r-md' : 'rounded-l-md'
+              } border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50`}
             >
-              <StyledButton
-                onClick={() => gotoPage(0)}
-                disabled={!canPreviousPage}
-              >
-                <EvaIcon name="arrowhead-left-outline" />
-              </StyledButton>
-            </Tooltip>
-            <StyledButton
+              <ChevronDoubleRightIcon
+                className={`h-4 w-4 ${
+                  dir === 'rtl' ? '' : 'transform rotate-180'
+                }`}
+              />
+            </button>
+            <button
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
+              className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              <EvaIcon name="arrow-ios-back" />
-            </StyledButton>
+              <ChevronRightIcon
+                className={`h-4 w-4 ${
+                  dir === 'rtl' ? '' : 'transform rotate-180'
+                }`}
+              />
+            </button>
             {initPages(pageCount, pageIndex + 1, paginationOptions).map(
               (item) => (
-                <StyledButton
+                <button
+                  className={`${
+                    item === pageIndex + 1
+                      ? 'bg-blue-500 text-white hover:bg-blue-700'
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                  } relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium`}
                   key={item}
                   onClick={() => gotoPage(item - 1)}
-                  status={item === pageIndex + 1 ? 'Primary' : 'Basic'}
                 >
                   {item}
-                </StyledButton>
+                </button>
               ),
             )}
-            <StyledButton onClick={() => nextPage()} disabled={!canNextPage}>
-              <EvaIcon name="arrow-ios-forward" />
-            </StyledButton>
-            <Tooltip
-              className="inline-block"
-              status="Primary"
-              trigger="hint"
-              placement="top"
-              content={lang.goToLastPage}
+            <button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              <StyledButton
-                onClick={() => gotoPage(pageCount - 1)}
-                disabled={!canNextPage}
-              >
-                <EvaIcon name="arrowhead-right-outline" />
-              </StyledButton>
-            </Tooltip>
-          </Col>
-          <Col breakPoint={{ md: 12, lg: 4 }}>
-            <InputGroup size="Small" style={{ justifyContent: 'center' }}>
-              <input
-                placeholder={lang.goPageNumber}
-                type="number"
-                value={pageIndex + 1}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  gotoPage(page);
-                }}
+              <ChevronLeftIcon
+                className={`h-4 w-4 ${
+                  dir === 'rtl' ? '' : 'transform rotate-180'
+                }`}
               />
-            </InputGroup>
-          </Col>
-          <Col breakPoint={{ md: 12, lg: 4 }}>
-            {pageSizeOptions.map((item) => (
-              <Tooltip
-                key={item}
-                className="inline-block"
-                status="Primary"
-                trigger="hint"
-                placement="top"
-                content={lang.setPageSize + item}
+            </button>
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+              className={`relative inline-flex items-center px-2 py-2 ${
+                dir === 'rtl' ? 'rounded-l-md' : 'rounded-r-md'
+              } border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50`}
+            >
+              <ChevronDoubleLeftIcon
+                className={`h-4 w-4 ${
+                  dir === 'rtl' ? '' : 'transform rotate-180'
+                }`}
+              />
+            </button>
+          </nav>
+          <div
+            className={`relative z-0 inline-flex -space-x-px ${
+              dir === 'rtl' ? 'space-x-reverse' : ''
+            } w-full justify-center md:justify-end md:w-1/2`}
+          >
+            {pageSizeOptions.map((item, index) => (
+              <button
+                key={index}
+                className={`${
+                  index === 0
+                    ? dir === 'rtl'
+                      ? 'rounded-r-md'
+                      : 'rounded-l-md'
+                    : index === pageSizeOptions.length - 1
+                    ? dir === 'rtl'
+                      ? 'rounded-l-md'
+                      : 'rounded-r-md'
+                    : ''
+                } ${
+                  item === pageSize
+                    ? 'bg-blue-500 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                } relative inline-flex items-center px-2 py-1 border border-gray-300  text-sm font-medium`}
+                onClick={() => setPageSize(item)}
               >
-                <StyledButton
-                  onClick={() => setPageSize(item)}
-                  status={item === pageSize ? 'Primary' : 'Basic'}
-                >
-                  {item}
-                </StyledButton>
-              </Tooltip>
+                {item}
+              </button>
             ))}
-          </Col>
-        </StyledRow>
-      </footer>
-    </Card>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
-
-const StyledTable = styled.table<{ columnSize: number }>`
-  ${({ theme, columnSize }) =>
-    css`
-    border-spacing: 0;
-  width: 100%;
-  tbody tr:nth-child(2n) {
-    background-color: ${theme.backgroundBasicColor2};
-  }
-  tbody tr:hover {
-    background: ${theme.backgroundBasicColor3} !important;
-  }
-
-  thead tr {
-    background: ${theme.backgroundBasicColor2};
-    th {
-      border-top: 1px solid ${theme.backgroundBasicColor3};
-      border-${theme.dir === 'rtl' ? 'right' : 'left'}: 1px solid ${
-      theme.backgroundBasicColor3
-    };
-      :last-child {
-        border-${theme.dir === 'rtl' ? 'left' : 'right'}: 1px solid ${
-      theme.backgroundBasicColor3
-    };
-      }
-    }
-  }
-
-  tr {
-    :last-child {
-      td {
-        text-align: start;
-        border: 1px solid ${theme.backgroundBasicColor2};
-      }
-    }
-  }
-
-  td div {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  th,
-  td {
-    max-width: ${columnSize > 150 ? columnSize : 150}px;
-    margin: 0;
-    padding: 0.5rem;
-    border-top: 1px solid ${theme.backgroundBasicColor2};
-    border-${theme.dir === 'rtl' ? 'right' : 'left'}: 1px solid ${
-      theme.backgroundBasicColor2
-    };
-    text-align: center;
-    :last-child {
-      border-${theme.dir === 'rtl' ? 'left' : 'right'}: 1px solid ${
-      theme.backgroundBasicColor2
-    };
-    }
-  `}
-`;
-
-const StyledButton = styled(Button)`
-  margin-right: 5px;
-  padding: 0.3rem;
-`;
-
-const StyledRow = styled(Row)`
-  text-align: center;
-  ${breakpointDown('md')`
-    & > :not(:last-child) {
-      margin-bottom: 20px;
-    }
-  `}
-`;

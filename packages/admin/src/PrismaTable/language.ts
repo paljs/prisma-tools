@@ -36,4 +36,6 @@ export default {
   view: 'view',
   isRequired: ' is required',
   show: 'SHOW',
+  clear: 'clear',
+  clearAll: 'Clear All',
 };

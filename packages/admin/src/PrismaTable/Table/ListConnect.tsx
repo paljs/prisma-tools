@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Button } from '@paljs/ui/Button';
+
+import { SchemaModel } from '../../types';
 import { useListConnectToOne } from '../useListConnectToOne';
-import { SchemaModel } from '@paljs/types';
-import Spinner from '@paljs/ui/Spinner';
+import Spinner from '../../components/Spinner';
 import { TableContext } from '../Context';
+import { buttonClasses } from '../../components/css';
 
 interface ListConnectProps {
   parent: { name: string; value: any; field: string };
@@ -24,16 +25,18 @@ export const ListConnect: React.FC<ListConnectProps> = ({
   );
 
   return (
-    <td style={{ position: 'relative' }}>
-      <Button
-        size="Small"
-        appearance="ghost"
-        status={isConnected ? 'Danger' : 'Success'}
+    <td className="px-4 py-2 text-center whitespace-nowrap">
+      <button
+        className={`${buttonClasses} rounded-md py-2 px-4 bg-transparent ${
+          isConnected
+            ? 'text-red-600 hover:bg-red-100'
+            : 'text-green-600 hover:bg-green-100'
+        } hover:bg-opacity-25`}
         onClick={() => listConnectToOne(model, rowId, !isConnected)}
       >
         {isConnected ? lang.disConnect : lang.connect}
-        {updateLoading && <Spinner size="Tiny" />}
-      </Button>
+        {updateLoading && <Spinner h="h-5" w="w-5" />}
+      </button>
     </td>
   );
 };

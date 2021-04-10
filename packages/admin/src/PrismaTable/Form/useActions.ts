@@ -1,10 +1,10 @@
 import { useMutation } from '@apollo/client';
 import { useContext } from 'react';
+
 import { TableContext } from '../Context';
 import { FormProps } from './index';
 import { mutationDocument } from '../QueryDocument';
-import { SchemaModel } from '../../types';
-import { SchemaField } from '@paljs/types';
+import { SchemaModel, SchemaField } from '../../types';
 
 interface GetValueOptions {
   value: string;

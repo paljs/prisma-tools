@@ -1,24 +1,25 @@
 import React, { useRef, useState } from 'react';
-import { Accordion, AccordionItem } from '@paljs/ui/Accordion';
-import { Card, CardBody } from '@paljs/ui/Card';
-import { EvaIcon } from '@paljs/ui/Icon';
-import Select from '@paljs/ui/Select';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
+import { useMutation, useQuery } from '@apollo/client';
+import {
+  ChevronUpIcon,
+  ChevronDownIcon,
+  MenuIcon,
+} from '@heroicons/react/solid';
 import {
   DragDropContext,
   Draggable,
   Droppable,
   DropResult,
 } from 'react-beautiful-dnd';
+
 import UpdateModel from './UpdateModel';
 import UpdateField from './UpdateField';
-import styled from 'styled-components';
-import { useMutation, useQuery } from '@apollo/client';
+import Select from '../components/Select';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
 import { ContextProps, SchemaModel } from '../types';
 
 const defaultLanguage = {
+  dir: 'ltr',
   header: 'Update models Tables',
   dbName: 'Database Name',
   displayName: 'Display Name',
@@ -35,6 +36,8 @@ const defaultLanguage = {
   sort: 'sort',
   editor: 'editor',
   upload: 'upload',
+  tableView: 'Table View',
+  inputType: 'Input Type',
 };
 
 export type SettingLanguage = typeof defaultLanguage;
@@ -47,6 +50,8 @@ export const Settings: React.FC<{
   const [updateModel] = useMutation(UPDATE_MODEL);
   const [currentModel, setCurrentModel] = useState<SchemaModel>();
   const dataRef = useRef(models);
+  const accordionRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [openedField, setOpenedField] = useState('');
 
   if (!currentModel && models.length > 0) setCurrentModel(models[0]);
 
@@ -80,51 +85,55 @@ export const Settings: React.FC<{
     }
   };
   const mergeLanguage = { ...defaultLanguage, ...language };
+  const dir = mergeLanguage.dir;
   return (
-    <Row>
-      <Col breakPoint={{ xs: 12, md: 6 }}>
-        <Card>
-          <header>{mergeLanguage.header}</header>
-          <CardBody style={{ overflow: 'visible' }}>
-            <Row>
-              <Col breakPoint={{ xs: 12 }} style={{ marginBottom: '20px' }}>
-                {currentModel && (
-                  <Select
-                    status="Primary"
-                    shape="SemiRound"
-                    value={{ value: currentModel.id, label: currentModel.name }}
-                    onChange={(option: any) =>
-                      setCurrentModel(
-                        models.find((model) => model.id === option.value),
-                      )
-                    }
-                    options={models.map((model) => ({
-                      value: model.id,
-                      label: model.name,
-                    }))}
-                  />
-                )}
-              </Col>
-              <Col breakPoint={{ xs: 12 }}>
-                {currentModel && (
-                  <UpdateModel
-                    models={models}
-                    modelObject={currentModel}
-                    language={mergeLanguage}
-                  />
-                )}
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
-      </Col>
-      <Col breakPoint={{ xs: 12, md: 6 }}>
+    <div className="flex w-full flex-wrap">
+      <div
+        className={`lg:w-1/2 w-full ${dir === 'rtl' ? 'lg:pl-4' : 'lg:pr-4'}`}
+      >
+        <div className="flex flex-col bg-white rounded shadow-lg text-gray-800 text-base mb-5">
+          <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold">
+            {mergeLanguage.header}
+          </header>
+          <div
+            className="relative py-4 px-5 flex-auto overflow-auto"
+            style={{ overflow: 'visible' }}
+          >
+            <div className="w-full" style={{ marginBottom: '20px' }}>
+              {currentModel && (
+                <Select
+                  value={{ id: currentModel.id, name: currentModel.name }}
+                  onChange={(option: any) =>
+                    setCurrentModel(
+                      models.find((model) => model.id === option.id),
+                    )
+                  }
+                  options={models.map((model) => ({
+                    id: model.id,
+                    name: model.name,
+                  }))}
+                />
+              )}
+            </div>
+            <div className="flex w-full flex-wrap space-y-4">
+              {currentModel && (
+                <UpdateModel
+                  models={models}
+                  modelObject={currentModel}
+                  language={mergeLanguage}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="lg:w-1/2 w-full">
         {currentModel && (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={currentModel.id}>
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Accordion>
+                  <ul className="shadow-box">
                     {currentModel.fields
                       .slice()
                       .sort((a, b) => a.order - b.order)
@@ -135,53 +144,72 @@ export const Settings: React.FC<{
                           index={index}
                         >
                           {(provided) => (
-                            <StyledDragItem
+                            <li
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
+                              className="flex flex-col w-full bg-white relative mb-2 rounded-md shadow-lg"
                             >
-                              <AccordionItem
-                                uniqueKey={index}
-                                key={index}
-                                title={
-                                  <div
-                                    style={{
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <EvaIcon
-                                      name="menu-outline"
-                                      status="Primary"
-                                    />{' '}
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {field.title}
-                                    </span>
-                                  </div>
+                              <div
+                                className={`flex items-center justify-between font-bold text-gray-700 w-full px-8 py-6 ${
+                                  field.id === openedField
+                                    ? 'border-b border-gray-200'
+                                    : ''
+                                } cursor-pointer`}
+                                onClick={() =>
+                                  setOpenedField(
+                                    field.id === openedField ? '' : field.id,
+                                  )
                                 }
                               >
-                                <UpdateField
-                                  field={field}
-                                  model={currentModel?.id}
-                                  language={mergeLanguage}
-                                />
-                              </AccordionItem>
-                            </StyledDragItem>
+                                <div
+                                  className={`flex items-center space-x-2.5 ${
+                                    dir === 'rtl' ? 'space-x-reverse' : ''
+                                  }`}
+                                >
+                                  <MenuIcon className="w-5 h-5 text-blue-700" />
+                                  <span>{field.title}</span>
+                                </div>
+                                {field.id === openedField ? (
+                                  <ChevronUpIcon className="w-5 h-5" />
+                                ) : (
+                                  <ChevronDownIcon className="w-5 h-5" />
+                                )}
+                              </div>
+
+                              <div
+                                ref={(r) => (accordionRef.current[index] = r)}
+                                className="relative overflow-hidden transition-all max-h-0 duration-500"
+                                style={
+                                  openedField === field.id
+                                    ? {
+                                        maxHeight:
+                                          accordionRef.current[index]
+                                            ?.scrollHeight + 'px',
+                                      }
+                                    : {}
+                                }
+                              >
+                                <div className="p-6">
+                                  <UpdateField
+                                    field={field}
+                                    model={currentModel?.id}
+                                    language={mergeLanguage}
+                                  />
+                                </div>
+                              </div>
+                            </li>
                           )}
                         </Draggable>
                       ))}
-                  </Accordion>
+                  </ul>
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
           </DragDropContext>
         )}
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
-
-const StyledDragItem = styled.div`
-  margin-bottom: 10px;
-`;

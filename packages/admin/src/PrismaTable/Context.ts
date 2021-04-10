@@ -1,5 +1,4 @@
 import React from 'react';
-import * as queryString from 'query-string';
 import { ContextProps } from '..';
 import defaultLanguage from './language';
 
@@ -8,14 +7,13 @@ export const defaultSettings = {
   pageSize: 10,
   pageSizeOptions: [10, 20, 30, 40, 50, 100],
   paginationOptions: 4,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   push: typeof window !== 'undefined' ? window.location.replace : () => {},
-  query:
-    typeof window !== 'undefined'
-      ? queryString.parse(window.location.search)
-      : {},
+  query: {},
 };
 
 const initialContext: ContextProps = {
+  dir: 'ltr',
   lang: defaultLanguage,
   schema: {
     models: [],

@@ -1,9 +1,10 @@
-import { Modal } from '@paljs/ui/Modal';
 import React, { useContext, useEffect, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/client';
+
+import Modal from '../components/Modal';
 import { Table } from './Table';
 import { useFilterAndSort } from './Table/useFilterAndSort';
 import Form from './Form';
-import { useLazyQuery, useMutation } from '@apollo/client';
 import { TableContext } from './Context';
 import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
@@ -142,7 +143,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const _data: any[] = data ? data[`findMany${model}`] : [];
   return (
     <>
-      <Modal on={create} toggle={() => setCreate(false)}>
+      <Modal on={create} toggle={() => setCreate(!create)}>
         <Form
           model={model}
           action="create"

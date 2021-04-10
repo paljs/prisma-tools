@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import { TableContext } from './Context';
 import { useMutation } from '@apollo/client';
+
+import { SchemaModel } from '../types';
 import { mutationDocument } from './QueryDocument';
-import { SchemaModel } from '@paljs/types';
+import { TableContext } from './Context';
 
 export const useListConnectToOne = (parent: {
   name: string;

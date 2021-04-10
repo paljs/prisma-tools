@@ -1,78 +1,25 @@
 import React, { useContext, useState } from 'react';
-import { Modal } from '@paljs/ui/Modal';
-import { Button } from '@paljs/ui/Button';
-import { Checkbox } from '@paljs/ui/Checkbox';
-import { EvaIcon } from '@paljs/ui/Icon';
-import { InputGroup } from '@paljs/ui/Input';
-import Select from '@paljs/ui/Select';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import DatePicker from 'react-datepicker';
-import styled, { css } from 'styled-components';
 import { useLazyQuery } from '@apollo/client';
+import { SearchIcon, XCircleIcon } from '@heroicons/react/outline';
 
+import Modal from '../../components/Modal';
 import { useEnum } from '../useSchema';
 import { getDisplayName } from '../Table/utils';
 import DynamicTable from '../dynamicTable';
 import { queryDocument } from '../QueryDocument';
 import { TableContext } from '../Context';
 import { FormInputs } from '../../types';
-
-const ReactQuill =
-  typeof window !== 'undefined' ? require('react-quill') : <div />;
+import Select from '../../components/Select';
+import Checkbox from '../../components/Checkbox';
+import { buttonClasses, inputClasses } from '../../components/css';
+import { getDate } from './getdate';
 
 interface Option {
-  value: any;
-  label: any;
+  id: any;
+  name: any;
 }
 
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, 4, 4, 5, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ size: ['small', false, 'large', 'huge'] }],
-    [{ color: [] }, { background: [] }],
-    [{ font: [] }],
-    [{ align: [] }],
-    ['blockquote', 'code-block'],
-    [{ script: 'sub' }, { script: 'super' }],
-    [
-      { list: 'ordered' },
-      { list: 'bullet' },
-      { indent: '-1' },
-      { indent: '+1' },
-    ],
-    [{ direction: 'rtl' }],
-    ['link', 'image', 'video'],
-    ['clean'],
-  ],
-};
-
-const formats = [
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'script',
-  'code',
-  'color',
-  'size',
-  'blockquote',
-  'list',
-  'font',
-  'background',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'code-block',
-  'direction',
-  'align',
-];
-
-const defaultInputs: Omit<FormInputs, 'Upload'> = {
+const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
   Default({ field, error, register, disabled, value }) {
     const { lang } = useContext(TableContext);
     const options: any = {
@@ -102,53 +49,19 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
       }
     }
     return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <InputGroup status={error ? 'Danger' : 'Primary'} fullWidth>
-              <input
-                {...register(field.name, { required: field.required })}
-                {...options}
-              />
-            </InputGroup>
-          </Col>
-        </Row>
-        <span className="caption-2 status-Danger">
-          {error ? field.title + lang.isRequired : ''}
-        </span>
-      </StyledCol>
-    );
-  },
-  Editor({ field, value, error, register, setValue, disabled }) {
-    const { lang } = useContext(TableContext);
-    React.useEffect(() => {
-      register(field.name, { required: field.required });
-    }, [register]);
-
-    return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <StyledReactQuillCol breakPoint={{ xs: 8 }}>
-            <ReactQuill
-              readOnly={disabled}
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              defaultValue={value}
-              onChange={(value: string) => setValue(field.name, value)}
-            />
-          </StyledReactQuillCol>
-        </Row>
-        <span className="caption-2 status-Danger">
-          {error ? field.title + lang.isRequired : ''}
-        </span>
-      </StyledCol>
+      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
+        <div className="w-full text-gray-600 font-bold">
+          {field.title}
+          <span className="text-red-700 text-xs">
+            {error ? lang.isRequired : ''}
+          </span>
+        </div>
+        <input
+          className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
+          {...register(field.name, { required: field.required })}
+          {...options}
+        />
+      </div>
     );
   },
   Enum({ field, value, error, register, setValue, disabled }) {
@@ -162,36 +75,34 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
 
     const options: Option[] = field.required
       ? []
-      : [{ value: null, label: lang.all }];
+      : [{ id: null, name: lang.all }];
     if (enumType) {
       options.push(
-        ...enumType.fields.map((item) => ({ value: item, label: item })),
+        ...enumType.fields.map((item) => ({ id: item, name: item })),
       );
     }
     return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <Select
-              disabled={disabled}
-              status={error ? 'Danger' : 'Primary'}
-              shape="SemiRound"
-              value={options.find((option) => option.value === state)}
-              onChange={(option: any) => {
-                setState(option.value);
-                setValue(field.name, option.value);
-              }}
-              options={options}
-            />
-          </Col>
-        </Row>
-        <span className="caption-2 status-Danger">
-          {error ? field.title + lang.isRequired : ''}
-        </span>
-      </StyledCol>
+      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
+        <div className="w-full text-gray-600 font-bold">
+          {field.title}
+          <span className="text-red-700 text-xs">
+            {error ? lang.isRequired : ''}
+          </span>
+        </div>
+        <Select
+          className="w-full"
+          disabled={disabled}
+          value={options.find((option) => option.id === state)}
+          onChange={(option: Option) => {
+            setState(option.id);
+            setValue(field.name, option.id, {
+              shouldValidate: !!option.id,
+              shouldDirty: true,
+            });
+          }}
+          options={options}
+        />
+      </div>
     );
   },
 
@@ -229,7 +140,7 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     }, [register]);
 
     return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
+      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <Modal on={modal} toggle={() => setModal(!modal)}>
           <DynamicTable
             model={model.id}
@@ -237,94 +148,84 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
             connect={Object.keys(state).length > 0 ? result : {}}
             onConnect={(_value) => {
               setSate(_value);
-              setValue(field.name, _value);
+              setValue(field.name, _value, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
               setModal(!modal);
             }}
           />
         </Modal>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <InputWithIcons fullWidth>
-              <Button
-                disabled={disabled}
-                type="button"
-                appearance="ghost"
-                className="searchIcon"
-                onClick={() => setModal(!modal)}
-              >
-                <EvaIcon name="search-outline" />
-              </Button>
-              {!field.required && (
-                <Button
-                  disabled={disabled}
-                  type="button"
-                  appearance="ghost"
-                  status="Danger"
-                  className="closeIcon"
-                  onClick={() => {
-                    setSate({});
-                    setValue(field.name, null);
-                  }}
-                >
-                  <EvaIcon name="close-circle-outline" />
-                </Button>
-              )}
-              <input value={getDisplayName(state, model)} disabled />
-            </InputWithIcons>
-          </Col>
-        </Row>
-        <span className="caption-2 status-Danger">
-          {error ? field.title + lang.isRequired : ''}
-        </span>
-      </StyledCol>
+        <div className="w-full text-gray-600 font-bold">
+          {field.title}
+          <span className="text-red-700 text-xs">
+            {error ? lang.isRequired : ''}
+          </span>
+        </div>
+        <div className="w-full relative">
+          <button
+            disabled={disabled}
+            type="button"
+            className={
+              'absolute top-2.5 left-1 ' +
+              buttonClasses +
+              'rounded-md bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
+            }
+            onClick={() => setModal(!modal)}
+          >
+            <SearchIcon className="h-5 w-5" />
+          </button>
+          {!field.required && (
+            <button
+              disabled={disabled}
+              type="button"
+              className={
+                'absolute top-2.5 right-1 ' +
+                buttonClasses +
+                'rounded-md bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
+              }
+              onClick={() => {
+                setSate({});
+                setValue(field.name, null);
+              }}
+            >
+              <XCircleIcon className="h-5 w-5" />
+            </button>
+          )}
+          <input
+            className={`px-8 ${inputClasses}`}
+            value={getDisplayName(state, model)}
+            disabled
+          />
+        </div>
+      </div>
     );
   },
-  Date({ field, value, error, register, setValue, disabled }) {
-    const [state, setState] = useState(value ? new Date(value) : undefined);
+  Date({ field, value, error, register, disabled }) {
     const { lang } = useContext(TableContext);
-    const onChangeHandler = (value: Date | [Date, Date]) => {
-      if (!Array.isArray(value)) {
-        setValue(field.name, value.toISOString());
-        setState(value);
-      }
-    };
-
-    React.useEffect(() => {
-      register(field.name, { required: field.required });
-    }, [register]);
-
     return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <StyledInputGroup status={error ? 'Danger' : 'Primary'} fullWidth>
-              <DatePicker
-                disabled={disabled}
-                selected={state}
-                onChange={(date) => date && onChangeHandler(date)}
-                showTimeSelect
-                dateFormat="MMMM d, yyyy h:mm aa"
-              />
-            </StyledInputGroup>
-          </Col>
-        </Row>
-        <span className="caption-2 status-Danger">
-          {error ? field.title + lang.isRequired : ''}
-        </span>
-      </StyledCol>
+      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
+        <div className="w-full text-gray-600 font-bold">
+          {field.title}
+          <span className="text-red-700 text-xs">
+            {error ? lang.isRequired : ''}
+          </span>
+        </div>
+        <input
+          className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
+          type="datetime-local"
+          disabled={disabled}
+          defaultValue={value ? getDate(new Date(value)) : undefined}
+          {...register(field.name, { required: field.required })}
+        />
+      </div>
     );
   },
   Boolean({ field, value, register, setValue, disabled }) {
     const [state, setState] = useState(value);
 
     const onChangeHandler = (value: boolean) => {
-      setValue(field.name, value);
+      setValue(field.name, value, { shouldValidate: true, shouldDirty: true });
       setState(value);
     };
 
@@ -333,21 +234,15 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
     }, [register]);
 
     return (
-      <StyledCol breakPoint={{ xs: 12, lg: 6 }}>
-        <Row around="xs" middle="xs">
-          <Col breakPoint={{ xs: 4 }}>
-            <span className="subtitle text-hint">{field.title}</span>
-          </Col>
-          <Col breakPoint={{ xs: 8 }}>
-            <Checkbox
-              disabled={disabled}
-              status="Success"
-              onChange={(value) => onChangeHandler(value)}
-              checked={!!state}
-            />
-          </Col>
-        </Row>
-      </StyledCol>
+      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
+        <Checkbox
+          label={field.title}
+          id={field.id}
+          disabled={disabled}
+          onChange={(e) => onChangeHandler(e.target.checked)}
+          checked={!!state}
+        />
+      </div>
     );
   },
 };
@@ -355,63 +250,5 @@ const defaultInputs: Omit<FormInputs, 'Upload'> = {
 export const Inputs: FormInputs = {
   ...defaultInputs,
   Upload: defaultInputs.Default,
+  Editor: defaultInputs.Default,
 };
-
-const StyledInputGroup = styled(InputGroup)`
-  li {
-    color: black;
-  }
-`;
-
-const StyledCol = styled(Col)`
-  padding-bottom: 5px;
-  padding-top: 5px;
-  margin: 5px 0;
-  border: 1px solid ${(props) => props.theme.backgroundBasicColor2};
-`;
-
-const InputWithIcons = styled(InputGroup)`
-  .searchIcon {
-    position: absolute;
-    padding: 0;
-    left: 5px;
-    top: 10px;
-  }
-  .closeIcon {
-    position: absolute;
-    padding: 0;
-    right: 5px;
-    top: 10px;
-  }
-  input {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-`;
-
-const StyledReactQuillCol = styled(Col)`
-  ${({ theme }) => css`
-    .ql-toolbar.ql-snow,
-    .ql-container.ql-snow {
-      background-color: ${theme.inputPrimaryBackgroundColor};
-      border: ${theme.inputPrimaryBorderColor} ${theme.inputBorderStyle}
-        ${theme.inputBorderWidth};
-      color: ${theme.inputPrimaryTextColor};
-    }
-    .ql-container.ql-snow {
-      border-bottom-left-radius: ${theme.inputRectangleBorderRadius};
-      border-bottom-right-radius: ${theme.inputRectangleBorderRadius};
-    }
-    .ql-toolbar.ql-snow {
-      border-top-left-radius: ${theme.inputRectangleBorderRadius};
-      border-top-right-radius: ${theme.inputRectangleBorderRadius};
-    }
-    .ql-editor {
-      max-height: 200px;
-    }
-
-    .ql-tooltip {
-      z-index: 10;
-    }
-  `}
-`;
