@@ -1,15 +1,33 @@
 import spawn from 'cross-spawn';
 import chalk from 'chalk';
-import { readJSONSync, writeJson, copy } from 'fs-extra';
+import { readJSONSync, writeJsonSync, copySync } from 'fs-extra';
 import { resolve, join } from 'path';
 import { fetchLatestVersionsFor } from './utils/fetch-latest-version-for';
 import { log } from '@paljs/display';
 import { Examples } from '@paljs/types';
 import * as path from 'path';
-import { readdirSync, lstatSync, renameSync } from 'fs';
+import {
+  readdirSync,
+  lstatSync,
+  renameSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs';
+import { framework, getPath } from './utils/excludeSettings';
+
+export type Frameworks =
+  | 'Material UI'
+  | 'Material UI + PrismaAdmin UI'
+  | 'Tailwind CSS'
+  | 'Tailwind CSS + PrismaAdmin UI';
 
 export interface AppGeneratorOptions {
   example: Examples;
+  framework?: Frameworks;
+  multi?: string | boolean;
+  useGit?: string | boolean;
   destinationRoot: string;
   name: string;
   description: string;
@@ -25,6 +43,8 @@ export class AppGenerator {
     this.options.destinationRoot = this.options.name;
     this.options.yarn = this.options.manager === 'yarn';
     this.options.skipInstall = this.options.skipInstall === 'yes';
+    this.options.multi = this.options.multi === 'yes';
+    this.options.useGit = this.options.useGit === 'yes';
   }
 
   sourceRoot: string = resolve(__dirname, './examples/', this.options.example);
@@ -64,15 +84,17 @@ export class AppGenerator {
         }
       }
 
-      await writeJson(this.packageJson[i], pkg, { spaces: 2 });
+      writeJsonSync(this.packageJson[i], pkg, { spaces: 2 });
     }
     return fallbackUsed;
   }
 
   async postWrite() {
-    const gitInitResult = spawn.sync('git', ['init'], {
-      stdio: 'ignore',
-    });
+    const gitInitResult = this.options.useGit
+      ? spawn.sync('git', ['init'], {
+          stdio: 'ignore',
+        })
+      : { status: 1 };
     console.log(''); // New line needed
     const spinner = log
       .spinner(log.withBrand('Retrieving the freshest of dependencies'))
@@ -81,7 +103,7 @@ export class AppGenerator {
     if (!fallbackUsed && !this.options.skipInstall) {
       spinner.succeed();
 
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         const logFlag = this.options.yarn ? '--json' : '--loglevel=error';
         const cp = spawn(
           this.options.yarn ? 'yarn' : 'npm',
@@ -194,7 +216,7 @@ export class AppGenerator {
 
     if (gitInitResult.status === 0) {
       this.commitChanges();
-    } else {
+    } else if (this.options.useGit) {
       log.warning('Failed to run git init.');
       log.warning(
         'Find out more about how to install git here: https://git-scm.com/downloads.',
@@ -219,8 +241,112 @@ export class AppGenerator {
       }
     }
   }
+
+  newDir(path: string) {
+    !existsSync(path) && mkdirSync(path, { recursive: true });
+  }
+
+  excludeMulti(file: string) {
+    return (
+      (this.options.multi &&
+        ![
+          'pal.js',
+          'next.config.js',
+          'package.json',
+          'nexusSchema.ts',
+          'context',
+          'prisma',
+        ].includes(file)) ||
+      (!this.options.multi && !file.startsWith('multi_'))
+    );
+  }
+
+  readDir(path: string) {
+    const files = readdirSync(path);
+    const frameworkExclude = framework[this.options.framework as Frameworks];
+    const withAdmin = !['Tailwind CSS', 'Material UI'].includes(
+      this.options.framework as Frameworks,
+    );
+    for (const file of files) {
+      if (
+        this.excludeMulti(file) &&
+        !frameworkExclude.files.includes(file) &&
+        file !== '_app'
+      ) {
+        const newName = file.replace('multi_', '');
+        if (lstatSync(join(path, file)).isDirectory()) {
+          if (file !== 'multi_prisma' && !path.endsWith('components')) {
+            this.newDir(
+              join(
+                this.destinationPath(),
+                getPath(path, this.sourceRoot),
+                path.endsWith('layouts') ? 'Admin' : newName,
+              ),
+            );
+          }
+          this.readDir(join(path, file));
+        } else {
+          if (file === '_app.tsx') {
+            copySync(
+              join(path.replace('pages', '_app'), frameworkExclude.app),
+              join(
+                this.destinationPath(),
+                getPath(path, this.sourceRoot),
+                newName,
+              ),
+            );
+          } else if (
+            (newName === 'pal.js' || newName === 'nexusSchema.ts') &&
+            !withAdmin
+          ) {
+            const data = readFileSync(join(path, file), 'utf-8');
+            writeFileSync(
+              join(
+                this.destinationPath(),
+                getPath(path, this.sourceRoot),
+                newName,
+              ),
+              newName === 'nexusSchema.ts'
+                ? data.replace('includeAdmin: true,', 'includeAdmin: false,')
+                : data.replace(/admin: true,/g, 'admin: false,'),
+            );
+          } else if (newName === 'package.json') {
+            const data = readJSONSync(join(path, file));
+            for (const dep of ['dependencies', 'devDependencies']) {
+              if (data[dep]) {
+                for (const pkgKey in data[dep]) {
+                  if (data[dep].hasOwnProperty(pkgKey)) {
+                    if (frameworkExclude.packages.includes(pkgKey)) {
+                      delete data[dep][pkgKey];
+                    }
+                  }
+                }
+              }
+            }
+            writeJsonSync(join(this.destinationPath(), newName), data, {
+              spaces: 2,
+            });
+          } else {
+            copySync(
+              join(path, file),
+              join(
+                this.destinationPath(),
+                getPath(path, this.sourceRoot),
+                newName,
+              ),
+            );
+          }
+        }
+      }
+    }
+  }
+
   async run() {
-    await copy(this.sourceRoot, this.destinationPath());
+    if (this.options.example === 'full-stack-nextjs') {
+      this.readDir(this.sourceRoot);
+    } else {
+      copySync(this.sourceRoot, this.destinationPath());
+    }
     process.chdir(this.options.destinationRoot!);
     renameSync('gitignore', '.gitignore');
     this.loadFiles('.');

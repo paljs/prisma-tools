@@ -24,7 +24,7 @@ const UpdateModel: React.FC<{
   const [updateModel] = useMutation(UPDATE_MODEL);
   const [title, setTitle] = useState<{
     value: string;
-    typingTimeout?: number;
+    typingTimeout?: NodeJS.Timeout;
   }>({
     value: modelObject.name,
   });

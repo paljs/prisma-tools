@@ -30,7 +30,7 @@ const UpdateField: React.FC<{
   const [updateField] = useMutation(UPDATE_FIELD);
   const [title, setTitle] = useState<{
     value: string;
-    typingTimeout?: number;
+    typingTimeout?: NodeJS.Timeout;
   }>({
     value: field.title,
   });

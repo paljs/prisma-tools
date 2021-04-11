@@ -21,7 +21,7 @@
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
     "build:css": "NODE_ENV=production tailwindcss-cli build -o ../packages/admin/style.css",
-    "prepare": "yarn build && yarn build-css"
+    "prepare": "cd ../../admin && yarn build"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",

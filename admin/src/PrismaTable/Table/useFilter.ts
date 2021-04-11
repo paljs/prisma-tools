@@ -7,7 +7,7 @@ export const useFilter = (
 ) => {
   const [state, setState] = useState<{
     value: any;
-    typingTimeout?: number;
+    typingTimeout?: NodeJS.Timeout;
   }>({
     value: init ?? {},
   });

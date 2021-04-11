@@ -65,7 +65,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const [deleteOne] = useMutation(mutationDocument(models, model, 'delete'));
 
   useEffect(() => {
-    let timeOut: number;
+    let timeOut: NodeJS.Timeout;
     if (
       (!(query?.update || query?.view) || inEdit) &&
       !data &&

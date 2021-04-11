@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-micro';
-import { schema } from 'Api/nexusSchema';
-import { createContext } from 'Api/context';
+import { schema } from 'server/nexusSchema';
+import { createContext } from 'server/context';
 
 const apolloServer = new ApolloServer({
   schema,

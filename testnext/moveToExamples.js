@@ -16,7 +16,7 @@ const excludedFiles = [
   '_',
 ];
 
-const destinationPath = '../buildExample';
+const destinationPath = '../packages/create/examples/full-stack-nextjs';
 
 const pathInclude = {
   'src/server/graphql': ['Auth.ts', 'index.ts'],

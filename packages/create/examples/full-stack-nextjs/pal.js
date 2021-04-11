@@ -2,7 +2,7 @@ module.exports = {
   backend: {
     generator: 'nexus',
     onDelete: true,
-    output: 'src/Api/graphql',
+    output: 'src/server/graphql',
   },
   frontend: {
     admin: true,

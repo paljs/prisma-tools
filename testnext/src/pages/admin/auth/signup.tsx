@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUp from 'components/Material/SignUp';
+import SignUp from 'components/material/SignUp';
 
 export default function SignUpPage() {
   return <SignUp />;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { NextPage } from 'next';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from 'server/client';
-import AdminLayout from 'layouts/material';
+import AdminLayout from 'layouts/Admin';
 
 import '@paljs/admin/style.css';
 

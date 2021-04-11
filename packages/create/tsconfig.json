@@ -13,6 +13,10 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "tslib" : ["../../node_modules/tslib/tslib.d.ts"]
+    }
   }
 }

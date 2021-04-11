@@ -32,3 +32,6 @@ yarn-error.log*
 
 #IDE
 .idea
+
+# .husky
+_

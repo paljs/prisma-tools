@@ -4,15 +4,32 @@ import * as React from 'react';
 import { NextPage } from 'next';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from 'server/client';
-import AdminLayout from 'layouts/material';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
 
-import '@paljs/admin/style.css';
-
-import { useRouter } from 'next/router';
+// Create a theme instance.
+export const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#556cd6',
+    },
+    secondary: {
+      main: '#19857b',
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: '#fff',
+    },
+  },
+});
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps.initialApolloState);
-  const router = useRouter();
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -20,8 +37,6 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
       jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
-
-  const admin = router.pathname.startsWith('/admin');
 
   return (
     <>
@@ -31,13 +46,10 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
       <ApolloProvider client={apolloClient}>
-        {admin ? (
-          <AdminLayout>
-            <Component {...pageProps} />
-          </AdminLayout>
-        ) : (
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Component {...pageProps} />
-        )}
+        </ThemeProvider>
       </ApolloProvider>
     </>
   );

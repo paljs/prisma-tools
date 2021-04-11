@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { Card, CardBody } from '@paljs/ui/Card';
-import { Button } from '@paljs/ui/Button';
 import { useRouter } from 'next/router';
 
 const Index = () => {
   const router = useRouter();
   return (
-    <Card>
-      <CardBody style={{ textAlign: 'center' }}>
-        <Button onClick={() => router.push('/admin')}>Go To Admin Pages</Button>
-      </CardBody>
-    </Card>
+    <div className="w-full flex items-start justify-center">
+      <button
+        className="p-4 rounded-md bg-blue-500 text-white mt-1 shadow-md hover:bg-blue-700"
+        onClick={() => router.push('/admin')}
+      >
+        Go To Admin Pages
+      </button>
+    </div>
   );
 };
 

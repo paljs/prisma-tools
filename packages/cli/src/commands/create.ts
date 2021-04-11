@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import { AppGenerator, AppGeneratorOptions } from '@paljs/create';
+import { AppGenerator, AppGeneratorOptions, Frameworks } from '@paljs/create';
 import { prompt } from 'enquirer';
 import { Examples } from '@paljs/types';
 import chalk from 'chalk';
@@ -12,6 +12,13 @@ const examples: Examples[] = [
   'apollo-nexus-schema',
   'apollo-sdl-first',
   'graphql-modules',
+];
+
+const frameworks: Frameworks[] = [
+  'Material UI',
+  'Material UI + PrismaAdmin UI',
+  'Tailwind CSS',
+  'Tailwind CSS + PrismaAdmin UI',
 ];
 
 export default class Create extends Command {
@@ -45,12 +52,6 @@ export default class Create extends Command {
     );
     const question = [
       {
-        type: 'select',
-        name: 'example',
-        message: 'Please select your start example',
-        choices: examples,
-      },
-      {
         type: 'input',
         validate: (v: any) =>
           v
@@ -78,6 +79,12 @@ export default class Create extends Command {
       },
       {
         type: 'select',
+        name: 'useGit',
+        message: 'Do you need to use Git',
+        choices: ['yes', 'no'],
+      },
+      {
+        type: 'select',
         name: 'manager',
         message: 'please select your package manager',
         choices: ['yarn', 'npm'],
@@ -90,7 +97,34 @@ export default class Create extends Command {
       },
     ];
 
-    const answers = await prompt<AppGeneratorOptions>(question);
+    const { example } = await prompt<AppGeneratorOptions>({
+      type: 'select',
+      name: 'example',
+      message: 'Please select your start example',
+      choices: examples,
+    });
+    let framework: { framework?: Frameworks; multi?: string } = {};
+    if (example === 'full-stack-nextjs') {
+      framework = await prompt<AppGeneratorOptions>([
+        {
+          type: 'select',
+          name: 'framework',
+          message: 'Please select your start framework',
+          choices: frameworks,
+        },
+        {
+          type: 'select',
+          name: 'multi',
+          message: 'Use multi schema template',
+          choices: ['no', 'yes'],
+        },
+      ]);
+    }
+    const answers = {
+      ...(await prompt<AppGeneratorOptions>(question)),
+      example,
+      ...framework,
+    };
     const generator = new AppGenerator(answers);
 
     try {
