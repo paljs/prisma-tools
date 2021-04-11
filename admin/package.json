@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "2.14.0",
+  "version": "3.0.0",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",
@@ -33,6 +33,7 @@
     "react-table": "7.6.3"
   },
   "devDependencies": {
+    "@apollo/client": "3.3.14",
     "@babel/cli": "^7.12.16",
     "@babel/core": "^7.12.16",
     "@babel/node": "^7.12.16",
@@ -41,7 +42,6 @@
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.12.16",
-    "@apollo/client": "3.3.14",
     "@tailwindcss/forms": "^0.3.2",
     "@types/node": "14.14.37",
     "@types/react": "17.0.3",
@@ -50,10 +50,10 @@
     "@types/react-table": "7.0.29",
     "autoprefixer": "^10.2.5",
     "babel-plugin-module-resolver": "^4.1.0",
-    "graphql-tag": "2.11.0",
     "fs-extra": "^9.1.0",
     "gh-pages": "3.1.0",
     "glob": "^7.1.6",
+    "graphql-tag": "2.11.0",
     "postcss": "^8.2.9",
     "react": "17.0.2",
     "react-dom": "17.0.2",
