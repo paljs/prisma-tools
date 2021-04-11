@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 
 import { SchemaField } from '../types';
 import { UPDATE_FIELD } from '../SchemaQueries';
-import { SettingLanguage } from '.';
+import { SettingLanguage } from './index';
 import Checkbox from '../components/Checkbox';
 import { inputClasses } from '../components/css';
 

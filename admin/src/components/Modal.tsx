@@ -13,7 +13,9 @@ const Modal: React.FC<ModalProps> = ({ children, on, toggle }) => {
         className="absolute inset-0 w-full h-full bg-black bg-opacity-25"
         onClick={toggle}
       />
-      <div className="relative w-auto my-6 mx-auto max-w-5xl">{children}</div>
+      <div className="relative w-auto my-6 mx-auto md:max-w-5xl max-w-full">
+        {children}
+      </div>
     </div>
   );
 };

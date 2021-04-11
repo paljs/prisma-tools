@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import Spinner from '../components/Spinner';
 import DynamicTable from './dynamicTable';
 import { GET_SCHEMA } from '../SchemaQueries';
-import { ModelTableProps, ContextProps } from '..';
+import { ModelTableProps, ContextProps } from '../index';
 import { TableContext, defaultSettings } from './Context';
 import defaultLanguage from './language';
 

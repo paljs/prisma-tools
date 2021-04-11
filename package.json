@@ -5,12 +5,13 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
-    "husky": "5.0.9",
-    "lerna": "3.22.1",
+    "husky": "6.0.0",
+    "lerna": "4.0.0",
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0"
   },
   "workspaces": [
+    "testnext",
     "packages/*"
   ],
   "prettier": {

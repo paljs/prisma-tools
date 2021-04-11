@@ -7,7 +7,7 @@ import useActions from './useActions';
 import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
 import { buttonClasses } from '../../components/css';
-import { getDate } from './getdate';
+import { getDate } from './getDate';
 
 export interface FormProps {
   action: 'update' | 'create' | 'view';

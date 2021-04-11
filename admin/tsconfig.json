@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./build",
+    "declarationDir": "../packages/admin",
     "downlevelIteration": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,

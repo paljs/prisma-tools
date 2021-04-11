@@ -4,7 +4,7 @@ const { existsSync } = require('fs');
 const glob = require('glob');
 
 const packagePath = process.cwd();
-const buildPath = path.join(packagePath, '../adminBuild');
+const buildPath = path.join(packagePath, '../packages/admin');
 const srcPath = path.join(packagePath, './src');
 
 async function createModulePackages({ from, to }) {

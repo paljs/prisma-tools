@@ -72,7 +72,7 @@ yargs
           description: `Valid bundles: "${validBundles.join('" | "')}"`,
           type: 'string',
         })
-        .option('out-dir', { default: '../adminBuild', type: 'string' })
+        .option('out-dir', { default: '../packages/admin', type: 'string' })
         .option('verbose', { type: 'boolean' });
     },
     handler: run,

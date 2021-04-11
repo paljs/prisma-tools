@@ -156,6 +156,7 @@ export const Table: React.FC<TableProps> = ({
   const ActionButtons = {
     Add: () => (
       <button
+        type="button"
         className={
           buttonClasses +
           'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
@@ -167,6 +168,7 @@ export const Table: React.FC<TableProps> = ({
     ),
     Update: ({ id }: { id: any }) => (
       <button
+        type="button"
         className={
           buttonClasses +
           'bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
@@ -189,6 +191,7 @@ export const Table: React.FC<TableProps> = ({
     ),
     Delete: ({ id }: { id: any }) => (
       <button
+        type="button"
         className={
           buttonClasses +
           'bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
@@ -224,7 +227,7 @@ export const Table: React.FC<TableProps> = ({
       )}
       <div className="flex flex-col rounded-lg shadow bg-white overflow-hidden">
         <div
-          className={`w-full inline-flex space-x-4  space-y-2.5 space-y-reverse mt-4 ${
+          className={`w-full inline-flex space-x-4 my-4 ${
             dir === 'rtl' ? 'mr-4 space-x-reverse' : 'ml-4'
           }`}
         >
@@ -234,6 +237,7 @@ export const Table: React.FC<TableProps> = ({
             </div>
           )}
           <button
+            type="button"
             className={
               buttonClasses +
               'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
@@ -366,6 +370,7 @@ export const Table: React.FC<TableProps> = ({
                         {connect && (
                           <td colSpan={2} className={tdClasses}>
                             <button
+                              type="button"
                               className={
                                 buttonClasses +
                                 'bg-transparent text-green-600 hover:bg-green-100 hover:bg-opacity-25'
@@ -450,14 +455,17 @@ export const Table: React.FC<TableProps> = ({
             </div>
           </div>
         </div>
-        <div className={`flex flex-wrap w-full ${tdClasses}`}>
+        <div
+          className={`flex flex-wrap md:justify-between justify-center w-full ${tdClasses}`}
+        >
           <nav
-            className={`"w-full md:w-1/2 justify-center mb-4 md:justify-start md:mb-0 relative z-0 inline-flex -space-x-px ${
+            className={`"w-full md:w-auto  mb-4 md:mb-0 inline-flex -space-x-px ${
               dir === 'rtl' ? 'space-x-reverse' : ''
             }`}
             aria-label="Pagination"
           >
             <button
+              type="button"
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
               className={`relative inline-flex items-center px-2 py-2 ${
@@ -471,6 +479,7 @@ export const Table: React.FC<TableProps> = ({
               />
             </button>
             <button
+              type="button"
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
               className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
@@ -484,6 +493,7 @@ export const Table: React.FC<TableProps> = ({
             {initPages(pageCount, pageIndex + 1, paginationOptions).map(
               (item) => (
                 <button
+                  type="button"
                   className={`${
                     item === pageIndex + 1
                       ? 'bg-blue-500 text-white hover:bg-blue-700'
@@ -497,6 +507,7 @@ export const Table: React.FC<TableProps> = ({
               ),
             )}
             <button
+              type="button"
               onClick={() => nextPage()}
               disabled={!canNextPage}
               className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
@@ -508,6 +519,7 @@ export const Table: React.FC<TableProps> = ({
               />
             </button>
             <button
+              type="button"
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
               className={`relative inline-flex items-center px-2 py-2 ${
@@ -522,12 +534,13 @@ export const Table: React.FC<TableProps> = ({
             </button>
           </nav>
           <div
-            className={`relative z-0 inline-flex -space-x-px ${
+            className={`inline-flex justify-center -space-x-px ${
               dir === 'rtl' ? 'space-x-reverse' : ''
-            } w-full justify-center md:justify-end md:w-1/2`}
+            } w-full md:w-auto`}
           >
             {pageSizeOptions.map((item, index) => (
               <button
+                type="button"
                 key={index}
                 className={`${
                   index === 0

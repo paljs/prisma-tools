@@ -12,7 +12,7 @@ import { FormInputs } from '../../types';
 import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
 import { buttonClasses, inputClasses } from '../../components/css';
-import { getDate } from './getdate';
+import { getDate } from './getDate';
 
 interface Option {
   id: any;

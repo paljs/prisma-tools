@@ -14,7 +14,25 @@ class Prisma extends PrismaClient {
   }
 }
 
-const prisma = new Prisma()
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+let db: Prisma
+if (process.env.NODE_ENV === 'production') {
+  db = new Prisma()
+  console.log('Production: Created DB connection.')
+} else {
+  // @ts-ignore
+  if (!global.db) {
+    // @ts-ignore
+    global.db = new Prisma()
+    console.log('Development: Created DB connection.')
+  }
+
+  // @ts-ignore
+  db = global.db
+}
+
+db.$executeRaw('PRAGMA foreign_keys = ON')
 
 export interface Context extends NextApi {
   prisma: Prisma
@@ -31,7 +49,7 @@ export function createContext({ req, res }: NextApi): Context {
   return {
     req,
     res,
-    prisma,
+    prisma: db,
     userId: getUserId(req),
     select: {},
   }

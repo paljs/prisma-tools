@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContextProps } from '..';
+import { ContextProps } from '../index';
 import defaultLanguage from './language';
 
 export const defaultSettings = {

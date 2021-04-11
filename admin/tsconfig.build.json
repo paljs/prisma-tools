@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "build",
+    "outDir": "../packages/admin",
     "declaration": true,
     "declarationMap": true,
     "isolatedModules": false,
