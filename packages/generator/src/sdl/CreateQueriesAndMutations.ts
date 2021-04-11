@@ -3,6 +3,7 @@ import { QueriesAndMutations } from '@paljs/types';
 export function createQueriesAndMutations(
   modelName: string,
   exclude: QueriesAndMutations[],
+  prismaName: string,
   onDelete?: boolean,
 ) {
   const operations = {
@@ -23,8 +24,8 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findUnique${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.queries.resolver += `
-    findUnique${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.findUnique(args)
+    findUnique${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.findUnique(args)
     },`;
   }
 
@@ -39,8 +40,8 @@ export function createQueriesAndMutations(
       take: Int
     ): ${modelName}`;
     operations.queries.resolver += `
-    findFirst${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.findFirst(args)
+    findFirst${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.findFirst(args)
     },`;
   }
 
@@ -55,8 +56,8 @@ export function createQueriesAndMutations(
       take: Int
     ): [${modelName}!]`;
     operations.queries.resolver += `
-    findMany${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.findMany(args)
+    findMany${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.findMany(args)
     },`;
   }
 
@@ -71,8 +72,8 @@ export function createQueriesAndMutations(
       take: Int
     ): Int!`;
     operations.queries.resolver += `
-    findMany${name}Count: (_parent, args, {prisma}) => {
-      return prisma.${model}.count(args)
+    findMany${name}Count: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.count(args)
     },`;
   }
 
@@ -87,8 +88,8 @@ export function createQueriesAndMutations(
       take: Int
     ): Aggregate${name}`;
     operations.queries.resolver += `
-    aggregate${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.aggregate(args)
+    aggregate${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.aggregate(args)
     },`;
   }
 
@@ -96,8 +97,8 @@ export function createQueriesAndMutations(
     operations.mutations.type += `
     createOne${name}(data: ${name}CreateInput!): ${name}!`;
     operations.mutations.resolver += `
-    createOne${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.create(args)
+    createOne${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.create(args)
     },`;
   }
 
@@ -108,8 +109,8 @@ export function createQueriesAndMutations(
       data: ${name}UpdateInput!
     ): ${modelName}!`;
     operations.mutations.resolver += `
-    updateOne${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.update(args)
+    updateOne${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.update(args)
     },`;
   }
 
@@ -117,13 +118,13 @@ export function createQueriesAndMutations(
     operations.mutations.type += `
     deleteOne${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.mutations.resolver += `
-    deleteOne${name}: async (_parent, args, {prisma}) => {
+    deleteOne${name}: async (_parent, args, {${prismaName}}) => {
       ${
         onDelete
-          ? `await prisma.onDelete({ model: '${modelName}', where: args.where })`
+          ? `await ${prismaName}.onDelete({ model: '${modelName}', where: args.where })`
           : ''
       }
-      return prisma.${model}.delete(args)
+      return ${prismaName}.${model}.delete(args)
     },`;
   }
 
@@ -135,8 +136,8 @@ export function createQueriesAndMutations(
       update: ${name}UpdateInput!
     ): ${modelName}`;
     operations.mutations.resolver += `
-    upsertOne${name}: async (_parent, args, {prisma}) => {
-      return prisma.${model}.upsert(args)
+    upsertOne${name}: async (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.upsert(args)
     },`;
   }
 
@@ -144,13 +145,13 @@ export function createQueriesAndMutations(
     operations.mutations.type += `
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;
     operations.mutations.resolver += `
-    deleteMany${name}: async (_parent, args, {prisma}) => {
+    deleteMany${name}: async (_parent, args, {${prismaName}}) => {
       ${
         onDelete
-          ? `await prisma.onDelete({ model: '${modelName}', where: args.where })`
+          ? `await ${prismaName}.onDelete({ model: '${modelName}', where: args.where })`
           : ''
       }
-      return prisma.${model}.deleteMany(args)
+      return ${prismaName}.${model}.deleteMany(args)
     },`;
   }
 
@@ -161,8 +162,8 @@ export function createQueriesAndMutations(
       data: ${name}UpdateManyMutationInput
     ): BatchPayload`;
     operations.mutations.resolver += `
-    updateMany${name}: (_parent, args, {prisma}) => {
-      return prisma.${model}.updateMany(args)
+    updateMany${name}: (_parent, args, {${prismaName}}) => {
+      return ${prismaName}.${model}.updateMany(args)
     },`;
   }
 

@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { dataModel, DMMF } from './schema';
+import { DMMF } from '@prisma/client/runtime';
 // @ts-ignore
 import graphqlFields from 'graphql-fields';
 
@@ -53,7 +53,7 @@ export class PrismaSelect {
           | { [key: string]: boolean }
           | ((select: any) => { [key: string]: boolean });
       };
-      dmmf?: DMMF.Document;
+      dmmf?: DMMF.Document[];
     },
   ) {}
 
@@ -68,7 +68,18 @@ export class PrismaSelect {
   }
 
   get dataModel() {
-    return this.options?.dmmf?.datamodel || dataModel;
+    const models: DMMF.Model[] = [];
+    if (this.options?.dmmf) {
+      this.options?.dmmf.forEach((doc) => {
+        models.push(...doc.datamodel.models);
+      });
+    } else {
+      const { Prisma } = require('@prisma/client');
+      if (Prisma.dmmf && Prisma.dmmf.dataModel) {
+        models.push(...Prisma.dmmf.dataModel.models);
+      }
+    }
+    return models;
   }
 
   get defaultFields() {
@@ -99,7 +110,7 @@ export class PrismaSelect {
   }
 
   private model(name?: string) {
-    return this.dataModel?.models.find(
+    return this.dataModel.find(
       (item) =>
         item.name === name ||
         PrismaSelect.getModelMap(item.documentation, name),

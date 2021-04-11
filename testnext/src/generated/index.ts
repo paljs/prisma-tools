@@ -12,6 +12,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** BigInt custom scalar type */
+  BigInt: any;
   /** Date custom scalar type */
   DateTime: any;
   /** Decimal custom scalar type */
@@ -36,15 +38,6 @@ export type AggregateGroup = {
   max?: Maybe<GroupMaxAggregateOutputType>;
   min?: Maybe<GroupMinAggregateOutputType>;
   sum?: Maybe<GroupSumAggregateOutputType>;
-};
-
-export type AggregateList = {
-  __typename?: 'AggregateList';
-  avg?: Maybe<ListAvgAggregateOutputType>;
-  count?: Maybe<ListCountAggregateOutputType>;
-  max?: Maybe<ListMaxAggregateOutputType>;
-  min?: Maybe<ListMinAggregateOutputType>;
-  sum?: Maybe<ListSumAggregateOutputType>;
 };
 
 export type AggregatePost = {
@@ -77,14 +70,6 @@ export type BoolFieldUpdateOperationsInput = {
 export type BoolFilter = {
   equals?: Maybe<Scalars['Boolean']>;
   not?: Maybe<NestedBoolFilter>;
-};
-
-export type BoolNullableListFilter = {
-  equals?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  has?: Maybe<Scalars['Boolean']>;
-  hasEvery?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  hasSome?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
 export type BoolWithAggregatesFilter = {
@@ -133,53 +118,16 @@ export type CommentCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type CommentCreateManyAuthorInput = {
-  contain: Scalars['String'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  postId: Scalars['Int'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type CommentCreateManyAuthorInputEnvelope = {
-  data: CommentCreateManyAuthorInput;
-  skipDuplicates?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommentCreateManyInput = {
-  authorId?: Maybe<Scalars['Int']>;
-  contain: Scalars['String'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  postId: Scalars['Int'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type CommentCreateManyPostInput = {
-  authorId?: Maybe<Scalars['Int']>;
-  contain: Scalars['String'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type CommentCreateManyPostInputEnvelope = {
-  data: CommentCreateManyPostInput;
-  skipDuplicates?: Maybe<Scalars['Boolean']>;
-};
-
 export type CommentCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
 };
 
 export type CommentCreateNestedManyWithoutPostInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutPostInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutPostInput>>>;
-  createMany?: Maybe<CommentCreateManyPostInputEnvelope>;
 };
 
 export type CommentCreateOrConnectWithoutAuthorInput = {
@@ -294,14 +242,12 @@ export type CommentUncheckedCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
 };
 
 export type CommentUncheckedCreateNestedManyWithoutPostInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutPostInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutPostInput>>>;
-  createMany?: Maybe<CommentCreateManyPostInputEnvelope>;
 };
 
 export type CommentUncheckedCreateWithoutAuthorInput = {
@@ -342,7 +288,6 @@ export type CommentUncheckedUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<CommentScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
@@ -364,7 +309,6 @@ export type CommentUncheckedUpdateManyWithoutPostInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutPostInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutPostInput>>>;
-  createMany?: Maybe<CommentCreateManyPostInputEnvelope>;
   delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<CommentScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
@@ -418,7 +362,6 @@ export type CommentUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<CommentScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
@@ -432,7 +375,6 @@ export type CommentUpdateManyWithoutPostInput = {
   connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<CommentCreateOrConnectWithoutPostInput>>>;
   create?: Maybe<Array<Maybe<CommentCreateWithoutPostInput>>>;
-  createMany?: Maybe<CommentCreateManyPostInputEnvelope>;
   delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<CommentScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
@@ -531,14 +473,6 @@ export type Enum = {
   name: Scalars['String'];
 };
 
-export type EnumRolsNullableListFilter = {
-  equals?: Maybe<Array<Maybe<Rols>>>;
-  has?: Maybe<Rols>;
-  hasEvery?: Maybe<Array<Maybe<Rols>>>;
-  hasSome?: Maybe<Array<Maybe<Rols>>>;
-  isEmpty?: Maybe<Scalars['Boolean']>;
-};
-
 export type Field = {
   __typename?: 'Field';
   create: Scalars['Boolean'];
@@ -559,14 +493,6 @@ export type Field = {
   unique: Scalars['Boolean'];
   update: Scalars['Boolean'];
   upload: Scalars['Boolean'];
-};
-
-export type FloatNullableListFilter = {
-  equals?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  has?: Maybe<Scalars['Float']>;
-  hasEvery?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  hasSome?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
 export type Group = {
@@ -606,13 +532,6 @@ export type GroupCreateInput = {
   name: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   users?: Maybe<UserCreateNestedManyWithoutGroupInput>;
-};
-
-export type GroupCreateManyInput = {
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  name: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type GroupCreateNestedOneWithoutUsersInput = {
@@ -798,14 +717,6 @@ export type IntNullableFilter = {
   notIn?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
-export type IntNullableListFilter = {
-  equals?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  has?: Maybe<Scalars['Int']>;
-  hasEvery?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  hasSome?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  isEmpty?: Maybe<Scalars['Boolean']>;
-};
-
 export type IntNullableWithAggregatesFilter = {
   avg?: Maybe<NestedFloatNullableFilter>;
   count?: Maybe<NestedIntNullableFilter>;
@@ -844,222 +755,6 @@ export enum KindEnum {
   Scalar = 'scalar',
 }
 
-export type List = {
-  __typename?: 'List';
-  boolean: Array<Scalars['Boolean']>;
-  enums: Array<Rols>;
-  flout: Array<Scalars['Float']>;
-  id: Scalars['Int'];
-  intger: Array<Scalars['Int']>;
-  string: Array<Scalars['String']>;
-};
-
-export type ListAvgAggregateOutputType = {
-  __typename?: 'ListAvgAggregateOutputType';
-  flout?: Maybe<Scalars['Float']>;
-  id: Scalars['Float'];
-  intger?: Maybe<Scalars['Float']>;
-};
-
-export type ListCountAggregateOutputType = {
-  __typename?: 'ListCountAggregateOutputType';
-  _all: Scalars['Int'];
-  boolean?: Maybe<Scalars['Int']>;
-  enums?: Maybe<Scalars['Int']>;
-  flout?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
-  intger?: Maybe<Scalars['Int']>;
-  string?: Maybe<Scalars['Int']>;
-};
-
-export type ListCreateInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListCreateManyInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  id?: Maybe<Scalars['Int']>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListCreateManybooleanInput = {
-  set: Scalars['Boolean'];
-};
-
-export type ListCreateManyenumsInput = {
-  set: Rols;
-};
-
-export type ListCreateManyfloutInput = {
-  set: Scalars['Float'];
-};
-
-export type ListCreateManyintgerInput = {
-  set: Scalars['Int'];
-};
-
-export type ListCreateManystringInput = {
-  set: Scalars['String'];
-};
-
-export type ListCreatebooleanInput = {
-  set: Scalars['Boolean'];
-};
-
-export type ListCreateenumsInput = {
-  set: Rols;
-};
-
-export type ListCreatefloutInput = {
-  set: Scalars['Float'];
-};
-
-export type ListCreateintgerInput = {
-  set: Scalars['Int'];
-};
-
-export type ListCreatestringInput = {
-  set: Scalars['String'];
-};
-
-export type ListMaxAggregateOutputType = {
-  __typename?: 'ListMaxAggregateOutputType';
-  id: Scalars['Int'];
-};
-
-export type ListMinAggregateOutputType = {
-  __typename?: 'ListMinAggregateOutputType';
-  id: Scalars['Int'];
-};
-
-export type ListOrderByInput = {
-  boolean?: Maybe<SortOrder>;
-  enums?: Maybe<SortOrder>;
-  flout?: Maybe<SortOrder>;
-  id?: Maybe<SortOrder>;
-  intger?: Maybe<SortOrder>;
-  string?: Maybe<SortOrder>;
-};
-
-export enum ListScalarFieldEnum {
-  Boolean = 'boolean',
-  Enums = 'enums',
-  Flout = 'flout',
-  Id = 'id',
-  Intger = 'intger',
-  String = 'string',
-}
-
-export type ListScalarWhereWithAggregatesInput = {
-  AND?: Maybe<Array<Maybe<ListScalarWhereWithAggregatesInput>>>;
-  NOT?: Maybe<Array<Maybe<ListScalarWhereWithAggregatesInput>>>;
-  OR?: Maybe<Array<Maybe<ListScalarWhereWithAggregatesInput>>>;
-  boolean?: Maybe<BoolNullableListFilter>;
-  enums?: Maybe<EnumRolsNullableListFilter>;
-  flout?: Maybe<FloatNullableListFilter>;
-  id?: Maybe<IntWithAggregatesFilter>;
-  intger?: Maybe<IntNullableListFilter>;
-  string?: Maybe<StringNullableListFilter>;
-};
-
-export type ListSumAggregateOutputType = {
-  __typename?: 'ListSumAggregateOutputType';
-  flout?: Maybe<Scalars['Float']>;
-  id: Scalars['Int'];
-  intger?: Maybe<Scalars['Int']>;
-};
-
-export type ListUncheckedCreateInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  id?: Maybe<Scalars['Int']>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListUncheckedUpdateInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  id?: Maybe<IntFieldUpdateOperationsInput>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListUncheckedUpdateManyInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  id?: Maybe<IntFieldUpdateOperationsInput>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListUpdateInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListUpdateManyMutationInput = {
-  boolean?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-  enums?: Maybe<Array<Maybe<Rols>>>;
-  flout?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  intger?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  string?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListUpdatebooleanInput = {
-  push?: Maybe<Scalars['Boolean']>;
-  set?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-};
-
-export type ListUpdateenumsInput = {
-  push?: Maybe<Rols>;
-  set?: Maybe<Array<Maybe<Rols>>>;
-};
-
-export type ListUpdatefloutInput = {
-  push?: Maybe<Scalars['Float']>;
-  set?: Maybe<Array<Maybe<Scalars['Float']>>>;
-};
-
-export type ListUpdateintgerInput = {
-  push?: Maybe<Scalars['Int']>;
-  set?: Maybe<Array<Maybe<Scalars['Int']>>>;
-};
-
-export type ListUpdatestringInput = {
-  push?: Maybe<Scalars['String']>;
-  set?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type ListWhereInput = {
-  AND?: Maybe<Array<Maybe<ListWhereInput>>>;
-  NOT?: Maybe<Array<Maybe<ListWhereInput>>>;
-  OR?: Maybe<Array<Maybe<ListWhereInput>>>;
-  boolean?: Maybe<BoolNullableListFilter>;
-  enums?: Maybe<EnumRolsNullableListFilter>;
-  flout?: Maybe<FloatNullableListFilter>;
-  id?: Maybe<IntFilter>;
-  intger?: Maybe<IntNullableListFilter>;
-  string?: Maybe<StringNullableListFilter>;
-};
-
-export type ListWhereUniqueInput = {
-  id?: Maybe<Scalars['Int']>;
-};
-
 export type Model = {
   __typename?: 'Model';
   create: Scalars['Boolean'];
@@ -1076,17 +771,14 @@ export type Mutation = {
   __typename?: 'Mutation';
   createOneComment: Comment;
   createOneGroup: Group;
-  createOneList: List;
   createOnePost: Post;
   createOneUser: User;
   deleteManyComment: BatchPayload;
   deleteManyGroup: BatchPayload;
-  deleteManyList: BatchPayload;
   deleteManyPost: BatchPayload;
   deleteManyUser: BatchPayload;
   deleteOneComment?: Maybe<Comment>;
   deleteOneGroup?: Maybe<Group>;
-  deleteOneList?: Maybe<List>;
   deleteOnePost?: Maybe<Post>;
   deleteOneUser?: Maybe<User>;
   login?: Maybe<User>;
@@ -1095,19 +787,16 @@ export type Mutation = {
   updateField: Field;
   updateManyComment: BatchPayload;
   updateManyGroup: BatchPayload;
-  updateManyList: BatchPayload;
   updateManyPost: BatchPayload;
   updateManyUser: BatchPayload;
   updateModel: Model;
   updateOneComment: Comment;
   updateOneGroup: Group;
-  updateOneList: List;
   updateOnePost: Post;
   updateOneUser: User;
   updatePassword?: Maybe<Scalars['Boolean']>;
   upsertOneComment: Comment;
   upsertOneGroup: Group;
-  upsertOneList: List;
   upsertOnePost: Post;
   upsertOneUser: User;
 };
@@ -1118,10 +807,6 @@ export type MutationCreateOneCommentArgs = {
 
 export type MutationCreateOneGroupArgs = {
   data: GroupCreateInput;
-};
-
-export type MutationCreateOneListArgs = {
-  data: ListCreateInput;
 };
 
 export type MutationCreateOnePostArgs = {
@@ -1140,10 +825,6 @@ export type MutationDeleteManyGroupArgs = {
   where?: Maybe<GroupWhereInput>;
 };
 
-export type MutationDeleteManyListArgs = {
-  where?: Maybe<ListWhereInput>;
-};
-
 export type MutationDeleteManyPostArgs = {
   where?: Maybe<PostWhereInput>;
 };
@@ -1158,10 +839,6 @@ export type MutationDeleteOneCommentArgs = {
 
 export type MutationDeleteOneGroupArgs = {
   where: GroupWhereUniqueInput;
-};
-
-export type MutationDeleteOneListArgs = {
-  where: ListWhereUniqueInput;
 };
 
 export type MutationDeleteOnePostArgs = {
@@ -1199,11 +876,6 @@ export type MutationUpdateManyGroupArgs = {
   where?: Maybe<GroupWhereInput>;
 };
 
-export type MutationUpdateManyListArgs = {
-  data: ListUpdateManyMutationInput;
-  where?: Maybe<ListWhereInput>;
-};
-
 export type MutationUpdateManyPostArgs = {
   data: PostUpdateManyMutationInput;
   where?: Maybe<PostWhereInput>;
@@ -1227,11 +899,6 @@ export type MutationUpdateOneCommentArgs = {
 export type MutationUpdateOneGroupArgs = {
   data: GroupUpdateInput;
   where: GroupWhereUniqueInput;
-};
-
-export type MutationUpdateOneListArgs = {
-  data: ListUpdateInput;
-  where: ListWhereUniqueInput;
 };
 
 export type MutationUpdateOnePostArgs = {
@@ -1259,12 +926,6 @@ export type MutationUpsertOneGroupArgs = {
   create: GroupCreateInput;
   update: GroupUpdateInput;
   where: GroupWhereUniqueInput;
-};
-
-export type MutationUpsertOneListArgs = {
-  create: ListCreateInput;
-  update: ListUpdateInput;
-  where: ListWhereUniqueInput;
 };
 
 export type MutationUpsertOnePostArgs = {
@@ -1514,33 +1175,10 @@ export type PostCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type PostCreateManyAuthorInput = {
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  published?: Maybe<Scalars['Boolean']>;
-  title: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type PostCreateManyAuthorInputEnvelope = {
-  data: PostCreateManyAuthorInput;
-  skipDuplicates?: Maybe<Scalars['Boolean']>;
-};
-
-export type PostCreateManyInput = {
-  authorId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  published?: Maybe<Scalars['Boolean']>;
-  title: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
 export type PostCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<PostCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<PostCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<PostCreateManyAuthorInputEnvelope>;
 };
 
 export type PostCreateNestedOneWithoutCommentsInput = {
@@ -1668,7 +1306,6 @@ export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<PostCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<PostCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<PostCreateManyAuthorInputEnvelope>;
 };
 
 export type PostUncheckedCreateWithoutAuthorInput = {
@@ -1712,7 +1349,6 @@ export type PostUncheckedUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<PostCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<PostCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<PostCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<PostScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
@@ -1773,7 +1409,6 @@ export type PostUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<PostCreateOrConnectWithoutAuthorInput>>>;
   create?: Maybe<Array<Maybe<PostCreateWithoutAuthorInput>>>;
-  createMany?: Maybe<PostCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<PostScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<PostWhereUniqueInput>>>;
@@ -1845,27 +1480,22 @@ export type Query = {
   __typename?: 'Query';
   aggregateComment?: Maybe<AggregateComment>;
   aggregateGroup?: Maybe<AggregateGroup>;
-  aggregateList?: Maybe<AggregateList>;
   aggregatePost?: Maybe<AggregatePost>;
   aggregateUser?: Maybe<AggregateUser>;
   findFirstComment?: Maybe<Comment>;
   findFirstGroup?: Maybe<Group>;
-  findFirstList?: Maybe<List>;
   findFirstPost?: Maybe<Post>;
   findFirstUser?: Maybe<User>;
   findManyComment: Array<Comment>;
   findManyCommentCount: Scalars['Int'];
   findManyGroup: Array<Group>;
   findManyGroupCount: Scalars['Int'];
-  findManyList: Array<List>;
-  findManyListCount: Scalars['Int'];
   findManyPost: Array<Post>;
   findManyPostCount: Scalars['Int'];
   findManyUser: Array<User>;
   findManyUserCount: Scalars['Int'];
   findUniqueComment?: Maybe<Comment>;
   findUniqueGroup?: Maybe<Group>;
-  findUniqueList?: Maybe<List>;
   findUniquePost?: Maybe<Post>;
   findUniqueUser?: Maybe<User>;
   getSchema: Schema;
@@ -1888,15 +1518,6 @@ export type QueryAggregateGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
-};
-
-export type QueryAggregateListArgs = {
-  cursor?: Maybe<ListWhereUniqueInput>;
-  distinct?: Maybe<ListScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<ListOrderByInput>>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<ListWhereInput>;
 };
 
 export type QueryAggregatePostArgs = {
@@ -1933,15 +1554,6 @@ export type QueryFindFirstGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
-};
-
-export type QueryFindFirstListArgs = {
-  cursor?: Maybe<ListWhereUniqueInput>;
-  distinct?: Maybe<ListScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<ListOrderByInput>>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<ListWhereInput>;
 };
 
 export type QueryFindFirstPostArgs = {
@@ -1998,24 +1610,6 @@ export type QueryFindManyGroupCountArgs = {
   where?: Maybe<GroupWhereInput>;
 };
 
-export type QueryFindManyListArgs = {
-  cursor?: Maybe<ListWhereUniqueInput>;
-  distinct?: Maybe<ListScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<ListOrderByInput>>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<ListWhereInput>;
-};
-
-export type QueryFindManyListCountArgs = {
-  cursor?: Maybe<ListWhereUniqueInput>;
-  distinct?: Maybe<ListScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<ListOrderByInput>>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<ListWhereInput>;
-};
-
 export type QueryFindManyPostArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
   distinct?: Maybe<PostScalarFieldEnum>;
@@ -2060,10 +1654,6 @@ export type QueryFindUniqueGroupArgs = {
   where: GroupWhereUniqueInput;
 };
 
-export type QueryFindUniqueListArgs = {
-  where: ListWhereUniqueInput;
-};
-
 export type QueryFindUniquePostArgs = {
   where: PostWhereUniqueInput;
 };
@@ -2071,16 +1661,6 @@ export type QueryFindUniquePostArgs = {
 export type QueryFindUniqueUserArgs = {
   where: UserWhereUniqueInput;
 };
-
-export enum QueryMode {
-  Default = 'default',
-  Insensitive = 'insensitive',
-}
-
-export enum Rols {
-  Admin = 'ADMIN',
-  User = 'USER',
-}
 
 export type Schema = {
   __typename?: 'Schema';
@@ -2106,7 +1686,6 @@ export type StringFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  mode?: Maybe<QueryMode>;
   not?: Maybe<NestedStringFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -2121,18 +1700,9 @@ export type StringNullableFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  mode?: Maybe<QueryMode>;
   not?: Maybe<NestedStringNullableFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
-};
-
-export type StringNullableListFilter = {
-  equals?: Maybe<Array<Maybe<Scalars['String']>>>;
-  has?: Maybe<Scalars['String']>;
-  hasEvery?: Maybe<Array<Maybe<Scalars['String']>>>;
-  hasSome?: Maybe<Array<Maybe<Scalars['String']>>>;
-  isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
 export type StringNullableWithAggregatesFilter = {
@@ -2147,7 +1717,6 @@ export type StringNullableWithAggregatesFilter = {
   lte?: Maybe<Scalars['String']>;
   max?: Maybe<NestedStringNullableFilter>;
   min?: Maybe<NestedStringNullableFilter>;
-  mode?: Maybe<QueryMode>;
   not?: Maybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -2165,7 +1734,6 @@ export type StringWithAggregatesFilter = {
   lte?: Maybe<Scalars['String']>;
   max?: Maybe<NestedStringFilter>;
   min?: Maybe<NestedStringFilter>;
-  mode?: Maybe<QueryMode>;
   not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -2260,33 +1828,10 @@ export type UserCreateInput = {
   posts?: Maybe<PostCreateNestedManyWithoutAuthorInput>;
 };
 
-export type UserCreateManyGroupInput = {
-  createdAt?: Maybe<Scalars['DateTime']>;
-  email: Scalars['String'];
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  password: Scalars['String'];
-};
-
-export type UserCreateManyGroupInputEnvelope = {
-  data: UserCreateManyGroupInput;
-  skipDuplicates?: Maybe<Scalars['Boolean']>;
-};
-
-export type UserCreateManyInput = {
-  createdAt?: Maybe<Scalars['DateTime']>;
-  email: Scalars['String'];
-  groupId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  password: Scalars['String'];
-};
-
 export type UserCreateNestedManyWithoutGroupInput = {
   connect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<UserCreateOrConnectWithoutGroupInput>>>;
   create?: Maybe<Array<Maybe<UserCreateWithoutGroupInput>>>;
-  createMany?: Maybe<UserCreateManyGroupInputEnvelope>;
 };
 
 export type UserCreateNestedOneWithoutCommentsInput = {
@@ -2437,7 +1982,6 @@ export type UserUncheckedCreateNestedManyWithoutGroupInput = {
   connect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<UserCreateOrConnectWithoutGroupInput>>>;
   create?: Maybe<Array<Maybe<UserCreateWithoutGroupInput>>>;
-  createMany?: Maybe<UserCreateManyGroupInputEnvelope>;
 };
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2494,7 +2038,6 @@ export type UserUncheckedUpdateManyWithoutGroupInput = {
   connect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<UserCreateOrConnectWithoutGroupInput>>>;
   create?: Maybe<Array<Maybe<UserCreateWithoutGroupInput>>>;
-  createMany?: Maybe<UserCreateManyGroupInputEnvelope>;
   delete?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<UserScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
@@ -2568,7 +2111,6 @@ export type UserUpdateManyWithoutGroupInput = {
   connect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   connectOrCreate?: Maybe<Array<Maybe<UserCreateOrConnectWithoutGroupInput>>>;
   create?: Maybe<Array<Maybe<UserCreateWithoutGroupInput>>>;
-  createMany?: Maybe<UserCreateManyGroupInputEnvelope>;
   delete?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
   deleteMany?: Maybe<Array<Maybe<UserScalarWhereInput>>>;
   disconnect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;

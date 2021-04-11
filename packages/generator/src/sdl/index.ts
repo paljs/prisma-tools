@@ -69,7 +69,12 @@ export class GenerateSdl extends Generators {
 
   private getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(model, exclude, this.options.onDelete);
+    return createQueriesAndMutations(
+      model,
+      exclude,
+      this.options.prismaName,
+      this.options.onDelete,
+    );
   }
 
   private createFiles(model: string, typeContent: string) {

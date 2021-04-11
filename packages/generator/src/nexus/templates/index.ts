@@ -33,6 +33,7 @@ export function getCrud(
   model: string,
   type: 'query' | 'mutation',
   key: QueriesAndMutations,
+  prismaName: string,
   onDelete?: boolean,
   isJS?: boolean,
 ) {
@@ -69,6 +70,7 @@ export function getCrud(
   );
   return crud[key]
     .replace(/#{ModelName}/g, model)
+    .replace(/#{prisma}/g, prismaName)
     .replace(/#{Model}/g, modelUpper)
     .replace(/#{model}/g, modelLower)
     .replace(/#{import}/g, importString)
@@ -82,6 +84,8 @@ export function getCrud(
     )
     .replace(
       /#{onDelete}/g,
-      onDelete ? `await prisma.onDelete({ model: '${model}', where })` : '',
+      onDelete
+        ? `await ${prismaName}.onDelete({ model: '${model}', where })`
+        : '',
     );
 }

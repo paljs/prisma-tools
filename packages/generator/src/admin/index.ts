@@ -7,6 +7,7 @@ import { ConvertSchemaToObject } from '@paljs/schema';
 import { createFile } from './createFile';
 
 const defaultOptions: Options = {
+  prismaName: 'prisma',
   output: './src/graphql',
   excludeFields: [],
   excludeModels: [],
@@ -18,8 +19,22 @@ const defaultOptions: Options = {
 export class UIGenerator {
   schema: SchemaObject;
 
-  constructor(schemaPath: string) {
-    this.schema = new ConvertSchemaToObject(schemaPath).run();
+  constructor(schemaPath: string | string[]) {
+    this.schema =
+      typeof schemaPath === 'string'
+        ? new ConvertSchemaToObject(schemaPath).run()
+        : this.mergeSchemas(
+            schemaPath.map((path) => new ConvertSchemaToObject(path).run()),
+          );
+  }
+
+  mergeSchemas(schemas: SchemaObject[]) {
+    const schema: SchemaObject = { models: [], enums: [] };
+    schemas.forEach((s) => {
+      schema.models.push(...s.models);
+      schema.enums.push(...s.enums);
+    });
+    return schema;
   }
 
   buildSettingsSchema(path = 'adminSettings.json') {
@@ -70,7 +85,7 @@ export class UIGenerator {
 
 const page = `
 import React from 'react';
-import PrismaTable from 'Components/PrismaTable';
+import PrismaTable from 'components/PrismaTable';
 
 const #{id}: React.FC = () => {
   return <PrismaTable model="#{id}" />;

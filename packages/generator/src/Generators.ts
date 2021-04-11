@@ -9,6 +9,7 @@ const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
   protected options: Options = {
+    prismaName: 'prisma',
     output: join(projectRoot, 'src/graphql'),
     excludeFields: [],
     excludeModels: [],

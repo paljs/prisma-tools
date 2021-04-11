@@ -8,8 +8,8 @@ export default `
     create: nonNull('#{Model}CreateInput'),
     update: nonNull('#{Model}UpdateInput'),
   },
-  resolve(_parent, args, { prisma, select }) {
-    return prisma.#{model}.upsert({
+  resolve(_parent, args, { #{prisma}, select }) {
+    return #{prisma}.#{model}.upsert({
       ...args,
       ...select,
     })

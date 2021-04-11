@@ -7,8 +7,8 @@ export default `
     where: nonNull('#{Model}WhereUniqueInput'),
     data: nonNull('#{Model}UpdateInput'),
   },
-  resolve(_parent, { data, where }, { prisma, select }) {
-    return prisma.#{model}.update({
+  resolve(_parent, { data, where }, { #{prisma}, select }) {
+    return #{prisma}.#{model}.update({
       where,
       data,
       ...select,

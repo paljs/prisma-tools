@@ -1,0 +1,6 @@
+node_modules
+dist
+public
+.cache
+generated
+nexus-typegen.ts

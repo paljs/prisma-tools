@@ -11,8 +11,8 @@ export default `
     skip: 'Int',
     take: 'Int',
   },
-  resolve(_parent, args, {prisma}) {
-    return prisma.#{model}.count(args#{as})
+  resolve(_parent, args, {#{prisma}}) {
+    return #{prisma}.#{model}.count(args#{as})
   },
 });
 #{exportJs}

@@ -1,4 +1,4 @@
-import { schema as defaultSchema, DMMF } from './schema';
+import { DMMF } from '@prisma/client/runtime';
 import { GraphQLSchema } from 'graphql';
 import { writeFileSync } from 'fs';
 
@@ -10,7 +10,11 @@ interface OptionsType {
 const testedTypes: string[] = [];
 
 export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
-  const schema = options?.dmmf?.schema || defaultSchema;
+  let schema = options?.dmmf?.schema;
+  if (!schema) {
+    const { Prisma } = require('@prisma/client');
+    schema = Prisma.dmmf?.schema;
+  }
   testedTypes.push(type);
   const inputObjectTypes = schema ? [...schema?.inputObjectTypes.prisma] : [];
   if (schema?.inputObjectTypes.model)
@@ -26,7 +30,7 @@ export const hasEmptyTypeFields = (type: string, options?: OptionsType) => {
         fieldType.location === 'inputObjectTypes' &&
         !testedTypes.includes(fieldType.type as string)
       ) {
-        const state = hasEmptyTypeFields(fieldType.type as string);
+        const state = hasEmptyTypeFields(fieldType.type as string, options);
         if (state) return true;
       }
     }
@@ -57,7 +61,11 @@ export const getInputType = (
 };
 
 function createInput(options?: OptionsType) {
-  const schema = options?.dmmf?.schema || defaultSchema;
+  let schema = options?.dmmf?.schema;
+  if (!schema) {
+    const { Prisma } = require('@prisma/client');
+    schema = Prisma.dmmf?.schema;
+  }
   let fileContent = `
   scalar DateTime
   
@@ -90,7 +98,7 @@ function createInput(options?: OptionsType) {
           const inputType = getInputType(field, options);
           const hasEmptyType =
             inputType.location === 'inputObjectTypes' &&
-            hasEmptyTypeFields(inputType.type as string);
+            hasEmptyTypeFields(inputType.type as string, options);
           if (!hasEmptyType) {
             fileContent += `${field.name}: ${
               inputType.isList ? `[${inputType.type}!]` : inputType.type

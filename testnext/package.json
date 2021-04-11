@@ -21,7 +21,6 @@
     "@material-ui/icons": "^4.11.2",
     "@paljs/admin": "2.14.0",
     "@paljs/nexus": "2.14.0",
-    "@popperjs/core": "^2.9.2",
     "@prisma/client": "2.20.1",
     "apollo-server-micro": "2.22.2",
     "bcryptjs": "2.4.3",
@@ -67,7 +66,5 @@
   },
   "cacheDirectories": [
     ".next/cache"
-  ],
-  "repository": "",
-  "description": ""
+  ]
 }

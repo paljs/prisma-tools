@@ -6,9 +6,9 @@ export default `
   args: {
     where: '#{Model}WhereInput',
   },
-  resolve: async (_parent, { where }, { prisma }) => {
+  resolve: async (_parent, { where }, { #{prisma} }) => {
     #{onDelete}
-    return prisma.#{model}.deleteMany({where}#{as})
+    return #{prisma}.#{model}.deleteMany({where}#{as})
   },
 });
 #{exportJs}

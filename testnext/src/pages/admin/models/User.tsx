@@ -1,5 +1,5 @@
 import React from 'react';
-import PrismaTable from 'Components/PrismaTable';
+import PrismaTable from 'components/PrismaTable';
 
 const User: React.FC = () => {
   return <PrismaTable model="User" />;

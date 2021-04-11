@@ -17,14 +17,6 @@ type AggregateGroup {
   sum: GroupSumAggregateOutputType
 }
 
-type AggregateList {
-  avg: ListAvgAggregateOutputType
-  count: ListCountAggregateOutputType
-  max: ListMaxAggregateOutputType
-  min: ListMinAggregateOutputType
-  sum: ListSumAggregateOutputType
-}
-
 type AggregatePost {
   avg: PostAvgAggregateOutputType
   count: PostCountAggregateOutputType
@@ -45,6 +37,11 @@ type BatchPayload {
   count: Int!
 }
 
+"""
+BigInt custom scalar type
+"""
+scalar BigInt
+
 input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
@@ -52,14 +49,6 @@ input BoolFieldUpdateOperationsInput {
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
-}
-
-input BoolNullableListFilter {
-  equals: [Boolean]
-  has: Boolean
-  hasEvery: [Boolean]
-  hasSome: [Boolean]
-  isEmpty: Boolean
 }
 
 input BoolWithAggregatesFilter {
@@ -105,53 +94,16 @@ input CommentCreateInput {
   updatedAt: DateTime
 }
 
-input CommentCreateManyAuthorInput {
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  postId: Int!
-  updatedAt: DateTime
-}
-
-input CommentCreateManyAuthorInputEnvelope {
-  data: CommentCreateManyAuthorInput!
-  skipDuplicates: Boolean
-}
-
-input CommentCreateManyInput {
-  authorId: Int
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  postId: Int!
-  updatedAt: DateTime
-}
-
-input CommentCreateManyPostInput {
-  authorId: Int
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  updatedAt: DateTime
-}
-
-input CommentCreateManyPostInputEnvelope {
-  data: CommentCreateManyPostInput!
-  skipDuplicates: Boolean
-}
-
 input CommentCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentCreateOrConnectWithoutAuthorInput {
@@ -263,14 +215,12 @@ input CommentUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentUncheckedCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentUncheckedCreateWithoutAuthorInput {
@@ -311,7 +261,6 @@ input CommentUncheckedUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -333,7 +282,6 @@ input CommentUncheckedUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -387,7 +335,6 @@ input CommentUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -401,7 +348,6 @@ input CommentUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -509,14 +455,6 @@ type Enum {
   name: String!
 }
 
-input EnumRolsNullableListFilter {
-  equals: [Rols]
-  has: Rols
-  hasEvery: [Rols]
-  hasSome: [Rols]
-  isEmpty: Boolean
-}
-
 type Field {
   create: Boolean!
   editor: Boolean!
@@ -536,14 +474,6 @@ type Field {
   unique: Boolean!
   update: Boolean!
   upload: Boolean!
-}
-
-input FloatNullableListFilter {
-  equals: [Float]
-  has: Float
-  hasEvery: [Float]
-  hasSome: [Float]
-  isEmpty: Boolean
 }
 
 type Group {
@@ -578,13 +508,6 @@ input GroupCreateInput {
   name: String!
   updatedAt: DateTime
   users: UserCreateNestedManyWithoutGroupInput
-}
-
-input GroupCreateManyInput {
-  createdAt: DateTime
-  id: Int
-  name: String!
-  updatedAt: DateTime
 }
 
 input GroupCreateNestedOneWithoutUsersInput {
@@ -767,14 +690,6 @@ input IntNullableFilter {
   notIn: [Int]
 }
 
-input IntNullableListFilter {
-  equals: [Int]
-  has: Int
-  hasEvery: [Int]
-  hasSome: [Int]
-  isEmpty: Boolean
-}
-
 input IntNullableWithAggregatesFilter {
   avg: NestedFloatNullableFilter
   count: NestedIntNullableFilter
@@ -818,216 +733,6 @@ enum KindEnum {
   scalar
 }
 
-type List {
-  boolean: [Boolean!]!
-  enums: [Rols!]!
-  flout: [Float!]!
-  id: Int!
-  intger: [Int!]!
-  string: [String!]!
-}
-
-type ListAvgAggregateOutputType {
-  flout: Float
-  id: Float!
-  intger: Float
-}
-
-type ListCountAggregateOutputType {
-  _all: Int!
-  boolean: Int
-  enums: Int
-  flout: Int
-  id: Int!
-  intger: Int
-  string: Int
-}
-
-input ListCreateInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  intger: [Int]
-  string: [String]
-}
-
-input ListCreateManyInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  id: Int
-  intger: [Int]
-  string: [String]
-}
-
-input ListCreateManybooleanInput {
-  set: Boolean!
-}
-
-input ListCreateManyenumsInput {
-  set: Rols!
-}
-
-input ListCreateManyfloutInput {
-  set: Float!
-}
-
-input ListCreateManyintgerInput {
-  set: Int!
-}
-
-input ListCreateManystringInput {
-  set: String!
-}
-
-input ListCreatebooleanInput {
-  set: Boolean!
-}
-
-input ListCreateenumsInput {
-  set: Rols!
-}
-
-input ListCreatefloutInput {
-  set: Float!
-}
-
-input ListCreateintgerInput {
-  set: Int!
-}
-
-input ListCreatestringInput {
-  set: String!
-}
-
-type ListMaxAggregateOutputType {
-  id: Int!
-}
-
-type ListMinAggregateOutputType {
-  id: Int!
-}
-
-input ListOrderByInput {
-  boolean: SortOrder
-  enums: SortOrder
-  flout: SortOrder
-  id: SortOrder
-  intger: SortOrder
-  string: SortOrder
-}
-
-enum ListScalarFieldEnum {
-  boolean
-  enums
-  flout
-  id
-  intger
-  string
-}
-
-input ListScalarWhereWithAggregatesInput {
-  AND: [ListScalarWhereWithAggregatesInput]
-  NOT: [ListScalarWhereWithAggregatesInput]
-  OR: [ListScalarWhereWithAggregatesInput]
-  boolean: BoolNullableListFilter
-  enums: EnumRolsNullableListFilter
-  flout: FloatNullableListFilter
-  id: IntWithAggregatesFilter
-  intger: IntNullableListFilter
-  string: StringNullableListFilter
-}
-
-type ListSumAggregateOutputType {
-  flout: Float
-  id: Int!
-  intger: Int
-}
-
-input ListUncheckedCreateInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  id: Int
-  intger: [Int]
-  string: [String]
-}
-
-input ListUncheckedUpdateInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  id: IntFieldUpdateOperationsInput
-  intger: [Int]
-  string: [String]
-}
-
-input ListUncheckedUpdateManyInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  id: IntFieldUpdateOperationsInput
-  intger: [Int]
-  string: [String]
-}
-
-input ListUpdateInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  intger: [Int]
-  string: [String]
-}
-
-input ListUpdateManyMutationInput {
-  boolean: [Boolean]
-  enums: [Rols]
-  flout: [Float]
-  intger: [Int]
-  string: [String]
-}
-
-input ListUpdatebooleanInput {
-  push: Boolean
-  set: [Boolean]
-}
-
-input ListUpdateenumsInput {
-  push: Rols
-  set: [Rols]
-}
-
-input ListUpdatefloutInput {
-  push: Float
-  set: [Float]
-}
-
-input ListUpdateintgerInput {
-  push: Int
-  set: [Int]
-}
-
-input ListUpdatestringInput {
-  push: String
-  set: [String]
-}
-
-input ListWhereInput {
-  AND: [ListWhereInput]
-  NOT: [ListWhereInput]
-  OR: [ListWhereInput]
-  boolean: BoolNullableListFilter
-  enums: EnumRolsNullableListFilter
-  flout: FloatNullableListFilter
-  id: IntFilter
-  intger: IntNullableListFilter
-  string: StringNullableListFilter
-}
-
-input ListWhereUniqueInput {
-  id: Int
-}
-
 type Model {
   create: Boolean!
   delete: Boolean!
@@ -1042,17 +747,14 @@ type Model {
 type Mutation {
   createOneComment(data: CommentCreateInput!): Comment!
   createOneGroup(data: GroupCreateInput!): Group!
-  createOneList(data: ListCreateInput!): List!
   createOnePost(data: PostCreateInput!): Post!
   createOneUser(data: UserCreateInput!): User!
   deleteManyComment(where: CommentWhereInput): BatchPayload!
   deleteManyGroup(where: GroupWhereInput): BatchPayload!
-  deleteManyList(where: ListWhereInput): BatchPayload!
   deleteManyPost(where: PostWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
-  deleteOneList(where: ListWhereUniqueInput!): List
   deleteOnePost(where: PostWhereUniqueInput!): Post
   deleteOneUser(where: UserWhereUniqueInput!): User
   login(email: String!, password: String!): User
@@ -1061,19 +763,16 @@ type Mutation {
   updateField(data: UpdateFieldInput!, id: String!, modelId: String!): Field!
   updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): BatchPayload!
-  updateManyList(data: ListUpdateManyMutationInput!, where: ListWhereInput): BatchPayload!
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateModel(data: UpdateModelInput!, id: String!): Model!
   updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
-  updateOneList(data: ListUpdateInput!, where: ListWhereUniqueInput!): List!
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updatePassword(currentPassword: String!, password: String!): Boolean
   upsertOneComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
-  upsertOneList(create: ListCreateInput!, update: ListUpdateInput!, where: ListWhereUniqueInput!): List!
   upsertOnePost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -1308,33 +1007,10 @@ input PostCreateInput {
   updatedAt: DateTime
 }
 
-input PostCreateManyAuthorInput {
-  createdAt: DateTime
-  id: Int
-  published: Boolean
-  title: String!
-  updatedAt: DateTime
-}
-
-input PostCreateManyAuthorInputEnvelope {
-  data: PostCreateManyAuthorInput!
-  skipDuplicates: Boolean
-}
-
-input PostCreateManyInput {
-  authorId: Int
-  createdAt: DateTime
-  id: Int
-  published: Boolean
-  title: String!
-  updatedAt: DateTime
-}
-
 input PostCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostCreateNestedOneWithoutCommentsInput {
@@ -1459,7 +1135,6 @@ input PostUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostUncheckedCreateWithoutAuthorInput {
@@ -1503,7 +1178,6 @@ input PostUncheckedUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1564,7 +1238,6 @@ input PostUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1649,14 +1322,6 @@ type Query {
     take: Int
     where: GroupWhereInput
   ): AggregateGroup
-  aggregateList(
-    cursor: ListWhereUniqueInput
-    distinct: ListScalarFieldEnum
-    orderBy: [ListOrderByInput]
-    skip: Int
-    take: Int
-    where: ListWhereInput
-  ): AggregateList
   aggregatePost(
     cursor: PostWhereUniqueInput
     distinct: PostScalarFieldEnum
@@ -1689,14 +1354,6 @@ type Query {
     take: Int
     where: GroupWhereInput
   ): Group
-  findFirstList(
-    cursor: ListWhereUniqueInput
-    distinct: ListScalarFieldEnum
-    orderBy: [ListOrderByInput]
-    skip: Int
-    take: Int
-    where: ListWhereInput
-  ): List
   findFirstPost(
     cursor: PostWhereUniqueInput
     distinct: PostScalarFieldEnum
@@ -1745,22 +1402,6 @@ type Query {
     take: Int
     where: GroupWhereInput
   ): Int!
-  findManyList(
-    cursor: ListWhereUniqueInput
-    distinct: ListScalarFieldEnum
-    orderBy: [ListOrderByInput]
-    skip: Int
-    take: Int
-    where: ListWhereInput
-  ): [List!]!
-  findManyListCount(
-    cursor: ListWhereUniqueInput
-    distinct: ListScalarFieldEnum
-    orderBy: [ListOrderByInput]
-    skip: Int
-    take: Int
-    where: ListWhereInput
-  ): Int!
   findManyPost(
     cursor: PostWhereUniqueInput
     distinct: PostScalarFieldEnum
@@ -1795,21 +1436,10 @@ type Query {
   ): Int!
   findUniqueComment(where: CommentWhereUniqueInput!): Comment
   findUniqueGroup(where: GroupWhereUniqueInput!): Group
-  findUniqueList(where: ListWhereUniqueInput!): List
   findUniquePost(where: PostWhereUniqueInput!): Post
   findUniqueUser(where: UserWhereUniqueInput!): User
   getSchema: Schema!
   me: User
-}
-
-enum QueryMode {
-  default
-  insensitive
-}
-
-enum Rols {
-  ADMIN
-  USER
 }
 
 type Schema {
@@ -1835,7 +1465,6 @@ input StringFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringFilter
   notIn: [String]
   startsWith: String
@@ -1850,18 +1479,9 @@ input StringNullableFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringNullableFilter
   notIn: [String]
   startsWith: String
-}
-
-input StringNullableListFilter {
-  equals: [String]
-  has: String
-  hasEvery: [String]
-  hasSome: [String]
-  isEmpty: Boolean
 }
 
 input StringNullableWithAggregatesFilter {
@@ -1876,7 +1496,6 @@ input StringNullableWithAggregatesFilter {
   lte: String
   max: NestedStringNullableFilter
   min: NestedStringNullableFilter
-  mode: QueryMode
   not: NestedStringNullableWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1894,7 +1513,6 @@ input StringWithAggregatesFilter {
   lte: String
   max: NestedStringFilter
   min: NestedStringFilter
-  mode: QueryMode
   not: NestedStringWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1982,33 +1600,10 @@ input UserCreateInput {
   posts: PostCreateNestedManyWithoutAuthorInput
 }
 
-input UserCreateManyGroupInput {
-  createdAt: DateTime
-  email: String!
-  id: Int
-  name: String
-  password: String!
-}
-
-input UserCreateManyGroupInputEnvelope {
-  data: UserCreateManyGroupInput!
-  skipDuplicates: Boolean
-}
-
-input UserCreateManyInput {
-  createdAt: DateTime
-  email: String!
-  groupId: Int
-  id: Int
-  name: String
-  password: String!
-}
-
 input UserCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserCreateNestedOneWithoutCommentsInput {
@@ -2156,7 +1751,6 @@ input UserUncheckedCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserUncheckedCreateWithoutCommentsInput {
@@ -2213,7 +1807,6 @@ input UserUncheckedUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]
@@ -2287,7 +1880,6 @@ input UserUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]

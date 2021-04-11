@@ -95,6 +95,7 @@ export class GenerateNexus extends Generators {
             name,
             'query',
             item,
+            this.options.prismaName,
             this.options.onDelete,
             this.isJS,
           );
@@ -124,6 +125,7 @@ export class GenerateNexus extends Generators {
             name,
             'mutation',
             item,
+            this.options.prismaName,
             this.options.onDelete,
             this.isJS,
           );

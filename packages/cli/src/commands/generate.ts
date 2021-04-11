@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import { getConfig } from '../util/getConfig';
 import { log } from '@paljs/display';
 import { getSchemaPath } from '../util/getSchemaPath';
+import { Config } from '@paljs/types';
 
 const commandStyle = (text: string) => `${chalk.red('>')} ${chalk.blue(text)}`;
 
@@ -21,7 +22,12 @@ export default class Generate extends Command {
     }),
     schema: flags.string({
       char: 's',
-      description: 'You can pass custom schema file path',
+      description:
+        'You can pass a schema name from pal config file to work with',
+    }),
+    multi: flags.boolean({
+      char: 'm',
+      description: 'Add this flag to work with config file as multi schema',
     }),
   };
 
@@ -74,64 +80,82 @@ export default class Generate extends Command {
     try {
       const { args, flags } = this.parse(Generate);
       const config = await getConfig(flags);
-      const schemaPath = await getSchemaPath(flags.schema);
 
-      const spinner = log
-        .spinner(log.withBrand('Generating your files'))
-        .start();
+      const configObject: { [key: string]: Config } = flags.multi
+        ? config
+        : { schema: config };
 
-      // backend generator
-      if (config?.backend?.generator) {
-        const options: PartialOptions = {};
-        const queries =
-          (!args.type && !config.backend.disableQueries) ||
-          ['queries', 'crud'].includes(args.type);
-        const mutations =
-          (!args.type && !config.backend.disableMutations) ||
-          ['mutations', 'crud'].includes(args.type);
-
-        if (queries || mutations || !args.type) {
-          options.models = args.models ? args.models.split(',') : undefined;
-          options.disableQueries = !queries;
-          options.disableMutations = !mutations;
-          await new Generator(
-            { name: config.backend.generator, schemaPath },
-            {
-              ...config.backend,
-              ...options,
-            },
-          ).run();
+      for (const key of Object.keys(configObject)) {
+        if (flags.schema && flags.schema !== key) {
+          continue;
         }
+        const config = configObject[key];
+        console.log(key);
+        const schemaPath = await getSchemaPath(config.schema);
+
+        const spinner = log
+          .spinner(log.withBrand('Generating your files'))
+          .start();
+
+        // backend generator
+        if (config?.backend?.generator) {
+          const options: PartialOptions = {};
+          const queries =
+            (!args.type && !config.backend.disableQueries) ||
+            ['queries', 'crud'].includes(args.type);
+          const mutations =
+            (!args.type && !config.backend.disableMutations) ||
+            ['mutations', 'crud'].includes(args.type);
+
+          if (queries || mutations || !args.type) {
+            options.models = args.models ? args.models.split(',') : undefined;
+            options.disableQueries = !queries;
+            options.disableMutations = !mutations;
+            await new Generator(
+              { name: config.backend.generator, schemaPath },
+              {
+                ...config.backend,
+                ...options,
+              },
+            ).run();
+          }
+        }
+
+        // frontend generator
+        const admin =
+          (config?.frontend?.admin && !args.type) || args.type === 'admin';
+        const graphql =
+          (config?.frontend?.graphql && !args.type) || args.type === 'graphql';
+
+        if (config && (admin || graphql)) {
+          const schemaPaths: string[] = [];
+          for (const key of Object.keys(configObject)) {
+            schemaPaths.push(await getSchemaPath(configObject[key].schema));
+          }
+          const frontend = config.frontend;
+          const uiGenerator = new UIGenerator(schemaPaths);
+
+          if (admin) {
+            uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
+            const options: AdminPagesOptions = {
+              ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
+              models: args.models?.split(','),
+            };
+            uiGenerator.generateAdminPages(options);
+          }
+
+          if (graphql) {
+            const options: PartialOptions = {
+              ...(typeof frontend?.graphql === 'object'
+                ? frontend.graphql
+                : {}),
+              models: args.models?.split(','),
+            };
+            uiGenerator.generateGraphql(options);
+          }
+        }
+        spinner.succeed();
       }
-
-      // frontend generator
-      const admin =
-        (config?.frontend?.admin && !args.type) || args.type === 'admin';
-      const graphql =
-        (config?.frontend?.graphql && !args.type) || args.type === 'graphql';
-
-      if (config && (admin || graphql)) {
-        const frontend = config.frontend;
-        const uiGenerator = new UIGenerator(schemaPath);
-
-        if (admin) {
-          uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
-          const options: AdminPagesOptions = {
-            ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
-            models: args.models?.split(','),
-          };
-          uiGenerator.generateAdminPages(options);
-        }
-
-        if (graphql) {
-          const options: PartialOptions = {
-            ...(typeof frontend?.graphql === 'object' ? frontend.graphql : {}),
-            models: args.models?.split(','),
-          };
-          uiGenerator.generateGraphql(options);
-        }
-      }
-      spinner.succeed();
     } catch (error) {
       throw error;
     }

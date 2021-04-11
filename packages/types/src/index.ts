@@ -59,6 +59,7 @@ export type GeneratorsType =
   | 'nexus-plugin-prisma';
 
 export interface Config {
+  schema?: string;
   backend?: {
     generator: GeneratorsType;
     adminSettingsPath?: string;
@@ -72,6 +73,7 @@ export interface Config {
 export type PartialOptions = Omit<Partial<Options>, 'nexusSchema'>;
 
 export interface Options {
+  prismaName: string;
   models?: string[];
   output: string;
   javaScript?: boolean;

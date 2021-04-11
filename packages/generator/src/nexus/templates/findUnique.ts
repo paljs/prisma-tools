@@ -6,8 +6,8 @@ export default `
   args: {
     where: nonNull('#{Model}WhereUniqueInput'),
   },
-  resolve(_parent, { where }, { prisma, select }) {
-    return prisma.#{model}.findUnique({
+  resolve(_parent, { where }, { #{prisma}, select }) {
+    return #{prisma}.#{model}.findUnique({
       where,
       ...select,
     })

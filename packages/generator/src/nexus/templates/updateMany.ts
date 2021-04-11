@@ -7,8 +7,8 @@ export default `
     where: '#{Model}WhereInput',
     data: nonNull('#{Model}UpdateManyMutationInput'),
   },
-  resolve(_parent, args, { prisma }) {
-    return prisma.#{model}.updateMany(args#{as})
+  resolve(_parent, args, { #{prisma} }) {
+    return #{prisma}.#{model}.updateMany(args#{as})
   },
 });
 #{exportJs}

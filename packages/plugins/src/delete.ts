@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import { dataModel, DMMF } from './schema';
+import { DMMF } from '@prisma/client/runtime';
 
 interface DeleteData {
   name: string;
@@ -36,12 +35,21 @@ interface BatchPayload {
  **/
 export class PrismaDelete {
   constructor(
-    private prisma: any = new PrismaClient(),
+    private prisma: any,
     private options?: { dmmf?: DMMF.Document },
   ) {}
 
+  get getDMMF(): DMMF.Document {
+    const { Prisma } = require('@prisma/client');
+    return Prisma.dmmf;
+  }
+
   get dataModel() {
-    return this.options?.dmmf?.datamodel || dataModel;
+    if (this.options?.dmmf) {
+      return this.options?.dmmf?.datamodel;
+    } else {
+      return this.getDMMF?.datamodel;
+    }
   }
 
   private getModel(modelName: string) {
