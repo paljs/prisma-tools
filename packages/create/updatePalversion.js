@@ -8,7 +8,7 @@ function loadFiles(path) {
     if (lstatSync(join(path, file)).isDirectory()) {
       loadFiles(join(path, file));
     } else {
-      if (file === 'package.json') {
+      if (file === 'package.json' || file === 'multi_package.json') {
         const pkg = readJSONSync(join(path, file));
         for (const dep of ['dependencies', 'devDependencies']) {
           if (pkg[dep]) {

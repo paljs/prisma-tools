@@ -103,7 +103,10 @@ export default class Create extends Command {
       message: 'Please select your start example',
       choices: examples,
     });
-    let framework: { framework?: Frameworks; multi?: string } = {};
+    let framework: {
+      framework?: AppGeneratorOptions['framework'];
+      multi?: AppGeneratorOptions['multi'];
+    } = {};
     if (example === 'full-stack-nextjs') {
       framework = await prompt<AppGeneratorOptions>([
         {
