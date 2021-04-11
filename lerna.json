@@ -1,8 +1,16 @@
 {
-  "version": "2.14.0",
+  "version": "3.0.0",
   "useWorkspaces": false,
   "packages": [
-    "packages/*"
+    "packages/cli",
+    "packages/create",
+    "packages/display",
+    "packages/generator",
+    "packages/nexus",
+    "packages/plugins",
+    "packages/schema",
+    "packages/types",
+    "admin"
   ],
   "npmClient": "yarn",
   "command": {

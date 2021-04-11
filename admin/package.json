@@ -21,7 +21,7 @@
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
     "build:css": "NODE_ENV=production tailwindcss-cli build -o ../packages/admin/style.css",
-    "prepare": "cd ../../admin && yarn build"
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
@@ -64,7 +64,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "directory": "build"
+    "directory": "../packages/admin"
   },
   "gitHead": "8ea3a3ba5792d102345c22606f5d14edb63d7ad8"
 }

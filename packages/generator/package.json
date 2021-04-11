@@ -1,6 +1,6 @@
 {
   "name": "@paljs/generator",
-  "version": "2.14.0",
+  "version": "3.0.0",
   "main": "dist/index.js",
   "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@paljs/types": "^2.14.0",
+    "@paljs/types": "^3.0.0",
     "@prisma/sdk": "2.20.1",
     "pkg-dir": "^5.0.0",
     "pluralize": "^8.0.0",
