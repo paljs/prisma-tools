@@ -5,8 +5,7 @@ We added `sqlite` as db provider in `schema.prisma` you can change it to your cu
 after an update your `schema.prisma` run
 
 ```shell
-yarn create-migration
-yarn migrate-database
+yarn db-dev
 ```
 
 this commands will save your schema into db
@@ -15,7 +14,6 @@ now run
 
 ```shell
 yarn generate
-pal g
 yarn dev
 ```
 

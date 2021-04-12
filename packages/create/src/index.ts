@@ -295,7 +295,7 @@ export class AppGenerator {
                 newName,
               ),
             );
-          } else if (path === 'src/pages/admin/auth') {
+          } else if (file === '_document.tsx') {
             const data = readFileSync(join(path, file), 'utf-8');
             writeFileSync(
               join(
