@@ -16,9 +16,9 @@
   "dependencies": {
     "@apollo/client": "3.x",
     "@apollo/react-ssr": "4.x",
-    "@heroicons/react": "^1.x",
-    "@material-ui/core": "^4.x",
-    "@material-ui/icons": "^4.x",
+    "@heroicons/react": "1.x",
+    "@material-ui/core": "4.x",
+    "@material-ui/icons": "4.x",
     "@paljs/admin": "3.0.0",
     "@paljs/nexus": "3.0.0",
     "@prisma/client": "2.x",
@@ -50,7 +50,7 @@
     "@types/react-dom": "17.x",
     "@typescript-eslint/eslint-plugin": "4.x",
     "@typescript-eslint/parser": "4.x",
-    "autoprefixer": "^10.x",
+    "autoprefixer": "10.x",
     "babel-plugin-graphql-tag": "2.x",
     "eslint": "7.x",
     "eslint-config-prettier": "8.x",
@@ -61,7 +61,7 @@
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "prisma": "2.x",
-    "tailwindcss": "^2.x",
+    "tailwindcss": "2.x",
     "typescript": "4.x"
   },
   "cacheDirectories": [

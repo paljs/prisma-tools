@@ -54,11 +54,3 @@ model Group {
   /// @onDelete(SET_NULL)
   users     User[]
 }
-
-model List {
-  id      Int       @id @default(autoincrement())
-  intger  Int[]
-  flout   Float[]
-  string  String[]
-  boolean Boolean[]
-}

@@ -48,7 +48,7 @@ const readDir = (path) => {
           writeFileSync(join(destinationPath, path, file), data.replace(/components\/(\w+)\/(\w+)/g, 'components/$2'));
         } else if (path === 'src/server/graphql' && file === 'index.ts') {
           writeFileSync(join(destinationPath, path, file), `export * from './Auth'`);
-        } else if (path === 'src/server/multi_context' && ['prisma1.ts', 'prisma2.ts']) {
+        } else if (path === 'src/server/multi_context' && ['prisma1.ts', 'prisma2.ts'].includes(file)) {
           const data = readFileSync(join(path, file), 'utf-8');
           writeFileSync(
             join(destinationPath, path, file),

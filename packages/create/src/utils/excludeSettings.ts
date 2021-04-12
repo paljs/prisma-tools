@@ -20,8 +20,8 @@ export const framework: {
 } = {
   'Material UI': {
     app: '_appM.tsx',
-    files: [...materialExclude.files, ...adminExclude.files],
-    packages: [...materialExclude.packages, ...adminExclude.packages],
+    files: materialExclude.files.concat(adminExclude.files),
+    packages: materialExclude.packages.concat(adminExclude.packages),
   },
   'Material UI + PrismaAdmin UI': {
     app: '_appMA.tsx',
@@ -29,8 +29,8 @@ export const framework: {
   },
   'Tailwind CSS': {
     app: '_appT.tsx',
-    files: [...tailwindExclude.files, ...adminExclude.files],
-    packages: [...tailwindExclude.packages, ...adminExclude.packages],
+    files: tailwindExclude.files.concat(adminExclude.files),
+    packages: tailwindExclude.packages.concat(adminExclude.packages),
   },
   'Tailwind CSS + PrismaAdmin UI': {
     app: '_appTA.tsx',
