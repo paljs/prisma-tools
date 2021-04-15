@@ -67,7 +67,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
   Enum({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value);
     const enumType = useEnum(field.type);
-    const { lang } = useContext(TableContext);
+    const { lang, dir } = useContext(TableContext);
 
     React.useEffect(() => {
       register(field.name, { required: field.required });
@@ -90,6 +90,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           </span>
         </div>
         <Select
+          dir={dir}
           className="w-full"
           disabled={disabled}
           value={options.find((option) => option.id === state)}

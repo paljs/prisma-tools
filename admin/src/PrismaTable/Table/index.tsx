@@ -231,7 +231,7 @@ export const Table: React.FC<TableProps> = ({
             dir === 'rtl' ? 'mr-4 space-x-reverse' : 'ml-4'
           }`}
         >
-          {!connect && (
+          {actions.create && !connect && (
             <div>
               <ActionButtons.Add />
             </div>

@@ -112,6 +112,7 @@ export const Settings: React.FC<{
                     id: model.id,
                     name: model.name,
                   }))}
+                  dir={dir}
                 />
               )}
             </div>

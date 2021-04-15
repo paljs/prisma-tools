@@ -145,6 +145,7 @@ const UpdateModel: React.FC<{
       <div className="flex w-full items-center">
         <div className="w-1/3 text-gray-400 font-bold">{language.idField}</div>
         <Select
+          dir={language.dir}
           className="w-2/3"
           value={{
             id: idField?.name ?? '',
@@ -161,6 +162,7 @@ const UpdateModel: React.FC<{
           {language.displayFields}
         </div>
         <Select
+          dir={language.dir}
           className="w-2/3"
           value={values}
           onChange={onChangeMultiSelect}

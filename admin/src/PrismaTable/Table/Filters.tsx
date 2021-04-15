@@ -86,6 +86,7 @@ export const Filter: React.FC<FilterProps> = ({
       } items-center bg-white rounded-lg shadow p-4 mb-4`}
     >
       <Select
+        dir={dir}
         value={option}
         onChange={(option: Option) => setOption(option)}
         options={options}
@@ -198,7 +199,7 @@ export const BooleanFilter: React.FC<FilterComponentsProps> = ({
   filterValue,
   setFilter,
 }) => {
-  const { lang } = useContext(TableContext);
+  const { lang, dir } = useContext(TableContext);
   const { value, onChange } = useFilter(filterValue, setFilter);
   const options: Option[] = [
     { id: undefined, name: lang.all },
@@ -207,6 +208,7 @@ export const BooleanFilter: React.FC<FilterComponentsProps> = ({
   ];
   return (
     <Select
+      dir={dir}
       value={options.find((option) => option.id === value?.equals)}
       onChange={(option: Option) =>
         onChange({ value: option.id, name: 'equals' })
@@ -249,7 +251,7 @@ export const EnumFilter: React.FC<FilterComponentsProps> = ({
   filterValue,
   setFilter,
 }) => {
-  const { lang } = useContext(TableContext);
+  const { lang, dir } = useContext(TableContext);
   const enumType = useEnum(field.type);
   const options: Option[] = [{ id: undefined, name: lang.all }];
   if (enumType) {
@@ -258,6 +260,7 @@ export const EnumFilter: React.FC<FilterComponentsProps> = ({
   const { value, onChange } = useFilter(filterValue, setFilter);
   return (
     <Select
+      dir={dir}
       value={options.find((option) => option.id === value?.equals)}
       onChange={(option: Option) =>
         onChange({ value: option.id, name: 'equals' })
@@ -272,6 +275,7 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
   filterValue,
   setFilter,
 }) => {
+  const { dir } = useContext(TableContext);
   const model = useModel(field.type)!;
   const [currentField, setCurrentField] = useState<Option>({
     id: model.fields[0].name,
@@ -326,6 +330,7 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
   return (
     <>
       <Select
+        dir={dir}
         value={currentField}
         onChange={(option: Option) => {
           if (option) {
