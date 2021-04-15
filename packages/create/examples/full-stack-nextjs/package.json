@@ -57,7 +57,7 @@
     "eslint-plugin-prettier": "3.x",
     "eslint-plugin-react": "7.x",
     "husky": "6.x",
-    "postcss": "^8.x",
+    "postcss": "8.x",
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "prisma": "2.x",

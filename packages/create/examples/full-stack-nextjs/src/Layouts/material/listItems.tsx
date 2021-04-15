@@ -13,35 +13,35 @@ export const MainListItems: React.FC = () => {
   const router = useRouter();
   return (
     <div>
-      <ListItem button>
+      <ListItem button onClick={() => router.push('/admin')}>
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>
-        <ListItemText primary="Settings" onClick={() => router.push('/admin')} />
+        <ListItemText primary="Settings" />
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => router.push('/admin/models/User')}>
         <ListItemIcon>
           <PersonIcon />
         </ListItemIcon>
-        <ListItemText primary="Users" onClick={() => router.push('/admin/models/User')} />
+        <ListItemText primary="Users" />
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => router.push('/admin/models/Post')}>
         <ListItemIcon>
           <ForumIcon />
         </ListItemIcon>
-        <ListItemText primary="Posts" onClick={() => router.push('/admin/models/Post')} />
+        <ListItemText primary="Posts" />
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => router.push('/admin/models/Comment')}>
         <ListItemIcon>
           <CommentIcon />
         </ListItemIcon>
-        <ListItemText primary="Comments" onClick={() => router.push('/admin/models/Comment')} />
+        <ListItemText primary="Comments" />
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => router.push('/admin/models/Group')}>
         <ListItemIcon>
           <GroupIcon />
         </ListItemIcon>
-        <ListItemText primary="Groups" onClick={() => router.push('/admin/models/Group')} />
+        <ListItemText primary="Groups" />
       </ListItem>
     </div>
   );

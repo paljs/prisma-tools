@@ -17,13 +17,13 @@ class Prisma extends PrismaClient {
 let db: Prisma
 if (process.env.NODE_ENV === 'production') {
   db = new Prisma()
-  console.log('Production: Created DB connection.')
+  console.log('Production: Created DB2 connection.')
 } else {
   // @ts-ignore
   if (!global.db2) {
     // @ts-ignore
     global.db2 = new Prisma()
-    console.log('Development: Created DB connection.')
+    console.log('Development: Created DB2 connection.')
   }
 
   // @ts-ignore
