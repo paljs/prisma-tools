@@ -30,7 +30,6 @@ const newDir = (path) => {
 const readDir = (path) => {
   const files = readdirSync(path);
   const rootPath = path.replace(__dirname + '/', '');
-  console.log(rootPath);
   for (const file of files) {
     if (!excludedFiles.includes(file) && (!pathInclude[rootPath] || pathInclude[rootPath].includes(file))) {
       if (lstatSync(join(path, file)).isDirectory()) {
