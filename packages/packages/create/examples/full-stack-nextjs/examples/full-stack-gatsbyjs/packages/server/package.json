@@ -1,0 +1,42 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "license": "MIT",
+  "private": true,
+  "description": "prisma, nexus and apollo server  example to create CUED system by one command",
+  "scripts": {
+    "start": "node dist/server",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn generate && tsc",
+    "generate": "pal g && yarn generate:prisma && yarn generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only src/nexusSchema",
+    "db-dev": "prisma migrate dev",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
+  },
+  "dependencies": {
+    "nexus": "1.x",
+    "@paljs/nexus": "3.0.1",
+    "@prisma/client": "2.x",
+    "apollo-server": "2.x",
+    "bcryptjs": "2.x",
+    "jsonwebtoken": "8.x"
+  },
+  "devDependencies": {
+    "prisma": "2.x",
+    "@types/bcryptjs": "2.x",
+    "@types/jsonwebtoken": "8.x",
+    "@types/node": "14.x",
+    "@paljs/cli": "3.0.2",
+    "prettier": "2.x",
+    "ts-node": "9.x",
+    "ts-node-dev": "1.x",
+    "typescript": "4.x"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  }
+}

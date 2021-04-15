@@ -1,0 +1,33 @@
+{
+  "name": "graphql-modules-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "description": "prisma and apollo server  example to create CUED system by one command",
+  "scripts": {
+    "start": "node dist/src",
+    "clean": "rm -rf dist",
+    "build": "npm -s run clean && npm -s run generate && tsc",
+    "generate": "pal g && prisma generate",
+    "db-dev": "prisma migrate dev",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index"
+  },
+  "dependencies": {
+    "graphql-modules": "^1.x",
+    "@paljs/plugins": "3.0.1",
+    "@prisma/client": "2.x",
+    "apollo-server": "2.x",
+    "graphql": "15.x",
+    "reflect-metadata": "0.x"
+  },
+  "devDependencies": {
+    "prisma": "2.x",
+    "@types/node": "14.x",
+    "@paljs/cli": "3.0.2",
+    "prettier": "2.x",
+    "ts-node": "9.x",
+    "ts-node-dev": "1.x",
+    "typescript": "4.x"
+  }
+}

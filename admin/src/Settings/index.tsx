@@ -91,7 +91,7 @@ export const Settings: React.FC<{
       <div
         className={`lg:w-1/2 w-full ${dir === 'rtl' ? 'lg:pl-4' : 'lg:pr-4'}`}
       >
-        <div className="flex flex-col bg-white rounded shadow-lg text-gray-800 text-base mb-5">
+        <div className="flex flex-col bg-white rounded shadow-lg text-gray-800 mb-5">
           <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold">
             {mergeLanguage.header}
           </header>

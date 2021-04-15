@@ -98,6 +98,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
               {lang.relation}
             </div>
             <Select
+              dir={dir}
               className="max-w-xs"
               value={option}
               onChange={setOption}

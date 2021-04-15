@@ -101,7 +101,7 @@ const Number: React.FC<FilterComponentsProps> = ({
   setFilter,
 }) => {
   const { value, onChange } = useFilter(filterValue, setFilter, true);
-  const { lang } = useContext(TableContext);
+  const { lang, dir } = useContext(TableContext);
   const options: Option[] = [
     { id: 1, name: lang.equals },
     { id: 2, name: lang.range },
@@ -110,6 +110,7 @@ const Number: React.FC<FilterComponentsProps> = ({
   return (
     <>
       <Select
+        dir={dir}
         value={option}
         onChange={(option: Option) => setOption(option)}
         options={options}
