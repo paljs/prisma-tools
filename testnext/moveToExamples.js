@@ -16,7 +16,7 @@ const excludedFiles = [
   '_',
 ];
 
-const destinationPath = '../packages/create/examples/full-stack-nextjs';
+const destinationPath = join(__dirname, '../packages/create/examples/full-stack-nextjs');
 
 const pathInclude = {
   'src/server/graphql': ['Auth.ts', 'index.ts'],
@@ -29,35 +29,40 @@ const newDir = (path) => {
 
 const readDir = (path) => {
   const files = readdirSync(path);
+  const rootPath = path.replace(__dirname + '/', '');
+  console.log(rootPath);
   for (const file of files) {
-    if (!excludedFiles.includes(file) && (!pathInclude[path] || pathInclude[path].includes(file))) {
+    if (!excludedFiles.includes(file) && (!pathInclude[rootPath] || pathInclude[rootPath].includes(file))) {
       if (lstatSync(join(path, file)).isDirectory()) {
-        newDir(join(destinationPath, path, file));
+        newDir(join(destinationPath, rootPath, file));
         readDir(join(path, file));
       } else {
         if (file === 'adminSettings.json') {
           writeFileSync(
-            join(destinationPath, path, file),
+            join(destinationPath, rootPath, file),
             `{
   "models": [],
   "enums": []
 }`,
           );
-        } else if (path === 'src/pages/admin/auth') {
-          const data = readFileSync(join(path, file), 'utf-8');
-          writeFileSync(join(destinationPath, path, file), data.replace(/components\/(\w+)\/(\w+)/g, 'components/$2'));
-        } else if (path === 'src/server/graphql' && file === 'index.ts') {
-          writeFileSync(join(destinationPath, path, file), `export * from './Auth'`);
-        } else if (path === 'src/server/multi_context' && ['prisma1.ts', 'prisma2.ts'].includes(file)) {
+        } else if (rootPath === 'src/pages/admin/auth') {
           const data = readFileSync(join(path, file), 'utf-8');
           writeFileSync(
-            join(destinationPath, path, file),
+            join(destinationPath, rootPath, file),
+            data.replace(/components\/(\w+)\/(\w+)/g, 'components/$2'),
+          );
+        } else if (rootPath === 'src/server/graphql' && file === 'index.ts') {
+          writeFileSync(join(destinationPath, rootPath, file), `export * from './Auth'`);
+        } else if (rootPath === 'src/server/multi_context' && ['prisma1.ts', 'prisma2.ts'].includes(file)) {
+          const data = readFileSync(join(path, file), 'utf-8');
+          writeFileSync(
+            join(destinationPath, rootPath, file),
             data.replace(/..\/..\/..\/(\w+)\/(\w+)\/client/g, '../../../$2/client'),
           );
         } else if (file === 'multi_nexusSchema.ts') {
           const data = readFileSync(join(path, file), 'utf-8');
           writeFileSync(
-            join(destinationPath, path, file),
+            join(destinationPath, rootPath, file),
             data.replace(/..\/..\/(\w+)\/(\w+)\/client/g, '../../$2/client'),
           );
         } else if (['package.json', 'multi_package.json'].includes(file)) {
@@ -71,11 +76,11 @@ const readDir = (path) => {
               }
             }
           }
-          writeJsonSync(join(destinationPath, path, file), data, { spaces: 2 });
+          writeJsonSync(join(destinationPath, rootPath, file), data, { spaces: 2 });
         } else if (file === '.gitignore') {
-          copy(join(path, file), join(destinationPath, path, 'gitignore'));
+          copy(join(path, file), join(destinationPath, rootPath, 'gitignore'));
         } else {
-          copy(join(path, file), join(destinationPath, path, file));
+          copy(join(path, file), join(destinationPath, rootPath, file));
         }
       }
     }
@@ -83,4 +88,4 @@ const readDir = (path) => {
 };
 rimraf.sync(destinationPath);
 newDir(join(destinationPath));
-readDir('./');
+readDir(__dirname);
