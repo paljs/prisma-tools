@@ -187,7 +187,10 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
               }
               onClick={() => {
                 setSate({});
-                setValue(field.name, null);
+                setValue(field.name, null, {
+                  shouldValidate: !field.required,
+                  shouldDirty: true,
+                });
               }}
             >
               <XCircleIcon className="h-5 w-5" />
