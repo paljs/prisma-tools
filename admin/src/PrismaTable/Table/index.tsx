@@ -159,7 +159,7 @@ export const Table: React.FC<TableProps> = ({
         type="button"
         className={
           buttonClasses +
-          'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
+          ' h-full rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
         }
         onClick={() => onAction('create')}
       >
