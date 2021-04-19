@@ -22,23 +22,30 @@ export interface DynamicTableProps {
   filter?: unknown;
   connect?: any;
   onConnect?: (value: any) => void;
-  children?: (options: {
-    context: ContextProps;
-    query: {
-      variables: { where: any; orderBy?: any[]; take: number; skip: number };
-      data?: any;
-      loading: boolean;
-      error?: ApolloError;
-      getData: (
-        options?: QueryLazyOptions<{
-          take: number;
-          skip: number;
-          where: any;
-          orderBy: any[] | undefined;
-        }>,
-      ) => void;
-    };
-  }) => JSX.Element;
+  children?:
+    | ((options: {
+        context: ContextProps;
+        query: {
+          variables: {
+            where: any;
+            orderBy?: any[];
+            take: number;
+            skip: number;
+          };
+          data?: any;
+          loading: boolean;
+          error?: ApolloError;
+          getData: (
+            options?: QueryLazyOptions<{
+              take: number;
+              skip: number;
+              where: any;
+              orderBy: any[] | undefined;
+            }>,
+          ) => void;
+        };
+      }) => React.ReactNode)
+    | null;
 }
 const DynamicTable: React.FC<DynamicTableProps> = ({
   model,
