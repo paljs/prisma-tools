@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import {
+  ApolloError,
+  QueryLazyOptions,
+  useLazyQuery,
+  useMutation,
+} from '@apollo/client';
 
 import Modal from '../components/Modal';
 import { Table } from './Table';
@@ -8,14 +13,32 @@ import Form from './Form';
 import { TableContext } from './Context';
 import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
+import { ContextProps } from '..';
 
-interface DynamicTableProps {
+export interface DynamicTableProps {
   parent?: { name: string; value: any; field: string };
   inEdit?: boolean;
   model: string;
   filter?: unknown;
   connect?: any;
   onConnect?: (value: any) => void;
+  children?: (options: {
+    context: ContextProps;
+    query: {
+      variables: { where: any; orderBy?: any[]; take: number; skip: number };
+      data?: any;
+      loading: boolean;
+      error?: ApolloError;
+      getData: (
+        options?: QueryLazyOptions<{
+          take: number;
+          skip: number;
+          where: any;
+          orderBy: any[] | undefined;
+        }>,
+      ) => void;
+    };
+  }) => JSX.Element;
 }
 const DynamicTable: React.FC<DynamicTableProps> = ({
   model,
@@ -24,7 +47,9 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   parent,
   connect,
   onConnect,
+  children,
 }) => {
+  const context = useContext(TableContext);
   const {
     schema: { models },
     query,
@@ -34,7 +59,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     push,
     pagesPath,
     pageSize,
-  } = useContext(TableContext);
+  } = context;
   const [page, setPage] = useState({
     take: pageSize,
     skip: 0,
@@ -50,14 +75,16 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     initialFilter,
   } = useFilterAndSort(model, inEdit ? filter : query);
 
+  const variables = {
+    where,
+    orderBy,
+    ...page,
+  };
+
   const [getData, { data, loading, error }] = useLazyQuery(
     queryDocument(models, model),
     {
-      variables: {
-        where,
-        orderBy,
-        ...page,
-      },
+      variables,
       fetchPolicy: 'no-cache',
     },
   );
@@ -143,6 +170,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const _data: any[] = data ? data[`findMany${model}`] : [];
   return (
     <>
+      {children &&
+        children({
+          context,
+          query: { variables, data, getData, loading, error },
+        })}
       <Modal on={create} toggle={() => setCreate(!create)}>
         <Form
           model={model}

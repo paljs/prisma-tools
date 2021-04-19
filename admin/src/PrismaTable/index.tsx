@@ -8,12 +8,17 @@ import { ModelTableProps, ContextProps } from '../index';
 import { TableContext, defaultSettings } from './Context';
 import defaultLanguage from './language';
 
-const PrismaTable: React.FC<ModelTableProps> = (props) => {
+const PrismaTable: React.FC<ModelTableProps> = ({
+  children,
+  language,
+  model,
+  ...rest
+}) => {
   const { data, loading } = useQuery<{ getSchema: ContextProps['schema'] }>(
     GET_SCHEMA,
   );
   if (loading) return <Spinner />;
-  const mergedLanguage = { ...defaultLanguage, ...props.language };
+  const mergedLanguage = { ...defaultLanguage, ...language };
   return (
     <TableContext.Provider
       value={{
@@ -21,11 +26,11 @@ const PrismaTable: React.FC<ModelTableProps> = (props) => {
           models: [],
           enums: [],
         },
-        ...(props as any),
+        ...(rest as any),
         lang: mergedLanguage,
       }}
     >
-      <DynamicTable model={props.model} />
+      <DynamicTable model={model}>{children}</DynamicTable>
     </TableContext.Provider>
   );
 };

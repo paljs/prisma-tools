@@ -7,6 +7,7 @@ import {
 import { UseFormReturn } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
+import { DynamicTableProps } from './PrismaTable/dynamicTable';
 
 export type { Schema, SchemaField, SchemaModel };
 
@@ -95,4 +96,5 @@ export interface ModelTableProps
     SameProps {
   model: string;
   language?: Partial<typeof Language>;
+  children?: DynamicTableProps['children'];
 }
