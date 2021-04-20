@@ -17,13 +17,16 @@ export const getValueByType = ({
   field,
   useSet = true,
 }: GetValueOptions) => {
-  if (field?.type === 'Json') {
+  if (!field) {
+    return value;
+  }
+  if (field.type === 'Json') {
     return value ? JSON.parse(value) : field.list ? [] : {};
   }
-  if (field?.list) {
+  if (field.list) {
     if (!value) return [];
     const result: any[] = value.split(',');
-    switch (field?.type) {
+    switch (field.type) {
       case 'Int':
         result.forEach((value1, index) => {
           result[index] = parseInt(value1);
@@ -42,12 +45,11 @@ export const getValueByType = ({
     }
     return result;
   } else {
-    const result =
-      field?.type === 'Int'
-        ? parseInt(value)
-        : field?.type === 'Float'
-        ? parseFloat(value)
-        : value;
+    const result = ['BigInt', 'Int'].includes(field.type)
+      ? parseInt(value)
+      : ['Float', 'Decimal'].includes(field.type)
+      ? parseFloat(value)
+      : value;
     return !useSet ? result : { set: result };
   }
 };

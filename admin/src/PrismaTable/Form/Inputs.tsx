@@ -37,9 +37,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     } else {
       switch (field.type) {
         case 'Int':
+        case 'BigInt':
           options['type'] = 'number';
           break;
         case 'Float':
+        case 'Decimal':
           options['type'] = 'number';
           options['step'] = 'any';
           break;

@@ -29,7 +29,7 @@ const newDir = (path) => {
 
 const readDir = (path) => {
   const files = readdirSync(path);
-  const rootPath = path.replace(__dirname + '/', '');
+  const rootPath = path.replace(__dirname + '/', '').replace(__dirname, '');
   for (const file of files) {
     if (!excludedFiles.includes(file) && (!pathInclude[rootPath] || pathInclude[rootPath].includes(file))) {
       if (lstatSync(join(path, file)).isDirectory()) {
@@ -86,5 +86,5 @@ const readDir = (path) => {
   }
 };
 rimraf.sync(destinationPath);
-newDir(join(destinationPath));
+newDir(destinationPath);
 readDir(__dirname);
