@@ -299,22 +299,28 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
           } else {
             delete newValue[getField.name];
           }
-          setFilter(Object.keys(newValue).length > 0 ? (field.list ? { some: newValue } : newValue) : undefined);
+          setFilter(
+            Object.keys(newValue).length > 0
+              ? field.list
+                ? { some: newValue }
+                : newValue
+              : undefined,
+          );
         },
       }
     : null;
-  
+
   useEffect(() => {
     setCurrentField({
       id: model.fields[0].name,
       name: model.fields[0].title,
     });
   }, [field]);
-  
-  if (!getField) {
+
+  if (!props) {
     return null;
   }
-  
+
   let filterComponent;
   if (getField.kind === 'enum') {
     filterComponent = <EnumFilter {...props} />;
