@@ -295,19 +295,6 @@ export class AppGenerator {
                 newName,
               ),
             );
-          } else if (file === '_document.tsx') {
-            const data = readFileSync(join(path, file), 'utf-8');
-            writeFileSync(
-              join(
-                this.destinationPath(),
-                getPath(path, this.sourceRoot),
-                newName,
-              ),
-              data.replace(
-                /layouts\/material\/theme/g,
-                withAdmin ? 'layouts/Admin/theme' : './_app',
-              ),
-            );
           } else if (
             (newName === 'pal.js' || newName === 'nexusSchema.ts') &&
             !withAdmin

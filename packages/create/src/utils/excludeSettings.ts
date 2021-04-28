@@ -11,7 +11,7 @@ const materialExclude = {
 };
 
 const tailwindExclude = {
-  files: ['material', '_document.tsx', 'signup.tsx'],
+  files: ['material', '_document.tsx', 'signup.tsx', 'theme.ts'],
   packages: ['@material-ui/core', '@material-ui/icons'],
 };
 
