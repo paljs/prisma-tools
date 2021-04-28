@@ -75,8 +75,8 @@ export class PrismaSelect {
       });
     } else {
       const { Prisma } = require('@prisma/client');
-      if (Prisma.dmmf && Prisma.dmmf.dataModel) {
-        models.push(...Prisma.dmmf.dataModel.models);
+      if (Prisma.dmmf && Prisma.dmmf.datamodel) {
+        models.push(...Prisma.dmmf.datamodel.models);
       }
     }
     return models;
