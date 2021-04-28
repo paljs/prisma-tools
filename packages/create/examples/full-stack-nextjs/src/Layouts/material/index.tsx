@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { MainListItems } from './listItems';
-import theme from './theme';
+import theme from 'components/theme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
