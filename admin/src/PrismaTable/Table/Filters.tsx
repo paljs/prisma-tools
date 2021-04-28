@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import Select from '../../components/Select';
 import { useFilter } from './useFilter';
@@ -288,26 +288,33 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
       ? filterValue.some
       : filterValue
     : {};
-  const props: FilterComponentsProps = {
-    field: getField,
-    filterValue: filter[getField.name],
-    setFilter: (value: any) => {
-      const newValue = { ...filter };
-      if (value) {
-        newValue[getField.name] = value;
-      } else {
-        delete newValue[getField.name];
+  const props: FilterComponentsProps | null = getField
+    ? {
+        field: getField,
+        filterValue: filter[getField.name],
+        setFilter: (value: any) => {
+          const newValue = { ...filter };
+          if (value) {
+            newValue[getField.name] = value;
+          } else {
+            delete newValue[getField.name];
+          }
+          setFilter(Object.keys(newValue).length > 0 ? (field.list ? { some: newValue } : newValue) : undefined);
+        },
       }
-      setFilter(
-        Object.keys(newValue).length > 0
-          ? field.list
-            ? { some: newValue }
-            : newValue
-          : undefined,
-      );
-    },
-  };
-
+    : null;
+  
+  useEffect(() => {
+    setCurrentField({
+      id: model.fields[0].name,
+      name: model.fields[0].title,
+    });
+  }, [field]);
+  
+  if (!getField) {
+    return null;
+  }
+  
   let filterComponent;
   if (getField.kind === 'enum') {
     filterComponent = <EnumFilter {...props} />;
