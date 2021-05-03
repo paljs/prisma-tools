@@ -24,7 +24,7 @@ export class CamelCase extends PrismaReader {
           }
           if (i === 0 && line[1].includes('_')) {
             lines.splice(1, 0, `@@map("${modelName}")`);
-            line[1] = this.convertWord(line[1], true);
+            line[1] = this.convertWord(line[1]);
             lines[0] = line.join(' ');
           } else if (!lines[i].includes('@@') && !lines[i].includes('//')) {
             const line = lines[i].replace(/[\n\r]/g, '').split(' ');
@@ -41,7 +41,7 @@ export class CamelCase extends PrismaReader {
             }
             if (cleanLine[1].includes('_') && kind !== 'enum') {
               const index = line.indexOf(cleanLine[1]);
-              line[index] = this.convertWord(cleanLine[1], true);
+              line[index] = this.convertWord(cleanLine[1]);
             }
             lines[i] = line.join(' ');
           }
@@ -71,13 +71,10 @@ export class CamelCase extends PrismaReader {
     }
   }
 
-  private convertWord(word: string, model = false) {
+  private convertWord(word: string) {
     return word
       .split('_')
-      .map((item, index) =>
-        !model && index === 0
-          ? item
-          : item.charAt(0).toUpperCase() + item.slice(1),
+      .map((item, index) => item.charAt(0).toUpperCase() + item.slice(1),
       )
       .join('');
   }
