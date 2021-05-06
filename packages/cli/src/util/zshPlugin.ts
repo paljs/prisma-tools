@@ -22,6 +22,7 @@ function listPalGCompletions {
           -c --config
           -s --schema
           -m --multi
+          -a --autoComplete
 
           # models
           $model
