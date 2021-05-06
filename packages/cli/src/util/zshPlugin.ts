@@ -40,7 +40,9 @@ function listPalGCompletions {
       if [[ $words[3] == 'json' ]]; then
         reply=(
           -o --output-path
-          -t --type
+          --type=js
+          --type=ts
+          --type=json
           -s --scheam
         )
       elif [[ $words[3] == 'typescript' ]]; then
