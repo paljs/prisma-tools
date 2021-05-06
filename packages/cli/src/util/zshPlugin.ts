@@ -22,7 +22,8 @@ function listPalGCompletions {
           -c --config
           -s --schema
           -m --multi
-          -a --autoComplete
+          -a=#{ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/
+          --autoComplete
 
           # models
           $model
@@ -69,7 +70,8 @@ compctl -K listPalGCompletions pal
 export default function createPlugin(models: string[], path: string) {
   const fileContent = text
     .replace(/#{models}/g, models.join('\n  '))
-    .replace('#{#words[@]}', '${#words[@]}');
+    .replace('#{#words[@]}', '${#words[@]}')
+    .replace('#{ZSH', '${ZSH');
   const completePath = join(path, 'pal');
   !existsSync(completePath) && mkdirSync(completePath, { recursive: true });
   writeFileSync(join(completePath, 'pal.plugin.zsh'), fileContent);
