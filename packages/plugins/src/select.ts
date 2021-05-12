@@ -43,6 +43,7 @@ import graphqlFields from 'graphql-fields';
  **/
 export class PrismaSelect {
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take'];
+  private allowedProps = ['_count'];
   private isAggregate: boolean = false;
 
   constructor(
@@ -225,17 +226,21 @@ export class PrismaSelect {
         select: { ...defaultFields },
       };
       Object.keys(selectObject.select).forEach((key) => {
-        const field = this.field(key, model);
-        if (field) {
-          if (field.kind !== 'object') {
-            filteredObject.select[key] = true;
-          } else {
-            const subModelFilter = this.filterBy(
-              field.type,
-              selectObject.select[key],
-            );
-            if (Object.keys(subModelFilter.select).length > 0) {
-              filteredObject.select[key] = subModelFilter;
+        if (this.allowedProps.includes(key)) {
+          filteredObject.select[key] = selectObject.select[key];
+        } else {
+          const field = this.field(key, model);
+          if (field) {
+            if (field.kind !== 'object') {
+              filteredObject.select[key] = true;
+            } else {
+              const subModelFilter = this.filterBy(
+                field.type,
+                selectObject.select[key],
+              );
+              if (Object.keys(subModelFilter.select).length > 0) {
+                filteredObject.select[key] = subModelFilter;
+              }
             }
           }
         }

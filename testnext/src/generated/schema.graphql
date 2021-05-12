@@ -72,18 +72,18 @@ type Comment {
 
 type CommentAvgAggregateOutputType {
   authorId: Float
-  id: Float!
-  postId: Float!
+  id: Float
+  postId: Float
 }
 
 type CommentCountAggregateOutputType {
   _all: Int!
-  authorId: Int
-  contain: Int
-  createdAt: Int
+  authorId: Int!
+  contain: Int!
+  createdAt: Int!
   id: Int!
   postId: Int!
-  updatedAt: Int
+  updatedAt: Int!
 }
 
 input CommentCreateInput {
@@ -140,8 +140,8 @@ type CommentMaxAggregateOutputType {
   authorId: Int
   contain: String
   createdAt: DateTime
-  id: Int!
-  postId: Int!
+  id: Int
+  postId: Int
   updatedAt: DateTime
 }
 
@@ -149,8 +149,8 @@ type CommentMinAggregateOutputType {
   authorId: Int
   contain: String
   createdAt: DateTime
-  id: Int!
-  postId: Int!
+  id: Int
+  postId: Int
   updatedAt: DateTime
 }
 
@@ -198,8 +198,8 @@ input CommentScalarWhereWithAggregatesInput {
 
 type CommentSumAggregateOutputType {
   authorId: Int
-  id: Int!
-  postId: Int!
+  id: Int
+  postId: Int
 }
 
 input CommentUncheckedCreateInput {
@@ -477,6 +477,7 @@ type Field {
 }
 
 type Group {
+  _count: GroupCountOutputType
   createdAt: DateTime!
   id: Int!
   name: String!
@@ -492,15 +493,19 @@ type Group {
 }
 
 type GroupAvgAggregateOutputType {
-  id: Float!
+  id: Float
 }
 
 type GroupCountAggregateOutputType {
   _all: Int!
-  createdAt: Int
+  createdAt: Int!
   id: Int!
-  name: Int
-  updatedAt: Int
+  name: Int!
+  updatedAt: Int!
+}
+
+type GroupCountOutputType {
+  users: Int!
 }
 
 input GroupCreateInput {
@@ -529,14 +534,14 @@ input GroupCreateWithoutUsersInput {
 
 type GroupMaxAggregateOutputType {
   createdAt: DateTime
-  id: Int!
+  id: Int
   name: String
   updatedAt: DateTime
 }
 
 type GroupMinAggregateOutputType {
   createdAt: DateTime
-  id: Int!
+  id: Int
   name: String
   updatedAt: DateTime
 }
@@ -571,7 +576,7 @@ input GroupScalarWhereWithAggregatesInput {
 }
 
 type GroupSumAggregateOutputType {
-  id: Int!
+  id: Int
 }
 
 input GroupUncheckedCreateInput {
@@ -966,6 +971,7 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Post {
+  _count: PostCountOutputType
   author: User
   authorId: Int
   comments(
@@ -985,17 +991,21 @@ type Post {
 
 type PostAvgAggregateOutputType {
   authorId: Float
-  id: Float!
+  id: Float
 }
 
 type PostCountAggregateOutputType {
   _all: Int!
-  authorId: Int
-  createdAt: Int
+  authorId: Int!
+  createdAt: Int!
   id: Int!
-  published: Int
-  title: Int
-  updatedAt: Int
+  published: Int!
+  title: Int!
+  updatedAt: Int!
+}
+
+type PostCountOutputType {
+  comments: Int!
 }
 
 input PostCreateInput {
@@ -1054,7 +1064,7 @@ input PostListRelationFilter {
 type PostMaxAggregateOutputType {
   authorId: Int
   createdAt: DateTime
-  id: Int!
+  id: Int
   published: Boolean
   title: String
   updatedAt: DateTime
@@ -1063,7 +1073,7 @@ type PostMaxAggregateOutputType {
 type PostMinAggregateOutputType {
   authorId: Int
   createdAt: DateTime
-  id: Int!
+  id: Int
   published: Boolean
   title: String
   updatedAt: DateTime
@@ -1118,7 +1128,7 @@ input PostScalarWhereWithAggregatesInput {
 
 type PostSumAggregateOutputType {
   authorId: Int
-  id: Int!
+  id: Int
 }
 
 input PostUncheckedCreateInput {
@@ -1550,6 +1560,7 @@ input UpdateModelInput {
 }
 
 type User {
+  _count: UserCountOutputType
   comments(
     cursor: CommentWhereUniqueInput
     distinct: CommentScalarFieldEnum
@@ -1577,17 +1588,22 @@ type User {
 
 type UserAvgAggregateOutputType {
   groupId: Float
-  id: Float!
+  id: Float
 }
 
 type UserCountAggregateOutputType {
   _all: Int!
-  createdAt: Int
-  email: Int
-  groupId: Int
+  createdAt: Int!
+  email: Int!
+  groupId: Int!
   id: Int!
-  name: Int
-  password: Int
+  name: Int!
+  password: Int!
+}
+
+type UserCountOutputType {
+  comments: Int!
+  posts: Int!
 }
 
 input UserCreateInput {
@@ -1670,7 +1686,7 @@ type UserMaxAggregateOutputType {
   createdAt: DateTime
   email: String
   groupId: Int
-  id: Int!
+  id: Int
   name: String
   password: String
 }
@@ -1679,7 +1695,7 @@ type UserMinAggregateOutputType {
   createdAt: DateTime
   email: String
   groupId: Int
-  id: Int!
+  id: Int
   name: String
   password: String
 }
@@ -1733,7 +1749,7 @@ input UserScalarWhereWithAggregatesInput {
 
 type UserSumAggregateOutputType {
   groupId: Int
-  id: Int!
+  id: Int
 }
 
 input UserUncheckedCreateInput {

@@ -1576,26 +1576,26 @@ export interface NexusGenObjects {
   CommentAvgAggregateOutputType: {
     // root type
     authorId?: number | null; // Float
-    id: number; // Float!
-    postId: number; // Float!
+    id?: number | null; // Float
+    postId?: number | null; // Float
   };
   CommentCountAggregateOutputType: {
     // root type
     _all: number; // Int!
-    authorId?: number | null; // Int
-    contain?: number | null; // Int
-    createdAt?: number | null; // Int
+    authorId: number; // Int!
+    contain: number; // Int!
+    createdAt: number; // Int!
     id: number; // Int!
     postId: number; // Int!
-    updatedAt?: number | null; // Int
+    updatedAt: number; // Int!
   };
   CommentMaxAggregateOutputType: {
     // root type
     authorId?: number | null; // Int
     contain?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
-    postId: number; // Int!
+    id?: number | null; // Int
+    postId?: number | null; // Int
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
   CommentMinAggregateOutputType: {
@@ -1603,15 +1603,15 @@ export interface NexusGenObjects {
     authorId?: number | null; // Int
     contain?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
-    postId: number; // Int!
+    id?: number | null; // Int
+    postId?: number | null; // Int
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
   CommentSumAggregateOutputType: {
     // root type
     authorId?: number | null; // Int
-    id: number; // Int!
-    postId: number; // Int!
+    id?: number | null; // Int
+    postId?: number | null; // Int
   };
   Enum: {
     // root type
@@ -1648,33 +1648,37 @@ export interface NexusGenObjects {
   };
   GroupAvgAggregateOutputType: {
     // root type
-    id: number; // Float!
+    id?: number | null; // Float
   };
   GroupCountAggregateOutputType: {
     // root type
     _all: number; // Int!
-    createdAt?: number | null; // Int
+    createdAt: number; // Int!
     id: number; // Int!
-    name?: number | null; // Int
-    updatedAt?: number | null; // Int
+    name: number; // Int!
+    updatedAt: number; // Int!
+  };
+  GroupCountOutputType: {
+    // root type
+    users: number; // Int!
   };
   GroupMaxAggregateOutputType: {
     // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id?: number | null; // Int
     name?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
   GroupMinAggregateOutputType: {
     // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id?: number | null; // Int
     name?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
   GroupSumAggregateOutputType: {
     // root type
-    id: number; // Int!
+    id?: number | null; // Int
   };
   Model: {
     // root type
@@ -1700,23 +1704,27 @@ export interface NexusGenObjects {
   PostAvgAggregateOutputType: {
     // root type
     authorId?: number | null; // Float
-    id: number; // Float!
+    id?: number | null; // Float
   };
   PostCountAggregateOutputType: {
     // root type
     _all: number; // Int!
-    authorId?: number | null; // Int
-    createdAt?: number | null; // Int
+    authorId: number; // Int!
+    createdAt: number; // Int!
     id: number; // Int!
-    published?: number | null; // Int
-    title?: number | null; // Int
-    updatedAt?: number | null; // Int
+    published: number; // Int!
+    title: number; // Int!
+    updatedAt: number; // Int!
+  };
+  PostCountOutputType: {
+    // root type
+    comments: number; // Int!
   };
   PostMaxAggregateOutputType: {
     // root type
     authorId?: number | null; // Int
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id?: number | null; // Int
     published?: boolean | null; // Boolean
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -1725,7 +1733,7 @@ export interface NexusGenObjects {
     // root type
     authorId?: number | null; // Int
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id?: number | null; // Int
     published?: boolean | null; // Boolean
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -1733,7 +1741,7 @@ export interface NexusGenObjects {
   PostSumAggregateOutputType: {
     // root type
     authorId?: number | null; // Int
-    id: number; // Int!
+    id?: number | null; // Int
   };
   Query: {};
   Schema: {
@@ -1753,24 +1761,29 @@ export interface NexusGenObjects {
   UserAvgAggregateOutputType: {
     // root type
     groupId?: number | null; // Float
-    id: number; // Float!
+    id?: number | null; // Float
   };
   UserCountAggregateOutputType: {
     // root type
     _all: number; // Int!
-    createdAt?: number | null; // Int
-    email?: number | null; // Int
-    groupId?: number | null; // Int
+    createdAt: number; // Int!
+    email: number; // Int!
+    groupId: number; // Int!
     id: number; // Int!
-    name?: number | null; // Int
-    password?: number | null; // Int
+    name: number; // Int!
+    password: number; // Int!
+  };
+  UserCountOutputType: {
+    // root type
+    comments: number; // Int!
+    posts: number; // Int!
   };
   UserMaxAggregateOutputType: {
     // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     email?: string | null; // String
     groupId?: number | null; // Int
-    id: number; // Int!
+    id?: number | null; // Int
     name?: string | null; // String
     password?: string | null; // String
   };
@@ -1779,14 +1792,14 @@ export interface NexusGenObjects {
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     email?: string | null; // String
     groupId?: number | null; // Int
-    id: number; // Int!
+    id?: number | null; // Int
     name?: string | null; // String
     password?: string | null; // String
   };
   UserSumAggregateOutputType: {
     // root type
     groupId?: number | null; // Int
-    id: number; // Int!
+    id?: number | null; // Int
   };
 }
 
@@ -1849,26 +1862,26 @@ export interface NexusGenFieldTypes {
   CommentAvgAggregateOutputType: {
     // field return type
     authorId: number | null; // Float
-    id: number; // Float!
-    postId: number; // Float!
+    id: number | null; // Float
+    postId: number | null; // Float
   };
   CommentCountAggregateOutputType: {
     // field return type
     _all: number; // Int!
-    authorId: number | null; // Int
-    contain: number | null; // Int
-    createdAt: number | null; // Int
+    authorId: number; // Int!
+    contain: number; // Int!
+    createdAt: number; // Int!
     id: number; // Int!
     postId: number; // Int!
-    updatedAt: number | null; // Int
+    updatedAt: number; // Int!
   };
   CommentMaxAggregateOutputType: {
     // field return type
     authorId: number | null; // Int
     contain: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
-    postId: number; // Int!
+    id: number | null; // Int
+    postId: number | null; // Int
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   };
   CommentMinAggregateOutputType: {
@@ -1876,15 +1889,15 @@ export interface NexusGenFieldTypes {
     authorId: number | null; // Int
     contain: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
-    postId: number; // Int!
+    id: number | null; // Int
+    postId: number | null; // Int
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   };
   CommentSumAggregateOutputType: {
     // field return type
     authorId: number | null; // Int
-    id: number; // Int!
-    postId: number; // Int!
+    id: number | null; // Int
+    postId: number | null; // Int
   };
   Enum: {
     // field return type
@@ -1914,6 +1927,7 @@ export interface NexusGenFieldTypes {
   };
   Group: {
     // field return type
+    _count: NexusGenRootTypes['GroupCountOutputType'] | null; // GroupCountOutputType
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     name: string; // String!
@@ -1922,33 +1936,37 @@ export interface NexusGenFieldTypes {
   };
   GroupAvgAggregateOutputType: {
     // field return type
-    id: number; // Float!
+    id: number | null; // Float
   };
   GroupCountAggregateOutputType: {
     // field return type
     _all: number; // Int!
-    createdAt: number | null; // Int
+    createdAt: number; // Int!
     id: number; // Int!
-    name: number | null; // Int
-    updatedAt: number | null; // Int
+    name: number; // Int!
+    updatedAt: number; // Int!
+  };
+  GroupCountOutputType: {
+    // field return type
+    users: number; // Int!
   };
   GroupMaxAggregateOutputType: {
     // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id: number | null; // Int
     name: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   };
   GroupMinAggregateOutputType: {
     // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id: number | null; // Int
     name: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   };
   GroupSumAggregateOutputType: {
     // field return type
-    id: number; // Int!
+    id: number | null; // Int
   };
   Model: {
     // field return type
@@ -1996,6 +2014,7 @@ export interface NexusGenFieldTypes {
   };
   Post: {
     // field return type
+    _count: NexusGenRootTypes['PostCountOutputType'] | null; // PostCountOutputType
     author: NexusGenRootTypes['User'] | null; // User
     authorId: number | null; // Int
     comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
@@ -2008,23 +2027,27 @@ export interface NexusGenFieldTypes {
   PostAvgAggregateOutputType: {
     // field return type
     authorId: number | null; // Float
-    id: number; // Float!
+    id: number | null; // Float
   };
   PostCountAggregateOutputType: {
     // field return type
     _all: number; // Int!
-    authorId: number | null; // Int
-    createdAt: number | null; // Int
+    authorId: number; // Int!
+    createdAt: number; // Int!
     id: number; // Int!
-    published: number | null; // Int
-    title: number | null; // Int
-    updatedAt: number | null; // Int
+    published: number; // Int!
+    title: number; // Int!
+    updatedAt: number; // Int!
+  };
+  PostCountOutputType: {
+    // field return type
+    comments: number; // Int!
   };
   PostMaxAggregateOutputType: {
     // field return type
     authorId: number | null; // Int
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id: number | null; // Int
     published: boolean | null; // Boolean
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -2033,7 +2056,7 @@ export interface NexusGenFieldTypes {
     // field return type
     authorId: number | null; // Int
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
-    id: number; // Int!
+    id: number | null; // Int
     published: boolean | null; // Boolean
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -2041,7 +2064,7 @@ export interface NexusGenFieldTypes {
   PostSumAggregateOutputType: {
     // field return type
     authorId: number | null; // Int
-    id: number; // Int!
+    id: number | null; // Int
   };
   Query: {
     // field return type
@@ -2075,6 +2098,7 @@ export interface NexusGenFieldTypes {
   };
   User: {
     // field return type
+    _count: NexusGenRootTypes['UserCountOutputType'] | null; // UserCountOutputType
     comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     email: string; // String!
@@ -2088,24 +2112,29 @@ export interface NexusGenFieldTypes {
   UserAvgAggregateOutputType: {
     // field return type
     groupId: number | null; // Float
-    id: number; // Float!
+    id: number | null; // Float
   };
   UserCountAggregateOutputType: {
     // field return type
     _all: number; // Int!
-    createdAt: number | null; // Int
-    email: number | null; // Int
-    groupId: number | null; // Int
+    createdAt: number; // Int!
+    email: number; // Int!
+    groupId: number; // Int!
     id: number; // Int!
-    name: number | null; // Int
-    password: number | null; // Int
+    name: number; // Int!
+    password: number; // Int!
+  };
+  UserCountOutputType: {
+    // field return type
+    comments: number; // Int!
+    posts: number; // Int!
   };
   UserMaxAggregateOutputType: {
     // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     email: string | null; // String
     groupId: number | null; // Int
-    id: number; // Int!
+    id: number | null; // Int
     name: string | null; // String
     password: string | null; // String
   };
@@ -2114,14 +2143,14 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     email: string | null; // String
     groupId: number | null; // Int
-    id: number; // Int!
+    id: number | null; // Int
     name: string | null; // String
     password: string | null; // String
   };
   UserSumAggregateOutputType: {
     // field return type
     groupId: number | null; // Int
-    id: number; // Int!
+    id: number | null; // Int
   };
 }
 
@@ -2241,6 +2270,7 @@ export interface NexusGenFieldTypeNames {
   };
   Group: {
     // field return type name
+    _count: 'GroupCountOutputType';
     createdAt: 'DateTime';
     id: 'Int';
     name: 'String';
@@ -2258,6 +2288,10 @@ export interface NexusGenFieldTypeNames {
     id: 'Int';
     name: 'Int';
     updatedAt: 'Int';
+  };
+  GroupCountOutputType: {
+    // field return type name
+    users: 'Int';
   };
   GroupMaxAggregateOutputType: {
     // field return type name
@@ -2323,6 +2357,7 @@ export interface NexusGenFieldTypeNames {
   };
   Post: {
     // field return type name
+    _count: 'PostCountOutputType';
     author: 'User';
     authorId: 'Int';
     comments: 'Comment';
@@ -2346,6 +2381,10 @@ export interface NexusGenFieldTypeNames {
     published: 'Int';
     title: 'Int';
     updatedAt: 'Int';
+  };
+  PostCountOutputType: {
+    // field return type name
+    comments: 'Int';
   };
   PostMaxAggregateOutputType: {
     // field return type name
@@ -2402,6 +2441,7 @@ export interface NexusGenFieldTypeNames {
   };
   User: {
     // field return type name
+    _count: 'UserCountOutputType';
     comments: 'Comment';
     createdAt: 'DateTime';
     email: 'String';
@@ -2426,6 +2466,11 @@ export interface NexusGenFieldTypeNames {
     id: 'Int';
     name: 'Int';
     password: 'Int';
+  };
+  UserCountOutputType: {
+    // field return type name
+    comments: 'Int';
+    posts: 'Int';
   };
   UserMaxAggregateOutputType: {
     // field return type name

@@ -33,5 +33,11 @@ export const Post = objectType({
     })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
+    t.nullable.field('_count', {
+      type: 'PostCountOutputType',
+      resolve(root: any) {
+        return root._count
+      },
+    })
   },
 })

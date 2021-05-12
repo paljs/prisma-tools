@@ -15,30 +15,30 @@
     "@paljs/display": "^3.0.1",
     "@paljs/generator": "^3.0.5",
     "@paljs/schema": "^3.0.1",
-    "@prisma/sdk": "2.20.1",
+    "@prisma/sdk": "2.22.1",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.6",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "pkg-dir": "^5.0.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "tslib": "^2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
     "@types/chai": "^4",
-    "@types/fs-extra": "^9.0.9",
+    "@types/fs-extra": "^9.0.11",
     "@types/mocha": "^8",
-    "@types/node": "14.14.37",
+    "@types/node": "15.0.3",
     "chai": "^4",
-    "eslint": "^7.23",
+    "eslint": "^7.26",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.2",
     "globby": "^11",
     "mocha": "^8",
     "nyc": "^15",
     "ts-node": "^9",
-    "typescript": "4.2.3"
+    "typescript": "4.2.4"
   },
   "engines": {
     "node": ">=8.0.0"

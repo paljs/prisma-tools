@@ -27,7 +27,7 @@
     "url": "git+https://github.com/paljs/prisma-tools.git"
   },
   "dependencies": {
-    "chalk": "4.1.0",
+    "chalk": "4.1.1",
     "ora": "5.4.0"
   },
   "publishConfig": {

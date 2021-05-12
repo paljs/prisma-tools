@@ -26,10 +26,10 @@
   "dependencies": {
     "@paljs/display": "^3.0.1",
     "@paljs/types": "^3.0.1",
-    "@prisma/sdk": "2.20.1"
+    "@prisma/sdk": "2.22.1"
   },
   "devDependencies": {
-    "typescript": "4.2.3"
+    "typescript": "4.2.4"
   },
   "files": [
     "dist"

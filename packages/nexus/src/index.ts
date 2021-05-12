@@ -129,7 +129,11 @@ export const paljs = (settings?: Settings) =>
             }
           });
           data.outputObjectTypes.prisma
-            .filter((type) => type.name.includes('Aggregate'))
+            .filter(
+              (type) =>
+                type.name.includes('Aggregate') ||
+                type.name.endsWith('CountOutputType'),
+            )
             .forEach((type) => {
               if (!allTypes.includes(type.name)) {
                 nexusSchemaInputs.push(

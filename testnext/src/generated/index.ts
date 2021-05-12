@@ -95,19 +95,19 @@ export type Comment = {
 export type CommentAvgAggregateOutputType = {
   __typename?: 'CommentAvgAggregateOutputType';
   authorId?: Maybe<Scalars['Float']>;
-  id: Scalars['Float'];
-  postId: Scalars['Float'];
+  id?: Maybe<Scalars['Float']>;
+  postId?: Maybe<Scalars['Float']>;
 };
 
 export type CommentCountAggregateOutputType = {
   __typename?: 'CommentCountAggregateOutputType';
   _all: Scalars['Int'];
-  authorId?: Maybe<Scalars['Int']>;
-  contain?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
+  authorId: Scalars['Int'];
+  contain: Scalars['Int'];
+  createdAt: Scalars['Int'];
   id: Scalars['Int'];
   postId: Scalars['Int'];
-  updatedAt?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['Int'];
 };
 
 export type CommentCreateInput = {
@@ -165,8 +165,8 @@ export type CommentMaxAggregateOutputType = {
   authorId?: Maybe<Scalars['Int']>;
   contain?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
-  postId: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
+  postId?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -175,8 +175,8 @@ export type CommentMinAggregateOutputType = {
   authorId?: Maybe<Scalars['Int']>;
   contain?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
-  postId: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
+  postId?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -225,8 +225,8 @@ export type CommentScalarWhereWithAggregatesInput = {
 export type CommentSumAggregateOutputType = {
   __typename?: 'CommentSumAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
-  postId: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
+  postId?: Maybe<Scalars['Int']>;
 };
 
 export type CommentUncheckedCreateInput = {
@@ -497,6 +497,7 @@ export type Field = {
 
 export type Group = {
   __typename?: 'Group';
+  _count?: Maybe<GroupCountOutputType>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   name: Scalars['String'];
@@ -515,16 +516,21 @@ export type GroupUsersArgs = {
 
 export type GroupAvgAggregateOutputType = {
   __typename?: 'GroupAvgAggregateOutputType';
-  id: Scalars['Float'];
+  id?: Maybe<Scalars['Float']>;
 };
 
 export type GroupCountAggregateOutputType = {
   __typename?: 'GroupCountAggregateOutputType';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
   id: Scalars['Int'];
-  name?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  name: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type GroupCountOutputType = {
+  __typename?: 'GroupCountOutputType';
+  users: Scalars['Int'];
 };
 
 export type GroupCreateInput = {
@@ -554,7 +560,7 @@ export type GroupCreateWithoutUsersInput = {
 export type GroupMaxAggregateOutputType = {
   __typename?: 'GroupMaxAggregateOutputType';
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -562,7 +568,7 @@ export type GroupMaxAggregateOutputType = {
 export type GroupMinAggregateOutputType = {
   __typename?: 'GroupMinAggregateOutputType';
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -598,7 +604,7 @@ export type GroupScalarWhereWithAggregatesInput = {
 
 export type GroupSumAggregateOutputType = {
   __typename?: 'GroupSumAggregateOutputType';
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
 };
 
 export type GroupUncheckedCreateInput = {
@@ -1130,6 +1136,7 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type Post = {
   __typename?: 'Post';
+  _count?: Maybe<PostCountOutputType>;
   author?: Maybe<User>;
   authorId?: Maybe<Scalars['Int']>;
   comments: Array<Comment>;
@@ -1152,18 +1159,23 @@ export type PostCommentsArgs = {
 export type PostAvgAggregateOutputType = {
   __typename?: 'PostAvgAggregateOutputType';
   authorId?: Maybe<Scalars['Float']>;
-  id: Scalars['Float'];
+  id?: Maybe<Scalars['Float']>;
 };
 
 export type PostCountAggregateOutputType = {
   __typename?: 'PostCountAggregateOutputType';
   _all: Scalars['Int'];
-  authorId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
+  authorId: Scalars['Int'];
+  createdAt: Scalars['Int'];
   id: Scalars['Int'];
-  published?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  published: Scalars['Int'];
+  title: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type PostCountOutputType = {
+  __typename?: 'PostCountOutputType';
+  comments: Scalars['Int'];
 };
 
 export type PostCreateInput = {
@@ -1223,7 +1235,7 @@ export type PostMaxAggregateOutputType = {
   __typename?: 'PostMaxAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   published?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1233,7 +1245,7 @@ export type PostMinAggregateOutputType = {
   __typename?: 'PostMinAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   published?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1289,7 +1301,7 @@ export type PostScalarWhereWithAggregatesInput = {
 export type PostSumAggregateOutputType = {
   __typename?: 'PostSumAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
 };
 
 export type PostUncheckedCreateInput = {
@@ -1772,6 +1784,7 @@ export type UpdateModelInput = {
 
 export type User = {
   __typename?: 'User';
+  _count?: Maybe<UserCountOutputType>;
   comments: Array<Comment>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
@@ -1804,18 +1817,24 @@ export type UserPostsArgs = {
 export type UserAvgAggregateOutputType = {
   __typename?: 'UserAvgAggregateOutputType';
   groupId?: Maybe<Scalars['Float']>;
-  id: Scalars['Float'];
+  id?: Maybe<Scalars['Float']>;
 };
 
 export type UserCountAggregateOutputType = {
   __typename?: 'UserCountAggregateOutputType';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  email?: Maybe<Scalars['Int']>;
-  groupId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  email: Scalars['Int'];
+  groupId: Scalars['Int'];
   id: Scalars['Int'];
-  name?: Maybe<Scalars['Int']>;
-  password?: Maybe<Scalars['Int']>;
+  name: Scalars['Int'];
+  password: Scalars['Int'];
+};
+
+export type UserCountOutputType = {
+  __typename?: 'UserCountOutputType';
+  comments: Scalars['Int'];
+  posts: Scalars['Int'];
 };
 
 export type UserCreateInput = {
@@ -1899,7 +1918,7 @@ export type UserMaxAggregateOutputType = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   groupId?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
 };
@@ -1909,7 +1928,7 @@ export type UserMinAggregateOutputType = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   groupId?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
 };
@@ -1964,7 +1983,7 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserSumAggregateOutputType = {
   __typename?: 'UserSumAggregateOutputType';
   groupId?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
 };
 
 export type UserUncheckedCreateInput = {
