@@ -22,8 +22,8 @@
     "@heroicons/react": "1.0.1",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
-    "@paljs/admin": "3.0.10",
-    "@paljs/nexus": "3.0.11",
+    "@paljs/admin": "3.2.0",
+    "@paljs/nexus": "3.2.0",
     "@prisma/client": "2.22.1",
     "apollo-server-micro": "2.24.0",
     "bcryptjs": "2.4.3",
@@ -43,7 +43,7 @@
     "@graphql-codegen/typescript": "1.22.0",
     "@graphql-codegen/typescript-operations": "1.17.16",
     "@graphql-codegen/typescript-react-apollo": "2.2.4",
-    "@paljs/cli": "3.1.2",
+    "@paljs/cli": "3.2.0",
     "@types/bcryptjs": "2.4.2",
     "@types/cookie": "0.4.0",
     "@types/graphql": "14.5.0",
@@ -68,5 +68,7 @@
     "tsconfig-paths": "3.9.0",
     "typescript": "4.2.4"
   },
-  "cacheDirectories": [".next/cache"]
+  "cacheDirectories": [
+    ".next/cache"
+  ]
 }
