@@ -1,6 +1,6 @@
 {
   "name": "@paljs/schema",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "main": "dist/index.js",
   "module": "dist/schema.esm.js",
   "types": "dist/index.d.ts",
