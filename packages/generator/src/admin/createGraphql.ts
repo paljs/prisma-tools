@@ -141,7 +141,7 @@ ${
     ? `
 mutation deleteOne${model.name}($where: ${model.name}WhereUniqueInput!) {
     deleteOne${model.name}(where: $where) {
-        id
+        ...${model.name}
     }
 }`
     : ''

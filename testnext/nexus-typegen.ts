@@ -68,6 +68,9 @@ export interface NexusGenInputs {
   };
   BoolWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+    _min?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: boolean | null; // Boolean
     max?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
@@ -383,6 +386,9 @@ export interface NexusGenInputs {
   };
   DateTimeWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    _min?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: NexusGenScalars['DateTime'] | null; // DateTime
     gt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -559,6 +565,11 @@ export interface NexusGenInputs {
   };
   IntNullableWithAggregatesFilter: {
     // input type
+    _avg?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    _count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _max?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _min?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _sum?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     avg?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
     count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     equals?: number | null; // Int
@@ -575,6 +586,11 @@ export interface NexusGenInputs {
   };
   IntWithAggregatesFilter: {
     // input type
+    _avg?: NexusGenInputs['NestedFloatFilter'] | null; // NestedFloatFilter
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _min?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _sum?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     avg?: NexusGenInputs['NestedFloatFilter'] | null; // NestedFloatFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: number | null; // Int
@@ -596,6 +612,9 @@ export interface NexusGenInputs {
   };
   NestedBoolWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+    _min?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: boolean | null; // Boolean
     max?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
@@ -615,6 +634,9 @@ export interface NexusGenInputs {
   };
   NestedDateTimeWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    _min?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: NexusGenScalars['DateTime'] | null; // DateTime
     gt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -673,6 +695,11 @@ export interface NexusGenInputs {
   };
   NestedIntNullableWithAggregatesFilter: {
     // input type
+    _avg?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    _count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _max?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _min?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _sum?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     avg?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
     count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     equals?: number | null; // Int
@@ -689,6 +716,11 @@ export interface NexusGenInputs {
   };
   NestedIntWithAggregatesFilter: {
     // input type
+    _avg?: NexusGenInputs['NestedFloatFilter'] | null; // NestedFloatFilter
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _min?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _sum?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     avg?: NexusGenInputs['NestedFloatFilter'] | null; // NestedFloatFilter
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     equals?: number | null; // Int
@@ -733,6 +765,9 @@ export interface NexusGenInputs {
   };
   NestedStringNullableWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _max?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    _min?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
     contains?: string | null; // String
     count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     endsWith?: string | null; // String
@@ -750,6 +785,9 @@ export interface NexusGenInputs {
   };
   NestedStringWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    _min?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
     contains?: string | null; // String
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     endsWith?: string | null; // String
@@ -1086,6 +1124,9 @@ export interface NexusGenInputs {
   };
   StringNullableWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
+    _max?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    _min?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
     contains?: string | null; // String
     count?: NexusGenInputs['NestedIntNullableFilter'] | null; // NestedIntNullableFilter
     endsWith?: string | null; // String
@@ -1103,6 +1144,9 @@ export interface NexusGenInputs {
   };
   StringWithAggregatesFilter: {
     // input type
+    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    _max?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    _min?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
     contains?: string | null; // String
     count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     endsWith?: string | null; // String
@@ -1156,7 +1200,6 @@ export interface NexusGenInputs {
     email: string; // String!
     group?: NexusGenInputs['GroupCreateNestedOneWithoutUsersInput'] | null; // GroupCreateNestedOneWithoutUsersInput
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
   };
   UserCreateNestedManyWithoutGroupInput: {
@@ -1198,7 +1241,6 @@ export interface NexusGenInputs {
     email: string; // String!
     group?: NexusGenInputs['GroupCreateNestedOneWithoutUsersInput'] | null; // GroupCreateNestedOneWithoutUsersInput
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
   };
   UserCreateWithoutGroupInput: {
@@ -1207,7 +1249,6 @@ export interface NexusGenInputs {
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     email: string; // String!
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
   };
   UserCreateWithoutPostsInput: {
@@ -1217,7 +1258,6 @@ export interface NexusGenInputs {
     email: string; // String!
     group?: NexusGenInputs['GroupCreateNestedOneWithoutUsersInput'] | null; // GroupCreateNestedOneWithoutUsersInput
     name?: string | null; // String
-    password: string; // String!
   };
   UserListRelationFilter: {
     // input type
@@ -1232,7 +1272,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    password?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserRelationFilter: {
     // input type
@@ -1249,7 +1288,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     name?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
-    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
   };
   UserScalarWhereWithAggregatesInput: {
     // input type
@@ -1261,7 +1299,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['IntNullableWithAggregatesFilter'] | null; // IntNullableWithAggregatesFilter
     id?: NexusGenInputs['IntWithAggregatesFilter'] | null; // IntWithAggregatesFilter
     name?: NexusGenInputs['StringNullableWithAggregatesFilter'] | null; // StringNullableWithAggregatesFilter
-    password?: NexusGenInputs['StringWithAggregatesFilter'] | null; // StringWithAggregatesFilter
   };
   UserUncheckedCreateInput: {
     // input type
@@ -1271,7 +1308,6 @@ export interface NexusGenInputs {
     groupId?: number | null; // Int
     id?: number | null; // Int
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
   };
   UserUncheckedCreateNestedManyWithoutGroupInput: {
@@ -1287,7 +1323,6 @@ export interface NexusGenInputs {
     groupId?: number | null; // Int
     id?: number | null; // Int
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
   };
   UserUncheckedCreateWithoutGroupInput: {
@@ -1297,7 +1332,6 @@ export interface NexusGenInputs {
     email: string; // String!
     id?: number | null; // Int
     name?: string | null; // String
-    password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
   };
   UserUncheckedCreateWithoutPostsInput: {
@@ -1308,7 +1342,6 @@ export interface NexusGenInputs {
     groupId?: number | null; // Int
     id?: number | null; // Int
     name?: string | null; // String
-    password: string; // String!
   };
   UserUncheckedUpdateInput: {
     // input type
@@ -1318,7 +1351,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['NullableIntFieldUpdateOperationsInput'] | null; // NullableIntFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
   };
   UserUncheckedUpdateManyInput: {
@@ -1328,7 +1360,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['NullableIntFieldUpdateOperationsInput'] | null; // NullableIntFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   };
   UserUncheckedUpdateManyWithoutGroupInput: {
     // input type
@@ -1349,7 +1380,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   };
   UserUncheckedUpdateWithoutCommentsInput: {
     // input type
@@ -1358,7 +1388,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['NullableIntFieldUpdateOperationsInput'] | null; // NullableIntFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
   };
   UserUncheckedUpdateWithoutGroupInput: {
@@ -1368,7 +1397,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
   };
   UserUncheckedUpdateWithoutPostsInput: {
@@ -1379,7 +1407,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['NullableIntFieldUpdateOperationsInput'] | null; // NullableIntFieldUpdateOperationsInput
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   };
   UserUpdateInput: {
     // input type
@@ -1388,7 +1415,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   };
   UserUpdateManyMutationInput: {
@@ -1396,7 +1422,6 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   };
   UserUpdateManyWithWhereWithoutGroupInput: {
     // input type
@@ -1447,7 +1472,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   };
   UserUpdateWithoutGroupInput: {
@@ -1456,7 +1480,6 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
   };
   UserUpdateWithoutPostsInput: {
@@ -1466,7 +1489,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
-    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   };
   UserUpsertWithWhereUniqueWithoutGroupInput: {
     // input type
@@ -1496,7 +1518,6 @@ export interface NexusGenInputs {
     groupId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     name?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
-    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
   };
   UserWhereUniqueInput: {
@@ -1530,6 +1551,11 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   AggregateComment: {
     // root type
+    _avg?: NexusGenRootTypes['CommentAvgAggregateOutputType'] | null; // CommentAvgAggregateOutputType
+    _count?: NexusGenRootTypes['CommentCountAggregateOutputType'] | null; // CommentCountAggregateOutputType
+    _max?: NexusGenRootTypes['CommentMaxAggregateOutputType'] | null; // CommentMaxAggregateOutputType
+    _min?: NexusGenRootTypes['CommentMinAggregateOutputType'] | null; // CommentMinAggregateOutputType
+    _sum?: NexusGenRootTypes['CommentSumAggregateOutputType'] | null; // CommentSumAggregateOutputType
     avg?: NexusGenRootTypes['CommentAvgAggregateOutputType'] | null; // CommentAvgAggregateOutputType
     count?: NexusGenRootTypes['CommentCountAggregateOutputType'] | null; // CommentCountAggregateOutputType
     max?: NexusGenRootTypes['CommentMaxAggregateOutputType'] | null; // CommentMaxAggregateOutputType
@@ -1538,6 +1564,11 @@ export interface NexusGenObjects {
   };
   AggregateGroup: {
     // root type
+    _avg?: NexusGenRootTypes['GroupAvgAggregateOutputType'] | null; // GroupAvgAggregateOutputType
+    _count?: NexusGenRootTypes['GroupCountAggregateOutputType'] | null; // GroupCountAggregateOutputType
+    _max?: NexusGenRootTypes['GroupMaxAggregateOutputType'] | null; // GroupMaxAggregateOutputType
+    _min?: NexusGenRootTypes['GroupMinAggregateOutputType'] | null; // GroupMinAggregateOutputType
+    _sum?: NexusGenRootTypes['GroupSumAggregateOutputType'] | null; // GroupSumAggregateOutputType
     avg?: NexusGenRootTypes['GroupAvgAggregateOutputType'] | null; // GroupAvgAggregateOutputType
     count?: NexusGenRootTypes['GroupCountAggregateOutputType'] | null; // GroupCountAggregateOutputType
     max?: NexusGenRootTypes['GroupMaxAggregateOutputType'] | null; // GroupMaxAggregateOutputType
@@ -1546,6 +1577,11 @@ export interface NexusGenObjects {
   };
   AggregatePost: {
     // root type
+    _avg?: NexusGenRootTypes['PostAvgAggregateOutputType'] | null; // PostAvgAggregateOutputType
+    _count?: NexusGenRootTypes['PostCountAggregateOutputType'] | null; // PostCountAggregateOutputType
+    _max?: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
+    _min?: NexusGenRootTypes['PostMinAggregateOutputType'] | null; // PostMinAggregateOutputType
+    _sum?: NexusGenRootTypes['PostSumAggregateOutputType'] | null; // PostSumAggregateOutputType
     avg?: NexusGenRootTypes['PostAvgAggregateOutputType'] | null; // PostAvgAggregateOutputType
     count?: NexusGenRootTypes['PostCountAggregateOutputType'] | null; // PostCountAggregateOutputType
     max?: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
@@ -1554,6 +1590,11 @@ export interface NexusGenObjects {
   };
   AggregateUser: {
     // root type
+    _avg?: NexusGenRootTypes['UserAvgAggregateOutputType'] | null; // UserAvgAggregateOutputType
+    _count?: NexusGenRootTypes['UserCountAggregateOutputType'] | null; // UserCountAggregateOutputType
+    _max?: NexusGenRootTypes['UserMaxAggregateOutputType'] | null; // UserMaxAggregateOutputType
+    _min?: NexusGenRootTypes['UserMinAggregateOutputType'] | null; // UserMinAggregateOutputType
+    _sum?: NexusGenRootTypes['UserSumAggregateOutputType'] | null; // UserSumAggregateOutputType
     avg?: NexusGenRootTypes['UserAvgAggregateOutputType'] | null; // UserAvgAggregateOutputType
     count?: NexusGenRootTypes['UserCountAggregateOutputType'] | null; // UserCountAggregateOutputType
     max?: NexusGenRootTypes['UserMaxAggregateOutputType'] | null; // UserMaxAggregateOutputType
@@ -1771,7 +1812,6 @@ export interface NexusGenObjects {
     groupId: number; // Int!
     id: number; // Int!
     name: number; // Int!
-    password: number; // Int!
   };
   UserCountOutputType: {
     // root type
@@ -1785,7 +1825,6 @@ export interface NexusGenObjects {
     groupId?: number | null; // Int
     id?: number | null; // Int
     name?: string | null; // String
-    password?: string | null; // String
   };
   UserMinAggregateOutputType: {
     // root type
@@ -1794,7 +1833,6 @@ export interface NexusGenObjects {
     groupId?: number | null; // Int
     id?: number | null; // Int
     name?: string | null; // String
-    password?: string | null; // String
   };
   UserSumAggregateOutputType: {
     // root type
@@ -1814,6 +1852,11 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 export interface NexusGenFieldTypes {
   AggregateComment: {
     // field return type
+    _avg: NexusGenRootTypes['CommentAvgAggregateOutputType'] | null; // CommentAvgAggregateOutputType
+    _count: NexusGenRootTypes['CommentCountAggregateOutputType'] | null; // CommentCountAggregateOutputType
+    _max: NexusGenRootTypes['CommentMaxAggregateOutputType'] | null; // CommentMaxAggregateOutputType
+    _min: NexusGenRootTypes['CommentMinAggregateOutputType'] | null; // CommentMinAggregateOutputType
+    _sum: NexusGenRootTypes['CommentSumAggregateOutputType'] | null; // CommentSumAggregateOutputType
     avg: NexusGenRootTypes['CommentAvgAggregateOutputType'] | null; // CommentAvgAggregateOutputType
     count: NexusGenRootTypes['CommentCountAggregateOutputType'] | null; // CommentCountAggregateOutputType
     max: NexusGenRootTypes['CommentMaxAggregateOutputType'] | null; // CommentMaxAggregateOutputType
@@ -1822,6 +1865,11 @@ export interface NexusGenFieldTypes {
   };
   AggregateGroup: {
     // field return type
+    _avg: NexusGenRootTypes['GroupAvgAggregateOutputType'] | null; // GroupAvgAggregateOutputType
+    _count: NexusGenRootTypes['GroupCountAggregateOutputType'] | null; // GroupCountAggregateOutputType
+    _max: NexusGenRootTypes['GroupMaxAggregateOutputType'] | null; // GroupMaxAggregateOutputType
+    _min: NexusGenRootTypes['GroupMinAggregateOutputType'] | null; // GroupMinAggregateOutputType
+    _sum: NexusGenRootTypes['GroupSumAggregateOutputType'] | null; // GroupSumAggregateOutputType
     avg: NexusGenRootTypes['GroupAvgAggregateOutputType'] | null; // GroupAvgAggregateOutputType
     count: NexusGenRootTypes['GroupCountAggregateOutputType'] | null; // GroupCountAggregateOutputType
     max: NexusGenRootTypes['GroupMaxAggregateOutputType'] | null; // GroupMaxAggregateOutputType
@@ -1830,6 +1878,11 @@ export interface NexusGenFieldTypes {
   };
   AggregatePost: {
     // field return type
+    _avg: NexusGenRootTypes['PostAvgAggregateOutputType'] | null; // PostAvgAggregateOutputType
+    _count: NexusGenRootTypes['PostCountAggregateOutputType'] | null; // PostCountAggregateOutputType
+    _max: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
+    _min: NexusGenRootTypes['PostMinAggregateOutputType'] | null; // PostMinAggregateOutputType
+    _sum: NexusGenRootTypes['PostSumAggregateOutputType'] | null; // PostSumAggregateOutputType
     avg: NexusGenRootTypes['PostAvgAggregateOutputType'] | null; // PostAvgAggregateOutputType
     count: NexusGenRootTypes['PostCountAggregateOutputType'] | null; // PostCountAggregateOutputType
     max: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
@@ -1838,6 +1891,11 @@ export interface NexusGenFieldTypes {
   };
   AggregateUser: {
     // field return type
+    _avg: NexusGenRootTypes['UserAvgAggregateOutputType'] | null; // UserAvgAggregateOutputType
+    _count: NexusGenRootTypes['UserCountAggregateOutputType'] | null; // UserCountAggregateOutputType
+    _max: NexusGenRootTypes['UserMaxAggregateOutputType'] | null; // UserMaxAggregateOutputType
+    _min: NexusGenRootTypes['UserMinAggregateOutputType'] | null; // UserMinAggregateOutputType
+    _sum: NexusGenRootTypes['UserSumAggregateOutputType'] | null; // UserSumAggregateOutputType
     avg: NexusGenRootTypes['UserAvgAggregateOutputType'] | null; // UserAvgAggregateOutputType
     count: NexusGenRootTypes['UserCountAggregateOutputType'] | null; // UserCountAggregateOutputType
     max: NexusGenRootTypes['UserMaxAggregateOutputType'] | null; // UserMaxAggregateOutputType
@@ -2122,7 +2180,6 @@ export interface NexusGenFieldTypes {
     groupId: number; // Int!
     id: number; // Int!
     name: number; // Int!
-    password: number; // Int!
   };
   UserCountOutputType: {
     // field return type
@@ -2136,7 +2193,6 @@ export interface NexusGenFieldTypes {
     groupId: number | null; // Int
     id: number | null; // Int
     name: string | null; // String
-    password: string | null; // String
   };
   UserMinAggregateOutputType: {
     // field return type
@@ -2145,7 +2201,6 @@ export interface NexusGenFieldTypes {
     groupId: number | null; // Int
     id: number | null; // Int
     name: string | null; // String
-    password: string | null; // String
   };
   UserSumAggregateOutputType: {
     // field return type
@@ -2157,6 +2212,11 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   AggregateComment: {
     // field return type name
+    _avg: 'CommentAvgAggregateOutputType';
+    _count: 'CommentCountAggregateOutputType';
+    _max: 'CommentMaxAggregateOutputType';
+    _min: 'CommentMinAggregateOutputType';
+    _sum: 'CommentSumAggregateOutputType';
     avg: 'CommentAvgAggregateOutputType';
     count: 'CommentCountAggregateOutputType';
     max: 'CommentMaxAggregateOutputType';
@@ -2165,6 +2225,11 @@ export interface NexusGenFieldTypeNames {
   };
   AggregateGroup: {
     // field return type name
+    _avg: 'GroupAvgAggregateOutputType';
+    _count: 'GroupCountAggregateOutputType';
+    _max: 'GroupMaxAggregateOutputType';
+    _min: 'GroupMinAggregateOutputType';
+    _sum: 'GroupSumAggregateOutputType';
     avg: 'GroupAvgAggregateOutputType';
     count: 'GroupCountAggregateOutputType';
     max: 'GroupMaxAggregateOutputType';
@@ -2173,6 +2238,11 @@ export interface NexusGenFieldTypeNames {
   };
   AggregatePost: {
     // field return type name
+    _avg: 'PostAvgAggregateOutputType';
+    _count: 'PostCountAggregateOutputType';
+    _max: 'PostMaxAggregateOutputType';
+    _min: 'PostMinAggregateOutputType';
+    _sum: 'PostSumAggregateOutputType';
     avg: 'PostAvgAggregateOutputType';
     count: 'PostCountAggregateOutputType';
     max: 'PostMaxAggregateOutputType';
@@ -2181,6 +2251,11 @@ export interface NexusGenFieldTypeNames {
   };
   AggregateUser: {
     // field return type name
+    _avg: 'UserAvgAggregateOutputType';
+    _count: 'UserCountAggregateOutputType';
+    _max: 'UserMaxAggregateOutputType';
+    _min: 'UserMinAggregateOutputType';
+    _sum: 'UserSumAggregateOutputType';
     avg: 'UserAvgAggregateOutputType';
     count: 'UserCountAggregateOutputType';
     max: 'UserMaxAggregateOutputType';
@@ -2465,7 +2540,6 @@ export interface NexusGenFieldTypeNames {
     groupId: 'Int';
     id: 'Int';
     name: 'Int';
-    password: 'Int';
   };
   UserCountOutputType: {
     // field return type name
@@ -2479,7 +2553,6 @@ export interface NexusGenFieldTypeNames {
     groupId: 'Int';
     id: 'Int';
     name: 'String';
-    password: 'String';
   };
   UserMinAggregateOutputType: {
     // field return type name
@@ -2488,7 +2561,6 @@ export interface NexusGenFieldTypeNames {
     groupId: 'Int';
     id: 'Int';
     name: 'String';
-    password: 'String';
   };
   UserSumAggregateOutputType: {
     // field return type name

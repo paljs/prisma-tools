@@ -4,6 +4,7 @@ import { writeFileSync } from 'fs';
 
 interface OptionsType {
   dmmf?: DMMF.Document;
+  excludeFields?: string[];
   doNotUseFieldUpdateOperationsInput?: boolean;
 }
 
@@ -94,18 +95,20 @@ function createInput(options?: OptionsType) {
       if (model.fields.length > 0) {
         fileContent += `input ${model.name} {
       `;
-        model.fields.forEach((field) => {
-          const inputType = getInputType(field, options);
-          const hasEmptyType =
-            inputType.location === 'inputObjectTypes' &&
-            hasEmptyTypeFields(inputType.type as string, options);
-          if (!hasEmptyType) {
-            fileContent += `${field.name}: ${
-              inputType.isList ? `[${inputType.type}!]` : inputType.type
-            }${field.isRequired ? '!' : ''}
+        model.fields
+          .filter((field) => !options?.excludeFields?.includes(field.name))
+          .forEach((field) => {
+            const inputType = getInputType(field, options);
+            const hasEmptyType =
+              inputType.location === 'inputObjectTypes' &&
+              hasEmptyTypeFields(inputType.type as string, options);
+            if (!hasEmptyType) {
+              fileContent += `${field.name}: ${
+                inputType.isList ? `[${inputType.type}!]` : inputType.type
+              }${field.isRequired ? '!' : ''}
         `;
-          }
-        });
+            }
+          });
         fileContent += `}
     
   `;
@@ -113,18 +116,24 @@ function createInput(options?: OptionsType) {
     });
 
     schema?.outputObjectTypes.prisma
-      .filter((type) => type.name.includes('Aggregate'))
+      .filter(
+        (type) =>
+          type.name.includes('Aggregate') ||
+          type.name.endsWith('CountOutputType'),
+      )
       .forEach((type) => {
         fileContent += `type ${type.name} {
       `;
-        type.fields.forEach((field) => {
-          fileContent += `${field.name}: ${
-            field.outputType.isList
-              ? `[${field.outputType.type}!]`
-              : field.outputType.type
-          }${!field.isNullable ? '!' : ''}
+        type.fields
+          .filter((field) => !options?.excludeFields?.includes(field.name))
+          .forEach((field) => {
+            fileContent += `${field.name}: ${
+              field.outputType.isList
+                ? `[${field.outputType.type}!]`
+                : field.outputType.type
+            }${!field.isNullable ? '!' : ''}
         `;
-        });
+          });
         fileContent += `}
     
   `;

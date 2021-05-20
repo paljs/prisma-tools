@@ -98,29 +98,34 @@ export const paljs = (settings?: Settings) =>
                     },
                     name: input.name,
                     definition(t) {
-                      input.fields.forEach((field) => {
-                        const inputType = getInputType(field, settings);
-                        const hasEmptyType =
-                          inputType.location === 'inputObjectTypes' &&
-                          hasEmptyTypeFields(inputType.type as string, {
-                            dmmf,
-                          });
-                        if (!hasEmptyType) {
-                          const fieldConfig: {
-                            [key: string]: any;
-                            type: string;
-                          } = {
-                            type: inputType.type as string,
-                          };
-                          if (field.isRequired) {
-                            t.nonNull.field(field.name, fieldConfig);
-                          } else if (inputType.isList) {
-                            t.list.field(field.name, fieldConfig);
-                          } else {
-                            t.field(field.name, fieldConfig);
+                      input.fields
+                        .filter(
+                          (field) =>
+                            !settings?.excludeFields?.includes(field.name),
+                        )
+                        .forEach((field) => {
+                          const inputType = getInputType(field, settings);
+                          const hasEmptyType =
+                            inputType.location === 'inputObjectTypes' &&
+                            hasEmptyTypeFields(inputType.type as string, {
+                              dmmf,
+                            });
+                          if (!hasEmptyType) {
+                            const fieldConfig: {
+                              [key: string]: any;
+                              type: string;
+                            } = {
+                              type: inputType.type as string,
+                            };
+                            if (field.isRequired) {
+                              t.nonNull.field(field.name, fieldConfig);
+                            } else if (inputType.isList) {
+                              t.list.field(field.name, fieldConfig);
+                            } else {
+                              t.field(field.name, fieldConfig);
+                            }
                           }
-                        }
-                      });
+                        });
                     },
                   }),
                 );
@@ -143,21 +148,26 @@ export const paljs = (settings?: Settings) =>
                     },
                     name: type.name,
                     definition(t) {
-                      type.fields.forEach((field) => {
-                        const fieldConfig: {
-                          [key: string]: any;
-                          type: string;
-                        } = {
-                          type: field.outputType.type as string,
-                        };
-                        if (field.isNullable) {
-                          t.nullable.field(field.name, fieldConfig);
-                        } else if (field.outputType.isList) {
-                          t.list.field(field.name, fieldConfig);
-                        } else {
-                          t.field(field.name, fieldConfig);
-                        }
-                      });
+                      type.fields
+                        .filter(
+                          (field) =>
+                            !settings?.excludeFields?.includes(field.name),
+                        )
+                        .forEach((field) => {
+                          const fieldConfig: {
+                            [key: string]: any;
+                            type: string;
+                          } = {
+                            type: field.outputType.type as string,
+                          };
+                          if (field.isNullable) {
+                            t.nullable.field(field.name, fieldConfig);
+                          } else if (field.outputType.isList) {
+                            t.list.field(field.name, fieldConfig);
+                          } else {
+                            t.field(field.name, fieldConfig);
+                          }
+                        });
                     },
                   }),
                 );

@@ -29,8 +29,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/client": "2.22.1",
-    "@types/lowdb": "1.0.9",
+    "@prisma/client": "2.23.0",
+    "@types/lowdb": "1.0.10",
     "nexus": "1.0.0",
     "typescript": "4.2.4"
   },

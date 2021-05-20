@@ -25,6 +25,12 @@ export class GenerateTypes {
     return this.dmmf.schema;
   }
 
+  isModel(modelName: string) {
+    return !!this.dmmf.datamodel.models.find(
+      (model) => model.name === modelName,
+    );
+  }
+
   capital(name: string) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
@@ -43,10 +49,10 @@ export class GenerateTypes {
           ? `Prisma.Get${options.type
               .toString()
               .replace('Aggregate', '')}AggregateType<${options.type}Args>`
-          : options.type.toString().endsWith('AggregateOutputType')
-          ? `Prisma.${options.type}`
           : options.type.toString() === 'AffectedRowsOutput'
           ? 'Prisma.BatchPayload'
+          : !this.isModel(options.type.toString()) && !input
+          ? `Prisma.${options.type}`
           : options.type;
         return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
     }
@@ -117,13 +123,10 @@ export class GenerateTypes {
         const parentType = ['Query', 'Mutation'].includes(type.name)
           ? '{}'
           : `Client.${
-              type.name.startsWith('Aggregate') ||
-              type.name.endsWith('AggregateOutputType')
-                ? 'Prisma.'
-                : ''
-            }${
               type.name === 'AffectedRowsOutput'
                 ? 'Prisma.BatchPayload'
+                : !this.isModel(type.name)
+                ? 'Prisma.' + type.name
                 : type.name
             }`;
         const argsType =

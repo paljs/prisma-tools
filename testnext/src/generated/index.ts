@@ -24,6 +24,11 @@ export type Scalars = {
 
 export type AggregateComment = {
   __typename?: 'AggregateComment';
+  _avg?: Maybe<CommentAvgAggregateOutputType>;
+  _count?: Maybe<CommentCountAggregateOutputType>;
+  _max?: Maybe<CommentMaxAggregateOutputType>;
+  _min?: Maybe<CommentMinAggregateOutputType>;
+  _sum?: Maybe<CommentSumAggregateOutputType>;
   avg?: Maybe<CommentAvgAggregateOutputType>;
   count?: Maybe<CommentCountAggregateOutputType>;
   max?: Maybe<CommentMaxAggregateOutputType>;
@@ -33,6 +38,11 @@ export type AggregateComment = {
 
 export type AggregateGroup = {
   __typename?: 'AggregateGroup';
+  _avg?: Maybe<GroupAvgAggregateOutputType>;
+  _count?: Maybe<GroupCountAggregateOutputType>;
+  _max?: Maybe<GroupMaxAggregateOutputType>;
+  _min?: Maybe<GroupMinAggregateOutputType>;
+  _sum?: Maybe<GroupSumAggregateOutputType>;
   avg?: Maybe<GroupAvgAggregateOutputType>;
   count?: Maybe<GroupCountAggregateOutputType>;
   max?: Maybe<GroupMaxAggregateOutputType>;
@@ -42,6 +52,11 @@ export type AggregateGroup = {
 
 export type AggregatePost = {
   __typename?: 'AggregatePost';
+  _avg?: Maybe<PostAvgAggregateOutputType>;
+  _count?: Maybe<PostCountAggregateOutputType>;
+  _max?: Maybe<PostMaxAggregateOutputType>;
+  _min?: Maybe<PostMinAggregateOutputType>;
+  _sum?: Maybe<PostSumAggregateOutputType>;
   avg?: Maybe<PostAvgAggregateOutputType>;
   count?: Maybe<PostCountAggregateOutputType>;
   max?: Maybe<PostMaxAggregateOutputType>;
@@ -51,6 +66,11 @@ export type AggregatePost = {
 
 export type AggregateUser = {
   __typename?: 'AggregateUser';
+  _avg?: Maybe<UserAvgAggregateOutputType>;
+  _count?: Maybe<UserCountAggregateOutputType>;
+  _max?: Maybe<UserMaxAggregateOutputType>;
+  _min?: Maybe<UserMinAggregateOutputType>;
+  _sum?: Maybe<UserSumAggregateOutputType>;
   avg?: Maybe<UserAvgAggregateOutputType>;
   count?: Maybe<UserCountAggregateOutputType>;
   max?: Maybe<UserMaxAggregateOutputType>;
@@ -73,6 +93,9 @@ export type BoolFilter = {
 };
 
 export type BoolWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedBoolFilter>;
+  _min?: Maybe<NestedBoolFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Boolean']>;
   max?: Maybe<NestedBoolFilter>;
@@ -454,6 +477,9 @@ export type DateTimeFilter = {
 };
 
 export type DateTimeWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedDateTimeFilter>;
+  _min?: Maybe<NestedDateTimeFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['DateTime']>;
   gt?: Maybe<Scalars['DateTime']>;
@@ -724,6 +750,11 @@ export type IntNullableFilter = {
 };
 
 export type IntNullableWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatNullableFilter>;
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedIntNullableFilter>;
+  _min?: Maybe<NestedIntNullableFilter>;
+  _sum?: Maybe<NestedIntNullableFilter>;
   avg?: Maybe<NestedFloatNullableFilter>;
   count?: Maybe<NestedIntNullableFilter>;
   equals?: Maybe<Scalars['Int']>;
@@ -740,6 +771,11 @@ export type IntNullableWithAggregatesFilter = {
 };
 
 export type IntWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatFilter>;
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedIntFilter>;
+  _min?: Maybe<NestedIntFilter>;
+  _sum?: Maybe<NestedIntFilter>;
   avg?: Maybe<NestedFloatFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Int']>;
@@ -952,6 +988,9 @@ export type NestedBoolFilter = {
 };
 
 export type NestedBoolWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedBoolFilter>;
+  _min?: Maybe<NestedBoolFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Boolean']>;
   max?: Maybe<NestedBoolFilter>;
@@ -971,6 +1010,9 @@ export type NestedDateTimeFilter = {
 };
 
 export type NestedDateTimeWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedDateTimeFilter>;
+  _min?: Maybe<NestedDateTimeFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['DateTime']>;
   gt?: Maybe<Scalars['DateTime']>;
@@ -1029,6 +1071,11 @@ export type NestedIntNullableFilter = {
 };
 
 export type NestedIntNullableWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatNullableFilter>;
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedIntNullableFilter>;
+  _min?: Maybe<NestedIntNullableFilter>;
+  _sum?: Maybe<NestedIntNullableFilter>;
   avg?: Maybe<NestedFloatNullableFilter>;
   count?: Maybe<NestedIntNullableFilter>;
   equals?: Maybe<Scalars['Int']>;
@@ -1045,6 +1092,11 @@ export type NestedIntNullableWithAggregatesFilter = {
 };
 
 export type NestedIntWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatFilter>;
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedIntFilter>;
+  _min?: Maybe<NestedIntFilter>;
+  _sum?: Maybe<NestedIntFilter>;
   avg?: Maybe<NestedFloatFilter>;
   count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Int']>;
@@ -1089,6 +1141,9 @@ export type NestedStringNullableFilter = {
 };
 
 export type NestedStringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
   contains?: Maybe<Scalars['String']>;
   count?: Maybe<NestedIntNullableFilter>;
   endsWith?: Maybe<Scalars['String']>;
@@ -1106,6 +1161,9 @@ export type NestedStringNullableWithAggregatesFilter = {
 };
 
 export type NestedStringWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedStringFilter>;
+  _min?: Maybe<NestedStringFilter>;
   contains?: Maybe<Scalars['String']>;
   count?: Maybe<NestedIntFilter>;
   endsWith?: Maybe<Scalars['String']>;
@@ -1718,6 +1776,9 @@ export type StringNullableFilter = {
 };
 
 export type StringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
   contains?: Maybe<Scalars['String']>;
   count?: Maybe<NestedIntNullableFilter>;
   endsWith?: Maybe<Scalars['String']>;
@@ -1735,6 +1796,9 @@ export type StringNullableWithAggregatesFilter = {
 };
 
 export type StringWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedStringFilter>;
+  _min?: Maybe<NestedStringFilter>;
   contains?: Maybe<Scalars['String']>;
   count?: Maybe<NestedIntFilter>;
   endsWith?: Maybe<Scalars['String']>;

@@ -12,6 +12,7 @@
   },
   "workspaces": [
     "testnext",
+    "sdl",
     "packages/*"
   ],
   "prettier": {

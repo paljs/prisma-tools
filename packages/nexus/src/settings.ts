@@ -8,5 +8,6 @@ export interface Settings {
   adminSchemaPath?: string;
   includeAdmin?: boolean;
   dmmf?: DMMF.Document[];
+  excludeFields?: string[];
   doNotUseFieldUpdateOperationsInput?: boolean;
 }
