@@ -9,6 +9,7 @@ export const schema = makeSchema({
     paljs({
       includeAdmin: true,
       excludeFields: ['password'],
+      filter: (input) => input.fields.filter((field) => input.name === 'assinmentsTaking' && !field.name.startWith('')),
     }),
   ],
   outputs: {
