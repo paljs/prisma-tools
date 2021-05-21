@@ -5,6 +5,7 @@ import { writeFileSync } from 'fs';
 interface OptionsType {
   dmmf?: DMMF.Document;
   excludeFields?: string[];
+  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
   doNotUseFieldUpdateOperationsInput?: boolean;
 }
 
@@ -91,11 +92,15 @@ function createInput(options?: OptionsType) {
     if (schema.inputObjectTypes.model)
       inputObjectTypes.push(...schema.inputObjectTypes.model);
 
-    inputObjectTypes.forEach((model) => {
-      if (model.fields.length > 0) {
-        fileContent += `input ${model.name} {
+    inputObjectTypes.forEach((input) => {
+      if (input.fields.length > 0) {
+        fileContent += `input ${input.name} {
       `;
-        model.fields
+        const inputFields =
+          typeof options?.filterInputs === 'function'
+            ? options.filterInputs(input)
+            : input.fields;
+        inputFields
           .filter((field) => !options?.excludeFields?.includes(field.name))
           .forEach((field) => {
             const inputType = getInputType(field, options);

@@ -24,13 +24,15 @@ This command installs PalJS CLI globally on your machine.
 yarn global add @paljs/cli
 //or
 npm install -g @paljs/cli
+// or use npx to create new project direct
+npx @paljs/cli create
 ```
 
 ## Create a new
 
 
 ```shell
-> pal c
+> npx @paljs/cli create
 
 
 .______      ___       __             __       _______.
@@ -40,23 +42,33 @@ npm install -g @paljs/cli
 |  |     /  _____  \  |  `----.|  `--'  | .----)   |
 | _|    /__/     \__\ |_______| \______/  |_______/
 
-✔ Please select your start example · full-stack-nextjs
-❯ full-stack-nextjs
+  ✔ Please select your start example · full-stack-nextjs
+  ❯ full-stack-nextjs
   full-stack-gatsbyjs
   apollo-nexus-schema
   apollo-sdl-first
   graphql-modules
-
-✔ please enter your project name · great-project
-✔ please enter your project description · new NodeJs Prisma GraphQL TypeScript project
-✔ please enter your project author · Ahmed Elywa
-✔ please enter your project repository · https://github.com/paljs/prisma-tools
-✔ please select your package manager · yarn
-❯ yarn
+  ✔ Please select your start framework · Tailwind CSS + PrismaAdmin UI
+  Material UI
+  Material UI + PrismaAdmin UI
+  Tailwind CSS
+  ❯ Tailwind CSS + PrismaAdmin UI
+  ✔ Use multi schema template …
+  ❯ no
+  yes
+  ✔ please enter your project name · great-project
+  ✔ please enter your project description · new NodeJs Prisma GraphQL TypeScript project
+  ✔ please enter your project author · Ahmed Elywa
+  ✔ please enter your project repository · https://github.com/paljs/prisma-tools
+  ✔ Do you need to use Git …
+  ❯ yes
+  no
+  ✔ please select your package manager · yarn
+  ❯ yarn
   npm
 
-✔ Skip package installation · no
-❯ yes
+  ✔ Skip package installation · no
+  ❯ yes
   no
 ```
 
