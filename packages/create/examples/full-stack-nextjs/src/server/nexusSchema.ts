@@ -8,6 +8,7 @@ export const schema = makeSchema({
   plugins: [
     paljs({
       includeAdmin: true,
+      excludeFields: ['password'],
     }),
   ],
   outputs: {

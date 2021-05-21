@@ -9,5 +9,6 @@ export interface Settings {
   includeAdmin?: boolean;
   dmmf?: DMMF.Document[];
   excludeFields?: string[];
+  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
   doNotUseFieldUpdateOperationsInput?: boolean;
 }

@@ -91,6 +91,10 @@ export const paljs = (settings?: Settings) =>
           inputObjectTypes.forEach((input) => {
             if (input.fields.length > 0) {
               if (!allTypes.includes(input.name)) {
+                const inputFields =
+                  typeof settings?.filterInputs === 'function'
+                    ? settings.filterInputs(input)
+                    : input.fields;
                 nexusSchemaInputs.push(
                   inputObjectType({
                     nonNullDefaults: {
@@ -98,7 +102,7 @@ export const paljs = (settings?: Settings) =>
                     },
                     name: input.name,
                     definition(t) {
-                      input.fields
+                      inputFields
                         .filter(
                           (field) =>
                             !settings?.excludeFields?.includes(field.name),
