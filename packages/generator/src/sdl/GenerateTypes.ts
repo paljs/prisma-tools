@@ -136,7 +136,11 @@ export class GenerateTypes {
                 : type.name
             }`;
         const argsType =
-          field.args.length > 0 ? `${this.capital(field.name)}Args` : '{}';
+          field.args.length > 0
+            ? `${
+                ['Query', 'Mutation'].includes(type.name) ? '' : type.name
+              }${this.capital(field.name)}Args`
+            : '{}';
         fields.push(
           `${
             field.name
