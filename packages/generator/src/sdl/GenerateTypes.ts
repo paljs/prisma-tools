@@ -100,6 +100,12 @@ export class GenerateTypes {
     return field.inputTypes[index];
   }
 
+  getOutput(typeName: string) {
+    return this.dmmf.schema.outputObjectTypes.prisma.find(
+      (type) => type.name === typeName,
+    );
+  }
+
   run() {
     const outputTypes: string[] = [
       `export interface Resolvers {`,
@@ -161,13 +167,13 @@ export class GenerateTypes {
             const modelName = field.outputType.type
               .toString()
               .replace('Aggregate', '');
-            args.push(
-              `count?: true`,
-              `avg?: Client.Prisma.${modelName}AvgAggregateInputType`,
-              `sum?: Client.Prisma.${modelName}SumAggregateInputType`,
-              `min?: Client.Prisma.${modelName}MinAggregateInputType`,
-              `max?: Client.Prisma.${modelName}MaxAggregateInputType`,
-            );
+            const output = this.getOutput(field.outputType.type.toString());
+            output?.fields.forEach((field) => {
+              const name = this.capital(field.name.replace('_', ''));
+              args.push(
+                `${field.name}?: Client.Prisma.${modelName}${name}AggregateInputType`,
+              );
+            });
           }
           args.push('}');
           argsTypes.push(args.join('\n'));

@@ -40,6 +40,15 @@ type AggregatePost {
   sum: PostSumAggregateOutputType
 }
 
+type AggregateTest {
+  _count: TestCountAggregateOutputType
+  _max: TestMaxAggregateOutputType
+  _min: TestMinAggregateOutputType
+  count: TestCountAggregateOutputType
+  max: TestMaxAggregateOutputType
+  min: TestMinAggregateOutputType
+}
+
 type AggregateUser {
   _avg: UserAvgAggregateOutputType
   _count: UserCountAggregateOutputType
@@ -789,14 +798,17 @@ type Mutation {
   createOneComment(data: CommentCreateInput!): Comment!
   createOneGroup(data: GroupCreateInput!): Group!
   createOnePost(data: PostCreateInput!): Post!
+  createOneTest(data: TestCreateInput!): Test!
   createOneUser(data: UserCreateInput!): User!
   deleteManyComment(where: CommentWhereInput): BatchPayload!
   deleteManyGroup(where: GroupWhereInput): BatchPayload!
   deleteManyPost(where: PostWhereInput): BatchPayload!
+  deleteManyTest(where: TestWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
   deleteOnePost(where: PostWhereUniqueInput!): Post
+  deleteOneTest(where: TestWhereUniqueInput!): Test
   deleteOneUser(where: UserWhereUniqueInput!): User
   login(email: String!, password: String!): User
   logout: Boolean
@@ -805,16 +817,19 @@ type Mutation {
   updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): BatchPayload!
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
+  updateManyTest(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateModel(data: UpdateModelInput!, id: String!): Model!
   updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+  updateOneTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updatePassword(currentPassword: String!, password: String!): Boolean
   upsertOneComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   upsertOnePost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+  upsertOneTest(create: TestCreateInput!, update: TestUpdateInput!, where: TestWhereUniqueInput!): Test!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
@@ -1398,6 +1413,14 @@ type Query {
     take: Int
     where: PostWhereInput
   ): AggregatePost
+  aggregateTest(
+    cursor: TestWhereUniqueInput
+    distinct: TestScalarFieldEnum
+    orderBy: [TestOrderByInput]
+    skip: Int
+    take: Int
+    where: TestWhereInput
+  ): AggregateTest
   aggregateUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1430,6 +1453,14 @@ type Query {
     take: Int
     where: PostWhereInput
   ): Post
+  findFirstTest(
+    cursor: TestWhereUniqueInput
+    distinct: TestScalarFieldEnum
+    orderBy: [TestOrderByInput]
+    skip: Int
+    take: Int
+    where: TestWhereInput
+  ): Test
   findFirstUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1486,6 +1517,22 @@ type Query {
     take: Int
     where: PostWhereInput
   ): Int!
+  findManyTest(
+    cursor: TestWhereUniqueInput
+    distinct: TestScalarFieldEnum
+    orderBy: [TestOrderByInput]
+    skip: Int
+    take: Int
+    where: TestWhereInput
+  ): [Test!]!
+  findManyTestCount(
+    cursor: TestWhereUniqueInput
+    distinct: TestScalarFieldEnum
+    orderBy: [TestOrderByInput]
+    skip: Int
+    take: Int
+    where: TestWhereInput
+  ): Int!
   findManyUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1505,6 +1552,7 @@ type Query {
   findUniqueComment(where: CommentWhereUniqueInput!): Comment
   findUniqueGroup(where: GroupWhereUniqueInput!): Group
   findUniquePost(where: PostWhereUniqueInput!): Post
+  findUniqueTest(where: TestWhereUniqueInput!): Test
   findUniqueUser(where: UserWhereUniqueInput!): User
   getSchema: Schema!
   me: User
@@ -1592,6 +1640,73 @@ input StringWithAggregatesFilter {
   startsWith: String
 }
 
+type Test {
+  id: String!
+}
+
+type TestCountAggregateOutputType {
+  _all: Int!
+  id: Int!
+}
+
+input TestCreateInput {
+  id: String
+}
+
+type TestMaxAggregateOutputType {
+  id: String
+}
+
+type TestMinAggregateOutputType {
+  id: String
+}
+
+input TestOrderByInput {
+  id: SortOrder
+}
+
+enum TestScalarFieldEnum {
+  id
+}
+
+input TestScalarWhereWithAggregatesInput {
+  AND: [TestScalarWhereWithAggregatesInput]
+  NOT: [TestScalarWhereWithAggregatesInput]
+  OR: [TestScalarWhereWithAggregatesInput]
+  id: StringWithAggregatesFilter
+}
+
+input TestUncheckedCreateInput {
+  id: String
+}
+
+input TestUncheckedUpdateInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input TestUncheckedUpdateManyInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input TestUpdateInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input TestUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input TestWhereInput {
+  AND: [TestWhereInput]
+  NOT: [TestWhereInput]
+  OR: [TestWhereInput]
+  id: StringFilter
+}
+
+input TestWhereUniqueInput {
+  id: String
+}
+
 input UpdateFieldInput {
   create: Boolean
   editor: Boolean
@@ -1662,6 +1777,7 @@ type UserCountAggregateOutputType {
   groupId: Int!
   id: Int!
   name: Int!
+  password: Int!
 }
 
 type UserCountOutputType {
@@ -1675,6 +1791,7 @@ input UserCreateInput {
   email: String!
   group: GroupCreateNestedOneWithoutUsersInput
   name: String
+  password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
 }
 
@@ -1716,6 +1833,7 @@ input UserCreateWithoutCommentsInput {
   email: String!
   group: GroupCreateNestedOneWithoutUsersInput
   name: String
+  password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
 }
 
@@ -1724,6 +1842,7 @@ input UserCreateWithoutGroupInput {
   createdAt: DateTime
   email: String!
   name: String
+  password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
 }
 
@@ -1733,6 +1852,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   group: GroupCreateNestedOneWithoutUsersInput
   name: String
+  password: String!
 }
 
 input UserListRelationFilter {
@@ -1747,6 +1867,7 @@ type UserMaxAggregateOutputType {
   groupId: Int
   id: Int
   name: String
+  password: String
 }
 
 type UserMinAggregateOutputType {
@@ -1755,6 +1876,7 @@ type UserMinAggregateOutputType {
   groupId: Int
   id: Int
   name: String
+  password: String
 }
 
 input UserOrderByInput {
@@ -1763,6 +1885,7 @@ input UserOrderByInput {
   groupId: SortOrder
   id: SortOrder
   name: SortOrder
+  password: SortOrder
 }
 
 input UserRelationFilter {
@@ -1788,6 +1911,7 @@ input UserScalarWhereInput {
   groupId: IntNullableFilter
   id: IntFilter
   name: StringNullableFilter
+  password: StringFilter
 }
 
 input UserScalarWhereWithAggregatesInput {
@@ -1799,6 +1923,7 @@ input UserScalarWhereWithAggregatesInput {
   groupId: IntNullableWithAggregatesFilter
   id: IntWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
+  password: StringWithAggregatesFilter
 }
 
 type UserSumAggregateOutputType {
@@ -1813,6 +1938,7 @@ input UserUncheckedCreateInput {
   groupId: Int
   id: Int
   name: String
+  password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -1828,6 +1954,7 @@ input UserUncheckedCreateWithoutCommentsInput {
   groupId: Int
   id: Int
   name: String
+  password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -1837,6 +1964,7 @@ input UserUncheckedCreateWithoutGroupInput {
   email: String!
   id: Int
   name: String
+  password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -1847,6 +1975,7 @@ input UserUncheckedCreateWithoutPostsInput {
   groupId: Int
   id: Int
   name: String
+  password: String!
 }
 
 input UserUncheckedUpdateInput {
@@ -1856,6 +1985,7 @@ input UserUncheckedUpdateInput {
   groupId: NullableIntFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
 }
 
@@ -1865,6 +1995,7 @@ input UserUncheckedUpdateManyInput {
   groupId: NullableIntFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateManyWithoutGroupInput {
@@ -1885,6 +2016,7 @@ input UserUncheckedUpdateManyWithoutUsersInput {
   email: StringFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutCommentsInput {
@@ -1893,6 +2025,7 @@ input UserUncheckedUpdateWithoutCommentsInput {
   groupId: NullableIntFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
 }
 
@@ -1902,6 +2035,7 @@ input UserUncheckedUpdateWithoutGroupInput {
   email: StringFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
 }
 
@@ -1912,6 +2046,7 @@ input UserUncheckedUpdateWithoutPostsInput {
   groupId: NullableIntFieldUpdateOperationsInput
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateInput {
@@ -1920,6 +2055,7 @@ input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
   group: GroupUpdateOneWithoutUsersInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -1927,6 +2063,7 @@ input UserUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateManyWithWhereWithoutGroupInput {
@@ -1977,6 +2114,7 @@ input UserUpdateWithoutCommentsInput {
   email: StringFieldUpdateOperationsInput
   group: GroupUpdateOneWithoutUsersInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -1985,6 +2123,7 @@ input UserUpdateWithoutGroupInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -1994,6 +2133,7 @@ input UserUpdateWithoutPostsInput {
   email: StringFieldUpdateOperationsInput
   group: GroupUpdateOneWithoutUsersInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input UserUpsertWithWhereUniqueWithoutGroupInput {
@@ -2023,6 +2163,7 @@ input UserWhereInput {
   groupId: IntNullableFilter
   id: IntFilter
   name: StringNullableFilter
+  password: StringFilter
   posts: PostListRelationFilter
 }
 

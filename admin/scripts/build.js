@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const yargs = require('yargs');
 
 const exec = promisify(childProcess.exec);
+const outPut = '../packages/admin';
 
 const validBundles = [
   // legacy build using commonJS modules
@@ -72,7 +73,7 @@ yargs
           description: `Valid bundles: "${validBundles.join('" | "')}"`,
           type: 'string',
         })
-        .option('out-dir', { default: '../packages/admin', type: 'string' })
+        .option('out-dir', { default: outPut, type: 'string' })
         .option('verbose', { type: 'boolean' });
     },
     handler: run,

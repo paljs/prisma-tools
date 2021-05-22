@@ -638,6 +638,37 @@
           "order": -1
         }
       ]
+    },
+    {
+      "id": "Test",
+      "name": "Test",
+      "idField": "id",
+      "displayFields": ["id"],
+      "create": true,
+      "update": true,
+      "delete": true,
+      "fields": [
+        {
+          "id": "Test.id",
+          "name": "id",
+          "type": "String",
+          "isId": true,
+          "unique": false,
+          "list": false,
+          "required": true,
+          "kind": "scalar",
+          "relationField": false,
+          "title": "Id",
+          "create": false,
+          "update": false,
+          "editor": false,
+          "upload": false,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "order": -1
+        }
+      ]
     }
   ],
   "enums": []

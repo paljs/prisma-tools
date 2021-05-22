@@ -1,7 +1,7 @@
 export const getDate = (date: Date) => {
   const day = date.getDate();
   const year = date.getFullYear();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();

@@ -64,6 +64,16 @@ export type AggregatePost = {
   sum?: Maybe<PostSumAggregateOutputType>;
 };
 
+export type AggregateTest = {
+  __typename?: 'AggregateTest';
+  _count?: Maybe<TestCountAggregateOutputType>;
+  _max?: Maybe<TestMaxAggregateOutputType>;
+  _min?: Maybe<TestMinAggregateOutputType>;
+  count?: Maybe<TestCountAggregateOutputType>;
+  max?: Maybe<TestMaxAggregateOutputType>;
+  min?: Maybe<TestMinAggregateOutputType>;
+};
+
 export type AggregateUser = {
   __typename?: 'AggregateUser';
   _avg?: Maybe<UserAvgAggregateOutputType>;
@@ -814,14 +824,17 @@ export type Mutation = {
   createOneComment: Comment;
   createOneGroup: Group;
   createOnePost: Post;
+  createOneTest: Test;
   createOneUser: User;
   deleteManyComment: BatchPayload;
   deleteManyGroup: BatchPayload;
   deleteManyPost: BatchPayload;
+  deleteManyTest: BatchPayload;
   deleteManyUser: BatchPayload;
   deleteOneComment?: Maybe<Comment>;
   deleteOneGroup?: Maybe<Group>;
   deleteOnePost?: Maybe<Post>;
+  deleteOneTest?: Maybe<Test>;
   deleteOneUser?: Maybe<User>;
   login?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']>;
@@ -830,16 +843,19 @@ export type Mutation = {
   updateManyComment: BatchPayload;
   updateManyGroup: BatchPayload;
   updateManyPost: BatchPayload;
+  updateManyTest: BatchPayload;
   updateManyUser: BatchPayload;
   updateModel: Model;
   updateOneComment: Comment;
   updateOneGroup: Group;
   updateOnePost: Post;
+  updateOneTest: Test;
   updateOneUser: User;
   updatePassword?: Maybe<Scalars['Boolean']>;
   upsertOneComment: Comment;
   upsertOneGroup: Group;
   upsertOnePost: Post;
+  upsertOneTest: Test;
   upsertOneUser: User;
 };
 
@@ -853,6 +869,10 @@ export type MutationCreateOneGroupArgs = {
 
 export type MutationCreateOnePostArgs = {
   data: PostCreateInput;
+};
+
+export type MutationCreateOneTestArgs = {
+  data: TestCreateInput;
 };
 
 export type MutationCreateOneUserArgs = {
@@ -871,6 +891,10 @@ export type MutationDeleteManyPostArgs = {
   where?: Maybe<PostWhereInput>;
 };
 
+export type MutationDeleteManyTestArgs = {
+  where?: Maybe<TestWhereInput>;
+};
+
 export type MutationDeleteManyUserArgs = {
   where?: Maybe<UserWhereInput>;
 };
@@ -885,6 +909,10 @@ export type MutationDeleteOneGroupArgs = {
 
 export type MutationDeleteOnePostArgs = {
   where: PostWhereUniqueInput;
+};
+
+export type MutationDeleteOneTestArgs = {
+  where: TestWhereUniqueInput;
 };
 
 export type MutationDeleteOneUserArgs = {
@@ -923,6 +951,11 @@ export type MutationUpdateManyPostArgs = {
   where?: Maybe<PostWhereInput>;
 };
 
+export type MutationUpdateManyTestArgs = {
+  data: TestUpdateManyMutationInput;
+  where?: Maybe<TestWhereInput>;
+};
+
 export type MutationUpdateManyUserArgs = {
   data: UserUpdateManyMutationInput;
   where?: Maybe<UserWhereInput>;
@@ -946,6 +979,11 @@ export type MutationUpdateOneGroupArgs = {
 export type MutationUpdateOnePostArgs = {
   data: PostUpdateInput;
   where: PostWhereUniqueInput;
+};
+
+export type MutationUpdateOneTestArgs = {
+  data: TestUpdateInput;
+  where: TestWhereUniqueInput;
 };
 
 export type MutationUpdateOneUserArgs = {
@@ -974,6 +1012,12 @@ export type MutationUpsertOnePostArgs = {
   create: PostCreateInput;
   update: PostUpdateInput;
   where: PostWhereUniqueInput;
+};
+
+export type MutationUpsertOneTestArgs = {
+  create: TestCreateInput;
+  update: TestUpdateInput;
+  where: TestWhereUniqueInput;
 };
 
 export type MutationUpsertOneUserArgs = {
@@ -1551,10 +1595,12 @@ export type Query = {
   aggregateComment?: Maybe<AggregateComment>;
   aggregateGroup?: Maybe<AggregateGroup>;
   aggregatePost?: Maybe<AggregatePost>;
+  aggregateTest?: Maybe<AggregateTest>;
   aggregateUser?: Maybe<AggregateUser>;
   findFirstComment?: Maybe<Comment>;
   findFirstGroup?: Maybe<Group>;
   findFirstPost?: Maybe<Post>;
+  findFirstTest?: Maybe<Test>;
   findFirstUser?: Maybe<User>;
   findManyComment: Array<Comment>;
   findManyCommentCount: Scalars['Int'];
@@ -1562,11 +1608,14 @@ export type Query = {
   findManyGroupCount: Scalars['Int'];
   findManyPost: Array<Post>;
   findManyPostCount: Scalars['Int'];
+  findManyTest: Array<Test>;
+  findManyTestCount: Scalars['Int'];
   findManyUser: Array<User>;
   findManyUserCount: Scalars['Int'];
   findUniqueComment?: Maybe<Comment>;
   findUniqueGroup?: Maybe<Group>;
   findUniquePost?: Maybe<Post>;
+  findUniqueTest?: Maybe<Test>;
   findUniqueUser?: Maybe<User>;
   getSchema: Schema;
   me?: Maybe<User>;
@@ -1597,6 +1646,15 @@ export type QueryAggregatePostArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
+};
+
+export type QueryAggregateTestArgs = {
+  cursor?: Maybe<TestWhereUniqueInput>;
+  distinct?: Maybe<TestScalarFieldEnum>;
+  orderBy?: Maybe<Array<Maybe<TestOrderByInput>>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<TestWhereInput>;
 };
 
 export type QueryAggregateUserArgs = {
@@ -1633,6 +1691,15 @@ export type QueryFindFirstPostArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
+};
+
+export type QueryFindFirstTestArgs = {
+  cursor?: Maybe<TestWhereUniqueInput>;
+  distinct?: Maybe<TestScalarFieldEnum>;
+  orderBy?: Maybe<Array<Maybe<TestOrderByInput>>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<TestWhereInput>;
 };
 
 export type QueryFindFirstUserArgs = {
@@ -1698,6 +1765,24 @@ export type QueryFindManyPostCountArgs = {
   where?: Maybe<PostWhereInput>;
 };
 
+export type QueryFindManyTestArgs = {
+  cursor?: Maybe<TestWhereUniqueInput>;
+  distinct?: Maybe<TestScalarFieldEnum>;
+  orderBy?: Maybe<Array<Maybe<TestOrderByInput>>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<TestWhereInput>;
+};
+
+export type QueryFindManyTestCountArgs = {
+  cursor?: Maybe<TestWhereUniqueInput>;
+  distinct?: Maybe<TestScalarFieldEnum>;
+  orderBy?: Maybe<Array<Maybe<TestOrderByInput>>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<TestWhereInput>;
+};
+
 export type QueryFindManyUserArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
   distinct?: Maybe<UserScalarFieldEnum>;
@@ -1726,6 +1811,10 @@ export type QueryFindUniqueGroupArgs = {
 
 export type QueryFindUniquePostArgs = {
   where: PostWhereUniqueInput;
+};
+
+export type QueryFindUniqueTestArgs = {
+  where: TestWhereUniqueInput;
 };
 
 export type QueryFindUniqueUserArgs = {
@@ -1813,6 +1902,77 @@ export type StringWithAggregatesFilter = {
   not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
+};
+
+export type Test = {
+  __typename?: 'Test';
+  id: Scalars['String'];
+};
+
+export type TestCountAggregateOutputType = {
+  __typename?: 'TestCountAggregateOutputType';
+  _all: Scalars['Int'];
+  id: Scalars['Int'];
+};
+
+export type TestCreateInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type TestMaxAggregateOutputType = {
+  __typename?: 'TestMaxAggregateOutputType';
+  id?: Maybe<Scalars['String']>;
+};
+
+export type TestMinAggregateOutputType = {
+  __typename?: 'TestMinAggregateOutputType';
+  id?: Maybe<Scalars['String']>;
+};
+
+export type TestOrderByInput = {
+  id?: Maybe<SortOrder>;
+};
+
+export enum TestScalarFieldEnum {
+  Id = 'id',
+}
+
+export type TestScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<Maybe<TestScalarWhereWithAggregatesInput>>>;
+  NOT?: Maybe<Array<Maybe<TestScalarWhereWithAggregatesInput>>>;
+  OR?: Maybe<Array<Maybe<TestScalarWhereWithAggregatesInput>>>;
+  id?: Maybe<StringWithAggregatesFilter>;
+};
+
+export type TestUncheckedCreateInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type TestUncheckedUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestUncheckedUpdateManyInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestUpdateManyMutationInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestWhereInput = {
+  AND?: Maybe<Array<Maybe<TestWhereInput>>>;
+  NOT?: Maybe<Array<Maybe<TestWhereInput>>>;
+  OR?: Maybe<Array<Maybe<TestWhereInput>>>;
+  id?: Maybe<StringFilter>;
+};
+
+export type TestWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
 };
 
 export type UpdateFieldInput = {
