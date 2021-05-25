@@ -26,8 +26,11 @@ export class GenerateTypes {
   }
 
   isModel(modelName: string) {
-    return !!this.dmmf.datamodel.models.find(
-      (model) => model.name === modelName,
+    return (
+      !!this.dmmf.datamodel.models.find((model) => model.name === modelName) ||
+      !!this.dmmf.schema.enumTypes.model?.find(
+        (model) => model.name === modelName,
+      )
     );
   }
 

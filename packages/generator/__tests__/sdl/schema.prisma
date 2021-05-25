@@ -1,44 +1,62 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
 }
 
-/// User Model
+// models examples
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  email     String    @unique
   name      String?
   password  String
-  /// user Posts relation
-  /// Must delete if user delete
+  role      Role
+  /// @onDelete(CASCADE)
   posts     Post[]
+  group     Group?    @relation(fields: [groupId], references: [id])
+  groupId   Int?
+  /// @onDelete(SET_NULL)
+  comments  Comment[]
 }
 
-/// Posts Model
 model Post {
-  id         Int      @id @default(autoincrement())
-  published  Boolean  @default(false)
-  title      String
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  author     User?    @relation(fields: [authorId], references: [id])
-  authorId   Int?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  published Boolean   @default(false)
+  title     String
+  author    User?     @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  /// @onDelete(CASCADE)
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model Category {
-  id        Int        @id @default(autoincrement())
+model Comment {
+  id        Int      @id @default(autoincrement())
+  contain   String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id        Int      @id @default(autoincrement())
   name      String
-  parentId  Int?
-  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
-  children  Category[] @relation("CategoryTree")
-  posts     Post[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @onDelete(SET_NULL)
+  users     User[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
