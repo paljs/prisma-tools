@@ -176,17 +176,13 @@ export class PrismaDelete {
   }: onDeleteArgs): Promise<BatchPayload | void> {
     const results = (
       await this.getDeleteArray(model, where, !!deleteParent)
-    ).reverse();
-    for (let i = 0; i < results.length; ++i) {
-      if (i + 1 === results.length && deleteParent) {
-        return await this.prisma[results[i].name].deleteMany({
-          where: results[i].where,
-        });
-      } else {
-        await this.prisma[results[i].name].deleteMany({
-          where: results[i].where,
-        });
-      }
-    }
+    );
+    const deletes = results.filter(r => !deleteParent || results.indexOf(r) !== 0).map((r) => {
+      return this.prisma[r.name].deleteMany({
+        where: r.where,
+      });
+    })
+
+    await Promise.all(deletes);
   }
 }
