@@ -1,15 +1,10 @@
 import { getInputType, hasEmptyTypeFields, PrismaSelect } from '@paljs/plugins';
-import {
-  enumType,
-  inputObjectType,
-  objectType,
-  plugin,
-  scalarType,
-} from 'nexus';
+import { enumType, inputObjectType, objectType, plugin } from 'nexus';
 import { NexusAcceptedTypeDef } from 'nexus/dist/builder';
 import { DMMF } from '@prisma/client/runtime';
 import { adminNexusSchemaSettings } from './admin';
 import { Settings } from './settings';
+import { getScalars } from './defaultScalar';
 
 export { Settings };
 
@@ -31,42 +26,7 @@ export const paljs = (settings?: Settings) =>
             t.nonNull.int('count');
           },
         }),
-        scalarType({
-          name: 'Json',
-          asNexusMethod: 'json',
-          description: 'Json custom scalar type',
-          serialize(value) {
-            return value;
-          },
-        }),
-        scalarType({
-          name: 'Decimal',
-          asNexusMethod: 'decimal',
-          description: 'Decimal custom scalar type',
-          serialize: (val) => parseFloat(val),
-          parseValue: (val) => parseFloat(val),
-        }),
-        scalarType({
-          name: 'BigInt',
-          asNexusMethod: 'bigint',
-          description: 'BigInt custom scalar type',
-          serialize: (val) => parseInt(val),
-          parseValue: (val) => parseInt(val),
-        }),
-        scalarType({
-          name: 'DateTime',
-          asNexusMethod: 'date',
-          description: 'Date custom scalar type',
-          parseValue(value: any) {
-            return value ? new Date(value) : null;
-          },
-          serialize(value: any) {
-            return value ? new Date(value) : null;
-          },
-          parseLiteral(ast: any) {
-            return ast.value ? new Date(ast.value) : null;
-          },
-        }),
+        ...getScalars(settings?.excludeScalar),
       ];
       const allTypes: string[] = [];
       for (const dmmf of dmmfs) {

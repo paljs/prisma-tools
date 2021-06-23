@@ -4,10 +4,11 @@ import {
   UseFiltersColumnOptions,
   UseSortByColumnOptions,
 } from 'react-table';
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, FieldError } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
 import { DynamicTableProps } from './PrismaTable/dynamicTable';
+import { RegisterOptions } from 'react-hook-form/dist/types/validator';
 
 export type { Schema, SchemaField, SchemaModel };
 
@@ -29,7 +30,7 @@ export interface InputProps {
   field: SchemaField;
   value: any;
   data: any;
-  error: any;
+  error: FieldError;
   register: UseFormReturn['register'];
   setValue: UseFormReturn['setValue'];
   getValues: UseFormReturn['getValues'];
@@ -66,6 +67,7 @@ interface SameProps {
   useSet?: boolean;
   tableColumns?: GetColumnsPartial;
   formInputs?: Partial<FormInputs>;
+  inputValidation?: { [model: string]: { [field: string]: RegisterOptions } };
   push: (url: string) => void;
   query: { [key: string]: any };
   onSelect?: (values: any[]) => void;

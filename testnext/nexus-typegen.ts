@@ -1162,52 +1162,6 @@ export interface NexusGenInputs {
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
   };
-  TestCreateInput: {
-    // input type
-    id?: string | null; // String
-  };
-  TestOrderByInput: {
-    // input type
-    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
-  };
-  TestScalarWhereWithAggregatesInput: {
-    // input type
-    AND?: Array<NexusGenInputs['TestScalarWhereWithAggregatesInput'] | null> | null; // [TestScalarWhereWithAggregatesInput]
-    NOT?: Array<NexusGenInputs['TestScalarWhereWithAggregatesInput'] | null> | null; // [TestScalarWhereWithAggregatesInput]
-    OR?: Array<NexusGenInputs['TestScalarWhereWithAggregatesInput'] | null> | null; // [TestScalarWhereWithAggregatesInput]
-    id?: NexusGenInputs['StringWithAggregatesFilter'] | null; // StringWithAggregatesFilter
-  };
-  TestUncheckedCreateInput: {
-    // input type
-    id?: string | null; // String
-  };
-  TestUncheckedUpdateInput: {
-    // input type
-    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-  };
-  TestUncheckedUpdateManyInput: {
-    // input type
-    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-  };
-  TestUpdateInput: {
-    // input type
-    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-  };
-  TestUpdateManyMutationInput: {
-    // input type
-    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-  };
-  TestWhereInput: {
-    // input type
-    AND?: Array<NexusGenInputs['TestWhereInput'] | null> | null; // [TestWhereInput]
-    NOT?: Array<NexusGenInputs['TestWhereInput'] | null> | null; // [TestWhereInput]
-    OR?: Array<NexusGenInputs['TestWhereInput'] | null> | null; // [TestWhereInput]
-    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
-  };
-  TestWhereUniqueInput: {
-    // input type
-    id?: string | null; // String
-  };
   UpdateFieldInput: {
     // input type
     create?: boolean | null; // Boolean
@@ -1602,7 +1556,6 @@ export interface NexusGenEnums {
   KindEnum: 'enum' | 'object' | 'scalar';
   PostScalarFieldEnum: 'authorId' | 'createdAt' | 'id' | 'published' | 'title' | 'updatedAt';
   SortOrder: 'asc' | 'desc';
-  TestScalarFieldEnum: 'id';
   UserScalarFieldEnum: 'createdAt' | 'email' | 'groupId' | 'id' | 'name' | 'password';
 }
 
@@ -1657,15 +1610,6 @@ export interface NexusGenObjects {
     max?: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
     min?: NexusGenRootTypes['PostMinAggregateOutputType'] | null; // PostMinAggregateOutputType
     sum?: NexusGenRootTypes['PostSumAggregateOutputType'] | null; // PostSumAggregateOutputType
-  };
-  AggregateTest: {
-    // root type
-    _count?: NexusGenRootTypes['TestCountAggregateOutputType'] | null; // TestCountAggregateOutputType
-    _max?: NexusGenRootTypes['TestMaxAggregateOutputType'] | null; // TestMaxAggregateOutputType
-    _min?: NexusGenRootTypes['TestMinAggregateOutputType'] | null; // TestMinAggregateOutputType
-    count?: NexusGenRootTypes['TestCountAggregateOutputType'] | null; // TestCountAggregateOutputType
-    max?: NexusGenRootTypes['TestMaxAggregateOutputType'] | null; // TestMaxAggregateOutputType
-    min?: NexusGenRootTypes['TestMinAggregateOutputType'] | null; // TestMinAggregateOutputType
   };
   AggregateUser: {
     // root type
@@ -1869,23 +1813,6 @@ export interface NexusGenObjects {
     enums: NexusGenRootTypes['Enum'][]; // [Enum!]!
     models: NexusGenRootTypes['Model'][]; // [Model!]!
   };
-  Test: {
-    // root type
-    id: string; // String!
-  };
-  TestCountAggregateOutputType: {
-    // root type
-    _all: number; // Int!
-    id: number; // Int!
-  };
-  TestMaxAggregateOutputType: {
-    // root type
-    id?: string | null; // String
-  };
-  TestMinAggregateOutputType: {
-    // root type
-    id?: string | null; // String
-  };
   User: {
     // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -1987,15 +1914,6 @@ export interface NexusGenFieldTypes {
     max: NexusGenRootTypes['PostMaxAggregateOutputType'] | null; // PostMaxAggregateOutputType
     min: NexusGenRootTypes['PostMinAggregateOutputType'] | null; // PostMinAggregateOutputType
     sum: NexusGenRootTypes['PostSumAggregateOutputType'] | null; // PostSumAggregateOutputType
-  };
-  AggregateTest: {
-    // field return type
-    _count: NexusGenRootTypes['TestCountAggregateOutputType'] | null; // TestCountAggregateOutputType
-    _max: NexusGenRootTypes['TestMaxAggregateOutputType'] | null; // TestMaxAggregateOutputType
-    _min: NexusGenRootTypes['TestMinAggregateOutputType'] | null; // TestMinAggregateOutputType
-    count: NexusGenRootTypes['TestCountAggregateOutputType'] | null; // TestCountAggregateOutputType
-    max: NexusGenRootTypes['TestMaxAggregateOutputType'] | null; // TestMaxAggregateOutputType
-    min: NexusGenRootTypes['TestMinAggregateOutputType'] | null; // TestMinAggregateOutputType
   };
   AggregateUser: {
     // field return type
@@ -2150,17 +2068,14 @@ export interface NexusGenFieldTypes {
     createOneComment: NexusGenRootTypes['Comment']; // Comment!
     createOneGroup: NexusGenRootTypes['Group']; // Group!
     createOnePost: NexusGenRootTypes['Post']; // Post!
-    createOneTest: NexusGenRootTypes['Test']; // Test!
     createOneUser: NexusGenRootTypes['User']; // User!
     deleteManyComment: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyGroup: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyPost: NexusGenRootTypes['BatchPayload']; // BatchPayload!
-    deleteManyTest: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyUser: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteOneComment: NexusGenRootTypes['Comment'] | null; // Comment
     deleteOneGroup: NexusGenRootTypes['Group'] | null; // Group
     deleteOnePost: NexusGenRootTypes['Post'] | null; // Post
-    deleteOneTest: NexusGenRootTypes['Test'] | null; // Test
     deleteOneUser: NexusGenRootTypes['User'] | null; // User
     login: NexusGenRootTypes['User'] | null; // User
     logout: boolean | null; // Boolean
@@ -2169,19 +2084,16 @@ export interface NexusGenFieldTypes {
     updateManyComment: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyGroup: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyPost: NexusGenRootTypes['BatchPayload']; // BatchPayload!
-    updateManyTest: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyUser: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateModel: NexusGenRootTypes['Model']; // Model!
     updateOneComment: NexusGenRootTypes['Comment']; // Comment!
     updateOneGroup: NexusGenRootTypes['Group']; // Group!
     updateOnePost: NexusGenRootTypes['Post']; // Post!
-    updateOneTest: NexusGenRootTypes['Test']; // Test!
     updateOneUser: NexusGenRootTypes['User']; // User!
     updatePassword: boolean | null; // Boolean
     upsertOneComment: NexusGenRootTypes['Comment']; // Comment!
     upsertOneGroup: NexusGenRootTypes['Group']; // Group!
     upsertOnePost: NexusGenRootTypes['Post']; // Post!
-    upsertOneTest: NexusGenRootTypes['Test']; // Test!
     upsertOneUser: NexusGenRootTypes['User']; // User!
   };
   Post: {
@@ -2243,12 +2155,10 @@ export interface NexusGenFieldTypes {
     aggregateComment: NexusGenRootTypes['AggregateComment'] | null; // AggregateComment
     aggregateGroup: NexusGenRootTypes['AggregateGroup'] | null; // AggregateGroup
     aggregatePost: NexusGenRootTypes['AggregatePost'] | null; // AggregatePost
-    aggregateTest: NexusGenRootTypes['AggregateTest'] | null; // AggregateTest
     aggregateUser: NexusGenRootTypes['AggregateUser'] | null; // AggregateUser
     findFirstComment: NexusGenRootTypes['Comment'] | null; // Comment
     findFirstGroup: NexusGenRootTypes['Group'] | null; // Group
     findFirstPost: NexusGenRootTypes['Post'] | null; // Post
-    findFirstTest: NexusGenRootTypes['Test'] | null; // Test
     findFirstUser: NexusGenRootTypes['User'] | null; // User
     findManyComment: NexusGenRootTypes['Comment'][]; // [Comment!]!
     findManyCommentCount: number; // Int!
@@ -2256,14 +2166,11 @@ export interface NexusGenFieldTypes {
     findManyGroupCount: number; // Int!
     findManyPost: NexusGenRootTypes['Post'][]; // [Post!]!
     findManyPostCount: number; // Int!
-    findManyTest: NexusGenRootTypes['Test'][]; // [Test!]!
-    findManyTestCount: number; // Int!
     findManyUser: NexusGenRootTypes['User'][]; // [User!]!
     findManyUserCount: number; // Int!
     findUniqueComment: NexusGenRootTypes['Comment'] | null; // Comment
     findUniqueGroup: NexusGenRootTypes['Group'] | null; // Group
     findUniquePost: NexusGenRootTypes['Post'] | null; // Post
-    findUniqueTest: NexusGenRootTypes['Test'] | null; // Test
     findUniqueUser: NexusGenRootTypes['User'] | null; // User
     getSchema: NexusGenRootTypes['Schema']; // Schema!
     me: NexusGenRootTypes['User'] | null; // User
@@ -2272,23 +2179,6 @@ export interface NexusGenFieldTypes {
     // field return type
     enums: NexusGenRootTypes['Enum'][]; // [Enum!]!
     models: NexusGenRootTypes['Model'][]; // [Model!]!
-  };
-  Test: {
-    // field return type
-    id: string; // String!
-  };
-  TestCountAggregateOutputType: {
-    // field return type
-    _all: number; // Int!
-    id: number; // Int!
-  };
-  TestMaxAggregateOutputType: {
-    // field return type
-    id: string | null; // String
-  };
-  TestMinAggregateOutputType: {
-    // field return type
-    id: string | null; // String
   };
   User: {
     // field return type
@@ -2387,15 +2277,6 @@ export interface NexusGenFieldTypeNames {
     max: 'PostMaxAggregateOutputType';
     min: 'PostMinAggregateOutputType';
     sum: 'PostSumAggregateOutputType';
-  };
-  AggregateTest: {
-    // field return type name
-    _count: 'TestCountAggregateOutputType';
-    _max: 'TestMaxAggregateOutputType';
-    _min: 'TestMinAggregateOutputType';
-    count: 'TestCountAggregateOutputType';
-    max: 'TestMaxAggregateOutputType';
-    min: 'TestMinAggregateOutputType';
   };
   AggregateUser: {
     // field return type name
@@ -2550,17 +2431,14 @@ export interface NexusGenFieldTypeNames {
     createOneComment: 'Comment';
     createOneGroup: 'Group';
     createOnePost: 'Post';
-    createOneTest: 'Test';
     createOneUser: 'User';
     deleteManyComment: 'BatchPayload';
     deleteManyGroup: 'BatchPayload';
     deleteManyPost: 'BatchPayload';
-    deleteManyTest: 'BatchPayload';
     deleteManyUser: 'BatchPayload';
     deleteOneComment: 'Comment';
     deleteOneGroup: 'Group';
     deleteOnePost: 'Post';
-    deleteOneTest: 'Test';
     deleteOneUser: 'User';
     login: 'User';
     logout: 'Boolean';
@@ -2569,19 +2447,16 @@ export interface NexusGenFieldTypeNames {
     updateManyComment: 'BatchPayload';
     updateManyGroup: 'BatchPayload';
     updateManyPost: 'BatchPayload';
-    updateManyTest: 'BatchPayload';
     updateManyUser: 'BatchPayload';
     updateModel: 'Model';
     updateOneComment: 'Comment';
     updateOneGroup: 'Group';
     updateOnePost: 'Post';
-    updateOneTest: 'Test';
     updateOneUser: 'User';
     updatePassword: 'Boolean';
     upsertOneComment: 'Comment';
     upsertOneGroup: 'Group';
     upsertOnePost: 'Post';
-    upsertOneTest: 'Test';
     upsertOneUser: 'User';
   };
   Post: {
@@ -2643,12 +2518,10 @@ export interface NexusGenFieldTypeNames {
     aggregateComment: 'AggregateComment';
     aggregateGroup: 'AggregateGroup';
     aggregatePost: 'AggregatePost';
-    aggregateTest: 'AggregateTest';
     aggregateUser: 'AggregateUser';
     findFirstComment: 'Comment';
     findFirstGroup: 'Group';
     findFirstPost: 'Post';
-    findFirstTest: 'Test';
     findFirstUser: 'User';
     findManyComment: 'Comment';
     findManyCommentCount: 'Int';
@@ -2656,14 +2529,11 @@ export interface NexusGenFieldTypeNames {
     findManyGroupCount: 'Int';
     findManyPost: 'Post';
     findManyPostCount: 'Int';
-    findManyTest: 'Test';
-    findManyTestCount: 'Int';
     findManyUser: 'User';
     findManyUserCount: 'Int';
     findUniqueComment: 'Comment';
     findUniqueGroup: 'Group';
     findUniquePost: 'Post';
-    findUniqueTest: 'Test';
     findUniqueUser: 'User';
     getSchema: 'Schema';
     me: 'User';
@@ -2672,23 +2542,6 @@ export interface NexusGenFieldTypeNames {
     // field return type name
     enums: 'Enum';
     models: 'Model';
-  };
-  Test: {
-    // field return type name
-    id: 'String';
-  };
-  TestCountAggregateOutputType: {
-    // field return type name
-    _all: 'Int';
-    id: 'Int';
-  };
-  TestMaxAggregateOutputType: {
-    // field return type name
-    id: 'String';
-  };
-  TestMinAggregateOutputType: {
-    // field return type name
-    id: 'String';
   };
   User: {
     // field return type name
@@ -2773,10 +2626,6 @@ export interface NexusGenArgTypes {
       // args
       data: NexusGenInputs['PostCreateInput']; // PostCreateInput!
     };
-    createOneTest: {
-      // args
-      data: NexusGenInputs['TestCreateInput']; // TestCreateInput!
-    };
     createOneUser: {
       // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
@@ -2793,10 +2642,6 @@ export interface NexusGenArgTypes {
       // args
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     };
-    deleteManyTest: {
-      // args
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
-    };
     deleteManyUser: {
       // args
       where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -2812,10 +2657,6 @@ export interface NexusGenArgTypes {
     deleteOnePost: {
       // args
       where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
-    };
-    deleteOneTest: {
-      // args
-      where: NexusGenInputs['TestWhereUniqueInput']; // TestWhereUniqueInput!
     };
     deleteOneUser: {
       // args
@@ -2853,11 +2694,6 @@ export interface NexusGenArgTypes {
       data: NexusGenInputs['PostUpdateManyMutationInput']; // PostUpdateManyMutationInput!
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     };
-    updateManyTest: {
-      // args
-      data: NexusGenInputs['TestUpdateManyMutationInput']; // TestUpdateManyMutationInput!
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
-    };
     updateManyUser: {
       // args
       data: NexusGenInputs['UserUpdateManyMutationInput']; // UserUpdateManyMutationInput!
@@ -2882,11 +2718,6 @@ export interface NexusGenArgTypes {
       // args
       data: NexusGenInputs['PostUpdateInput']; // PostUpdateInput!
       where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
-    };
-    updateOneTest: {
-      // args
-      data: NexusGenInputs['TestUpdateInput']; // TestUpdateInput!
-      where: NexusGenInputs['TestWhereUniqueInput']; // TestWhereUniqueInput!
     };
     updateOneUser: {
       // args
@@ -2915,12 +2746,6 @@ export interface NexusGenArgTypes {
       create: NexusGenInputs['PostCreateInput']; // PostCreateInput!
       update: NexusGenInputs['PostUpdateInput']; // PostUpdateInput!
       where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
-    };
-    upsertOneTest: {
-      // args
-      create: NexusGenInputs['TestCreateInput']; // TestCreateInput!
-      update: NexusGenInputs['TestUpdateInput']; // TestUpdateInput!
-      where: NexusGenInputs['TestWhereUniqueInput']; // TestWhereUniqueInput!
     };
     upsertOneUser: {
       // args
@@ -2968,15 +2793,6 @@ export interface NexusGenArgTypes {
       take?: number | null; // Int
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     };
-    aggregateTest: {
-      // args
-      cursor?: NexusGenInputs['TestWhereUniqueInput'] | null; // TestWhereUniqueInput
-      distinct?: NexusGenEnums['TestScalarFieldEnum'] | null; // TestScalarFieldEnum
-      orderBy?: Array<NexusGenInputs['TestOrderByInput'] | null> | null; // [TestOrderByInput]
-      skip?: number | null; // Int
-      take?: number | null; // Int
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
-    };
     aggregateUser: {
       // args
       cursor?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
@@ -3012,15 +2828,6 @@ export interface NexusGenArgTypes {
       skip?: number | null; // Int
       take?: number | null; // Int
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
-    };
-    findFirstTest: {
-      // args
-      cursor?: NexusGenInputs['TestWhereUniqueInput'] | null; // TestWhereUniqueInput
-      distinct?: NexusGenEnums['TestScalarFieldEnum'] | null; // TestScalarFieldEnum
-      orderBy?: Array<NexusGenInputs['TestOrderByInput'] | null> | null; // [TestOrderByInput]
-      skip?: number | null; // Int
-      take?: number | null; // Int
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
     };
     findFirstUser: {
       // args
@@ -3085,24 +2892,6 @@ export interface NexusGenArgTypes {
       take?: number | null; // Int
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     };
-    findManyTest: {
-      // args
-      cursor?: NexusGenInputs['TestWhereUniqueInput'] | null; // TestWhereUniqueInput
-      distinct?: NexusGenEnums['TestScalarFieldEnum'] | null; // TestScalarFieldEnum
-      orderBy?: Array<NexusGenInputs['TestOrderByInput'] | null> | null; // [TestOrderByInput]
-      skip?: number | null; // Int
-      take?: number | null; // Int
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
-    };
-    findManyTestCount: {
-      // args
-      cursor?: NexusGenInputs['TestWhereUniqueInput'] | null; // TestWhereUniqueInput
-      distinct?: NexusGenEnums['TestScalarFieldEnum'] | null; // TestScalarFieldEnum
-      orderBy?: Array<NexusGenInputs['TestOrderByInput'] | null> | null; // [TestOrderByInput]
-      skip?: number | null; // Int
-      take?: number | null; // Int
-      where?: NexusGenInputs['TestWhereInput'] | null; // TestWhereInput
-    };
     findManyUser: {
       // args
       cursor?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
@@ -3132,10 +2921,6 @@ export interface NexusGenArgTypes {
     findUniquePost: {
       // args
       where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
-    };
-    findUniqueTest: {
-      // args
-      where: NexusGenInputs['TestWhereUniqueInput']; // TestWhereUniqueInput!
     };
     findUniqueUser: {
       // args

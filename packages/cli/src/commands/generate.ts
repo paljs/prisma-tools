@@ -124,7 +124,9 @@ export default class Generate extends Command {
               ['mutations', 'crud'].includes(args.type);
 
             if (queries || mutations || !args.type) {
-              options.models = args.models ? args.models.split(',') : undefined;
+              options.models = args.models
+                ? args.models.split(',')
+                : config.backend.models;
               options.disableQueries = !queries;
               options.disableMutations = !mutations;
               await new Generator(

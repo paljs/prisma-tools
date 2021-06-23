@@ -40,15 +40,6 @@ type AggregatePost {
   sum: PostSumAggregateOutputType
 }
 
-type AggregateTest {
-  _count: TestCountAggregateOutputType
-  _max: TestMaxAggregateOutputType
-  _min: TestMinAggregateOutputType
-  count: TestCountAggregateOutputType
-  max: TestMaxAggregateOutputType
-  min: TestMinAggregateOutputType
-}
-
 type AggregateUser {
   _avg: UserAvgAggregateOutputType
   _count: UserCountAggregateOutputType
@@ -798,17 +789,14 @@ type Mutation {
   createOneComment(data: CommentCreateInput!): Comment!
   createOneGroup(data: GroupCreateInput!): Group!
   createOnePost(data: PostCreateInput!): Post!
-  createOneTest(data: TestCreateInput!): Test!
   createOneUser(data: UserCreateInput!): User!
   deleteManyComment(where: CommentWhereInput): BatchPayload!
   deleteManyGroup(where: GroupWhereInput): BatchPayload!
   deleteManyPost(where: PostWhereInput): BatchPayload!
-  deleteManyTest(where: TestWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   deleteOneGroup(where: GroupWhereUniqueInput!): Group
   deleteOnePost(where: PostWhereUniqueInput!): Post
-  deleteOneTest(where: TestWhereUniqueInput!): Test
   deleteOneUser(where: UserWhereUniqueInput!): User
   login(email: String!, password: String!): User
   logout: Boolean
@@ -817,19 +805,16 @@ type Mutation {
   updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   updateManyGroup(data: GroupUpdateManyMutationInput!, where: GroupWhereInput): BatchPayload!
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  updateManyTest(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateModel(data: UpdateModelInput!, id: String!): Model!
   updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   updateOneGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
-  updateOneTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updatePassword(currentPassword: String!, password: String!): Boolean
   upsertOneComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
   upsertOneGroup(create: GroupCreateInput!, update: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
   upsertOnePost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
-  upsertOneTest(create: TestCreateInput!, update: TestUpdateInput!, where: TestWhereUniqueInput!): Test!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
@@ -1413,14 +1398,6 @@ type Query {
     take: Int
     where: PostWhereInput
   ): AggregatePost
-  aggregateTest(
-    cursor: TestWhereUniqueInput
-    distinct: TestScalarFieldEnum
-    orderBy: [TestOrderByInput]
-    skip: Int
-    take: Int
-    where: TestWhereInput
-  ): AggregateTest
   aggregateUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1453,14 +1430,6 @@ type Query {
     take: Int
     where: PostWhereInput
   ): Post
-  findFirstTest(
-    cursor: TestWhereUniqueInput
-    distinct: TestScalarFieldEnum
-    orderBy: [TestOrderByInput]
-    skip: Int
-    take: Int
-    where: TestWhereInput
-  ): Test
   findFirstUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1517,22 +1486,6 @@ type Query {
     take: Int
     where: PostWhereInput
   ): Int!
-  findManyTest(
-    cursor: TestWhereUniqueInput
-    distinct: TestScalarFieldEnum
-    orderBy: [TestOrderByInput]
-    skip: Int
-    take: Int
-    where: TestWhereInput
-  ): [Test!]!
-  findManyTestCount(
-    cursor: TestWhereUniqueInput
-    distinct: TestScalarFieldEnum
-    orderBy: [TestOrderByInput]
-    skip: Int
-    take: Int
-    where: TestWhereInput
-  ): Int!
   findManyUser(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
@@ -1552,7 +1505,6 @@ type Query {
   findUniqueComment(where: CommentWhereUniqueInput!): Comment
   findUniqueGroup(where: GroupWhereUniqueInput!): Group
   findUniquePost(where: PostWhereUniqueInput!): Post
-  findUniqueTest(where: TestWhereUniqueInput!): Test
   findUniqueUser(where: UserWhereUniqueInput!): User
   getSchema: Schema!
   me: User
@@ -1638,73 +1590,6 @@ input StringWithAggregatesFilter {
   not: NestedStringWithAggregatesFilter
   notIn: [String]
   startsWith: String
-}
-
-type Test {
-  id: String!
-}
-
-type TestCountAggregateOutputType {
-  _all: Int!
-  id: Int!
-}
-
-input TestCreateInput {
-  id: String
-}
-
-type TestMaxAggregateOutputType {
-  id: String
-}
-
-type TestMinAggregateOutputType {
-  id: String
-}
-
-input TestOrderByInput {
-  id: SortOrder
-}
-
-enum TestScalarFieldEnum {
-  id
-}
-
-input TestScalarWhereWithAggregatesInput {
-  AND: [TestScalarWhereWithAggregatesInput]
-  NOT: [TestScalarWhereWithAggregatesInput]
-  OR: [TestScalarWhereWithAggregatesInput]
-  id: StringWithAggregatesFilter
-}
-
-input TestUncheckedCreateInput {
-  id: String
-}
-
-input TestUncheckedUpdateInput {
-  id: StringFieldUpdateOperationsInput
-}
-
-input TestUncheckedUpdateManyInput {
-  id: StringFieldUpdateOperationsInput
-}
-
-input TestUpdateInput {
-  id: StringFieldUpdateOperationsInput
-}
-
-input TestUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-}
-
-input TestWhereInput {
-  AND: [TestWhereInput]
-  NOT: [TestWhereInput]
-  OR: [TestWhereInput]
-  id: StringFilter
-}
-
-input TestWhereUniqueInput {
-  id: String
 }
 
 input UpdateFieldInput {

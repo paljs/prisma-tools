@@ -15,4 +15,5 @@ export interface Settings {
   excludeFields?: string[];
   filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
   doNotUseFieldUpdateOperationsInput?: boolean;
+  excludeScalar?: ('Json' | 'Decimal' | 'BigInt' | 'DateTime')[];
 }

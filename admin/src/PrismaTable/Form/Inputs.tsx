@@ -8,20 +8,33 @@ import { getDisplayName } from '../Table/utils';
 import DynamicTable from '../dynamicTable';
 import { queryDocument } from '../QueryDocument';
 import { TableContext } from '../Context';
-import { FormInputs } from '../../types';
+import { FormInputs, ModelTableProps } from '../../types';
 import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
 import { buttonClasses, inputClasses } from '../../components/css';
 import { getDate } from './getDate';
+import { SchemaField } from '@paljs/types';
 
 interface Option {
   id: any;
   name: any;
 }
 
+const getFieldValidation = (
+  field: SchemaField,
+  inputValidation: ModelTableProps['inputValidation'],
+) => {
+  const modelName = field.id.split('.')[0];
+  return inputValidation
+    ? inputValidation[modelName]
+      ? inputValidation[modelName][field.name]
+      : {}
+    : {};
+};
+
 const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
   Default({ field, error, register, disabled, value }) {
-    const { lang } = useContext(TableContext);
+    const { lang, inputValidation } = useContext(TableContext);
     const options: any = {
       disabled,
       defaultValue: value
@@ -54,13 +67,18 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600 font-bold">
           {field.title}
-          <span className="text-red-700 text-xs">
-            {error ? lang.isRequired : ''}
-          </span>
+          {error && (
+            <span className="text-red-700 text-xs">
+              {error.message ? error.message : lang.isRequired}
+            </span>
+          )}
         </div>
         <input
           className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
-          {...register(field.name, { required: field.required })}
+          {...register(field.name, {
+            required: field.required,
+            ...getFieldValidation(field, inputValidation),
+          })}
           {...options}
         />
       </div>
@@ -69,10 +87,13 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
   Enum({ field, value, error, register, setValue, disabled }) {
     const [state, setState] = useState(value);
     const enumType = useEnum(field.type);
-    const { lang, dir } = useContext(TableContext);
+    const { lang, dir, inputValidation } = useContext(TableContext);
 
     React.useEffect(() => {
-      register(field.name, { required: field.required });
+      register(field.name, {
+        required: field.required,
+        ...getFieldValidation(field, inputValidation),
+      });
     }, [register]);
 
     const options: Option[] = field.required
@@ -87,9 +108,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600 font-bold">
           {field.title}
-          <span className="text-red-700 text-xs">
-            {error ? lang.isRequired : ''}
-          </span>
+          {error && (
+            <span className="text-red-700 text-xs">
+              {error.message ? error.message : lang.isRequired}
+            </span>
+          )}
         </div>
         <Select
           dir={dir}
@@ -208,21 +231,26 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     );
   },
   Date({ field, value, error, register, disabled }) {
-    const { lang } = useContext(TableContext);
+    const { lang, inputValidation } = useContext(TableContext);
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600 font-bold">
           {field.title}
-          <span className="text-red-700 text-xs">
-            {error ? lang.isRequired : ''}
-          </span>
+          {error && (
+            <span className="text-red-700 text-xs">
+              {error.message ? error.message : lang.isRequired}
+            </span>
+          )}
         </div>
         <input
           className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
           type="datetime-local"
           disabled={disabled}
           defaultValue={value ? getDate(new Date(value)) : undefined}
-          {...register(field.name, { required: field.required })}
+          {...register(field.name, {
+            required: field.required,
+            ...getFieldValidation(field, inputValidation),
+          })}
         />
       </div>
     );
