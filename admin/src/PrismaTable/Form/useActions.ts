@@ -129,30 +129,32 @@ const useActions = (
     const createData: any = {};
     Object.keys(newData).forEach((key) => {
       const field = getField(key);
-      if (field?.kind === 'object') {
-        const fieldModel = models.find((item) => item.id === field.type)!;
-        const editField = fieldModel.fields.find(
-          (item) => item.name === fieldModel.idField,
-        )!;
-        if (newData[key]) {
-          createData[key] = {
-            connect: {
-              id: getValueByType({
-                value: newData[key][fieldModel.idField],
-                field: editField,
+      if (newData[key] && field?.create) {
+        if (field?.kind === 'object') {
+          const fieldModel = models.find((item) => item.id === field.type)!;
+          const editField = fieldModel.fields.find(
+            (item) => item.name === fieldModel.idField,
+          )!;
+          if (newData[key]) {
+            createData[key] = {
+              connect: {
+                id: getValueByType({
+                  value: newData[key][fieldModel.idField],
+                  field: editField,
+                  useSet: false,
+                }),
+              },
+            };
+          }
+        } else {
+          createData[key] = valueHandler
+            ? valueHandler(newData[key], field, true)
+            : getValueByType({
+                value: newData[key],
+                field,
                 useSet: false,
-              }),
-            },
-          };
+              });
         }
-      } else {
-        createData[key] = valueHandler
-          ? valueHandler(newData[key], field, true)
-          : getValueByType({
-              value: newData[key],
-              field,
-              useSet: false,
-            });
       }
     });
     createModel({
