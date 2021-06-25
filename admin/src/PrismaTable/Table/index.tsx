@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
+import { usePagination, useSortBy, useTable } from 'react-table';
 
 import { columns } from './Columns';
 import { initPages } from './utils';
@@ -86,7 +86,6 @@ export const Table: React.FC<TableProps> = ({
       manualPagination: true,
       pageCount: controlledPageCount,
     } as any,
-    useFilters,
     useSortBy,
     usePagination,
   );
@@ -104,11 +103,11 @@ export const Table: React.FC<TableProps> = ({
     nextPage,
     previousPage,
     setPageSize,
-    setAllFilters,
-    state: { pageIndex, pageSize, filters, sortBy },
+    state: { pageIndex, pageSize, sortBy },
   } = tableInstance as any;
 
   const [selected, setSelected] = useState<number[]>([]);
+  const [filters, setFilters] = useState(initialFilter);
   // Listen for changes in pagination and use the state to fetch our new data
 
   const onSelectHandler = (state: boolean, id?: any) => {
@@ -137,9 +136,10 @@ export const Table: React.FC<TableProps> = ({
     sortByHandler(sortBy);
   }, [sortBy]);
 
-  React.useEffect(() => {
+  const setAllFilters = (filters: { id: string; value: any }[]) => {
     filterHandler(filters);
-  }, [filters]);
+    setFilters(filters);
+  };
 
   const actions = userActions
     ? {

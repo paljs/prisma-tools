@@ -39,14 +39,14 @@ const columnsObject: GetColumns = (field, model) => ({
     Header: field.title,
     accessor: field.name,
     minWidth: 200,
-    disableFilters: !field.filter,
+
     disableSortBy: !field.sort,
     Cell: ({ value }) => (value ? new Date(value).toLocaleString() : ''),
   },
   object: {
     Header: field.title,
     accessor: field.name,
-    disableFilters: !field.filter,
+
     disableSortBy: true,
     Cell: ({ value }) => {
       const {
@@ -99,12 +99,12 @@ const columnsObject: GetColumns = (field, model) => ({
   list: {
     Header: field.title,
     accessor: field.name,
-    disableFilters: !field.filter,
+
     disableSortBy: true,
     Cell: ({ row }) => {
       const { push, pagesPath, lang } = useContext(TableContext);
       if (!model) return <></>;
-      const id = (row.original as any).id;
+      const id = (row.original as any)[model.idField];
       return (
         <button
           className={classNames(

@@ -42,7 +42,7 @@
     "@graphql-codegen/typescript": "1.22.3",
     "@graphql-codegen/typescript-operations": "1.18.2",
     "@graphql-codegen/typescript-react-apollo": "2.2.7",
-    "@paljs/cli": "3.5.2",
+    "@paljs/cli": "3.5.3",
     "@types/bcryptjs": "2.4.2",
     "@types/cookie": "0.4.0",
     "@types/graphql": "14.5.0",
