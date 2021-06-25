@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getUserId } from '../utils'
+//import { getUserId } from '../utils'
 import prisma from './prisma'
 
 export interface Context extends NextApi {
@@ -18,7 +18,7 @@ export function createContext({ req, res }: NextApi): Context {
     req,
     res,
     prisma,
-    userId: getUserId(req),
+    //userId: getUserId(req),
     select: {},
   }
 }

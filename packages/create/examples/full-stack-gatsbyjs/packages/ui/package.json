@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "3.x",
-    "@paljs/admin": "3.4.0",
+    "@paljs/admin": "3.5.0",
     "@paljs/ui": "1.x",
     "@paljs/icons": "1.x",
     "babel-plugin-styled-components": "1.x",

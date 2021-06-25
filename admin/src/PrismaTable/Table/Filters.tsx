@@ -279,16 +279,38 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
 }) => {
   const { dir } = useContext(TableContext);
   const model = useModel(field.type)!;
-  const [currentField, setCurrentField] = useState<Option>({
-    id: model.fields[0].name,
-    name: model.fields[0].title,
-  });
-  const getField = model.fields.find((item) => item.name === currentField.id)!;
   const filter = filterValue
     ? field.list
       ? filterValue.some
       : filterValue
     : {};
+  const options = model.fields
+    .filter(
+      (item) =>
+        item.filter &&
+        item.kind !== 'object' &&
+        !item.list &&
+        item.type !== 'Json',
+    )
+    .sort((a, b) => a.order - b.order)
+    .map((item) => ({
+      id: item.name,
+      name: (
+        <div className="flex items-center">
+          <span>{item.title}</span>{' '}
+          {filter[item.name] && (
+            <SearchCircleIcon className="h-5 w-5 text-green-500" />
+          )}
+        </div>
+      ),
+    }));
+
+  const [currentField, setCurrentField] = useState<Option>(
+    filterValue ? options.find((item) => !!filter[item.id])! : options[0],
+  );
+
+  const getField = model.fields.find((item) => item.name === currentField.id)!;
+
   const props: FilterComponentsProps | null = getField
     ? {
         field: getField,
@@ -312,10 +334,9 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
     : null;
 
   useEffect(() => {
-    setCurrentField({
-      id: model.fields[0].name,
-      name: model.fields[0].title,
-    });
+    setCurrentField(
+      filterValue ? options.find((item) => !!filter[item.id])! : options[0],
+    );
   }, [field]);
 
   if (!props) {
@@ -350,27 +371,8 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
             setCurrentField(option);
           }
         }}
-        options={
-          model.fields
-            .filter(
-              (item) =>
-                item.kind !== 'object' && !item.list && item.type !== 'Json',
-            )
-            .sort((a, b) => a.order - b.order)
-            .map((item) => ({
-              id: item.name,
-              name: (
-                <div className="flex items-center">
-                  <span>{item.title}</span>{' '}
-                  {filter[item.name] && (
-                    <SearchCircleIcon className="h-5 w-5 text-green-500" />
-                  )}
-                </div>
-              ),
-            })) as any
-        }
+        options={options as any}
       />
-
       {filterComponent}
     </>
   );
