@@ -1,4 +1,5 @@
 import React from 'react';
+import { classNames } from './css';
 
 const Spinner: React.FC<{ h?: string; w?: string }> = ({ h, w }) => {
   return (
@@ -7,9 +8,11 @@ const Spinner: React.FC<{ h?: string; w?: string }> = ({ h, w }) => {
       className="opacity-100 absolute top-0 right-0 left-0 bottom-0 overflow-hidden flex justify-center items-center visible z-50"
     >
       <svg
-        className={`animate-spin -ml-1 mr-3 ${h ? h : 'h-10'} ${
-          w ? w : 'w-10'
-        } text-gray-700`}
+        className={classNames(
+          'animate-spin -ml-1 mr-3 text-gray-700',
+          h ? h : 'h-10',
+          w ? w : 'w-10',
+        )}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

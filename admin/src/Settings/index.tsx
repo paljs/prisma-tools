@@ -17,6 +17,7 @@ import UpdateField from './UpdateField';
 import Select from '../components/Select';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
 import { ContextProps, SchemaModel } from '../types';
+import { classNames } from '../components/css';
 
 const defaultLanguage = {
   dir: 'ltr',
@@ -28,14 +29,14 @@ const defaultLanguage = {
   displayFields: 'Display Fields',
   fieldName: 'Field Name',
   actions: 'Actions',
-  create: 'create',
-  update: 'update',
-  delete: 'delete',
-  read: 'read',
-  filter: 'filter',
-  sort: 'sort',
-  editor: 'editor',
-  upload: 'upload',
+  create: 'Create',
+  update: 'Update',
+  delete: 'Delete',
+  read: 'Read',
+  filter: 'Filter',
+  sort: 'Sort',
+  editor: 'Editor',
+  upload: 'Upload',
   tableView: 'Table View',
   inputType: 'Input Type',
 };
@@ -89,7 +90,10 @@ export const Settings: React.FC<{
   return (
     <div className="flex w-full flex-wrap">
       <div
-        className={`lg:w-1/2 w-full ${dir === 'rtl' ? 'lg:pl-4' : 'lg:pr-4'}`}
+        className={classNames(
+          'lg:w-1/2 w-full',
+          dir === 'rtl' ? 'lg:pl-4' : 'lg:pr-4',
+        )}
       >
         <div className="flex flex-col bg-white rounded shadow-lg text-gray-800 mb-5">
           <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold">
@@ -113,6 +117,7 @@ export const Settings: React.FC<{
                     name: model.name,
                   }))}
                   dir={dir}
+                  popupFullWidth
                 />
               )}
             </div>
@@ -152,11 +157,12 @@ export const Settings: React.FC<{
                               className="flex flex-col w-full bg-white relative mb-2 rounded-md shadow-lg"
                             >
                               <div
-                                className={`flex items-center justify-between font-bold text-gray-700 w-full px-8 py-6 ${
+                                className={classNames(
+                                  'flex items-center justify-between font-bold text-gray-700 w-full px-8 py-6 cursor-pointer',
                                   field.id === openedField
                                     ? 'border-b border-gray-200'
-                                    : ''
-                                } cursor-pointer`}
+                                    : '',
+                                )}
                                 onClick={() =>
                                   setOpenedField(
                                     field.id === openedField ? '' : field.id,
@@ -164,9 +170,10 @@ export const Settings: React.FC<{
                                 }
                               >
                                 <div
-                                  className={`flex items-center space-x-2.5 ${
-                                    dir === 'rtl' ? 'space-x-reverse' : ''
-                                  }`}
+                                  className={classNames(
+                                    'flex items-center space-x-2.5',
+                                    dir === 'rtl' ? 'space-x-reverse' : '',
+                                  )}
                                 >
                                   <MenuIcon className="w-5 h-5 text-blue-700" />
                                   <span>{field.title}</span>

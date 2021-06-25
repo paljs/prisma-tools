@@ -1,4 +1,5 @@
 import React from 'react';
+import { classNames } from './css';
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id?: string;
@@ -16,12 +17,18 @@ const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <label
       htmlFor={id}
-      className={`flex items-center ${label ? '' : 'justify-center'} space-x-3`}
+      className={classNames(
+        label ? '' : 'justify-center',
+        'flex items-center space-x-3',
+      )}
     >
       <input
         id={id}
         type="checkbox"
-        className={`${className} form-checkbox rounded text-blue-600 h-5 w-5 outline-none focus:outline-none focus:ring-1 focus:ring-opacity-25 focus:ring-offset-blue-300`}
+        className={classNames(
+          className || '',
+          'form-checkbox rounded text-blue-600 h-5 w-5 outline-none focus:outline-none focus:ring-1 focus:ring-opacity-25 focus:ring-offset-blue-300',
+        )}
         style={
           indeterminate
             ? {

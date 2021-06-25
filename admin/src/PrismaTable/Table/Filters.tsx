@@ -5,8 +5,9 @@ import { useFilter } from './useFilter';
 import { useEnum, useModel } from '../useSchema';
 import { SchemaField, SchemaModel } from '../../types';
 import { TableContext } from '../Context';
-import { SearchCircleIcon } from '@heroicons/react/solid';
-import { buttonClasses, inputClasses } from '../../components/css';
+import { SearchCircleIcon, TrashIcon } from '@heroicons/react/solid';
+import { buttonClasses, classNames, inputClasses } from '../../components/css';
+import { randString } from './utils';
 
 interface Option {
   id: any;
@@ -30,6 +31,70 @@ export const Filter: React.FC<FilterProps> = ({
   setAllFilters,
   filters,
 }) => {
+  const [state, setState] = useState(filters.map(() => randString(10)));
+  const { lang } = useContext(TableContext);
+
+  const deleteFilter = (index: number) => {
+    setState([...state.filter((_, i) => i !== index)]);
+    setAllFilters([...filters.filter((_, i) => i !== index)]);
+  };
+
+  return (
+    <div
+      className={`flex w-full flex-col bg-white rounded-lg shadow border border-gray-300`}
+    >
+      {state.map((key, index) => (
+        <FilterRow
+          model={model}
+          key={key}
+          index={index}
+          deleteFilter={() => deleteFilter(index)}
+          filter={filters[index]}
+          setFilter={({ id, value }) => {
+            if (!value) {
+              setAllFilters([...filters.filter((item) => item.id !== id)]);
+            } else {
+              const newFilters = [...filters];
+              newFilters[index] = { id, value };
+              setAllFilters(newFilters);
+            }
+          }}
+        />
+      ))}
+      {state.length === 0 && (
+        <div className="p-2 text-gray-500">{lang.nonFilterMsg}</div>
+      )}
+      <div className="w-full p-2">
+        <button
+          type="button"
+          className={classNames(
+            buttonClasses,
+            'rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800',
+          )}
+          onClick={() => setState((prev) => prev.concat([randString(10)]))}
+        >
+          {lang.addFilter}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+interface FilterRowProps {
+  index: number;
+  model: SchemaModel;
+  filter?: { id: string; value: any };
+  setFilter: (option: { id: string; value: any }) => void;
+  deleteFilter: () => void;
+}
+
+const FilterRow: React.FC<FilterRowProps> = ({
+  model,
+  filter,
+  setFilter,
+  index,
+  deleteFilter,
+}) => {
   const options: Option[] = model.fields
     .filter((f) => f.filter)
     .slice()
@@ -37,53 +102,43 @@ export const Filter: React.FC<FilterProps> = ({
     .map((f) => ({ id: f.name, name: f.title }));
   const { dir } = useContext(TableContext);
 
-  const [option, setOption] = useState<Option>(options[0]);
+  const [option, setOption] = useState<Option>(
+    !filter ? options[0] : options.find((item) => item.id === filter.id)!,
+  );
 
   const getField = model.fields.find((f) => f.name === option.id)!;
-  const optionFilterValue = filters.find((f) => f.id === option.id);
-
   const props: FilterComponentsProps = {
     field: getField,
-    filterValue: optionFilterValue?.value,
-    setFilter: (value) => {
-      if (!value && optionFilterValue) {
-        setAllFilters([...filters.filter((value1) => value1.id !== option.id)]);
-      } else {
-        setAllFilters([...filters, { id: option.id, value }]);
-      }
-    },
+    filterValue: getField.name === filter?.id ? filter.value : undefined,
+    setFilter: (value) => setFilter({ id: option.id, value }),
   };
-
   let filterComponent;
   if (getField.kind === 'enum') {
-    filterComponent = <EnumFilter {...props} />;
+    filterComponent = <EnumFilter key={getField.name} {...props} />;
   } else if (getField.kind === 'object') {
-    filterComponent = <ObjectFilter {...props} />;
+    filterComponent = <ObjectFilter key={getField.name} {...props} />;
   } else {
     switch (getField.type) {
       case 'Int':
       case 'BigInt':
       case 'Decimal':
       case 'Float':
-        filterComponent = <Number {...props} />;
+      case 'DateTime':
+      case 'String':
+        filterComponent = <DefaultFilter key={getField.name} {...props} />;
         break;
       case 'Boolean':
-        filterComponent = <BooleanFilter {...props} />;
-        break;
-      case 'DateTime':
-        filterComponent = <DateTime {...props} />;
-        break;
-      case 'String':
-        filterComponent = <StringFilter {...props} />;
+        filterComponent = <BooleanFilter key={getField.name} {...props} />;
         break;
     }
   }
-
   return (
     <div
-      className={`flex space-x-4 ${
-        dir === 'rtl' ? 'space-x-reverse' : ''
-      } items-center bg-white rounded-lg shadow p-4 mb-4`}
+      className={classNames(
+        'flex flex-col space-y-2 items-center border-b border-gray-500 bg-gray-200 p-1 md:space-y-0 md:flex-row md:space-x-2',
+        dir === 'rtl' ? 'md:space-x-reverse' : '',
+        index === 0 ? 'rounded-t-lg' : '',
+      )}
     >
       <Select
         dir={dir}
@@ -92,106 +147,80 @@ export const Filter: React.FC<FilterProps> = ({
         options={options}
       />
       {filterComponent}
+      <button
+        type="button"
+        className={classNames(
+          buttonClasses,
+          'bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-75 p-2 rounded-full',
+        )}
+        onClick={deleteFilter}
+      >
+        <TrashIcon className="h-5 w-5" />
+      </button>
     </div>
   );
 };
 
-const Number: React.FC<FilterComponentsProps> = ({
+const DefaultFilter: React.FC<FilterComponentsProps> = ({
   filterValue,
   setFilter,
+  field,
 }) => {
-  const { value, onChange } = useFilter(filterValue, setFilter, true);
+  const { value, onChange } = useFilter(
+    filterValue,
+    setFilter,
+    !['String', 'DateTime'].includes(field.type),
+  );
   const { lang, dir } = useContext(TableContext);
+
+  const getName = (name: string): any => {
+    return (
+      <div className="flex items-center">
+        <span>{name}</span>{' '}
+        {filterValue && filterValue[name] && (
+          <SearchCircleIcon className="h-5 w-5 text-green-500" />
+        )}
+      </div>
+    );
+  };
   const options: Option[] = [
-    { id: 1, name: lang.equals },
-    { id: 2, name: lang.range },
-  ];
-  const [option, setOption] = useState<Option>(options[0]);
+    'equals',
+    'in',
+    'notIn',
+    'lt',
+    'lte',
+    'gt',
+    'gte',
+    'not',
+  ].map((item) => ({ id: item, name: getName(lang[item as 'gt']) }));
+  if (options.length === 8 && field.type === 'String') {
+    options.push(
+      ...['contains', 'startsWith', 'endsWith'].map((item) => ({
+        id: item,
+        name: getName(lang[item as 'gt']),
+      })),
+    );
+  }
+  const [option, setOption] = useState<Option>(
+    filterValue ? options.find((item) => !!filterValue[item.id])! : options[0],
+  );
   return (
     <>
       <Select
+        key={field.id}
         dir={dir}
         value={option}
         onChange={(option: Option) => setOption(option)}
         options={options}
       />
-      {option.id === 1 ? (
-        <input
-          style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-          className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-          placeholder={lang.equals}
-          type="number"
-          value={value?.equals ?? ''}
-          onChange={(event) => onChange({ event, name: 'equals' })}
-        />
-      ) : (
-        <>
-          <input
-            style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-            className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-            placeholder={lang.min}
-            type="number"
-            value={value?.gte ?? ''}
-            onChange={(event) => onChange({ event, name: 'gte' })}
-          />
-          <input
-            style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-            className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-            placeholder={lang.max}
-            type="number"
-            value={value?.lte ?? ''}
-            onChange={(event) => onChange({ event, name: 'lte' })}
-          />
-        </>
-      )}
-      <button
-        className={
-          buttonClasses +
-          'rounded-md py-2 px-3 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
-        }
-        onClick={() => onChange()}
-      >
-        {lang.clear}
-      </button>
-    </>
-  );
-};
-
-const DateTime: React.FC<FilterComponentsProps> = ({
-  filterValue,
-  setFilter,
-}) => {
-  const { value, onChange } = useFilter(filterValue, setFilter);
-  const { lang } = useContext(TableContext);
-  return (
-    <>
-      <span className="whitespace-nowrap">{lang.startDate}</span>
       <input
         style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-        className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-        placeholder={lang.min}
-        type="date"
-        value={value?.gte ?? ''}
-        onChange={(event) => onChange({ event, name: 'gte' })}
+        className={inputClasses.replace('py-2 px-4', 'py-2 px-3 text-sm')}
+        placeholder={lang[option.id as 'gt']}
+        type={field.type === 'DateTime' ? 'date' : 'text'}
+        value={value ? value[option.id] || '' : ''}
+        onChange={(event) => onChange({ event, name: option.id })}
       />
-      <span className="whitespace-nowrap">{lang.endDate}</span>
-      <input
-        style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-        className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-        placeholder={lang.max}
-        type="date"
-        value={value?.lte ?? ''}
-        onChange={(event) => onChange({ event, name: 'lte' })}
-      />
-      <button
-        className={
-          buttonClasses +
-          'rounded-md py-2 px-3 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
-        }
-        onClick={() => onChange()}
-      >
-        {lang.clear}
-      </button>
     </>
   );
 };
@@ -216,34 +245,6 @@ export const BooleanFilter: React.FC<FilterComponentsProps> = ({
       }
       options={options}
     />
-  );
-};
-
-export const StringFilter: React.FC<FilterComponentsProps> = ({
-  filterValue,
-  setFilter,
-}) => {
-  const { value, onChange } = useFilter(filterValue, setFilter);
-  const { lang } = useContext(TableContext);
-  return (
-    <>
-      <input
-        style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
-        className={inputClasses.replace('py-2 px-4', 'py-2 px-3 ')}
-        type="text"
-        value={value?.contains ?? ''}
-        onChange={(event) => onChange({ event, name: 'contains' })}
-      />
-      <button
-        className={
-          buttonClasses +
-          'rounded-md py-2 px-3 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800'
-        }
-        onClick={() => onChange()}
-      >
-        {lang.clear}
-      </button>
-    </>
   );
 };
 
@@ -327,17 +328,15 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
   } else {
     switch (getField.type) {
       case 'Int':
+      case 'BigInt':
+      case 'Decimal':
       case 'Float':
-        filterComponent = <Number {...props} />;
+      case 'DateTime':
+      case 'String':
+        filterComponent = <DefaultFilter {...props} />;
         break;
       case 'Boolean':
         filterComponent = <BooleanFilter {...props} />;
-        break;
-      case 'DateTime':
-        filterComponent = <DateTime {...props} />;
-        break;
-      case 'String':
-        filterComponent = <StringFilter {...props} />;
         break;
     }
   }
@@ -371,6 +370,7 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
             })) as any
         }
       />
+
       {filterComponent}
     </>
   );

@@ -7,6 +7,7 @@ import DynamicTable from './dynamicTable';
 import { queryDocument } from './QueryDocument';
 import { TableContext } from './Context';
 import Select, { Option } from '../components/Select';
+import { classNames } from '../components/css';
 
 interface EditRecordProps {
   model: string;
@@ -91,9 +92,10 @@ const EditRecord: React.FC<EditRecordProps> = ({
         <div className="w-full">
           <div className="flex items-center bg-white rounded shadow-lg mb-4 p-4">
             <div
-              className={`text-gray-700 font-bold ${
-                dir === 'rtl' ? 'ml-4' : 'mr-4'
-              }`}
+              className={classNames(
+                'text-gray-700 font-bold',
+                dir === 'rtl' ? 'ml-4' : 'mr-4',
+              )}
             >
               {lang.relation}
             </div>

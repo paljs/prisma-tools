@@ -11,7 +11,7 @@ import { TableContext } from '../Context';
 import { FormInputs, ModelTableProps } from '../../types';
 import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
-import { buttonClasses, inputClasses } from '../../components/css';
+import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { getDate } from './getDate';
 import { SchemaField } from '@paljs/types';
 
@@ -27,7 +27,7 @@ const getFieldValidation = (
   const modelName = field.id.split('.')[0];
   return inputValidation
     ? inputValidation[modelName]
-      ? inputValidation[modelName][field.name]
+      ? inputValidation[modelName][field.name] || {}
       : {}
     : {};
 };
@@ -74,7 +74,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           )}
         </div>
         <input
-          className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
+          className={classNames(
+            'w-full',
+            inputClasses,
+            error ? 'border-red-400' : '',
+          )}
           {...register(field.name, {
             required: field.required,
             ...getFieldValidation(field, inputValidation),
@@ -192,11 +196,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           <button
             disabled={disabled}
             type="button"
-            className={
-              'absolute top-2.5 left-1 ' +
-              buttonClasses +
-              'rounded-md bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
-            }
+            className={classNames(
+              'absolute top-2.5 left-1',
+              buttonClasses,
+              'rounded-md bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25',
+            )}
             onClick={() => setModal(!modal)}
           >
             <SearchIcon className="h-5 w-5" />
@@ -205,11 +209,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             <button
               disabled={disabled}
               type="button"
-              className={
-                'absolute top-2.5 right-1 ' +
-                buttonClasses +
-                'rounded-md bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
-              }
+              className={classNames(
+                'absolute top-2.5 right-1',
+                buttonClasses,
+                'rounded-md bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25',
+              )}
               onClick={() => {
                 setSate({});
                 setValue(field.name, null, {
@@ -243,7 +247,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           )}
         </div>
         <input
-          className={`w-full ${inputClasses} ${error ? 'border-red-400' : ''}`}
+          className={classNames(
+            'w-full',
+            inputClasses,
+            error ? 'border-red-400' : '',
+          )}
           type="datetime-local"
           disabled={disabled}
           defaultValue={value ? getDate(new Date(value)) : undefined}

@@ -3,7 +3,7 @@
     {
       "id": "User",
       "name": "User",
-      "idField": "id",
+      "idField": "email",
       "displayFields": ["id"],
       "create": true,
       "update": true,

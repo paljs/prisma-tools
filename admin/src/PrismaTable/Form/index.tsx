@@ -6,7 +6,7 @@ import { Inputs } from './Inputs';
 import useActions from './useActions';
 import { TableContext } from '../Context';
 import { SchemaModel } from '../../types';
-import { buttonClasses } from '../../components/css';
+import { buttonClasses, classNames } from '../../components/css';
 import { getDate } from './getDate';
 
 export interface FormProps {
@@ -65,16 +65,10 @@ const Form: React.FC<FormProps> = ({
   const model = models.find((item) => item.id === modelName)!;
   const { onSubmit, loading } = useActions(model, data, action, onSave);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    watch,
-    formState,
-  } = useForm({
-    defaultValues: getDefaultValues(action, model, data),
-  });
+  const { register, handleSubmit, setValue, getValues, watch, formState } =
+    useForm({
+      defaultValues: getDefaultValues(action, model, data),
+    });
 
   const { errors, isDirty } = formState;
 
@@ -156,10 +150,10 @@ const Form: React.FC<FormProps> = ({
         </div>
         <div className="flex justify-end py-4 px-5 rounded-b border-t border-gray-100">
           <button
-            className={
-              buttonClasses +
-              'rounded-md py-2 px-4 bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25'
-            }
+            className={classNames(
+              buttonClasses,
+              'rounded-md py-2 px-4 bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25',
+            )}
             type="button"
             onClick={onCancel}
           >
@@ -167,10 +161,10 @@ const Form: React.FC<FormProps> = ({
           </button>
           {action !== 'view' && (
             <button
-              className={
-                buttonClasses +
-                'rounded-md py-2 px-4 bg-green-500 text-white active:bg-green-600 shadow hover:bg-green-800'
-              }
+              className={classNames(
+                buttonClasses,
+                'rounded-md py-2 px-4 bg-green-500 text-white active:bg-green-600 shadow hover:bg-green-800',
+              )}
               type="submit"
               disabled={Object.keys(errors).length !== 0 || !isDirty}
             >

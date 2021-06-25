@@ -8,7 +8,7 @@ import {
   GetColumns,
 } from '../../types';
 import { TableContext } from '../Context';
-import { buttonClasses } from '../../components/css';
+import { buttonClasses, classNames } from '../../components/css';
 
 const columnsObject: GetColumns = (field, model) => ({
   boolean: {
@@ -72,10 +72,10 @@ const columnsObject: GetColumns = (field, model) => ({
             padding: 0,
             textTransform: 'none',
           }}
-          className={
-            buttonClasses +
-            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
-          }
+          className={classNames(
+            buttonClasses,
+            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25',
+          )}
         >
           {getDisplayName(value, model)}
         </button>
@@ -107,10 +107,10 @@ const columnsObject: GetColumns = (field, model) => ({
       const id = (row.original as any).id;
       return (
         <button
-          className={
-            buttonClasses +
-            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25'
-          }
+          className={classNames(
+            buttonClasses,
+            'rounded-md py-2 px-4 bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25',
+          )}
           onClick={() => push(`${pagesPath}${field.type}?${model.id}=${id}`)}
         >
           {lang.show}

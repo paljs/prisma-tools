@@ -4,7 +4,7 @@ import { SchemaModel } from '../../types';
 import { useListConnectToOne } from '../useListConnectToOne';
 import Spinner from '../../components/Spinner';
 import { TableContext } from '../Context';
-import { buttonClasses } from '../../components/css';
+import { buttonClasses, classNames } from '../../components/css';
 
 interface ListConnectProps {
   parent: { name: string; value: any; field: string };
@@ -27,11 +27,13 @@ export const ListConnect: React.FC<ListConnectProps> = ({
   return (
     <td className="px-4 py-2 text-center whitespace-nowrap">
       <button
-        className={`${buttonClasses} rounded-md py-2 px-4 bg-transparent ${
+        className={classNames(
+          buttonClasses,
+          'rounded-md py-2 px-4 bg-transparent hover:bg-opacity-25',
           isConnected
             ? 'text-red-600 hover:bg-red-100'
-            : 'text-green-600 hover:bg-green-100'
-        } hover:bg-opacity-25`}
+            : 'text-green-600 hover:bg-green-100',
+        )}
         onClick={() => listConnectToOne(model, rowId, !isConnected)}
       >
         {isConnected ? lang.disConnect : lang.connect}

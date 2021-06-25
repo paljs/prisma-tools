@@ -11,6 +11,7 @@ const filterMemo = (modelName: string, filter?: any) => {
       const model = models.find((item) => item.id === modelName);
       Object.keys(filter).forEach((key) => {
         if (model && filter[key]) {
+          // filter by model field type
           const field = model.fields.find((item) => item.type === key);
           const fieldModel = models.find((item) => item.id === field?.type);
           if (fieldModel) {
@@ -31,12 +32,14 @@ const filterMemo = (modelName: string, filter?: any) => {
               value,
             });
           }
-          if (key === 'id') {
+          // filter by model field name
+          const fieldByName = model.fields.find((item) => item.name === key);
+          if (fieldByName) {
             initialValue.push({
               id: key,
               value: {
                 equals:
-                  field?.type === 'String'
+                  fieldByName.type === 'String'
                     ? filter[key]
                     : parseInt(filter[key]),
               },

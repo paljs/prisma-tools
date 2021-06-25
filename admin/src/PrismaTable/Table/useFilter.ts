@@ -23,7 +23,13 @@ export const useFilter = (
         if (!search) {
           search = {};
         }
-        search[key] = newValue[key];
+        if (['in', 'notIn'].includes(key)) {
+          search[key] = (newValue[key] as string)
+            .split(',')
+            .map((item) => (number ? parseFloat(item) : item));
+        } else {
+          search[key] = number ? parseFloat(newValue[key]) : newValue[key];
+        }
       }
     });
     setFilter(search ?? undefined);
@@ -39,16 +45,12 @@ export const useFilter = (
       onChangeHandler({});
     } else if (options.name) {
       const { event, name, value } = options;
-      const search = event?.target.value || value;
+      const search: string = event?.target.value || value;
       if (state.typingTimeout) clearTimeout(state.typingTimeout);
+
       const newValue = {
         ...state.value,
-        [name]:
-          search || value === false
-            ? number
-              ? parseFloat(search)
-              : search
-            : undefined,
+        [name]: search || value === false ? search : undefined,
       };
       setState({
         value: newValue,
