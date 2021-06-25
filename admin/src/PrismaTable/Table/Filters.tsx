@@ -96,7 +96,7 @@ const FilterRow: React.FC<FilterRowProps> = ({
   deleteFilter,
 }) => {
   const options: Option[] = model.fields
-    .filter((f) => f.filter)
+    .filter((f) => f.filter && f.read)
     .slice()
     .sort((a, b) => a.order - b.order)
     .map((f) => ({ id: f.name, name: f.title }));
