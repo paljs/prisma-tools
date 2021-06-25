@@ -83,19 +83,18 @@ const useActions = (
       if (field?.update) {
         if (field.kind === 'object') {
           const fieldModel = models.find((item) => item.id === field.type)!;
+          console.log(newData);
           if (
             (newData[key] && !data[key]) ||
-            (newData[key] &&
-              newData[key][fieldModel.idField] !==
-                data[key][fieldModel.idField])
+            (newData[key] && newData[key] !== data[key][fieldModel.idField])
           ) {
             const editField = fieldModel.fields.find(
               (item) => item.name === fieldModel.idField,
             )!;
             updateData[key] = {
               connect: {
-                id: getValueByType({
-                  value: newData[key][fieldModel.idField],
+                [fieldModel.idField]: getValueByType({
+                  value: newData[key],
                   field: editField,
                   useSet: false,
                 }),
@@ -115,7 +114,7 @@ const useActions = (
       updateModel({
         variables: {
           where: {
-            id: data.id,
+            [model.idField]: data[model.idField],
           },
           data: updateData,
         },
@@ -137,8 +136,8 @@ const useActions = (
         if (newData[key]) {
           createData[key] = {
             connect: {
-              id: getValueByType({
-                value: newData[key][fieldModel.idField],
+              [fieldModel.idField]: getValueByType({
+                value: newData[key],
                 field: editField,
                 useSet: false,
               }),

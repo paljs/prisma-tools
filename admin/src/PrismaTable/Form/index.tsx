@@ -21,6 +21,7 @@ const getDefaultValues = (
   action: FormProps['action'],
   model: SchemaModel,
   data: any,
+  models: SchemaModel[],
 ) => {
   const defaultValues: any = {};
   model.fields
@@ -37,14 +38,22 @@ const getDefaultValues = (
       if (!data[field.name]) {
         defaultValues[field.name] = data[field.name];
       } else {
-        defaultValues[field.name] =
-          field.type === 'DateTime'
-            ? getDate(new Date(data[field.name]))
-            : field.type === 'Json'
-            ? JSON.stringify(data[field.name])
-            : field.list
-            ? data[field.name].join(',')
-            : data[field.name];
+        const valueHandler = () => {
+          if (field.type === 'DateTime') {
+            return getDate(new Date(data[field.name]));
+          } else if (field.type === 'Json') {
+            return JSON.stringify(data[field.name]);
+          } else if (field.list) {
+            return data[field.name].join(',');
+          } else if (field.kind === 'object') {
+            const fieldModel = models.find((item) => item.id === field.type)!;
+            return data[field.name][fieldModel?.idField];
+          } else {
+            return data[field.name];
+          }
+        };
+
+        defaultValues[field.name] = valueHandler();
       }
     });
   return defaultValues;
@@ -67,7 +76,7 @@ const Form: React.FC<FormProps> = ({
 
   const { register, handleSubmit, setValue, getValues, watch, formState } =
     useForm({
-      defaultValues: getDefaultValues(action, model, data),
+      defaultValues: getDefaultValues(action, model, data, models),
     });
 
   const { errors, isDirty } = formState;

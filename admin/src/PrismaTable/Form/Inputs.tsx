@@ -178,7 +178,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             connect={Object.keys(state).length > 0 ? result : {}}
             onConnect={(_value) => {
               setSate(_value);
-              setValue(field.name, _value, {
+              setValue(field.name, _value[model.idField], {
                 shouldValidate: true,
                 shouldDirty: true,
               });

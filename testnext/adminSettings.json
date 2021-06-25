@@ -12,26 +12,6 @@
       "delete": true,
       "fields": [
         {
-          "id": "User.posts",
-          "name": "posts",
-          "title": "Posts",
-          "type": "Post",
-          "list": true,
-          "required": false,
-          "isId": false,
-          "unique": false,
-          "create": true,
-          "update": true,
-          "read": true,
-          "filter": true,
-          "sort": true,
-          "editor": false,
-          "upload": false,
-          "relationField": null,
-          "order": 1,
-          "kind": "object"
-        },
-        {
           "id": "User.id",
           "name": "id",
           "title": "Id",
@@ -48,7 +28,7 @@
           "editor": false,
           "upload": false,
           "relationField": false,
-          "order": 2,
+          "order": 1,
           "kind": "scalar"
         },
         {
@@ -68,7 +48,7 @@
           "editor": false,
           "upload": false,
           "relationField": false,
-          "order": 3,
+          "order": 2,
           "kind": "scalar"
         },
         {
@@ -88,7 +68,7 @@
           "editor": false,
           "upload": false,
           "relationField": false,
-          "order": 4,
+          "order": 3,
           "kind": "scalar"
         },
         {
@@ -108,7 +88,7 @@
           "editor": false,
           "upload": false,
           "relationField": false,
-          "order": 5,
+          "order": 4,
           "kind": "scalar"
         },
         {
@@ -128,7 +108,7 @@
           "editor": false,
           "upload": false,
           "relationField": null,
-          "order": 6,
+          "order": 5,
           "kind": "object"
         },
         {
@@ -148,8 +128,28 @@
           "editor": false,
           "upload": false,
           "relationField": true,
-          "order": 7,
+          "order": 6,
           "kind": "scalar"
+        },
+        {
+          "id": "User.posts",
+          "name": "posts",
+          "title": "Posts",
+          "type": "Post",
+          "list": true,
+          "required": false,
+          "isId": false,
+          "unique": false,
+          "create": true,
+          "update": true,
+          "read": true,
+          "filter": true,
+          "sort": true,
+          "editor": false,
+          "upload": false,
+          "relationField": null,
+          "order": 7,
+          "kind": "object"
         },
         {
           "id": "User.comments",
@@ -181,7 +181,7 @@
           "isId": false,
           "unique": false,
           "create": false,
-          "update": false,
+          "update": true,
           "read": true,
           "filter": true,
           "sort": true,
@@ -540,7 +540,7 @@
       "name": "Group",
       "idField": "id",
       "displayFields": [
-        "id"
+        "name"
       ],
       "create": true,
       "update": true,
