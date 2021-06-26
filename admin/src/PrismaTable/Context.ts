@@ -22,6 +22,4 @@ const initialContext: ContextProps = {
   ...defaultSettings,
 };
 
-export const TableContext: React.Context<ContextProps> = React.createContext(
-  initialContext,
-);
+export const TableContext = React.createContext<ContextProps>(initialContext);

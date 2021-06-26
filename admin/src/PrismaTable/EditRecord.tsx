@@ -32,8 +32,23 @@ const EditRecord: React.FC<EditRecordProps> = ({
     dir,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
-  const [getRecord, { data, loading, error }] = useLazyQuery(
+  const isField = modelObject?.fields.find(
+    (field) => field.name === modelObject?.idField,
+  );
+  const [getRecord, { data, loading, error, refetch }] = useLazyQuery(
     queryDocument(models, model, true, true),
+    {
+      variables: modelObject
+        ? {
+            where: {
+              [modelObject.idField]:
+                isField?.type === 'String'
+                  ? update || view
+                  : parseInt(update || view),
+            },
+          }
+        : undefined,
+    },
   );
 
   const tabs = modelObject?.fields.filter(
@@ -44,20 +59,8 @@ const EditRecord: React.FC<EditRecordProps> = ({
   const [option, setOption] = useState(options[0]);
   const relationField = tabs?.find((t) => t.id === option.id);
 
-  const isField = modelObject?.fields.find(
-    (field) => field.name === modelObject?.idField,
-  );
   if (modelObject && !data && !loading && !error) {
-    getRecord({
-      variables: {
-        where: {
-          [modelObject.idField]:
-            isField?.type === 'String'
-              ? update || view
-              : parseInt(update || view),
-        },
-      },
-    });
+    getRecord();
   }
 
   const record = data ? data[`findUnique${model}`] : {};
@@ -113,7 +116,12 @@ const EditRecord: React.FC<EditRecordProps> = ({
               model={relationField.type}
               inEdit
               filter={{ [model]: record[modelObject.idField] }}
-              parent={{ name: model, value: record, field: relationField.name }}
+              parent={{
+                name: model,
+                value: record,
+                field: relationField.name,
+                updateRecord: refetch,
+              }}
             />
           )}
         </div>

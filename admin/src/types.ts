@@ -1,14 +1,11 @@
 import React from 'react';
-import {
-  Column,
-  UseFiltersColumnOptions,
-  UseSortByColumnOptions,
-} from 'react-table';
+import { Column, UseSortByColumnOptions } from 'react-table';
 import { UseFormReturn, FieldError } from 'react-hook-form';
 import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
 import { DynamicTableProps } from './PrismaTable/dynamicTable';
 import { RegisterOptions } from 'react-hook-form/dist/types/validator';
+import { type } from 'os';
 
 export type { Schema, SchemaField, SchemaModel };
 
@@ -21,9 +18,7 @@ export type Columns = Record<
   | 'string'
   | 'list'
   | 'json',
-  Column<{ [key: string]: any }> &
-    UseFiltersColumnOptions<any> &
-    UseSortByColumnOptions<any>
+  Column<{ [key: string]: any }> & UseSortByColumnOptions<any>
 >;
 
 export interface InputProps {
@@ -100,3 +95,10 @@ export interface ModelTableProps
   language?: Partial<typeof Language>;
   children?: DynamicTableProps['children'];
 }
+
+export type TableParentRecord = {
+  name: string;
+  value: any;
+  field: string;
+  updateRecord?: () => void;
+};

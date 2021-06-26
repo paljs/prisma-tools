@@ -65,7 +65,7 @@ const handleFilter = (filters: { id: string; value: any }[]) => {
 
 export const useFilterAndSort = (model: string, filter?: any) => {
   const initialFilter = filterMemo(model, filter);
-  const [where, setWhere] = useState<any>();
+  const [where, setWhere] = useState<any>(handleFilter(initialFilter));
   const [orderBy, setOrderBy] = useState<any[]>();
 
   const filterHandler = (filters: { id: string; value: any }[]) => {

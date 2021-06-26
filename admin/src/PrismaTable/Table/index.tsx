@@ -26,8 +26,10 @@ import {
 import { Filter } from './Filters';
 import { buttonClasses, classNames } from '../../components/css';
 import { Popover, Transition } from '@headlessui/react';
+import { TableParentRecord } from '../..';
 
 interface TableProps {
+  getData: () => void;
   inEdit?: boolean;
   model: string;
   data: any[];
@@ -39,7 +41,7 @@ interface TableProps {
   filterHandler: (filters: { id: string; value: any }[]) => void;
   onAction: (action: 'create' | 'delete' | 'connect', value?: unknown) => void;
   connect?: any;
-  parent?: { name: string; value: any; field: string };
+  parent?: TableParentRecord;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -55,6 +57,7 @@ export const Table: React.FC<TableProps> = ({
   inEdit,
   connect,
   parent,
+  getData,
 }) => {
   const {
     schema: { models },
@@ -454,6 +457,7 @@ export const Table: React.FC<TableProps> = ({
                           )}
                           {parent && model && fieldUpdate && (
                             <ListConnect
+                              getData={getData}
                               parent={parent}
                               row={row}
                               model={model}
