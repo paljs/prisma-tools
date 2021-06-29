@@ -125,15 +125,17 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   ) => {
     switch (action) {
       case 'delete':
-        deleteOne({
-          variables: {
-            where: {
-              id: value,
+        if (modelObject) {
+          deleteOne({
+            variables: {
+              where: {
+                [modelObject.idField]: value,
+              },
             },
-          },
-        }).then(() => {
-          getData();
-        });
+          }).then(() => {
+            getData();
+          });
+        }
         break;
       case 'create':
         setCreate(true);

@@ -6,6 +6,7 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
   output   = "./client"
+  previewFeatures = ["selectRelationCount", "nApi", "referentialActions"]
 }
 
 model Admin {
@@ -14,14 +15,13 @@ model Admin {
   email     String   @unique
   name      String?
   password  String
-  /// @onDelete(CASCADE)
   logs      Log[]
 }
 
 model Log {
   id        Int      @id @default(autoincrement())
   title     String
-  author    Admin?   @relation(fields: [authorId], references: [id])
+  author    Admin?   @relation(fields: [authorId], onDelete: Cascade, references: [id])
   authorId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

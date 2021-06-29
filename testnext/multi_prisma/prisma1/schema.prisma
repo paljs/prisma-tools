@@ -6,6 +6,7 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
   output   = "./client"
+  previewFeatures = ["selectRelationCount", "nApi", "referentialActions"]
 }
 
 // models examples
@@ -15,11 +16,9 @@ model User {
   email     String    @unique
   name      String?
   password  String
-  /// @onDelete(CASCADE)
   posts     Post[]
-  group     Group?    @relation(fields: [groupId], references: [id])
+  group     Group?    @relation(fields: [groupId], onDelete: SetNull, references: [id])
   groupId   Int?
-  /// @onDelete(SET_NULL)
   comments  Comment[]
 }
 
@@ -27,9 +26,8 @@ model Post {
   id        Int       @id @default(autoincrement())
   published Boolean   @default(false)
   title     String
-  author    User?     @relation(fields: [authorId], references: [id])
+  author    User?     @relation(fields: [authorId], onDelete: Cascade, references: [id])
   authorId  Int?
-  /// @onDelete(CASCADE)
   comments  Comment[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -38,9 +36,9 @@ model Post {
 model Comment {
   id        Int      @id @default(autoincrement())
   contain   String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], onDelete: Cascade, references: [id])
   postId    Int
-  author    User?    @relation(fields: [authorId], references: [id])
+  author    User?    @relation(fields: [authorId], onDelete: SetNull, references: [id])
   authorId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -51,6 +49,5 @@ model Group {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  /// @onDelete(SET_NULL)
   users     User[]
 }

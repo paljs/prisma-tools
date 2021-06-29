@@ -1,28 +1,15 @@
-import { PrismaClient, Prisma as PrismaTypes } from '../../../multi_prisma/prisma2/client'
-import { PrismaDelete, onDeleteArgs } from '@paljs/plugins'
-
-class Prisma extends PrismaClient {
-  constructor(options?: PrismaTypes.PrismaClientOptions) {
-    super(options)
-  }
-
-  async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this, { dmmf: PrismaTypes.dmmf })
-    await prismaDelete.onDelete(args)
-  }
-}
-
+import { PrismaClient } from '../../../multi_prisma/prisma2/client'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-let db: Prisma
+let db: PrismaClient
 if (process.env.NODE_ENV === 'production') {
-  db = new Prisma()
+  db = new PrismaClient()
   console.log('Production: Created DB2 connection.')
 } else {
   // @ts-ignore
   if (!global.db2) {
     // @ts-ignore
-    global.db2 = new Prisma()
+    global.db2 = new PrismaClient()
     console.log('Development: Created DB2 connection.')
   }
 

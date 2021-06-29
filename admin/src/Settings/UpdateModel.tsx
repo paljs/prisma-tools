@@ -123,15 +123,11 @@ const UpdateModel: React.FC<{
   return (
     <>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">{language.dbName}</div>
-        <div className="w-2/3 col-span-2 text-gray-400 font-bold">
-          {modelObject.id}
-        </div>
+        <div className="w-1/3 text-gray-400">{language.dbName}</div>
+        <div className="w-2/3 col-span-2 text-gray-400">{modelObject.id}</div>
       </div>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">
-          {language.displayName}
-        </div>
+        <div className="w-1/3 text-gray-400">{language.displayName}</div>
         <div className="w-2/3">
           <input
             name="name"
@@ -143,7 +139,7 @@ const UpdateModel: React.FC<{
         </div>
       </div>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">{language.idField}</div>
+        <div className="w-1/3 text-gray-400">{language.idField}</div>
         <Select
           dir={language.dir}
           popupFullWidth
@@ -159,9 +155,7 @@ const UpdateModel: React.FC<{
         />
       </div>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">
-          {language.displayFields}
-        </div>
+        <div className="w-1/3 text-gray-400">{language.displayFields}</div>
         <Select
           popupFullWidth
           dir={language.dir}
@@ -172,7 +166,7 @@ const UpdateModel: React.FC<{
         />
       </div>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">{language.actions}</div>
+        <div className="w-1/3 text-gray-400">{language.actions}</div>
         <div className="w-2/3 flex">
           {fieldsArray.map((key, index) => (
             <Checkbox

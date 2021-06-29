@@ -82,7 +82,6 @@ export interface Options {
   disableQueries?: boolean;
   disableMutations?: boolean;
   excludeFieldsByModel: { [modelName: string]: string[] };
-  onDelete?: boolean;
   excludeQueriesAndMutationsByModel: {
     [modelName: string]: QueriesAndMutations[];
   };

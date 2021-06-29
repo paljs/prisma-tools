@@ -6,7 +6,6 @@ export const GroupDeleteOneMutation = mutationField('deleteOneGroup', {
     where: nonNull('GroupWhereUniqueInput'),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
-    await prisma.onDelete({ model: 'Group', where })
     return prisma.group.delete({
       where,
       ...select,

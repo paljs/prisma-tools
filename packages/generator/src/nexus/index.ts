@@ -53,8 +53,9 @@ export class GenerateNexus extends Generators {
             field.outputType.location === 'scalar' &&
             field.outputType.type !== 'DateTime'
           ) {
-            fileContent += `t${this.getNullOrList(field)}.${(field.outputType
-              .type as String).toLowerCase()}('${field.name}'${
+            fileContent += `t${this.getNullOrList(field)}.${(
+              field.outputType.type as String
+            ).toLowerCase()}('${field.name}'${
               fieldDocs ? `, {description: \`${fieldDocs}\`}` : ''
             })\n`;
           } else {
@@ -96,7 +97,6 @@ export class GenerateNexus extends Generators {
             'query',
             item,
             this.options.prismaName,
-            this.options.onDelete,
             this.isJS,
           );
           this.createFileIfNotfound(
@@ -126,7 +126,6 @@ export class GenerateNexus extends Generators {
             'mutation',
             item,
             this.options.prismaName,
-            this.options.onDelete,
             this.isJS,
           );
           this.createFileIfNotfound(

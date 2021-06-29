@@ -11,23 +11,25 @@ export class Generator {
       | GenerateSdl
       | GenerateModules
       | GenerateNexusPrismaPlugin;
-  } = {
-    nexus: new GenerateNexus(this.generator.schemaPath, this.options),
-    sdl: new GenerateSdl(this.generator.schemaPath, this.options),
-    'graphql-modules': new GenerateModules(
-      this.generator.schemaPath,
-      this.options,
-    ),
-    'nexus-plugin-prisma': new GenerateNexusPrismaPlugin(
-      this.generator.schemaPath,
-      this.options,
-    ),
   };
 
   constructor(
     private generator: { name: GeneratorsType; schemaPath: string },
     private options?: Partial<Options>,
-  ) {}
+  ) {
+    this.generators = {
+      nexus: new GenerateNexus(this.generator.schemaPath, this.options),
+      sdl: new GenerateSdl(this.generator.schemaPath, this.options),
+      'graphql-modules': new GenerateModules(
+        this.generator.schemaPath,
+        this.options,
+      ),
+      'nexus-plugin-prisma': new GenerateNexusPrismaPlugin(
+        this.generator.schemaPath,
+        this.options,
+      ),
+    };
+  }
 
   async run() {
     if (this.generators[this.generator.name]) {

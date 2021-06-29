@@ -14,7 +14,6 @@ module.exports = {
     generator: 'nexus',
     adminSettingsPath: 'packages/server/adminSettings.json',
     output: 'packages/server/src/graphql',
-    onDelete: true,
   },
   frontend: {
     admin: {

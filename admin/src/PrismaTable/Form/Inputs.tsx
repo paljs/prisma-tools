@@ -65,7 +65,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     }
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
-        <div className="w-full text-gray-600 font-bold">
+        <div className="w-full text-gray-600">
           {field.title}
           {error && (
             <span className="text-red-700 text-xs">
@@ -110,7 +110,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     }
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
-        <div className="w-full text-gray-600 font-bold">
+        <div className="w-full text-gray-600">
           {field.title}
           {error && (
             <span className="text-red-700 text-xs">
@@ -186,7 +186,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             }}
           />
         </Modal>
-        <div className="w-full text-gray-600 font-bold">
+        <div className="w-full text-gray-600">
           {field.title}
           <span className="text-red-700 text-xs">
             {error ? lang.isRequired : ''}
@@ -238,7 +238,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     const { lang, inputValidation } = useContext(TableContext);
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
-        <div className="w-full text-gray-600 font-bold">
+        <div className="w-full text-gray-600">
           {field.title}
           {error && (
             <span className="text-red-700 text-xs">

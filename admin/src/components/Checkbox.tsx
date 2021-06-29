@@ -45,9 +45,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         {...rest}
       />
       {label && (
-        <span className="text-gray-600 whitespace-nowrap font-bold pr-1.5">
-          {label}
-        </span>
+        <span className="text-gray-600 whitespace-nowrap pr-1.5">{label}</span>
       )}
     </label>
   );

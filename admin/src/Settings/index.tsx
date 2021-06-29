@@ -96,7 +96,7 @@ export const Settings: React.FC<{
         )}
       >
         <div className="flex flex-col bg-white rounded shadow-lg text-gray-800 mb-5">
-          <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold">
+          <header className="py-4 px-5 rounded-t border-b border-gray-100">
             {mergeLanguage.header}
           </header>
           <div
@@ -158,7 +158,7 @@ export const Settings: React.FC<{
                             >
                               <div
                                 className={classNames(
-                                  'flex items-center justify-between font-bold text-gray-700 w-full px-8 py-6 cursor-pointer',
+                                  'flex items-center justify-between text-gray-700 w-full px-8 py-6 cursor-pointer',
                                   field.id === openedField
                                     ? 'border-b border-gray-200'
                                     : '',

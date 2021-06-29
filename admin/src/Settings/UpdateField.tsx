@@ -61,13 +61,11 @@ const UpdateField: React.FC<{
   return (
     <div className="flex flex-wrap w-full space-y-2.5">
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">{language.dbName}</div>
-        <div className="w-2/3 text-gray-400 font-bold">{field.name}</div>
+        <div className="w-1/3 text-gray-400">{language.dbName}</div>
+        <div className="w-2/3 text-gray-400">{field.name}</div>
       </div>
       <div className="flex w-full items-center">
-        <div className="w-1/3 text-gray-400 font-bold">
-          {language.displayName}
-        </div>
+        <div className="w-1/3 text-gray-400">{language.displayName}</div>
         <div className="w-2/3">
           <input
             name="name"
@@ -80,7 +78,7 @@ const UpdateField: React.FC<{
       </div>
       {(Object.keys(fields) as (keyof SettingLanguage)[]).map((key) => (
         <div key={key} className="flex w-full items-center">
-          <div className="w-1/3 text-gray-400 font-bold">{language[key]}</div>
+          <div className="w-1/3 text-gray-400">{language[key]}</div>
           <div className="flex w-2/3">
             {fields[key]?.map((item) => (
               <div key={item} className="w-1/3">

@@ -3,7 +3,6 @@ import { QueriesAndMutations } from '@paljs/types';
 export function createQueriesAndMutations(
   modelName: string,
   exclude: QueriesAndMutations[],
-  onDelete?: boolean,
 ) {
   const operations = {
     queries: {
@@ -118,11 +117,6 @@ export function createQueriesAndMutations(
     deleteOne${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.mutations.resolver += `
     deleteOne${name}: async (_parent, args, { injector }: GraphQLModules.Context) => {
-      ${
-        onDelete
-          ? `await injector.get(PrismaProvider).onDelete({model: '${modelName}', where: args.where})`
-          : ''
-      }
       return injector.get(PrismaProvider).${model}.delete(args);
     },`;
   }
@@ -145,11 +139,6 @@ export function createQueriesAndMutations(
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;
     operations.mutations.resolver += `
     deleteMany${name}: async (_parent, args, { injector }: GraphQLModules.Context) => {
-      ${
-        onDelete
-          ? `await injector.get(PrismaProvider).onDelete({model: '${modelName}', where: args.where})`
-          : ''
-      }
       return injector.get(PrismaProvider).${model}.deleteMany(args);
     },`;
   }

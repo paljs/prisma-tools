@@ -4,7 +4,6 @@ export function createQueriesAndMutations(
   modelName: string,
   exclude: QueriesAndMutations[],
   prismaName: string,
-  onDelete?: boolean,
 ) {
   const operations = {
     queries: {
@@ -119,11 +118,6 @@ export function createQueriesAndMutations(
     deleteOne${name}(where: ${name}WhereUniqueInput!): ${modelName}`;
     operations.mutations.resolver += `
     deleteOne${name}: async (_parent, args, {${prismaName}}) => {
-      ${
-        onDelete
-          ? `await ${prismaName}.onDelete({ model: '${modelName}', where: args.where })`
-          : ''
-      }
       return ${prismaName}.${model}.delete(args)
     },`;
   }
@@ -146,11 +140,6 @@ export function createQueriesAndMutations(
     deleteMany${name}(where: ${name}WhereInput): BatchPayload`;
     operations.mutations.resolver += `
     deleteMany${name}: async (_parent, args, {${prismaName}}) => {
-      ${
-        onDelete
-          ? `await ${prismaName}.onDelete({ model: '${modelName}', where: args.where })`
-          : ''
-      }
       return ${prismaName}.${model}.deleteMany(args)
     },`;
   }

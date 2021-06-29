@@ -66,7 +66,7 @@ export class GenerateModules extends Generators {
 
   getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(model, exclude, this.options.onDelete);
+    return createQueriesAndMutations(model, exclude);
   }
 
   private createFiles(model: string, content: string) {

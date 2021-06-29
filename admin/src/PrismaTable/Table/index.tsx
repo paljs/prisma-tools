@@ -331,36 +331,40 @@ export const Table: React.FC<TableProps> = ({
                             </th>
                           )}
                           {headerGroup.headers.map(
-                            (column: any, index2: number) => (
-                              <th
-                                scope="col"
-                                className={thClasses}
-                                key={index2}
-                                {...column.getHeaderProps(
-                                  column.getSortByToggleProps(),
-                                )}
-                              >
-                                <div className="flex justify-center items-center">
-                                  {column.render('Header')}
-                                  <span>
-                                    {column.isSorted ? (
-                                      column.isSortedDesc ? (
-                                        <ArrowNarrowDownIcon className="h-5 w-5" />
+                            (column: any, index2: number) => {
+                              return (
+                                <th
+                                  scope="col"
+                                  className={thClasses}
+                                  key={index2}
+                                  {...column.getHeaderProps(
+                                    column.getSortByToggleProps(),
+                                  )}
+                                >
+                                  <div className="flex justify-center items-center">
+                                    {column.render('Header')}
+                                    <span>
+                                      {column.isSorted ? (
+                                        column.isSortedDesc ? (
+                                          <ArrowNarrowDownIcon className="h-5 w-5" />
+                                        ) : (
+                                          <ArrowNarrowUpIcon className="h-5 w-5" />
+                                        )
                                       ) : (
-                                        <ArrowNarrowUpIcon className="h-5 w-5" />
-                                      )
+                                        ''
+                                      )}
+                                    </span>
+                                    {!!filters.find(
+                                      (item) => item.id === column.id,
+                                    ) ? (
+                                      <SearchCircleIcon className="h-5 w-5 text-green-500" />
                                     ) : (
                                       ''
                                     )}
-                                  </span>
-                                  {column.filterValue ? (
-                                    <SearchCircleIcon className="h-5 w-5 text-green-500" />
-                                  ) : (
-                                    ''
-                                  )}
-                                </div>
-                              </th>
-                            ),
+                                  </div>
+                                </th>
+                              );
+                            },
                           )}
                         </tr>
                       </React.Fragment>

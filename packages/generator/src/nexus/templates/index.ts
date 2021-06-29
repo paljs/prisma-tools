@@ -34,7 +34,6 @@ export function getCrud(
   type: 'query' | 'mutation',
   key: QueriesAndMutations,
   prismaName: string,
-  onDelete?: boolean,
   isJS?: boolean,
 ) {
   function getImport(content: string, path: string) {
@@ -80,12 +79,6 @@ export function getCrud(
       /#{exportJs}/g,
       isJS
         ? `module.exports = {${modelUpper}${capital(key)}${capital(type)}}`
-        : '',
-    )
-    .replace(
-      /#{onDelete}/g,
-      onDelete
-        ? `await ${prismaName}.onDelete({ model: '${model}', where })`
         : '',
     );
 }

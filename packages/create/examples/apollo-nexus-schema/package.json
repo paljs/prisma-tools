@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "prisma": "2.x",
-    "@types/node": "14.x",
-    "@paljs/cli": "3.5.4",
+    "@types/node": "15.x",
+    "@paljs/cli": "3.5.5",
     "prettier": "2.x",
-    "ts-node": "8.x",
+    "ts-node": "10.x",
     "ts-node-dev": "1.x",
     "typescript": "4.x"
   },

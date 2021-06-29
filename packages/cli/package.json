@@ -15,12 +15,12 @@
     "@paljs/display": "^3.4.0",
     "@paljs/generator": "^3.4.0",
     "@paljs/schema": "^3.4.0",
-    "@prisma/sdk": "2.25.0",
+    "@prisma/sdk": "2.26.0",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.6",
     "fs-extra": "^10.0.0",
     "pkg-dir": "^5.0.0",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "tslib": "^2"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.11",
     "@types/mocha": "^8",
-    "@types/node": "15.12.4",
+    "@types/node": "15.12.5",
     "chai": "^4",
     "eslint": "^7.29",
     "eslint-config-oclif": "^3.1",

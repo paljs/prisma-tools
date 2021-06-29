@@ -6,7 +6,6 @@ export const CommentDeleteOneMutation = mutationField('deleteOneComment', {
     where: nonNull('CommentWhereUniqueInput'),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
-    await prisma.onDelete({ model: 'Comment', where })
     return prisma.comment.delete({
       where,
       ...select,
