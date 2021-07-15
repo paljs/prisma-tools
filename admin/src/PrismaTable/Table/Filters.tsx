@@ -214,7 +214,7 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({
         options={options}
       />
       <input
-        style={{ minWidth: '12rem', lineHeight: 'inherit' }}
+        style={{ maxWidth: '13rem', lineHeight: 'inherit' }}
         className={inputClasses.replace('py-2 px-4', 'py-2 px-3 text-sm')}
         placeholder={lang[option.id as 'gt']}
         type={field.type === 'DateTime' ? 'date' : 'text'}
@@ -297,7 +297,7 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({
       id: item.name,
       name: (
         <div className="flex items-center">
-          <span>{item.title}</span>{' '}
+          <span className="truncate">{item.title}</span>{' '}
           {filter[item.name] && (
             <SearchCircleIcon className="h-5 w-5 text-green-500" />
           )}
