@@ -226,7 +226,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             </button>
           )}
           <input
-            className={`px-8 ${inputClasses}`}
+            className={inputClasses.replace('px-4', 'px-8')}
             value={getDisplayName(state, model)}
             disabled
           />

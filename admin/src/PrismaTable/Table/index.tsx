@@ -229,6 +229,7 @@ export const Table: React.FC<TableProps> = ({
   return (
     <>
       <div className="flex flex-col rounded-lg shadow bg-white">
+        {headerActions}
         <div
           className={classNames(
             'w-full inline-flex space-x-4 my-4',
@@ -240,7 +241,7 @@ export const Table: React.FC<TableProps> = ({
               <ActionButtons.Add />
             </div>
           )}
-          <Popover className="relative">
+          <Popover className="relative w-full">
             <Popover.Button
               className={classNames(
                 buttonClasses,
@@ -279,7 +280,6 @@ export const Table: React.FC<TableProps> = ({
               </Popover.Panel>
             </Transition>
           </Popover>
-          {headerActions}
         </div>
         <div className="overflow-hidden">
           <div className="-my-2 overflow-auto sm:-mx-6 lg:-mx-8">

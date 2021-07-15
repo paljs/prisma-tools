@@ -6,7 +6,7 @@ import Form from './Form';
 import DynamicTable from './dynamicTable';
 import { queryDocument } from './QueryDocument';
 import { TableContext } from './Context';
-import Select, { Option } from '../components/Select';
+import { Option } from '../components/Select';
 import { classNames } from '../components/css';
 
 interface EditRecordProps {
@@ -96,22 +96,26 @@ const EditRecord: React.FC<EditRecordProps> = ({
           {relationField && (
             <DynamicTable
               headerActions={
-                <div className="flex items-center">
-                  <div
-                    className={classNames(
-                      'text-gray-700 font-bold',
-                      dir === 'rtl' ? 'ml-4' : 'mr-4',
-                    )}
-                  >
-                    {lang.relation}
-                  </div>
-                  <Select
-                    dir={dir}
-                    className="max-w-xs"
-                    value={option}
-                    onChange={setOption}
-                    options={options}
-                  />
+                <div className="border-b border-gray-200">
+                  <nav className="-mb-px flex overflow-auto" aria-label="Tabs">
+                    {options.map((item) => (
+                      <a
+                        key={item.id}
+                        onClick={() => setOption(item)}
+                        className={classNames(
+                          item.id === option.id
+                            ? 'border-indigo-500 text-indigo-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                          'whitespace-nowrap p-4 border-b-2 font-medium text-sm cursor-pointer',
+                        )}
+                        aria-current={
+                          item.id === option.id ? 'page' : undefined
+                        }
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </nav>
                 </div>
               }
               key={relationField.type}
