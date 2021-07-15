@@ -214,7 +214,7 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({
         options={options}
       />
       <input
-        style={{ maxWidth: '12rem', lineHeight: 'inherit' }}
+        style={{ minWidth: '12rem', lineHeight: 'inherit' }}
         className={inputClasses.replace('py-2 px-4', 'py-2 px-3 text-sm')}
         placeholder={lang[option.id as 'gt']}
         type={field.type === 'DateTime' ? 'date' : 'text'}

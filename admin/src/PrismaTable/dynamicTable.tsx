@@ -21,6 +21,7 @@ export interface DynamicTableProps {
   model: string;
   filter?: unknown;
   connect?: any;
+  headerActions?: any;
   onConnect?: (value: any) => void;
   children?:
     | ((options: {
@@ -55,6 +56,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   connect,
   onConnect,
   children,
+  headerActions,
 }) => {
   const context = useContext(TableContext);
   const {
@@ -209,6 +211,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
           connect={connect}
           inEdit={inEdit}
           onAction={onAction}
+          headerActions={headerActions}
           model={model}
           data={
             connect && Object.keys(connect).length > 0

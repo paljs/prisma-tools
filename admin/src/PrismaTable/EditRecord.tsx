@@ -93,25 +93,27 @@ const EditRecord: React.FC<EditRecordProps> = ({
       </div>
       {!!tabs?.length && !!Object.keys(record).length && (
         <div className="w-full">
-          <div className="flex items-center bg-white rounded shadow-lg mb-4 p-4">
-            <div
-              className={classNames(
-                'text-gray-700 font-bold',
-                dir === 'rtl' ? 'ml-4' : 'mr-4',
-              )}
-            >
-              {lang.relation}
-            </div>
-            <Select
-              dir={dir}
-              className="max-w-xs"
-              value={option}
-              onChange={setOption}
-              options={options}
-            />
-          </div>
           {relationField && (
             <DynamicTable
+              headerActions={
+                <div className="flex items-center">
+                  <div
+                    className={classNames(
+                      'text-gray-700 font-bold',
+                      dir === 'rtl' ? 'ml-4' : 'mr-4',
+                    )}
+                  >
+                    {lang.relation}
+                  </div>
+                  <Select
+                    dir={dir}
+                    className="max-w-xs"
+                    value={option}
+                    onChange={setOption}
+                    options={options}
+                  />
+                </div>
+              }
               key={relationField.type}
               model={relationField.type}
               inEdit

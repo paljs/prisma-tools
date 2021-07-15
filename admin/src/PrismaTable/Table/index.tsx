@@ -36,6 +36,7 @@ interface TableProps {
   fetchMore: (pageSize: number, pageIndex: number) => void;
   loading: boolean;
   pageCount: number;
+  headerActions?: any;
   initialFilter: { id: string; value: any }[];
   sortByHandler: (sortBy: { id: string; desc: boolean }[]) => void;
   filterHandler: (filters: { id: string; value: any }[]) => void;
@@ -58,6 +59,7 @@ export const Table: React.FC<TableProps> = ({
   connect,
   parent,
   getData,
+  headerActions,
 }) => {
   const {
     schema: { models },
@@ -238,7 +240,7 @@ export const Table: React.FC<TableProps> = ({
               <ActionButtons.Add />
             </div>
           )}
-          <Popover className="relative w-full">
+          <Popover className="relative">
             <Popover.Button
               className={classNames(
                 buttonClasses,
@@ -277,6 +279,7 @@ export const Table: React.FC<TableProps> = ({
               </Popover.Panel>
             </Transition>
           </Popover>
+          {headerActions}
         </div>
         <div className="overflow-hidden">
           <div className="-my-2 overflow-auto sm:-mx-6 lg:-mx-8">
