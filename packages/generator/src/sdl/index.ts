@@ -33,7 +33,7 @@ export class GenerateSdl extends Generators {
 
   private async createModels() {
     const dataModels = await this.datamodel();
-    (await this.models()).forEach((model) => {
+    for (const model of await this.models()) {
       const dataModel = this.dataModel(dataModels.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
       let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${
@@ -63,17 +63,23 @@ export class GenerateSdl extends Generators {
       });
 
       fileContent += `}\n\n`;
-      this.createFiles(model.name, fileContent);
-    });
+      await this.createFiles(model.name, fileContent);
+    }
   }
 
-  private getOperations(model: string) {
+  private async getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(model, exclude, this.options.prismaName);
+    const schemaConfig = await this.schemaConfig();
+    return createQueriesAndMutations(
+      model,
+      exclude,
+      this.options.prismaName,
+      schemaConfig,
+    );
   }
 
-  private createFiles(model: string, typeContent: string) {
-    const operations = this.getOperations(model);
+  private async createFiles(model: string, typeContent: string) {
+    const operations = await this.getOperations(model);
     this.mkdir(this.output(model));
 
     let resolvers = '';

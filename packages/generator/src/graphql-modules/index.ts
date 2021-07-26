@@ -23,7 +23,7 @@ export class GenerateModules extends Generators {
   private async createModules() {
     const models = await this.models();
     const datamodel = await this.datamodel();
-    models.forEach((model) => {
+    for (const model of models) {
       let extendsTypes = '';
 
       if (!this.appModules.includes(model.name + 'Module')) {
@@ -61,16 +61,17 @@ export class GenerateModules extends Generators {
 
       fileContent += extendsTypes;
       this.createFiles(model.name, fileContent);
-    });
+    }
   }
 
-  getOperations(model: string) {
+  async getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    return createQueriesAndMutations(model, exclude);
+    const schemaConfig = await this.schemaConfig();
+    return createQueriesAndMutations(model, exclude, schemaConfig);
   }
 
-  private createFiles(model: string, content: string) {
-    const operations = this.getOperations(model);
+  private async createFiles(model: string, content: string) {
+    const operations = await this.getOperations(model);
 
     this.mkdir(this.output(model));
 

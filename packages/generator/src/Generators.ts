@@ -4,7 +4,7 @@ import { format, Options as PrettierOptions } from 'prettier';
 import pkgDir from 'pkg-dir';
 import { join } from 'path';
 import { DMMF } from '@prisma/client/runtime';
-import { getDMMF } from '@prisma/sdk';
+import { getDMMF, getConfig } from '@prisma/sdk';
 const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
@@ -36,14 +36,20 @@ export class Generators {
     'deleteMany',
   ];
 
+  protected schemaString: string;
+
   constructor(private schemaPath: string, customOptions?: Partial<Options>) {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
+    this.schemaString = readFileSync(this.schemaPath, 'utf-8');
   }
 
   protected async dmmf(): Promise<DMMF.Document> {
-    const schema = readFileSync(this.schemaPath, 'utf-8');
-    return await getDMMF({ datamodel: schema });
+    return await getDMMF({ datamodel: this.schemaString });
+  }
+
+  protected async schemaConfig() {
+    return await getConfig({ datamodel: this.schemaString });
   }
 
   protected async datamodel() {

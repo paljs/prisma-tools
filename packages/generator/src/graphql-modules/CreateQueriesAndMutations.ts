@@ -1,8 +1,10 @@
 import { QueriesAndMutations } from '@paljs/types';
+import { ConfigMetaFormat, extractPreviewFeatures } from '@prisma/sdk';
 
 export function createQueriesAndMutations(
   modelName: string,
   exclude: QueriesAndMutations[],
+  schemaConfig: ConfigMetaFormat,
 ) {
   const operations = {
     queries: {
@@ -17,6 +19,10 @@ export function createQueriesAndMutations(
 
   const model = modelName.charAt(0).toLowerCase() + modelName.slice(1);
   const name = modelName.charAt(0).toUpperCase() + modelName.slice(1);
+  const previewFeatures = extractPreviewFeatures(schemaConfig);
+  const orderBy = previewFeatures.includes('orderByRelation')
+    ? 'WithRelation'
+    : '';
 
   if (!exclude.includes('findUnique')) {
     operations.queries.type += `
@@ -31,7 +37,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findFirst${name}(
       where: ${name}WhereInput
-      orderBy: [${name}OrderByInput!]
+      orderBy: [${name}OrderBy${orderBy}Input!]
       cursor: ${name}WhereUniqueInput
       distinct: ${name}ScalarFieldEnum
       skip: Int
@@ -47,7 +53,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findMany${name}(
       where: ${name}WhereInput
-      orderBy: [${name}OrderByInput!]
+      orderBy: [${name}OrderBy${orderBy}Input!]
       cursor: ${name}WhereUniqueInput
       distinct: ${name}ScalarFieldEnum
       skip: Int
@@ -63,7 +69,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     findMany${name}Count(
       where: ${name}WhereInput
-      orderBy: [${name}OrderByInput!]
+      orderBy: [${name}OrderBy${orderBy}Input!]
       cursor: ${name}WhereUniqueInput
       distinct: ${name}ScalarFieldEnum
       skip: Int
@@ -79,7 +85,7 @@ export function createQueriesAndMutations(
     operations.queries.type += `
     aggregate${name}(
       where: ${name}WhereInput
-      orderBy: [${name}OrderByInput!]
+      orderBy: [${name}OrderBy${orderBy}Input!]
       cursor: ${name}WhereUniqueInput
       distinct: ${name}ScalarFieldEnum
       skip: Int

@@ -1,11 +1,11 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "DATABASE_URL"
 }
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["selectRelationCount"]
+  previewFeatures = ["orderByRelation"]
 }
 
 // models examples

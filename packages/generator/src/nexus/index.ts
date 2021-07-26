@@ -22,7 +22,7 @@ export class GenerateNexus extends Generators {
   private async createModels() {
     const models = await this.models();
     const dataModels = await this.datamodel();
-    models.forEach((model) => {
+    for (const model of models) {
       if (this.isJS) {
         this.indexJS.push(model.name);
       } else {
@@ -78,13 +78,14 @@ export class GenerateNexus extends Generators {
 
       this.createIndex(
         path,
-        ['type'].concat(this.createQueriesAndMutations(model.name)),
+        ['type'].concat(await this.createQueriesAndMutations(model.name)),
       );
-    });
+    }
   }
 
-  private createQueriesAndMutations(name: string) {
+  private async createQueriesAndMutations(name: string) {
     const exclude = this.excludedOperations(name);
+    const schemaConfig = await this.schemaConfig();
     let modelIndex: string[] = [];
     if (!this.disableQueries(name)) {
       const queriesIndex: string[] = [];
@@ -97,6 +98,7 @@ export class GenerateNexus extends Generators {
             'query',
             item,
             this.options.prismaName,
+            schemaConfig,
             this.isJS,
           );
           this.createFileIfNotfound(
@@ -126,6 +128,7 @@ export class GenerateNexus extends Generators {
             'mutation',
             item,
             this.options.prismaName,
+            schemaConfig,
             this.isJS,
           );
           this.createFileIfNotfound(

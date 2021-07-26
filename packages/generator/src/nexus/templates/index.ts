@@ -10,6 +10,7 @@ import deleteMany from './deleteMany';
 import updateMany from './updateMany';
 import aggregate from './aggregate';
 import { QueriesAndMutations } from '@paljs/types';
+import { ConfigMetaFormat, extractPreviewFeatures } from '@prisma/sdk';
 
 const crud: { [key in QueriesAndMutations]: string } = {
   findUnique,
@@ -34,6 +35,7 @@ export function getCrud(
   type: 'query' | 'mutation',
   key: QueriesAndMutations,
   prismaName: string,
+  schemaConfig: ConfigMetaFormat,
   isJS?: boolean,
 ) {
   function getImport(content: string, path: string) {
@@ -59,6 +61,7 @@ export function getCrud(
         return ', nonNull';
     }
   }
+  const previewFeatures = extractPreviewFeatures(schemaConfig);
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
   const modelUpper = capital(model);
   const importString = getImport(
@@ -72,6 +75,10 @@ export function getCrud(
     .replace(/#{prisma}/g, prismaName)
     .replace(/#{Model}/g, modelUpper)
     .replace(/#{model}/g, modelLower)
+    .replace(
+      /#{orderBy}/g,
+      previewFeatures.includes('orderByRelation') ? 'WithRelation' : '',
+    )
     .replace(/#{import}/g, importString)
     .replace(/#{as}/g, isJS ? '' : ' as any')
     .replace(/#{exportTs}/g, isJS ? '' : 'export ')
