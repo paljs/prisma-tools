@@ -4,7 +4,7 @@ import { format, Options as PrettierOptions } from 'prettier';
 import pkgDir from 'pkg-dir';
 import { join } from 'path';
 import { DMMF } from '@prisma/client/runtime';
-import { getDMMF, getConfig } from '@prisma/sdk';
+import { getDMMF, getConfig, getEnvPaths, tryLoadEnvs } from '@prisma/sdk';
 const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
@@ -42,6 +42,7 @@ export class Generators {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
     this.schemaString = readFileSync(this.schemaPath, 'utf-8');
+    tryLoadEnvs(getEnvPaths());
   }
 
   protected async dmmf(): Promise<DMMF.Document> {
