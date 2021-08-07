@@ -124,18 +124,28 @@ export class Generators {
     return join(this.options.output, ...paths);
   }
 
-  protected getIndexContent(files: string[]) {
+  protected getIndexContent(files: string[], oldFilePath?: string) {
+    const oldFileContent = oldFilePath ? this.readFile(oldFilePath) : '';
     const lines: string[] = [];
     if (this.isJS) lines.push('module.exports = {');
     files.forEach((file) => {
       if (this.isJS) {
         lines.push(`  ...require('./${file}'),`);
-      } else {
+      } else if (!oldFileContent.includes(`export * from './${file}'`)) {
         lines.push(`export * from './${file}'`);
       }
     });
-    if (this.isJS) lines.push('}');
-    return lines.join('\n');
+    if (this.isJS) {
+      lines.push('}');
+      return lines.join('\n');
+    } else {
+      lines.push(oldFileContent);
+      return lines.join('\n');
+    }
+  }
+
+  protected readFile(path: string) {
+    return existsSync(path) ? readFileSync(path, { encoding: 'utf-8' }) : '';
   }
 
   protected getImport(content: string, path: string) {

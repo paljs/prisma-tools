@@ -110,9 +110,10 @@ export class GenerateNexus extends Generators {
         });
       if (queriesIndex) {
         modelIndex.push('queries');
+        const indexPath = join(path, this.withExtension('index'));
         writeFileSync(
-          join(path, this.withExtension('index')),
-          this.formation(this.getIndexContent(queriesIndex)),
+          indexPath,
+          this.formation(this.getIndexContent(queriesIndex, indexPath)),
         );
       }
     }
@@ -140,9 +141,10 @@ export class GenerateNexus extends Generators {
         });
       if (mutationsIndex) {
         modelIndex.push('mutations');
+        const indexPath = join(path, this.withExtension('index'));
         writeFileSync(
-          join(path, this.withExtension('index')),
-          this.formation(this.getIndexContent(mutationsIndex)),
+          indexPath,
+          this.formation(this.getIndexContent(mutationsIndex, indexPath)),
         );
       }
     }
@@ -151,9 +153,10 @@ export class GenerateNexus extends Generators {
 
   private createIndex(path?: string, content?: string[]) {
     if (path && content) {
+      const indexPath = join(path, this.withExtension('index'));
       writeFileSync(
-        join(path, this.withExtension('index')),
-        this.formation(this.getIndexContent(content)),
+        indexPath,
+        this.formation(this.getIndexContent(content, indexPath)),
       );
     } else {
       writeFileSync(
