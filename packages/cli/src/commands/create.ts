@@ -19,6 +19,8 @@ const frameworks: Frameworks[] = [
   'Material UI + PrismaAdmin UI',
   'Tailwind CSS',
   'Tailwind CSS + PrismaAdmin UI',
+  'Chakra UI',
+  'Chakra UI + PrismaAdmin UI',
 ];
 
 export default class Create extends Command {
@@ -133,8 +135,8 @@ export default class Create extends Command {
     try {
       this.log(
         '\n' +
-          log.withBrand('Hang tight while we set up your great new app!') +
-          '\n',
+        log.withBrand('Hang tight while we set up your great new app!') +
+        '\n',
       );
       await generator.run();
       this.log(
