@@ -11,7 +11,7 @@ import { useApollo } from 'server/client';
 import '@paljs/admin/style.css';
 // @admin end
 // @tailwindcss start
-import AdminLayout from 'layouts/tailwind';
+import AdminLayout from 'tailwind/layouts/Admin';
 import 'tailwindcss/tailwind.css';
 // @tailwindcss end
 import { useRouter } from 'next/router';

@@ -4,8 +4,6 @@ import * as React from 'react';
 import { NextPage } from 'next';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from 'server/client';
-import AdminLayout from 'layouts/Admin';
-import { useRouter } from 'next/router';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'theme';
 
@@ -13,8 +11,6 @@ import '@paljs/admin/style.css';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps.initialApolloState);
-  const router = useRouter();
-  const admin = router.pathname.startsWith('/admin');
   return (
     <>
       <Head>
@@ -24,13 +20,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <ChakraProvider theme={theme}>
         <ApolloProvider client={apolloClient}>
-          {admin ? (
-            <AdminLayout>
-              <Component {...pageProps} />
-            </AdminLayout>
-          ) : (
-            <Component {...pageProps} />
-          )}
+          <Component {...pageProps} />
         </ApolloProvider>
       </ChakraProvider>
     </>
