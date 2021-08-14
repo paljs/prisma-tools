@@ -21,7 +21,9 @@ export type Frameworks =
   | 'Material UI'
   | 'Material UI + PrismaAdmin UI'
   | 'Tailwind CSS'
-  | 'Tailwind CSS + PrismaAdmin UI';
+  | 'Tailwind CSS + PrismaAdmin UI'
+  | 'Chakra UI'
+  | 'Chakra UI + PrismaAdmin UI';
 
 export interface AppGeneratorOptions {
   example: Examples;
@@ -92,8 +94,8 @@ export class AppGenerator {
   async postWrite() {
     const gitInitResult = this.options.useGit
       ? spawn.sync('git', ['init'], {
-          stdio: 'ignore',
-        })
+        stdio: 'ignore',
+      })
       : { status: 1 };
     console.log(''); // New line needed
     const spinner = log
@@ -207,8 +209,7 @@ export class AppGenerator {
       console.log(''); // New line needed
       spinner.fail(
         chalk.red.bold(
-          `We had some trouble connecting to the network, so we'll skip installing your dependencies right now. Make sure to run ${
-            this.options.yarn ? "'yarn'" : "'npm install'"
+          `We had some trouble connecting to the network, so we'll skip installing your dependencies right now. Make sure to run ${this.options.yarn ? "'yarn'" : "'npm install'"
           } once you're connected again.`,
         ),
       );
@@ -264,7 +265,7 @@ export class AppGenerator {
   readDir(path: string) {
     const files = readdirSync(path);
     const frameworkExclude = framework[this.options.framework as Frameworks];
-    const withAdmin = !['Tailwind CSS', 'Material UI'].includes(
+    const withAdmin = !['Tailwind CSS', 'Material UI', 'Chakra UI'].includes(
       this.options.framework as Frameworks,
     );
     for (const file of files) {

@@ -6,13 +6,18 @@ const adminExclude = {
 };
 
 const materialExclude = {
-  files: ['tailwind.config.js', 'postcss.config.js', 'tailwind'],
-  packages: ['postcss', 'tailwindcss', '@heroicons/react', 'autoprefixer'],
+  files: ['tailwind.config.js', 'postcss.config.js', 'tailwind', 'theme'],
+  packages: ['postcss', 'tailwindcss', '@heroicons/react', 'autoprefixer', '@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
 };
 
 const tailwindExclude = {
-  files: ['material', '_document.tsx', 'signup.tsx', 'theme.ts'],
-  packages: ['@material-ui/core', '@material-ui/icons'],
+  files: ['material', '_document.tsx', 'signup.tsx', 'theme.ts', 'theme'],
+  packages: ['@material-ui/core', '@material-ui/icons', '@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
+};
+
+const chakraExclude = {
+  files: ['material', '_document.tsx', 'signup.tsx', 'theme.ts', 'tailwind.config.js', 'postcss.config.js', 'tailwind'],
+  packages: ['postcss', 'tailwindcss', '@heroicons/react', 'autoprefixer', '@material-ui/core', '@material-ui/icons'],
 };
 
 export const framework: {
@@ -35,6 +40,15 @@ export const framework: {
   'Tailwind CSS + PrismaAdmin UI': {
     app: '_appTA.tsx',
     ...tailwindExclude,
+  },
+  'Chakra UI': {
+    app: '_appC.tsx',
+    files: chakraExclude.files.concat(adminExclude.files),
+    packages: chakraExclude.packages.concat(adminExclude.packages),
+  },
+  'Chakra UI + PrismaAdmin UI': {
+    app: '_appCA.tsx',
+    ...chakraExclude,
   },
 };
 
