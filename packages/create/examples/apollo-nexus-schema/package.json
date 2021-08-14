@@ -25,7 +25,7 @@
   "devDependencies": {
     "prisma": "2.x",
     "@types/node": "15.x",
-    "@paljs/cli": "3.8.0",
+    "@paljs/cli": "3.8.1",
     "prettier": "2.x",
     "ts-node": "10.x",
     "ts-node-dev": "1.x",
