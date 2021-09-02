@@ -1,6 +1,6 @@
 {
   "name": "@paljs/plugins",
-  "version": "3.8.2",
+  "version": "3.8.3",
   "main": "dist/index.js",
   "module": "dist/plugins.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@paljs/types": "^3.6.1",
+    "@paljs/types": "^3.8.3",
     "graphql-fields": "2.0.3",
     "graphql-tag": "2.12.5"
   },
