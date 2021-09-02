@@ -14,7 +14,7 @@ export function getUserId(request: ExpressContext['req']) {
       const token = authorization.replace('Bearer ', '')
       const verifiedToken = verify(token, APP_SECRET) as Token
       return verifiedToken && verifiedToken.userId
-    } catch (e) {
+    } catch (e: any) {
       console.log(e)
     }
   }

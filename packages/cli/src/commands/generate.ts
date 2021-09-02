@@ -178,7 +178,7 @@ export default class Generate extends Command {
           spinner.succeed();
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       throw error;
     }
   }

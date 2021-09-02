@@ -4,7 +4,7 @@ import { forceRequire } from './module';
 const modulePath = (module: string) => {
   try {
     return require.resolve(module);
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(`Failed to load module '${module}'`);
   }
 };

@@ -119,7 +119,7 @@ export default class Schema extends Command {
         );
         spinner.succeed('Your schema converted successfully');
       }
-    } catch (error) {
+    } catch (error: any) {
       throw error;
     }
   }

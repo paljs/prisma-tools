@@ -135,8 +135,8 @@ export default class Create extends Command {
     try {
       this.log(
         '\n' +
-        log.withBrand('Hang tight while we set up your great new app!') +
-        '\n',
+          log.withBrand('Hang tight while we set up your great new app!') +
+          '\n',
       );
       await generator.run();
       this.log(
@@ -147,7 +147,7 @@ export default class Create extends Command {
       this.log(
         `Please open ${chalk.bold.blue('README.md')} file and go with steps\n`,
       );
-    } catch (error) {
+    } catch (error: any) {
       this.error(error);
     }
   }
