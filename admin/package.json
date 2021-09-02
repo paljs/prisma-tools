@@ -24,15 +24,15 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.0",
-    "@heroicons/react": "^1.0.3",
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
     "@paljs/types": "^3.6.1",
     "react-beautiful-dnd": "13.1.0",
-    "react-hook-form": "7.12.2",
+    "react-hook-form": "7.14.2",
     "react-table": "7.7.0"
   },
   "devDependencies": {
-    "@apollo/client": "3.4.7",
+    "@apollo/client": "3.4.10",
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/node": "^7.14.9",
@@ -42,12 +42,12 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
     "@tailwindcss/forms": "^0.3.3",
-    "@types/node": "16.6.1",
-    "@types/react": "17.0.18",
-    "@types/react-beautiful-dnd": "13.1.1",
+    "@types/node": "16.7.10",
+    "@types/react": "17.0.19",
+    "@types/react-beautiful-dnd": "13.1.2",
     "@types/react-dom": "17.0.9",
     "@types/react-table": "7.7.2",
-    "autoprefixer": "^10.3.1",
+    "autoprefixer": "^10.3.3",
     "babel-plugin-module-resolver": "^4.1.0",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
@@ -55,9 +55,9 @@
     "postcss": "^8.3.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tailwindcss": "^2.2.7",
+    "tailwindcss": "^2.2.9",
     "tailwindcss-cli": "^0.1.2",
-    "typescript": "4.3.5",
+    "typescript": "4.4.2",
     "yargs": "^17.1.1"
   },
   "publishConfig": {

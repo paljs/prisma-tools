@@ -5,7 +5,7 @@ import { NextPage } from 'next';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from 'server/client';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from 'chakra/theme';
+import theme from 'theme';
 
 import '@paljs/admin/style.css';
 

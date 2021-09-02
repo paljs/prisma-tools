@@ -18,14 +18,14 @@
   "dependencies": {
     "nexus": "1.x",
     "@prisma/client": "2.x",
-    "@paljs/nexus": "3.8.0",
+    "@paljs/nexus": "3.8.2",
     "apollo-server": "2.x",
     "graphql": "15.x"
   },
   "devDependencies": {
     "prisma": "2.x",
     "@types/node": "15.x",
-    "@paljs/cli": "3.8.1",
+    "@paljs/cli": "3.8.2",
     "prettier": "2.x",
     "ts-node": "10.x",
     "ts-node-dev": "1.x",
