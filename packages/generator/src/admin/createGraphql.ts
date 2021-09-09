@@ -6,9 +6,10 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
   schemaObject.models
     .filter((model) => !options.models || options.models.includes(model.name))
     .forEach((model) => {
-      const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
-        options.excludeQueriesAndMutationsByModel[model.name] ?? [],
-      );
+      const excludeQueriesAndMutations =
+        options.excludeQueriesAndMutations.concat(
+          options.excludeQueriesAndMutationsByModel[model.name] ?? [],
+        );
       let fileContent = `fragment ${model.name}Fields on ${model.name} {
     `;
       model.fields.forEach((field) => {
@@ -66,7 +67,7 @@ ${
     ? `
 query findMany${model.name}(
   $where: ${model.name}WhereInput
-  $orderBy: [${model.name}OrderByInput!]
+  $orderBy: [${model.name}OrderByWithRelationInput!]
   $cursor: ${model.name}WhereUniqueInput
   $skip: Int
   $take: Int
@@ -89,7 +90,7 @@ ${
     ? `
 query findMany${model.name}Count(
   $where: ${model.name}WhereInput
-  $orderBy: [${model.name}OrderByInput!]
+  $orderBy: [${model.name}OrderByWithRelationInput!]
   $cursor: ${model.name}WhereUniqueInput
   $skip: Int
   $take: Int
