@@ -77,7 +77,7 @@ export class CamelCase extends PrismaReader {
       .map((item, index) =>
         !model && index === 0
           ? item
-          : item.charAt(0).toUpperCase() + item.slice(1),
+          : item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(),
       )
       .join('');
   }
