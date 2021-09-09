@@ -49,9 +49,3 @@ model Group {
   updatedAt DateTime @updatedAt
   users     User[]
 }
-
-model AvailableProduct {
-  productId Int @id @default(autoincrement()) @map("PRODUCT_ID")
-
-  @@map("AVAILABLE_PRODUCT")
-}
