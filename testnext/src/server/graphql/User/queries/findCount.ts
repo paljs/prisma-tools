@@ -4,11 +4,11 @@ export const UserFindCountQuery = queryField('findManyUserCount', {
   type: nonNull('Int'),
   args: {
     where: 'UserWhereInput',
-    orderBy: list('UserOrderByInput'),
+    orderBy: list('UserOrderByWithRelationInput'),
     cursor: 'UserWhereUniqueInput',
-    distinct: 'UserScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma }) {
     return prisma.user.count(args as any)

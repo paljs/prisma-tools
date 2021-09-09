@@ -62,20 +62,14 @@ export class GenerateSdl extends Generators {
         }
       });
 
-      fileContent += `}\n\n`;
+      fileContent += `\n}\n\n`;
       await this.createFiles(model.name, fileContent);
     }
   }
 
   private async getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    const schemaConfig = await this.schemaConfig();
-    return createQueriesAndMutations(
-      model,
-      exclude,
-      this.options.prismaName,
-      schemaConfig,
-    );
+    return await createQueriesAndMutations(model, exclude, this);
   }
 
   private async createFiles(model: string, typeContent: string) {
@@ -134,13 +128,13 @@ export class GenerateSdl extends Generators {
   private createTypes(fileContent: string, model: string) {
     if (this.isJS) {
       fileContent = `const { default: gql } = require('graphql-tag');\n
-    const ${model} = gql\`\n${fileContent}\n\`;\n
+    const ${model} = gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n
     module.exports = { 
       ${model}
       }`;
     } else {
       fileContent = `import gql from 'graphql-tag';\n
-    export default gql\`\n${fileContent}\n\`;\n`;
+    export default gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n`;
     }
 
     writeFileSync(

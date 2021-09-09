@@ -3,9 +3,7 @@ export default `
 
 #{exportTs}const #{Model}FindUniqueQuery = queryField('findUnique#{Model}', {
   type: '#{ModelName}',
-  args: {
-    where: nonNull('#{Model}WhereUniqueInput'),
-  },
+  #{args}
   resolve(_parent, { where }, { #{prisma}, select }) {
     return #{prisma}.#{model}.findUnique({
       where,

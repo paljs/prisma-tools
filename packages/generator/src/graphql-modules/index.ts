@@ -57,7 +57,7 @@ export class GenerateModules extends Generators {
           }
         }
       });
-      fileContent += `}\n\n`;
+      fileContent += `\n}\n\n`;
 
       fileContent += extendsTypes;
       this.createFiles(model.name, fileContent);
@@ -66,8 +66,7 @@ export class GenerateModules extends Generators {
 
   async getOperations(model: string) {
     const exclude = this.excludedOperations(model);
-    const schemaConfig = await this.schemaConfig();
-    return createQueriesAndMutations(model, exclude, schemaConfig);
+    return await createQueriesAndMutations(model, exclude, this);
   }
 
   private async createFiles(model: string, content: string) {
@@ -100,7 +99,7 @@ export class GenerateModules extends Generators {
     content = `import { gql } from 'graphql-modules';
 
       export default gql\`
-      ${content}
+      ${this.formation(content, 'graphql')}
       \`;
       `;
 

@@ -4,11 +4,11 @@ export const CommentFindCountQuery = queryField('findManyCommentCount', {
   type: nonNull('Int'),
   args: {
     where: 'CommentWhereInput',
-    orderBy: list('CommentOrderByInput'),
+    orderBy: list('CommentOrderByWithRelationInput'),
     cursor: 'CommentWhereUniqueInput',
-    distinct: 'CommentScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('CommentScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma }) {
     return prisma.comment.count(args as any)

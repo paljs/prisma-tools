@@ -85,29 +85,21 @@ export class GenerateNexus extends Generators {
 
   private async createQueriesAndMutations(name: string) {
     const exclude = this.excludedOperations(name);
-    const schemaConfig = await this.schemaConfig();
     let modelIndex: string[] = [];
     if (!this.disableQueries(name)) {
       const queriesIndex: string[] = [];
       const path = this.output(name, 'queries');
-      this.queries
-        .filter((item) => !exclude.includes(item))
-        .map((item) => {
-          const itemContent = getCrud(
-            name,
-            'query',
-            item,
-            this.options.prismaName,
-            schemaConfig,
-            this.isJS,
-          );
-          this.createFileIfNotfound(
-            path,
-            this.withExtension(item),
-            this.formation(itemContent),
-          );
-          queriesIndex.push(item);
-        });
+      for (const item of this.queries.filter(
+        (item) => !exclude.includes(item),
+      )) {
+        const itemContent = await getCrud(name, 'query', item, this);
+        this.createFileIfNotfound(
+          path,
+          this.withExtension(item),
+          this.formation(itemContent),
+        );
+        queriesIndex.push(item);
+      }
       if (queriesIndex) {
         modelIndex.push('queries');
         const indexPath = join(path, this.withExtension('index'));
@@ -121,24 +113,17 @@ export class GenerateNexus extends Generators {
     if (!this.disableMutations(name)) {
       const mutationsIndex: string[] = [];
       const path = this.output(name, 'mutations');
-      this.mutations
-        .filter((item) => !exclude.includes(item))
-        .map((item) => {
-          const itemContent = getCrud(
-            name,
-            'mutation',
-            item,
-            this.options.prismaName,
-            schemaConfig,
-            this.isJS,
-          );
-          this.createFileIfNotfound(
-            path,
-            this.withExtension(item),
-            this.formation(itemContent),
-          );
-          mutationsIndex.push(item);
-        });
+      for (const item of this.mutations.filter(
+        (item) => !exclude.includes(item),
+      )) {
+        const itemContent = await getCrud(name, 'mutation', item, this);
+        this.createFileIfNotfound(
+          path,
+          this.withExtension(item),
+          this.formation(itemContent),
+        );
+        mutationsIndex.push(item);
+      }
       if (mutationsIndex) {
         modelIndex.push('mutations');
         const indexPath = join(path, this.withExtension('index'));

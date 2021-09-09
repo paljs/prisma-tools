@@ -4,11 +4,10 @@ export const UserAggregateQuery = queryField('aggregateUser', {
   type: 'AggregateUser',
   args: {
     where: 'UserWhereInput',
-    orderBy: list('UserOrderByInput'),
+    orderBy: list('UserOrderByWithRelationInput'),
     cursor: 'UserWhereUniqueInput',
-    distinct: 'UserScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.user.aggregate({ ...args, ...select }) as any

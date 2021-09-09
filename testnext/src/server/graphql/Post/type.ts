@@ -21,7 +21,7 @@ export const Post = objectType({
       type: 'Comment',
       args: {
         where: 'CommentWhereInput',
-        orderBy: 'CommentOrderByInput',
+        orderBy: 'CommentOrderByWithRelationInput',
         cursor: 'CommentWhereUniqueInput',
         take: 'Int',
         skip: 'Int',

@@ -16,7 +16,7 @@ export const User = objectType({
       type: 'Post',
       args: {
         where: 'PostWhereInput',
-        orderBy: 'PostOrderByInput',
+        orderBy: 'PostOrderByWithRelationInput',
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
@@ -37,7 +37,7 @@ export const User = objectType({
       type: 'Comment',
       args: {
         where: 'CommentWhereInput',
-        orderBy: 'CommentOrderByInput',
+        orderBy: 'CommentOrderByWithRelationInput',
         cursor: 'CommentWhereUniqueInput',
         take: 'Int',
         skip: 'Int',

@@ -3,9 +3,7 @@ export default `
 
 #{exportTs}const #{Model}CreateOneMutation = mutationField('createOne#{Model}', {
   type: nonNull('#{ModelName}'),
-  args: {
-    data: nonNull('#{Model}CreateInput'),
-  },
+  #{args}
   resolve(_parent, { data }, { #{prisma}, select }) {
     return #{prisma}.#{model}.create({
       data,

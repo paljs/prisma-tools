@@ -4,11 +4,11 @@ export const UserFindManyQuery = queryField('findManyUser', {
   type: nonNull(list(nonNull('User'))),
   args: {
     where: 'UserWhereInput',
-    orderBy: list('UserOrderByInput'),
+    orderBy: list('UserOrderByWithRelationInput'),
     cursor: 'UserWhereUniqueInput',
-    distinct: 'UserScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.user.findMany({

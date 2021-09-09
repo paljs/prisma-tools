@@ -7,11 +7,6 @@ type AggregateComment {
   _max: CommentMaxAggregateOutputType
   _min: CommentMinAggregateOutputType
   _sum: CommentSumAggregateOutputType
-  avg: CommentAvgAggregateOutputType
-  count: CommentCountAggregateOutputType
-  max: CommentMaxAggregateOutputType
-  min: CommentMinAggregateOutputType
-  sum: CommentSumAggregateOutputType
 }
 
 type AggregateGroup {
@@ -20,11 +15,6 @@ type AggregateGroup {
   _max: GroupMaxAggregateOutputType
   _min: GroupMinAggregateOutputType
   _sum: GroupSumAggregateOutputType
-  avg: GroupAvgAggregateOutputType
-  count: GroupCountAggregateOutputType
-  max: GroupMaxAggregateOutputType
-  min: GroupMinAggregateOutputType
-  sum: GroupSumAggregateOutputType
 }
 
 type AggregatePost {
@@ -33,11 +23,6 @@ type AggregatePost {
   _max: PostMaxAggregateOutputType
   _min: PostMinAggregateOutputType
   _sum: PostSumAggregateOutputType
-  avg: PostAvgAggregateOutputType
-  count: PostCountAggregateOutputType
-  max: PostMaxAggregateOutputType
-  min: PostMinAggregateOutputType
-  sum: PostSumAggregateOutputType
 }
 
 type AggregateUser {
@@ -46,11 +31,6 @@ type AggregateUser {
   _max: UserMaxAggregateOutputType
   _min: UserMinAggregateOutputType
   _sum: UserSumAggregateOutputType
-  avg: UserAvgAggregateOutputType
-  count: UserCountAggregateOutputType
-  max: UserMaxAggregateOutputType
-  min: UserMinAggregateOutputType
-  sum: UserSumAggregateOutputType
 }
 
 type BatchPayload {
@@ -75,10 +55,7 @@ input BoolWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedBoolFilter
   _min: NestedBoolFilter
-  count: NestedIntFilter
   equals: Boolean
-  max: NestedBoolFilter
-  min: NestedBoolFilter
   not: NestedBoolWithAggregatesFilter
 }
 
@@ -99,6 +76,12 @@ type CommentAvgAggregateOutputType {
   postId: Float
 }
 
+input CommentAvgOrderByAggregateInput {
+  authorId: SortOrder
+  id: SortOrder
+  postId: SortOrder
+}
+
 type CommentCountAggregateOutputType {
   _all: Int!
   authorId: Int!
@@ -109,6 +92,15 @@ type CommentCountAggregateOutputType {
   updatedAt: Int!
 }
 
+input CommentCountOrderByAggregateInput {
+  authorId: SortOrder
+  contain: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  postId: SortOrder
+  updatedAt: SortOrder
+}
+
 input CommentCreateInput {
   author: UserCreateNestedOneWithoutCommentsInput
   contain: String!
@@ -117,16 +109,53 @@ input CommentCreateInput {
   updatedAt: DateTime
 }
 
+input CommentCreateManyAuthorInput {
+  contain: String!
+  createdAt: DateTime
+  id: Int
+  postId: Int!
+  updatedAt: DateTime
+}
+
+input CommentCreateManyAuthorInputEnvelope {
+  data: CommentCreateManyAuthorInput!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyInput {
+  authorId: Int
+  contain: String!
+  createdAt: DateTime
+  id: Int
+  postId: Int!
+  updatedAt: DateTime
+}
+
+input CommentCreateManyPostInput {
+  authorId: Int
+  contain: String!
+  createdAt: DateTime
+  id: Int
+  updatedAt: DateTime
+}
+
+input CommentCreateManyPostInputEnvelope {
+  data: CommentCreateManyPostInput!
+  skipDuplicates: Boolean
+}
+
 input CommentCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
+  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
+  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentCreateOrConnectWithoutAuthorInput {
@@ -168,6 +197,15 @@ type CommentMaxAggregateOutputType {
   updatedAt: DateTime
 }
 
+input CommentMaxOrderByAggregateInput {
+  authorId: SortOrder
+  contain: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  postId: SortOrder
+  updatedAt: SortOrder
+}
+
 type CommentMinAggregateOutputType {
   authorId: Int
   contain: String
@@ -177,11 +215,40 @@ type CommentMinAggregateOutputType {
   updatedAt: DateTime
 }
 
-input CommentOrderByInput {
+input CommentMinOrderByAggregateInput {
   authorId: SortOrder
   contain: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  postId: SortOrder
+  updatedAt: SortOrder
+}
+
+input CommentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input CommentOrderByWithAggregationInput {
+  _avg: CommentAvgOrderByAggregateInput
+  _count: CommentCountOrderByAggregateInput
+  _max: CommentMaxOrderByAggregateInput
+  _min: CommentMinOrderByAggregateInput
+  _sum: CommentSumOrderByAggregateInput
+  authorId: SortOrder
+  contain: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  postId: SortOrder
+  updatedAt: SortOrder
+}
+
+input CommentOrderByWithRelationInput {
+  author: UserOrderByWithRelationInput
+  authorId: SortOrder
+  contain: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  post: PostOrderByWithRelationInput
   postId: SortOrder
   updatedAt: SortOrder
 }
@@ -225,6 +292,12 @@ type CommentSumAggregateOutputType {
   postId: Int
 }
 
+input CommentSumOrderByAggregateInput {
+  authorId: SortOrder
+  id: SortOrder
+  postId: SortOrder
+}
+
 input CommentUncheckedCreateInput {
   authorId: Int
   contain: String!
@@ -238,12 +311,14 @@ input CommentUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
+  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentUncheckedCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
+  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentUncheckedCreateWithoutAuthorInput {
@@ -284,6 +359,7 @@ input CommentUncheckedUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
+  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -305,6 +381,7 @@ input CommentUncheckedUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
+  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -358,6 +435,7 @@ input CommentUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
+  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -371,6 +449,7 @@ input CommentUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
+  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -458,15 +537,12 @@ input DateTimeWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedDateTimeFilter
   _min: NestedDateTimeFilter
-  count: NestedIntFilter
   equals: DateTime
   gt: DateTime
   gte: DateTime
   in: [DateTime]
   lt: DateTime
   lte: DateTime
-  max: NestedDateTimeFilter
-  min: NestedDateTimeFilter
   not: NestedDateTimeWithAggregatesFilter
   notIn: [DateTime]
 }
@@ -479,6 +555,27 @@ scalar Decimal
 type Enum {
   fields: [String!]!
   name: String!
+}
+
+input EnumRoleFieldUpdateOperationsInput {
+  set: Role
+}
+
+input EnumRoleFilter {
+  equals: Role
+  in: [Role]
+  not: NestedEnumRoleFilter
+  notIn: [Role]
+}
+
+input EnumRoleWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumRoleFilter
+  _min: NestedEnumRoleFilter
+  equals: Role
+  in: [Role]
+  not: NestedEnumRoleWithAggregatesFilter
+  notIn: [Role]
 }
 
 type Field {
@@ -511,7 +608,7 @@ type Group {
   users(
     cursor: UserWhereUniqueInput
     distinct: UserScalarFieldEnum
-    orderBy: UserOrderByInput
+    orderBy: UserOrderByWithRelationInput
     skip: Int
     take: Int
     where: UserWhereInput
@@ -522,12 +619,23 @@ type GroupAvgAggregateOutputType {
   id: Float
 }
 
+input GroupAvgOrderByAggregateInput {
+  id: SortOrder
+}
+
 type GroupCountAggregateOutputType {
   _all: Int!
   createdAt: Int!
   id: Int!
   name: Int!
   updatedAt: Int!
+}
+
+input GroupCountOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
 }
 
 type GroupCountOutputType {
@@ -539,6 +647,13 @@ input GroupCreateInput {
   name: String!
   updatedAt: DateTime
   users: UserCreateNestedManyWithoutGroupInput
+}
+
+input GroupCreateManyInput {
+  createdAt: DateTime
+  id: Int
+  name: String!
+  updatedAt: DateTime
 }
 
 input GroupCreateNestedOneWithoutUsersInput {
@@ -565,6 +680,13 @@ type GroupMaxAggregateOutputType {
   updatedAt: DateTime
 }
 
+input GroupMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+}
+
 type GroupMinAggregateOutputType {
   createdAt: DateTime
   id: Int
@@ -572,11 +694,31 @@ type GroupMinAggregateOutputType {
   updatedAt: DateTime
 }
 
-input GroupOrderByInput {
+input GroupMinOrderByAggregateInput {
   createdAt: SortOrder
   id: SortOrder
   name: SortOrder
   updatedAt: SortOrder
+}
+
+input GroupOrderByWithAggregationInput {
+  _avg: GroupAvgOrderByAggregateInput
+  _count: GroupCountOrderByAggregateInput
+  _max: GroupMaxOrderByAggregateInput
+  _min: GroupMinOrderByAggregateInput
+  _sum: GroupSumOrderByAggregateInput
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+}
+
+input GroupOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+  users: UserOrderByRelationAggregateInput
 }
 
 input GroupRelationFilter {
@@ -603,6 +745,10 @@ input GroupScalarWhereWithAggregatesInput {
 
 type GroupSumAggregateOutputType {
   id: Int
+}
+
+input GroupSumOrderByAggregateInput {
+  id: SortOrder
 }
 
 input GroupUncheckedCreateInput {
@@ -727,19 +873,14 @@ input IntNullableWithAggregatesFilter {
   _max: NestedIntNullableFilter
   _min: NestedIntNullableFilter
   _sum: NestedIntNullableFilter
-  avg: NestedFloatNullableFilter
-  count: NestedIntNullableFilter
   equals: Int
   gt: Int
   gte: Int
   in: [Int]
   lt: Int
   lte: Int
-  max: NestedIntNullableFilter
-  min: NestedIntNullableFilter
   not: NestedIntNullableWithAggregatesFilter
   notIn: [Int]
-  sum: NestedIntNullableFilter
 }
 
 input IntWithAggregatesFilter {
@@ -748,19 +889,14 @@ input IntWithAggregatesFilter {
   _max: NestedIntFilter
   _min: NestedIntFilter
   _sum: NestedIntFilter
-  avg: NestedFloatFilter
-  count: NestedIntFilter
   equals: Int
   gt: Int
   gte: Int
   in: [Int]
   lt: Int
   lte: Int
-  max: NestedIntFilter
-  min: NestedIntFilter
   not: NestedIntWithAggregatesFilter
   notIn: [Int]
-  sum: NestedIntFilter
 }
 
 """
@@ -827,10 +963,7 @@ input NestedBoolWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedBoolFilter
   _min: NestedBoolFilter
-  count: NestedIntFilter
   equals: Boolean
-  max: NestedBoolFilter
-  min: NestedBoolFilter
   not: NestedBoolWithAggregatesFilter
 }
 
@@ -849,17 +982,31 @@ input NestedDateTimeWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedDateTimeFilter
   _min: NestedDateTimeFilter
-  count: NestedIntFilter
   equals: DateTime
   gt: DateTime
   gte: DateTime
   in: [DateTime]
   lt: DateTime
   lte: DateTime
-  max: NestedDateTimeFilter
-  min: NestedDateTimeFilter
   not: NestedDateTimeWithAggregatesFilter
   notIn: [DateTime]
+}
+
+input NestedEnumRoleFilter {
+  equals: Role
+  in: [Role]
+  not: NestedEnumRoleFilter
+  notIn: [Role]
+}
+
+input NestedEnumRoleWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumRoleFilter
+  _min: NestedEnumRoleFilter
+  equals: Role
+  in: [Role]
+  not: NestedEnumRoleWithAggregatesFilter
+  notIn: [Role]
 }
 
 input NestedFloatFilter {
@@ -912,19 +1059,14 @@ input NestedIntNullableWithAggregatesFilter {
   _max: NestedIntNullableFilter
   _min: NestedIntNullableFilter
   _sum: NestedIntNullableFilter
-  avg: NestedFloatNullableFilter
-  count: NestedIntNullableFilter
   equals: Int
   gt: Int
   gte: Int
   in: [Int]
   lt: Int
   lte: Int
-  max: NestedIntNullableFilter
-  min: NestedIntNullableFilter
   not: NestedIntNullableWithAggregatesFilter
   notIn: [Int]
-  sum: NestedIntNullableFilter
 }
 
 input NestedIntWithAggregatesFilter {
@@ -933,19 +1075,14 @@ input NestedIntWithAggregatesFilter {
   _max: NestedIntFilter
   _min: NestedIntFilter
   _sum: NestedIntFilter
-  avg: NestedFloatFilter
-  count: NestedIntFilter
   equals: Int
   gt: Int
   gte: Int
   in: [Int]
   lt: Int
   lte: Int
-  max: NestedIntFilter
-  min: NestedIntFilter
   not: NestedIntWithAggregatesFilter
   notIn: [Int]
-  sum: NestedIntFilter
 }
 
 input NestedStringFilter {
@@ -981,7 +1118,6 @@ input NestedStringNullableWithAggregatesFilter {
   _max: NestedStringNullableFilter
   _min: NestedStringNullableFilter
   contains: String
-  count: NestedIntNullableFilter
   endsWith: String
   equals: String
   gt: String
@@ -989,8 +1125,6 @@ input NestedStringNullableWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  max: NestedStringNullableFilter
-  min: NestedStringNullableFilter
   not: NestedStringNullableWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1001,7 +1135,6 @@ input NestedStringWithAggregatesFilter {
   _max: NestedStringFilter
   _min: NestedStringFilter
   contains: String
-  count: NestedIntFilter
   endsWith: String
   equals: String
   gt: String
@@ -1009,8 +1142,6 @@ input NestedStringWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  max: NestedStringFilter
-  min: NestedStringFilter
   not: NestedStringWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1035,7 +1166,7 @@ type Post {
   comments(
     cursor: CommentWhereUniqueInput
     distinct: CommentScalarFieldEnum
-    orderBy: CommentOrderByInput
+    orderBy: CommentOrderByWithRelationInput
     skip: Int
     take: Int
     where: CommentWhereInput
@@ -1052,6 +1183,11 @@ type PostAvgAggregateOutputType {
   id: Float
 }
 
+input PostAvgOrderByAggregateInput {
+  authorId: SortOrder
+  id: SortOrder
+}
+
 type PostCountAggregateOutputType {
   _all: Int!
   authorId: Int!
@@ -1060,6 +1196,15 @@ type PostCountAggregateOutputType {
   published: Int!
   title: Int!
   updatedAt: Int!
+}
+
+input PostCountOrderByAggregateInput {
+  authorId: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
 }
 
 type PostCountOutputType {
@@ -1075,10 +1220,33 @@ input PostCreateInput {
   updatedAt: DateTime
 }
 
+input PostCreateManyAuthorInput {
+  createdAt: DateTime
+  id: Int
+  published: Boolean
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateManyAuthorInputEnvelope {
+  data: PostCreateManyAuthorInput!
+  skipDuplicates: Boolean
+}
+
+input PostCreateManyInput {
+  authorId: Int
+  createdAt: DateTime
+  id: Int
+  published: Boolean
+  title: String!
+  updatedAt: DateTime
+}
+
 input PostCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
+  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostCreateNestedOneWithoutCommentsInput {
@@ -1128,6 +1296,15 @@ type PostMaxAggregateOutputType {
   updatedAt: DateTime
 }
 
+input PostMaxOrderByAggregateInput {
+  authorId: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
 type PostMinAggregateOutputType {
   authorId: Int
   createdAt: DateTime
@@ -1137,8 +1314,37 @@ type PostMinAggregateOutputType {
   updatedAt: DateTime
 }
 
-input PostOrderByInput {
+input PostMinOrderByAggregateInput {
   authorId: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PostOrderByWithAggregationInput {
+  _avg: PostAvgOrderByAggregateInput
+  _count: PostCountOrderByAggregateInput
+  _max: PostMaxOrderByAggregateInput
+  _min: PostMinOrderByAggregateInput
+  _sum: PostSumOrderByAggregateInput
+  authorId: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostOrderByWithRelationInput {
+  author: UserOrderByWithRelationInput
+  authorId: SortOrder
+  comments: CommentOrderByRelationAggregateInput
   createdAt: SortOrder
   id: SortOrder
   published: SortOrder
@@ -1189,6 +1395,11 @@ type PostSumAggregateOutputType {
   id: Int
 }
 
+input PostSumOrderByAggregateInput {
+  authorId: SortOrder
+  id: SortOrder
+}
+
 input PostUncheckedCreateInput {
   authorId: Int
   comments: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -1203,6 +1414,7 @@ input PostUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
+  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostUncheckedCreateWithoutAuthorInput {
@@ -1246,6 +1458,7 @@ input PostUncheckedUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
+  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1306,6 +1519,7 @@ input PostUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
+  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1376,128 +1590,124 @@ input PostWhereUniqueInput {
 type Query {
   aggregateComment(
     cursor: CommentWhereUniqueInput
-    distinct: CommentScalarFieldEnum
-    orderBy: [CommentOrderByInput]
+    orderBy: [CommentOrderByWithRelationInput]
     skip: Int
     take: Int
     where: CommentWhereInput
   ): AggregateComment
   aggregateGroup(
     cursor: GroupWhereUniqueInput
-    distinct: GroupScalarFieldEnum
-    orderBy: [GroupOrderByInput]
+    orderBy: [GroupOrderByWithRelationInput]
     skip: Int
     take: Int
     where: GroupWhereInput
   ): AggregateGroup
   aggregatePost(
     cursor: PostWhereUniqueInput
-    distinct: PostScalarFieldEnum
-    orderBy: [PostOrderByInput]
+    orderBy: [PostOrderByWithRelationInput]
     skip: Int
     take: Int
     where: PostWhereInput
   ): AggregatePost
   aggregateUser(
     cursor: UserWhereUniqueInput
-    distinct: UserScalarFieldEnum
-    orderBy: [UserOrderByInput]
+    orderBy: [UserOrderByWithRelationInput]
     skip: Int
     take: Int
     where: UserWhereInput
   ): AggregateUser
   findFirstComment(
     cursor: CommentWhereUniqueInput
-    distinct: CommentScalarFieldEnum
-    orderBy: [CommentOrderByInput]
+    distinct: [CommentScalarFieldEnum]
+    orderBy: [CommentOrderByWithRelationInput]
     skip: Int
     take: Int
     where: CommentWhereInput
   ): Comment
   findFirstGroup(
     cursor: GroupWhereUniqueInput
-    distinct: GroupScalarFieldEnum
-    orderBy: [GroupOrderByInput]
+    distinct: [GroupScalarFieldEnum]
+    orderBy: [GroupOrderByWithRelationInput]
     skip: Int
     take: Int
     where: GroupWhereInput
   ): Group
   findFirstPost(
     cursor: PostWhereUniqueInput
-    distinct: PostScalarFieldEnum
-    orderBy: [PostOrderByInput]
+    distinct: [PostScalarFieldEnum]
+    orderBy: [PostOrderByWithRelationInput]
     skip: Int
     take: Int
     where: PostWhereInput
   ): Post
   findFirstUser(
     cursor: UserWhereUniqueInput
-    distinct: UserScalarFieldEnum
-    orderBy: [UserOrderByInput]
+    distinct: [UserScalarFieldEnum]
+    orderBy: [UserOrderByWithRelationInput]
     skip: Int
     take: Int
     where: UserWhereInput
   ): User
   findManyComment(
     cursor: CommentWhereUniqueInput
-    distinct: CommentScalarFieldEnum
-    orderBy: [CommentOrderByInput]
+    distinct: [CommentScalarFieldEnum]
+    orderBy: [CommentOrderByWithRelationInput]
     skip: Int
     take: Int
     where: CommentWhereInput
   ): [Comment!]!
   findManyCommentCount(
     cursor: CommentWhereUniqueInput
-    distinct: CommentScalarFieldEnum
-    orderBy: [CommentOrderByInput]
+    distinct: [CommentScalarFieldEnum]
+    orderBy: [CommentOrderByWithRelationInput]
     skip: Int
     take: Int
     where: CommentWhereInput
   ): Int!
   findManyGroup(
     cursor: GroupWhereUniqueInput
-    distinct: GroupScalarFieldEnum
-    orderBy: [GroupOrderByInput]
+    distinct: [GroupScalarFieldEnum]
+    orderBy: [GroupOrderByWithRelationInput]
     skip: Int
     take: Int
     where: GroupWhereInput
   ): [Group!]!
   findManyGroupCount(
     cursor: GroupWhereUniqueInput
-    distinct: GroupScalarFieldEnum
-    orderBy: [GroupOrderByInput]
+    distinct: [GroupScalarFieldEnum]
+    orderBy: [GroupOrderByWithRelationInput]
     skip: Int
     take: Int
     where: GroupWhereInput
   ): Int!
   findManyPost(
     cursor: PostWhereUniqueInput
-    distinct: PostScalarFieldEnum
-    orderBy: [PostOrderByInput]
+    distinct: [PostScalarFieldEnum]
+    orderBy: [PostOrderByWithRelationInput]
     skip: Int
     take: Int
     where: PostWhereInput
   ): [Post!]!
   findManyPostCount(
     cursor: PostWhereUniqueInput
-    distinct: PostScalarFieldEnum
-    orderBy: [PostOrderByInput]
+    distinct: [PostScalarFieldEnum]
+    orderBy: [PostOrderByWithRelationInput]
     skip: Int
     take: Int
     where: PostWhereInput
   ): Int!
   findManyUser(
     cursor: UserWhereUniqueInput
-    distinct: UserScalarFieldEnum
-    orderBy: [UserOrderByInput]
+    distinct: [UserScalarFieldEnum]
+    orderBy: [UserOrderByWithRelationInput]
     skip: Int
     take: Int
     where: UserWhereInput
   ): [User!]!
   findManyUserCount(
     cursor: UserWhereUniqueInput
-    distinct: UserScalarFieldEnum
-    orderBy: [UserOrderByInput]
+    distinct: [UserScalarFieldEnum]
+    orderBy: [UserOrderByWithRelationInput]
     skip: Int
     take: Int
     where: UserWhereInput
@@ -1508,6 +1718,16 @@ type Query {
   findUniqueUser(where: UserWhereUniqueInput!): User
   getSchema: Schema!
   me: User
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 
 type Schema {
@@ -1533,6 +1753,7 @@ input StringFilter {
   in: [String]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringFilter
   notIn: [String]
   startsWith: String
@@ -1547,6 +1768,7 @@ input StringNullableFilter {
   in: [String]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringNullableFilter
   notIn: [String]
   startsWith: String
@@ -1557,7 +1779,6 @@ input StringNullableWithAggregatesFilter {
   _max: NestedStringNullableFilter
   _min: NestedStringNullableFilter
   contains: String
-  count: NestedIntNullableFilter
   endsWith: String
   equals: String
   gt: String
@@ -1565,8 +1786,7 @@ input StringNullableWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  max: NestedStringNullableFilter
-  min: NestedStringNullableFilter
+  mode: QueryMode
   not: NestedStringNullableWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1577,7 +1797,6 @@ input StringWithAggregatesFilter {
   _max: NestedStringFilter
   _min: NestedStringFilter
   contains: String
-  count: NestedIntFilter
   endsWith: String
   equals: String
   gt: String
@@ -1585,8 +1804,7 @@ input StringWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  max: NestedStringFilter
-  min: NestedStringFilter
+  mode: QueryMode
   not: NestedStringWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1628,7 +1846,7 @@ type User {
   comments(
     cursor: CommentWhereUniqueInput
     distinct: CommentScalarFieldEnum
-    orderBy: CommentOrderByInput
+    orderBy: CommentOrderByWithRelationInput
     skip: Int
     take: Int
     where: CommentWhereInput
@@ -1643,7 +1861,7 @@ type User {
   posts(
     cursor: PostWhereUniqueInput
     distinct: PostScalarFieldEnum
-    orderBy: PostOrderByInput
+    orderBy: PostOrderByWithRelationInput
     skip: Int
     take: Int
     where: PostWhereInput
@@ -1655,6 +1873,11 @@ type UserAvgAggregateOutputType {
   id: Float
 }
 
+input UserAvgOrderByAggregateInput {
+  groupId: SortOrder
+  id: SortOrder
+}
+
 type UserCountAggregateOutputType {
   _all: Int!
   createdAt: Int!
@@ -1663,6 +1886,17 @@ type UserCountAggregateOutputType {
   id: Int!
   name: Int!
   password: Int!
+  role: Int!
+}
+
+input UserCountOrderByAggregateInput {
+  createdAt: SortOrder
+  email: SortOrder
+  groupId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  password: SortOrder
+  role: SortOrder
 }
 
 type UserCountOutputType {
@@ -1678,12 +1912,38 @@ input UserCreateInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
+  role: Role!
+}
+
+input UserCreateManyGroupInput {
+  createdAt: DateTime
+  email: String!
+  id: Int
+  name: String
+  password: String!
+  role: Role!
+}
+
+input UserCreateManyGroupInputEnvelope {
+  data: UserCreateManyGroupInput!
+  skipDuplicates: Boolean
+}
+
+input UserCreateManyInput {
+  createdAt: DateTime
+  email: String!
+  groupId: Int
+  id: Int
+  name: String
+  password: String!
+  role: Role!
 }
 
 input UserCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
+  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserCreateNestedOneWithoutCommentsInput {
@@ -1720,6 +1980,7 @@ input UserCreateWithoutCommentsInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
+  role: Role!
 }
 
 input UserCreateWithoutGroupInput {
@@ -1729,6 +1990,7 @@ input UserCreateWithoutGroupInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
+  role: Role!
 }
 
 input UserCreateWithoutPostsInput {
@@ -1738,6 +2000,7 @@ input UserCreateWithoutPostsInput {
   group: GroupCreateNestedOneWithoutUsersInput
   name: String
   password: String!
+  role: Role!
 }
 
 input UserListRelationFilter {
@@ -1753,6 +2016,17 @@ type UserMaxAggregateOutputType {
   id: Int
   name: String
   password: String
+  role: Role
+}
+
+input UserMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  email: SortOrder
+  groupId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  password: SortOrder
+  role: SortOrder
 }
 
 type UserMinAggregateOutputType {
@@ -1762,15 +2036,49 @@ type UserMinAggregateOutputType {
   id: Int
   name: String
   password: String
+  role: Role
 }
 
-input UserOrderByInput {
+input UserMinOrderByAggregateInput {
   createdAt: SortOrder
   email: SortOrder
   groupId: SortOrder
   id: SortOrder
   name: SortOrder
   password: SortOrder
+  role: SortOrder
+}
+
+input UserOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserOrderByWithAggregationInput {
+  _avg: UserAvgOrderByAggregateInput
+  _count: UserCountOrderByAggregateInput
+  _max: UserMaxOrderByAggregateInput
+  _min: UserMinOrderByAggregateInput
+  _sum: UserSumOrderByAggregateInput
+  createdAt: SortOrder
+  email: SortOrder
+  groupId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  password: SortOrder
+  role: SortOrder
+}
+
+input UserOrderByWithRelationInput {
+  comments: CommentOrderByRelationAggregateInput
+  createdAt: SortOrder
+  email: SortOrder
+  group: GroupOrderByWithRelationInput
+  groupId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  password: SortOrder
+  posts: PostOrderByRelationAggregateInput
+  role: SortOrder
 }
 
 input UserRelationFilter {
@@ -1785,6 +2093,7 @@ enum UserScalarFieldEnum {
   id
   name
   password
+  role
 }
 
 input UserScalarWhereInput {
@@ -1797,6 +2106,7 @@ input UserScalarWhereInput {
   id: IntFilter
   name: StringNullableFilter
   password: StringFilter
+  role: EnumRoleFilter
 }
 
 input UserScalarWhereWithAggregatesInput {
@@ -1809,11 +2119,17 @@ input UserScalarWhereWithAggregatesInput {
   id: IntWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
   password: StringWithAggregatesFilter
+  role: EnumRoleWithAggregatesFilter
 }
 
 type UserSumAggregateOutputType {
   groupId: Int
   id: Int
+}
+
+input UserSumOrderByAggregateInput {
+  groupId: SortOrder
+  id: SortOrder
 }
 
 input UserUncheckedCreateInput {
@@ -1825,12 +2141,14 @@ input UserUncheckedCreateInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
+  role: Role!
 }
 
 input UserUncheckedCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
+  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserUncheckedCreateWithoutCommentsInput {
@@ -1841,6 +2159,7 @@ input UserUncheckedCreateWithoutCommentsInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
+  role: Role!
 }
 
 input UserUncheckedCreateWithoutGroupInput {
@@ -1851,6 +2170,7 @@ input UserUncheckedCreateWithoutGroupInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
+  role: Role!
 }
 
 input UserUncheckedCreateWithoutPostsInput {
@@ -1861,6 +2181,7 @@ input UserUncheckedCreateWithoutPostsInput {
   id: Int
   name: String
   password: String!
+  role: Role!
 }
 
 input UserUncheckedUpdateInput {
@@ -1872,6 +2193,7 @@ input UserUncheckedUpdateInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateManyInput {
@@ -1881,12 +2203,14 @@ input UserUncheckedUpdateManyInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
+  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]
@@ -1902,6 +2226,7 @@ input UserUncheckedUpdateManyWithoutUsersInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutCommentsInput {
@@ -1912,6 +2237,7 @@ input UserUncheckedUpdateWithoutCommentsInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutGroupInput {
@@ -1922,6 +2248,7 @@ input UserUncheckedUpdateWithoutGroupInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutPostsInput {
@@ -1932,6 +2259,7 @@ input UserUncheckedUpdateWithoutPostsInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateInput {
@@ -1942,6 +2270,7 @@ input UserUpdateInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1949,6 +2278,7 @@ input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateManyWithWhereWithoutGroupInput {
@@ -1960,6 +2290,7 @@ input UserUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
+  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]
@@ -2001,6 +2332,7 @@ input UserUpdateWithoutCommentsInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutGroupInput {
@@ -2010,6 +2342,7 @@ input UserUpdateWithoutGroupInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutPostsInput {
@@ -2019,6 +2352,7 @@ input UserUpdateWithoutPostsInput {
   group: GroupUpdateOneWithoutUsersInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpsertWithWhereUniqueWithoutGroupInput {
@@ -2050,6 +2384,7 @@ input UserWhereInput {
   name: StringNullableFilter
   password: StringFilter
   posts: PostListRelationFilter
+  role: EnumRoleFilter
 }
 
 input UserWhereUniqueInput {

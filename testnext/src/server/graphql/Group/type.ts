@@ -15,7 +15,7 @@ export const Group = objectType({
       type: 'User',
       args: {
         where: 'UserWhereInput',
-        orderBy: 'UserOrderByInput',
+        orderBy: 'UserOrderByWithRelationInput',
         cursor: 'UserWhereUniqueInput',
         take: 'Int',
         skip: 'Int',

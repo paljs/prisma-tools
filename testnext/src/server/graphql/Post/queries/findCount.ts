@@ -4,11 +4,11 @@ export const PostFindCountQuery = queryField('findManyPostCount', {
   type: nonNull('Int'),
   args: {
     where: 'PostWhereInput',
-    orderBy: list('PostOrderByInput'),
+    orderBy: list('PostOrderByWithRelationInput'),
     cursor: 'PostWhereUniqueInput',
-    distinct: 'PostScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('PostScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma }) {
     return prisma.post.count(args as any)

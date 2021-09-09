@@ -4,11 +4,11 @@ export const CommentFindManyQuery = queryField('findManyComment', {
   type: nonNull(list(nonNull('Comment'))),
   args: {
     where: 'CommentWhereInput',
-    orderBy: list('CommentOrderByInput'),
+    orderBy: list('CommentOrderByWithRelationInput'),
     cursor: 'CommentWhereUniqueInput',
-    distinct: 'CommentScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('CommentScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.comment.findMany({

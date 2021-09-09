@@ -15,7 +15,7 @@ export function getUserId(request: NextApiRequest) {
     try {
       const verifiedToken = verify(token, JWT_SECRET) as Token
       return verifiedToken && verifiedToken.userId
-    } catch (e: any) {
+    } catch (e) {
       console.log(e)
     }
   }

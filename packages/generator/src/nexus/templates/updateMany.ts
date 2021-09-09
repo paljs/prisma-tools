@@ -3,10 +3,7 @@ export default `
 
 #{exportTs}const #{Model}UpdateManyMutation = mutationField('updateMany#{Model}', {
   type: nonNull('BatchPayload'),
-  args: {
-    where: '#{Model}WhereInput',
-    data: nonNull('#{Model}UpdateManyMutationInput'),
-  },
+  #{args}
   resolve(_parent, args, { #{prisma} }) {
     return #{prisma}.#{model}.updateMany(args#{as})
   },

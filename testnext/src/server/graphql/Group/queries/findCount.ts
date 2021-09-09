@@ -4,11 +4,11 @@ export const GroupFindCountQuery = queryField('findManyGroupCount', {
   type: nonNull('Int'),
   args: {
     where: 'GroupWhereInput',
-    orderBy: list('GroupOrderByInput'),
+    orderBy: list('GroupOrderByWithRelationInput'),
     cursor: 'GroupWhereUniqueInput',
-    distinct: 'GroupScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
+    distinct: list('GroupScalarFieldEnum'),
   },
   resolve(_parent, args, { prisma }) {
     return prisma.group.count(args as any)

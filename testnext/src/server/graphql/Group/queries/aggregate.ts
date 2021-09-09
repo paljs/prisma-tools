@@ -4,11 +4,10 @@ export const GroupAggregateQuery = queryField('aggregateGroup', {
   type: 'AggregateGroup',
   args: {
     where: 'GroupWhereInput',
-    orderBy: list('GroupOrderByInput'),
+    orderBy: list('GroupOrderByWithRelationInput'),
     cursor: 'GroupWhereUniqueInput',
-    distinct: 'GroupScalarFieldEnum',
-    skip: 'Int',
     take: 'Int',
+    skip: 'Int',
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.group.aggregate({ ...args, ...select }) as any

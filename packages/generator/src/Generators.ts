@@ -8,7 +8,7 @@ import { getDMMF, getConfig, getEnvPaths, tryLoadEnvs } from '@prisma/sdk';
 const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
-  protected options: Options = {
+  options: Options = {
     prismaName: 'prisma',
     output: join(projectRoot, 'src/graphql'),
     excludeFields: [],
@@ -18,16 +18,16 @@ export class Generators {
     excludeQueriesAndMutationsByModel: {},
   };
 
-  protected isJS?: boolean = false;
+  isJS?: boolean = false;
 
-  protected queries: Query[] = [
+  queries: Query[] = [
     'findUnique',
     'findFirst',
     'findMany',
     'findCount',
     'aggregate',
   ];
-  protected mutations: Mutation[] = [
+  mutations: Mutation[] = [
     'createOne',
     'updateOne',
     'upsertOne',
@@ -36,7 +36,7 @@ export class Generators {
     'deleteMany',
   ];
 
-  protected schemaString: string;
+  schemaString: string;
 
   constructor(private schemaPath: string, customOptions?: Partial<Options>) {
     this.options = { ...this.options, ...customOptions };
@@ -72,6 +72,57 @@ export class Generators {
       (model) =>
         !this.options.models || this.options.models.includes(model.name),
     );
+  }
+
+  async getInputTypes(typeName: string, fieldName: string, sdl = true) {
+    const { schema }: { schema: DMMF.Schema } = await this.dmmf();
+    const field = schema.outputObjectTypes.prisma
+      .find((type) => type.name === typeName)
+      ?.fields.find((field) => field.name === fieldName);
+    if (!field) return '';
+    return sdl ? this.getSDLArgs(field.args) : this.getNexusArgs(field.args);
+  }
+
+  getNexusArgs(args: DMMF.SchemaArg[]) {
+    const getType = (arg: DMMF.SchemaArg) => {
+      let type = `'${arg.inputTypes[0].type}'`;
+
+      if (arg.inputTypes[0].isList) {
+        type = `list(${type})`;
+      }
+
+      if (arg.isRequired) {
+        type = `nonNull(${type})`;
+      }
+      return type;
+    };
+    const argsText: string[] = ['args: {'];
+    args.forEach((arg) => {
+      argsText.push(`${arg.name}: ${getType(arg)},`);
+    });
+    argsText.push('},');
+    return argsText.join('\n');
+  }
+
+  getSDLArgs(args: DMMF.SchemaArg[]) {
+    const getType = (arg: DMMF.SchemaArg) => {
+      let type = `${arg.inputTypes[0].type}`;
+
+      if (arg.isRequired) {
+        type = `${type}!`;
+      }
+
+      if (arg.inputTypes[0].isList) {
+        type = `[${type}]`;
+      }
+
+      return type;
+    };
+    const argsText: string[] = [];
+    args.forEach((arg) => {
+      argsText.push(`${arg.name}: ${getType(arg)}`);
+    });
+    return argsText.join('\n');
   }
 
   protected withExtension(filename: string) {

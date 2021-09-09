@@ -29,11 +29,6 @@ export type AggregateComment = {
   _max?: Maybe<CommentMaxAggregateOutputType>;
   _min?: Maybe<CommentMinAggregateOutputType>;
   _sum?: Maybe<CommentSumAggregateOutputType>;
-  avg?: Maybe<CommentAvgAggregateOutputType>;
-  count?: Maybe<CommentCountAggregateOutputType>;
-  max?: Maybe<CommentMaxAggregateOutputType>;
-  min?: Maybe<CommentMinAggregateOutputType>;
-  sum?: Maybe<CommentSumAggregateOutputType>;
 };
 
 export type AggregateGroup = {
@@ -43,11 +38,6 @@ export type AggregateGroup = {
   _max?: Maybe<GroupMaxAggregateOutputType>;
   _min?: Maybe<GroupMinAggregateOutputType>;
   _sum?: Maybe<GroupSumAggregateOutputType>;
-  avg?: Maybe<GroupAvgAggregateOutputType>;
-  count?: Maybe<GroupCountAggregateOutputType>;
-  max?: Maybe<GroupMaxAggregateOutputType>;
-  min?: Maybe<GroupMinAggregateOutputType>;
-  sum?: Maybe<GroupSumAggregateOutputType>;
 };
 
 export type AggregatePost = {
@@ -57,11 +47,6 @@ export type AggregatePost = {
   _max?: Maybe<PostMaxAggregateOutputType>;
   _min?: Maybe<PostMinAggregateOutputType>;
   _sum?: Maybe<PostSumAggregateOutputType>;
-  avg?: Maybe<PostAvgAggregateOutputType>;
-  count?: Maybe<PostCountAggregateOutputType>;
-  max?: Maybe<PostMaxAggregateOutputType>;
-  min?: Maybe<PostMinAggregateOutputType>;
-  sum?: Maybe<PostSumAggregateOutputType>;
 };
 
 export type AggregateUser = {
@@ -71,11 +56,6 @@ export type AggregateUser = {
   _max?: Maybe<UserMaxAggregateOutputType>;
   _min?: Maybe<UserMinAggregateOutputType>;
   _sum?: Maybe<UserSumAggregateOutputType>;
-  avg?: Maybe<UserAvgAggregateOutputType>;
-  count?: Maybe<UserCountAggregateOutputType>;
-  max?: Maybe<UserMaxAggregateOutputType>;
-  min?: Maybe<UserMinAggregateOutputType>;
-  sum?: Maybe<UserSumAggregateOutputType>;
 };
 
 export type BatchPayload = {
@@ -96,10 +76,7 @@ export type BoolWithAggregatesFilter = {
   _count?: Maybe<NestedIntFilter>;
   _max?: Maybe<NestedBoolFilter>;
   _min?: Maybe<NestedBoolFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Boolean']>;
-  max?: Maybe<NestedBoolFilter>;
-  min?: Maybe<NestedBoolFilter>;
   not?: Maybe<NestedBoolWithAggregatesFilter>;
 };
 
@@ -122,6 +99,12 @@ export type CommentAvgAggregateOutputType = {
   postId?: Maybe<Scalars['Float']>;
 };
 
+export type CommentAvgOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+};
+
 export type CommentCountAggregateOutputType = {
   __typename?: 'CommentCountAggregateOutputType';
   _all: Scalars['Int'];
@@ -131,6 +114,15 @@ export type CommentCountAggregateOutputType = {
   id: Scalars['Int'];
   postId: Scalars['Int'];
   updatedAt: Scalars['Int'];
+};
+
+export type CommentCountOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  contain?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 };
 
 export type CommentCreateInput = {
@@ -193,6 +185,15 @@ export type CommentMaxAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type CommentMaxOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  contain?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type CommentMinAggregateOutputType = {
   __typename?: 'CommentMinAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
@@ -203,11 +204,40 @@ export type CommentMinAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type CommentOrderByInput = {
+export type CommentMinOrderByAggregateInput = {
   authorId?: Maybe<SortOrder>;
   contain?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CommentOrderByRelationAggregateInput = {
+  _count?: Maybe<SortOrder>;
+};
+
+export type CommentOrderByWithAggregationInput = {
+  _avg?: Maybe<CommentAvgOrderByAggregateInput>;
+  _count?: Maybe<CommentCountOrderByAggregateInput>;
+  _max?: Maybe<CommentMaxOrderByAggregateInput>;
+  _min?: Maybe<CommentMinOrderByAggregateInput>;
+  _sum?: Maybe<CommentSumOrderByAggregateInput>;
+  authorId?: Maybe<SortOrder>;
+  contain?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CommentOrderByWithRelationInput = {
+  author?: Maybe<UserOrderByWithRelationInput>;
+  authorId?: Maybe<SortOrder>;
+  contain?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  post?: Maybe<PostOrderByWithRelationInput>;
   postId?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -250,6 +280,12 @@ export type CommentSumAggregateOutputType = {
   authorId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   postId?: Maybe<Scalars['Int']>;
+};
+
+export type CommentSumOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
 };
 
 export type CommentUncheckedCreateInput = {
@@ -480,15 +516,12 @@ export type DateTimeWithAggregatesFilter = {
   _count?: Maybe<NestedIntFilter>;
   _max?: Maybe<NestedDateTimeFilter>;
   _min?: Maybe<NestedDateTimeFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['DateTime']>;
   gt?: Maybe<Scalars['DateTime']>;
   gte?: Maybe<Scalars['DateTime']>;
   in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   lt?: Maybe<Scalars['DateTime']>;
   lte?: Maybe<Scalars['DateTime']>;
-  max?: Maybe<NestedDateTimeFilter>;
-  min?: Maybe<NestedDateTimeFilter>;
   not?: Maybe<NestedDateTimeWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
 };
@@ -534,7 +567,7 @@ export type Group = {
 export type GroupUsersArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
   distinct?: Maybe<UserScalarFieldEnum>;
-  orderBy?: Maybe<UserOrderByInput>;
+  orderBy?: Maybe<UserOrderByWithRelationInput>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
@@ -545,6 +578,10 @@ export type GroupAvgAggregateOutputType = {
   id?: Maybe<Scalars['Float']>;
 };
 
+export type GroupAvgOrderByAggregateInput = {
+  id?: Maybe<SortOrder>;
+};
+
 export type GroupCountAggregateOutputType = {
   __typename?: 'GroupCountAggregateOutputType';
   _all: Scalars['Int'];
@@ -552,6 +589,13 @@ export type GroupCountAggregateOutputType = {
   id: Scalars['Int'];
   name: Scalars['Int'];
   updatedAt: Scalars['Int'];
+};
+
+export type GroupCountOrderByAggregateInput = {
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 };
 
 export type GroupCountOutputType = {
@@ -591,6 +635,13 @@ export type GroupMaxAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type GroupMaxOrderByAggregateInput = {
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type GroupMinAggregateOutputType = {
   __typename?: 'GroupMinAggregateOutputType';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -599,11 +650,31 @@ export type GroupMinAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type GroupOrderByInput = {
+export type GroupMinOrderByAggregateInput = {
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
+};
+
+export type GroupOrderByWithAggregationInput = {
+  _avg?: Maybe<GroupAvgOrderByAggregateInput>;
+  _count?: Maybe<GroupCountOrderByAggregateInput>;
+  _max?: Maybe<GroupMaxOrderByAggregateInput>;
+  _min?: Maybe<GroupMinOrderByAggregateInput>;
+  _sum?: Maybe<GroupSumOrderByAggregateInput>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type GroupOrderByWithRelationInput = {
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+  users?: Maybe<UserOrderByRelationAggregateInput>;
 };
 
 export type GroupRelationFilter = {
@@ -631,6 +702,10 @@ export type GroupScalarWhereWithAggregatesInput = {
 export type GroupSumAggregateOutputType = {
   __typename?: 'GroupSumAggregateOutputType';
   id?: Maybe<Scalars['Int']>;
+};
+
+export type GroupSumOrderByAggregateInput = {
+  id?: Maybe<SortOrder>;
 };
 
 export type GroupUncheckedCreateInput = {
@@ -755,19 +830,14 @@ export type IntNullableWithAggregatesFilter = {
   _max?: Maybe<NestedIntNullableFilter>;
   _min?: Maybe<NestedIntNullableFilter>;
   _sum?: Maybe<NestedIntNullableFilter>;
-  avg?: Maybe<NestedFloatNullableFilter>;
-  count?: Maybe<NestedIntNullableFilter>;
   equals?: Maybe<Scalars['Int']>;
   gt?: Maybe<Scalars['Int']>;
   gte?: Maybe<Scalars['Int']>;
   in?: Maybe<Array<Maybe<Scalars['Int']>>>;
   lt?: Maybe<Scalars['Int']>;
   lte?: Maybe<Scalars['Int']>;
-  max?: Maybe<NestedIntNullableFilter>;
-  min?: Maybe<NestedIntNullableFilter>;
   not?: Maybe<NestedIntNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  sum?: Maybe<NestedIntNullableFilter>;
 };
 
 export type IntWithAggregatesFilter = {
@@ -776,19 +846,14 @@ export type IntWithAggregatesFilter = {
   _max?: Maybe<NestedIntFilter>;
   _min?: Maybe<NestedIntFilter>;
   _sum?: Maybe<NestedIntFilter>;
-  avg?: Maybe<NestedFloatFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Int']>;
   gt?: Maybe<Scalars['Int']>;
   gte?: Maybe<Scalars['Int']>;
   in?: Maybe<Array<Maybe<Scalars['Int']>>>;
   lt?: Maybe<Scalars['Int']>;
   lte?: Maybe<Scalars['Int']>;
-  max?: Maybe<NestedIntFilter>;
-  min?: Maybe<NestedIntFilter>;
   not?: Maybe<NestedIntWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  sum?: Maybe<NestedIntFilter>;
 };
 
 export enum KindEnum {
@@ -991,10 +1056,7 @@ export type NestedBoolWithAggregatesFilter = {
   _count?: Maybe<NestedIntFilter>;
   _max?: Maybe<NestedBoolFilter>;
   _min?: Maybe<NestedBoolFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Boolean']>;
-  max?: Maybe<NestedBoolFilter>;
-  min?: Maybe<NestedBoolFilter>;
   not?: Maybe<NestedBoolWithAggregatesFilter>;
 };
 
@@ -1013,15 +1075,12 @@ export type NestedDateTimeWithAggregatesFilter = {
   _count?: Maybe<NestedIntFilter>;
   _max?: Maybe<NestedDateTimeFilter>;
   _min?: Maybe<NestedDateTimeFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['DateTime']>;
   gt?: Maybe<Scalars['DateTime']>;
   gte?: Maybe<Scalars['DateTime']>;
   in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   lt?: Maybe<Scalars['DateTime']>;
   lte?: Maybe<Scalars['DateTime']>;
-  max?: Maybe<NestedDateTimeFilter>;
-  min?: Maybe<NestedDateTimeFilter>;
   not?: Maybe<NestedDateTimeWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
 };
@@ -1076,19 +1135,14 @@ export type NestedIntNullableWithAggregatesFilter = {
   _max?: Maybe<NestedIntNullableFilter>;
   _min?: Maybe<NestedIntNullableFilter>;
   _sum?: Maybe<NestedIntNullableFilter>;
-  avg?: Maybe<NestedFloatNullableFilter>;
-  count?: Maybe<NestedIntNullableFilter>;
   equals?: Maybe<Scalars['Int']>;
   gt?: Maybe<Scalars['Int']>;
   gte?: Maybe<Scalars['Int']>;
   in?: Maybe<Array<Maybe<Scalars['Int']>>>;
   lt?: Maybe<Scalars['Int']>;
   lte?: Maybe<Scalars['Int']>;
-  max?: Maybe<NestedIntNullableFilter>;
-  min?: Maybe<NestedIntNullableFilter>;
   not?: Maybe<NestedIntNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  sum?: Maybe<NestedIntNullableFilter>;
 };
 
 export type NestedIntWithAggregatesFilter = {
@@ -1097,19 +1151,14 @@ export type NestedIntWithAggregatesFilter = {
   _max?: Maybe<NestedIntFilter>;
   _min?: Maybe<NestedIntFilter>;
   _sum?: Maybe<NestedIntFilter>;
-  avg?: Maybe<NestedFloatFilter>;
-  count?: Maybe<NestedIntFilter>;
   equals?: Maybe<Scalars['Int']>;
   gt?: Maybe<Scalars['Int']>;
   gte?: Maybe<Scalars['Int']>;
   in?: Maybe<Array<Maybe<Scalars['Int']>>>;
   lt?: Maybe<Scalars['Int']>;
   lte?: Maybe<Scalars['Int']>;
-  max?: Maybe<NestedIntFilter>;
-  min?: Maybe<NestedIntFilter>;
   not?: Maybe<NestedIntWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  sum?: Maybe<NestedIntFilter>;
 };
 
 export type NestedStringFilter = {
@@ -1145,7 +1194,6 @@ export type NestedStringNullableWithAggregatesFilter = {
   _max?: Maybe<NestedStringNullableFilter>;
   _min?: Maybe<NestedStringNullableFilter>;
   contains?: Maybe<Scalars['String']>;
-  count?: Maybe<NestedIntNullableFilter>;
   endsWith?: Maybe<Scalars['String']>;
   equals?: Maybe<Scalars['String']>;
   gt?: Maybe<Scalars['String']>;
@@ -1153,8 +1201,6 @@ export type NestedStringNullableWithAggregatesFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  max?: Maybe<NestedStringNullableFilter>;
-  min?: Maybe<NestedStringNullableFilter>;
   not?: Maybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -1165,7 +1211,6 @@ export type NestedStringWithAggregatesFilter = {
   _max?: Maybe<NestedStringFilter>;
   _min?: Maybe<NestedStringFilter>;
   contains?: Maybe<Scalars['String']>;
-  count?: Maybe<NestedIntFilter>;
   endsWith?: Maybe<Scalars['String']>;
   equals?: Maybe<Scalars['String']>;
   gt?: Maybe<Scalars['String']>;
@@ -1173,8 +1218,6 @@ export type NestedStringWithAggregatesFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  max?: Maybe<NestedStringFilter>;
-  min?: Maybe<NestedStringFilter>;
   not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -1208,7 +1251,7 @@ export type Post = {
 export type PostCommentsArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
   distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<CommentOrderByInput>;
+  orderBy?: Maybe<CommentOrderByWithRelationInput>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1220,6 +1263,11 @@ export type PostAvgAggregateOutputType = {
   id?: Maybe<Scalars['Float']>;
 };
 
+export type PostAvgOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+};
+
 export type PostCountAggregateOutputType = {
   __typename?: 'PostCountAggregateOutputType';
   _all: Scalars['Int'];
@@ -1229,6 +1277,15 @@ export type PostCountAggregateOutputType = {
   published: Scalars['Int'];
   title: Scalars['Int'];
   updatedAt: Scalars['Int'];
+};
+
+export type PostCountOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  published?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 };
 
 export type PostCountOutputType = {
@@ -1299,6 +1356,15 @@ export type PostMaxAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type PostMaxOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  published?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type PostMinAggregateOutputType = {
   __typename?: 'PostMinAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
@@ -1309,8 +1375,37 @@ export type PostMinAggregateOutputType = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type PostOrderByInput = {
+export type PostMinOrderByAggregateInput = {
   authorId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  published?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type PostOrderByRelationAggregateInput = {
+  _count?: Maybe<SortOrder>;
+};
+
+export type PostOrderByWithAggregationInput = {
+  _avg?: Maybe<PostAvgOrderByAggregateInput>;
+  _count?: Maybe<PostCountOrderByAggregateInput>;
+  _max?: Maybe<PostMaxOrderByAggregateInput>;
+  _min?: Maybe<PostMinOrderByAggregateInput>;
+  _sum?: Maybe<PostSumOrderByAggregateInput>;
+  authorId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  published?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type PostOrderByWithRelationInput = {
+  author?: Maybe<UserOrderByWithRelationInput>;
+  authorId?: Maybe<SortOrder>;
+  comments?: Maybe<CommentOrderByRelationAggregateInput>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   published?: Maybe<SortOrder>;
@@ -1360,6 +1455,11 @@ export type PostSumAggregateOutputType = {
   __typename?: 'PostSumAggregateOutputType';
   authorId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+};
+
+export type PostSumOrderByAggregateInput = {
+  authorId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
 };
 
 export type PostUncheckedCreateInput = {
@@ -1574,8 +1674,7 @@ export type Query = {
 
 export type QueryAggregateCommentArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
-  distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<CommentOrderByInput>>>;
+  orderBy?: Maybe<Array<Maybe<CommentOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1583,8 +1682,7 @@ export type QueryAggregateCommentArgs = {
 
 export type QueryAggregateGroupArgs = {
   cursor?: Maybe<GroupWhereUniqueInput>;
-  distinct?: Maybe<GroupScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<GroupOrderByInput>>>;
+  orderBy?: Maybe<Array<Maybe<GroupOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
@@ -1592,8 +1690,7 @@ export type QueryAggregateGroupArgs = {
 
 export type QueryAggregatePostArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
-  distinct?: Maybe<PostScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<PostOrderByInput>>>;
+  orderBy?: Maybe<Array<Maybe<PostOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
@@ -1601,8 +1698,7 @@ export type QueryAggregatePostArgs = {
 
 export type QueryAggregateUserArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
-  distinct?: Maybe<UserScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<UserOrderByInput>>>;
+  orderBy?: Maybe<Array<Maybe<UserOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
@@ -1610,8 +1706,8 @@ export type QueryAggregateUserArgs = {
 
 export type QueryFindFirstCommentArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
-  distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<CommentOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<CommentScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<CommentOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1619,8 +1715,8 @@ export type QueryFindFirstCommentArgs = {
 
 export type QueryFindFirstGroupArgs = {
   cursor?: Maybe<GroupWhereUniqueInput>;
-  distinct?: Maybe<GroupScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<GroupOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<GroupScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<GroupOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
@@ -1628,8 +1724,8 @@ export type QueryFindFirstGroupArgs = {
 
 export type QueryFindFirstPostArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
-  distinct?: Maybe<PostScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<PostOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<PostScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<PostOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
@@ -1637,8 +1733,8 @@ export type QueryFindFirstPostArgs = {
 
 export type QueryFindFirstUserArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
-  distinct?: Maybe<UserScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<UserOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<UserScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<UserOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
@@ -1646,8 +1742,8 @@ export type QueryFindFirstUserArgs = {
 
 export type QueryFindManyCommentArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
-  distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<CommentOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<CommentScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<CommentOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1655,8 +1751,8 @@ export type QueryFindManyCommentArgs = {
 
 export type QueryFindManyCommentCountArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
-  distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<CommentOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<CommentScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<CommentOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1664,8 +1760,8 @@ export type QueryFindManyCommentCountArgs = {
 
 export type QueryFindManyGroupArgs = {
   cursor?: Maybe<GroupWhereUniqueInput>;
-  distinct?: Maybe<GroupScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<GroupOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<GroupScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<GroupOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
@@ -1673,8 +1769,8 @@ export type QueryFindManyGroupArgs = {
 
 export type QueryFindManyGroupCountArgs = {
   cursor?: Maybe<GroupWhereUniqueInput>;
-  distinct?: Maybe<GroupScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<GroupOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<GroupScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<GroupOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<GroupWhereInput>;
@@ -1682,8 +1778,8 @@ export type QueryFindManyGroupCountArgs = {
 
 export type QueryFindManyPostArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
-  distinct?: Maybe<PostScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<PostOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<PostScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<PostOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
@@ -1691,8 +1787,8 @@ export type QueryFindManyPostArgs = {
 
 export type QueryFindManyPostCountArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
-  distinct?: Maybe<PostScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<PostOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<PostScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<PostOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
@@ -1700,8 +1796,8 @@ export type QueryFindManyPostCountArgs = {
 
 export type QueryFindManyUserArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
-  distinct?: Maybe<UserScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<UserOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<UserScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<UserOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
@@ -1709,8 +1805,8 @@ export type QueryFindManyUserArgs = {
 
 export type QueryFindManyUserCountArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
-  distinct?: Maybe<UserScalarFieldEnum>;
-  orderBy?: Maybe<Array<Maybe<UserOrderByInput>>>;
+  distinct?: Maybe<Array<Maybe<UserScalarFieldEnum>>>;
+  orderBy?: Maybe<Array<Maybe<UserOrderByWithRelationInput>>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
@@ -1780,7 +1876,6 @@ export type StringNullableWithAggregatesFilter = {
   _max?: Maybe<NestedStringNullableFilter>;
   _min?: Maybe<NestedStringNullableFilter>;
   contains?: Maybe<Scalars['String']>;
-  count?: Maybe<NestedIntNullableFilter>;
   endsWith?: Maybe<Scalars['String']>;
   equals?: Maybe<Scalars['String']>;
   gt?: Maybe<Scalars['String']>;
@@ -1788,8 +1883,6 @@ export type StringNullableWithAggregatesFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  max?: Maybe<NestedStringNullableFilter>;
-  min?: Maybe<NestedStringNullableFilter>;
   not?: Maybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -1800,7 +1893,6 @@ export type StringWithAggregatesFilter = {
   _max?: Maybe<NestedStringFilter>;
   _min?: Maybe<NestedStringFilter>;
   contains?: Maybe<Scalars['String']>;
-  count?: Maybe<NestedIntFilter>;
   endsWith?: Maybe<Scalars['String']>;
   equals?: Maybe<Scalars['String']>;
   gt?: Maybe<Scalars['String']>;
@@ -1808,8 +1900,6 @@ export type StringWithAggregatesFilter = {
   in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
-  max?: Maybe<NestedStringFilter>;
-  min?: Maybe<NestedStringFilter>;
   not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   startsWith?: Maybe<Scalars['String']>;
@@ -1863,7 +1953,7 @@ export type User = {
 export type UserCommentsArgs = {
   cursor?: Maybe<CommentWhereUniqueInput>;
   distinct?: Maybe<CommentScalarFieldEnum>;
-  orderBy?: Maybe<CommentOrderByInput>;
+  orderBy?: Maybe<CommentOrderByWithRelationInput>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<CommentWhereInput>;
@@ -1872,7 +1962,7 @@ export type UserCommentsArgs = {
 export type UserPostsArgs = {
   cursor?: Maybe<PostWhereUniqueInput>;
   distinct?: Maybe<PostScalarFieldEnum>;
-  orderBy?: Maybe<PostOrderByInput>;
+  orderBy?: Maybe<PostOrderByWithRelationInput>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<PostWhereInput>;
@@ -1884,6 +1974,11 @@ export type UserAvgAggregateOutputType = {
   id?: Maybe<Scalars['Float']>;
 };
 
+export type UserAvgOrderByAggregateInput = {
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+};
+
 export type UserCountAggregateOutputType = {
   __typename?: 'UserCountAggregateOutputType';
   _all: Scalars['Int'];
@@ -1893,6 +1988,15 @@ export type UserCountAggregateOutputType = {
   id: Scalars['Int'];
   name: Scalars['Int'];
   password: Scalars['Int'];
+};
+
+export type UserCountOrderByAggregateInput = {
+  createdAt?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  password?: Maybe<SortOrder>;
 };
 
 export type UserCountOutputType = {
@@ -1987,6 +2091,15 @@ export type UserMaxAggregateOutputType = {
   password?: Maybe<Scalars['String']>;
 };
 
+export type UserMaxOrderByAggregateInput = {
+  createdAt?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  password?: Maybe<SortOrder>;
+};
+
 export type UserMinAggregateOutputType = {
   __typename?: 'UserMinAggregateOutputType';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1997,13 +2110,43 @@ export type UserMinAggregateOutputType = {
   password?: Maybe<Scalars['String']>;
 };
 
-export type UserOrderByInput = {
+export type UserMinOrderByAggregateInput = {
   createdAt?: Maybe<SortOrder>;
   email?: Maybe<SortOrder>;
   groupId?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   password?: Maybe<SortOrder>;
+};
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Maybe<SortOrder>;
+};
+
+export type UserOrderByWithAggregationInput = {
+  _avg?: Maybe<UserAvgOrderByAggregateInput>;
+  _count?: Maybe<UserCountOrderByAggregateInput>;
+  _max?: Maybe<UserMaxOrderByAggregateInput>;
+  _min?: Maybe<UserMinOrderByAggregateInput>;
+  _sum?: Maybe<UserSumOrderByAggregateInput>;
+  createdAt?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  password?: Maybe<SortOrder>;
+};
+
+export type UserOrderByWithRelationInput = {
+  comments?: Maybe<CommentOrderByRelationAggregateInput>;
+  createdAt?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  group?: Maybe<GroupOrderByWithRelationInput>;
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  password?: Maybe<SortOrder>;
+  posts?: Maybe<PostOrderByRelationAggregateInput>;
 };
 
 export type UserRelationFilter = {
@@ -2048,6 +2191,11 @@ export type UserSumAggregateOutputType = {
   __typename?: 'UserSumAggregateOutputType';
   groupId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+};
+
+export type UserSumOrderByAggregateInput = {
+  groupId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
 };
 
 export type UserUncheckedCreateInput = {
@@ -2293,8 +2441,9 @@ export type UserWhereUniqueInput = {
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MeQuery = { __typename?: 'Query' } & {
-  me?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>>;
+export type MeQuery = {
+  __typename?: 'Query';
+  me?: Maybe<{ __typename?: 'User'; id: number; name?: Maybe<string>; email: string }>;
 };
 
 export const MeDocument = gql`

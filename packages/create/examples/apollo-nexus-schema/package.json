@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "nexus": "1.x",
-    "@prisma/client": "2.x",
+    "@prisma/client": "3.x",
     "@paljs/nexus": "3.8.3",
     "apollo-server": "2.x",
     "graphql": "15.x"
   },
   "devDependencies": {
-    "prisma": "2.x",
+    "prisma": "3.x",
     "@types/node": "15.x",
     "@paljs/cli": "3.8.3",
     "prettier": "2.x",
