@@ -97,54 +97,17 @@ export interface NexusGenInputs {
     post: NexusGenInputs['PostCreateNestedOneWithoutCommentsInput']; // PostCreateNestedOneWithoutCommentsInput!
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
-  CommentCreateManyAuthorInput: {
-    // input type
-    contain: string; // String!
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    postId: number; // Int!
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
-  };
-  CommentCreateManyAuthorInputEnvelope: {
-    // input type
-    data: NexusGenInputs['CommentCreateManyAuthorInput']; // CommentCreateManyAuthorInput!
-    skipDuplicates?: boolean | null; // Boolean
-  };
-  CommentCreateManyInput: {
-    // input type
-    authorId?: number | null; // Int
-    contain: string; // String!
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    postId: number; // Int!
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
-  };
-  CommentCreateManyPostInput: {
-    // input type
-    authorId?: number | null; // Int
-    contain: string; // String!
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
-  };
-  CommentCreateManyPostInputEnvelope: {
-    // input type
-    data: NexusGenInputs['CommentCreateManyPostInput']; // CommentCreateManyPostInput!
-    skipDuplicates?: boolean | null; // Boolean
-  };
   CommentCreateNestedManyWithoutAuthorInput: {
     // input type
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutAuthorInput'] | null> | null; // [CommentCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutAuthorInput'] | null> | null; // [CommentCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['CommentCreateManyAuthorInputEnvelope'] | null; // CommentCreateManyAuthorInputEnvelope
   };
   CommentCreateNestedManyWithoutPostInput: {
     // input type
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutPostInput'] | null> | null; // [CommentCreateOrConnectWithoutPostInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutPostInput'] | null> | null; // [CommentCreateWithoutPostInput]
-    createMany?: NexusGenInputs['CommentCreateManyPostInputEnvelope'] | null; // CommentCreateManyPostInputEnvelope
   };
   CommentCreateOrConnectWithoutAuthorInput: {
     // input type
@@ -267,14 +230,12 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutAuthorInput'] | null> | null; // [CommentCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutAuthorInput'] | null> | null; // [CommentCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['CommentCreateManyAuthorInputEnvelope'] | null; // CommentCreateManyAuthorInputEnvelope
   };
   CommentUncheckedCreateNestedManyWithoutPostInput: {
     // input type
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutPostInput'] | null> | null; // [CommentCreateOrConnectWithoutPostInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutPostInput'] | null> | null; // [CommentCreateWithoutPostInput]
-    createMany?: NexusGenInputs['CommentCreateManyPostInputEnvelope'] | null; // CommentCreateManyPostInputEnvelope
   };
   CommentUncheckedCreateWithoutAuthorInput: {
     // input type
@@ -315,7 +276,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutAuthorInput'] | null> | null; // [CommentCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutAuthorInput'] | null> | null; // [CommentCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['CommentCreateManyAuthorInputEnvelope'] | null; // CommentCreateManyAuthorInputEnvelope
     delete?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['CommentScalarWhereInput'] | null> | null; // [CommentScalarWhereInput]
     disconnect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
@@ -337,7 +297,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutPostInput'] | null> | null; // [CommentCreateOrConnectWithoutPostInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutPostInput'] | null> | null; // [CommentCreateWithoutPostInput]
-    createMany?: NexusGenInputs['CommentCreateManyPostInputEnvelope'] | null; // CommentCreateManyPostInputEnvelope
     delete?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['CommentScalarWhereInput'] | null> | null; // [CommentScalarWhereInput]
     disconnect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
@@ -391,7 +350,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutAuthorInput'] | null> | null; // [CommentCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutAuthorInput'] | null> | null; // [CommentCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['CommentCreateManyAuthorInputEnvelope'] | null; // CommentCreateManyAuthorInputEnvelope
     delete?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['CommentScalarWhereInput'] | null> | null; // [CommentScalarWhereInput]
     disconnect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
@@ -405,7 +363,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['CommentCreateOrConnectWithoutPostInput'] | null> | null; // [CommentCreateOrConnectWithoutPostInput]
     create?: Array<NexusGenInputs['CommentCreateWithoutPostInput'] | null> | null; // [CommentCreateWithoutPostInput]
-    createMany?: NexusGenInputs['CommentCreateManyPostInputEnvelope'] | null; // CommentCreateManyPostInputEnvelope
     delete?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['CommentScalarWhereInput'] | null> | null; // [CommentScalarWhereInput]
     disconnect?: Array<NexusGenInputs['CommentWhereUniqueInput'] | null> | null; // [CommentWhereUniqueInput]
@@ -497,27 +454,6 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeWithAggregatesFilter'] | null; // NestedDateTimeWithAggregatesFilter
     notIn?: Array<NexusGenScalars['DateTime'] | null> | null; // [DateTime]
   };
-  EnumRoleFieldUpdateOperationsInput: {
-    // input type
-    set?: NexusGenEnums['Role'] | null; // Role
-  };
-  EnumRoleFilter: {
-    // input type
-    equals?: NexusGenEnums['Role'] | null; // Role
-    in?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-    not?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    notIn?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-  };
-  EnumRoleWithAggregatesFilter: {
-    // input type
-    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
-    _max?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    _min?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    equals?: NexusGenEnums['Role'] | null; // Role
-    in?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-    not?: NexusGenInputs['NestedEnumRoleWithAggregatesFilter'] | null; // NestedEnumRoleWithAggregatesFilter
-    notIn?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-  };
   GroupAvgOrderByAggregateInput: {
     // input type
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -535,13 +471,6 @@ export interface NexusGenInputs {
     name: string; // String!
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     users?: NexusGenInputs['UserCreateNestedManyWithoutGroupInput'] | null; // UserCreateNestedManyWithoutGroupInput
-  };
-  GroupCreateManyInput: {
-    // input type
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    name: string; // String!
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
   GroupCreateNestedOneWithoutUsersInput: {
     // input type
@@ -799,23 +728,6 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeWithAggregatesFilter'] | null; // NestedDateTimeWithAggregatesFilter
     notIn?: Array<NexusGenScalars['DateTime'] | null> | null; // [DateTime]
   };
-  NestedEnumRoleFilter: {
-    // input type
-    equals?: NexusGenEnums['Role'] | null; // Role
-    in?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-    not?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    notIn?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-  };
-  NestedEnumRoleWithAggregatesFilter: {
-    // input type
-    _count?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
-    _max?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    _min?: NexusGenInputs['NestedEnumRoleFilter'] | null; // NestedEnumRoleFilter
-    equals?: NexusGenEnums['Role'] | null; // Role
-    in?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-    not?: NexusGenInputs['NestedEnumRoleWithAggregatesFilter'] | null; // NestedEnumRoleWithAggregatesFilter
-    notIn?: Array<NexusGenEnums['Role'] | null> | null; // [Role]
-  };
   NestedFloatFilter: {
     // input type
     equals?: number | null; // Float
@@ -989,34 +901,11 @@ export interface NexusGenInputs {
     title: string; // String!
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   };
-  PostCreateManyAuthorInput: {
-    // input type
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
-    title: string; // String!
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
-  };
-  PostCreateManyAuthorInputEnvelope: {
-    // input type
-    data: NexusGenInputs['PostCreateManyAuthorInput']; // PostCreateManyAuthorInput!
-    skipDuplicates?: boolean | null; // Boolean
-  };
-  PostCreateManyInput: {
-    // input type
-    authorId?: number | null; // Int
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
-    title: string; // String!
-    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
-  };
   PostCreateNestedManyWithoutAuthorInput: {
     // input type
     connect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['PostCreateOrConnectWithoutAuthorInput'] | null> | null; // [PostCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['PostCreateWithoutAuthorInput'] | null> | null; // [PostCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['PostCreateManyAuthorInputEnvelope'] | null; // PostCreateManyAuthorInputEnvelope
   };
   PostCreateNestedOneWithoutCommentsInput: {
     // input type
@@ -1152,7 +1041,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['PostCreateOrConnectWithoutAuthorInput'] | null> | null; // [PostCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['PostCreateWithoutAuthorInput'] | null> | null; // [PostCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['PostCreateManyAuthorInputEnvelope'] | null; // PostCreateManyAuthorInputEnvelope
   };
   PostUncheckedCreateWithoutAuthorInput: {
     // input type
@@ -1196,7 +1084,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['PostCreateOrConnectWithoutAuthorInput'] | null> | null; // [PostCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['PostCreateWithoutAuthorInput'] | null> | null; // [PostCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['PostCreateManyAuthorInputEnvelope'] | null; // PostCreateManyAuthorInputEnvelope
     delete?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['PostScalarWhereInput'] | null> | null; // [PostScalarWhereInput]
     disconnect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
@@ -1257,7 +1144,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['PostCreateOrConnectWithoutAuthorInput'] | null> | null; // [PostCreateOrConnectWithoutAuthorInput]
     create?: Array<NexusGenInputs['PostCreateWithoutAuthorInput'] | null> | null; // [PostCreateWithoutAuthorInput]
-    createMany?: NexusGenInputs['PostCreateManyAuthorInputEnvelope'] | null; // PostCreateManyAuthorInputEnvelope
     delete?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['PostScalarWhereInput'] | null> | null; // [PostScalarWhereInput]
     disconnect?: Array<NexusGenInputs['PostWhereUniqueInput'] | null> | null; // [PostWhereUniqueInput]
@@ -1338,7 +1224,6 @@ export interface NexusGenInputs {
     in?: Array<string | null> | null; // [String]
     lt?: string | null; // String
     lte?: string | null; // String
-    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
     not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
@@ -1353,7 +1238,6 @@ export interface NexusGenInputs {
     in?: Array<string | null> | null; // [String]
     lt?: string | null; // String
     lte?: string | null; // String
-    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
     not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
@@ -1371,7 +1255,6 @@ export interface NexusGenInputs {
     in?: Array<string | null> | null; // [String]
     lt?: string | null; // String
     lte?: string | null; // String
-    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
     not?: NexusGenInputs['NestedStringNullableWithAggregatesFilter'] | null; // NestedStringNullableWithAggregatesFilter
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
@@ -1389,7 +1272,6 @@ export interface NexusGenInputs {
     in?: Array<string | null> | null; // [String]
     lt?: string | null; // String
     lte?: string | null; // String
-    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
     not?: NexusGenInputs['NestedStringWithAggregatesFilter'] | null; // NestedStringWithAggregatesFilter
     notIn?: Array<string | null> | null; // [String]
     startsWith?: string | null; // String
@@ -1438,7 +1320,6 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    role?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserCreateInput: {
     // input type
@@ -1449,38 +1330,12 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
-  };
-  UserCreateManyGroupInput: {
-    // input type
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    email: string; // String!
-    id?: number | null; // Int
-    name?: string | null; // String
-    password: string; // String!
-    role: NexusGenEnums['Role']; // Role!
-  };
-  UserCreateManyGroupInputEnvelope: {
-    // input type
-    data: NexusGenInputs['UserCreateManyGroupInput']; // UserCreateManyGroupInput!
-    skipDuplicates?: boolean | null; // Boolean
-  };
-  UserCreateManyInput: {
-    // input type
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    email: string; // String!
-    groupId?: number | null; // Int
-    id?: number | null; // Int
-    name?: string | null; // String
-    password: string; // String!
-    role: NexusGenEnums['Role']; // Role!
   };
   UserCreateNestedManyWithoutGroupInput: {
     // input type
     connect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['UserCreateOrConnectWithoutGroupInput'] | null> | null; // [UserCreateOrConnectWithoutGroupInput]
     create?: Array<NexusGenInputs['UserCreateWithoutGroupInput'] | null> | null; // [UserCreateWithoutGroupInput]
-    createMany?: NexusGenInputs['UserCreateManyGroupInputEnvelope'] | null; // UserCreateManyGroupInputEnvelope
   };
   UserCreateNestedOneWithoutCommentsInput: {
     // input type
@@ -1517,7 +1372,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
   };
   UserCreateWithoutGroupInput: {
     // input type
@@ -1527,7 +1381,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostCreateNestedManyWithoutAuthorInput'] | null; // PostCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
   };
   UserCreateWithoutPostsInput: {
     // input type
@@ -1537,7 +1390,6 @@ export interface NexusGenInputs {
     group?: NexusGenInputs['GroupCreateNestedOneWithoutUsersInput'] | null; // GroupCreateNestedOneWithoutUsersInput
     name?: string | null; // String
     password: string; // String!
-    role: NexusGenEnums['Role']; // Role!
   };
   UserListRelationFilter: {
     // input type
@@ -1553,7 +1405,6 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    role?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserMinOrderByAggregateInput: {
     // input type
@@ -1563,7 +1414,6 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    role?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserOrderByRelationAggregateInput: {
     // input type
@@ -1582,7 +1432,6 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    role?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserOrderByWithRelationInput: {
     // input type
@@ -1595,7 +1444,6 @@ export interface NexusGenInputs {
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
     posts?: NexusGenInputs['PostOrderByRelationAggregateInput'] | null; // PostOrderByRelationAggregateInput
-    role?: NexusGenEnums['SortOrder'] | null; // SortOrder
   };
   UserRelationFilter: {
     // input type
@@ -1613,7 +1461,6 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     name?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    role?: NexusGenInputs['EnumRoleFilter'] | null; // EnumRoleFilter
   };
   UserScalarWhereWithAggregatesInput: {
     // input type
@@ -1626,7 +1473,6 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntWithAggregatesFilter'] | null; // IntWithAggregatesFilter
     name?: NexusGenInputs['StringNullableWithAggregatesFilter'] | null; // StringNullableWithAggregatesFilter
     password?: NexusGenInputs['StringWithAggregatesFilter'] | null; // StringWithAggregatesFilter
-    role?: NexusGenInputs['EnumRoleWithAggregatesFilter'] | null; // EnumRoleWithAggregatesFilter
   };
   UserSumOrderByAggregateInput: {
     // input type
@@ -1643,14 +1489,12 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
   };
   UserUncheckedCreateNestedManyWithoutGroupInput: {
     // input type
     connect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['UserCreateOrConnectWithoutGroupInput'] | null> | null; // [UserCreateOrConnectWithoutGroupInput]
     create?: Array<NexusGenInputs['UserCreateWithoutGroupInput'] | null> | null; // [UserCreateWithoutGroupInput]
-    createMany?: NexusGenInputs['UserCreateManyGroupInputEnvelope'] | null; // UserCreateManyGroupInputEnvelope
   };
   UserUncheckedCreateWithoutCommentsInput: {
     // input type
@@ -1661,7 +1505,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
   };
   UserUncheckedCreateWithoutGroupInput: {
     // input type
@@ -1672,7 +1515,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     password: string; // String!
     posts?: NexusGenInputs['PostUncheckedCreateNestedManyWithoutAuthorInput'] | null; // PostUncheckedCreateNestedManyWithoutAuthorInput
-    role: NexusGenEnums['Role']; // Role!
   };
   UserUncheckedCreateWithoutPostsInput: {
     // input type
@@ -1683,7 +1525,6 @@ export interface NexusGenInputs {
     id?: number | null; // Int
     name?: string | null; // String
     password: string; // String!
-    role: NexusGenEnums['Role']; // Role!
   };
   UserUncheckedUpdateInput: {
     // input type
@@ -1695,7 +1536,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUncheckedUpdateManyInput: {
     // input type
@@ -1705,14 +1545,12 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUncheckedUpdateManyWithoutGroupInput: {
     // input type
     connect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['UserCreateOrConnectWithoutGroupInput'] | null> | null; // [UserCreateOrConnectWithoutGroupInput]
     create?: Array<NexusGenInputs['UserCreateWithoutGroupInput'] | null> | null; // [UserCreateWithoutGroupInput]
-    createMany?: NexusGenInputs['UserCreateManyGroupInputEnvelope'] | null; // UserCreateManyGroupInputEnvelope
     delete?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['UserScalarWhereInput'] | null> | null; // [UserScalarWhereInput]
     disconnect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
@@ -1728,7 +1566,6 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUncheckedUpdateWithoutCommentsInput: {
     // input type
@@ -1739,7 +1576,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUncheckedUpdateWithoutGroupInput: {
     // input type
@@ -1750,7 +1586,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUncheckedUpdateManyWithoutAuthorInput'] | null; // PostUncheckedUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUncheckedUpdateWithoutPostsInput: {
     // input type
@@ -1761,7 +1596,6 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpdateInput: {
     // input type
@@ -1772,7 +1606,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpdateManyMutationInput: {
     // input type
@@ -1780,7 +1613,6 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpdateManyWithWhereWithoutGroupInput: {
     // input type
@@ -1792,7 +1624,6 @@ export interface NexusGenInputs {
     connect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     connectOrCreate?: Array<NexusGenInputs['UserCreateOrConnectWithoutGroupInput'] | null> | null; // [UserCreateOrConnectWithoutGroupInput]
     create?: Array<NexusGenInputs['UserCreateWithoutGroupInput'] | null> | null; // [UserCreateWithoutGroupInput]
-    createMany?: NexusGenInputs['UserCreateManyGroupInputEnvelope'] | null; // UserCreateManyGroupInputEnvelope
     delete?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
     deleteMany?: Array<NexusGenInputs['UserScalarWhereInput'] | null> | null; // [UserScalarWhereInput]
     disconnect?: Array<NexusGenInputs['UserWhereUniqueInput'] | null> | null; // [UserWhereUniqueInput]
@@ -1834,7 +1665,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpdateWithoutGroupInput: {
     // input type
@@ -1844,7 +1674,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpdateWithoutPostsInput: {
     // input type
@@ -1854,7 +1683,6 @@ export interface NexusGenInputs {
     group?: NexusGenInputs['GroupUpdateOneWithoutUsersInput'] | null; // GroupUpdateOneWithoutUsersInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    role?: NexusGenInputs['EnumRoleFieldUpdateOperationsInput'] | null; // EnumRoleFieldUpdateOperationsInput
   };
   UserUpsertWithWhereUniqueWithoutGroupInput: {
     // input type
@@ -1886,7 +1714,6 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
-    role?: NexusGenInputs['EnumRoleFilter'] | null; // EnumRoleFilter
   };
   UserWhereUniqueInput: {
     // input type
@@ -1900,10 +1727,8 @@ export interface NexusGenEnums {
   GroupScalarFieldEnum: 'createdAt' | 'id' | 'name' | 'updatedAt';
   KindEnum: 'enum' | 'object' | 'scalar';
   PostScalarFieldEnum: 'authorId' | 'createdAt' | 'id' | 'published' | 'title' | 'updatedAt';
-  QueryMode: 'default' | 'insensitive';
-  Role: 'ADMIN' | 'USER';
   SortOrder: 'asc' | 'desc';
-  UserScalarFieldEnum: 'createdAt' | 'email' | 'groupId' | 'id' | 'name' | 'password' | 'role';
+  UserScalarFieldEnum: 'createdAt' | 'email' | 'groupId' | 'id' | 'name' | 'password';
 }
 
 export interface NexusGenScalars {
@@ -2163,7 +1988,6 @@ export interface NexusGenObjects {
     id: number; // Int!
     name: number; // Int!
     password: number; // Int!
-    role: number; // Int!
   };
   UserCountOutputType: {
     // root type
@@ -2178,7 +2002,6 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     name?: string | null; // String
     password?: string | null; // String
-    role?: NexusGenEnums['Role'] | null; // Role
   };
   UserMinAggregateOutputType: {
     // root type
@@ -2188,7 +2011,6 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     name?: string | null; // String
     password?: string | null; // String
-    role?: NexusGenEnums['Role'] | null; // Role
   };
   UserSumAggregateOutputType: {
     // root type
@@ -2517,7 +2339,6 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     name: number; // Int!
     password: number; // Int!
-    role: number; // Int!
   };
   UserCountOutputType: {
     // field return type
@@ -2532,7 +2353,6 @@ export interface NexusGenFieldTypes {
     id: number | null; // Int
     name: string | null; // String
     password: string | null; // String
-    role: NexusGenEnums['Role'] | null; // Role
   };
   UserMinAggregateOutputType: {
     // field return type
@@ -2542,7 +2362,6 @@ export interface NexusGenFieldTypes {
     id: number | null; // Int
     name: string | null; // String
     password: string | null; // String
-    role: NexusGenEnums['Role'] | null; // Role
   };
   UserSumAggregateOutputType: {
     // field return type
@@ -2863,7 +2682,6 @@ export interface NexusGenFieldTypeNames {
     id: 'Int';
     name: 'Int';
     password: 'Int';
-    role: 'Int';
   };
   UserCountOutputType: {
     // field return type name
@@ -2878,7 +2696,6 @@ export interface NexusGenFieldTypeNames {
     id: 'Int';
     name: 'String';
     password: 'String';
-    role: 'Role';
   };
   UserMinAggregateOutputType: {
     // field return type name
@@ -2888,7 +2705,6 @@ export interface NexusGenFieldTypeNames {
     id: 'Int';
     name: 'String';
     password: 'String';
-    role: 'Role';
   };
   UserSumAggregateOutputType: {
     // field return type name

@@ -109,53 +109,16 @@ input CommentCreateInput {
   updatedAt: DateTime
 }
 
-input CommentCreateManyAuthorInput {
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  postId: Int!
-  updatedAt: DateTime
-}
-
-input CommentCreateManyAuthorInputEnvelope {
-  data: CommentCreateManyAuthorInput!
-  skipDuplicates: Boolean
-}
-
-input CommentCreateManyInput {
-  authorId: Int
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  postId: Int!
-  updatedAt: DateTime
-}
-
-input CommentCreateManyPostInput {
-  authorId: Int
-  contain: String!
-  createdAt: DateTime
-  id: Int
-  updatedAt: DateTime
-}
-
-input CommentCreateManyPostInputEnvelope {
-  data: CommentCreateManyPostInput!
-  skipDuplicates: Boolean
-}
-
 input CommentCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentCreateOrConnectWithoutAuthorInput {
@@ -311,14 +274,12 @@ input CommentUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentUncheckedCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentUncheckedCreateWithoutAuthorInput {
@@ -359,7 +320,6 @@ input CommentUncheckedUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -381,7 +341,6 @@ input CommentUncheckedUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -435,7 +394,6 @@ input CommentUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput]
   create: [CommentCreateWithoutAuthorInput]
-  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -449,7 +407,6 @@ input CommentUpdateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput]
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput]
   create: [CommentCreateWithoutPostInput]
-  createMany: CommentCreateManyPostInputEnvelope
   delete: [CommentWhereUniqueInput]
   deleteMany: [CommentScalarWhereInput]
   disconnect: [CommentWhereUniqueInput]
@@ -557,27 +514,6 @@ type Enum {
   name: String!
 }
 
-input EnumRoleFieldUpdateOperationsInput {
-  set: Role
-}
-
-input EnumRoleFilter {
-  equals: Role
-  in: [Role]
-  not: NestedEnumRoleFilter
-  notIn: [Role]
-}
-
-input EnumRoleWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedEnumRoleFilter
-  _min: NestedEnumRoleFilter
-  equals: Role
-  in: [Role]
-  not: NestedEnumRoleWithAggregatesFilter
-  notIn: [Role]
-}
-
 type Field {
   create: Boolean!
   editor: Boolean!
@@ -647,13 +583,6 @@ input GroupCreateInput {
   name: String!
   updatedAt: DateTime
   users: UserCreateNestedManyWithoutGroupInput
-}
-
-input GroupCreateManyInput {
-  createdAt: DateTime
-  id: Int
-  name: String!
-  updatedAt: DateTime
 }
 
 input GroupCreateNestedOneWithoutUsersInput {
@@ -992,23 +921,6 @@ input NestedDateTimeWithAggregatesFilter {
   notIn: [DateTime]
 }
 
-input NestedEnumRoleFilter {
-  equals: Role
-  in: [Role]
-  not: NestedEnumRoleFilter
-  notIn: [Role]
-}
-
-input NestedEnumRoleWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedEnumRoleFilter
-  _min: NestedEnumRoleFilter
-  equals: Role
-  in: [Role]
-  not: NestedEnumRoleWithAggregatesFilter
-  notIn: [Role]
-}
-
 input NestedFloatFilter {
   equals: Float
   gt: Float
@@ -1220,33 +1132,10 @@ input PostCreateInput {
   updatedAt: DateTime
 }
 
-input PostCreateManyAuthorInput {
-  createdAt: DateTime
-  id: Int
-  published: Boolean
-  title: String!
-  updatedAt: DateTime
-}
-
-input PostCreateManyAuthorInputEnvelope {
-  data: PostCreateManyAuthorInput!
-  skipDuplicates: Boolean
-}
-
-input PostCreateManyInput {
-  authorId: Int
-  createdAt: DateTime
-  id: Int
-  published: Boolean
-  title: String!
-  updatedAt: DateTime
-}
-
 input PostCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostCreateNestedOneWithoutCommentsInput {
@@ -1414,7 +1303,6 @@ input PostUncheckedCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
 }
 
 input PostUncheckedCreateWithoutAuthorInput {
@@ -1458,7 +1346,6 @@ input PostUncheckedUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1519,7 +1406,6 @@ input PostUpdateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput]
   connectOrCreate: [PostCreateOrConnectWithoutAuthorInput]
   create: [PostCreateWithoutAuthorInput]
-  createMany: PostCreateManyAuthorInputEnvelope
   delete: [PostWhereUniqueInput]
   deleteMany: [PostScalarWhereInput]
   disconnect: [PostWhereUniqueInput]
@@ -1720,16 +1606,6 @@ type Query {
   me: User
 }
 
-enum QueryMode {
-  default
-  insensitive
-}
-
-enum Role {
-  ADMIN
-  USER
-}
-
 type Schema {
   enums: [Enum!]!
   models: [Model!]!
@@ -1753,7 +1629,6 @@ input StringFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringFilter
   notIn: [String]
   startsWith: String
@@ -1768,7 +1643,6 @@ input StringNullableFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringNullableFilter
   notIn: [String]
   startsWith: String
@@ -1786,7 +1660,6 @@ input StringNullableWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringNullableWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1804,7 +1677,6 @@ input StringWithAggregatesFilter {
   in: [String]
   lt: String
   lte: String
-  mode: QueryMode
   not: NestedStringWithAggregatesFilter
   notIn: [String]
   startsWith: String
@@ -1886,7 +1758,6 @@ type UserCountAggregateOutputType {
   id: Int!
   name: Int!
   password: Int!
-  role: Int!
 }
 
 input UserCountOrderByAggregateInput {
@@ -1896,7 +1767,6 @@ input UserCountOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   password: SortOrder
-  role: SortOrder
 }
 
 type UserCountOutputType {
@@ -1912,38 +1782,12 @@ input UserCreateInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
-  role: Role!
-}
-
-input UserCreateManyGroupInput {
-  createdAt: DateTime
-  email: String!
-  id: Int
-  name: String
-  password: String!
-  role: Role!
-}
-
-input UserCreateManyGroupInputEnvelope {
-  data: UserCreateManyGroupInput!
-  skipDuplicates: Boolean
-}
-
-input UserCreateManyInput {
-  createdAt: DateTime
-  email: String!
-  groupId: Int
-  id: Int
-  name: String
-  password: String!
-  role: Role!
 }
 
 input UserCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserCreateNestedOneWithoutCommentsInput {
@@ -1980,7 +1824,6 @@ input UserCreateWithoutCommentsInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
-  role: Role!
 }
 
 input UserCreateWithoutGroupInput {
@@ -1990,7 +1833,6 @@ input UserCreateWithoutGroupInput {
   name: String
   password: String!
   posts: PostCreateNestedManyWithoutAuthorInput
-  role: Role!
 }
 
 input UserCreateWithoutPostsInput {
@@ -2000,7 +1842,6 @@ input UserCreateWithoutPostsInput {
   group: GroupCreateNestedOneWithoutUsersInput
   name: String
   password: String!
-  role: Role!
 }
 
 input UserListRelationFilter {
@@ -2016,7 +1857,6 @@ type UserMaxAggregateOutputType {
   id: Int
   name: String
   password: String
-  role: Role
 }
 
 input UserMaxOrderByAggregateInput {
@@ -2026,7 +1866,6 @@ input UserMaxOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   password: SortOrder
-  role: SortOrder
 }
 
 type UserMinAggregateOutputType {
@@ -2036,7 +1875,6 @@ type UserMinAggregateOutputType {
   id: Int
   name: String
   password: String
-  role: Role
 }
 
 input UserMinOrderByAggregateInput {
@@ -2046,7 +1884,6 @@ input UserMinOrderByAggregateInput {
   id: SortOrder
   name: SortOrder
   password: SortOrder
-  role: SortOrder
 }
 
 input UserOrderByRelationAggregateInput {
@@ -2065,7 +1902,6 @@ input UserOrderByWithAggregationInput {
   id: SortOrder
   name: SortOrder
   password: SortOrder
-  role: SortOrder
 }
 
 input UserOrderByWithRelationInput {
@@ -2078,7 +1914,6 @@ input UserOrderByWithRelationInput {
   name: SortOrder
   password: SortOrder
   posts: PostOrderByRelationAggregateInput
-  role: SortOrder
 }
 
 input UserRelationFilter {
@@ -2093,7 +1928,6 @@ enum UserScalarFieldEnum {
   id
   name
   password
-  role
 }
 
 input UserScalarWhereInput {
@@ -2106,7 +1940,6 @@ input UserScalarWhereInput {
   id: IntFilter
   name: StringNullableFilter
   password: StringFilter
-  role: EnumRoleFilter
 }
 
 input UserScalarWhereWithAggregatesInput {
@@ -2119,7 +1952,6 @@ input UserScalarWhereWithAggregatesInput {
   id: IntWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
   password: StringWithAggregatesFilter
-  role: EnumRoleWithAggregatesFilter
 }
 
 type UserSumAggregateOutputType {
@@ -2141,14 +1973,12 @@ input UserUncheckedCreateInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
-  role: Role!
 }
 
 input UserUncheckedCreateNestedManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
 }
 
 input UserUncheckedCreateWithoutCommentsInput {
@@ -2159,7 +1989,6 @@ input UserUncheckedCreateWithoutCommentsInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
-  role: Role!
 }
 
 input UserUncheckedCreateWithoutGroupInput {
@@ -2170,7 +1999,6 @@ input UserUncheckedCreateWithoutGroupInput {
   name: String
   password: String!
   posts: PostUncheckedCreateNestedManyWithoutAuthorInput
-  role: Role!
 }
 
 input UserUncheckedCreateWithoutPostsInput {
@@ -2181,7 +2009,6 @@ input UserUncheckedCreateWithoutPostsInput {
   id: Int
   name: String
   password: String!
-  role: Role!
 }
 
 input UserUncheckedUpdateInput {
@@ -2193,7 +2020,6 @@ input UserUncheckedUpdateInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateManyInput {
@@ -2203,14 +2029,12 @@ input UserUncheckedUpdateManyInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]
@@ -2226,7 +2050,6 @@ input UserUncheckedUpdateManyWithoutUsersInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutCommentsInput {
@@ -2237,7 +2060,6 @@ input UserUncheckedUpdateWithoutCommentsInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutGroupInput {
@@ -2248,7 +2070,6 @@ input UserUncheckedUpdateWithoutGroupInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUncheckedUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUncheckedUpdateWithoutPostsInput {
@@ -2259,7 +2080,6 @@ input UserUncheckedUpdateWithoutPostsInput {
   id: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateInput {
@@ -2270,7 +2090,6 @@ input UserUpdateInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2278,7 +2097,6 @@ input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateManyWithWhereWithoutGroupInput {
@@ -2290,7 +2108,6 @@ input UserUpdateManyWithoutGroupInput {
   connect: [UserWhereUniqueInput]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput]
   create: [UserCreateWithoutGroupInput]
-  createMany: UserCreateManyGroupInputEnvelope
   delete: [UserWhereUniqueInput]
   deleteMany: [UserScalarWhereInput]
   disconnect: [UserWhereUniqueInput]
@@ -2332,7 +2149,6 @@ input UserUpdateWithoutCommentsInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutGroupInput {
@@ -2342,7 +2158,6 @@ input UserUpdateWithoutGroupInput {
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutPostsInput {
@@ -2352,7 +2167,6 @@ input UserUpdateWithoutPostsInput {
   group: GroupUpdateOneWithoutUsersInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
 }
 
 input UserUpsertWithWhereUniqueWithoutGroupInput {
@@ -2384,7 +2198,6 @@ input UserWhereInput {
   name: StringNullableFilter
   password: StringFilter
   posts: PostListRelationFilter
-  role: EnumRoleFilter
 }
 
 input UserWhereUniqueInput {
