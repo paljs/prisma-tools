@@ -1,5 +1,5 @@
 {
-  "version": "4.0.2",
+  "version": "4.0.3",
   "useWorkspaces": false,
   "packages": [
     "packages/cli",
