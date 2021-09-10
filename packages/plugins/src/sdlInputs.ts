@@ -62,7 +62,7 @@ export const getInputType = (
   return field.inputTypes[index];
 };
 
-function createInput(options?: OptionsType) {
+export function generateInputsString(options?: OptionsType) {
   let schema = options?.dmmf?.schema;
   if (!schema) {
     const { Prisma } = require('@prisma/client');
@@ -150,7 +150,7 @@ function createInput(options?: OptionsType) {
 export const sdlInputs = (options?: OptionsType) => {
   const gql = require('graphql-tag');
   return gql`
-    ${createInput(options)}
+    ${generateInputsString(options)}
   `;
 };
 
