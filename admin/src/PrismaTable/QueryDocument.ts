@@ -85,7 +85,7 @@ query findUnique${modelName}($where: ${modelName}WhereUniqueInput!) {
     return tag`
 query findMany${modelName}(
   $where: ${modelName}WhereInput
-  $orderBy: [${modelName}OrderByInput!]
+  $orderBy: [${modelName}OrderByWithRelationInput!]
   $cursor: ${modelName}WhereUniqueInput
   $skip: Int
   $take: Int
