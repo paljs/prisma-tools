@@ -1,6 +1,6 @@
 {
   "name": "@paljs/nexus",
-  "version": "4.0.0",
+  "version": "4.0.7",
   "main": "dist/index.js",
   "module": "dist/nexus.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@paljs/plugins": "^4.0.0",
+    "@paljs/plugins": "^4.0.7",
     "fs-extra": "^10.0.0",
     "lowdb": "^1.0.0"
   },
