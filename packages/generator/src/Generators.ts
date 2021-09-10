@@ -38,6 +38,8 @@ export class Generators {
 
   schemaString: string;
 
+  readyDmmf?: DMMF.Document;
+
   constructor(private schemaPath: string, customOptions?: Partial<Options>) {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
@@ -46,7 +48,12 @@ export class Generators {
   }
 
   protected async dmmf(): Promise<DMMF.Document> {
-    return await getDMMF({ datamodel: this.schemaString });
+    if (!this.readyDmmf) {
+      this.readyDmmf = await getDMMF({ datamodel: this.schemaString });
+      return this.readyDmmf;
+    } else {
+      return this.readyDmmf;
+    }
   }
 
   protected async schemaConfig() {
