@@ -55,7 +55,8 @@ export const getInputType = (
   if (
     field.inputTypes.length > 1 &&
     (field.inputTypes[1].location === 'inputObjectTypes' ||
-      field.inputTypes[1].isList)
+      field.inputTypes[1].isList ||
+      field.inputTypes[1].type === 'Json')
   ) {
     index = 1;
   }
