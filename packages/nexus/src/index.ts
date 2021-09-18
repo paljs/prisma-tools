@@ -49,12 +49,12 @@ export const paljs = (settings?: Settings) =>
           if (data.inputObjectTypes.model)
             inputObjectTypes.push(...data.inputObjectTypes.model);
           inputObjectTypes.forEach((input) => {
-            if (input.fields.length > 0) {
+            const inputFields =
+              typeof settings?.filterInputs === 'function'
+                ? settings.filterInputs(input)
+                : input.fields;
+            if (inputFields.length > 0) {
               if (!allTypes.includes(input.name)) {
-                const inputFields =
-                  typeof settings?.filterInputs === 'function'
-                    ? settings.filterInputs(input)
-                    : input.fields;
                 nexusSchemaInputs.push(
                   inputObjectType({
                     nonNullDefaults: {
@@ -151,10 +151,10 @@ export const paljs = (settings?: Settings) =>
     },
     onCreateFieldResolver() {
       return async (root, args, ctx, info: any, next) => {
-        ctx.select = new PrismaSelect(
-          info,
-          settings?.prismaSelectOptions,
-        ).value;
+        ctx.select = new PrismaSelect(info, {
+          dmmf: settings?.dmmf,
+          ...settings?.prismaSelectOptions,
+        }).value;
         return await next(root, args, ctx, info);
       };
     },
