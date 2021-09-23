@@ -218,6 +218,10 @@ export class Generators {
       .replace(/@onDelete\((.*?)\)/, '');
   }
 
+  protected shouldOmit(docs?: string) {
+    return docs?.includes('@Pal.omit');
+  }
+
   protected createFileIfNotfound(
     path: string,
     fileName: string,
