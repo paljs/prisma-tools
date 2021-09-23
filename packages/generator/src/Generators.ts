@@ -218,6 +218,24 @@ export class Generators {
       .replace(/@onDelete\((.*?)\)/, '');
   }
 
+  protected shouldOmit(docs?: string) {
+    if (!docs?.includes('@Pal.omit')) {
+      return false;
+    }
+    if (docs?.match(/@Pal.omit(\(\))?\b/)) {
+      return true;
+    }
+    const innerExpression = docs?.match(/@Pal.omit\(\[(.*?)\]\)/);
+    if (innerExpression) {
+      const expressionArguments = innerExpression[1]
+        .replace(/\s/g, '')
+        .split(',')
+        .filter(Boolean);
+      return expressionArguments.includes('output');
+    }
+    return false;
+  }
+
   protected createFileIfNotfound(
     path: string,
     fileName: string,
