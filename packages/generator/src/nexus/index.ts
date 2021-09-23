@@ -49,7 +49,7 @@ export class GenerateNexus extends Generators {
           const dataField = this.dataField(field.name, dataModel);
           const fieldDocs = this.filterDocs(dataField?.documentation);
           const options = this.getOptions(field, fieldDocs);
-          if (this.shouldOmit(fieldDocs)) {
+          if (this.shouldOmit(fieldDocs, 'output')) {
             return;
           }
           if (
