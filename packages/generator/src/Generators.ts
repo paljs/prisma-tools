@@ -219,6 +219,12 @@ export class Generators {
   }
 
   protected shouldOmit(docs?: string) {
+    if (!docs?.includes('@Pal.omit')) {
+      return false;
+    }
+    if (docs?.match(/@Pal.omit(\(\))?\b/)) {
+      return true;
+    }
     const innerExpression = docs?.match(/@Pal.omit\(\[(.*?)\]\)/);
     if (innerExpression) {
       const expressionArguments = innerExpression[1]
