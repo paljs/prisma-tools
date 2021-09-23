@@ -218,14 +218,14 @@ export class Generators {
       .replace(/@onDelete\((.*?)\)/, '');
   }
 
-  protected shouldOmit(docs?: string, name?: 'input' | 'output') {
+  protected shouldOmit(docs?: string) {
     const innerExpression = docs?.match(/@Pal.omit\(\[(.*?)\]\)/);
-    if (innerExpression && name) {
+    if (innerExpression) {
       const expressionArguments = innerExpression[1]
         .replace(/\s/g, '')
         .split(',')
         .filter(Boolean);
-      return expressionArguments.includes(name);
+      return expressionArguments.includes('output');
     }
     return false;
   }

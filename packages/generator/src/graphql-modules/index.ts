@@ -40,7 +40,7 @@ export class GenerateModules extends Generators {
         if (!this.excludeFields(model.name).includes(field.name)) {
           const dataField = this.dataField(field.name, dataModel);
           const fieldDocs = this.filterDocs(dataField?.documentation);
-          if (this.shouldOmit(fieldDocs, 'output')) {
+          if (this.shouldOmit(fieldDocs)) {
             return;
           }
           if (dataField?.kind === 'object' && model.name !== dataField.type) {

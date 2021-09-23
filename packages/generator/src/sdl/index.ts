@@ -44,7 +44,7 @@ export class GenerateSdl extends Generators {
         if (!excludeFields.includes(field.name)) {
           const dataField = this.dataField(field.name, dataModel);
           const fieldDocs = this.filterDocs(dataField?.documentation);
-          if (this.shouldOmit(fieldDocs, 'output')) {
+          if (this.shouldOmit(fieldDocs)) {
             return;
           }
           fileContent += `
