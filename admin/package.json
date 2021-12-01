@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "4.0.9",
+  "version": "4.0.13",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
-    "@paljs/types": "^4.0.0",
+    "@paljs/types": "^4.0.13",
     "react-beautiful-dnd": "13.1.0",
     "react-hook-form": "7.20.5",
     "react-table": "7.7.0"
