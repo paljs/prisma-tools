@@ -22,17 +22,17 @@
   },
   "dependencies": {
     "@paljs/types": "^4.0.0",
-    "@prisma/sdk": "3.0.1",
-    "pkg-dir": "^5.0.0",
+    "@prisma/sdk": "3.6.0",
+    "pkg-dir": "^6.0.1",
     "pluralize": "^8.0.0",
-    "prettier": "^2.3.2"
+    "prettier": "^2.5.0"
   },
   "devDependencies": {
-    "@prisma/client": "3.0.1",
-    "@types/node": "16.7.13",
+    "@prisma/client": "3.6.0",
+    "@types/node": "16.11.11",
     "@types/pluralize": "^0.0.29",
-    "@types/prettier": "2.3.2",
-    "typescript": "4.4.2"
+    "@types/prettier": "2.4.2",
+    "typescript": "4.5.2"
   },
   "files": [
     "dist"
