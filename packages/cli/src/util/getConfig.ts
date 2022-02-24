@@ -1,8 +1,8 @@
 import { join } from 'path';
 import { log } from '@paljs/display';
 import chalk from 'chalk';
-import { packageDirectorySync } from 'pkg-dir';
-const projectRoot = packageDirectorySync() || process.cwd();
+import pkgDir from 'pkg-dir';
+const projectRoot = pkgDir.sync() || process.cwd();
 
 export const getConfig = async (
   flags: {

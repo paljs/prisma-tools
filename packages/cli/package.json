@@ -19,7 +19,7 @@
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.6",
     "fs-extra": "^10.0.1",
-    "pkg-dir": "^6.0.1",
+    "pkg-dir": "^5.0.0",
     "prettier": "^2.5.1",
     "tslib": "^2"
   },
@@ -74,5 +74,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "b3bc996ff132b93e8c87567217d4085e46f01ce6"
+  "gitHead": "3d5f31c5d025953338ec694c513894b6a4112e70"
 }

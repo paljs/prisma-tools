@@ -1,11 +1,11 @@
 import { Mutation, Options, Query } from '@paljs/types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { format, Options as PrettierOptions } from 'prettier';
-import { packageDirectorySync } from 'pkg-dir';
+import pkgDir from 'pkg-dir';
 import { join } from 'path';
 import { DMMF } from '@prisma/client/runtime';
 import { getDMMF, getConfig, getEnvPaths, tryLoadEnvs } from '@prisma/sdk';
-const projectRoot = packageDirectorySync() || process.cwd();
+const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
   options: Options = {
