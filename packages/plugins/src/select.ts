@@ -238,7 +238,9 @@ export class PrismaSelect {
                 field.type,
                 selectObject.select[key],
               );
-              if (Object.keys(subModelFilter.select).length > 0) {
+              if(subModelFilter === true){
+                filteredObject.select[key] = true;
+              } else if (Object.keys(subModelFilter.select).length > 0) {
                 filteredObject.select[key] = subModelFilter;
               }
             }
