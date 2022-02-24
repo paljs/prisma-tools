@@ -49,7 +49,6 @@ export const useFilter = (
       if (state.typingTimeout) clearTimeout(state.typingTimeout);
 
       const newValue = {
-        ...state.value,
         [name]: search || value === false ? search : undefined,
       };
       setState({
