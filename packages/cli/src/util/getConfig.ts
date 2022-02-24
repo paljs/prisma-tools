@@ -2,7 +2,7 @@ import { join } from 'path';
 import { log } from '@paljs/display';
 import chalk from 'chalk';
 import pkgDir from 'pkg-dir';
-const projectRoot = pkgDir.sync() || process.cwd();
+const projectRoot = pkgDir.packageDirectorySync() || process.cwd();
 
 export const getConfig = async (
   flags: {

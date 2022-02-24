@@ -5,7 +5,7 @@ import pkgDir from 'pkg-dir';
 import { join } from 'path';
 import { DMMF } from '@prisma/client/runtime';
 import { getDMMF, getConfig, getEnvPaths, tryLoadEnvs } from '@prisma/sdk';
-const projectRoot = pkgDir.sync() || process.cwd();
+const projectRoot = pkgDir.packageDirectorySync() || process.cwd();
 
 export class Generators {
   options: Options = {
