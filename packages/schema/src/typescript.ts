@@ -7,9 +7,12 @@ export class GenerateTypeScript {
   private scalar: { [key: string]: any } = {
     Int: 'number',
     Float: 'number',
+    Decimal: 'number',
+    BigInt: 'number',
     String: 'string',
     Boolean: 'boolean',
     DateTime: 'Date',
+    Json: 'any',
   };
   constructor(path: string) {
     this.schema = new ConvertSchemaToObject(path).run();

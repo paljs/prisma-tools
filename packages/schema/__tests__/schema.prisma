@@ -8,12 +8,13 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
-  password  String
-  posts     Post[]
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  email      String   @unique
+  name       String?
+  password   String
+  permitions Json     @default("{}")
+  posts      Post[]
 }
 
 model Post {
