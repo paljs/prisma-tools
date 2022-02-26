@@ -57,7 +57,7 @@ export class CamelCase extends PrismaReader {
         let newModel = lines.join(`
 `);
 
-        const pattern = new RegExp(`model ${modelName}[\\s\\S]*?\\}`);
+        const pattern = new RegExp(`model ${modelName}[\\s\\S]*?\\}\n`);
         newData = newData.replace(pattern, newModel);
       }
 

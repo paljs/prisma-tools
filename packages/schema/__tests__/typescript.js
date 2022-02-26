@@ -1,8 +1,8 @@
-const { GenerateTypeScript } = require('../dist');
+const { CamelCase } = require('../dist');
 
-function main() {
-  const generate = new GenerateTypeScript('./schema.prisma').run();
-  console.log(generate);
+async function main() {
+  const generate = new CamelCase('./schema.prisma').convert();
+  console.log(await generate);
 }
 
 main();
