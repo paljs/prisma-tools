@@ -7,9 +7,6 @@ import { useApollo } from 'server/client';
 // @material start
 //import AdminLayout from 'layouts/material';
 // @material end
-// @admin start
-import '@paljs/admin/style.css';
-// @admin end
 // @tailwindcss start
 import AdminLayout from 'tailwind/layouts/Admin';
 import 'tailwindcss/tailwind.css';

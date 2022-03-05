@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, NetworkStatus, useQuery } from '@apollo/client';
 import { SearchIcon, XCircleIcon } from '@heroicons/react/outline';
 
 import Modal from '../../components/Modal';
@@ -145,25 +145,16 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     const [modal, setModal] = useState(false);
     const [state, setSate] = useState(value);
 
-    const [getData, { data, loading }] = useLazyQuery(
-      queryDocument(models, field.type, true),
-    );
-    const result = data ? data[`findUnique${field.type}`] : {};
-
-    if (
-      state &&
-      Object.keys(state).length > 0 &&
-      !loading &&
-      state[model.idField] !== result[model.idField]
-    ) {
-      getData({
-        variables: {
-          where: {
-            [model.idField]: state[model.idField],
-          },
+    const { data } = useQuery(queryDocument(models, field.type, true), {
+      variables: {
+        where: {
+          [model.idField]: state[model.idField],
         },
-      });
-    }
+      },
+      skip: !(state && Object.keys(state).length > 0),
+    });
+
+    const result = data ? data[`findUnique${field.type}`] : {};
 
     React.useEffect(() => {
       register(field.name, { required: field.required });
@@ -192,12 +183,11 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             {error ? lang.isRequired : ''}
           </span>
         </div>
-        <div className="w-full relative">
+        <div className="w-full flex items-center">
           <button
             disabled={disabled}
             type="button"
             className={classNames(
-              'absolute top-2.5 left-1',
               buttonClasses,
               'rounded-md bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25',
             )}
@@ -205,12 +195,16 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           >
             <SearchIcon className="h-5 w-5" />
           </button>
+          <input
+            className={classNames(inputClasses, 'mx-2 flex-1')}
+            value={getDisplayName(state, model)}
+            disabled
+          />
           {!field.required && (
             <button
               disabled={disabled}
               type="button"
               className={classNames(
-                'absolute top-2.5 right-1',
                 buttonClasses,
                 'rounded-md bg-transparent text-red-600 hover:bg-red-100 hover:bg-opacity-25',
               )}
@@ -225,11 +219,6 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
               <XCircleIcon className="h-5 w-5" />
             </button>
           )}
-          <input
-            className={inputClasses.replace('px-4', 'px-8')}
-            value={getDisplayName(state, model)}
-            disabled
-          />
         </div>
       </div>
     );

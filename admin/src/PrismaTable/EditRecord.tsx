@@ -28,8 +28,6 @@ const EditRecord: React.FC<EditRecordProps> = ({
     pagesPath,
     onCancelUpdate,
     actions,
-    lang,
-    dir,
   } = useContext(TableContext);
   const modelObject = models.find((item) => item.id === model);
   const isField = modelObject?.fields.find(
@@ -48,6 +46,7 @@ const EditRecord: React.FC<EditRecordProps> = ({
             },
           }
         : undefined,
+      fetchPolicy: 'network-only',
     },
   );
 
