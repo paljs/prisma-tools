@@ -86,6 +86,7 @@ interface SameProps {
     Update?: React.FC<{ id: any }>;
     Delete?: React.FC<{ id: any }>;
   };
+  defaultOrderBy?: Record<string, Record<string, 'asc' | 'desc'>[]>;
 }
 
 export interface ModelTableProps

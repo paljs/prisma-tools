@@ -8,6 +8,11 @@ const #{id}: React.FC = () => {
 
 export default #{id};
 `
+// @ts-check
+
+/**
+ * @type {import('@paljs/types').Config}
+ **/
 
 module.exports = {
   backend: {

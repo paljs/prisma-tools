@@ -1,3 +1,9 @@
+// @ts-check
+
+/**
+ * @type {import('@paljs/types').MultiSchemaConfig}
+ **/
+
 module.exports = {
   schema1: {
     schema: './prisma1/schema.prisma',

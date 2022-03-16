@@ -70,6 +70,8 @@ export interface Config {
   };
 }
 
+export type MultiSchemaConfig = Record<string, Config>;
+
 export type PartialOptions = Omit<Partial<Options>, 'nexusSchema'>;
 
 export interface Options {

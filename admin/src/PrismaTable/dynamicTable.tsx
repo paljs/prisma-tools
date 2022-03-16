@@ -68,6 +68,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     push,
     pagesPath,
     pageSize,
+    defaultOrderBy,
   } = context;
   const [page, setPage] = useState({
     take: pageSize,
@@ -77,7 +78,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const modelObject = models.find((item) => item.id === model);
 
   const { where, orderBy, filterHandler, sortByHandler, initialFilter } =
-    useFilterAndSort(model, inEdit ? filter : query);
+    useFilterAndSort(
+      model,
+      inEdit ? filter : query,
+      defaultOrderBy ? defaultOrderBy[model] : undefined,
+    );
 
   const variables = {
     where,

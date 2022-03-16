@@ -63,10 +63,16 @@ const handleFilter = (filters: { id: string; value: any }[]) => {
   return undefined;
 };
 
-export const useFilterAndSort = (model: string, filter?: any) => {
+export const useFilterAndSort = (
+  model: string,
+  filter?: any,
+  defaultOrder?: Record<string, 'asc' | 'desc'>[],
+) => {
   const initialFilter = filterMemo(model, filter);
   const [where, setWhere] = useState<any>(handleFilter(initialFilter));
-  const [orderBy, setOrderBy] = useState<any[]>();
+  const [orderBy, setOrderBy] = useState<
+    Record<string, 'asc' | 'desc'>[] | undefined
+  >(defaultOrder);
 
   const filterHandler = (filters: { id: string; value: any }[]) => {
     setWhere(handleFilter(filters));
@@ -82,7 +88,7 @@ export const useFilterAndSort = (model: string, filter?: any) => {
       });
       setOrderBy(newOrderBy);
     } else if (orderBy) {
-      setOrderBy(undefined);
+      setOrderBy(defaultOrder);
     }
   };
 
