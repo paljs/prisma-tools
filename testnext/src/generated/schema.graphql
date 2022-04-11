@@ -536,7 +536,7 @@ type Field {
 }
 
 type Group {
-  _count: GroupCountOutputType
+  _count: GroupCountOutputType!
   createdAt: DateTime!
   id: Int!
   name: String!
@@ -1072,7 +1072,7 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Post {
-  _count: PostCountOutputType
+  _count: PostCountOutputType!
   author: User
   authorId: Int
   comments(
@@ -1714,7 +1714,7 @@ input UpdateModelInput {
 }
 
 type User {
-  _count: UserCountOutputType
+  _count: UserCountOutputType!
   comments(
     cursor: CommentWhereUniqueInput
     distinct: CommentScalarFieldEnum

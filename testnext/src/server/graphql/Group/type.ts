@@ -25,7 +25,7 @@ export const Group = objectType({
         return root.users
       },
     })
-    t.nullable.field('_count', {
+    t.field('_count', {
       type: 'GroupCountOutputType',
       resolve(root: any) {
         return root._count

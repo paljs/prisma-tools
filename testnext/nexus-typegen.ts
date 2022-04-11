@@ -2143,7 +2143,7 @@ export interface NexusGenFieldTypes {
   };
   Group: {
     // field return type
-    _count: NexusGenRootTypes['GroupCountOutputType'] | null; // GroupCountOutputType
+    _count: NexusGenRootTypes['GroupCountOutputType']; // GroupCountOutputType!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     name: string; // String!
@@ -2230,7 +2230,7 @@ export interface NexusGenFieldTypes {
   };
   Post: {
     // field return type
-    _count: NexusGenRootTypes['PostCountOutputType'] | null; // PostCountOutputType
+    _count: NexusGenRootTypes['PostCountOutputType']; // PostCountOutputType!
     author: NexusGenRootTypes['User'] | null; // User
     authorId: number | null; // Int
     comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
@@ -2314,7 +2314,7 @@ export interface NexusGenFieldTypes {
   };
   User: {
     // field return type
-    _count: NexusGenRootTypes['UserCountOutputType'] | null; // UserCountOutputType
+    _count: NexusGenRootTypes['UserCountOutputType']; // UserCountOutputType!
     comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     email: string; // String!
