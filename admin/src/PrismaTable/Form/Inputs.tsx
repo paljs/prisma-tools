@@ -246,6 +246,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           defaultValue={value ? getDate(new Date(value)) : undefined}
           {...register(field.name, {
             required: field.required,
+            valueAsDate: true,
             ...getFieldValidation(field, inputValidation),
           })}
         />

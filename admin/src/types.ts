@@ -5,7 +5,6 @@ import { Schema, SchemaField, SchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
 import { DynamicTableProps } from './PrismaTable/dynamicTable';
 import { RegisterOptions } from 'react-hook-form/dist/types/validator';
-import { type } from 'os';
 
 export type { Schema, SchemaField, SchemaModel };
 
