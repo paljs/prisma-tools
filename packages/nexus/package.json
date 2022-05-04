@@ -29,7 +29,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/client": "3.12.0",
+    "@prisma/client": "^3.13.0",
     "@types/lowdb": "1.0.11",
     "nexus": "1.2.0",
     "typescript": "4.5.5"

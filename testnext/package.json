@@ -27,7 +27,7 @@
     "@material-ui/icons": "4.11.2",
     "@paljs/admin": "4.0.18",
     "@paljs/nexus": "4.0.18",
-    "@prisma/client": "3.12.0",
+    "@prisma/client": "^3.12.0",
     "apollo-server-micro": "3.6.3",
     "bcryptjs": "2.4.3",
     "cookie": "0.4.2",
