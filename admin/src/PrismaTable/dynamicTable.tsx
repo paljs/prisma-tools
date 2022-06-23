@@ -14,6 +14,7 @@ import { TableContext } from './Context';
 import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
 import { ContextProps, TableParentRecord } from '..';
+import { fLCapital } from './utils';
 
 export interface DynamicTableProps {
   parent?: TableParentRecord;
@@ -179,7 +180,9 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   const parentName = modelObject?.fields.find(
     (item) => item.type === parent?.name,
   )?.name;
-  const _data: any[] = data ? data[`findMany${model}`] : [];
+  const modelUpper = fLCapital(model);
+  const _data: any[] = data ? data[`findMany${modelUpper}`] : [];
+
   return (
     <>
       {children &&

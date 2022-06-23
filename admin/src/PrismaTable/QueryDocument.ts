@@ -1,5 +1,6 @@
 import { SchemaModel } from '../types';
 import tag from 'graphql-tag';
+import { fLCapital } from './utils';
 
 const getFields = (
   models: SchemaModel[],
@@ -73,27 +74,29 @@ export const queryDocument = (
   update = false,
 ) => {
   const fields = getFields(models, modelName, update);
+  const modelUpper = fLCapital(modelName);
+
   if (findUnique) {
     return tag`
-query findUnique${modelName}($where: ${modelName}WhereUniqueInput!) {
-  findUnique${modelName}(where: $where) {
+query findUnique${modelUpper}($where: ${modelName}WhereUniqueInput!) {
+  findUnique${modelUpper}(where: $where) {
     ${fields}
   }
 }
 `;
   } else {
     return tag`
-query findMany${modelName}(
+query findMany${modelUpper}(
   $where: ${modelName}WhereInput
   $orderBy: [${modelName}OrderByWithRelationInput!]
   $cursor: ${modelName}WhereUniqueInput
   $skip: Int
   $take: Int
 ) {
-  findMany${modelName}(where: $where, orderBy: $orderBy, cursor: $cursor, skip: $skip, take: $take) {
+  findMany${modelUpper}(where: $where, orderBy: $orderBy, cursor: $cursor, skip: $skip, take: $take) {
     ${fields}
   }
-  findMany${modelName}Count(where: $where)
+  findMany${modelUpper}Count(where: $where)
 }
 `;
   }
@@ -105,23 +108,25 @@ export const mutationDocument = (
   mutation: 'create' | 'update' | 'delete',
 ) => {
   const fields = getFields(models, model, true);
+  const modelUpper = fLCapital(model);
+
   const modelObject = models.find((item) => item.id === model);
   switch (mutation) {
     case 'create':
-      return tag`mutation createOne${model}($data: ${model}CreateInput!) {
-  createOne${model}(data: $data) {
+      return tag`mutation createOne${modelUpper}($data: ${model}CreateInput!) {
+  createOne${modelUpper}(data: $data) {
     ${modelObject?.idField || allScalar(modelObject)}
   }
 }`;
     case 'delete':
-      return tag`mutation deleteOne${model} ($where: ${model}WhereUniqueInput!) {
-  deleteOne${model} (where: $where) {
+      return tag`mutation deleteOne${modelUpper} ($where: ${model}WhereUniqueInput!) {
+  deleteOne${modelUpper} (where: $where) {
     ${modelObject?.idField || allScalar(modelObject)}
   }
 }`;
     case 'update':
-      return tag`mutation updateOne${model} ($where: ${model}WhereUniqueInput!, $data: ${model}UpdateInput!) {
-  updateOne${model} (where: $where, data: $data) {
+      return tag`mutation updateOne${modelUpper} ($where: ${model}WhereUniqueInput!, $data: ${model}UpdateInput!) {
+  updateOne${modelUpper} (where: $where, data: $data) {
     ${fields}
   }
 }`;

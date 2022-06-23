@@ -8,6 +8,7 @@ import { queryDocument } from './QueryDocument';
 import { TableContext } from './Context';
 import { Option } from '../components/Select';
 import { classNames } from '../components/css';
+import { fLCapital } from './utils';
 
 interface EditRecordProps {
   model: string;
@@ -62,10 +63,11 @@ const EditRecord: React.FC<EditRecordProps> = ({
     getRecord();
   }
 
-  const record = data ? data[`findUnique${model}`] : {};
+  const modelUpper = fLCapital(model);
+  const record = data ? data[`findUnique${modelUpper}`] : {};
 
   if (
-    (!loading && data && !data[`findUnique${model}`] && modelObject) ||
+    (!loading && data && !data[`findUnique${modelUpper}`] && modelObject) ||
     (modelObject && !modelObject.update && !actions && !view) ||
     (actions && !actions.includes('update') && !view)
   )
