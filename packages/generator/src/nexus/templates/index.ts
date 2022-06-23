@@ -69,7 +69,7 @@ export async function getCrud(
   );
   const args = await generator.getInputTypes(
     capital(type),
-    (key === 'findCount' ? 'findMany' : key) + modelUpper,
+    (key === 'findCount' ? 'findMany' : key) + model,
     false,
   );
   return crud[key]
