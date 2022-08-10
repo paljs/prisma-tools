@@ -54,7 +54,7 @@ export class PrismaSelect {
           | { [key: string]: boolean }
           | ((select: any) => { [key: string]: boolean });
       };
-      dmmf?: DMMF.Document[];
+      dmmf?: Omit<DMMF.Document, 'schema'>[];
     },
   ) {}
 
