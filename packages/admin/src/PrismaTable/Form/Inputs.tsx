@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useLazyQuery, NetworkStatus, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { SearchIcon, XCircleIcon } from '@heroicons/react/outline';
 
 import Modal from '../../components/Modal';
@@ -13,14 +13,14 @@ import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { getDate } from './getDate';
-import { SchemaField } from '@paljs/types';
+import { AdminSchemaField } from '@paljs/types';
 
 interface Option {
   id: any;
   name: any;
 }
 
-const getFieldValidation = (field: SchemaField, inputValidation: ModelTableProps['inputValidation']) => {
+const getFieldValidation = (field: AdminSchemaField, inputValidation: ModelTableProps['inputValidation']) => {
   const modelName = field.id.split('.')[0];
   return inputValidation ? (inputValidation[modelName] ? inputValidation[modelName][field.name] || {} : {}) : {};
 };

@@ -16,6 +16,7 @@
     "@paljs/generator": "workspace:*",
     "@paljs/schema": "workspace:*",
     "@paljs/utils": "workspace:*",
+    "@paljs/types": "workspace:*",
     "chalk": "^5.0.1",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.6",
@@ -66,7 +67,7 @@
   },
   "repository": "paljs/prisma-tools",
   "scripts": {
-    "build": "shx rm -rf dist && tsc -b",
+    "build": "shx rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm lint",

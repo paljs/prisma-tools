@@ -72,5 +72,7 @@
     "tsconfig-paths": "3.12.0",
     "typescript": "4.5.5"
   },
-  "cacheDirectories": [".next/cache"]
+  "cacheDirectories": [
+    ".next/cache"
+  ]
 }

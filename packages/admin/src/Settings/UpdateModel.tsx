@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { SchemaModel } from '../types';
+import { AdminSchemaModel } from '../types';
 import { UPDATE_MODEL } from '../SchemaQueries';
 import { SettingLanguage } from './index';
 import Select from '../components/Select';
@@ -17,8 +17,8 @@ type Option = {
 const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
 const UpdateModel: React.FC<{
-  models: SchemaModel[];
-  modelObject: SchemaModel;
+  models: AdminSchemaModel[];
+  modelObject: AdminSchemaModel;
   language: SettingLanguage;
 }> = ({ models, modelObject, language }) => {
   const [updateModel] = useMutation(UPDATE_MODEL);
@@ -62,7 +62,7 @@ const UpdateModel: React.FC<{
   const values: { id: string; name: string }[] = [];
   const allOptions: Option[] = [];
   const modelsList: string[] = [];
-  const getOptions = (model: SchemaModel, parent = '') => {
+  const getOptions = (model: AdminSchemaModel, parent = '') => {
     const options: Option[] = [];
     modelsList.push(model.id);
     model.fields

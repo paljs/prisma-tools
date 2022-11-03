@@ -2,9 +2,11 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "eslint": "eslint",
-    "lint": "eslint --fix --ext .ts .",
+    "build": "pnpm run --filter @paljs/utils --filter @paljs/types --filter @paljs/schema --filter @paljs/plugins --filter @paljs/nexus --filter @paljs/display --filter @paljs/generator --filter @paljs/create --filter @paljs/cli build",
     "format": "prettier --write .",
+    "format:ci": "prettier --check .",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
+    "test": "jest --coverage",
     "prepare": "is-ci || husky install"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { SchemaModel, TableParentRecord } from '../types';
+import { AdminSchemaModel, TableParentRecord } from '../types';
 import { mutationDocument } from './QueryDocument';
 import { TableContext } from './Context';
 
@@ -13,7 +13,7 @@ export const useListConnectToOne = (parent: TableParentRecord) => {
 
   const modelObject = models.find((m) => m.id === parent.name);
 
-  const listConnectToOne = (fieldModel: SchemaModel, fieldId: any, connect = true, getData: () => void) => {
+  const listConnectToOne = (fieldModel: AdminSchemaModel, fieldId: any, connect = true, getData: () => void) => {
     if (modelObject) {
       updateModel({
         variables: {

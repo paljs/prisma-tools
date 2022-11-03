@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { SchemaField } from '../types';
+import { AdminSchemaField } from '../types';
 import { UPDATE_FIELD } from '../SchemaQueries';
 import { SettingLanguage } from './index';
 import Checkbox from '../components/Checkbox';
@@ -16,7 +16,7 @@ const fields: { [key in keyof SettingLanguage]?: Fields[] } = {
 };
 
 const UpdateField: React.FC<{
-  field: SchemaField;
+  field: AdminSchemaField;
   model: string;
   language: SettingLanguage;
 }> = ({ field, model, language }) => {
@@ -78,7 +78,7 @@ const UpdateField: React.FC<{
                 <Checkbox
                   label={language[item]}
                   id={field.id + item}
-                  disabled={!!(field.relationField && ['create', 'update'].includes(item))}
+                  disabled={field.relationField && ['create', 'update'].includes(item)}
                   checked={field[item]}
                   onChange={(e) => onChangeHandler(item, e.target.checked)}
                 />

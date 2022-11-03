@@ -5,7 +5,7 @@ import Spinner from '../../components/Spinner';
 import { Inputs } from './Inputs';
 import useActions from './useActions';
 import { TableContext } from '../Context';
-import { SchemaModel } from '../../types';
+import { AdminSchemaModel } from '../../types';
 import { buttonClasses, classNames } from '../../components/css';
 import { getDate } from './getDate';
 
@@ -17,7 +17,12 @@ export interface FormProps {
   onSave: () => void;
 }
 
-const getDefaultValues = (action: FormProps['action'], model: SchemaModel, data: any, models: SchemaModel[]) => {
+const getDefaultValues = (
+  action: FormProps['action'],
+  model: AdminSchemaModel,
+  data: any,
+  models: AdminSchemaModel[],
+) => {
   const defaultValues: any = {};
   model.fields
     .filter(

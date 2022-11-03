@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@paljs/generator": "workspace:*",
+    "@types/node": "17.0.21",
     "@types/prettier": "^2.6.3",
     "apollo-server": "^3.10.0",
     "graphql": "^16.5.0",

@@ -64,11 +64,13 @@
     "eslint-config-prettier": "8.x",
     "eslint-plugin-prettier": "4.x",
     "eslint-plugin-react": "7.x",
+    "fs-extra": "^10.x",
     "husky": "7.x",
     "postcss": "8.x",
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "prisma": "3.x",
+    "rimraf": "^3.x",
     "tailwindcss": "3.x",
     "tsconfig-paths": "3.x",
     "typescript": "4.x"

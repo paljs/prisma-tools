@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { getDisplayName } from './utils';
-import { SchemaField, SchemaModel, GetColumnsPartial, GetColumns } from '../../types';
+import { AdminSchemaField, AdminSchemaModel, GetColumnsPartial, GetColumns } from '../../types';
 import { TableContext } from '../Context';
 import { buttonClasses, classNames } from '../../components/css';
 
@@ -109,8 +109,8 @@ const columnsObject: GetColumns = (field, model) => ({
   },
 });
 
-export const columns = (model?: SchemaModel, customColumns?: GetColumnsPartial) => {
-  const getColumn = (field: SchemaField) => {
+export const columns = (model?: AdminSchemaModel, customColumns?: GetColumnsPartial) => {
+  const getColumn = (field: AdminSchemaField) => {
     return typeof customColumns !== 'undefined'
       ? {
           ...columnsObject(field, model),

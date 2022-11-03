@@ -1,4 +1,4 @@
-import { SchemaModel } from '../../types';
+import { AdminSchemaModel } from '../../types';
 
 export const initPages = (pagesCount: number, page: number, showPagesCount = 4) => {
   showPagesCount = pagesCount < showPagesCount ? pagesCount : showPagesCount;
@@ -19,7 +19,7 @@ export const initPages = (pagesCount: number, page: number, showPagesCount = 4) 
   return pages;
 };
 
-export const getDisplayName = (value: any, model: SchemaModel) => {
+export const getDisplayName = (value: any, model: AdminSchemaModel) => {
   if (Object.keys(value).length > 0) {
     const values: string[] = [];
     model.displayFields.forEach((item) => {

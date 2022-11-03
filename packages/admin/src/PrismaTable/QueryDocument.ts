@@ -1,7 +1,7 @@
-import { SchemaModel } from '../types';
+import { AdminSchemaModel } from '../types';
 import tag from 'graphql-tag';
 
-const getFields = (models: SchemaModel[], modelName: string, update = false) => {
+const getFields = (models: AdminSchemaModel[], modelName: string, update = false) => {
   const model = models.find((item) => item.id === modelName);
   if (!model) {
     return 'id';
@@ -48,13 +48,13 @@ const getFields = (models: SchemaModel[], modelName: string, update = false) => 
   return fieldsString;
 };
 
-const allScalar = (model?: SchemaModel) => {
+const allScalar = (model?: AdminSchemaModel) => {
   return model?.fields
     .filter((item) => item.kind === 'scalar')
     .map((item) => item.name)
     .join(' ');
 };
-export const queryDocument = (models: SchemaModel[], modelName: string, findUnique = false, update = false) => {
+export const queryDocument = (models: AdminSchemaModel[], modelName: string, findUnique = false, update = false) => {
   const fields = getFields(models, modelName, update);
   if (findUnique) {
     return tag`
@@ -82,7 +82,11 @@ query findMany${modelName}(
   }
 };
 
-export const mutationDocument = (models: SchemaModel[], model: string, mutation: 'create' | 'update' | 'delete') => {
+export const mutationDocument = (
+  models: AdminSchemaModel[],
+  model: string,
+  mutation: 'create' | 'update' | 'delete',
+) => {
   const fields = getFields(models, model, true);
   const modelObject = models.find((item) => item.id === model);
   switch (mutation) {

@@ -4,11 +4,11 @@ import { useContext } from 'react';
 import { TableContext } from '../Context';
 import { FormProps } from './index';
 import { mutationDocument } from '../QueryDocument';
-import { SchemaModel, SchemaField } from '../../types';
+import { AdminSchemaModel, AdminSchemaField } from '../../types';
 
 interface GetValueOptions {
   value: string;
-  field?: SchemaField;
+  field?: AdminSchemaField;
   useSet?: boolean;
 }
 
@@ -50,7 +50,7 @@ export const getValueByType = ({ value, field, useSet = true }: GetValueOptions)
   }
 };
 
-const useActions = (model: SchemaModel, data: any, action: FormProps['action'], onSave: () => void) => {
+const useActions = (model: AdminSchemaModel, data: any, action: FormProps['action'], onSave: () => void) => {
   const {
     schema: { models },
     valueHandler,

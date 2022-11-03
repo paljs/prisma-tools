@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { SchemaModel, TableParentRecord } from '../../types';
+import { AdminSchemaModel, TableParentRecord } from '../../types';
 import { useListConnectToOne } from '../useListConnectToOne';
 import Spinner from '../../components/Spinner';
 import { TableContext } from '../Context';
@@ -9,7 +9,7 @@ import { buttonClasses, classNames } from '../../components/css';
 interface ListConnectProps {
   parent: TableParentRecord;
   row: any;
-  model: SchemaModel;
+  model: AdminSchemaModel;
   getData: () => void;
 }
 export const ListConnect: React.FC<ListConnectProps> = ({ parent, row, model, getData }) => {

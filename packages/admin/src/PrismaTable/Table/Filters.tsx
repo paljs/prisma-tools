@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Select from '../../components/Select';
 import { useFilter } from './useFilter';
 import { useEnum, useModel } from '../useSchema';
-import { SchemaField, SchemaModel } from '../../types';
+import { AdminSchemaField, AdminSchemaModel } from '../../types';
 import { TableContext } from '../Context';
 import { SearchCircleIcon, TrashIcon } from '@heroicons/react/solid';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
@@ -17,11 +17,11 @@ interface Option {
 interface FilterComponentsProps {
   filterValue: any;
   setFilter: (value: any) => void;
-  field: SchemaField;
+  field: AdminSchemaField;
 }
 
 interface FilterProps {
-  model: SchemaModel;
+  model: AdminSchemaModel;
   setAllFilters: (values: { id: string; value: any }[]) => void;
   filters: { id: string; value: any }[];
 }
@@ -74,7 +74,7 @@ export const Filter: React.FC<FilterProps> = ({ model, setAllFilters, filters })
 
 interface FilterRowProps {
   index: number;
-  model: SchemaModel;
+  model: AdminSchemaModel;
   filter?: { id: string; value: any };
   setFilter: (option: { id: string; value: any }) => void;
   deleteFilter: () => void;

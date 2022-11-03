@@ -4,4 +4,3 @@ export * from './generator';
 export * from './configFile';
 export * from './adminSchema';
 export * from './dmmf';
-export * from './generateInputs';

@@ -7,7 +7,7 @@ import UpdateModel from './UpdateModel';
 import UpdateField from './UpdateField';
 import Select from '../components/Select';
 import { GET_SCHEMA, UPDATE_MODEL } from '../SchemaQueries';
-import { ContextProps, SchemaModel } from '../types';
+import { ContextProps, AdminSchemaModel } from '../types';
 import { classNames } from '../components/css';
 
 const defaultLanguage = {
@@ -40,7 +40,7 @@ export const Settings: React.FC<{
   const { data } = useQuery<{ getSchema: ContextProps['schema'] }>(GET_SCHEMA);
   const models = data?.getSchema.models ?? [];
   const [updateModel] = useMutation(UPDATE_MODEL);
-  const [currentModel, setCurrentModel] = useState<SchemaModel>();
+  const [currentModel, setCurrentModel] = useState<AdminSchemaModel>();
   const dataRef = useRef(models);
   const accordionRef = useRef<(HTMLDivElement | null)[]>([]);
   const [openedField, setOpenedField] = useState('');
