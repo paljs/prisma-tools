@@ -1,75 +1,72 @@
 import { existsSync, readFileSync } from 'fs';
 import { Field } from '@paljs/types';
-import { log } from '@paljs/display';
-import chalk from 'chalk';
+import { log, chalk } from '@paljs/display';
 
 export class PrismaReader {
-  protected data: string;
+  data: string;
 
   constructor(protected path: string) {
     this.checkIfSchemaExit();
     this.data = readFileSync(path, { encoding: 'utf-8' });
   }
 
-  protected get models() {
+  get models() {
     return this.data.match(/\n(model(\s)[\s\S]*?})\n/g);
   }
 
-  protected get enums() {
+  get enums() {
     return this.data.match(/\n(enum(\s)[\s\S]*?})\n/g);
   }
 
-  protected blockLines(block: string) {
+  getModelDocumentation(modelName: string) {
+    return this.data
+      .split(/\n/)
+      .reverse()
+      .filter((_item, index, array) => array.indexOf(`model ${modelName} {`) < index)
+      .filter((_item, index, array) => array.indexOf(`}`) > index)
+      .filter(Boolean)
+      .join('\n');
+  }
+
+  blockLines(block: string) {
     return block.split(/\n/).filter((v) => v);
   }
 
-  protected checkIfSchemaExit() {
+  checkIfSchemaExit() {
     if (!existsSync(this.path)) {
-      log.error(
-        `Error: ${chalk.blue('schema.prisma')} file not found in ${chalk.blue(
-          this.path,
-        )}`,
-      );
+      log.error(`Error: ${chalk.blue('schema.prisma')} file not found in ${chalk.blue(this.path)}`);
       process.exit();
     }
   }
 
-  protected getType(line: string[]) {
+  getType(line: string[]) {
     return line[1].replace('?', '').replace('[]', '');
   }
 
-  protected getKind(type: string) {
-    return this.data.includes(`enum ${type} `)
-      ? 'enum'
-      : this.data.includes(`model ${type} `)
-      ? 'object'
-      : 'scalar';
+  getKind(type: string) {
+    return this.data.includes(`enum ${type} `) ? 'enum' : this.data.includes(`model ${type} `) ? 'object' : 'scalar';
   }
 
-  protected getClassName(lines: string[]) {
+  getClassName(lines: string[]) {
     return this.lineArray(lines[0])[1];
   }
 
-  protected lineArray(line: string) {
+  lineArray(line: string) {
     return line
       .replace(/[\n\r]/g, '')
       .split(' ')
-      .filter((v) => v);
+      .filter(Boolean);
   }
 
-  protected getMap(line: string) {
+  getMap(line: string) {
     const value = line.match(/@map\((.*?)\)/);
     if (value) {
-      return value[1]
-        .replace(/name/, '')
-        .replace(':', '')
-        .replace(' ', '')
-        .replace(/"/g, '');
+      return value[1].replace(/name/, '').replace(':', '').replace(' ', '').replace(/"/g, '');
     }
     return undefined;
   }
 
-  protected getRelation(line: string) {
+  getRelation(line: string) {
     const relationString = line.match(/@relation\((.*?)\)/);
     if (relationString) {
       const relation: Field['relation'] = {};

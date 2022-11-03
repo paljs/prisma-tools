@@ -1,5 +1,5 @@
-import { Options } from '@paljs/types';
-import { DMMF } from '../schema';
+import { GeneratorOptions, DMMF } from '@paljs/types';
+import { format } from 'prettier';
 
 export class GenerateTypes {
   code: string[] = [
@@ -19,7 +19,7 @@ export class GenerateTypes {
 
   testedTypes: string[] = [];
 
-  constructor(private dmmf: DMMF.Document, private options: Partial<Options>) {}
+  constructor(private dmmf: DMMF.Document, private options: Partial<GeneratorOptions>) {}
 
   get schema() {
     return this.dmmf.schema;
@@ -28,9 +28,7 @@ export class GenerateTypes {
   isModel(modelName: string) {
     return (
       !!this.dmmf.datamodel.models.find((model) => model.name === modelName) ||
-      !!this.dmmf.schema.enumTypes.model?.find(
-        (model) => model.name === modelName,
-      )
+      !!this.dmmf.schema.enumTypes.model?.find((model) => model.name === modelName)
     );
   }
 
@@ -38,34 +36,26 @@ export class GenerateTypes {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
-  getOutputType(
-    options: DMMF.SchemaField['outputType'] | DMMF.SchemaArgInputType,
-    input = false,
-  ) {
+  getOutputType(options: DMMF.SchemaField['outputType'] | DMMF.SchemaArgInputType, input = false) {
     switch (options.location) {
       case 'scalar':
-        return `${this.scalar[options.type as string]}${
-          options.isList ? '[]' : ''
-        }`;
-      default:
+        return `${this.scalar[options.type as string]}${options.isList ? '[]' : ''}`;
+      default: {
         const type = options.type.toString().startsWith('Aggregate')
-          ? `Prisma.Get${options.type
-              .toString()
-              .replace('Aggregate', '')}AggregateType<${options.type}Args>`
+          ? `Prisma.Get${options.type.toString().replace('Aggregate', '')}AggregateType<${options.type}Args>`
           : options.type.toString() === 'AffectedRowsOutput'
           ? 'Prisma.BatchPayload'
           : !this.isModel(options.type.toString()) && !input
           ? `Prisma.${options.type}`
           : options.type;
         return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
+      }
     }
   }
 
   hasEmptyTypeFields(type: string) {
     this.testedTypes.push(type);
-    const inputType = this.schema.inputObjectTypes.prisma.find(
-      (item) => item.name === type,
-    );
+    const inputType = this.schema.inputObjectTypes.prisma.find((item) => item.name === type);
     if (inputType) {
       if (inputType.fields.length === 0) return true;
       for (const field of inputType.fields) {
@@ -88,44 +78,30 @@ export class GenerateTypes {
     if (
       this.options.doNotUseFieldUpdateOperationsInput &&
       field.inputTypes.length > 1 &&
-      (field.inputTypes[1].type as string).endsWith(
-        'FieldUpdateOperationsInput',
-      )
+      (field.inputTypes[1].type as string).endsWith('FieldUpdateOperationsInput')
     ) {
       return field.inputTypes[index];
     }
-    if (
-      field.inputTypes.length > 1 &&
-      field.inputTypes[1].location === 'inputObjectTypes'
-    ) {
+    if (field.inputTypes.length > 1 && field.inputTypes[1].location === 'inputObjectTypes') {
       index = 1;
     }
     return field.inputTypes[index];
   }
 
   getOutput(typeName: string) {
-    return this.dmmf.schema.outputObjectTypes.prisma.find(
-      (type) => type.name === typeName,
-    );
+    return this.dmmf.schema.outputObjectTypes.prisma.find((type) => type.name === typeName);
   }
 
   run() {
     const outputTypes: string[] = [
-      `export interface Resolvers {`,
-      `[key: string]: {[key: string]: Resolver<any, any, any>}`,
+      `export type Resolvers = { [key: string]: {[key: string]: Resolver<any, any, any>} } & {`,
     ];
     const argsTypes: string[] = [];
     const resolversTypes: string[] = [];
     // generate Output types
-    [
-      ...this.schema.outputObjectTypes.model,
-      ...this.schema.outputObjectTypes.prisma,
-    ].forEach((type) => {
+    [...this.schema.outputObjectTypes.model, ...this.schema.outputObjectTypes.prisma].forEach((type) => {
       outputTypes.push(`${type.name}?: ${type.name};`);
-      const fields: string[] = [
-        `export interface ${type.name} {`,
-        `[key: string]: Resolver<any, any, any>`,
-      ];
+      const fields: string[] = [`export type ${type.name} = { [key: string]: Resolver<any, any, any> } & {`];
 
       // generate fields
       type.fields.forEach((field) => {
@@ -140,23 +116,17 @@ export class GenerateTypes {
             }`;
         const argsType =
           field.args.length > 0
-            ? `${
-                ['Query', 'Mutation'].includes(type.name) ? '' : type.name
-              }${this.capital(field.name)}Args`
+            ? `${['Query', 'Mutation'].includes(type.name) ? '' : type.name}${this.capital(field.name)}Args`
             : '{}';
         fields.push(
-          `${
-            field.name
-          }?: Resolver<${parentType}, ${argsType}, ${this.getOutputType(
-            field.outputType,
-          )}${field.isNullable ? ' | null' : ''}>`,
+          `${field.name}?: Resolver<${parentType}, ${argsType}, ${this.getOutputType(field.outputType)}${
+            field.isNullable ? ' | null' : ''
+          }>`,
         );
 
         // add findManyCount
         if (field.name.startsWith('findMany')) {
-          fields.push(
-            `${field.name}Count?: Resolver<${parentType}, ${argsType}, number>`,
-          );
+          fields.push(`${field.name}Count?: Resolver<${parentType}, ${argsType}, number>`);
         }
 
         // generate args
@@ -164,22 +134,17 @@ export class GenerateTypes {
           const args: string[] = [`export interface ${argsType} {`];
           field.args.forEach((arg) => {
             args.push(
-              `${arg.name}${arg.isRequired ? '' : '?'}: ${this.getOutputType(
-                arg.inputTypes[0],
-                true,
-              )}${field.isNullable ? ' | null' : ''}`,
+              `${arg.name}${arg.isRequired ? '' : '?'}: ${this.getOutputType(arg.inputTypes[0], true)}${
+                field.isNullable ? ' | null' : ''
+              }`,
             );
           });
           if (argsType.startsWith('Aggregate')) {
-            const modelName = field.outputType.type
-              .toString()
-              .replace('Aggregate', '');
+            const modelName = field.outputType.type.toString().replace('Aggregate', '');
             const output = this.getOutput(field.outputType.type.toString());
             output?.fields.forEach((field) => {
               const name = this.capital(field.name.replace('_', ''));
-              args.push(
-                `${field.name}?: Client.Prisma.${modelName}${name}AggregateInputType`,
-              );
+              args.push(`${field.name}?: Client.Prisma.${modelName}${name}AggregateInputType`);
             });
           }
           args.push('}');
@@ -190,11 +155,7 @@ export class GenerateTypes {
       resolversTypes.push(fields.join('\n'));
     });
     outputTypes.push('}');
-    this.code.push(
-      outputTypes.join('\n'),
-      resolversTypes.join('\n\n'),
-      argsTypes.join('\n\n'),
-    );
+    this.code.push(outputTypes.join('\n'), resolversTypes.join('\n\n'), argsTypes.join('\n\n'));
 
     // generate input types
     const inputTypes: string[] = [];
@@ -205,13 +166,10 @@ export class GenerateTypes {
         input.fields.forEach((field) => {
           const inputType = this.getInputType(field);
           const hasEmptyType =
-            inputType.location === 'inputObjectTypes' &&
-            this.hasEmptyTypeFields(inputType.type as string);
+            inputType.location === 'inputObjectTypes' && this.hasEmptyTypeFields(inputType.type as string);
           if (!hasEmptyType) {
             fields.push(
-              `${field.name}${
-                field.isRequired ? '' : '?'
-              }: ${this.getOutputType(inputType, true)}${
+              `${field.name}${field.isRequired ? '' : '?'}: ${this.getOutputType(inputType, true)}${
                 field.isNullable ? ' | null' : ''
               }`,
             );
@@ -236,6 +194,11 @@ export class GenerateTypes {
     });
     this.code.push(enumsTypes.join('\n'));
 
-    return this.code.join('\n\n');
+    return format(this.code.join('\n\n'), {
+      singleQuote: true,
+      semi: false,
+      trailingComma: 'all',
+      parser: 'babel-ts',
+    });
   }
 }

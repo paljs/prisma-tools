@@ -1,21 +1,14 @@
-import {
-  stringArg,
-  objectType,
-  enumType,
-  inputObjectType,
-  extendType,
-  nonNull,
-} from 'nexus';
+import { stringArg, objectType, enumType, inputObjectType, extendType, nonNull } from 'nexus';
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import { NexusAcceptedTypeDef } from 'nexus/dist/builder';
-import { Schema } from '@paljs/types';
+import { AdminSchema } from '@paljs/types';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
 export function adminNexusSchemaSettings(path = 'adminSettings.json') {
   if (existsSync(join(process.cwd(), path))) {
-    const adapter = new FileSync<Schema>(path);
+    const adapter = new FileSync<AdminSchema>(path);
     const db = low(adapter);
     const nexusSchemaInputs: NexusAcceptedTypeDef[] = [
       extendType({
@@ -23,7 +16,7 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
         definition(t) {
           t.field('getSchema', {
             type: nonNull('Schema'),
-            resolve: async () => {
+            resolve() {
               return db.value();
             },
           });
@@ -39,14 +32,8 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
               modelId: nonNull(stringArg()),
               data: nonNull('UpdateFieldInput'),
             },
-            resolve: async (_, { id, modelId, data }) => {
-              return db
-                .get('models')
-                .find({ id: modelId })
-                .get('fields')
-                .find({ id })
-                .assign(data)
-                .write();
+            resolve(_, { id, modelId, data }) {
+              return db.get('models').find({ id: modelId }).get('fields').find({ id }).assign(data).write();
             },
           });
           t.field('updateModel', {
@@ -55,7 +42,7 @@ export function adminNexusSchemaSettings(path = 'adminSettings.json') {
               id: nonNull(stringArg()),
               data: nonNull('UpdateModelInput'),
             },
-            resolve: async (_, { id, data }) => {
+            resolve(_, { id, data }) {
               return db.get('models').find({ id }).assign(data).write();
             },
           });

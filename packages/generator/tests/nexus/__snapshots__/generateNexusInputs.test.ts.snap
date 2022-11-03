@@ -1,0 +1,1736 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate Nexus Inputs Should back with all inputs types 1`] = `
+"import { enumType, inputObjectType, objectType } from 'nexus'
+
+export const JsonNullValueFilter = enumType({
+  name: 'JsonNullValueFilter',
+  members: ['DbNull', 'JsonNull', 'AnyNull'],
+})
+
+export const JsonNullValueInput = enumType({
+  name: 'JsonNullValueInput',
+  members: ['JsonNull'],
+})
+
+export const PostScalarFieldEnum = enumType({
+  name: 'PostScalarFieldEnum',
+  members: ['id', 'published', 'title', 'authorId', 'createdAt', 'updatedAt'],
+})
+
+export const QueryMode = enumType({
+  name: 'QueryMode',
+  members: ['default', 'insensitive'],
+})
+
+export const SortOrder = enumType({
+  name: 'SortOrder',
+  members: ['asc', 'desc'],
+})
+
+export const TransactionIsolationLevel = enumType({
+  name: 'TransactionIsolationLevel',
+  members: [
+    'ReadUncommitted',
+    'ReadCommitted',
+    'RepeatableRead',
+    'Serializable',
+  ],
+})
+
+export const UserScalarFieldEnum = enumType({
+  name: 'UserScalarFieldEnum',
+  members: ['id', 'createdAt', 'email', 'name', 'password', 'permissions'],
+})
+
+export const UserWhereInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserWhereInput',
+  definition(t) {
+    t.list.field('AND', { type: 'UserWhereInput' })
+    t.list.field('OR', { type: 'UserWhereInput' })
+    t.list.field('NOT', { type: 'UserWhereInput' })
+    t.field('id', { type: 'IntFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('email', { type: 'StringFilter' })
+    t.field('name', { type: 'StringNullableFilter' })
+    t.field('password', { type: 'StringFilter' })
+    t.field('permissions', { type: 'JsonFilter' })
+    t.field('posts', { type: 'PostListRelationFilter' })
+  },
+})
+
+export const UserOrderByWithRelationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserOrderByWithRelationInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('email', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrder' })
+    t.field('password', { type: 'SortOrder' })
+    t.field('permissions', { type: 'SortOrder' })
+    t.field('posts', { type: 'PostOrderByRelationAggregateInput' })
+  },
+})
+
+export const UserWhereUniqueInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserWhereUniqueInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('email', { type: 'String' })
+  },
+})
+
+export const UserOrderByWithAggregationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserOrderByWithAggregationInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('email', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrder' })
+    t.field('password', { type: 'SortOrder' })
+    t.field('permissions', { type: 'SortOrder' })
+    t.field('_count', { type: 'UserCountOrderByAggregateInput' })
+    t.field('_avg', { type: 'UserAvgOrderByAggregateInput' })
+    t.field('_max', { type: 'UserMaxOrderByAggregateInput' })
+    t.field('_min', { type: 'UserMinOrderByAggregateInput' })
+    t.field('_sum', { type: 'UserSumOrderByAggregateInput' })
+  },
+})
+
+export const UserScalarWhereWithAggregatesInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserScalarWhereWithAggregatesInput',
+  definition(t) {
+    t.list.field('AND', { type: 'UserScalarWhereWithAggregatesInput' })
+    t.list.field('OR', { type: 'UserScalarWhereWithAggregatesInput' })
+    t.list.field('NOT', { type: 'UserScalarWhereWithAggregatesInput' })
+    t.field('id', { type: 'IntWithAggregatesFilter' })
+    t.field('createdAt', { type: 'DateTimeWithAggregatesFilter' })
+    t.field('email', { type: 'StringWithAggregatesFilter' })
+    t.field('name', { type: 'StringNullableWithAggregatesFilter' })
+    t.field('password', { type: 'StringWithAggregatesFilter' })
+    t.field('permissions', { type: 'JsonWithAggregatesFilter' })
+  },
+})
+
+export const PostWhereInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostWhereInput',
+  definition(t) {
+    t.list.field('AND', { type: 'PostWhereInput' })
+    t.list.field('OR', { type: 'PostWhereInput' })
+    t.list.field('NOT', { type: 'PostWhereInput' })
+    t.field('id', { type: 'IntFilter' })
+    t.field('published', { type: 'BoolFilter' })
+    t.field('title', { type: 'StringFilter' })
+    t.field('author', { type: 'UserWhereInput' })
+    t.field('authorId', { type: 'IntNullableFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
+  },
+})
+
+export const PostOrderByWithRelationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostOrderByWithRelationInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('published', { type: 'SortOrder' })
+    t.field('title', { type: 'SortOrder' })
+    t.field('author', { type: 'UserOrderByWithRelationInput' })
+    t.field('authorId', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('updatedAt', { type: 'SortOrder' })
+  },
+})
+
+export const PostWhereUniqueInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostWhereUniqueInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+  },
+})
+
+export const PostOrderByWithAggregationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostOrderByWithAggregationInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('published', { type: 'SortOrder' })
+    t.field('title', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('updatedAt', { type: 'SortOrder' })
+    t.field('_count', { type: 'PostCountOrderByAggregateInput' })
+    t.field('_avg', { type: 'PostAvgOrderByAggregateInput' })
+    t.field('_max', { type: 'PostMaxOrderByAggregateInput' })
+    t.field('_min', { type: 'PostMinOrderByAggregateInput' })
+    t.field('_sum', { type: 'PostSumOrderByAggregateInput' })
+  },
+})
+
+export const PostScalarWhereWithAggregatesInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostScalarWhereWithAggregatesInput',
+  definition(t) {
+    t.list.field('AND', { type: 'PostScalarWhereWithAggregatesInput' })
+    t.list.field('OR', { type: 'PostScalarWhereWithAggregatesInput' })
+    t.list.field('NOT', { type: 'PostScalarWhereWithAggregatesInput' })
+    t.field('id', { type: 'IntWithAggregatesFilter' })
+    t.field('published', { type: 'BoolWithAggregatesFilter' })
+    t.field('title', { type: 'StringWithAggregatesFilter' })
+    t.field('authorId', { type: 'IntNullableWithAggregatesFilter' })
+    t.field('createdAt', { type: 'DateTimeWithAggregatesFilter' })
+    t.field('updatedAt', { type: 'DateTimeWithAggregatesFilter' })
+  },
+})
+
+export const UserCreateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCreateInput',
+  definition(t) {
+    t.field('createdAt', { type: 'DateTime' })
+    t.nonNull.field('email', { type: 'String' })
+    t.field('name', { type: 'String' })
+    t.nonNull.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+    t.field('posts', { type: 'PostCreateNestedManyWithoutAuthorInput' })
+  },
+})
+
+export const UserUncheckedCreateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUncheckedCreateInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.nonNull.field('email', { type: 'String' })
+    t.field('name', { type: 'String' })
+    t.nonNull.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+    t.field('posts', {
+      type: 'PostUncheckedCreateNestedManyWithoutAuthorInput',
+    })
+  },
+})
+
+export const UserUpdateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpdateInput',
+  definition(t) {
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+    t.field('posts', { type: 'PostUpdateManyWithoutAuthorNestedInput' })
+  },
+})
+
+export const UserUncheckedUpdateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUncheckedUpdateInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+    t.field('posts', {
+      type: 'PostUncheckedUpdateManyWithoutAuthorNestedInput',
+    })
+  },
+})
+
+export const UserCreateManyInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCreateManyInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.nonNull.field('email', { type: 'String' })
+    t.field('name', { type: 'String' })
+    t.nonNull.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const UserUpdateManyMutationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpdateManyMutationInput',
+  definition(t) {
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const UserUncheckedUpdateManyInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUncheckedUpdateManyInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const PostCreateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateInput',
+  definition(t) {
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('author', { type: 'UserCreateNestedOneWithoutPostsInput' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostUncheckedCreateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedCreateInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostUpdateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateInput',
+  definition(t) {
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutPostsNestedInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const PostUncheckedUpdateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedUpdateInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('authorId', { type: 'NullableIntFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const PostCreateManyInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateManyInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostUpdateManyMutationInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateManyMutationInput',
+  definition(t) {
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const PostUncheckedUpdateManyInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedUpdateManyInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('authorId', { type: 'NullableIntFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const IntFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'IntFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntFilter' })
+  },
+})
+
+export const DateTimeFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'DateTimeFilter',
+  definition(t) {
+    t.field('equals', { type: 'DateTime' })
+    t.list.field('in', { type: 'DateTime' })
+    t.list.field('notIn', { type: 'DateTime' })
+    t.field('lt', { type: 'DateTime' })
+    t.field('lte', { type: 'DateTime' })
+    t.field('gt', { type: 'DateTime' })
+    t.field('gte', { type: 'DateTime' })
+    t.field('not', { type: 'NestedDateTimeFilter' })
+  },
+})
+
+export const StringFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'StringFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
+    t.field('not', { type: 'NestedStringFilter' })
+  },
+})
+
+export const StringNullableFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'StringNullableFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
+    t.field('not', { type: 'NestedStringNullableFilter' })
+  },
+})
+
+export const JsonFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'JsonFilter',
+  definition(t) {
+    t.field('equals', { type: 'Json' })
+    t.list.field('path', { type: 'String' })
+    t.field('string_contains', { type: 'String' })
+    t.field('string_starts_with', { type: 'String' })
+    t.field('string_ends_with', { type: 'String' })
+    t.field('array_contains', { type: 'Json' })
+    t.field('array_starts_with', { type: 'Json' })
+    t.field('array_ends_with', { type: 'Json' })
+    t.field('lt', { type: 'Json' })
+    t.field('lte', { type: 'Json' })
+    t.field('gt', { type: 'Json' })
+    t.field('gte', { type: 'Json' })
+    t.field('not', { type: 'Json' })
+  },
+})
+
+export const PostListRelationFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostListRelationFilter',
+  definition(t) {
+    t.field('every', { type: 'PostWhereInput' })
+    t.field('some', { type: 'PostWhereInput' })
+    t.field('none', { type: 'PostWhereInput' })
+  },
+})
+
+export const PostOrderByRelationAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostOrderByRelationAggregateInput',
+  definition(t) {
+    t.field('_count', { type: 'SortOrder' })
+  },
+})
+
+export const UserCountOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCountOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('email', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrder' })
+    t.field('password', { type: 'SortOrder' })
+    t.field('permissions', { type: 'SortOrder' })
+  },
+})
+
+export const UserAvgOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserAvgOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+  },
+})
+
+export const UserMaxOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserMaxOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('email', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrder' })
+    t.field('password', { type: 'SortOrder' })
+  },
+})
+
+export const UserMinOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserMinOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('email', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrder' })
+    t.field('password', { type: 'SortOrder' })
+  },
+})
+
+export const UserSumOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserSumOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+  },
+})
+
+export const IntWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'IntWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_avg', { type: 'NestedFloatFilter' })
+    t.field('_sum', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedIntFilter' })
+    t.field('_max', { type: 'NestedIntFilter' })
+  },
+})
+
+export const DateTimeWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'DateTimeWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'DateTime' })
+    t.list.field('in', { type: 'DateTime' })
+    t.list.field('notIn', { type: 'DateTime' })
+    t.field('lt', { type: 'DateTime' })
+    t.field('lte', { type: 'DateTime' })
+    t.field('gt', { type: 'DateTime' })
+    t.field('gte', { type: 'DateTime' })
+    t.field('not', { type: 'NestedDateTimeWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedDateTimeFilter' })
+    t.field('_max', { type: 'NestedDateTimeFilter' })
+  },
+})
+
+export const StringWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'StringWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
+    t.field('not', { type: 'NestedStringWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedStringFilter' })
+    t.field('_max', { type: 'NestedStringFilter' })
+  },
+})
+
+export const StringNullableWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'StringNullableWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
+    t.field('not', { type: 'NestedStringNullableWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntNullableFilter' })
+    t.field('_min', { type: 'NestedStringNullableFilter' })
+    t.field('_max', { type: 'NestedStringNullableFilter' })
+  },
+})
+
+export const JsonWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'JsonWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Json' })
+    t.list.field('path', { type: 'String' })
+    t.field('string_contains', { type: 'String' })
+    t.field('string_starts_with', { type: 'String' })
+    t.field('string_ends_with', { type: 'String' })
+    t.field('array_contains', { type: 'Json' })
+    t.field('array_starts_with', { type: 'Json' })
+    t.field('array_ends_with', { type: 'Json' })
+    t.field('lt', { type: 'Json' })
+    t.field('lte', { type: 'Json' })
+    t.field('gt', { type: 'Json' })
+    t.field('gte', { type: 'Json' })
+    t.field('not', { type: 'Json' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedJsonFilter' })
+    t.field('_max', { type: 'NestedJsonFilter' })
+  },
+})
+
+export const BoolFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'BoolFilter',
+  definition(t) {
+    t.field('equals', { type: 'Boolean' })
+    t.field('not', { type: 'NestedBoolFilter' })
+  },
+})
+
+export const UserRelationFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserRelationFilter',
+  definition(t) {
+    t.field('is', { type: 'UserWhereInput' })
+    t.field('isNot', { type: 'UserWhereInput' })
+  },
+})
+
+export const IntNullableFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'IntNullableFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntNullableFilter' })
+  },
+})
+
+export const PostCountOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCountOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('published', { type: 'SortOrder' })
+    t.field('title', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('updatedAt', { type: 'SortOrder' })
+  },
+})
+
+export const PostAvgOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostAvgOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+  },
+})
+
+export const PostMaxOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostMaxOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('published', { type: 'SortOrder' })
+    t.field('title', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('updatedAt', { type: 'SortOrder' })
+  },
+})
+
+export const PostMinOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostMinOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('published', { type: 'SortOrder' })
+    t.field('title', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+    t.field('createdAt', { type: 'SortOrder' })
+    t.field('updatedAt', { type: 'SortOrder' })
+  },
+})
+
+export const PostSumOrderByAggregateInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostSumOrderByAggregateInput',
+  definition(t) {
+    t.field('id', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrder' })
+  },
+})
+
+export const BoolWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'BoolWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Boolean' })
+    t.field('not', { type: 'NestedBoolWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedBoolFilter' })
+    t.field('_max', { type: 'NestedBoolFilter' })
+  },
+})
+
+export const IntNullableWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'IntNullableWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntNullableWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntNullableFilter' })
+    t.field('_avg', { type: 'NestedFloatNullableFilter' })
+    t.field('_sum', { type: 'NestedIntNullableFilter' })
+    t.field('_min', { type: 'NestedIntNullableFilter' })
+    t.field('_max', { type: 'NestedIntNullableFilter' })
+  },
+})
+
+export const PostCreateNestedManyWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateNestedManyWithoutAuthorInput',
+  definition(t) {
+    t.list.field('create', { type: 'PostCreateWithoutAuthorInput' })
+    t.list.field('connectOrCreate', {
+      type: 'PostCreateOrConnectWithoutAuthorInput',
+    })
+    t.field('createMany', { type: 'PostCreateManyAuthorInputEnvelope' })
+    t.list.field('connect', { type: 'PostWhereUniqueInput' })
+  },
+})
+
+export const PostUncheckedCreateNestedManyWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedCreateNestedManyWithoutAuthorInput',
+  definition(t) {
+    t.list.field('create', { type: 'PostCreateWithoutAuthorInput' })
+    t.list.field('connectOrCreate', {
+      type: 'PostCreateOrConnectWithoutAuthorInput',
+    })
+    t.field('createMany', { type: 'PostCreateManyAuthorInputEnvelope' })
+    t.list.field('connect', { type: 'PostWhereUniqueInput' })
+  },
+})
+
+export const DateTimeFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'DateTimeFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'DateTime' })
+  },
+})
+
+export const StringFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'StringFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'String' })
+  },
+})
+
+export const NullableStringFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NullableStringFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'String' })
+  },
+})
+
+export const PostUpdateManyWithoutAuthorNestedInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateManyWithoutAuthorNestedInput',
+  definition(t) {
+    t.list.field('create', { type: 'PostCreateWithoutAuthorInput' })
+    t.list.field('connectOrCreate', {
+      type: 'PostCreateOrConnectWithoutAuthorInput',
+    })
+    t.list.field('upsert', {
+      type: 'PostUpsertWithWhereUniqueWithoutAuthorInput',
+    })
+    t.field('createMany', { type: 'PostCreateManyAuthorInputEnvelope' })
+    t.list.field('set', { type: 'PostWhereUniqueInput' })
+    t.list.field('disconnect', { type: 'PostWhereUniqueInput' })
+    t.list.field('delete', { type: 'PostWhereUniqueInput' })
+    t.list.field('connect', { type: 'PostWhereUniqueInput' })
+    t.list.field('update', {
+      type: 'PostUpdateWithWhereUniqueWithoutAuthorInput',
+    })
+    t.list.field('updateMany', {
+      type: 'PostUpdateManyWithWhereWithoutAuthorInput',
+    })
+    t.list.field('deleteMany', { type: 'PostScalarWhereInput' })
+  },
+})
+
+export const IntFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'IntFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'Int' })
+    t.field('increment', { type: 'Int' })
+    t.field('decrement', { type: 'Int' })
+    t.field('multiply', { type: 'Int' })
+    t.field('divide', { type: 'Int' })
+  },
+})
+
+export const PostUncheckedUpdateManyWithoutAuthorNestedInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedUpdateManyWithoutAuthorNestedInput',
+  definition(t) {
+    t.list.field('create', { type: 'PostCreateWithoutAuthorInput' })
+    t.list.field('connectOrCreate', {
+      type: 'PostCreateOrConnectWithoutAuthorInput',
+    })
+    t.list.field('upsert', {
+      type: 'PostUpsertWithWhereUniqueWithoutAuthorInput',
+    })
+    t.field('createMany', { type: 'PostCreateManyAuthorInputEnvelope' })
+    t.list.field('set', { type: 'PostWhereUniqueInput' })
+    t.list.field('disconnect', { type: 'PostWhereUniqueInput' })
+    t.list.field('delete', { type: 'PostWhereUniqueInput' })
+    t.list.field('connect', { type: 'PostWhereUniqueInput' })
+    t.list.field('update', {
+      type: 'PostUpdateWithWhereUniqueWithoutAuthorInput',
+    })
+    t.list.field('updateMany', {
+      type: 'PostUpdateManyWithWhereWithoutAuthorInput',
+    })
+    t.list.field('deleteMany', { type: 'PostScalarWhereInput' })
+  },
+})
+
+export const UserCreateNestedOneWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCreateNestedOneWithoutPostsInput',
+  definition(t) {
+    t.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.field('connectOrCreate', { type: 'UserCreateOrConnectWithoutPostsInput' })
+    t.field('connect', { type: 'UserWhereUniqueInput' })
+  },
+})
+
+export const BoolFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'BoolFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'Boolean' })
+  },
+})
+
+export const UserUpdateOneWithoutPostsNestedInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpdateOneWithoutPostsNestedInput',
+  definition(t) {
+    t.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.field('connectOrCreate', { type: 'UserCreateOrConnectWithoutPostsInput' })
+    t.field('upsert', { type: 'UserUpsertWithoutPostsInput' })
+    t.field('disconnect', { type: 'Boolean' })
+    t.field('delete', { type: 'Boolean' })
+    t.field('connect', { type: 'UserWhereUniqueInput' })
+    t.field('update', { type: 'UserUncheckedUpdateWithoutPostsInput' })
+  },
+})
+
+export const NullableIntFieldUpdateOperationsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NullableIntFieldUpdateOperationsInput',
+  definition(t) {
+    t.field('set', { type: 'Int' })
+    t.field('increment', { type: 'Int' })
+    t.field('decrement', { type: 'Int' })
+    t.field('multiply', { type: 'Int' })
+    t.field('divide', { type: 'Int' })
+  },
+})
+
+export const NestedIntFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedIntFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntFilter' })
+  },
+})
+
+export const NestedDateTimeFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedDateTimeFilter',
+  definition(t) {
+    t.field('equals', { type: 'DateTime' })
+    t.list.field('in', { type: 'DateTime' })
+    t.list.field('notIn', { type: 'DateTime' })
+    t.field('lt', { type: 'DateTime' })
+    t.field('lte', { type: 'DateTime' })
+    t.field('gt', { type: 'DateTime' })
+    t.field('gte', { type: 'DateTime' })
+    t.field('not', { type: 'NestedDateTimeFilter' })
+  },
+})
+
+export const NestedStringFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedStringFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('not', { type: 'NestedStringFilter' })
+  },
+})
+
+export const NestedStringNullableFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedStringNullableFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('not', { type: 'NestedStringNullableFilter' })
+  },
+})
+
+export const NestedIntWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedIntWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_avg', { type: 'NestedFloatFilter' })
+    t.field('_sum', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedIntFilter' })
+    t.field('_max', { type: 'NestedIntFilter' })
+  },
+})
+
+export const NestedFloatFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedFloatFilter',
+  definition(t) {
+    t.field('equals', { type: 'Float' })
+    t.list.field('in', { type: 'Float' })
+    t.list.field('notIn', { type: 'Float' })
+    t.field('lt', { type: 'Float' })
+    t.field('lte', { type: 'Float' })
+    t.field('gt', { type: 'Float' })
+    t.field('gte', { type: 'Float' })
+    t.field('not', { type: 'NestedFloatFilter' })
+  },
+})
+
+export const NestedDateTimeWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedDateTimeWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'DateTime' })
+    t.list.field('in', { type: 'DateTime' })
+    t.list.field('notIn', { type: 'DateTime' })
+    t.field('lt', { type: 'DateTime' })
+    t.field('lte', { type: 'DateTime' })
+    t.field('gt', { type: 'DateTime' })
+    t.field('gte', { type: 'DateTime' })
+    t.field('not', { type: 'NestedDateTimeWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedDateTimeFilter' })
+    t.field('_max', { type: 'NestedDateTimeFilter' })
+  },
+})
+
+export const NestedStringWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedStringWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('not', { type: 'NestedStringWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedStringFilter' })
+    t.field('_max', { type: 'NestedStringFilter' })
+  },
+})
+
+export const NestedStringNullableWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedStringNullableWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'String' })
+    t.list.field('in', { type: 'String' })
+    t.list.field('notIn', { type: 'String' })
+    t.field('lt', { type: 'String' })
+    t.field('lte', { type: 'String' })
+    t.field('gt', { type: 'String' })
+    t.field('gte', { type: 'String' })
+    t.field('contains', { type: 'String' })
+    t.field('startsWith', { type: 'String' })
+    t.field('endsWith', { type: 'String' })
+    t.field('not', { type: 'NestedStringNullableWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntNullableFilter' })
+    t.field('_min', { type: 'NestedStringNullableFilter' })
+    t.field('_max', { type: 'NestedStringNullableFilter' })
+  },
+})
+
+export const NestedIntNullableFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedIntNullableFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntNullableFilter' })
+  },
+})
+
+export const NestedJsonFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedJsonFilter',
+  definition(t) {
+    t.field('equals', { type: 'Json' })
+    t.list.field('path', { type: 'String' })
+    t.field('string_contains', { type: 'String' })
+    t.field('string_starts_with', { type: 'String' })
+    t.field('string_ends_with', { type: 'String' })
+    t.field('array_contains', { type: 'Json' })
+    t.field('array_starts_with', { type: 'Json' })
+    t.field('array_ends_with', { type: 'Json' })
+    t.field('lt', { type: 'Json' })
+    t.field('lte', { type: 'Json' })
+    t.field('gt', { type: 'Json' })
+    t.field('gte', { type: 'Json' })
+    t.field('not', { type: 'Json' })
+  },
+})
+
+export const NestedBoolFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedBoolFilter',
+  definition(t) {
+    t.field('equals', { type: 'Boolean' })
+    t.field('not', { type: 'NestedBoolFilter' })
+  },
+})
+
+export const NestedBoolWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedBoolWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Boolean' })
+    t.field('not', { type: 'NestedBoolWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntFilter' })
+    t.field('_min', { type: 'NestedBoolFilter' })
+    t.field('_max', { type: 'NestedBoolFilter' })
+  },
+})
+
+export const NestedIntNullableWithAggregatesFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedIntNullableWithAggregatesFilter',
+  definition(t) {
+    t.field('equals', { type: 'Int' })
+    t.list.field('in', { type: 'Int' })
+    t.list.field('notIn', { type: 'Int' })
+    t.field('lt', { type: 'Int' })
+    t.field('lte', { type: 'Int' })
+    t.field('gt', { type: 'Int' })
+    t.field('gte', { type: 'Int' })
+    t.field('not', { type: 'NestedIntNullableWithAggregatesFilter' })
+    t.field('_count', { type: 'NestedIntNullableFilter' })
+    t.field('_avg', { type: 'NestedFloatNullableFilter' })
+    t.field('_sum', { type: 'NestedIntNullableFilter' })
+    t.field('_min', { type: 'NestedIntNullableFilter' })
+    t.field('_max', { type: 'NestedIntNullableFilter' })
+  },
+})
+
+export const NestedFloatNullableFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'NestedFloatNullableFilter',
+  definition(t) {
+    t.field('equals', { type: 'Float' })
+    t.list.field('in', { type: 'Float' })
+    t.list.field('notIn', { type: 'Float' })
+    t.field('lt', { type: 'Float' })
+    t.field('lte', { type: 'Float' })
+    t.field('gt', { type: 'Float' })
+    t.field('gte', { type: 'Float' })
+    t.field('not', { type: 'NestedFloatNullableFilter' })
+  },
+})
+
+export const PostCreateWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateWithoutAuthorInput',
+  definition(t) {
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostUncheckedCreateWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedCreateWithoutAuthorInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostCreateOrConnectWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateOrConnectWithoutAuthorInput',
+  definition(t) {
+    t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
+    t.nonNull.field('create', { type: 'PostUncheckedCreateWithoutAuthorInput' })
+  },
+})
+
+export const PostCreateManyAuthorInputEnvelope = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateManyAuthorInputEnvelope',
+  definition(t) {
+    t.nonNull.field('data', { type: 'PostCreateManyAuthorInput' })
+    t.field('skipDuplicates', { type: 'Boolean' })
+  },
+})
+
+export const PostUpsertWithWhereUniqueWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpsertWithWhereUniqueWithoutAuthorInput',
+  definition(t) {
+    t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
+    t.nonNull.field('update', { type: 'PostUncheckedUpdateWithoutAuthorInput' })
+    t.nonNull.field('create', { type: 'PostUncheckedCreateWithoutAuthorInput' })
+  },
+})
+
+export const PostUpdateWithWhereUniqueWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateWithWhereUniqueWithoutAuthorInput',
+  definition(t) {
+    t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
+    t.nonNull.field('data', { type: 'PostUncheckedUpdateWithoutAuthorInput' })
+  },
+})
+
+export const PostUpdateManyWithWhereWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateManyWithWhereWithoutAuthorInput',
+  definition(t) {
+    t.nonNull.field('where', { type: 'PostScalarWhereInput' })
+    t.nonNull.field('data', {
+      type: 'PostUncheckedUpdateManyWithoutPostsInput',
+    })
+  },
+})
+
+export const PostScalarWhereInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostScalarWhereInput',
+  definition(t) {
+    t.list.field('AND', { type: 'PostScalarWhereInput' })
+    t.list.field('OR', { type: 'PostScalarWhereInput' })
+    t.list.field('NOT', { type: 'PostScalarWhereInput' })
+    t.field('id', { type: 'IntFilter' })
+    t.field('published', { type: 'BoolFilter' })
+    t.field('title', { type: 'StringFilter' })
+    t.field('authorId', { type: 'IntNullableFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
+  },
+})
+
+export const UserCreateWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCreateWithoutPostsInput',
+  definition(t) {
+    t.field('createdAt', { type: 'DateTime' })
+    t.nonNull.field('email', { type: 'String' })
+    t.field('name', { type: 'String' })
+    t.nonNull.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const UserUncheckedCreateWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUncheckedCreateWithoutPostsInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.nonNull.field('email', { type: 'String' })
+    t.field('name', { type: 'String' })
+    t.nonNull.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const UserCreateOrConnectWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserCreateOrConnectWithoutPostsInput',
+  definition(t) {
+    t.nonNull.field('where', { type: 'UserWhereUniqueInput' })
+    t.nonNull.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+  },
+})
+
+export const UserUpsertWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpsertWithoutPostsInput',
+  definition(t) {
+    t.nonNull.field('update', { type: 'UserUncheckedUpdateWithoutPostsInput' })
+    t.nonNull.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+  },
+})
+
+export const UserUpdateWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpdateWithoutPostsInput',
+  definition(t) {
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const UserUncheckedUpdateWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUncheckedUpdateWithoutPostsInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('email', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('name', { type: 'NullableStringFieldUpdateOperationsInput' })
+    t.field('password', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const PostCreateManyAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostCreateManyAuthorInput',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.nonNull.field('title', { type: 'String' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostUpdateWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUpdateWithoutAuthorInput',
+  definition(t) {
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const PostUncheckedUpdateWithoutAuthorInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedUpdateWithoutAuthorInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const PostUncheckedUpdateManyWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'PostUncheckedUpdateManyWithoutPostsInput',
+  definition(t) {
+    t.field('id', { type: 'IntFieldUpdateOperationsInput' })
+    t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
+    t.field('title', { type: 'StringFieldUpdateOperationsInput' })
+    t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+  },
+})
+
+export const AggregateUser = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'AggregateUser',
+  definition(t) {
+    t.nullable.field('_count', { type: 'UserCountAggregateOutputType' })
+    t.nullable.field('_avg', { type: 'UserAvgAggregateOutputType' })
+    t.nullable.field('_sum', { type: 'UserSumAggregateOutputType' })
+    t.nullable.field('_min', { type: 'UserMinAggregateOutputType' })
+    t.nullable.field('_max', { type: 'UserMaxAggregateOutputType' })
+  },
+})
+
+export const AggregatePost = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'AggregatePost',
+  definition(t) {
+    t.nullable.field('_count', { type: 'PostCountAggregateOutputType' })
+    t.nullable.field('_avg', { type: 'PostAvgAggregateOutputType' })
+    t.nullable.field('_sum', { type: 'PostSumAggregateOutputType' })
+    t.nullable.field('_min', { type: 'PostMinAggregateOutputType' })
+    t.nullable.field('_max', { type: 'PostMaxAggregateOutputType' })
+  },
+})
+
+export const UserCountOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserCountOutputType',
+  definition(t) {
+    t.field('posts', { type: 'Int' })
+  },
+})
+
+export const UserCountAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserCountAggregateOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'Int' })
+    t.field('email', { type: 'Int' })
+    t.field('name', { type: 'Int' })
+    t.field('password', { type: 'Int' })
+    t.field('permissions', { type: 'Int' })
+    t.field('_all', { type: 'Int' })
+  },
+})
+
+export const UserAvgAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserAvgAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Float' })
+  },
+})
+
+export const UserSumAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserSumAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+  },
+})
+
+export const UserMinAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserMinAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+    t.nullable.field('createdAt', { type: 'DateTime' })
+    t.nullable.field('email', { type: 'String' })
+    t.nullable.field('name', { type: 'String' })
+    t.nullable.field('password', { type: 'String' })
+  },
+})
+
+export const UserMaxAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserMaxAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+    t.nullable.field('createdAt', { type: 'DateTime' })
+    t.nullable.field('email', { type: 'String' })
+    t.nullable.field('name', { type: 'String' })
+    t.nullable.field('password', { type: 'String' })
+  },
+})
+
+export const PostCountAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostCountAggregateOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Int' })
+    t.field('title', { type: 'Int' })
+    t.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'Int' })
+    t.field('updatedAt', { type: 'Int' })
+    t.field('_all', { type: 'Int' })
+  },
+})
+
+export const PostAvgAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostAvgAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Float' })
+    t.nullable.field('authorId', { type: 'Float' })
+  },
+})
+
+export const PostSumAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostSumAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+    t.nullable.field('authorId', { type: 'Int' })
+  },
+})
+
+export const PostMinAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostMinAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+    t.nullable.field('published', { type: 'Boolean' })
+    t.nullable.field('title', { type: 'String' })
+    t.nullable.field('authorId', { type: 'Int' })
+    t.nullable.field('createdAt', { type: 'DateTime' })
+    t.nullable.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const PostMaxAggregateOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostMaxAggregateOutputType',
+  definition(t) {
+    t.nullable.field('id', { type: 'Int' })
+    t.nullable.field('published', { type: 'Boolean' })
+    t.nullable.field('title', { type: 'String' })
+    t.nullable.field('authorId', { type: 'Int' })
+    t.nullable.field('createdAt', { type: 'DateTime' })
+    t.nullable.field('updatedAt', { type: 'DateTime' })
+  },
+})
+"
+`;

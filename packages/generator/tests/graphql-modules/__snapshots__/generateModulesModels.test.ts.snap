@@ -1,0 +1,533 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate Modules Models Should back model resolvers and types with custom exclude 1`] = `
+Object {
+  "Post": Object {
+    "module": "import { createModule } from 'graphql-modules'
+import typeDefs from './typeDefs'
+import resolvers from './resolvers'
+
+export const PostModule = createModule({
+  id: 'Post',
+  typeDefs,
+  resolvers,
+})
+",
+    "resolvers": "import { PrismaProvider } from '../Prisma.provider'
+
+export default {
+  Query: {
+    findUniquePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findUnique(args)
+    },
+    findFirstPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findFirst(args)
+    },
+    findManyPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findMany(args)
+    },
+    aggregatePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.aggregate(args)
+    },
+  },
+  Mutation: {
+    updateOnePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.update(args)
+    },
+    deleteOnePost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.delete(args)
+    },
+    upsertOnePost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.upsert(args)
+    },
+    deleteManyPost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.deleteMany(args)
+    },
+    updateManyPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.updateMany(args)
+    },
+  },
+}
+",
+    "typeDefs": "import { gql } from 'graphql-modules'
+
+export default gql\`
+  type Post {
+    id: Int!
+    published: Boolean!
+    title: String!
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+
+  extend type User {
+    posts(
+      where: PostWhereInput
+      orderBy: PostOrderByWithRelationInput
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: PostScalarFieldEnum
+    ): [Post!]!
+  }
+
+  extend type Query {
+    findUniquePost(where: PostWhereUniqueInput!): Post
+    findFirstPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): Post
+    findManyPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): [Post!]
+    aggregatePost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregatePost
+  }
+
+  extend type Mutation {
+    updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+    deleteOnePost(where: PostWhereUniqueInput!): Post
+    upsertOnePost(
+      where: PostWhereUniqueInput!
+      create: PostCreateInput!
+      update: PostUpdateInput!
+    ): Post
+    deleteManyPost(where: PostWhereInput): BatchPayload
+    updateManyPost(
+      data: PostUpdateManyMutationInput!
+      where: PostWhereInput
+    ): BatchPayload
+  }
+\`
+",
+  },
+  "User": Object {
+    "module": "import { createModule } from 'graphql-modules'
+import typeDefs from './typeDefs'
+import resolvers from './resolvers'
+
+export const UserModule = createModule({
+  id: 'User',
+  typeDefs,
+  resolvers,
+})
+",
+    "resolvers": "import { PrismaProvider } from '../Prisma.provider'
+
+export default {
+  Query: {
+    findUniqueUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findUnique(args)
+    },
+    findFirstUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findFirst(args)
+    },
+    findManyUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findMany(args)
+    },
+    aggregateUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.aggregate(args)
+    },
+  },
+  Mutation: {
+    updateOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.update(args)
+    },
+    deleteOneUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.delete(args)
+    },
+    upsertOneUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.upsert(args)
+    },
+    deleteManyUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.deleteMany(args)
+    },
+  },
+}
+",
+    "typeDefs": "import { gql } from 'graphql-modules'
+
+export default gql\`
+  type User {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    permissions: Json!
+    _count: UserCountOutputType!
+  }
+
+  extend type Post {
+    author: User
+  }
+
+  extend type Query {
+    findUniqueUser(where: UserWhereUniqueInput!): User
+    findFirstUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    findManyUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): [User!]
+    aggregateUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregateUser
+  }
+
+  extend type Mutation {
+    updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+    deleteOneUser(where: UserWhereUniqueInput!): User
+    upsertOneUser(
+      where: UserWhereUniqueInput!
+      create: UserCreateInput!
+      update: UserUpdateInput!
+    ): User
+    deleteManyUser(where: UserWhereInput): BatchPayload
+  }
+\`
+",
+  },
+}
+`;
+
+exports[`Generate Modules Models Should back with all models resolvers and types 1`] = `
+Object {
+  "Post": Object {
+    "module": "import { createModule } from 'graphql-modules'
+import typeDefs from './typeDefs'
+import resolvers from './resolvers'
+
+export const PostModule = createModule({
+  id: 'Post',
+  typeDefs,
+  resolvers,
+})
+",
+    "resolvers": "import { PrismaProvider } from '../Prisma.provider'
+
+export default {
+  Query: {
+    findUniquePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findUnique(args)
+    },
+    findFirstPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findFirst(args)
+    },
+    findManyPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.findMany(args)
+    },
+    findManyPostCount: (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.count(args)
+    },
+    aggregatePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.aggregate(args)
+    },
+  },
+  Mutation: {
+    createOnePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.create(args)
+    },
+    updateOnePost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.update(args)
+    },
+    deleteOnePost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.delete(args)
+    },
+    upsertOnePost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.upsert(args)
+    },
+    deleteManyPost: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).post.deleteMany(args)
+    },
+    updateManyPost: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).post.updateMany(args)
+    },
+  },
+}
+",
+    "typeDefs": "import { gql } from 'graphql-modules'
+
+export default gql\`
+  type Post {
+    id: Int!
+    published: Boolean!
+    title: String!
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+
+  extend type User {
+    posts(
+      where: PostWhereInput
+      orderBy: PostOrderByWithRelationInput
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: PostScalarFieldEnum
+    ): [Post!]!
+  }
+
+  extend type Query {
+    findUniquePost(where: PostWhereUniqueInput!): Post
+    findFirstPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): Post
+    findManyPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): [Post!]
+    findManyPostCount(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): Int!
+    aggregatePost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregatePost
+  }
+
+  extend type Mutation {
+    createOnePost(data: PostCreateInput!): Post!
+    updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+    deleteOnePost(where: PostWhereUniqueInput!): Post
+    upsertOnePost(
+      where: PostWhereUniqueInput!
+      create: PostCreateInput!
+      update: PostUpdateInput!
+    ): Post
+    deleteManyPost(where: PostWhereInput): BatchPayload
+    updateManyPost(
+      data: PostUpdateManyMutationInput!
+      where: PostWhereInput
+    ): BatchPayload
+  }
+\`
+",
+  },
+  "User": Object {
+    "module": "import { createModule } from 'graphql-modules'
+import typeDefs from './typeDefs'
+import resolvers from './resolvers'
+
+export const UserModule = createModule({
+  id: 'User',
+  typeDefs,
+  resolvers,
+})
+",
+    "resolvers": "import { PrismaProvider } from '../Prisma.provider'
+
+export default {
+  Query: {
+    findUniqueUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findUnique(args)
+    },
+    findFirstUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findFirst(args)
+    },
+    findManyUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findMany(args)
+    },
+    findManyUserCount: (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.count(args)
+    },
+    aggregateUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.aggregate(args)
+    },
+  },
+  Mutation: {
+    createOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.create(args)
+    },
+    updateOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.update(args)
+    },
+    deleteOneUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.delete(args)
+    },
+    upsertOneUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.upsert(args)
+    },
+    deleteManyUser: async (
+      _parent,
+      args,
+      { injector }: GraphQLModules.Context,
+    ) => {
+      return injector.get(PrismaProvider).user.deleteMany(args)
+    },
+    updateManyUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.updateMany(args)
+    },
+  },
+}
+",
+    "typeDefs": "import { gql } from 'graphql-modules'
+
+export default gql\`
+  type User {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    password: String!
+    permissions: Json!
+    _count: UserCountOutputType!
+  }
+
+  extend type Post {
+    author: User
+  }
+
+  extend type Query {
+    findUniqueUser(where: UserWhereUniqueInput!): User
+    findFirstUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    findManyUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): [User!]
+    findManyUserCount(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): Int!
+    aggregateUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregateUser
+  }
+
+  extend type Mutation {
+    createOneUser(data: UserCreateInput!): User!
+    updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+    deleteOneUser(where: UserWhereUniqueInput!): User
+    upsertOneUser(
+      where: UserWhereUniqueInput!
+      create: UserCreateInput!
+      update: UserUpdateInput!
+    ): User
+    deleteManyUser(where: UserWhereInput): BatchPayload
+    updateManyUser(
+      data: UserUpdateManyMutationInput!
+      where: UserWhereInput
+    ): BatchPayload
+  }
+\`
+",
+  },
+}
+`;

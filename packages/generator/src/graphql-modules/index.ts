@@ -1,26 +1,29 @@
-import { Options } from '@paljs/types';
+import { GeneratorOptions, DMMF } from '@paljs/types';
 import { writeFileSync, readFileSync, existsSync } from 'fs';
-import { DMMF } from '../schema';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 
 export class GenerateModules extends Generators {
-  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+  generatedText: {
+    models: Record<string, { resolvers?: string; typeDefs?: string; module?: string }>;
+    inputs: string;
+  } = { models: {}, inputs: '' };
+
+  constructor(schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
     super(schemaPath, { output: 'src/app', ...customOptions });
   }
 
   async run() {
     await this.createModules();
+    await this.createInputs();
     this.createApp();
   }
 
   private indexPath = this.output('application.ts');
-  private index = existsSync(this.indexPath)
-    ? readFileSync(this.indexPath, { encoding: 'utf-8' })
-    : defaultAppContent;
+  private index = existsSync(this.indexPath) ? readFileSync(this.indexPath, { encoding: 'utf-8' }) : defaultAppContent;
   private appModules: string[] = getApplication(this.index);
 
-  private async createModules() {
+  async createModules() {
     const models = await this.models();
     const datamodel = await this.datamodel();
     for (const model of models) {
@@ -32,9 +35,7 @@ export class GenerateModules extends Generators {
       }
       const dataModel = this.dataModel(datamodel.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
-      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${
-        model.name
-      } {`;
+      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${model.name} {`;
 
       model.fields.forEach((field) => {
         if (!this.excludeFields(model.name).includes(field.name)) {
@@ -63,7 +64,7 @@ export class GenerateModules extends Generators {
       fileContent += `\n}\n\n`;
 
       fileContent += extendsTypes;
-      this.createFiles(model.name, fileContent);
+      await this.createFiles(model.name, fileContent);
     }
   }
 
@@ -75,7 +76,7 @@ export class GenerateModules extends Generators {
   private async createFiles(model: string, content: string) {
     const operations = await this.getOperations(model);
 
-    this.mkdir(this.output(model));
+    !this.options.backAsText && this.mkdir(this.output(model));
 
     let resolvers = '';
 
@@ -91,11 +92,11 @@ export class GenerateModules extends Generators {
     this.createResolver(resolvers, model);
 
     this.createTypes(content, model);
-
-    writeFileSync(
-      this.output(model, `${model}.module.ts`),
-      this.formation(getModule(model), 'babel-ts'),
-    );
+    if (this.options.backAsText) {
+      this.generatedText.models[model].module = this.formation(getModule(model), 'babel-ts');
+    } else {
+      writeFileSync(this.output(model, `${model}.module.ts`), this.formation(getModule(model), 'babel-ts'));
+    }
   }
 
   private createTypes(content: string, model: string) {
@@ -105,11 +106,11 @@ export class GenerateModules extends Generators {
       ${this.formation(content, 'graphql')}
       \`;
       `;
-
-    writeFileSync(
-      this.output(model, 'typeDefs.ts'),
-      this.formation(content, 'babel-ts'),
-    );
+    if (this.options.backAsText) {
+      this.generatedText.models[model].typeDefs = this.formation(content, 'babel-ts');
+    } else {
+      writeFileSync(this.output(model, 'typeDefs.ts'), this.formation(content, 'babel-ts'));
+    }
   }
 
   private createResolver(resolvers: string, model: string) {
@@ -120,18 +121,34 @@ export class GenerateModules extends Generators {
         ${resolvers}
       }
         `;
-      writeFileSync(
-        this.output(model, 'resolvers.ts'),
-        this.formation(resolvers, 'babel-ts'),
-      );
+      if (this.options.backAsText) {
+        this.generatedText.models[model] = { resolvers: this.formation(resolvers, 'babel-ts') };
+      } else {
+        writeFileSync(this.output(model, 'resolvers.ts'), this.formation(resolvers, 'babel-ts'));
+      }
     }
   }
 
-  private createApp() {
-    writeFileSync(
-      this.indexPath,
-      this.formation(App(this.appModules, this.index), 'babel-ts'),
-    );
+  async createInputs() {
+    let content = await this.generateSDLInputsString();
+
+    content = `import { gql } from 'graphql-modules';\n
+    export default gql\`\n${content}\n\`;\n`;
+
+    if (this.options.backAsText) {
+      this.generatedText.inputs = content;
+    } else {
+      writeFileSync(this.output('inputs', this.withExtension(this.inputName)), this.formation(content));
+    }
+  }
+
+  createApp(): string | void {
+    const content = this.formation(App(this.appModules, this.index), 'babel-ts');
+    if (this.options.backAsText) {
+      return content;
+    } else {
+      writeFileSync(this.indexPath, content);
+    }
   }
 }
 
@@ -160,9 +177,7 @@ const getField = (field: DMMF.SchemaField, content: string, docs?: string) => {
     content += ')';
   }
   content += `: ${
-    field.outputType.isList
-      ? `[${field.outputType.type}!]!`
-      : field.outputType.type + (!field.isNullable ? '!' : '')
+    field.outputType.isList ? `[${field.outputType.type}!]!` : `${field.outputType.type}${!field.isNullable ? '!' : ''}`
   }`;
   return content;
 };
@@ -172,10 +187,7 @@ const App = (modules: string[], index: string) => {
   if (importObject) {
     const modulesMatch = importObject[0].match(/\[[\S\s]*?]/);
     if (modulesMatch) {
-      return index.replace(
-        modulesMatch[0],
-        JSON.stringify(modules).replace(/"/g, ''),
-      );
+      return index.replace(modulesMatch[0], JSON.stringify(modules).replace(/"/g, ''));
     }
   }
   return '';

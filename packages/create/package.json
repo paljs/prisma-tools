@@ -14,21 +14,19 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build && yarn build:examples",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json && yarn build:examples",
     "build:examples": "wait-on dist/index.js && node ../../testnext/moveToExamples.js && node updatePalversion.js && rimraf examples/**/node_modules && cpy --dot --parents '!/node_modules/' examples dist",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "yarn build"
+    "clean": "rm -rf dist node_modules/.cache"
   },
   "dependencies": {
-    "@paljs/display": "^4.0.0",
-    "@paljs/types": "^4.0.18",
+    "@paljs/display": "workspace:*",
+    "@paljs/types": "workspace:*",
     "babel-plugin-transform-async-to-promises": "^0.8.18",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.1",
-    "got": "11.8.3"
+    "got": "11.8.3",
+    "type-fest": "^2.16.0"
   },
   "publishConfig": {
     "access": "public"
@@ -37,7 +35,7 @@
     "@types/cross-spawn": "^6.0.2",
     "cross-spawn": "^7.0.3",
     "tslib": "^2.3.1",
-    "typescript": "4.5.5",
+    "typescript": "^4.7.4",
     "wait-on": "^6.0.1"
   },
   "files": [

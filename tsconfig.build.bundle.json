@@ -1,0 +1,17 @@
+{
+  // useful for bundling because esbuild can then tree-shake via the paths
+  "extends": "./tsconfig.build.regular.json",
+  "compilerOptions": {
+    "paths": {
+      "@paljs/types": ["./packages/types/src"],
+      "@paljs/schema": ["./packages/schema/src"],
+      "@paljs/display": ["./packages/display/src"],
+      "@paljs/plugins": ["./packages/plugins/src"],
+      "@paljs/nexus": ["./packages/nexus/src"],
+      "@paljs/generator": ["./packages/generator/src"],
+      "@paljs/create": ["./packages/create/src"],
+      "@paljs/cli": ["./packages/cli/src"],
+      "@paljs/utils": ["./packages/utils/src"]
+    }
+  }
+}

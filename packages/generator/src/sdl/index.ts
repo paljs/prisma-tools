@@ -1,16 +1,22 @@
-import { Options } from '@paljs/types';
+import { GeneratorOptions } from '@paljs/types';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 import { GenerateTypes } from './GenerateTypes';
 
 export class GenerateSdl extends Generators {
-  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+  generatedText: {
+    models: Record<string, { resolvers: string; typeDefs: string }>;
+    inputs: string;
+  } = { models: {}, inputs: '' };
+
+  constructor(schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
     super(schemaPath, customOptions);
   }
 
   async run() {
     await this.createModels();
+    await this.createInputs();
     this.createMaster();
     if (!this.isJS) {
       const generateTypes = new GenerateTypes(await this.dmmf(), this.options);
@@ -19,26 +25,24 @@ export class GenerateSdl extends Generators {
     }
   }
 
-  private resolversPath = this.output(this.withExtension('resolvers'));
-  private resolversIndex = existsSync(this.resolversPath)
+  resolversPath = this.output(this.withExtension('resolvers'));
+  resolversIndex = existsSync(this.resolversPath)
     ? readFileSync(this.resolversPath, { encoding: 'utf-8' })
     : defaultResolverFile(this.isJS);
-  private resolversExport: string[] = getCurrentExport(this.resolversIndex);
+  resolversExport: string[] = getCurrentExport(this.resolversIndex);
 
-  private typeDefsPath = this.output(this.withExtension('typeDefs'));
-  private typeDefsIndex = existsSync(this.typeDefsPath)
+  typeDefsPath = this.output(this.withExtension('typeDefs'));
+  typeDefsIndex = existsSync(this.typeDefsPath)
     ? readFileSync(this.typeDefsPath, { encoding: 'utf-8' })
     : defaultTypeFile(this.isJS);
-  private typeDefsExport: string[] = getCurrentExport(this.typeDefsIndex);
+  typeDefsExport: string[] = getCurrentExport(this.typeDefsIndex);
 
-  private async createModels() {
+  async createModels() {
     const dataModels = await this.datamodel();
     for (const model of await this.models()) {
       const dataModel = this.dataModel(dataModels.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
-      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${
-        model.name
-      } {`;
+      let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${model.name} {`;
       const excludeFields = this.excludeFields(model.name);
       model.fields.forEach((field) => {
         if (!excludeFields.includes(field.name)) {
@@ -60,7 +64,7 @@ export class GenerateSdl extends Generators {
           fileContent += `: ${
             field.outputType.isList
               ? `[${field.outputType.type}!]!`
-              : field.outputType.type + (!field.isNullable ? '!' : '')
+              : `${field.outputType.type}${!field.isNullable ? '!' : ''}`
           }`;
         }
       });
@@ -77,7 +81,7 @@ export class GenerateSdl extends Generators {
 
   private async createFiles(model: string, typeContent: string) {
     const operations = await this.getOperations(model);
-    this.mkdir(this.output(model));
+    !this.options.backAsText && this.mkdir(this.output(model));
 
     let resolvers = '';
     if (!this.disableQueries(model)) {
@@ -88,11 +92,14 @@ export class GenerateSdl extends Generators {
       resolvers += operations.mutations.resolver;
       typeContent += operations.mutations.type;
     }
-    this.createResolvers(resolvers, model);
-    this.createTypes(typeContent, model);
+    const resolverFile = this.createResolvers(resolvers, model);
+    const typeFile = this.createTypes(typeContent, model);
+    if (this.options.backAsText) {
+      this.generatedText.models[model] = { resolvers: resolverFile || '', typeDefs: typeFile || '' };
+    }
   }
 
-  private createResolvers(resolvers: string, model: string) {
+  private createResolvers(resolvers: string, model: string): string | void {
     if (resolvers) {
       if (this.isJS) {
         resolvers = `
@@ -113,22 +120,23 @@ export class GenerateSdl extends Generators {
       export default resolvers;
         `;
       }
-      writeFileSync(
-        this.output(model, this.withExtension('resolvers')),
-        this.formation(resolvers),
-      );
 
       if (!this.resolversExport.includes(model)) {
         this.resolversExport.push(model);
-        this.resolversIndex = `${this.getImport(
-          this.isJS ? `{ ${model} }` : model,
-          `./${model}/resolvers`,
-        )}\n${this.resolversIndex}`;
+        this.resolversIndex = `${this.getImport(this.isJS ? `{ ${model} }` : model, `./${model}/resolvers`)}\n${
+          this.resolversIndex
+        }`;
+      }
+
+      if (this.options.backAsText) {
+        return this.formation(resolvers);
+      } else {
+        writeFileSync(this.output(model, this.withExtension('resolvers')), this.formation(resolvers));
       }
     }
   }
 
-  private createTypes(fileContent: string, model: string) {
+  private createTypes(fileContent: string, model: string): string | void {
     if (this.isJS) {
       fileContent = `const { default: gql } = require('graphql-tag');\n
     const ${model} = gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n
@@ -140,40 +148,59 @@ export class GenerateSdl extends Generators {
     export default gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n`;
     }
 
-    writeFileSync(
-      this.output(model, this.withExtension('typeDefs')),
-      this.formation(fileContent),
-    );
-
     if (!this.typeDefsExport.includes(model)) {
       this.typeDefsExport.push(model);
-      this.typeDefsIndex = `${this.getImport(
-        this.isJS ? `{ ${model} }` : model,
-        `./${model}/typeDefs`,
-      )}\n${this.typeDefsIndex}`;
+      this.typeDefsIndex = `${this.getImport(this.isJS ? `{ ${model} }` : model, `./${model}/typeDefs`)}\n${
+        this.typeDefsIndex
+      }`;
+    }
+
+    if (this.options.backAsText) {
+      return this.formation(fileContent);
+    } else {
+      writeFileSync(this.output(model, this.withExtension('typeDefs')), this.formation(fileContent));
     }
   }
 
-  private createMaster() {
-    writeFileSync(
-      this.resolversPath,
-      this.formation(replaceExports(this.resolversExport, this.resolversIndex)),
-    );
+  async createInputs() {
+    let content = await this.generateSDLInputsString();
 
-    writeFileSync(
-      this.typeDefsPath,
-      this.formation(replaceExports(this.typeDefsExport, this.typeDefsIndex)),
-    );
+    if (this.isJS) {
+      content = `const { default: gql } = require('graphql-tag');\n
+    const ${this.inputName} = gql\`\n${content}\n\`;\n
+    module.exports = { 
+      ${this.inputName}
+      }`;
+    } else {
+      content = `import gql from 'graphql-tag';\n
+    export default gql\`\n${content}\n\`;\n`;
+    }
+
+    if (!this.typeDefsExport.includes(this.inputName)) {
+      this.typeDefsExport.push(this.inputName);
+      this.typeDefsIndex = `${this.getImport(
+        this.isJS ? `{ ${this.inputName} }` : this.inputName,
+        `./${this.inputName}`,
+      )}\n${this.typeDefsIndex}`;
+    }
+    if (this.options.backAsText) {
+      this.generatedText.inputs = this.formation(content);
+    } else {
+      writeFileSync(this.output(this.withExtension(this.inputName)), this.formation(content));
+    }
+  }
+
+  createMaster() {
+    writeFileSync(this.resolversPath, this.formation(replaceExports(this.resolversExport, this.resolversIndex)));
+
+    writeFileSync(this.typeDefsPath, this.formation(replaceExports(this.typeDefsExport, this.typeDefsIndex)));
   }
 }
 
-const replaceExports = (exports: string[], text: string) => {
+export const replaceExports = (exports: string[], text: string) => {
   const matchText = text.match(/\[([\S\s]*?)]/);
   if (matchText) {
-    return text.replace(
-      matchText[0],
-      JSON.stringify(exports).replace(/"/g, ''),
-    );
+    return text.replace(matchText[0], JSON.stringify(exports).replace(/"/g, ''));
   }
   return '';
 };
@@ -199,12 +226,12 @@ const defaultResolverFile = (isJs?: boolean) =>
 const defaultTypeFile = (isJs?: boolean) =>
   isJs
     ? `const { mergeTypeDefs } = require('@graphql-tools/merge');
-const { sdlInputs } = require('@paljs/plugins');
+const { InputTypes } = require('./InputTypes');
 
-const typeDefs = mergeTypeDefs([sdlInputs()]);
+const typeDefs = mergeTypeDefs([InputTypes]);
 
 module.exports = {typeDefs};`
     : `import { mergeTypeDefs } from '@graphql-tools/merge';
-import { sdlInputs } from '@paljs/plugins';
+import InputTypes from './InputTypes';
 
-export default mergeTypeDefs([sdlInputs()]);`;
+export default mergeTypeDefs([InputTypes]);`;

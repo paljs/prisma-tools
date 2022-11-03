@@ -1,14 +1,7 @@
-import {
-  SchemaObject,
-  Model,
-  Field,
-  Schema,
-  SchemaModel,
-  SchemaField,
-} from '@paljs/types';
+import { SchemaObject, Model, Field, AdminSchema, AdminSchemaModel, AdminSchemaField } from '@paljs/types';
 import { existsSync, readFileSync } from 'fs';
 
-export function parseSchema(path: string): Schema {
+export function parseSchema(path: string): AdminSchema {
   return existsSync(path)
     ? JSON.parse(readFileSync(path, { encoding: 'utf-8' }))
     : {
@@ -17,9 +10,9 @@ export function parseSchema(path: string): Schema {
       };
 }
 
-export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
+export function mergeSchema(object: SchemaObject, schemaPath: string): AdminSchema {
   const schema = parseSchema(schemaPath);
-  const newSchema: Schema = {
+  const newSchema: AdminSchema = {
     models: [],
     enums: object.enums,
   };
@@ -28,14 +21,12 @@ export function mergeSchema(object: SchemaObject, schemaPath: string): Schema {
     if (!schemaItem) {
       newSchema.models.push(handleNewModel(item));
     } else {
-      const newItem: SchemaModel = {
+      const newItem: AdminSchemaModel = {
         ...schemaItem,
         fields: [],
       };
       item.fields.forEach((field) => {
-        const schemaField = schemaItem.fields.find(
-          (item) => item.name === field.name,
-        );
+        const schemaField = schemaItem.fields.find((item) => item.name === field.name);
         if (!schemaField) {
           newItem.fields.push(handleNewField(field, schemaItem.name));
         } else {
@@ -59,13 +50,11 @@ function checkIdFieldExist(model: Model) {
 }
 
 function handleNewModel(model: Model) {
-  const newItem: SchemaModel = {
+  const newItem: AdminSchemaModel = {
     id: model.name,
     name: getTitle(model.name),
     idField: model.fields.find((field) => field.isId)?.name ?? '',
-    displayFields: [
-      model.fields.find((field, index) => field.isId || index === 0)!.name,
-    ],
+    displayFields: [model.fields.find((field, index) => field.isId || index === 0)!.name],
     create: true,
     update: checkIdFieldExist(model),
     delete: checkIdFieldExist(model),
@@ -79,7 +68,7 @@ function handleNewModel(model: Model) {
 
 const defaultField = ['id', 'createdAt', 'updatedAt'];
 
-function handleNewField(field: Field, modelName: string): SchemaField {
+function handleNewField(field: Field, modelName: string): AdminSchemaField {
   return {
     ...getOriginalField(field, modelName),
     title: getTitle(field.name),

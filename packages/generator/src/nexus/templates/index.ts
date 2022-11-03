@@ -37,9 +37,7 @@ export async function getCrud(
   generator: GenerateNexus,
 ) {
   function getImport(content: string, path: string) {
-    return generator.isJS
-      ? `const ${content} = require('${path}')`
-      : `import ${content} from '${path}'`;
+    return generator.isJS ? `const ${content} = require('${path}')` : `import ${content} from '${path}'`;
   }
   function getImportArgs() {
     switch (key) {
@@ -61,12 +59,7 @@ export async function getCrud(
   }
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
   const modelUpper = capital(model);
-  const importString = getImport(
-    `{ ${
-      type === 'query' ? 'queryField' : 'mutationField'
-    }${getImportArgs()} }`,
-    'nexus',
-  );
+  const importString = getImport(`{ ${type === 'query' ? 'queryField' : 'mutationField'}${getImportArgs()} }`, 'nexus');
   const args = await generator.getInputTypes(
     capital(type),
     (key === 'findCount' ? 'findMany' : key) + modelUpper,
@@ -81,10 +74,5 @@ export async function getCrud(
     .replace(/#{import}/g, importString)
     .replace(/#{as}/g, generator.isJS ? '' : ' as any')
     .replace(/#{exportTs}/g, generator.isJS ? '' : 'export ')
-    .replace(
-      /#{exportJs}/g,
-      generator.isJS
-        ? `module.exports = {${modelUpper}${capital(key)}${capital(type)}}`
-        : '',
-    );
+    .replace(/#{exportJs}/g, generator.isJS ? `module.exports = {${modelUpper}${capital(key)}${capital(type)}}` : '');
 }

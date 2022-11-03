@@ -1,13 +1,13 @@
 import { writeFileSync } from 'fs';
 import { PrismaReader } from './PrismaReader';
-import { formatSchema } from '@prisma/sdk';
+import { formatSchema } from '@prisma/internals';
 import os from 'os';
 
 export class CamelCase extends PrismaReader {
   constructor(path: string) {
     super(path);
   }
-  async convert() {
+  async convert(returnString = false): Promise<string | void> {
     let newData = this.data;
     if (this.models) {
       for (const model of this.models) {
@@ -22,26 +22,31 @@ export class CamelCase extends PrismaReader {
           if (i === 0) {
             modelName = line[1];
           }
-          if (i === 0 && line[1].includes('_')) {
+          // check if we are in the first line that have the model name
+          // check if we need to change this model name
+          if (i === 0 && CamelCase.checkIfModelNameNeedToConvert(line[1])) {
+            // add a map with the old model name
             lines.splice(1, 0, `@@map("${modelName}")`);
+            // get the new model name converted to the camel case
             line[1] = this.convertWord(line[1], true);
+            // update the model name in the original string
             lines[0] = line.join(' ');
-          } else if (!lines[i].includes('@@') && !lines[i].includes('//')) {
-            const line = lines[i].replace(/[\n\r]/g, '').split(' ');
-            const cleanLine = this.lineArray(lines[i]);
-            const kind = this.getKind(this.getType(cleanLine));
-            if (cleanLine[0].includes('_') && kind !== 'object') {
-              const index = line.indexOf(cleanLine[0]);
-              line.push(`@map("${cleanLine[0]}")`);
-              line[index] = this.convertWord(cleanLine[0]);
+          }
+          // check if this line is a field not an attributes or a comment
+          else if (!lines[i].includes('@@') && !lines[i].includes('//')) {
+            const kind = this.getKind(this.getType(line));
+            const fieldName = line[0];
+            const type = line[1];
+            if (fieldName.includes('_')) {
+              if (kind !== 'object') line.push(`@map("${fieldName}")`);
+              line[0] = this.convertWord(fieldName);
               fieldsList.push({
-                old: cleanLine[0],
-                new: line[index],
+                old: fieldName,
+                new: line[0],
               });
             }
-            if (cleanLine[1].includes('_') && kind !== 'enum') {
-              const index = line.indexOf(cleanLine[1]);
-              line[index] = this.convertWord(cleanLine[1], true);
+            if (CamelCase.checkIfModelNameNeedToConvert(type) && kind === 'object') {
+              line[1] = this.convertWord(type, true);
             }
             lines[i] = line.join(' ');
           }
@@ -54,31 +59,46 @@ export class CamelCase extends PrismaReader {
             }
           });
         }
-        let newModel = lines.join(`
+        const newModel = lines.join(`
 `);
 
         const pattern = new RegExp(`model ${modelName}[\\s\\S]*?\\}\n`);
         newData = newData.replace(pattern, newModel);
       }
 
-      let output = await formatSchema({
+      let output: string = await formatSchema({
         schema: newData,
       });
 
       output = output.trimEnd() + os.EOL;
 
-      writeFileSync(this.path, output);
+      if (!returnString) {
+        writeFileSync(this.path, output);
+      } else {
+        return output;
+      }
     }
   }
 
+  // convert word to camel case
   private convertWord(word: string, model = false) {
     return word
       .split('_')
       .map((item, index) =>
-        !model && index === 0
-          ? item.toLowerCase()
-          : item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(),
+        !model && index === 0 ? item.toLowerCase() : item.charAt(0).toUpperCase() + item.slice(1).toLowerCase(),
       )
       .join('');
+  }
+
+  // check is the word start with lower case letter
+  private static checkFirstLetterLowerCase(word: string) {
+    return word[0] === word[0].toLowerCase();
+  }
+
+  /*
+   * check if the model name start with lower case or have an underscore
+   */
+  private static checkIfModelNameNeedToConvert(modelName: string) {
+    return modelName.includes('_') || CamelCase.checkFirstLetterLowerCase(modelName);
   }
 }

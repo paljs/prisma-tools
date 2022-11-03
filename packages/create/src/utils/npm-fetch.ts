@@ -14,14 +14,10 @@ export const fetchAllVersions = async (dependency: string) => {
 type NpmDistTagsResponse = { latest: string; canary: string };
 
 export const fetchDistTags = async (dependency: string) => {
-  const res = await got(
-    `https://registry.npmjs.org/-/package/${dependency}/dist-tags`,
-    {
-      retry: { limit: 3 },
-      responseType: 'json',
-    },
-  ).json<NpmDistTagsResponse>();
-  return res;
+  return got(`https://registry.npmjs.org/-/package/${dependency}/dist-tags`, {
+    retry: { limit: 3 },
+    responseType: 'json',
+  }).json<NpmDistTagsResponse>();
 };
 
 export const fetchLatestDistVersion = async (dependency: string) => {

@@ -2,30 +2,26 @@
   "name": "@paljs/types",
   "version": "4.0.18",
   "main": "dist/index.js",
-  "module": "dist/types.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:paljs/prisma-tools.git",
     "directory": "packages/types"
   },
-  "homepage": "http://www.paljs.com/",
+  "homepage": "https://paljs.com",
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "update": "ncu -u --timeout 9999999",
-    "prepare": "tsdx build"
+    "build": "pnpm run clean && tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist node_modules/.cache"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "typescript": "4.5.5"
+    "@prisma/client": "^4.5.0",
+    "typescript": "^4.7.4"
   },
   "files": [
     "dist"

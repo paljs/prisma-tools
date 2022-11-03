@@ -1,8 +1,11 @@
 import chalk from 'chalk';
 import ora from 'ora';
 import readline from 'readline';
+import debug from 'debug';
 
-// Using brigh brand color so it's better for dark terminals
+const debugName = 'paljs';
+
+// Using brigh brand color, so it's better for dark terminals
 const brandColor = '7ca2ff';
 
 const withBrand = (str: string) => {
@@ -114,16 +117,19 @@ const newline = () => {
  *
  * @param {string} val
  */
-const variable = (val: any) => {
+const variable = (val: string) => {
   return chalk.cyan.bold(`${val}`);
 };
 
-/**
- * If the DEBUG env var is set this will write to the console
- * @param str msg
- */
-const debug = (str: string) => {
-  process.env.DEBUG && console.log(str);
+const d = debug(debugName);
+
+const throwError = (str: string) => {
+  throw new Error(removeColorInTest(withX(str)));
+};
+
+const removeColorInTest = (str: string) => {
+  // eslint-disable-next-line no-control-regex
+  return process.env.NODE_ENV === 'test' ? str.replace(/\x1b\[[0-9]+m/g, '') : str;
 };
 
 export const log = {
@@ -143,5 +149,9 @@ export const log = {
   newline,
   variable,
   info,
-  debug,
+  d,
+  removeColorInTest,
+  throwError,
 };
+
+export { chalk };

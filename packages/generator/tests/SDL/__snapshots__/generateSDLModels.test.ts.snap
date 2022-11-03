@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate SDL Models Should back with User model resolvers and types with custom exclude 1`] = `
+Object {
+  "User": Object {
+    "resolvers": "import { Resolvers } from '../../resolversTypes'
+
+const resolvers: Resolvers = {
+  Query: {
+    findUniqueUser: (_parent, args, { prisma }) => {
+      return prisma.user.findUnique(args)
+    },
+    findFirstUser: (_parent, args, { prisma }) => {
+      return prisma.user.findFirst(args)
+    },
+    findManyUser: (_parent, args, { prisma }) => {
+      return prisma.user.findMany(args)
+    },
+    aggregateUser: (_parent, args, { prisma }) => {
+      return prisma.user.aggregate(args)
+    },
+  },
+  Mutation: {
+    updateOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.update(args)
+    },
+    deleteOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.delete(args)
+    },
+    upsertOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.upsert(args)
+    },
+    deleteManyUser: async (_parent, args, { prisma }) => {
+      return prisma.user.deleteMany(args)
+    },
+  },
+}
+export default resolvers
+",
+    "typeDefs": "import gql from 'graphql-tag'
+
+export default gql\`
+  type User {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    permissions: Json!
+    posts(
+      where: PostWhereInput
+      orderBy: PostOrderByWithRelationInput
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: PostScalarFieldEnum
+    ): [Post!]!
+    _count: UserCountOutputType!
+  }
+
+  type Query {
+    findUniqueUser(where: UserWhereUniqueInput!): User
+    findFirstUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    findManyUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): [User!]
+    aggregateUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregateUser
+  }
+
+  type Mutation {
+    updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+    deleteOneUser(where: UserWhereUniqueInput!): User
+    upsertOneUser(
+      where: UserWhereUniqueInput!
+      create: UserCreateInput!
+      update: UserUpdateInput!
+    ): User
+    deleteManyUser(where: UserWhereInput): BatchPayload
+  }
+\`
+",
+  },
+}
+`;
+
+exports[`Generate SDL Models Should back with all models resolvers and types 1`] = `
+Object {
+  "Post": Object {
+    "resolvers": "import { Resolvers } from '../../resolversTypes'
+
+const resolvers: Resolvers = {
+  Query: {
+    findUniquePost: (_parent, args, { prisma }) => {
+      return prisma.post.findUnique(args)
+    },
+    findFirstPost: (_parent, args, { prisma }) => {
+      return prisma.post.findFirst(args)
+    },
+    findManyPost: (_parent, args, { prisma }) => {
+      return prisma.post.findMany(args)
+    },
+    findManyPostCount: (_parent, args, { prisma }) => {
+      return prisma.post.count(args)
+    },
+    aggregatePost: (_parent, args, { prisma }) => {
+      return prisma.post.aggregate(args)
+    },
+  },
+  Mutation: {
+    createOnePost: (_parent, args, { prisma }) => {
+      return prisma.post.create(args)
+    },
+    updateOnePost: (_parent, args, { prisma }) => {
+      return prisma.post.update(args)
+    },
+    deleteOnePost: async (_parent, args, { prisma }) => {
+      return prisma.post.delete(args)
+    },
+    upsertOnePost: async (_parent, args, { prisma }) => {
+      return prisma.post.upsert(args)
+    },
+    deleteManyPost: async (_parent, args, { prisma }) => {
+      return prisma.post.deleteMany(args)
+    },
+    updateManyPost: (_parent, args, { prisma }) => {
+      return prisma.post.updateMany(args)
+    },
+  },
+}
+export default resolvers
+",
+    "typeDefs": "import gql from 'graphql-tag'
+
+export default gql\`
+  type Post {
+    id: Int!
+    published: Boolean!
+    title: String!
+    author: User
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+
+  type Query {
+    findUniquePost(where: PostWhereUniqueInput!): Post
+    findFirstPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): Post
+    findManyPost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): [Post!]
+    findManyPostCount(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [PostScalarFieldEnum]
+    ): Int!
+    aggregatePost(
+      where: PostWhereInput
+      orderBy: [PostOrderByWithRelationInput]
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregatePost
+  }
+
+  type Mutation {
+    createOnePost(data: PostCreateInput!): Post!
+    updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+    deleteOnePost(where: PostWhereUniqueInput!): Post
+    upsertOnePost(
+      where: PostWhereUniqueInput!
+      create: PostCreateInput!
+      update: PostUpdateInput!
+    ): Post
+    deleteManyPost(where: PostWhereInput): BatchPayload
+    updateManyPost(
+      data: PostUpdateManyMutationInput!
+      where: PostWhereInput
+    ): BatchPayload
+  }
+\`
+",
+  },
+  "User": Object {
+    "resolvers": "import { Resolvers } from '../../resolversTypes'
+
+const resolvers: Resolvers = {
+  Query: {
+    findUniqueUser: (_parent, args, { prisma }) => {
+      return prisma.user.findUnique(args)
+    },
+    findFirstUser: (_parent, args, { prisma }) => {
+      return prisma.user.findFirst(args)
+    },
+    findManyUser: (_parent, args, { prisma }) => {
+      return prisma.user.findMany(args)
+    },
+    findManyUserCount: (_parent, args, { prisma }) => {
+      return prisma.user.count(args)
+    },
+    aggregateUser: (_parent, args, { prisma }) => {
+      return prisma.user.aggregate(args)
+    },
+  },
+  Mutation: {
+    createOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.create(args)
+    },
+    updateOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.update(args)
+    },
+    deleteOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.delete(args)
+    },
+    upsertOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.upsert(args)
+    },
+    deleteManyUser: async (_parent, args, { prisma }) => {
+      return prisma.user.deleteMany(args)
+    },
+    updateManyUser: (_parent, args, { prisma }) => {
+      return prisma.user.updateMany(args)
+    },
+  },
+}
+export default resolvers
+",
+    "typeDefs": "import gql from 'graphql-tag'
+
+export default gql\`
+  type User {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    password: String!
+    permissions: Json!
+    posts(
+      where: PostWhereInput
+      orderBy: PostOrderByWithRelationInput
+      cursor: PostWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: PostScalarFieldEnum
+    ): [Post!]!
+    _count: UserCountOutputType!
+  }
+
+  type Query {
+    findUniqueUser(where: UserWhereUniqueInput!): User
+    findFirstUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    findManyUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): [User!]
+    findManyUserCount(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): Int!
+    aggregateUser(
+      where: UserWhereInput
+      orderBy: [UserOrderByWithRelationInput]
+      cursor: UserWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregateUser
+  }
+
+  type Mutation {
+    createOneUser(data: UserCreateInput!): User!
+    updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+    deleteOneUser(where: UserWhereUniqueInput!): User
+    upsertOneUser(
+      where: UserWhereUniqueInput!
+      create: UserCreateInput!
+      update: UserUpdateInput!
+    ): User
+    deleteManyUser(where: UserWhereInput): BatchPayload
+    updateManyUser(
+      data: UserUpdateManyMutationInput!
+      where: UserWhereInput
+    ): BatchPayload
+  }
+\`
+",
+  },
+}
+`;

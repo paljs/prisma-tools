@@ -1,21 +1,19 @@
 import { createFile } from './createFile';
-import { SchemaObject, Options } from '@paljs/types';
+import { SchemaObject, GeneratorOptions } from '@paljs/types';
 import { format } from 'prettier';
 
-export function createGraphql(schemaObject: SchemaObject, options: Options) {
+export function createGraphql(schemaObject: SchemaObject, options: GeneratorOptions) {
+  const generatedText: Record<string, string> = {};
   schemaObject.models
     .filter((model) => !options.models || options.models.includes(model.name))
     .forEach((model) => {
-      const excludeQueriesAndMutations =
-        options.excludeQueriesAndMutations.concat(
-          options.excludeQueriesAndMutationsByModel[model.name] ?? [],
-        );
+      const excludeQueriesAndMutations = options.excludeQueriesAndMutations.concat(
+        options.excludeQueriesAndMutationsByModel[model.name] ?? [],
+      );
       let fileContent = `fragment ${model.name}Fields on ${model.name} {
     `;
       model.fields.forEach((field) => {
-        const fieldsExclude = options.excludeFields.concat(
-          options.excludeFieldsByModel[model.name],
-        );
+        const fieldsExclude = options.excludeFields.concat(options.excludeFieldsByModel[model.name]);
         if (fieldsExclude.includes(field.name)) {
           return;
         }
@@ -30,9 +28,7 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
       ...${model.name}Fields
       `;
       model.fields.forEach((field) => {
-        const fieldsExclude = options.excludeFields.concat(
-          options.excludeFieldsByModel[model.name],
-        );
+        const fieldsExclude = options.excludeFields.concat(options.excludeFieldsByModel[model.name]);
         if (fieldsExclude.includes(field.name)) {
           return;
         }
@@ -46,10 +42,7 @@ export function createGraphql(schemaObject: SchemaObject, options: Options) {
 
       fileContent += `}
 ${
-  !options.disableQueries &&
-  !options.excludeModels.find(
-    (item) => item.name === model.name && item.queries,
-  )
+  !options.disableQueries && !options.excludeModels.find((item) => item.name === model.name && item.queries)
     ? `
 ${
   !excludeQueriesAndMutations.includes('findUnique')
@@ -110,10 +103,7 @@ query findMany${model.name}Count(
 }
 
 ${
-  !options.disableMutations &&
-  !options.excludeModels.find(
-    (item) => item.name === model.name && item.mutations,
-  )
+  !options.disableMutations && !options.excludeModels.find((item) => item.name === model.name && item.mutations)
     ? `
 ${
   !excludeQueriesAndMutations.includes('createOne')
@@ -180,7 +170,11 @@ mutation updateMany${model.name}($where: ${model.name}WhereInput, $data: ${model
         tabWidth: 2,
         parser: 'graphql',
       });
-
-      createFile(options.output, `${model.name}.graphql`, fileContent);
+      if (options.backAsText) {
+        generatedText[model.name] = fileContent;
+      } else {
+        createFile(options.output, `${model.name}.graphql`, fileContent);
+      }
     });
+  return generatedText;
 }

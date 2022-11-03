@@ -1,0 +1,1527 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate SDL Typescript Should back with resolvers types 1`] = `
+"import * as Client from '@prisma/client'
+
+import { Context } from './context'
+
+import { GraphQLResolveInfo } from 'graphql'
+
+type Resolver<T extends {}, A extends {}, R extends any> = (
+  parent: T,
+  args: A,
+  context: Context,
+  info: GraphQLResolveInfo,
+) => Promise<R>
+
+export type Resolvers = {
+  [key: string]: { [key: string]: Resolver<any, any, any> }
+} & {
+  User?: User
+  Post?: Post
+  Query?: Query
+  Mutation?: Mutation
+  AggregateUser?: AggregateUser
+  UserGroupByOutputType?: UserGroupByOutputType
+  AggregatePost?: AggregatePost
+  PostGroupByOutputType?: PostGroupByOutputType
+  AffectedRowsOutput?: AffectedRowsOutput
+  UserCountOutputType?: UserCountOutputType
+  UserCountAggregateOutputType?: UserCountAggregateOutputType
+  UserAvgAggregateOutputType?: UserAvgAggregateOutputType
+  UserSumAggregateOutputType?: UserSumAggregateOutputType
+  UserMinAggregateOutputType?: UserMinAggregateOutputType
+  UserMaxAggregateOutputType?: UserMaxAggregateOutputType
+  PostCountAggregateOutputType?: PostCountAggregateOutputType
+  PostAvgAggregateOutputType?: PostAvgAggregateOutputType
+  PostSumAggregateOutputType?: PostSumAggregateOutputType
+  PostMinAggregateOutputType?: PostMinAggregateOutputType
+  PostMaxAggregateOutputType?: PostMaxAggregateOutputType
+}
+
+export type User = { [key: string]: Resolver<any, any, any> } & {
+  id?: Resolver<Client.User, {}, number>
+  createdAt?: Resolver<Client.User, {}, Date>
+  email?: Resolver<Client.User, {}, string>
+  name?: Resolver<Client.User, {}, string | null>
+  password?: Resolver<Client.User, {}, string>
+  permissions?: Resolver<Client.User, {}, any>
+  posts?: Resolver<Client.User, UserPostsArgs, Client.Post[] | null>
+  _count?: Resolver<Client.User, {}, Client.Prisma.UserCountOutputType>
+}
+
+export type Post = { [key: string]: Resolver<any, any, any> } & {
+  id?: Resolver<Client.Post, {}, number>
+  published?: Resolver<Client.Post, {}, boolean>
+  title?: Resolver<Client.Post, {}, string>
+  author?: Resolver<Client.Post, {}, Client.User | null>
+  authorId?: Resolver<Client.Post, {}, number | null>
+  createdAt?: Resolver<Client.Post, {}, Date>
+  updatedAt?: Resolver<Client.Post, {}, Date>
+}
+
+export type Query = { [key: string]: Resolver<any, any, any> } & {
+  findFirstUser?: Resolver<{}, FindFirstUserArgs, Client.User | null>
+  findManyUser?: Resolver<{}, FindManyUserArgs, Client.User[]>
+  findManyUserCount?: Resolver<{}, FindManyUserArgs, number>
+  aggregateUser?: Resolver<
+    {},
+    AggregateUserArgs,
+    Client.Prisma.GetUserAggregateType<AggregateUserArgs>
+  >
+  groupByUser?: Resolver<
+    {},
+    GroupByUserArgs,
+    Client.Prisma.UserGroupByOutputType[]
+  >
+  findUniqueUser?: Resolver<{}, FindUniqueUserArgs, Client.User | null>
+  findFirstPost?: Resolver<{}, FindFirstPostArgs, Client.Post | null>
+  findManyPost?: Resolver<{}, FindManyPostArgs, Client.Post[]>
+  findManyPostCount?: Resolver<{}, FindManyPostArgs, number>
+  aggregatePost?: Resolver<
+    {},
+    AggregatePostArgs,
+    Client.Prisma.GetPostAggregateType<AggregatePostArgs>
+  >
+  groupByPost?: Resolver<
+    {},
+    GroupByPostArgs,
+    Client.Prisma.PostGroupByOutputType[]
+  >
+  findUniquePost?: Resolver<{}, FindUniquePostArgs, Client.Post | null>
+}
+
+export type Mutation = { [key: string]: Resolver<any, any, any> } & {
+  createOneUser?: Resolver<{}, CreateOneUserArgs, Client.User>
+  upsertOneUser?: Resolver<{}, UpsertOneUserArgs, Client.User>
+  createManyUser?: Resolver<{}, CreateManyUserArgs, Client.Prisma.BatchPayload>
+  deleteOneUser?: Resolver<{}, DeleteOneUserArgs, Client.User | null>
+  updateOneUser?: Resolver<{}, UpdateOneUserArgs, Client.User | null>
+  updateManyUser?: Resolver<{}, UpdateManyUserArgs, Client.Prisma.BatchPayload>
+  deleteManyUser?: Resolver<{}, DeleteManyUserArgs, Client.Prisma.BatchPayload>
+  createOnePost?: Resolver<{}, CreateOnePostArgs, Client.Post>
+  upsertOnePost?: Resolver<{}, UpsertOnePostArgs, Client.Post>
+  createManyPost?: Resolver<{}, CreateManyPostArgs, Client.Prisma.BatchPayload>
+  deleteOnePost?: Resolver<{}, DeleteOnePostArgs, Client.Post | null>
+  updateOnePost?: Resolver<{}, UpdateOnePostArgs, Client.Post | null>
+  updateManyPost?: Resolver<{}, UpdateManyPostArgs, Client.Prisma.BatchPayload>
+  deleteManyPost?: Resolver<{}, DeleteManyPostArgs, Client.Prisma.BatchPayload>
+  executeRaw?: Resolver<{}, ExecuteRawArgs, any>
+  queryRaw?: Resolver<{}, QueryRawArgs, any>
+}
+
+export type AggregateUser = { [key: string]: Resolver<any, any, any> } & {
+  _count?: Resolver<
+    Client.Prisma.AggregateUser,
+    {},
+    Client.Prisma.UserCountAggregateOutputType | null
+  >
+  _avg?: Resolver<
+    Client.Prisma.AggregateUser,
+    {},
+    Client.Prisma.UserAvgAggregateOutputType | null
+  >
+  _sum?: Resolver<
+    Client.Prisma.AggregateUser,
+    {},
+    Client.Prisma.UserSumAggregateOutputType | null
+  >
+  _min?: Resolver<
+    Client.Prisma.AggregateUser,
+    {},
+    Client.Prisma.UserMinAggregateOutputType | null
+  >
+  _max?: Resolver<
+    Client.Prisma.AggregateUser,
+    {},
+    Client.Prisma.UserMaxAggregateOutputType | null
+  >
+}
+
+export type UserGroupByOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserGroupByOutputType, {}, number>
+  createdAt?: Resolver<Client.Prisma.UserGroupByOutputType, {}, Date>
+  email?: Resolver<Client.Prisma.UserGroupByOutputType, {}, string>
+  name?: Resolver<Client.Prisma.UserGroupByOutputType, {}, string | null>
+  password?: Resolver<Client.Prisma.UserGroupByOutputType, {}, string>
+  permissions?: Resolver<Client.Prisma.UserGroupByOutputType, {}, any>
+  _count?: Resolver<
+    Client.Prisma.UserGroupByOutputType,
+    {},
+    Client.Prisma.UserCountAggregateOutputType | null
+  >
+  _avg?: Resolver<
+    Client.Prisma.UserGroupByOutputType,
+    {},
+    Client.Prisma.UserAvgAggregateOutputType | null
+  >
+  _sum?: Resolver<
+    Client.Prisma.UserGroupByOutputType,
+    {},
+    Client.Prisma.UserSumAggregateOutputType | null
+  >
+  _min?: Resolver<
+    Client.Prisma.UserGroupByOutputType,
+    {},
+    Client.Prisma.UserMinAggregateOutputType | null
+  >
+  _max?: Resolver<
+    Client.Prisma.UserGroupByOutputType,
+    {},
+    Client.Prisma.UserMaxAggregateOutputType | null
+  >
+}
+
+export type AggregatePost = { [key: string]: Resolver<any, any, any> } & {
+  _count?: Resolver<
+    Client.Prisma.AggregatePost,
+    {},
+    Client.Prisma.PostCountAggregateOutputType | null
+  >
+  _avg?: Resolver<
+    Client.Prisma.AggregatePost,
+    {},
+    Client.Prisma.PostAvgAggregateOutputType | null
+  >
+  _sum?: Resolver<
+    Client.Prisma.AggregatePost,
+    {},
+    Client.Prisma.PostSumAggregateOutputType | null
+  >
+  _min?: Resolver<
+    Client.Prisma.AggregatePost,
+    {},
+    Client.Prisma.PostMinAggregateOutputType | null
+  >
+  _max?: Resolver<
+    Client.Prisma.AggregatePost,
+    {},
+    Client.Prisma.PostMaxAggregateOutputType | null
+  >
+}
+
+export type PostGroupByOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostGroupByOutputType, {}, number>
+  published?: Resolver<Client.Prisma.PostGroupByOutputType, {}, boolean>
+  title?: Resolver<Client.Prisma.PostGroupByOutputType, {}, string>
+  authorId?: Resolver<Client.Prisma.PostGroupByOutputType, {}, number | null>
+  createdAt?: Resolver<Client.Prisma.PostGroupByOutputType, {}, Date>
+  updatedAt?: Resolver<Client.Prisma.PostGroupByOutputType, {}, Date>
+  _count?: Resolver<
+    Client.Prisma.PostGroupByOutputType,
+    {},
+    Client.Prisma.PostCountAggregateOutputType | null
+  >
+  _avg?: Resolver<
+    Client.Prisma.PostGroupByOutputType,
+    {},
+    Client.Prisma.PostAvgAggregateOutputType | null
+  >
+  _sum?: Resolver<
+    Client.Prisma.PostGroupByOutputType,
+    {},
+    Client.Prisma.PostSumAggregateOutputType | null
+  >
+  _min?: Resolver<
+    Client.Prisma.PostGroupByOutputType,
+    {},
+    Client.Prisma.PostMinAggregateOutputType | null
+  >
+  _max?: Resolver<
+    Client.Prisma.PostGroupByOutputType,
+    {},
+    Client.Prisma.PostMaxAggregateOutputType | null
+  >
+}
+
+export type AffectedRowsOutput = { [key: string]: Resolver<any, any, any> } & {
+  count?: Resolver<Client.Prisma.BatchPayload, {}, number>
+}
+
+export type UserCountOutputType = { [key: string]: Resolver<any, any, any> } & {
+  posts?: Resolver<Client.Prisma.UserCountOutputType, {}, number>
+}
+
+export type UserCountAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  createdAt?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  email?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  name?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  password?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  permissions?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+  _all?: Resolver<Client.Prisma.UserCountAggregateOutputType, {}, number>
+}
+
+export type UserAvgAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserAvgAggregateOutputType, {}, number | null>
+}
+
+export type UserSumAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserSumAggregateOutputType, {}, number | null>
+}
+
+export type UserMinAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserMinAggregateOutputType, {}, number | null>
+  createdAt?: Resolver<
+    Client.Prisma.UserMinAggregateOutputType,
+    {},
+    Date | null
+  >
+  email?: Resolver<Client.Prisma.UserMinAggregateOutputType, {}, string | null>
+  name?: Resolver<Client.Prisma.UserMinAggregateOutputType, {}, string | null>
+  password?: Resolver<
+    Client.Prisma.UserMinAggregateOutputType,
+    {},
+    string | null
+  >
+}
+
+export type UserMaxAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UserMaxAggregateOutputType, {}, number | null>
+  createdAt?: Resolver<
+    Client.Prisma.UserMaxAggregateOutputType,
+    {},
+    Date | null
+  >
+  email?: Resolver<Client.Prisma.UserMaxAggregateOutputType, {}, string | null>
+  name?: Resolver<Client.Prisma.UserMaxAggregateOutputType, {}, string | null>
+  password?: Resolver<
+    Client.Prisma.UserMaxAggregateOutputType,
+    {},
+    string | null
+  >
+}
+
+export type PostCountAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  published?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  title?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  authorId?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  createdAt?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  updatedAt?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+  _all?: Resolver<Client.Prisma.PostCountAggregateOutputType, {}, number>
+}
+
+export type PostAvgAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostAvgAggregateOutputType, {}, number | null>
+  authorId?: Resolver<
+    Client.Prisma.PostAvgAggregateOutputType,
+    {},
+    number | null
+  >
+}
+
+export type PostSumAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostSumAggregateOutputType, {}, number | null>
+  authorId?: Resolver<
+    Client.Prisma.PostSumAggregateOutputType,
+    {},
+    number | null
+  >
+}
+
+export type PostMinAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostMinAggregateOutputType, {}, number | null>
+  published?: Resolver<
+    Client.Prisma.PostMinAggregateOutputType,
+    {},
+    boolean | null
+  >
+  title?: Resolver<Client.Prisma.PostMinAggregateOutputType, {}, string | null>
+  authorId?: Resolver<
+    Client.Prisma.PostMinAggregateOutputType,
+    {},
+    number | null
+  >
+  createdAt?: Resolver<
+    Client.Prisma.PostMinAggregateOutputType,
+    {},
+    Date | null
+  >
+  updatedAt?: Resolver<
+    Client.Prisma.PostMinAggregateOutputType,
+    {},
+    Date | null
+  >
+}
+
+export type PostMaxAggregateOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.PostMaxAggregateOutputType, {}, number | null>
+  published?: Resolver<
+    Client.Prisma.PostMaxAggregateOutputType,
+    {},
+    boolean | null
+  >
+  title?: Resolver<Client.Prisma.PostMaxAggregateOutputType, {}, string | null>
+  authorId?: Resolver<
+    Client.Prisma.PostMaxAggregateOutputType,
+    {},
+    number | null
+  >
+  createdAt?: Resolver<
+    Client.Prisma.PostMaxAggregateOutputType,
+    {},
+    Date | null
+  >
+  updatedAt?: Resolver<
+    Client.Prisma.PostMaxAggregateOutputType,
+    {},
+    Date | null
+  >
+}
+
+export interface UserPostsArgs {
+  where?: PostWhereInput | null
+  orderBy?: PostOrderByWithRelationInput[] | null
+  cursor?: PostWhereUniqueInput | null
+  take?: number | null
+  skip?: number | null
+  distinct?: PostScalarFieldEnum[] | null
+}
+
+export interface FindFirstUserArgs {
+  where?: UserWhereInput | null
+  orderBy?: UserOrderByWithRelationInput[] | null
+  cursor?: UserWhereUniqueInput | null
+  take?: number | null
+  skip?: number | null
+  distinct?: UserScalarFieldEnum[] | null
+}
+
+export interface FindManyUserArgs {
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithRelationInput[]
+  cursor?: UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: UserScalarFieldEnum[]
+}
+
+export interface AggregateUserArgs {
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithRelationInput[]
+  cursor?: UserWhereUniqueInput
+  take?: number
+  skip?: number
+  _count?: Client.Prisma.UserCountAggregateInputType
+  _avg?: Client.Prisma.UserAvgAggregateInputType
+  _sum?: Client.Prisma.UserSumAggregateInputType
+  _min?: Client.Prisma.UserMinAggregateInputType
+  _max?: Client.Prisma.UserMaxAggregateInputType
+}
+
+export interface GroupByUserArgs {
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithAggregationInput[]
+  by: UserScalarFieldEnum[]
+  having?: UserScalarWhereWithAggregatesInput
+  take?: number
+  skip?: number
+}
+
+export interface FindUniqueUserArgs {
+  where: UserWhereUniqueInput | null
+}
+
+export interface FindFirstPostArgs {
+  where?: PostWhereInput | null
+  orderBy?: PostOrderByWithRelationInput[] | null
+  cursor?: PostWhereUniqueInput | null
+  take?: number | null
+  skip?: number | null
+  distinct?: PostScalarFieldEnum[] | null
+}
+
+export interface FindManyPostArgs {
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithRelationInput[]
+  cursor?: PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: PostScalarFieldEnum[]
+}
+
+export interface AggregatePostArgs {
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithRelationInput[]
+  cursor?: PostWhereUniqueInput
+  take?: number
+  skip?: number
+  _count?: Client.Prisma.PostCountAggregateInputType
+  _avg?: Client.Prisma.PostAvgAggregateInputType
+  _sum?: Client.Prisma.PostSumAggregateInputType
+  _min?: Client.Prisma.PostMinAggregateInputType
+  _max?: Client.Prisma.PostMaxAggregateInputType
+}
+
+export interface GroupByPostArgs {
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithAggregationInput[]
+  by: PostScalarFieldEnum[]
+  having?: PostScalarWhereWithAggregatesInput
+  take?: number
+  skip?: number
+}
+
+export interface FindUniquePostArgs {
+  where: PostWhereUniqueInput | null
+}
+
+export interface CreateOneUserArgs {
+  data: UserCreateInput
+}
+
+export interface UpsertOneUserArgs {
+  where: UserWhereUniqueInput
+  create: UserCreateInput
+  update: UserUpdateInput
+}
+
+export interface CreateManyUserArgs {
+  data: UserCreateManyInput[]
+  skipDuplicates?: boolean
+}
+
+export interface DeleteOneUserArgs {
+  where: UserWhereUniqueInput | null
+}
+
+export interface UpdateOneUserArgs {
+  data: UserUpdateInput | null
+  where: UserWhereUniqueInput | null
+}
+
+export interface UpdateManyUserArgs {
+  data: UserUpdateManyMutationInput
+  where?: UserWhereInput
+}
+
+export interface DeleteManyUserArgs {
+  where?: UserWhereInput
+}
+
+export interface CreateOnePostArgs {
+  data: PostCreateInput
+}
+
+export interface UpsertOnePostArgs {
+  where: PostWhereUniqueInput
+  create: PostCreateInput
+  update: PostUpdateInput
+}
+
+export interface CreateManyPostArgs {
+  data: PostCreateManyInput[]
+  skipDuplicates?: boolean
+}
+
+export interface DeleteOnePostArgs {
+  where: PostWhereUniqueInput | null
+}
+
+export interface UpdateOnePostArgs {
+  data: PostUpdateInput | null
+  where: PostWhereUniqueInput | null
+}
+
+export interface UpdateManyPostArgs {
+  data: PostUpdateManyMutationInput
+  where?: PostWhereInput
+}
+
+export interface DeleteManyPostArgs {
+  where?: PostWhereInput
+}
+
+export interface ExecuteRawArgs {
+  query: string
+  parameters?: any
+}
+
+export interface QueryRawArgs {
+  query: string
+  parameters?: any
+}
+
+export interface UserWhereInput {
+  AND?: UserWhereInput[]
+  OR?: UserWhereInput[]
+  NOT?: UserWhereInput[]
+  id?: IntFilter
+  createdAt?: DateTimeFilter
+  email?: StringFilter
+  name?: StringNullableFilter | null
+  password?: StringFilter
+  permissions?: JsonFilter
+  posts?: PostListRelationFilter
+}
+
+export interface UserOrderByWithRelationInput {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+  permissions?: SortOrder
+  posts?: PostOrderByRelationAggregateInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: number
+  email?: string
+}
+
+export interface UserOrderByWithAggregationInput {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+  permissions?: SortOrder
+  _count?: UserCountOrderByAggregateInput
+  _avg?: UserAvgOrderByAggregateInput
+  _max?: UserMaxOrderByAggregateInput
+  _min?: UserMinOrderByAggregateInput
+  _sum?: UserSumOrderByAggregateInput
+}
+
+export interface UserScalarWhereWithAggregatesInput {
+  AND?: UserScalarWhereWithAggregatesInput[]
+  OR?: UserScalarWhereWithAggregatesInput[]
+  NOT?: UserScalarWhereWithAggregatesInput[]
+  id?: IntWithAggregatesFilter
+  createdAt?: DateTimeWithAggregatesFilter
+  email?: StringWithAggregatesFilter
+  name?: StringNullableWithAggregatesFilter | null
+  password?: StringWithAggregatesFilter
+  permissions?: JsonWithAggregatesFilter
+}
+
+export interface PostWhereInput {
+  AND?: PostWhereInput[]
+  OR?: PostWhereInput[]
+  NOT?: PostWhereInput[]
+  id?: IntFilter
+  published?: BoolFilter
+  title?: StringFilter
+  author?: UserWhereInput | null
+  authorId?: IntNullableFilter | null
+  createdAt?: DateTimeFilter
+  updatedAt?: DateTimeFilter
+}
+
+export interface PostOrderByWithRelationInput {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  author?: UserOrderByWithRelationInput
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+}
+
+export interface PostWhereUniqueInput {
+  id?: number
+}
+
+export interface PostOrderByWithAggregationInput {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+  _count?: PostCountOrderByAggregateInput
+  _avg?: PostAvgOrderByAggregateInput
+  _max?: PostMaxOrderByAggregateInput
+  _min?: PostMinOrderByAggregateInput
+  _sum?: PostSumOrderByAggregateInput
+}
+
+export interface PostScalarWhereWithAggregatesInput {
+  AND?: PostScalarWhereWithAggregatesInput[]
+  OR?: PostScalarWhereWithAggregatesInput[]
+  NOT?: PostScalarWhereWithAggregatesInput[]
+  id?: IntWithAggregatesFilter
+  published?: BoolWithAggregatesFilter
+  title?: StringWithAggregatesFilter
+  authorId?: IntNullableWithAggregatesFilter | null
+  createdAt?: DateTimeWithAggregatesFilter
+  updatedAt?: DateTimeWithAggregatesFilter
+}
+
+export interface UserCreateInput {
+  createdAt?: Date
+  email: string
+  name?: string | null
+  password: string
+  permissions?: JsonNullValueInput
+  posts?: PostCreateNestedManyWithoutAuthorInput
+}
+
+export interface UserUncheckedCreateInput {
+  id?: number
+  createdAt?: Date
+  email: string
+  name?: string | null
+  password: string
+  permissions?: JsonNullValueInput
+  posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export interface UserUpdateInput {
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+  posts?: PostUpdateManyWithoutAuthorNestedInput
+}
+
+export interface UserUncheckedUpdateInput {
+  id?: IntFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+  posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export interface UserCreateManyInput {
+  id?: number
+  createdAt?: Date
+  email: string
+  name?: string | null
+  password: string
+  permissions?: JsonNullValueInput
+}
+
+export interface UserUpdateManyMutationInput {
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+}
+
+export interface UserUncheckedUpdateManyInput {
+  id?: IntFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+}
+
+export interface PostCreateInput {
+  published?: boolean
+  title: string
+  author?: UserCreateNestedOneWithoutPostsInput
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostUncheckedCreateInput {
+  id?: number
+  published?: boolean
+  title: string
+  authorId?: number | null
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostUpdateInput {
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  author?: UserUpdateOneWithoutPostsNestedInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface PostUncheckedUpdateInput {
+  id?: IntFieldUpdateOperationsInput
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  authorId?: NullableIntFieldUpdateOperationsInput | null
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface PostCreateManyInput {
+  id?: number
+  published?: boolean
+  title: string
+  authorId?: number | null
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostUpdateManyMutationInput {
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface PostUncheckedUpdateManyInput {
+  id?: IntFieldUpdateOperationsInput
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  authorId?: NullableIntFieldUpdateOperationsInput | null
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface IntFilter {
+  equals?: number
+  in?: number[]
+  notIn?: number[]
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntFilter
+}
+
+export interface DateTimeFilter {
+  equals?: Date
+  in?: Date[]
+  notIn?: Date[]
+  lt?: Date
+  lte?: Date
+  gt?: Date
+  gte?: Date
+  not?: NestedDateTimeFilter
+}
+
+export interface StringFilter {
+  equals?: string
+  in?: string[]
+  notIn?: string[]
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  mode?: QueryMode
+  not?: NestedStringFilter
+}
+
+export interface StringNullableFilter {
+  equals?: string | null
+  in?: string[] | null
+  notIn?: string[] | null
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  mode?: QueryMode
+  not?: NestedStringNullableFilter | null
+}
+
+export interface JsonFilter {
+  equals?: any
+  path?: string[]
+  string_contains?: string
+  string_starts_with?: string
+  string_ends_with?: string
+  array_contains?: any | null
+  array_starts_with?: any | null
+  array_ends_with?: any | null
+  lt?: any
+  lte?: any
+  gt?: any
+  gte?: any
+  not?: any
+}
+
+export interface PostListRelationFilter {
+  every?: PostWhereInput
+  some?: PostWhereInput
+  none?: PostWhereInput
+}
+
+export interface PostOrderByRelationAggregateInput {
+  _count?: SortOrder
+}
+
+export interface UserCountOrderByAggregateInput {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+  permissions?: SortOrder
+}
+
+export interface UserAvgOrderByAggregateInput {
+  id?: SortOrder
+}
+
+export interface UserMaxOrderByAggregateInput {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+}
+
+export interface UserMinOrderByAggregateInput {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+}
+
+export interface UserSumOrderByAggregateInput {
+  id?: SortOrder
+}
+
+export interface IntWithAggregatesFilter {
+  equals?: number
+  in?: number[]
+  notIn?: number[]
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntWithAggregatesFilter
+  _count?: NestedIntFilter
+  _avg?: NestedFloatFilter
+  _sum?: NestedIntFilter
+  _min?: NestedIntFilter
+  _max?: NestedIntFilter
+}
+
+export interface DateTimeWithAggregatesFilter {
+  equals?: Date
+  in?: Date[]
+  notIn?: Date[]
+  lt?: Date
+  lte?: Date
+  gt?: Date
+  gte?: Date
+  not?: NestedDateTimeWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedDateTimeFilter
+  _max?: NestedDateTimeFilter
+}
+
+export interface StringWithAggregatesFilter {
+  equals?: string
+  in?: string[]
+  notIn?: string[]
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  mode?: QueryMode
+  not?: NestedStringWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedStringFilter
+  _max?: NestedStringFilter
+}
+
+export interface StringNullableWithAggregatesFilter {
+  equals?: string | null
+  in?: string[] | null
+  notIn?: string[] | null
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  mode?: QueryMode
+  not?: NestedStringNullableWithAggregatesFilter | null
+  _count?: NestedIntNullableFilter
+  _min?: NestedStringNullableFilter
+  _max?: NestedStringNullableFilter
+}
+
+export interface JsonWithAggregatesFilter {
+  equals?: any
+  path?: string[]
+  string_contains?: string
+  string_starts_with?: string
+  string_ends_with?: string
+  array_contains?: any | null
+  array_starts_with?: any | null
+  array_ends_with?: any | null
+  lt?: any
+  lte?: any
+  gt?: any
+  gte?: any
+  not?: any
+  _count?: NestedIntFilter
+  _min?: NestedJsonFilter
+  _max?: NestedJsonFilter
+}
+
+export interface BoolFilter {
+  equals?: boolean
+  not?: NestedBoolFilter
+}
+
+export interface UserRelationFilter {
+  is?: UserWhereInput | null
+  isNot?: UserWhereInput | null
+}
+
+export interface IntNullableFilter {
+  equals?: number | null
+  in?: number[] | null
+  notIn?: number[] | null
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntNullableFilter | null
+}
+
+export interface PostCountOrderByAggregateInput {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+}
+
+export interface PostAvgOrderByAggregateInput {
+  id?: SortOrder
+  authorId?: SortOrder
+}
+
+export interface PostMaxOrderByAggregateInput {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+}
+
+export interface PostMinOrderByAggregateInput {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+}
+
+export interface PostSumOrderByAggregateInput {
+  id?: SortOrder
+  authorId?: SortOrder
+}
+
+export interface BoolWithAggregatesFilter {
+  equals?: boolean
+  not?: NestedBoolWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedBoolFilter
+  _max?: NestedBoolFilter
+}
+
+export interface IntNullableWithAggregatesFilter {
+  equals?: number | null
+  in?: number[] | null
+  notIn?: number[] | null
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntNullableWithAggregatesFilter | null
+  _count?: NestedIntNullableFilter
+  _avg?: NestedFloatNullableFilter
+  _sum?: NestedIntNullableFilter
+  _min?: NestedIntNullableFilter
+  _max?: NestedIntNullableFilter
+}
+
+export interface PostCreateNestedManyWithoutAuthorInput {
+  create?: PostCreateWithoutAuthorInput[]
+  connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
+  createMany?: PostCreateManyAuthorInputEnvelope
+  connect?: PostWhereUniqueInput[]
+}
+
+export interface PostUncheckedCreateNestedManyWithoutAuthorInput {
+  create?: PostCreateWithoutAuthorInput[]
+  connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
+  createMany?: PostCreateManyAuthorInputEnvelope
+  connect?: PostWhereUniqueInput[]
+}
+
+export interface DateTimeFieldUpdateOperationsInput {
+  set?: Date
+}
+
+export interface StringFieldUpdateOperationsInput {
+  set?: string
+}
+
+export interface NullableStringFieldUpdateOperationsInput {
+  set?: string | null
+}
+
+export interface PostUpdateManyWithoutAuthorNestedInput {
+  create?: PostCreateWithoutAuthorInput[]
+  connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
+  upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: PostCreateManyAuthorInputEnvelope
+  set?: PostWhereUniqueInput[]
+  disconnect?: PostWhereUniqueInput[]
+  delete?: PostWhereUniqueInput[]
+  connect?: PostWhereUniqueInput[]
+  update?: PostUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: PostUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: PostScalarWhereInput[]
+}
+
+export interface IntFieldUpdateOperationsInput {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export interface PostUncheckedUpdateManyWithoutAuthorNestedInput {
+  create?: PostCreateWithoutAuthorInput[]
+  connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
+  upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: PostCreateManyAuthorInputEnvelope
+  set?: PostWhereUniqueInput[]
+  disconnect?: PostWhereUniqueInput[]
+  delete?: PostWhereUniqueInput[]
+  connect?: PostWhereUniqueInput[]
+  update?: PostUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: PostUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: PostScalarWhereInput[]
+}
+
+export interface UserCreateNestedOneWithoutPostsInput {
+  create?: UserUncheckedCreateWithoutPostsInput
+  connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface BoolFieldUpdateOperationsInput {
+  set?: boolean
+}
+
+export interface UserUpdateOneWithoutPostsNestedInput {
+  create?: UserUncheckedCreateWithoutPostsInput
+  connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+  upsert?: UserUpsertWithoutPostsInput
+  disconnect?: boolean
+  delete?: boolean
+  connect?: UserWhereUniqueInput
+  update?: UserUncheckedUpdateWithoutPostsInput
+}
+
+export interface NullableIntFieldUpdateOperationsInput {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export interface NestedIntFilter {
+  equals?: number
+  in?: number[]
+  notIn?: number[]
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntFilter
+}
+
+export interface NestedDateTimeFilter {
+  equals?: Date
+  in?: Date[]
+  notIn?: Date[]
+  lt?: Date
+  lte?: Date
+  gt?: Date
+  gte?: Date
+  not?: NestedDateTimeFilter
+}
+
+export interface NestedStringFilter {
+  equals?: string
+  in?: string[]
+  notIn?: string[]
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  not?: NestedStringFilter
+}
+
+export interface NestedStringNullableFilter {
+  equals?: string | null
+  in?: string[] | null
+  notIn?: string[] | null
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  not?: NestedStringNullableFilter | null
+}
+
+export interface NestedIntWithAggregatesFilter {
+  equals?: number
+  in?: number[]
+  notIn?: number[]
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntWithAggregatesFilter
+  _count?: NestedIntFilter
+  _avg?: NestedFloatFilter
+  _sum?: NestedIntFilter
+  _min?: NestedIntFilter
+  _max?: NestedIntFilter
+}
+
+export interface NestedFloatFilter {
+  equals?: number
+  in?: number[]
+  notIn?: number[]
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedFloatFilter
+}
+
+export interface NestedDateTimeWithAggregatesFilter {
+  equals?: Date
+  in?: Date[]
+  notIn?: Date[]
+  lt?: Date
+  lte?: Date
+  gt?: Date
+  gte?: Date
+  not?: NestedDateTimeWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedDateTimeFilter
+  _max?: NestedDateTimeFilter
+}
+
+export interface NestedStringWithAggregatesFilter {
+  equals?: string
+  in?: string[]
+  notIn?: string[]
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  not?: NestedStringWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedStringFilter
+  _max?: NestedStringFilter
+}
+
+export interface NestedStringNullableWithAggregatesFilter {
+  equals?: string | null
+  in?: string[] | null
+  notIn?: string[] | null
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+  not?: NestedStringNullableWithAggregatesFilter | null
+  _count?: NestedIntNullableFilter
+  _min?: NestedStringNullableFilter
+  _max?: NestedStringNullableFilter
+}
+
+export interface NestedIntNullableFilter {
+  equals?: number | null
+  in?: number[] | null
+  notIn?: number[] | null
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntNullableFilter | null
+}
+
+export interface NestedJsonFilter {
+  equals?: any
+  path?: string[]
+  string_contains?: string
+  string_starts_with?: string
+  string_ends_with?: string
+  array_contains?: any | null
+  array_starts_with?: any | null
+  array_ends_with?: any | null
+  lt?: any
+  lte?: any
+  gt?: any
+  gte?: any
+  not?: any
+}
+
+export interface NestedBoolFilter {
+  equals?: boolean
+  not?: NestedBoolFilter
+}
+
+export interface NestedBoolWithAggregatesFilter {
+  equals?: boolean
+  not?: NestedBoolWithAggregatesFilter
+  _count?: NestedIntFilter
+  _min?: NestedBoolFilter
+  _max?: NestedBoolFilter
+}
+
+export interface NestedIntNullableWithAggregatesFilter {
+  equals?: number | null
+  in?: number[] | null
+  notIn?: number[] | null
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedIntNullableWithAggregatesFilter | null
+  _count?: NestedIntNullableFilter
+  _avg?: NestedFloatNullableFilter
+  _sum?: NestedIntNullableFilter
+  _min?: NestedIntNullableFilter
+  _max?: NestedIntNullableFilter
+}
+
+export interface NestedFloatNullableFilter {
+  equals?: number | null
+  in?: number[] | null
+  notIn?: number[] | null
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+  not?: NestedFloatNullableFilter | null
+}
+
+export interface PostCreateWithoutAuthorInput {
+  published?: boolean
+  title: string
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostUncheckedCreateWithoutAuthorInput {
+  id?: number
+  published?: boolean
+  title: string
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostCreateOrConnectWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  create: PostUncheckedCreateWithoutAuthorInput
+}
+
+export interface PostCreateManyAuthorInputEnvelope {
+  data: PostCreateManyAuthorInput[]
+  skipDuplicates?: boolean
+}
+
+export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  update: PostUncheckedUpdateWithoutAuthorInput
+  create: PostUncheckedCreateWithoutAuthorInput
+}
+
+export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  data: PostUncheckedUpdateWithoutAuthorInput
+}
+
+export interface PostUpdateManyWithWhereWithoutAuthorInput {
+  where: PostScalarWhereInput
+  data: PostUncheckedUpdateManyWithoutPostsInput
+}
+
+export interface PostScalarWhereInput {
+  AND?: PostScalarWhereInput[]
+  OR?: PostScalarWhereInput[]
+  NOT?: PostScalarWhereInput[]
+  id?: IntFilter
+  published?: BoolFilter
+  title?: StringFilter
+  authorId?: IntNullableFilter | null
+  createdAt?: DateTimeFilter
+  updatedAt?: DateTimeFilter
+}
+
+export interface UserCreateWithoutPostsInput {
+  createdAt?: Date
+  email: string
+  name?: string | null
+  password: string
+  permissions?: JsonNullValueInput
+}
+
+export interface UserUncheckedCreateWithoutPostsInput {
+  id?: number
+  createdAt?: Date
+  email: string
+  name?: string | null
+  password: string
+  permissions?: JsonNullValueInput
+}
+
+export interface UserCreateOrConnectWithoutPostsInput {
+  where: UserWhereUniqueInput
+  create: UserUncheckedCreateWithoutPostsInput
+}
+
+export interface UserUpsertWithoutPostsInput {
+  update: UserUncheckedUpdateWithoutPostsInput
+  create: UserUncheckedCreateWithoutPostsInput
+}
+
+export interface UserUpdateWithoutPostsInput {
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+}
+
+export interface UserUncheckedUpdateWithoutPostsInput {
+  id?: IntFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  email?: StringFieldUpdateOperationsInput
+  name?: NullableStringFieldUpdateOperationsInput | null
+  password?: StringFieldUpdateOperationsInput
+  permissions?: JsonNullValueInput
+}
+
+export interface PostCreateManyAuthorInput {
+  id?: number
+  published?: boolean
+  title: string
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+export interface PostUpdateWithoutAuthorInput {
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface PostUncheckedUpdateWithoutAuthorInput {
+  id?: IntFieldUpdateOperationsInput
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export interface PostUncheckedUpdateManyWithoutPostsInput {
+  id?: IntFieldUpdateOperationsInput
+  published?: BoolFieldUpdateOperationsInput
+  title?: StringFieldUpdateOperationsInput
+  createdAt?: DateTimeFieldUpdateOperationsInput
+  updatedAt?: DateTimeFieldUpdateOperationsInput
+}
+
+export enum JsonNullValueFilter {
+  DbNull = 'DbNull',
+  JsonNull = 'JsonNull',
+  AnyNull = 'AnyNull',
+}
+export enum JsonNullValueInput {
+  JsonNull = 'JsonNull',
+}
+export enum PostScalarFieldEnum {
+  id = 'id',
+  published = 'published',
+  title = 'title',
+  authorId = 'authorId',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+}
+export enum QueryMode {
+  default = 'default',
+  insensitive = 'insensitive',
+}
+export enum SortOrder {
+  asc = 'asc',
+  desc = 'desc',
+}
+export enum TransactionIsolationLevel {
+  ReadUncommitted = 'ReadUncommitted',
+  ReadCommitted = 'ReadCommitted',
+  RepeatableRead = 'RepeatableRead',
+  Serializable = 'Serializable',
+}
+export enum UserScalarFieldEnum {
+  id = 'id',
+  createdAt = 'createdAt',
+  email = 'email',
+  name = 'name',
+  password = 'password',
+  permissions = 'permissions',
+}
+"
+`;

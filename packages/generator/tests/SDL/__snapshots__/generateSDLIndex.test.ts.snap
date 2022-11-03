@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate SDL Index Should back with resolvers Index 1`] = `
+"import Post from './Post/resolvers'
+import User from './User/resolvers'
+export default [User, Post]
+"
+`;
+
+exports[`Generate SDL Index Should back with typeDefs Index 1`] = `
+"import Post from './Post/typeDefs'
+import User from './User/typeDefs'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import InputTypes from './InputTypes'
+
+export default mergeTypeDefs([InputTypes, User, Post])
+"
+`;

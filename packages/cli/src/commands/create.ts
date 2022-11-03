@@ -1,14 +1,13 @@
-import { Command, flags } from '@oclif/command';
+import { Command, Flags } from '@oclif/core';
 import { AppGenerator, AppGeneratorOptions, Frameworks } from '@paljs/create';
 import { prompt } from 'enquirer';
-import { Examples } from '@paljs/types';
+import { CliGeneratedExamples } from '@paljs/types';
 import chalk from 'chalk';
 import { log } from '@paljs/display';
 import { existsSync, readdirSync } from 'fs';
 
-const examples: Examples[] = [
+const examples: CliGeneratedExamples[] = [
   'full-stack-nextjs',
-  'full-stack-gatsbyjs',
   'apollo-nexus-schema',
   'apollo-sdl-first',
   'graphql-modules',
@@ -29,7 +28,7 @@ export default class Create extends Command {
   static aliases = ['c'];
 
   static flags = {
-    help: flags.help({ char: 'h' }),
+    help: Flags.help({ char: 'h' }),
   };
 
   dirIsEmpty(path: string) {
@@ -55,12 +54,7 @@ export default class Create extends Command {
     const question = [
       {
         type: 'input',
-        validate: (v: any) =>
-          v
-            ? this.dirIsEmpty(v)
-              ? true
-              : 'this folder not empty'
-            : 'name is require',
+        validate: (v: any) => (v ? (this.dirIsEmpty(v) ? true : 'this folder not empty') : 'name is require'),
         name: 'name',
         message: 'please enter your project name',
       },
@@ -133,20 +127,12 @@ export default class Create extends Command {
     const generator = new AppGenerator(answers);
 
     try {
-      this.log(
-        '\n' +
-          log.withBrand('Hang tight while we set up your great new app!') +
-          '\n',
-      );
+      this.log('\n' + log.withBrand('Hang tight while we set up your great new app!') + '\n');
       await generator.run();
-      this.log(
-        '\n' + log.withBrand('Your new great app is ready! Next steps:') + '\n',
-      );
+      this.log('\n' + log.withBrand('Your new great app is ready! Next steps:') + '\n');
       this.log('Go inside your project folder\n');
       this.log(log.withCaret(chalk.bold.blue(`cd ${answers.name}\n`)));
-      this.log(
-        `Please open ${chalk.bold.blue('README.md')} file and go with steps\n`,
-      );
+      this.log(`Please open ${chalk.bold.blue('README.md')} file and go with steps\n`);
     } catch (error: any) {
       this.error(error);
     }

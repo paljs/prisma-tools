@@ -1,6 +1,6 @@
 # Pal.js plugins
 
-contain plugins to help you with Prisma 
+contain plugins to help you with Prisma
 
 ## Prisma Select
 

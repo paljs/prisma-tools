@@ -6,17 +6,12 @@ import chalk from 'chalk';
 export const logFailedVersionFetch = (dependency: string, fallback: string) => {
   log.clearLine(
     log.withWarning(
-      `Failed to fetch latest version of '${chalk.bold(
-        dependency,
-      )}', falling back to '${chalk.bold(fallback)}'.\n`,
+      `Failed to fetch latest version of '${chalk.bold(dependency)}', falling back to '${chalk.bold(fallback)}'.\n`,
     ),
   );
 };
 
-export const getLatestVersion = async (
-  dependency: string,
-  templateVersion: string = '',
-): Promise<Fallbackable<string>> => {
+export const getLatestVersion = async (dependency: string, templateVersion = ''): Promise<Fallbackable<string>> => {
   const major = templateVersion.replace('.x', '');
 
   try {

@@ -1,7 +1,7 @@
-import { createModule, gql } from "graphql-modules";
-import { sdlInputs } from '@paljs/plugins';
+import { createModule, gql } from 'graphql-modules';
+import typeDefs from './InputTypes';
 
 export const InputsModule = createModule({
   id: 'Inputs',
-  typeDefs: sdlInputs()
+  typeDefs,
 });

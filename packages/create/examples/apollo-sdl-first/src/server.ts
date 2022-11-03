@@ -12,13 +12,7 @@ let schema = makeExecutableSchema({ typeDefs, resolvers });
 // Build one sdl file have all types you can delete if you not need
 generateGraphQlSDLFile(schema);
 
-const middleware = async (
-  resolve,
-  root,
-  args,
-  context: Context,
-  info: GraphQLResolveInfo,
-) => {
+const middleware = async (resolve, root, args, context: Context, info: GraphQLResolveInfo) => {
   const result = new PrismaSelect(info).value;
   if (!result.select || Object.keys(result.select).length > 0) {
     args = {
