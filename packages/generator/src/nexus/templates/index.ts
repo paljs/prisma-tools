@@ -60,11 +60,7 @@ export async function getCrud(
   const modelLower = model.charAt(0).toLowerCase() + model.slice(1);
   const modelUpper = capital(model);
   const importString = getImport(`{ ${type === 'query' ? 'queryField' : 'mutationField'}${getImportArgs()} }`, 'nexus');
-  const args = await generator.getInputTypes(
-    capital(type),
-    (key === 'findCount' ? 'findMany' : key) + modelUpper,
-    false,
-  );
+  const args = await generator.getInputTypes(capital(type), (key === 'findCount' ? 'findMany' : key) + model, false);
   return crud[key]
     .replace(/#{ModelName}/g, model)
     .replace(/#{args}/g, args)
