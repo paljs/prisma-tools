@@ -13013,6 +13013,6 @@ Object {
 `;
 
 exports[`test read schema and convert to dmmf failing load schema path 1`] = `
-"Could not find a schema.prisma file that is required for this command.
+"✕ Could not find a schema.prisma file that is required for this command.
 You can either provide it with --schema, set it as \`prisma.schema\` in your package.json or put it into the default location ./prisma/schema.prisma https://pris.ly/d/prisma-schema-location"
 `;
