@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 import { PrismaReader } from './PrismaReader';
-import { formatSchema } from '@prisma/internals';
+import { formatSchema } from '@paljs/utils';
 import os from 'os';
 
 export class CamelCase extends PrismaReader {

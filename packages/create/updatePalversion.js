@@ -33,4 +33,3 @@ function loadFiles(pathString) {
 }
 
 loadFiles('examples');
-loadFiles('../../testnext');

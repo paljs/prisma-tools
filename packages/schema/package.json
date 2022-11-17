@@ -22,7 +22,7 @@
   "dependencies": {
     "@paljs/display": "workspace:*",
     "@paljs/types": "workspace:*",
-    "@prisma/internals": "^4.0.0"
+    "@paljs/utils": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^4.7.4"

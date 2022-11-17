@@ -1,6 +1,5 @@
 node_modules
 dist
-testnext
 coverage
 examples
 pnpm-lock.yaml
