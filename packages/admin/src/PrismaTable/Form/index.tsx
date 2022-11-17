@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 

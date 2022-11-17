@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { useMutation } from '@apollo/client';
 import { useContext } from 'react';
 

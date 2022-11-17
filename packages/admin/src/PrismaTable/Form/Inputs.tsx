@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { SearchIcon, XCircleIcon } from '@heroicons/react/outline';

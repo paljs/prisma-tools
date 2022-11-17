@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import React, { useRef, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
@@ -61,10 +62,10 @@ const UpdateModel: React.FC<{
 
   const values: { id: string; name: string }[] = [];
   const allOptions: Option[] = [];
-  const modelsList: string[] = [];
+  //const modelsList: string[] = [];
   const getOptions = (model: AdminSchemaModel, parent = '') => {
     const options: Option[] = [];
-    modelsList.push(model.id);
+    //modelsList.push(model.id);
     model.fields
       .filter((item) => !item.list)
       .slice()
