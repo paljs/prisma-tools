@@ -4,4 +4,4 @@ dist
 coverage
 .vscode
 .github
-packages/create/examples
+examples
