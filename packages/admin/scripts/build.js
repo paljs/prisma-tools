@@ -4,7 +4,7 @@ const { promisify } = require('util');
 const yargs = require('yargs');
 
 const exec = promisify(childProcess.exec);
-const outPut = '../packages/admin';
+const outPut = './dist';
 
 const validBundles = [
   // legacy build using commonJS modules

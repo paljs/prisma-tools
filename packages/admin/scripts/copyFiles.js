@@ -4,7 +4,7 @@ const { existsSync } = require('fs');
 const glob = require('glob');
 
 const packagePath = process.cwd();
-const outPut = '../';
+const outPut = './dist';
 
 const buildPath = path.join(packagePath, outPut);
 const srcPath = path.join(packagePath, './src');
@@ -38,6 +38,16 @@ async function createModulePackages({ from, to }) {
 
 async function run() {
   try {
+    await Promise.all(
+      ['./README.md', './LICENSE'].map((file) => {
+        fse.copy(path.join(packagePath, file), path.join(buildPath, file));
+      }),
+    );
+    const pkg = fse.readJsonSync(path.join(packagePath, './package.json'));
+    delete pkg.devDependencies;
+    fse.writeJsonSync(path.join(buildPath, './package.json'), pkg, {
+      spaces: 2,
+    });
     await createModulePackages({ from: srcPath, to: buildPath });
   } catch (err) {
     console.error(err);

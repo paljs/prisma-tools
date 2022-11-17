@@ -20,7 +20,7 @@
     "build:es": "node ./scripts/build es",
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "NODE_ENV=production tailwindcss-cli build -o ../packages/admin/style.css",
+    "build:css": "NODE_ENV=production tailwindcss-cli build -o ./dist/style.css",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
@@ -61,7 +61,8 @@
     "yargs": "^17.3.1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "./dist"
   },
   "gitHead": "3d5f31c5d025953338ec694c513894b6a4112e70"
 }

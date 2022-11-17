@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "pnpm run --filter @paljs/utils --filter @paljs/types --filter @paljs/schema --filter @paljs/plugins --filter @paljs/nexus --filter @paljs/display --filter @paljs/generator --filter @paljs/create --filter @paljs/cli build",
+    "build": "pnpm run --filter @paljs/utils --filter @paljs/types --filter @paljs/schema --filter @paljs/plugins --filter @paljs/nexus --filter @paljs/display --filter @paljs/generator --filter @paljs/create --filter @paljs/cli --filter @paljs/admin build",
     "format": "prettier --write .",
     "format:ci": "prettier --check .",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
