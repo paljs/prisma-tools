@@ -1,5 +1,15 @@
 # @paljs/nexus
 
+## 5.0.2
+
+### Patch Changes
+
+- fix prisma select plugin
+- Updated dependencies
+  - @paljs/plugins@5.0.2
+  - @paljs/types@5.0.2
+  - @paljs/utils@5.0.2
+
 ## 5.0.1
 
 ### Patch Changes

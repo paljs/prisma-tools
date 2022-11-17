@@ -1,7 +1,7 @@
 import { PrismaSelect, generateGraphQlSDLFile } from '@paljs/plugins';
 import { ApolloServer } from 'apollo-server';
 import { applyMiddleware } from 'graphql-middleware';
-import { makeExecutableSchema } from 'graphql-tools';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createContext, Context } from './context';
 import typeDefs from './graphql/typeDefs';
 import resolvers from './graphql/resolvers';

@@ -1,5 +1,13 @@
 # @paljs/admin
 
+## 5.0.3
+
+### Patch Changes
+
+- fix prisma select plugin
+- Updated dependencies
+  - @paljs/types@5.0.2
+
 ## 5.0.2
 
 ### Patch Changes

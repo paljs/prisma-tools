@@ -81,20 +81,21 @@ export class PrismaSelect {
     return this.valueWithFilter(returnType);
   }
 
-  get dataModel() {
-    const models: DMMF.Model[] = [];
+  get dataModel(): DMMF.Model[] {
     if (this.options?.dmmf) {
+      const models: DMMF.Model[] = [];
       this.options?.dmmf.forEach((doc) => {
         models.push(...doc.datamodel.models);
       });
+      return models;
     } else {
       const { Prisma } = require('@prisma/client');
       if (Prisma.dmmf && Prisma.dmmf.datamodel) {
-        const models: DMMF.Model[] = Prisma.dmmf.datamodel.models;
-        models.push(...models);
+        return Prisma.dmmf.datamodel.models;
+      } else {
+        return [];
       }
     }
-    return models;
   }
 
   get defaultFields() {

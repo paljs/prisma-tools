@@ -1,5 +1,18 @@
 # @paljs/cli
 
+## 5.0.3
+
+### Patch Changes
+
+- fix prisma select plugin
+- Updated dependencies
+  - @paljs/create@5.0.3
+  - @paljs/display@5.0.2
+  - @paljs/generator@5.0.2
+  - @paljs/schema@5.0.2
+  - @paljs/types@5.0.2
+  - @paljs/utils@5.0.2
+
 ## 5.0.2
 
 ### Patch Changes

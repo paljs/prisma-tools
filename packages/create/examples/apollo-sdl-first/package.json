@@ -14,7 +14,8 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
-    "@graphql-tools/merge": "6.x",
+    "@graphql-tools/merge": "8.x",
+    "@graphql-tools/schema": "9.x",
     "@paljs/plugins": "5.0.1",
     "@prisma/client": "4.x",
     "apollo-server": "3.x",

@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 5.0.2
+
+### Patch Changes
+
+- fix prisma select plugin
+
 ## 5.0.1
 
 ### Patch Changes
