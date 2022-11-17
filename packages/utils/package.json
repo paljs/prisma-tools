@@ -25,7 +25,7 @@
   "dependencies": {
     "@paljs/types": "workspace:*",
     "@paljs/display": "workspace:*",
-    "@prisma/internals": "^4.5.0"
+    "@prisma/internals": "^4.6.1"
   },
   "files": [
     "dist"

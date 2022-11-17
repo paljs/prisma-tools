@@ -254,7 +254,7 @@ export class AppGenerator {
               join(path.replace('pages', '_app'), frameworkExclude.app),
               join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName),
             );
-          } else if ((newName === 'pal.js' || newName === 'nexusSchema.ts') && !withAdmin) {
+          } else if ((newName === 'pal.config.js' || newName === 'nexusSchema.ts') && !withAdmin) {
             const data = readFileSync(join(path, file), 'utf-8');
             writeFileSync(
               join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName),

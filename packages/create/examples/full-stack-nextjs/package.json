@@ -15,7 +15,7 @@
     "db-deploy": "prisma migrate deploy",
     "db-reset": "prisma migrate reset",
     "db-seed": "prisma db seed --preview-feature",
-    "ts-node": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}'"
+    "ts-node": "ts-node -r tsconfig-paths/register -P tsconfig-nexus.json"
   },
   "dependencies": {
     "@apollo/client": "3.x",
@@ -27,7 +27,7 @@
     "@material-ui/icons": "4.x",
     "@paljs/admin": "4.0.20",
     "@paljs/nexus": "4.1.0",
-    "@prisma/client": "^3.x",
+    "@prisma/client": "4.x",
     "apollo-server-micro": "3.x",
     "bcryptjs": "2.x",
     "cookie": "0.x",
@@ -69,8 +69,8 @@
     "postcss": "8.x",
     "prettier": "2.x",
     "pretty-quick": "3.x",
-    "prisma": "3.x",
-    "rimraf": "^3.x",
+    "prisma": "4.x",
+    "rimraf": "3.x",
     "tailwindcss": "3.x",
     "tsconfig-paths": "3.x",
     "typescript": "4.x"
