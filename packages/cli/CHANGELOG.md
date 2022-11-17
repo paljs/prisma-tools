@@ -1,5 +1,18 @@
 # @paljs/cli
 
+## 5.0.1
+
+### Patch Changes
+
+- fix admin build
+- Updated dependencies
+  - @paljs/create@5.0.1
+  - @paljs/display@5.0.1
+  - @paljs/generator@5.0.1
+  - @paljs/schema@5.0.1
+  - @paljs/types@5.0.1
+  - @paljs/utils@5.0.1
+
 ## 5.0.0
 
 ### Major Changes

@@ -62,7 +62,7 @@ importers:
       '@babel/preset-typescript': ^7.16.7
       '@headlessui/react': ^1.5.0
       '@heroicons/react': ^1.0.5
-      '@paljs/types': ^5.0.0
+      '@paljs/types': ^5.0.1
       '@tailwindcss/forms': ^0.4.0
       '@types/node': 17.0.21
       '@types/react': 17.0.39
@@ -119,6 +119,7 @@ importers:
       tailwindcss-cli: 0.1.2
       typescript: 4.7.4
       yargs: 17.5.1
+    publishDirectory: ./dist
 
   packages/cli:
     specifiers:
@@ -361,9 +362,9 @@ importers:
       '@heroicons/react': 1.0.5
       '@material-ui/core': 4.12.3
       '@material-ui/icons': 4.11.2
-      '@paljs/admin': 5.0.0
-      '@paljs/cli': 5.0.0
-      '@paljs/nexus': 5.0.0
+      '@paljs/admin': 5.0.1
+      '@paljs/cli': 5.0.1
+      '@paljs/nexus': 5.0.1
       '@prisma/client': 4.6.1
       '@types/bcryptjs': 2.4.2
       '@types/cookie': 0.4.1

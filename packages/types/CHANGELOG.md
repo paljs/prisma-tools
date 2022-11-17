@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 5.0.1
+
+### Patch Changes
+
+- fix admin build
+
 ## 5.0.0
 
 ### Major Changes

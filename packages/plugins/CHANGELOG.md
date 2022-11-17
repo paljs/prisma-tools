@@ -1,5 +1,14 @@
 # @paljs/plugins
 
+## 5.0.1
+
+### Patch Changes
+
+- fix admin build
+- Updated dependencies
+  - @paljs/types@5.0.1
+  - @paljs/utils@5.0.1
+
 ## 5.0.0
 
 ### Major Changes
