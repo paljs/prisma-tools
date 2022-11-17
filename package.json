@@ -10,6 +10,7 @@
     "prepare": "is-ci || husky install"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.25.2",
     "@types/jest": "^28.1.4",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
     "@typescript-eslint/parser": "^5.30.4",
