@@ -1,3 +1,4 @@
+/* eslint  @typescript-eslint/no-non-null-assertion: 0 */
 import React, { useContext, useState, useEffect } from 'react';
 
 import Select from '../../components/Select';

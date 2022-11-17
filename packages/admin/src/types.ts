@@ -82,5 +82,5 @@ export type TableParentRecord = {
   name: string;
   value: any;
   field: string;
-  updateRecord?: () => void;
+  updateRecord?: () => Promise<any>;
 };

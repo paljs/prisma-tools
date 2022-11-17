@@ -1,3 +1,4 @@
+/* eslint  @typescript-eslint/unbound-method: 0 */
 import React from 'react';
 import { ContextProps } from '../index';
 import defaultLanguage from './language';

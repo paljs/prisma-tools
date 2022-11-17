@@ -1,3 +1,4 @@
+/* eslint  @typescript-eslint/no-non-null-assertion: 0 */
 import { SchemaObject, Model, Field, AdminSchema, AdminSchemaModel, AdminSchemaField } from '@paljs/types';
 import { existsSync, readFileSync } from 'fs';
 

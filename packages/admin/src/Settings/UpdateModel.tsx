@@ -165,7 +165,7 @@ const UpdateModel: React.FC<{
               key={key}
               id={key + index}
               label={language[key]}
-              checked={modelObject[key] as boolean}
+              checked={modelObject[key]}
               onChange={(e) => onChangeHandler(key, e.target.checked)}
             />
           ))}
