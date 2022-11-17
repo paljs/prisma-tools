@@ -262,8 +262,10 @@ Object {
         "deleteMany": "deleteManyUser",
         "deleteOne": "deleteOneUser",
         "findFirst": "findFirstUser",
+        "findFirstOrThrow": "findFirstUserOrThrow",
         "findMany": "findManyUser",
         "findUnique": "findUniqueUser",
+        "findUniqueOrThrow": "findUniqueUserOrThrow",
         "groupBy": "groupByUser",
         "model": "User",
         "updateMany": "updateManyUser",
@@ -277,8 +279,10 @@ Object {
         "deleteMany": "deleteManyPost",
         "deleteOne": "deleteOnePost",
         "findFirst": "findFirstPost",
+        "findFirstOrThrow": "findFirstPostOrThrow",
         "findMany": "findManyPost",
         "findUnique": "findUniquePost",
+        "findUniqueOrThrow": "findUniquePostOrThrow",
         "groupBy": "groupByPost",
         "model": "Post",
         "updateMany": "updateManyPost",
@@ -10921,6 +10925,100 @@ Object {
                   "name": "distinct",
                 },
               ],
+              "isNullable": true,
+              "name": "findFirstUserOrThrow",
+              "outputType": Object {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "User",
+              },
+            },
+            Object {
+              "args": Array [
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": true,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserOrderByWithRelationInput",
+                    },
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserOrderByWithRelationInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "orderBy",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereUniqueInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "cursor",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "take",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "skip",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": true,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "UserScalarFieldEnum",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "distinct",
+                },
+              ],
               "isNullable": false,
               "name": "findManyUser",
               "outputType": Object {
@@ -11144,6 +11242,31 @@ Object {
                       "isList": false,
                       "location": "inputObjectTypes",
                       "namespace": "prisma",
+                      "type": "UserWhereUniqueInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "where",
+                },
+              ],
+              "isNullable": true,
+              "name": "findUniqueUserOrThrow",
+              "outputType": Object {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "User",
+              },
+            },
+            Object {
+              "args": Array [
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
                       "type": "PostWhereInput",
                     },
                   ],
@@ -11223,6 +11346,100 @@ Object {
               ],
               "isNullable": true,
               "name": "findFirstPost",
+              "outputType": Object {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "Post",
+              },
+            },
+            Object {
+              "args": Array [
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": true,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostOrderByWithRelationInput",
+                    },
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostOrderByWithRelationInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "orderBy",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostWhereUniqueInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "cursor",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "take",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "skip",
+                },
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": true,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "PostScalarFieldEnum",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "distinct",
+                },
+              ],
+              "isNullable": true,
+              "name": "findFirstPostOrThrow",
               "outputType": Object {
                 "isList": false,
                 "location": "outputObjectTypes",
@@ -11523,6 +11740,31 @@ Object {
               ],
               "isNullable": true,
               "name": "findUniquePost",
+              "outputType": Object {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "Post",
+              },
+            },
+            Object {
+              "args": Array [
+                Object {
+                  "inputTypes": Array [
+                    Object {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostWhereUniqueInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "where",
+                },
+              ],
+              "isNullable": true,
+              "name": "findUniquePostOrThrow",
               "outputType": Object {
                 "isList": false,
                 "location": "outputObjectTypes",

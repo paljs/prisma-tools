@@ -62,6 +62,11 @@ export type Post = { [key: string]: Resolver<any, any, any> } & {
 
 export type Query = { [key: string]: Resolver<any, any, any> } & {
   findFirstUser?: Resolver<{}, FindFirstUserArgs, Client.User | null>
+  findFirstUserOrThrow?: Resolver<
+    {},
+    FindFirstUserOrThrowArgs,
+    Client.User | null
+  >
   findManyUser?: Resolver<{}, FindManyUserArgs, Client.User[]>
   findManyUserCount?: Resolver<{}, FindManyUserArgs, number>
   aggregateUser?: Resolver<
@@ -75,7 +80,17 @@ export type Query = { [key: string]: Resolver<any, any, any> } & {
     Client.Prisma.UserGroupByOutputType[]
   >
   findUniqueUser?: Resolver<{}, FindUniqueUserArgs, Client.User | null>
+  findUniqueUserOrThrow?: Resolver<
+    {},
+    FindUniqueUserOrThrowArgs,
+    Client.User | null
+  >
   findFirstPost?: Resolver<{}, FindFirstPostArgs, Client.Post | null>
+  findFirstPostOrThrow?: Resolver<
+    {},
+    FindFirstPostOrThrowArgs,
+    Client.Post | null
+  >
   findManyPost?: Resolver<{}, FindManyPostArgs, Client.Post[]>
   findManyPostCount?: Resolver<{}, FindManyPostArgs, number>
   aggregatePost?: Resolver<
@@ -89,6 +104,11 @@ export type Query = { [key: string]: Resolver<any, any, any> } & {
     Client.Prisma.PostGroupByOutputType[]
   >
   findUniquePost?: Resolver<{}, FindUniquePostArgs, Client.Post | null>
+  findUniquePostOrThrow?: Resolver<
+    {},
+    FindUniquePostOrThrowArgs,
+    Client.Post | null
+  >
 }
 
 export type Mutation = { [key: string]: Resolver<any, any, any> } & {
@@ -412,6 +432,15 @@ export interface FindFirstUserArgs {
   distinct?: UserScalarFieldEnum[] | null
 }
 
+export interface FindFirstUserOrThrowArgs {
+  where?: UserWhereInput | null
+  orderBy?: UserOrderByWithRelationInput[] | null
+  cursor?: UserWhereUniqueInput | null
+  take?: number | null
+  skip?: number | null
+  distinct?: UserScalarFieldEnum[] | null
+}
+
 export interface FindManyUserArgs {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
@@ -447,7 +476,20 @@ export interface FindUniqueUserArgs {
   where: UserWhereUniqueInput | null
 }
 
+export interface FindUniqueUserOrThrowArgs {
+  where: UserWhereUniqueInput | null
+}
+
 export interface FindFirstPostArgs {
+  where?: PostWhereInput | null
+  orderBy?: PostOrderByWithRelationInput[] | null
+  cursor?: PostWhereUniqueInput | null
+  take?: number | null
+  skip?: number | null
+  distinct?: PostScalarFieldEnum[] | null
+}
+
+export interface FindFirstPostOrThrowArgs {
   where?: PostWhereInput | null
   orderBy?: PostOrderByWithRelationInput[] | null
   cursor?: PostWhereUniqueInput | null
@@ -488,6 +530,10 @@ export interface GroupByPostArgs {
 }
 
 export interface FindUniquePostArgs {
+  where: PostWhereUniqueInput | null
+}
+
+export interface FindUniquePostOrThrowArgs {
   where: PostWhereUniqueInput | null
 }
 
