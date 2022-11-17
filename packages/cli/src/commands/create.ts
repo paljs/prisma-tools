@@ -2,8 +2,7 @@ import { Command, Flags } from '@oclif/core';
 import { AppGenerator, AppGeneratorOptions, Frameworks } from '@paljs/create';
 import { prompt } from 'enquirer';
 import { CliGeneratedExamples } from '@paljs/types';
-import chalk from 'chalk';
-import { log } from '@paljs/display';
+import { log, chalk } from '@paljs/display';
 import { existsSync, readdirSync } from 'fs';
 
 const examples: CliGeneratedExamples[] = [

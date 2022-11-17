@@ -1,9 +1,8 @@
 import { Command, Flags } from '@oclif/core';
 import { PartialOptions, AdminPagesOptions } from '@paljs/types';
 import { Generator, UIGenerator } from '@paljs/generator';
-import chalk from 'chalk';
 import { getConfig } from '../util/getConfig';
-import { log } from '@paljs/display';
+import { log, chalk } from '@paljs/display';
 import { Config } from '@paljs/types';
 import createPlugin from '../util/zshPlugin';
 import { getSchemaPath } from '@paljs/utils';

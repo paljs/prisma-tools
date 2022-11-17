@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@graphql-tools/merge": "6.x",
-    "@paljs/plugins": "4.1.0",
+    "@paljs/plugins": "5.0.0",
     "@prisma/client": "4.x",
     "apollo-server": "3.x",
     "graphql": "16.x",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "prisma": "4.x",
     "@types/node": "18.x",
-    "@paljs/cli": "4.1.0",
+    "@paljs/cli": "5.0.0",
     "prettier": "2.x",
     "ts-node": "10.x",
     "ts-node-dev": "2.x",

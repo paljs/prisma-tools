@@ -1,6 +1,5 @@
 import { join } from 'path';
-import { log } from '@paljs/display';
-import chalk from 'chalk';
+import { log, chalk } from '@paljs/display';
 import pkgDir from 'pkg-dir';
 const projectRoot = pkgDir.sync() || process.cwd();
 

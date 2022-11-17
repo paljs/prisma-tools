@@ -1,7 +1,7 @@
 {
   "name": "@paljs/cli",
   "description": "Pal cli will be your friend in developing nodejs full-stack projects to auto generate everything for you",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "author": "Ahmed Elewa @AhmedElywa",
   "bin": {
     "pal": "./bin/run"
@@ -17,7 +17,6 @@
     "@paljs/schema": "workspace:*",
     "@paljs/utils": "workspace:*",
     "@paljs/types": "workspace:*",
-    "chalk": "^5.0.1",
     "cross-spawn": "^7.0.3",
     "enquirer": "^2.3.6",
     "fs-extra": "^10.0.1",

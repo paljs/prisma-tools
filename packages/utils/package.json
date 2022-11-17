@@ -1,6 +1,6 @@
 {
   "name": "@paljs/utils",
-  "version": "4.0.18",
+  "version": "5.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
