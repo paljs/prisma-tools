@@ -34,14 +34,7 @@ const tailwindExclude = {
 
 const chakraExclude = {
   files: ['tailwind.config.js', 'postcss.config.js'],
-  packages: [
-    'postcss',
-    'tailwindcss',
-    '@heroicons/react',
-    'autoprefixer',
-    '@material-ui/core',
-    '@material-ui/icons',
-  ],
+  packages: ['postcss', 'tailwindcss', '@heroicons/react', 'autoprefixer', '@material-ui/core', '@material-ui/icons'],
 };
 
 export const framework: {
@@ -87,11 +80,7 @@ export const framework: {
   },
 };
 
-export const getPath = (
-  path: string,
-  root: string,
-  frameworkFolder: string,
-) => {
+export const getPath = (path: string, root: string, frameworkFolder: string) => {
   return path
     .replace(root, '')
     .replace('/multi_prisma', '')

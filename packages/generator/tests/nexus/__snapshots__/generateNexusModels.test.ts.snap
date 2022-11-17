@@ -1,0 +1,650 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate nexus Models Should back with User model queries, mutations and types with custom exclude 1`] = `
+Object {
+  "User": Object {
+    "mutations": Object {
+      "deleteMany": "import { mutationField, nonNull } from 'nexus'
+
+export const UserDeleteManyMutation = mutationField('deleteManyUser', {
+  type: nonNull('BatchPayload'),
+  args: {
+    where: 'UserWhereInput',
+  },
+  resolve: async (_parent, { where }, { prisma }) => {
+    return prisma.user.deleteMany({ where } as any)
+  },
+})
+",
+      "deleteOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserDeleteOneMutation = mutationField('deleteOneUser', {
+  type: 'User',
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve: async (_parent, { where }, { prisma, select }) => {
+    return prisma.user.delete({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './updateOne'
+export * from './upsertOne'
+export * from './deleteOne'
+export * from './deleteMany'
+",
+      "updateOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserUpdateOneMutation = mutationField('updateOneUser', {
+  type: nonNull('User'),
+  args: {
+    data: nonNull('UserUpdateInput'),
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve(_parent, { data, where }, { prisma, select }) {
+    return prisma.user.update({
+      where,
+      data,
+      ...select,
+    })
+  },
+})
+",
+      "upsertOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserUpsertOneMutation = mutationField('upsertOneUser', {
+  type: nonNull('User'),
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+    create: nonNull('UserCreateInput'),
+    update: nonNull('UserUpdateInput'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.upsert({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+    },
+    "queries": Object {
+      "aggregate": "import { queryField, list } from 'nexus'
+
+export const UserAggregateQuery = queryField('aggregateUser', {
+  type: 'AggregateUser',
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.aggregate({ ...args, ...select }) as any
+  },
+})
+",
+      "findFirst": "import { queryField, list } from 'nexus'
+
+export const UserFindFirstQuery = queryField('findFirstUser', {
+  type: 'User',
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.findFirst({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findMany": "import { queryField, nonNull, list } from 'nexus'
+
+export const UserFindManyQuery = queryField('findManyUser', {
+  type: nonNull(list(nonNull('User'))),
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.findMany({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findUnique": "import { queryField, nonNull } from 'nexus'
+
+export const UserFindUniqueQuery = queryField('findUniqueUser', {
+  type: 'User',
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve(_parent, { where }, { prisma, select }) {
+    return prisma.user.findUnique({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './findUnique'
+export * from './findFirst'
+export * from './findMany'
+export * from './aggregate'
+",
+    },
+    "type": "import { objectType } from 'nexus'
+
+export const User = objectType({
+  nonNullDefaults: {
+    output: true,
+    input: false,
+  },
+  name: 'User',
+  definition(t) {
+    t.int('id')
+    t.field('createdAt', { type: 'DateTime' })
+    t.string('email')
+    t.nullable.string('name')
+    t.json('permissions')
+    t.list.field('posts', {
+      type: 'Post',
+      args: {
+        where: 'PostWhereInput',
+        orderBy: 'PostOrderByWithRelationInput',
+        cursor: 'PostWhereUniqueInput',
+        take: 'Int',
+        skip: 'Int',
+        distinct: 'PostScalarFieldEnum',
+      },
+      resolve(root: any) {
+        return root.posts
+      },
+    })
+    t.field('_count', {
+      type: 'UserCountOutputType',
+      resolve(root: any) {
+        return root._count
+      },
+    })
+  },
+})
+",
+  },
+}
+`;
+
+exports[`Generate nexus Models Should back with all models queries, mutations and types 1`] = `
+Object {
+  "Post": Object {
+    "mutations": Object {
+      "createOne": "import { mutationField, nonNull } from 'nexus'
+
+export const PostCreateOneMutation = mutationField('createOnePost', {
+  type: nonNull('Post'),
+  args: {
+    data: nonNull('PostCreateInput'),
+  },
+  resolve(_parent, { data }, { prisma, select }) {
+    return prisma.post.create({
+      data,
+      ...select,
+    })
+  },
+})
+",
+      "deleteMany": "import { mutationField, nonNull } from 'nexus'
+
+export const PostDeleteManyMutation = mutationField('deleteManyPost', {
+  type: nonNull('BatchPayload'),
+  args: {
+    where: 'PostWhereInput',
+  },
+  resolve: async (_parent, { where }, { prisma }) => {
+    return prisma.post.deleteMany({ where } as any)
+  },
+})
+",
+      "deleteOne": "import { mutationField, nonNull } from 'nexus'
+
+export const PostDeleteOneMutation = mutationField('deleteOnePost', {
+  type: 'Post',
+  args: {
+    where: nonNull('PostWhereUniqueInput'),
+  },
+  resolve: async (_parent, { where }, { prisma, select }) => {
+    return prisma.post.delete({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './createOne'
+export * from './updateOne'
+export * from './upsertOne'
+export * from './deleteOne'
+export * from './updateMany'
+export * from './deleteMany'
+",
+      "updateMany": "import { mutationField, nonNull } from 'nexus'
+
+export const PostUpdateManyMutation = mutationField('updateManyPost', {
+  type: nonNull('BatchPayload'),
+  args: {
+    data: nonNull('PostUpdateManyMutationInput'),
+    where: 'PostWhereInput',
+  },
+  resolve(_parent, args, { prisma }) {
+    return prisma.post.updateMany(args as any)
+  },
+})
+",
+      "updateOne": "import { mutationField, nonNull } from 'nexus'
+
+export const PostUpdateOneMutation = mutationField('updateOnePost', {
+  type: nonNull('Post'),
+  args: {
+    data: nonNull('PostUpdateInput'),
+    where: nonNull('PostWhereUniqueInput'),
+  },
+  resolve(_parent, { data, where }, { prisma, select }) {
+    return prisma.post.update({
+      where,
+      data,
+      ...select,
+    })
+  },
+})
+",
+      "upsertOne": "import { mutationField, nonNull } from 'nexus'
+
+export const PostUpsertOneMutation = mutationField('upsertOnePost', {
+  type: nonNull('Post'),
+  args: {
+    where: nonNull('PostWhereUniqueInput'),
+    create: nonNull('PostCreateInput'),
+    update: nonNull('PostUpdateInput'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.post.upsert({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+    },
+    "queries": Object {
+      "aggregate": "import { queryField, list } from 'nexus'
+
+export const PostAggregateQuery = queryField('aggregatePost', {
+  type: 'AggregatePost',
+  args: {
+    where: 'PostWhereInput',
+    orderBy: list('PostOrderByWithRelationInput'),
+    cursor: 'PostWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.post.aggregate({ ...args, ...select }) as any
+  },
+})
+",
+      "findCount": "import { queryField, nonNull, list } from 'nexus'
+
+export const PostFindCountQuery = queryField('findManyPostCount', {
+  type: nonNull('Int'),
+  args: {
+    where: 'PostWhereInput',
+    orderBy: list('PostOrderByWithRelationInput'),
+    cursor: 'PostWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('PostScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma }) {
+    return prisma.post.count(args as any)
+  },
+})
+",
+      "findFirst": "import { queryField, list } from 'nexus'
+
+export const PostFindFirstQuery = queryField('findFirstPost', {
+  type: 'Post',
+  args: {
+    where: 'PostWhereInput',
+    orderBy: list('PostOrderByWithRelationInput'),
+    cursor: 'PostWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('PostScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.post.findFirst({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findMany": "import { queryField, nonNull, list } from 'nexus'
+
+export const PostFindManyQuery = queryField('findManyPost', {
+  type: nonNull(list(nonNull('Post'))),
+  args: {
+    where: 'PostWhereInput',
+    orderBy: list('PostOrderByWithRelationInput'),
+    cursor: 'PostWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('PostScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.post.findMany({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findUnique": "import { queryField, nonNull } from 'nexus'
+
+export const PostFindUniqueQuery = queryField('findUniquePost', {
+  type: 'Post',
+  args: {
+    where: nonNull('PostWhereUniqueInput'),
+  },
+  resolve(_parent, { where }, { prisma, select }) {
+    return prisma.post.findUnique({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './findUnique'
+export * from './findFirst'
+export * from './findMany'
+export * from './findCount'
+export * from './aggregate'
+",
+    },
+    "type": "import { objectType } from 'nexus'
+
+export const Post = objectType({
+  nonNullDefaults: {
+    output: true,
+    input: false,
+  },
+  name: 'Post',
+  definition(t) {
+    t.int('id')
+    t.boolean('published')
+    t.string('title')
+    t.nullable.field('author', {
+      type: 'User',
+      resolve(root: any) {
+        return root.author
+      },
+    })
+    t.nullable.int('authorId')
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+  },
+})
+",
+  },
+  "User": Object {
+    "mutations": Object {
+      "createOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserCreateOneMutation = mutationField('createOneUser', {
+  type: nonNull('User'),
+  args: {
+    data: nonNull('UserCreateInput'),
+  },
+  resolve(_parent, { data }, { prisma, select }) {
+    return prisma.user.create({
+      data,
+      ...select,
+    })
+  },
+})
+",
+      "deleteMany": "import { mutationField, nonNull } from 'nexus'
+
+export const UserDeleteManyMutation = mutationField('deleteManyUser', {
+  type: nonNull('BatchPayload'),
+  args: {
+    where: 'UserWhereInput',
+  },
+  resolve: async (_parent, { where }, { prisma }) => {
+    return prisma.user.deleteMany({ where } as any)
+  },
+})
+",
+      "deleteOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserDeleteOneMutation = mutationField('deleteOneUser', {
+  type: 'User',
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve: async (_parent, { where }, { prisma, select }) => {
+    return prisma.user.delete({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './createOne'
+export * from './updateOne'
+export * from './upsertOne'
+export * from './deleteOne'
+export * from './updateMany'
+export * from './deleteMany'
+",
+      "updateMany": "import { mutationField, nonNull } from 'nexus'
+
+export const UserUpdateManyMutation = mutationField('updateManyUser', {
+  type: nonNull('BatchPayload'),
+  args: {
+    data: nonNull('UserUpdateManyMutationInput'),
+    where: 'UserWhereInput',
+  },
+  resolve(_parent, args, { prisma }) {
+    return prisma.user.updateMany(args as any)
+  },
+})
+",
+      "updateOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserUpdateOneMutation = mutationField('updateOneUser', {
+  type: nonNull('User'),
+  args: {
+    data: nonNull('UserUpdateInput'),
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve(_parent, { data, where }, { prisma, select }) {
+    return prisma.user.update({
+      where,
+      data,
+      ...select,
+    })
+  },
+})
+",
+      "upsertOne": "import { mutationField, nonNull } from 'nexus'
+
+export const UserUpsertOneMutation = mutationField('upsertOneUser', {
+  type: nonNull('User'),
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+    create: nonNull('UserCreateInput'),
+    update: nonNull('UserUpdateInput'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.upsert({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+    },
+    "queries": Object {
+      "aggregate": "import { queryField, list } from 'nexus'
+
+export const UserAggregateQuery = queryField('aggregateUser', {
+  type: 'AggregateUser',
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.aggregate({ ...args, ...select }) as any
+  },
+})
+",
+      "findCount": "import { queryField, nonNull, list } from 'nexus'
+
+export const UserFindCountQuery = queryField('findManyUserCount', {
+  type: nonNull('Int'),
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma }) {
+    return prisma.user.count(args as any)
+  },
+})
+",
+      "findFirst": "import { queryField, list } from 'nexus'
+
+export const UserFindFirstQuery = queryField('findFirstUser', {
+  type: 'User',
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.findFirst({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findMany": "import { queryField, nonNull, list } from 'nexus'
+
+export const UserFindManyQuery = queryField('findManyUser', {
+  type: nonNull(list(nonNull('User'))),
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByWithRelationInput'),
+    cursor: 'UserWhereUniqueInput',
+    take: 'Int',
+    skip: 'Int',
+    distinct: list('UserScalarFieldEnum'),
+  },
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.findMany({
+      ...args,
+      ...select,
+    })
+  },
+})
+",
+      "findUnique": "import { queryField, nonNull } from 'nexus'
+
+export const UserFindUniqueQuery = queryField('findUniqueUser', {
+  type: 'User',
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
+  },
+  resolve(_parent, { where }, { prisma, select }) {
+    return prisma.user.findUnique({
+      where,
+      ...select,
+    })
+  },
+})
+",
+      "index": "export * from './findUnique'
+export * from './findFirst'
+export * from './findMany'
+export * from './findCount'
+export * from './aggregate'
+",
+    },
+    "type": "import { objectType } from 'nexus'
+
+export const User = objectType({
+  nonNullDefaults: {
+    output: true,
+    input: false,
+  },
+  name: 'User',
+  definition(t) {
+    t.int('id')
+    t.field('createdAt', { type: 'DateTime' })
+    t.string('email')
+    t.nullable.string('name')
+    t.string('password')
+    t.json('permissions')
+    t.list.field('posts', {
+      type: 'Post',
+      args: {
+        where: 'PostWhereInput',
+        orderBy: 'PostOrderByWithRelationInput',
+        cursor: 'PostWhereUniqueInput',
+        take: 'Int',
+        skip: 'Int',
+        distinct: 'PostScalarFieldEnum',
+      },
+      resolve(root: any) {
+        return root.posts
+      },
+    })
+    t.field('_count', {
+      type: 'UserCountOutputType',
+      resolve(root: any) {
+        return root._count
+      },
+    })
+  },
+})
+",
+  },
+}
+`;

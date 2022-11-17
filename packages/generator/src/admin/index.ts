@@ -1,12 +1,12 @@
 import { writeFileSync } from 'fs';
 import { format } from 'prettier';
-import { Options, AdminPagesOptions, SchemaObject } from '@paljs/types';
+import { GeneratorOptions, AdminPagesOptions, SchemaObject } from '@paljs/types';
 import { createGraphql } from './createGraphql';
 import { mergeSchema } from './mergeSchema';
 import { ConvertSchemaToObject } from '@paljs/schema';
 import { createFile } from './createFile';
 
-const defaultOptions: Options = {
+const defaultOptions: GeneratorOptions = {
   prismaName: 'prisma',
   output: './src/graphql',
   excludeFields: [],
@@ -23,9 +23,7 @@ export class UIGenerator {
     this.schema =
       typeof schemaPath === 'string'
         ? new ConvertSchemaToObject(schemaPath).run()
-        : this.mergeSchemas(
-            schemaPath.map((path) => new ConvertSchemaToObject(path).run()),
-          );
+        : this.mergeSchemas(schemaPath.map((path) => new ConvertSchemaToObject(path).run()));
   }
 
   mergeSchemas(schemas: SchemaObject[]) {
@@ -37,7 +35,7 @@ export class UIGenerator {
     return schema;
   }
 
-  buildSettingsSchema(path = 'adminSettings.json') {
+  buildSettingsSchema(path = 'adminSettings.json', backAsText?: boolean) {
     const newSchema = mergeSchema(this.schema, path);
     const fileContent = format(`${JSON.stringify(newSchema)}`, {
       singleQuote: true,
@@ -46,25 +44,24 @@ export class UIGenerator {
       parser: 'json',
     });
 
-    writeFileSync(path, fileContent);
+    !backAsText && writeFileSync(path, fileContent);
 
     return newSchema;
   }
 
-  generateGraphql(customOptions?: Omit<Partial<Options>, 'nexusSchema'>) {
-    const options: Options = {
+  generateGraphql(customOptions?: Omit<Partial<GeneratorOptions>, 'nexusSchema'>) {
+    const options: GeneratorOptions = {
       ...defaultOptions,
       ...customOptions,
     };
-    createGraphql(this.schema, options);
+    return createGraphql(this.schema, options);
   }
 
   generateAdminPages(options?: AdminPagesOptions) {
     const content = options?.pageContent ?? page;
+    const generatedText: Record<string, string> = {};
     this.schema.models
-      .filter(
-        (model) => !options?.models || options?.models.includes(model.name),
-      )
+      .filter((model) => !options?.models || options?.models.includes(model.name))
       .forEach((model) => {
         const fileContent = format(content.replace(/#{id}/g, model.name), {
           semi: true,
@@ -74,12 +71,13 @@ export class UIGenerator {
           tabWidth: 2,
           parser: 'babel-ts',
         });
-        createFile(
-          options?.outPut ?? 'src/pages/admin/models/',
-          `${model.name}.tsx`,
-          fileContent,
-        );
+        if (options?.backAsText) {
+          generatedText[model.name] = fileContent;
+        } else {
+          createFile(options?.outPut ?? 'src/pages/admin/models/', `${model.name}.tsx`, fileContent);
+        }
       });
+    return generatedText;
   }
 }
 

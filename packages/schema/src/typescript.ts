@@ -4,7 +4,7 @@ import { ConvertSchemaToObject } from './json';
 export class GenerateTypeScript {
   private schema: SchemaObject;
   private code: string[] = [];
-  private scalar: { [key: string]: any } = {
+  private scalar: Record<string, string> = {
     Int: 'number',
     Float: 'number',
     Decimal: 'number',
@@ -24,9 +24,7 @@ export class GenerateTypeScript {
     this.schema.models.forEach((model) => {
       const fields: string[] = [`export interface ${model.name} {`];
       model.fields.forEach((field) => {
-        fields.push(
-          `${field.name}${field.required ? '' : '?'}: ${this.getType(field)}`,
-        );
+        fields.push(`${field.name}${field.required ? '' : '?'}: ${this.getType(field)}`);
       });
       fields.push('}');
       models.push(fields.join('\n'));

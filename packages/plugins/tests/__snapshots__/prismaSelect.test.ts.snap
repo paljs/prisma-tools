@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test PrismaSelect class should add the selected fields on the args object if the type is aggregate 1`] = `
+Object {
+  "_avg": Object {
+    "id": true,
+  },
+  "_count": Object {
+    "email": true,
+  },
+  "_max": Object {
+    "id": true,
+  },
+  "_sum": Object {
+    "id": true,
+  },
+}
+`;
+
+exports[`test PrismaSelect class should back empty object if the path not found 1`] = `Object {}`;
+
+exports[`test PrismaSelect class should contain default values firstName, lastName 1`] = `
+Object {
+  "select": Object {
+    "firstName": true,
+    "id": true,
+    "lastName": true,
+  },
+}
+`;
+
+exports[`test PrismaSelect class should filter the type depend on the @PrismaSelect comment on the schema file 1`] = `
+Object {
+  "select": Object {
+    "firstName": true,
+    "id": true,
+  },
+}
+`;
+
+exports[`test PrismaSelect class should get value from nested object and filter by given type 1`] = `
+Object {
+  "select": Object {
+    "comments": Object {
+      "select": Object {
+        "contain": true,
+        "id": true,
+      },
+    },
+    "id": true,
+  },
+}
+`;
+
+exports[`test PrismaSelect class should get value from nested object more than one deep 1`] = `
+Object {
+  "select": Object {
+    "contain": true,
+    "id": true,
+  },
+}
+`;
+
+exports[`test PrismaSelect class should merge deep add custom select object to current one 1`] = `
+Object {
+  "select": Object {
+    "email": true,
+    "id": true,
+    "posts": Object {
+      "select": Object {
+        "id": true,
+        "title": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`test PrismaSelect class test nested relations with args 1`] = `
+Object {
+  "user": null,
+}
+`;
+
+exports[`test PrismaSelect class test nested relations with args 2`] = `undefined`;
+
+exports[`test PrismaSelect class test nested relations with args 3`] = `
+Object {
+  "select": Object {
+    "email": true,
+    "firstName": true,
+    "id": true,
+    "posts": Object {
+      "distinct": "id",
+      "orderBy": Object {
+        "published": "asc",
+      },
+      "select": Object {
+        "comments": Object {
+          "select": Object {
+            "contain": true,
+            "id": true,
+          },
+          "where": Object {
+            "contain": Object {
+              "contains": "a",
+            },
+          },
+        },
+        "id": true,
+        "title": true,
+      },
+      "skip": 5,
+      "take": 10,
+      "where": Object {
+        "title": Object {
+          "contains": "a",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`test PrismaSelect class test nested relations with args 4`] = `
+Object {
+  "alias": "user",
+  "args": Object {},
+  "fieldsByTypeName": Object {
+    "User": Object {
+      "email": Object {
+        "alias": "email",
+        "args": Object {},
+        "fieldsByTypeName": Object {},
+        "name": "email",
+      },
+      "fullName": Object {
+        "alias": "fullName",
+        "args": Object {},
+        "fieldsByTypeName": Object {},
+        "name": "fullName",
+      },
+      "id": Object {
+        "alias": "id",
+        "args": Object {},
+        "fieldsByTypeName": Object {},
+        "name": "id",
+      },
+      "name": Object {
+        "alias": "name",
+        "args": Object {},
+        "fieldsByTypeName": Object {},
+        "name": "firstName",
+      },
+      "posts": Object {
+        "alias": "posts",
+        "args": Object {
+          "distinct": "id",
+          "orderBy": Object {
+            "published": "asc",
+          },
+          "skip": 5,
+          "take": 10,
+          "where": Object {
+            "title": Object {
+              "contains": "a",
+            },
+          },
+        },
+        "fieldsByTypeName": Object {
+          "Post": Object {
+            "comments": Object {
+              "alias": "comments",
+              "args": Object {
+                "where": Object {
+                  "contain": Object {
+                    "contains": "a",
+                  },
+                },
+              },
+              "fieldsByTypeName": Object {
+                "Comment": Object {
+                  "contain": Object {
+                    "alias": "contain",
+                    "args": Object {},
+                    "fieldsByTypeName": Object {},
+                    "name": "contain",
+                  },
+                  "id": Object {
+                    "alias": "id",
+                    "args": Object {},
+                    "fieldsByTypeName": Object {},
+                    "name": "id",
+                  },
+                },
+              },
+              "name": "comments",
+            },
+            "id": Object {
+              "alias": "id",
+              "args": Object {},
+              "fieldsByTypeName": Object {},
+              "name": "id",
+            },
+            "title": Object {
+              "alias": "title",
+              "args": Object {},
+              "fieldsByTypeName": Object {},
+              "name": "title",
+            },
+          },
+        },
+        "name": "posts",
+      },
+    },
+  },
+  "name": "user",
+}
+`;

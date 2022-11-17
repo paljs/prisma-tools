@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test schema inputs check Json field 1`] = `
+Object {
+  "isList": false,
+  "location": "scalar",
+  "type": "Json",
+}
+`;
+
+exports[`test schema inputs check update input 1`] = `
+Object {
+  "isList": false,
+  "location": "inputObjectTypes",
+  "namespace": "prisma",
+  "type": "NullableStringFieldUpdateOperationsInput",
+}
+`;
+
+exports[`test schema inputs check update input 2`] = `
+Object {
+  "isList": false,
+  "location": "scalar",
+  "type": "String",
+}
+`;
+
+exports[`test schema inputs should back a list field if we have more than type and one of them is list 1`] = `
+Object {
+  "isList": true,
+  "location": "inputObjectTypes",
+  "namespace": "prisma",
+  "type": "UserWhereInput",
+}
+`;
+
+exports[`test schema inputs should back a object field if we have more than type and one of them is object 1`] = `
+Object {
+  "isList": false,
+  "location": "inputObjectTypes",
+  "namespace": "prisma",
+  "type": "IntFilter",
+}
+`;

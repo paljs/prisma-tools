@@ -1,4 +1,4 @@
-import { PrismaSelect } from "@paljs/plugins";
+import { PrismaSelect } from '@paljs/plugins';
 
 export const addSelect = (context, next) => {
   const result = new PrismaSelect(context.info).value;

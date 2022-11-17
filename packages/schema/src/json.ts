@@ -29,9 +29,7 @@ export class ConvertSchemaToObject extends PrismaReader {
         for (let i = 1; i + 1 < lines.length; i++) {
           const line = this.lineArray(lines[i]);
           if (line[0].includes('//')) {
-            documentation = documentation
-              ? documentation + '\n' + line.join(' ')
-              : line.join(' ');
+            documentation = documentation ? documentation + '\n' + line.join(' ') : line.join(' ');
           } else if (line[0].includes('@@')) {
             modelObject.map = this.getMap(lines[i]);
           } else {
@@ -55,7 +53,7 @@ export class ConvertSchemaToObject extends PrismaReader {
             documentation = '';
           }
         }
-        modelObject.documentation = documentation;
+        modelObject.documentation = this.getModelDocumentation(modelObject.name);
         modelObject.fields
           .filter((item) => item.kind !== 'object')
           .forEach((item) => {

@@ -1,12 +1,21 @@
-import { Options } from '@paljs/types';
+import { GeneratorOptions, DMMF } from '@paljs/types';
 import { writeFileSync, existsSync, readFileSync } from 'fs';
-import { DMMF } from '../schema';
 import { Generators } from '../Generators';
 import { getCrud } from './templates';
 import { join } from 'path';
+import { getInputType } from '@paljs/utils';
 
 export class GenerateNexus extends Generators {
-  constructor(schemaPath: string, customOptions?: Partial<Options>) {
+  generatedText: {
+    models: Record<
+      string,
+      { type?: string; queries: Record<string, string>; mutations: Record<string, string>; index?: string }
+    >;
+    inputs: string;
+    index: string;
+  } = { models: {}, index: '', inputs: '' };
+
+  constructor(schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
     super(schemaPath, customOptions);
   }
 
@@ -16,10 +25,11 @@ export class GenerateNexus extends Generators {
 
   async run() {
     await this.createModels();
+    await this.createInputs();
     this.createIndex();
   }
 
-  private async createModels() {
+  async createModels() {
     const models = await this.models();
     const dataModels = await this.datamodel();
     for (const model of models) {
@@ -34,9 +44,7 @@ export class GenerateNexus extends Generators {
       const dataModel = this.dataModel(dataModels.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
       let fileContent = `${this.getImport('{ objectType }', 'nexus')}\n\n`;
-      fileContent += `${!this.isJS ? 'export ' : ''}const ${
-        model.name
-      } = objectType({
+      fileContent += `${!this.isJS ? 'export ' : ''}const ${model.name} = objectType({
         nonNullDefaults: {
           output: true,
           input: false,
@@ -52,122 +60,192 @@ export class GenerateNexus extends Generators {
           if (this.shouldOmit(fieldDocs)) {
             return;
           }
-          if (
-            field.outputType.location === 'scalar' &&
-            field.outputType.type !== 'DateTime'
-          ) {
-            fileContent += `t${this.getNullOrList(field)}.${(
-              field.outputType.type as String
-            ).toLowerCase()}('${field.name}'${
+          if (field.outputType.location === 'scalar' && field.outputType.type !== 'DateTime') {
+            fileContent += `t${this.getNullOrList(field)}.${field.outputType.type.toLowerCase()}('${field.name}'${
               fieldDocs ? `, {description: \`${fieldDocs}\`}` : ''
             })\n`;
           } else {
-            fileContent += `t${this.getNullOrList(field)}.field('${
-              field.name
-            }'${options})\n`;
+            fileContent += `t${this.getNullOrList(field)}.field('${field.name}'${options})\n`;
           }
         }
       });
 
-      fileContent += `},\n})\n\n${
-        this.isJS ? `module.exports = {${model.name}}` : ''
-      }`;
+      fileContent += `},\n})\n\n${this.isJS ? `module.exports = {${model.name}}` : ''}`;
       const path = this.output(model.name);
-      this.mkdir(path);
-      writeFileSync(
-        join(path, this.withExtension('type')),
-        this.formation(fileContent),
-      );
 
-      this.createIndex(
-        path,
-        ['type'].concat(await this.createQueriesAndMutations(model.name)),
-      );
+      if (this.options.backAsText) {
+        this.generatedText.models[model.name] = { type: this.formation(fileContent), queries: {}, mutations: {} };
+      } else {
+        this.mkdir(path);
+        writeFileSync(join(path, this.withExtension('type')), this.formation(fileContent));
+      }
+
+      this.createIndex(path, ['type'].concat(await this.createQueriesAndMutations(model.name)));
     }
   }
 
-  private async createQueriesAndMutations(name: string) {
+  async createQueriesAndMutations(name: string) {
     const exclude = this.excludedOperations(name);
-    let modelIndex: string[] = [];
+    const modelIndex: string[] = [];
     if (!this.disableQueries(name)) {
       const queriesIndex: string[] = [];
       const path = this.output(name, 'queries');
-      for (const item of this.queries.filter(
-        (item) => !exclude.includes(item),
-      )) {
+      for (const item of this.queries.filter((item) => !exclude.includes(item))) {
         const itemContent = await getCrud(name, 'query', item, this);
-        this.createFileIfNotfound(
-          path,
-          this.withExtension(item),
-          this.formation(itemContent),
-        );
+        if (this.options.backAsText) {
+          this.generatedText.models[name].queries[item] = this.formation(itemContent);
+        } else {
+          this.createFileIfNotfound(path, this.withExtension(item), this.formation(itemContent));
+        }
         queriesIndex.push(item);
       }
       if (queriesIndex) {
         modelIndex.push('queries');
         const indexPath = join(path, this.withExtension('index'));
-        writeFileSync(
-          indexPath,
-          this.formation(this.getIndexContent(queriesIndex, indexPath)),
-        );
+        const indexContent = this.formation(this.getIndexContent(queriesIndex, indexPath));
+        if (this.options.backAsText) {
+          this.generatedText.models[name].queries.index = indexContent;
+        } else {
+          writeFileSync(indexPath, indexContent);
+        }
       }
     }
 
     if (!this.disableMutations(name)) {
       const mutationsIndex: string[] = [];
       const path = this.output(name, 'mutations');
-      for (const item of this.mutations.filter(
-        (item) => !exclude.includes(item),
-      )) {
+      for (const item of this.mutations.filter((item) => !exclude.includes(item))) {
         const itemContent = await getCrud(name, 'mutation', item, this);
-        this.createFileIfNotfound(
-          path,
-          this.withExtension(item),
-          this.formation(itemContent),
-        );
+        if (this.options.backAsText) {
+          this.generatedText.models[name].mutations[item] = this.formation(itemContent);
+        } else {
+          this.createFileIfNotfound(path, this.withExtension(item), this.formation(itemContent));
+        }
         mutationsIndex.push(item);
       }
       if (mutationsIndex) {
         modelIndex.push('mutations');
         const indexPath = join(path, this.withExtension('index'));
-        writeFileSync(
-          indexPath,
-          this.formation(this.getIndexContent(mutationsIndex, indexPath)),
-        );
+        const indexContent = this.formation(this.getIndexContent(mutationsIndex, indexPath));
+        if (this.options.backAsText) {
+          this.generatedText.models[name].mutations.index = indexContent;
+        } else {
+          writeFileSync(indexPath, indexContent);
+        }
       }
     }
     return modelIndex;
   }
 
-  private createIndex(path?: string, content?: string[]) {
+  async createInputs() {
+    const dmmf = await this.dmmf();
+    const data = dmmf.schema;
+    if (this.isJS) {
+      this.indexJS.push(this.inputName);
+    } else {
+      const exportString = `export * from './${this.inputName}'`;
+      if (!this.indexTS.includes(exportString)) {
+        this.indexTS = `export * from './${this.inputName}'\n${this.indexTS}`;
+      }
+    }
+    const text: string[] = [`${this.getImport('{ enumType, inputObjectType, objectType }', 'nexus')}`, ''];
+    const exportModels: string[] = [];
+    if (data) {
+      const enums = [...data.enumTypes.prisma];
+      if (data.enumTypes.model) enums.push(...data.enumTypes.model);
+      enums.forEach((item) => {
+        exportModels.push(item.name);
+        text.push(`${!this.isJS ? 'export ' : ''} const ${item.name} = enumType({
+              name: "${item.name}",
+              members: ${JSON.stringify(item.values)},
+            })\n`);
+      });
+      const inputObjectTypes = [...data.inputObjectTypes.prisma];
+      if (data.inputObjectTypes.model) inputObjectTypes.push(...data.inputObjectTypes.model);
+      inputObjectTypes.forEach((input) => {
+        const inputFields =
+          typeof this.options?.filterInputs === 'function' ? this.options.filterInputs(input) : input.fields;
+        if (inputFields.length > 0) {
+          exportModels.push(input.name);
+          text.push(`${!this.isJS ? 'export ' : ''} const ${input.name} = inputObjectType({
+            nonNullDefaults: {
+              input: false,
+            },
+            name: "${input.name}",
+            definition(t) {`);
+          inputFields
+            .filter((field) => !this.options.excludeInputFields?.includes(field.name))
+            .forEach((field) => {
+              const inputType = getInputType(field, this.options);
+
+              const fieldConfig: Record<string, string> = {
+                type: inputType.type as any,
+              };
+              const arg = field.isRequired ? '.nonNull' : inputType.isList ? '.list' : '';
+              text.push(`t${arg}.field(${JSON.stringify(field.name)}, ${JSON.stringify(fieldConfig)});`);
+            });
+          text.push(`},\n});\n`);
+        }
+      });
+      data.outputObjectTypes.prisma
+        .filter((type) => type.name.includes('Aggregate') || type.name.endsWith('CountOutputType'))
+        .forEach((type) => {
+          exportModels.push(type.name);
+          text.push(`${!this.isJS ? 'export ' : ''} const ${type.name} = objectType({
+            nonNullDefaults: {
+              output: true,
+            },
+            name: "${type.name}",
+            definition(t) {`);
+
+          type.fields
+            .filter((field) => !this.options.excludeInputFields?.includes(field.name))
+            .forEach((field) => {
+              const fieldConfig: Record<string, string> = {
+                type: field.outputType.type as any,
+              };
+              const arg = field.isNullable ? '.nullable' : field.outputType.isList ? '.list' : '';
+              text.push(`t${arg}.field(${JSON.stringify(field.name)}, ${JSON.stringify(fieldConfig)});`);
+            });
+          text.push(`},\n});\n`);
+        });
+      if (this.isJS) {
+        text.push(`module.exports = {${exportModels.join(',')}}`);
+      }
+    }
+    if (this.options.backAsText) {
+      this.generatedText.inputs = this.formation(text.join('\n'));
+    } else {
+      writeFileSync(join(this.output(), this.withExtension(this.inputName)), this.formation(text.join('\n')));
+    }
+  }
+
+  createIndex(path?: string, content?: string[]): string | void {
     if (path && content) {
       const indexPath = join(path, this.withExtension('index'));
-      writeFileSync(
-        indexPath,
-        this.formation(this.getIndexContent(content, indexPath)),
-      );
+      const fileContent = this.formation(this.getIndexContent(content, indexPath));
+      if (this.options.backAsText) {
+        return fileContent;
+      } else {
+        writeFileSync(indexPath, fileContent);
+      }
     } else {
-      writeFileSync(
-        this.output(this.withExtension('index')),
-        this.formation(
-          this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS,
-        ),
-      );
+      const fileContent = this.formation(this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS);
+      if (this.options.backAsText) {
+        return fileContent;
+      } else {
+        writeFileSync(this.output(this.withExtension('index')), fileContent);
+      }
     }
   }
 
   private readIndex() {
-    return existsSync(this.indexPath)
-      ? readFileSync(this.indexPath, { encoding: 'utf-8' })
-      : '';
+    return existsSync(this.indexPath) ? readFileSync(this.indexPath, { encoding: 'utf-8' }) : '';
   }
 
   private getOptions(field: DMMF.SchemaField, docs?: string) {
     const options: any = docs ? { description: docs } : {};
-    if (
-      field.outputType.location !== 'scalar' ||
-      field.outputType.type === 'DateTime'
-    )
+    if (field.outputType.location !== 'scalar' || field.outputType.type === 'DateTime')
       options['type'] = field.outputType.type;
     if (field.args.length > 0) {
       field.args.forEach((arg) => {
@@ -187,10 +265,6 @@ export class GenerateNexus extends Generators {
   }
 
   private getNullOrList(field: DMMF.SchemaField) {
-    return field.outputType.isList
-      ? '.list'
-      : !field.isNullable
-      ? ''
-      : '.nullable';
+    return field.outputType.isList ? '.list' : !field.isNullable ? '' : '.nullable';
   }
 }

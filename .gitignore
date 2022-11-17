@@ -3,4 +3,4 @@ node_modules
 yarn.lock
 dist
 .DS_Store
-packages/admin
+coverage

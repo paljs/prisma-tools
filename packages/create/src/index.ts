@@ -4,17 +4,9 @@ import { readJSONSync, writeJsonSync, copySync } from 'fs-extra';
 import { resolve, join } from 'path';
 import { fetchLatestVersionsFor } from './utils/fetch-latest-version-for';
 import { log } from '@paljs/display';
-import { Examples } from '@paljs/types';
+import { CliGeneratedExamples } from '@paljs/types';
 import * as path from 'path';
-import {
-  readdirSync,
-  lstatSync,
-  renameSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from 'fs';
+import { readdirSync, lstatSync, renameSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { framework, getPath } from './utils/excludeSettings';
 
 // update to add new FrameWork
@@ -27,7 +19,7 @@ export type Frameworks =
   | 'Chakra UI + PrismaAdmin UI';
 
 export interface AppGeneratorOptions {
-  example: Examples;
+  example: CliGeneratedExamples;
   framework?: Frameworks;
   multi?: string | boolean;
   useGit?: string | boolean;
@@ -54,7 +46,7 @@ export class AppGenerator {
   packageJson: string[] = [];
 
   destinationPath(...paths: string[]): string {
-    return path.join(this.options.destinationRoot!, ...paths);
+    return path.join(this.options.destinationRoot, ...paths);
   }
 
   loadFiles(path: string) {
@@ -99,22 +91,16 @@ export class AppGenerator {
         })
       : { status: 1 };
     console.log(''); // New line needed
-    const spinner = log
-      .spinner(log.withBrand('Retrieving the freshest of dependencies'))
-      .start();
+    const spinner = log.spinner(log.withBrand('Retrieving the freshest of dependencies')).start();
     const fallbackUsed = await this.updatePackages();
     if (!fallbackUsed && !this.options.skipInstall) {
       spinner.succeed();
 
       await new Promise<void>((resolve) => {
         const logFlag = this.options.yarn ? '--json' : '--loglevel=error';
-        const cp = spawn(
-          this.options.yarn ? 'yarn' : 'npm',
-          ['install', logFlag],
-          {
-            stdio: ['inherit', 'pipe', 'pipe'],
-          },
-        );
+        const cp = spawn(this.options.yarn ? 'yarn' : 'npm', ['install', logFlag], {
+          stdio: ['inherit', 'pipe', 'pipe'],
+        });
 
         const getJSON = (data: string) => {
           try {
@@ -128,11 +114,7 @@ export class AppGenerator {
 
         if (!this.options.yarn) {
           const spinner = log
-            .spinner(
-              log.withBrand(
-                'Installing those dependencies (this will take a few minutes)',
-              ),
-            )
+            .spinner(log.withBrand('Installing those dependencies (this will take a few minutes)'))
             .start();
           spinners.push(spinner);
         }
@@ -141,12 +123,10 @@ export class AppGenerator {
         cp.stderr?.setEncoding('utf8');
         cp.stdout?.on('data', (data) => {
           if (this.options.yarn) {
-            let json = getJSON(data);
+            const json = getJSON(data);
             if (json && json.type === 'step') {
               spinners[spinners.length - 1]?.succeed();
-              const spinner = log
-                .spinner(log.withBrand(json.data.message))
-                .start();
+              const spinner = log.spinner(log.withBrand(json.data.message)).start();
               spinners.push(spinner);
             }
             if (json && json.type === 'success') {
@@ -156,7 +136,7 @@ export class AppGenerator {
         });
         cp.stderr?.on('data', (data) => {
           if (this.options.yarn) {
-            let json = getJSON(data);
+            const json = getJSON(data);
             if (json && json.type === 'error') {
               spinners[spinners.length - 1]?.fail();
               console.error(json.data);
@@ -189,17 +169,11 @@ export class AppGenerator {
       };
 
       // Ensure the generated files are formatted with the installed prettier version
-      const formattingSpinner = log
-        .spinner(log.withBrand('Formatting your code'))
-        .start();
-      const prettierResult = runLocalNodeCLI(
-        'prettier --loglevel silent --write .',
-      );
+      const formattingSpinner = log.spinner(log.withBrand('Formatting your code')).start();
+      const prettierResult = runLocalNodeCLI('prettier --loglevel silent --write .');
       if (prettierResult.status !== 0) {
         formattingSpinner.fail(
-          chalk.yellow.bold(
-            "We had an error running Prettier, but don't worry your app will still run fine :)",
-          ),
+          chalk.yellow.bold("We had an error running Prettier, but don't worry your app will still run fine :)"),
         );
       } else {
         formattingSpinner.succeed();
@@ -221,9 +195,7 @@ export class AppGenerator {
       this.commitChanges();
     } else if (this.options.useGit) {
       log.warning('Failed to run git init.');
-      log.warning(
-        'Find out more about how to install git here: https://git-scm.com/downloads.',
-      );
+      log.warning('Find out more about how to install git here: https://git-scm.com/downloads.');
     }
   }
 
@@ -232,14 +204,10 @@ export class AppGenerator {
       ['git', ['add', '.'], { stdio: 'ignore' }],
       ['git', ['commit', '-m', 'New paljs app!'], { stdio: 'ignore' }],
     ];
-    for (let command of commands) {
+    for (const command of commands) {
       const result = spawn.sync(...command);
       if (result.status !== 0) {
-        log.error(
-          `Failed to run command ${command[0]} with ${command[1].join(
-            ' ',
-          )} options.`,
-        );
+        log.error(`Failed to run command ${command[0]} with ${command[1].join(' ')} options.`);
         break;
       }
     }
@@ -252,14 +220,7 @@ export class AppGenerator {
   excludeMulti(file: string) {
     return (
       (this.options.multi &&
-        ![
-          'pal.js',
-          'next.config.js',
-          'package.json',
-          'nexusSchema.ts',
-          'context',
-          'prisma',
-        ].includes(file)) ||
+        !['pal.js', 'next.config.js', 'package.json', 'nexusSchema.ts', 'context', 'prisma'].includes(file)) ||
       (!this.options.multi && !file.startsWith('multi_'))
     );
   }
@@ -268,12 +229,8 @@ export class AppGenerator {
     const files = readdirSync(path);
     const frameworkExclude = framework[this.options.framework as Frameworks];
     // update to add new FrameWork
-    const withAdmin = !['Tailwind CSS', 'Material UI', 'Chakra UI'].includes(
-      this.options.framework as Frameworks,
-    );
-    const frameworksFolders = ['material', 'tailwind', 'chakra'].filter(
-      (item) => item !== frameworkExclude.folder,
-    );
+    const withAdmin = !['Tailwind CSS', 'Material UI', 'Chakra UI'].includes(this.options.framework as Frameworks);
+    const frameworksFolders = ['material', 'tailwind', 'chakra'].filter((item) => item !== frameworkExclude.folder);
     for (const file of files) {
       if (
         this.excludeMulti(file) &&
@@ -288,36 +245,19 @@ export class AppGenerator {
             !path.endsWith('components') &&
             !path.includes(frameworkExclude.folder)
           ) {
-            this.newDir(
-              join(
-                this.destinationPath(),
-                getPath(path, this.sourceRoot, frameworkExclude.folder),
-                newName,
-              ),
-            );
+            this.newDir(join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName));
           }
           this.readDir(join(path, file));
         } else {
           if (file === '_app.tsx') {
             copySync(
               join(path.replace('pages', '_app'), frameworkExclude.app),
-              join(
-                this.destinationPath(),
-                getPath(path, this.sourceRoot, frameworkExclude.folder),
-                newName,
-              ),
+              join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName),
             );
-          } else if (
-            (newName === 'pal.js' || newName === 'nexusSchema.ts') &&
-            !withAdmin
-          ) {
+          } else if ((newName === 'pal.config.js' || newName === 'nexusSchema.ts') && !withAdmin) {
             const data = readFileSync(join(path, file), 'utf-8');
             writeFileSync(
-              join(
-                this.destinationPath(),
-                getPath(path, this.sourceRoot, frameworkExclude.folder),
-                newName,
-              ),
+              join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName),
               newName === 'nexusSchema.ts'
                 ? data.replace('includeAdmin: true,', 'includeAdmin: false,')
                 : data.replace(/admin: true,/g, 'admin: false,'),
@@ -327,7 +267,7 @@ export class AppGenerator {
             for (const dep of ['dependencies', 'devDependencies']) {
               if (data[dep]) {
                 for (const pkgKey in data[dep]) {
-                  if (data[dep].hasOwnProperty(pkgKey)) {
+                  if (Object.prototype.hasOwnProperty.call(data[dep], pkgKey)) {
                     if (frameworkExclude.packages.includes(pkgKey)) {
                       delete data[dep][pkgKey];
                     }
@@ -341,11 +281,7 @@ export class AppGenerator {
           } else {
             copySync(
               join(path, file),
-              join(
-                this.destinationPath(),
-                getPath(path, this.sourceRoot, frameworkExclude.folder),
-                newName,
-              ),
+              join(this.destinationPath(), getPath(path, this.sourceRoot, frameworkExclude.folder), newName),
             );
           }
         }
@@ -359,7 +295,7 @@ export class AppGenerator {
     } else {
       copySync(this.sourceRoot, this.destinationPath());
     }
-    process.chdir(this.options.destinationRoot!);
+    process.chdir(this.options.destinationRoot);
     renameSync('gitignore', '.gitignore');
     this.loadFiles('.');
     await this.postWrite();

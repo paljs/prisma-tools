@@ -1,0 +1,1069 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate Modules Inputs Should back with all inputs types 1`] = `
+"import { gql } from 'graphql-modules';
+
+    export default gql\`
+scalar DateTime
+type BatchPayload {
+  count: Int!
+}
+
+enum JsonNullValueFilter {
+  DbNull
+  JsonNull
+  AnyNull
+}
+
+enum JsonNullValueInput {
+  JsonNull
+}
+
+enum PostScalarFieldEnum {
+  id
+  published
+  title
+  authorId
+  createdAt
+  updatedAt
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+enum TransactionIsolationLevel {
+  ReadUncommitted
+  ReadCommitted
+  RepeatableRead
+  Serializable
+}
+
+enum UserScalarFieldEnum {
+  id
+  createdAt
+  email
+  name
+  password
+  permissions
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  email: StringFilter
+  name: StringNullableFilter
+  password: StringFilter
+  permissions: JsonFilter
+  posts: PostListRelationFilter
+}
+
+input UserOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+  permissions: SortOrder
+  posts: PostOrderByRelationAggregateInput
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  email: String
+}
+
+input UserOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+  permissions: SortOrder
+  _count: UserCountOrderByAggregateInput
+  _avg: UserAvgOrderByAggregateInput
+  _max: UserMaxOrderByAggregateInput
+  _min: UserMinOrderByAggregateInput
+  _sum: UserSumOrderByAggregateInput
+}
+
+input UserScalarWhereWithAggregatesInput {
+  AND: [UserScalarWhereWithAggregatesInput!]
+  OR: [UserScalarWhereWithAggregatesInput!]
+  NOT: [UserScalarWhereWithAggregatesInput!]
+  id: IntWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  email: StringWithAggregatesFilter
+  name: StringNullableWithAggregatesFilter
+  password: StringWithAggregatesFilter
+  permissions: JsonWithAggregatesFilter
+}
+
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+  id: IntFilter
+  published: BoolFilter
+  title: StringFilter
+  author: UserWhereInput
+  authorId: IntNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostOrderByWithRelationInput {
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  author: UserOrderByWithRelationInput
+  authorId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostWhereUniqueInput {
+  id: Int
+}
+
+input PostOrderByWithAggregationInput {
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  authorId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  _count: PostCountOrderByAggregateInput
+  _avg: PostAvgOrderByAggregateInput
+  _max: PostMaxOrderByAggregateInput
+  _min: PostMinOrderByAggregateInput
+  _sum: PostSumOrderByAggregateInput
+}
+
+input PostScalarWhereWithAggregatesInput {
+  AND: [PostScalarWhereWithAggregatesInput!]
+  OR: [PostScalarWhereWithAggregatesInput!]
+  NOT: [PostScalarWhereWithAggregatesInput!]
+  id: IntWithAggregatesFilter
+  published: BoolWithAggregatesFilter
+  title: StringWithAggregatesFilter
+  authorId: IntNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+}
+
+input UserCreateInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  permissions: Json
+  posts: PostCreateNestedManyWithoutAuthorInput
+}
+
+input UserUncheckedCreateInput {
+  id: Int
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  permissions: Json
+  posts: PostUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+input UserUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+  posts: PostUpdateManyWithoutAuthorNestedInput
+}
+
+input UserUncheckedUpdateInput {
+  id: IntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+  posts: PostUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+input UserCreateManyInput {
+  id: Int
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  permissions: Json
+}
+
+input UserUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+}
+
+input UserUncheckedUpdateManyInput {
+  id: IntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+}
+
+input PostCreateInput {
+  published: Boolean
+  title: String!
+  author: UserCreateNestedOneWithoutPostsInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostUncheckedCreateInput {
+  id: Int
+  published: Boolean
+  title: String!
+  authorId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostUpdateInput {
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  author: UserUpdateOneWithoutPostsNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PostUncheckedUpdateInput {
+  id: IntFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  authorId: NullableIntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PostCreateManyInput {
+  id: Int
+  published: Boolean
+  title: String!
+  authorId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostUpdateManyMutationInput {
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PostUncheckedUpdateManyInput {
+  id: IntFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  authorId: NullableIntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input JsonFilter {
+  equals: Json
+  path: [String!]
+  string_contains: String
+  string_starts_with: String
+  string_ends_with: String
+  array_contains: Json
+  array_starts_with: Json
+  array_ends_with: Json
+  lt: Json
+  lte: Json
+  gt: Json
+  gte: Json
+  not: Json
+}
+
+input PostListRelationFilter {
+  every: PostWhereInput
+  some: PostWhereInput
+  none: PostWhereInput
+}
+
+input PostOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+  permissions: SortOrder
+}
+
+input UserAvgOrderByAggregateInput {
+  id: SortOrder
+}
+
+input UserMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+}
+
+input UserMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+}
+
+input UserSumOrderByAggregateInput {
+  id: SortOrder
+}
+
+input IntWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedFloatFilter
+  _sum: NestedIntFilter
+  _min: NestedIntFilter
+  _max: NestedIntFilter
+}
+
+input DateTimeWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedDateTimeFilter
+  _max: NestedDateTimeFilter
+}
+
+input StringWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedStringFilter
+  _max: NestedStringFilter
+}
+
+input StringNullableWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedStringNullableFilter
+  _max: NestedStringNullableFilter
+}
+
+input JsonWithAggregatesFilter {
+  equals: Json
+  path: [String!]
+  string_contains: String
+  string_starts_with: String
+  string_ends_with: String
+  array_contains: Json
+  array_starts_with: Json
+  array_ends_with: Json
+  lt: Json
+  lte: Json
+  gt: Json
+  gte: Json
+  not: Json
+  _count: NestedIntFilter
+  _min: NestedJsonFilter
+  _max: NestedJsonFilter
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input PostCountOrderByAggregateInput {
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  authorId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostAvgOrderByAggregateInput {
+  id: SortOrder
+  authorId: SortOrder
+}
+
+input PostMaxOrderByAggregateInput {
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  authorId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostMinOrderByAggregateInput {
+  id: SortOrder
+  published: SortOrder
+  title: SortOrder
+  authorId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input PostSumOrderByAggregateInput {
+  id: SortOrder
+  authorId: SortOrder
+}
+
+input BoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
+input IntNullableWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _avg: NestedFloatNullableFilter
+  _sum: NestedIntNullableFilter
+  _min: NestedIntNullableFilter
+  _max: NestedIntNullableFilter
+}
+
+input PostCreateNestedManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostUncheckedCreateNestedManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+  connect: [PostWhereUniqueInput!]
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input PostUpdateManyWithoutAuthorNestedInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [PostUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [PostScalarWhereInput!]
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input PostUncheckedUpdateManyWithoutAuthorNestedInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [PostUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [PostScalarWhereInput!]
+}
+
+input UserCreateNestedOneWithoutPostsInput {
+  create: UserUncheckedCreateWithoutPostsInput
+  connectOrCreate: UserCreateOrConnectWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input UserUpdateOneWithoutPostsNestedInput {
+  create: UserUncheckedCreateWithoutPostsInput
+  connectOrCreate: UserCreateOrConnectWithoutPostsInput
+  upsert: UserUpsertWithoutPostsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: UserWhereUniqueInput
+  update: UserUncheckedUpdateWithoutPostsInput
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input NestedIntWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedFloatFilter
+  _sum: NestedIntFilter
+  _min: NestedIntFilter
+  _max: NestedIntFilter
+}
+
+input NestedFloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input NestedDateTimeWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedDateTimeFilter
+  _max: NestedDateTimeFilter
+}
+
+input NestedStringWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedStringFilter
+  _max: NestedStringFilter
+}
+
+input NestedStringNullableWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedStringNullableFilter
+  _max: NestedStringNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedJsonFilter {
+  equals: Json
+  path: [String!]
+  string_contains: String
+  string_starts_with: String
+  string_ends_with: String
+  array_contains: Json
+  array_starts_with: Json
+  array_ends_with: Json
+  lt: Json
+  lte: Json
+  gt: Json
+  gte: Json
+  not: Json
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
+input NestedIntNullableWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _avg: NestedFloatNullableFilter
+  _sum: NestedIntNullableFilter
+  _min: NestedIntNullableFilter
+  _max: NestedIntNullableFilter
+}
+
+input NestedFloatNullableFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatNullableFilter
+}
+
+input PostCreateWithoutAuthorInput {
+  published: Boolean
+  title: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostUncheckedCreateWithoutAuthorInput {
+  id: Int
+  published: Boolean
+  title: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostCreateOrConnectWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  create: PostUncheckedCreateWithoutAuthorInput!
+}
+
+input PostCreateManyAuthorInputEnvelope {
+  data: [PostCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  update: PostUncheckedUpdateWithoutAuthorInput!
+  create: PostUncheckedCreateWithoutAuthorInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  data: PostUncheckedUpdateWithoutAuthorInput!
+}
+
+input PostUpdateManyWithWhereWithoutAuthorInput {
+  where: PostScalarWhereInput!
+  data: PostUncheckedUpdateManyWithoutPostsInput!
+}
+
+input PostScalarWhereInput {
+  AND: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
+  id: IntFilter
+  published: BoolFilter
+  title: StringFilter
+  authorId: IntNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input UserCreateWithoutPostsInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  permissions: Json
+}
+
+input UserUncheckedCreateWithoutPostsInput {
+  id: Int
+  createdAt: DateTime
+  email: String!
+  name: String
+  password: String!
+  permissions: Json
+}
+
+input UserCreateOrConnectWithoutPostsInput {
+  where: UserWhereUniqueInput!
+  create: UserUncheckedCreateWithoutPostsInput!
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUncheckedUpdateWithoutPostsInput!
+  create: UserUncheckedCreateWithoutPostsInput!
+}
+
+input UserUpdateWithoutPostsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+}
+
+input UserUncheckedUpdateWithoutPostsInput {
+  id: IntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: Json
+}
+
+input PostCreateManyAuthorInput {
+  id: Int
+  published: Boolean
+  title: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostUpdateWithoutAuthorInput {
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PostUncheckedUpdateWithoutAuthorInput {
+  id: IntFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PostUncheckedUpdateManyWithoutPostsInput {
+  id: IntFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+type AggregateUser {
+  _count: UserCountAggregateOutputType
+  _avg: UserAvgAggregateOutputType
+  _sum: UserSumAggregateOutputType
+  _min: UserMinAggregateOutputType
+  _max: UserMaxAggregateOutputType
+}
+
+type AggregatePost {
+  _count: PostCountAggregateOutputType
+  _avg: PostAvgAggregateOutputType
+  _sum: PostSumAggregateOutputType
+  _min: PostMinAggregateOutputType
+  _max: PostMaxAggregateOutputType
+}
+
+type UserCountOutputType {
+  posts: Int!
+}
+
+type UserCountAggregateOutputType {
+  id: Int!
+  createdAt: Int!
+  email: Int!
+  name: Int!
+  password: Int!
+  permissions: Int!
+  _all: Int!
+}
+
+type UserAvgAggregateOutputType {
+  id: Float
+}
+
+type UserSumAggregateOutputType {
+  id: Int
+}
+
+type UserMinAggregateOutputType {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+}
+
+type UserMaxAggregateOutputType {
+  id: Int
+  createdAt: DateTime
+  email: String
+  name: String
+  password: String
+}
+
+type PostCountAggregateOutputType {
+  id: Int!
+  published: Int!
+  title: Int!
+  authorId: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  _all: Int!
+}
+
+type PostAvgAggregateOutputType {
+  id: Float
+  authorId: Float
+}
+
+type PostSumAggregateOutputType {
+  id: Int
+  authorId: Int
+}
+
+type PostMinAggregateOutputType {
+  id: Int
+  published: Boolean
+  title: String
+  authorId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PostMaxAggregateOutputType {
+  id: Int
+  published: Boolean
+  title: String
+  authorId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+\`;
+"
+`;

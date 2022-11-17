@@ -15,19 +15,19 @@
   },
   "dependencies": {
     "@graphql-tools/merge": "6.x",
-    "@paljs/plugins": "4.0.18",
-    "@prisma/client": "3.x",
-    "apollo-server": "2.x",
-    "graphql": "15.x",
+    "@paljs/plugins": "4.1.0",
+    "@prisma/client": "4.x",
+    "apollo-server": "3.x",
+    "graphql": "16.x",
     "graphql-middleware": "6.x"
   },
   "devDependencies": {
-    "prisma": "3.x",
-    "@types/node": "15.x",
-    "@paljs/cli": "4.0.19",
+    "prisma": "4.x",
+    "@types/node": "18.x",
+    "@paljs/cli": "4.1.0",
     "prettier": "2.x",
     "ts-node": "10.x",
-    "ts-node-dev": "1.x",
+    "ts-node-dev": "2.x",
     "typescript": "4.x"
   }
 }

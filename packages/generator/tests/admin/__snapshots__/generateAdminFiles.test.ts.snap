@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generate Admin Files Should back with models pages 1`] = `
+Object {
+  "Post": "import React from 'react';
+import PrismaTable from 'components/PrismaTable';
+
+const Post: React.FC = () => {
+  return <PrismaTable model=\\"Post\\" />;
+};
+
+export default Post;
+",
+  "User": "import React from 'react';
+import PrismaTable from 'components/PrismaTable';
+
+const User: React.FC = () => {
+  return <PrismaTable model=\\"User\\" />;
+};
+
+export default User;
+",
+}
+`;

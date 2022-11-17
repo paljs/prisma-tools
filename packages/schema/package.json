@@ -2,7 +2,6 @@
   "name": "@paljs/schema",
   "version": "4.1.0",
   "main": "dist/index.js",
-  "module": "dist/schema.esm.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -14,22 +13,19 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "build": "pnpm run clean && tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist node_modules/.cache"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@paljs/display": "^4.0.0",
-    "@paljs/types": "^4.0.18",
-    "@prisma/sdk": "^3.13.0"
+    "@paljs/display": "workspace:*",
+    "@paljs/types": "workspace:*",
+    "@prisma/internals": "^4.0.0"
   },
   "devDependencies": {
-    "typescript": "4.5.5"
+    "typescript": "^4.7.4"
   },
   "files": [
     "dist"

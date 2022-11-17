@@ -17,10 +17,7 @@ export async function createQueriesAndMutations(
     },
   };
   const args = async (key: QueriesAndMutations) =>
-    await generator.getInputTypes(
-      generator.queries.includes(key as any) ? 'Query' : 'Mutation',
-      key + name,
-    );
+    await generator.getInputTypes(generator.queries.includes(key as any) ? 'Query' : 'Mutation', key + name);
 
   const model = modelName.charAt(0).toLowerCase() + modelName.slice(1);
   const name = modelName.charAt(0).toUpperCase() + modelName.slice(1);

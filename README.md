@@ -1,9 +1,8 @@
-
 ![header](/header.png)
 
 ## Quick Start
 
-Pal.js I am your friend in your next NodeJS, Prisma, GraphQL, React project 
+Pal.js I am your friend in your next NodeJS, Prisma, GraphQL, React project
 
 ## Install tools
 
@@ -11,10 +10,8 @@ To install `@paljs/cli` on your machine you need to have the following tools ins
 
 - Git - <https://git-scm.com>
 - Node.js - <https://nodejs.org> Please note the **version** should be **>=12**
-- Yarn - <https://classic.yarnpkg.com/en/docs/install> Node.js package manager, comes with Node.js. 
+- Yarn - <https://classic.yarnpkg.com/en/docs/install> Node.js package manager, comes with Node.js.
 - Prisma - [CLI](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-cli/installation) Modern Database Access for TypeScript & Node.js
-
-
 
 ## Install PalJS CLI
 
@@ -29,7 +26,6 @@ npx @paljs/cli create
 ```
 
 ## Create a new
-
 
 ```shell
 > npx @paljs/cli create
@@ -76,7 +72,6 @@ Will get 7 questions to help cli create what you want.
 
 Look to our examples contains [here](https://paljs.com/cli/create#starter-examples)
 
-
 ## Get your project up
 
 1 Go inside your project dir
@@ -87,7 +82,7 @@ cd hello
 
 Open `README.md` file to see next steps.
 
-To build your `schema.prisma` file look [here](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema) 
+To build your `schema.prisma` file look [here](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
 
 ### Have questions?
 

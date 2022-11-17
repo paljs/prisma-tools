@@ -1,0 +1,67 @@
+{
+  "name": "@paljs/admin",
+  "version": "4.0.20",
+  "main": "index.js",
+  "module": "./esm/index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/admin"
+  },
+  "homepage": "https://paljs.com",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "pnpm build:types && pnpm build:cjs && pnpm build:esm && pnpm build:copy-files && pnpm build:css",
+    "build:cjs": "node ./scripts/build cjs",
+    "build:esm": "node ./scripts/build esm",
+    "build:es": "node ./scripts/build es",
+    "build:copy-files": "node ./scripts/copyFiles",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:css": "NODE_ENV=production tailwindcss-cli build -o ../packages/admin/style.css",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@heroicons/react": "^1.0.5",
+    "@paljs/types": "^4.0.18",
+    "react-beautiful-dnd": "13.1.0",
+    "react-hook-form": "7.27.1",
+    "react-table": "7.7.0"
+  },
+  "devDependencies": {
+    "@apollo/client": "3.5.9",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-object-assign": "^7.16.7",
+    "@babel/plugin-transform-react-constant-elements": "^7.17.6",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@tailwindcss/forms": "^0.4.0",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.39",
+    "@types/react-beautiful-dnd": "13.1.2",
+    "@types/react-dom": "17.0.11",
+    "@types/react-table": "7.7.9",
+    "autoprefixer": "^10.4.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "fs-extra": "^10.0.1",
+    "glob": "^7.2.0",
+    "graphql-tag": "2.12.6",
+    "postcss": "^8.4.6",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "tailwindcss": "3.0.23",
+    "tailwindcss-cli": "^0.1.2",
+    "typescript": "4.7.4",
+    "yargs": "^17.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3d5f31c5d025953338ec694c513894b6a4112e70"
+}

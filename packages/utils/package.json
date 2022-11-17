@@ -1,0 +1,33 @@
+{
+  "name": "@paljs/utils",
+  "version": "4.0.18",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paljs/prisma-tools.git",
+    "directory": "packages/utils"
+  },
+  "homepage": "https://paljs.com",
+  "author": "Ahmed Elywa",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "pnpm run clean && tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist node_modules/.cache"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@paljs/types": "workspace:*",
+    "@paljs/display": "workspace:*",
+    "@prisma/internals": "^4.6.1"
+  },
+  "files": [
+    "dist"
+  ]
+}

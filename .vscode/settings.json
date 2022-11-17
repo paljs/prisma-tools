@@ -3,9 +3,9 @@
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.hg/store/**": true,
-    "**/.next": true,
+    "**/.next": true
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  },
+  }
 }
