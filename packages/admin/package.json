@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",
@@ -20,13 +20,12 @@
     "build:es": "node ./scripts/build es",
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "NODE_ENV=production tailwindcss-cli build -o ./dist/style.css",
-    "prepublishOnly": "pnpm build"
+    "build:css": "NODE_ENV=production tailwindcss-cli build -o ./dist/style.css"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.5",
-    "@paljs/types": "^5.0.1",
+    "@paljs/types": "workspace:*",
     "react-beautiful-dnd": "13.1.0",
     "react-hook-form": "7.27.1",
     "react-table": "7.7.0"

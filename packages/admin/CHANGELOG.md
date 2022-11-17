@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 5.0.2
+
+### Patch Changes
+
+- fix build and publish issues
+
 ## 5.0.1
 
 ### Patch Changes

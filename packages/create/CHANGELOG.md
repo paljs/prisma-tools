@@ -1,5 +1,11 @@
 # @paljs/create
 
+## 5.0.2
+
+### Patch Changes
+
+- update admin version
+
 ## 5.0.1
 
 ### Patch Changes

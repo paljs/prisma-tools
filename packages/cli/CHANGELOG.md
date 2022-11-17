@@ -1,5 +1,12 @@
 # @paljs/cli
 
+## 5.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/create@5.0.2
+
 ## 5.0.1
 
 ### Patch Changes

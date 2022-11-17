@@ -62,7 +62,7 @@ importers:
       '@babel/preset-typescript': ^7.16.7
       '@headlessui/react': ^1.5.0
       '@heroicons/react': ^1.0.5
-      '@paljs/types': ^5.0.1
+      '@paljs/types': workspace:*
       '@tailwindcss/forms': ^0.4.0
       '@types/node': 17.0.21
       '@types/react': 17.0.39
