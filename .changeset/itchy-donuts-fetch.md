@@ -43,12 +43,14 @@ Re-build our project.
   // set: x: Sets the value to x (equivalent to data: { age: 18 })
   doNotUseFieldUpdateOperationsInput?: boolean;
 ```
+
 We added them to `pal.config.js`
 
 ```
 excludeInputFields?: string[];
 filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
 ```
+
 - SDL first update we changed our way to generate inputs from run time to file system, so we don't need to generate inputs every time we run the server.
 
 ```diff
