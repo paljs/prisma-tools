@@ -5,7 +5,7 @@ import { DocumentNode } from 'graphql';
 
 const userQuery = gql`
   query user {
-    user {
+    user(where: { id: 1 }) {
       id
       email
       name: firstName
