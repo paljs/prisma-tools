@@ -1,5 +1,15 @@
 # @paljs/schema
 
+## 5.0.3
+
+### Patch Changes
+
+- [PrismaSelect] remove the main args from the object
+- Updated dependencies
+  - @paljs/display@5.0.3
+  - @paljs/types@5.0.3
+  - @paljs/utils@5.0.3
+
 ## 5.0.2
 
 ### Patch Changes

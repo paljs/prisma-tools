@@ -261,8 +261,8 @@ export class PrismaSelect {
     return filteredArgs;
   }
 
-  private getSelect(fields: PrismaSelect['fields']) {
-    const selectObject: any = this.isAggregate ? {} : { select: {}, ...this.getArgs(fields?.args) };
+  private getSelect(fields: PrismaSelect['fields'], parent = true) {
+    const selectObject: any = this.isAggregate ? {} : { select: {}, ...(parent ? {} : this.getArgs(fields?.args)) };
     if (fields) {
       Object.keys(fields.fieldsByTypeName).forEach((type) => {
         const fieldsByTypeName = fields.fieldsByTypeName[type];
@@ -276,9 +276,9 @@ export class PrismaSelect {
             }
           } else {
             if (this.isAggregate) {
-              selectObject[fieldName] = this.getSelect(fieldsByTypeName[key]);
+              selectObject[fieldName] = this.getSelect(fieldsByTypeName[key], false);
             } else {
-              selectObject.select[fieldName] = this.getSelect(fieldsByTypeName[key]);
+              selectObject.select[fieldName] = this.getSelect(fieldsByTypeName[key], false);
             }
           }
         });

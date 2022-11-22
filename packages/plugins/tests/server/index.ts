@@ -57,7 +57,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: User
+    user(where: UserWhereUniqueInput): User
     account: Account
     aggregateUser: AggregateUser
     getNestedValue(value: String!, type: String!): User

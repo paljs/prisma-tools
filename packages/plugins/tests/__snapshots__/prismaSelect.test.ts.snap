@@ -125,7 +125,11 @@ Object {
 exports[`test PrismaSelect class test nested relations with args 4`] = `
 Object {
   "alias": "user",
-  "args": Object {},
+  "args": Object {
+    "where": Object {
+      "id": 1,
+    },
+  },
   "fieldsByTypeName": Object {
     "User": Object {
       "email": Object {
