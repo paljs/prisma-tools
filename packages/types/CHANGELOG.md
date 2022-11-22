@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 5.0.3
+
+### Patch Changes
+
+- [PrismaSelect] remove the main args from the object
+
 ## 5.0.2
 
 ### Patch Changes
