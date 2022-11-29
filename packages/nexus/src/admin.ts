@@ -7,7 +7,7 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 export function adminNexusSchemaSettings(path = 'adminSettings.json') {
-  if (existsSync(join(process.cwd(), path))) {
+  if (existsSync(join(process.cwd(), path)) || existsSync(path)) {
     const adapter = new FileSync<AdminSchema>(path);
     const db = low(adapter);
     const nexusSchemaInputs: NexusAcceptedTypeDef[] = [

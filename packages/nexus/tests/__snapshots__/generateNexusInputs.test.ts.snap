@@ -116,6 +116,122 @@ type Mutation {
 }"
 `;
 
+exports[`test generate Nexus inputs should back with admin table types and inputs as string using absolute path 1`] = `
+"type BatchPayload {
+  count: Int!
+}
+
+\\"\\"\\"
+The \`BigInt\` scalar type represents non-fractional signed whole numeric values.
+@see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+\\"\\"\\"
+scalar BigInt
+
+\\"\\"\\"The \`Byte\` scalar type represents byte value as a Buffer\\"\\"\\"
+scalar Bytes
+
+\\"\\"\\"
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the \`date-time\` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+\\"\\"\\"
+scalar DateTime
+
+\\"\\"\\"An arbitrary-precision Decimal type\\"\\"\\"
+scalar Decimal
+
+\\"\\"\\"
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+\\"\\"\\"
+scalar Json @specifiedBy(url: \\"http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf\\")
+
+type Enum {
+  name: String!
+  fields: [String!]!
+}
+
+type Schema {
+  models: [Model!]!
+  enums: [Enum!]!
+}
+
+type Model {
+  id: String!
+  name: String!
+  idField: String!
+  displayFields: [String!]!
+  create: Boolean!
+  update: Boolean!
+  delete: Boolean!
+  fields: [Field!]!
+}
+
+type Field {
+  id: String!
+  name: String!
+  title: String!
+  type: String!
+  list: Boolean!
+  required: Boolean!
+  isId: Boolean!
+  unique: Boolean!
+  create: Boolean!
+  update: Boolean!
+  read: Boolean!
+  filter: Boolean!
+  sort: Boolean!
+  editor: Boolean!
+  upload: Boolean!
+  relationField: Boolean
+  order: Int!
+  kind: KindEnum!
+}
+
+enum KindEnum {
+  object
+  enum
+  scalar
+}
+
+input UpdateModelInput {
+  name: String
+  idField: String
+  displayFields: [String]
+  create: Boolean
+  update: Boolean
+  delete: Boolean
+  fields: [UpdateFieldInput]
+}
+
+input UpdateFieldInput {
+  id: String
+  name: String
+  title: String
+  type: String
+  list: Boolean
+  required: Boolean
+  isId: Boolean
+  unique: Boolean
+  create: Boolean
+  update: Boolean
+  read: Boolean
+  filter: Boolean
+  sort: Boolean
+  editor: Boolean
+  upload: Boolean
+  relationField: Boolean
+  order: Int
+  kind: KindEnum
+}
+
+type Query {
+  getSchema: Schema!
+}
+
+type Mutation {
+  updateField(id: String!, modelId: String!, data: UpdateFieldInput!): Field!
+  updateModel(id: String!, data: UpdateModelInput!): Model!
+}"
+`;
+
 exports[`test generate Nexus inputs should back without Json and Decimal scalar  as string 1`] = `
 "type BatchPayload {
   count: Int!
