@@ -1,5 +1,21 @@
 # @paljs/cli
 
+## 5.1.0
+
+### Minor Changes
+
+- [nexus] use absolute path in reading the admin schema
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/create@5.1.0
+  - @paljs/display@5.1.0
+  - @paljs/generator@5.1.0
+  - @paljs/schema@5.1.0
+  - @paljs/types@5.1.0
+  - @paljs/utils@5.1.0
+
 ## 5.0.4
 
 ### Patch Changes

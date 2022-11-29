@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 5.1.0
+
+### Minor Changes
+
+- [nexus] use absolute path in reading the admin schema
+
 ## 5.0.3
 
 ### Patch Changes
