@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 5.2.0
+
+### Minor Changes
+
+- upgrade prisma version
+
 ## 5.1.0
 
 ### Minor Changes

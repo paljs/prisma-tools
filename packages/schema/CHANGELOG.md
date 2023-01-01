@@ -1,5 +1,18 @@
 # @paljs/schema
 
+## 5.2.0
+
+### Minor Changes
+
+- upgrade prisma version
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/types@5.2.0
+  - @paljs/utils@5.2.0
+  - @paljs/display@5.2.0
+
 ## 5.1.0
 
 ### Minor Changes
