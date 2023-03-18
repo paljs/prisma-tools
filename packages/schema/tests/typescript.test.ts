@@ -25,8 +25,8 @@ test('generate typescript types from prisma schema', () => {
     }
 
     export enum Role {
-    ADMIN = \\"ADMIN\\",
-    USER = \\"USER\\",
+    ADMIN = "ADMIN",
+    USER = "USER",
     }"
   `);
 });

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generate Modules Models Should back model resolvers and types with custom exclude 1`] = `
-Object {
-  "Post": Object {
+{
+  "Post": {
     "module": "import { createModule } from 'graphql-modules'
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
@@ -128,7 +128,7 @@ export default gql\`
 \`
 ",
   },
-  "User": Object {
+  "User": {
     "module": "import { createModule } from 'graphql-modules'
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
@@ -244,8 +244,8 @@ export default gql\`
 `;
 
 exports[`Generate Modules Models Should back with all models resolvers and types 1`] = `
-Object {
-  "Post": Object {
+{
+  "Post": {
     "module": "import { createModule } from 'graphql-modules'
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
@@ -390,7 +390,7 @@ export default gql\`
 \`
 ",
   },
-  "User": Object {
+  "User": {
     "module": "import { createModule } from 'graphql-modules'
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'

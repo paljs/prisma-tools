@@ -115,20 +115,20 @@ input PostWhereInput {
   id: IntFilter
   published: BoolFilter
   title: StringFilter
-  author: UserWhereInput
   authorId: IntNullableFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
+  author: UserWhereInput
 }
 
 input PostOrderByWithRelationInput {
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  author: UserOrderByWithRelationInput
   authorId: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
+  author: UserOrderByWithRelationInput
 }
 
 input PostWhereUniqueInput {
@@ -228,9 +228,9 @@ input UserUncheckedUpdateManyInput {
 input PostCreateInput {
   published: Boolean
   title: String!
-  author: UserCreateNestedOneWithoutPostsInput
   createdAt: DateTime
   updatedAt: DateTime
+  author: UserCreateNestedOneWithoutPostsInput
 }
 
 input PostUncheckedCreateInput {
@@ -245,9 +245,9 @@ input PostUncheckedCreateInput {
 input PostUpdateInput {
   published: BoolFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
-  author: UserUpdateOneWithoutPostsNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  author: UserUpdateOneWithoutPostsNestedInput
 }
 
 input PostUncheckedUpdateInput {
@@ -485,11 +485,6 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
-input UserRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
-}
-
 input IntNullableFilter {
   equals: Int
   in: [Int!]
@@ -499,6 +494,11 @@ input IntNullableFilter {
   gt: Int
   gte: Int
   not: NestedIntNullableFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
 }
 
 input PostCountOrderByAggregateInput {

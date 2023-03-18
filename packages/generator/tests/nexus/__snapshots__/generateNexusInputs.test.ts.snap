@@ -139,10 +139,10 @@ export const PostWhereInput = inputObjectType({
     t.field('id', { type: 'IntFilter' })
     t.field('published', { type: 'BoolFilter' })
     t.field('title', { type: 'StringFilter' })
-    t.field('author', { type: 'UserWhereInput' })
     t.field('authorId', { type: 'IntNullableFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
+    t.field('author', { type: 'UserWhereInput' })
   },
 })
 
@@ -155,10 +155,10 @@ export const PostOrderByWithRelationInput = inputObjectType({
     t.field('id', { type: 'SortOrder' })
     t.field('published', { type: 'SortOrder' })
     t.field('title', { type: 'SortOrder' })
-    t.field('author', { type: 'UserOrderByWithRelationInput' })
     t.field('authorId', { type: 'SortOrder' })
     t.field('createdAt', { type: 'SortOrder' })
     t.field('updatedAt', { type: 'SortOrder' })
+    t.field('author', { type: 'UserOrderByWithRelationInput' })
   },
 })
 
@@ -328,9 +328,9 @@ export const PostCreateInput = inputObjectType({
   definition(t) {
     t.field('published', { type: 'Boolean' })
     t.nonNull.field('title', { type: 'String' })
-    t.field('author', { type: 'UserCreateNestedOneWithoutPostsInput' })
     t.field('createdAt', { type: 'DateTime' })
     t.field('updatedAt', { type: 'DateTime' })
+    t.field('author', { type: 'UserCreateNestedOneWithoutPostsInput' })
   },
 })
 
@@ -357,9 +357,9 @@ export const PostUpdateInput = inputObjectType({
   definition(t) {
     t.field('published', { type: 'BoolFieldUpdateOperationsInput' })
     t.field('title', { type: 'StringFieldUpdateOperationsInput' })
-    t.field('author', { type: 'UserUpdateOneWithoutPostsNestedInput' })
     t.field('createdAt', { type: 'DateTimeFieldUpdateOperationsInput' })
     t.field('updatedAt', { type: 'DateTimeFieldUpdateOperationsInput' })
+    t.field('author', { type: 'UserUpdateOneWithoutPostsNestedInput' })
   },
 })
 
@@ -730,17 +730,6 @@ export const BoolFilter = inputObjectType({
   },
 })
 
-export const UserRelationFilter = inputObjectType({
-  nonNullDefaults: {
-    input: false,
-  },
-  name: 'UserRelationFilter',
-  definition(t) {
-    t.field('is', { type: 'UserWhereInput' })
-    t.field('isNot', { type: 'UserWhereInput' })
-  },
-})
-
 export const IntNullableFilter = inputObjectType({
   nonNullDefaults: {
     input: false,
@@ -755,6 +744,17 @@ export const IntNullableFilter = inputObjectType({
     t.field('gt', { type: 'Int' })
     t.field('gte', { type: 'Int' })
     t.field('not', { type: 'NestedIntNullableFilter' })
+  },
+})
+
+export const UserRelationFilter = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserRelationFilter',
+  definition(t) {
+    t.field('is', { type: 'UserWhereInput' })
+    t.field('isNot', { type: 'UserWhereInput' })
   },
 })
 

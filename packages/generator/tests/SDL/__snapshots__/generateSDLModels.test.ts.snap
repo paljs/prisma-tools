@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generate SDL Models Should back with User model resolvers and types with custom exclude 1`] = `
-Object {
-  "User": Object {
+{
+  "User": {
     "resolvers": "import { Resolvers } from '../../resolversTypes'
 
 const resolvers: Resolvers = {
@@ -101,8 +101,8 @@ export default gql\`
 `;
 
 exports[`Generate SDL Models Should back with all models resolvers and types 1`] = `
-Object {
-  "Post": Object {
+{
+  "Post": {
     "resolvers": "import { Resolvers } from '../../resolversTypes'
 
 const resolvers: Resolvers = {
@@ -153,10 +153,10 @@ export default gql\`
     id: Int!
     published: Boolean!
     title: String!
-    author: User
     authorId: Int
     createdAt: DateTime!
     updatedAt: DateTime!
+    author: User
   }
 
   type Query {
@@ -212,7 +212,7 @@ export default gql\`
 \`
 ",
   },
-  "User": Object {
+  "User": {
     "resolvers": "import { Resolvers } from '../../resolversTypes'
 
 const resolvers: Resolvers = {

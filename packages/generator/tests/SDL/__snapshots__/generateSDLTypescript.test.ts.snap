@@ -54,10 +54,10 @@ export type Post = { [key: string]: Resolver<any, any, any> } & {
   id?: Resolver<Client.Post, {}, number>
   published?: Resolver<Client.Post, {}, boolean>
   title?: Resolver<Client.Post, {}, string>
-  author?: Resolver<Client.Post, {}, Client.User | null>
   authorId?: Resolver<Client.Post, {}, number | null>
   createdAt?: Resolver<Client.Post, {}, Date>
   updatedAt?: Resolver<Client.Post, {}, Date>
+  author?: Resolver<Client.Post, {}, Client.User | null>
 }
 
 export type Query = { [key: string]: Resolver<any, any, any> } & {
@@ -548,7 +548,7 @@ export interface UpsertOneUserArgs {
 }
 
 export interface CreateManyUserArgs {
-  data: UserCreateManyInput[]
+  data: UserCreateManyInput
   skipDuplicates?: boolean
 }
 
@@ -581,7 +581,7 @@ export interface UpsertOnePostArgs {
 }
 
 export interface CreateManyPostArgs {
-  data: PostCreateManyInput[]
+  data: PostCreateManyInput
   skipDuplicates?: boolean
 }
 
@@ -674,20 +674,20 @@ export interface PostWhereInput {
   id?: IntFilter
   published?: BoolFilter
   title?: StringFilter
-  author?: UserWhereInput | null
   authorId?: IntNullableFilter | null
   createdAt?: DateTimeFilter
   updatedAt?: DateTimeFilter
+  author?: UserWhereInput | null
 }
 
 export interface PostOrderByWithRelationInput {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
-  author?: UserOrderByWithRelationInput
   authorId?: SortOrder
   createdAt?: SortOrder
   updatedAt?: SortOrder
+  author?: UserOrderByWithRelationInput
 }
 
 export interface PostWhereUniqueInput {
@@ -787,9 +787,9 @@ export interface UserUncheckedUpdateManyInput {
 export interface PostCreateInput {
   published?: boolean
   title: string
-  author?: UserCreateNestedOneWithoutPostsInput
   createdAt?: Date
   updatedAt?: Date
+  author?: UserCreateNestedOneWithoutPostsInput
 }
 
 export interface PostUncheckedCreateInput {
@@ -804,9 +804,9 @@ export interface PostUncheckedCreateInput {
 export interface PostUpdateInput {
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
-  author?: UserUpdateOneWithoutPostsNestedInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   updatedAt?: DateTimeFieldUpdateOperationsInput
+  author?: UserUpdateOneWithoutPostsNestedInput
 }
 
 export interface PostUncheckedUpdateInput {
@@ -1044,11 +1044,6 @@ export interface BoolFilter {
   not?: NestedBoolFilter
 }
 
-export interface UserRelationFilter {
-  is?: UserWhereInput | null
-  isNot?: UserWhereInput | null
-}
-
 export interface IntNullableFilter {
   equals?: number | null
   in?: number[] | null
@@ -1058,6 +1053,11 @@ export interface IntNullableFilter {
   gt?: number
   gte?: number
   not?: NestedIntNullableFilter | null
+}
+
+export interface UserRelationFilter {
+  is?: UserWhereInput | null
+  isNot?: UserWhereInput | null
 }
 
 export interface PostCountOrderByAggregateInput {

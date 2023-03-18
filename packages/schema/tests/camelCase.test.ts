@@ -5,21 +5,21 @@ test('convert prisma schema from lower case to camel case', async () => {
   const generate = new CamelCase(join(__dirname, './schemas/lowerCaseSchema.prisma')).convert(true);
   expect(await generate).toMatchInlineSnapshot(`
     "datasource db {
-      provider = \\"postgresql\\"
-      url      = env(\\"DATABASE_URL\\")
+      provider = "postgresql"
+      url      = env("DATABASE_URL")
     }
 
     generator client {
-      provider = \\"prisma-client-js\\"
+      provider = "prisma-client-js"
     }
 
     model User {
       id          Int      @id @default(autoincrement())
-      createdAt   DateTime @default(now()) @map(\\"created_at\\")
+      createdAt   DateTime @default(now()) @map("created_at")
       email       String   @unique
       name        String?
       password    String
-      permissions Json     @default(\\"{}\\")
+      permissions Json     @default("{}")
       posts       Post[]
     }
 
@@ -28,20 +28,20 @@ test('convert prisma schema from lower case to camel case', async () => {
       published    Boolean       @default(false)
       title        String
       author       User?         @relation(fields: [authorId], references: [id])
-      authorId     Int?          @map(\\"author_id\\")
+      authorId     Int?          @map("author_id")
       postComments PostComment[]
-      createdAt    DateTime      @default(now()) @map(\\"created_at\\")
-      updatedAt    DateTime      @updatedAt @map(\\"updated_at\\")
+      createdAt    DateTime      @default(now()) @map("created_at")
+      updatedAt    DateTime      @updatedAt @map("updated_at")
 
-      @@map(\\"post\\")
+      @@map("post")
     }
 
     model PostComment {
       id     Int  @id @default(autoincrement())
-      postId Int  @map(\\"post_id\\")
+      postId Int  @map("post_id")
       post   Post @relation(fields: [postId], references: [id])
 
-      @@map(\\"post_comment\\")
+      @@map("post_comment")
     }
 
     enum Role {

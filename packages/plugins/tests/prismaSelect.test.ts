@@ -1,7 +1,7 @@
-import { server } from './server';
+import { executeOperation } from './server';
 import gql from 'graphql-tag';
 import { PrismaSelect } from '../src';
-import { DocumentNode } from 'graphql';
+import assert from 'assert';
 
 const userQuery = gql`
   query user {
@@ -86,63 +86,52 @@ const userWithDefaultValuesQuery = gql`
 `;
 
 describe('test PrismaSelect class', () => {
-  const executeOperation = async (query: DocumentNode, variables?: Record<string, any>) => {
-    let log: { parsedResolveInfoFragment: any; select: any } = { parsedResolveInfoFragment: undefined, select: {} };
-    const testServer = await server((o) => {
-      log = o;
-    });
-    const result = await testServer.executeOperation({
-      query,
-      variables,
-    });
-    return {
-      log,
-      result,
-    };
-  };
-
   it('test nested relations with args', async () => {
-    const { result, log } = await executeOperation(userQuery);
-    expect(result.data).toMatchSnapshot();
-    expect(result.errors).toMatchSnapshot();
+    const { result, log } = await executeOperation({ query: userQuery });
+    assert(result.body.kind === 'single');
+    expect(result.body.singleResult.data).toMatchSnapshot();
+    expect(result.body.singleResult.errors).toMatchSnapshot();
     expect(log.select).toMatchSnapshot();
     expect(log.parsedResolveInfoFragment).toMatchSnapshot();
   });
 
   it('should merge deep add custom select object to current one', async () => {
-    const { log } = await executeOperation(mergeDeepQuery);
+    const { log } = await executeOperation({ query: mergeDeepQuery });
     expect(
       PrismaSelect.mergeDeep(log.select, { select: { id: true, posts: { select: { title: true } } } }),
     ).toMatchSnapshot();
   });
 
   it('should get value from nested object and filter by given type', async () => {
-    const { log } = await executeOperation(valueOfQuery, { value: 'posts', type: 'Post' });
+    const { log } = await executeOperation({ query: valueOfQuery, variables: { value: 'posts', type: 'Post' } });
     expect(log.select).toMatchSnapshot();
   });
 
   it('should get value from nested object more than one deep', async () => {
-    const { log } = await executeOperation(valueOfQuery, { value: 'posts.comments', type: 'Comment' });
+    const { log } = await executeOperation({
+      query: valueOfQuery,
+      variables: { value: 'posts.comments', type: 'Comment' },
+    });
     expect(log.select).toMatchSnapshot();
   });
 
   it('should back empty object if the path not found', async () => {
-    const { log } = await executeOperation(valueOfQuery, { value: 'post', type: 'Post' });
+    const { log } = await executeOperation({ query: valueOfQuery, variables: { value: 'post', type: 'Post' } });
     expect(log.select).toMatchSnapshot();
   });
 
   it('should filter the type depend on the @PrismaSelect comment on the schema file', async () => {
-    const { log } = await executeOperation(mapQuery);
+    const { log } = await executeOperation({ query: mapQuery });
     expect(log.select).toMatchSnapshot();
   });
 
   it('should add the selected fields on the args object if the type is aggregate', async () => {
-    const { log } = await executeOperation(aggregateUserQuery);
+    const { log } = await executeOperation({ query: aggregateUserQuery });
     expect(log.select).toMatchSnapshot();
   });
 
   it('should contain default values firstName, lastName', async () => {
-    const { log } = await executeOperation(userWithDefaultValuesQuery);
+    const { log } = await executeOperation({ query: userWithDefaultValuesQuery });
     expect(log.select).toMatchSnapshot();
   });
 });

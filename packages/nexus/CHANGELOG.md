@@ -1,5 +1,18 @@
 # @paljs/nexus
 
+## 5.3.0
+
+### Minor Changes
+
+- Update packages, update prisma to version 4.11, update apollo server to version 4
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/plugins@5.3.0
+  - @paljs/types@5.3.0
+  - @paljs/utils@5.3.0
+
 ## 5.2.0
 
 ### Minor Changes

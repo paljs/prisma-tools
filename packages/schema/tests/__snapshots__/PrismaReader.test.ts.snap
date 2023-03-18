@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test the Prisma Reader class read prisma enums 1`] = `
-Array [
+[
   "
 enum Role {
   ADMIN
@@ -14,7 +14,7 @@ enum Role {
 exports[`test the Prisma Reader class read prisma model documentation 1`] = `"// User modal documentation"`;
 
 exports[`test the Prisma Reader class read prisma models 1`] = `
-Array [
+[
   "
 model User {
   id          Int      @id @default(autoincrement())
@@ -24,7 +24,7 @@ model User {
   // password documentation
   // password second line documentation
   password    String
-  permissions Json     @default(\\"{}\\")
+  permissions Json     @default("{}")
   posts       Post[]
 }
 ",

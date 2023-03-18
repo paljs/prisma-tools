@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generate nexus Models Should back with User model queries, mutations and types with custom exclude 1`] = `
-Object {
-  "User": Object {
-    "mutations": Object {
+{
+  "User": {
+    "mutations": {
       "deleteMany": "import { mutationField, nonNull } from 'nexus'
 
 export const UserDeleteManyMutation = mutationField('deleteManyUser', {
@@ -71,7 +71,7 @@ export const UserUpsertOneMutation = mutationField('upsertOneUser', {
 })
 ",
     },
-    "queries": Object {
+    "queries": {
       "aggregate": "import { queryField, list } from 'nexus'
 
 export const UserAggregateQuery = queryField('aggregateUser', {
@@ -191,9 +191,9 @@ export const User = objectType({
 `;
 
 exports[`Generate nexus Models Should back with all models queries, mutations and types 1`] = `
-Object {
-  "Post": Object {
-    "mutations": Object {
+{
+  "Post": {
+    "mutations": {
       "createOne": "import { mutationField, nonNull } from 'nexus'
 
 export const PostCreateOneMutation = mutationField('createOnePost', {
@@ -291,7 +291,7 @@ export const PostUpsertOneMutation = mutationField('upsertOnePost', {
 })
 ",
     },
-    "queries": Object {
+    "queries": {
       "aggregate": "import { queryField, list } from 'nexus'
 
 export const PostAggregateQuery = queryField('aggregatePost', {
@@ -399,21 +399,21 @@ export const Post = objectType({
     t.int('id')
     t.boolean('published')
     t.string('title')
+    t.nullable.int('authorId')
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.nullable.field('author', {
       type: 'User',
       resolve(root: any) {
         return root.author
       },
     })
-    t.nullable.int('authorId')
-    t.field('createdAt', { type: 'DateTime' })
-    t.field('updatedAt', { type: 'DateTime' })
   },
 })
 ",
   },
-  "User": Object {
-    "mutations": Object {
+  "User": {
+    "mutations": {
       "createOne": "import { mutationField, nonNull } from 'nexus'
 
 export const UserCreateOneMutation = mutationField('createOneUser', {
@@ -511,7 +511,7 @@ export const UserUpsertOneMutation = mutationField('upsertOneUser', {
 })
 ",
     },
-    "queries": Object {
+    "queries": {
       "aggregate": "import { queryField, list } from 'nexus'
 
 export const UserAggregateQuery = queryField('aggregateUser', {

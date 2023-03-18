@@ -3,8 +3,10 @@ import { PrismaSelect } from '../../src';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
 import { getDMMFBySchemaPath } from '@paljs/utils';
 import { join } from 'path';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer, GraphQLRequest } from '@apollo/server';
 import { Generators } from '@paljs/generator/src/Generators';
+import { ExecuteOperationOptions, VariableValues } from '@apollo/server/dist/esm/externalTypes/graphql';
+import { DocumentNode, TypedQueryDocumentNode } from 'graphql';
 
 const typeDefs = gql`
   type User {
@@ -99,19 +101,31 @@ const resolvers = {
   },
 };
 
-export const server = async (log: (object: any) => void) => {
+export const executeOperation = async <
+  TData = Record<string, unknown>,
+  TVariables extends VariableValues = VariableValues,
+>(
+  request: Omit<GraphQLRequest<TVariables>, 'query'> & {
+    query?: string | DocumentNode | TypedQueryDocumentNode<TData, TVariables>;
+  },
+  options?: ExecuteOperationOptions<any>,
+) => {
   const schemaPath = join(__dirname, '../schemas/prismaSelect.prisma');
   const dmmf = await getDMMFBySchemaPath(schemaPath);
   const generator = new Generators(schemaPath);
   const inputs = gql`
     ${await generator.generateSDLInputsString()}
   `;
-  return new ApolloServer({
-    typeDefs: [typeDefs, inputs],
-    resolvers,
-    context: {
+  const server = new ApolloServer({ typeDefs: [typeDefs, inputs], resolvers });
+  let log: { parsedResolveInfoFragment: any; select: any } = { parsedResolveInfoFragment: undefined, select: {} };
+  const result = await server.executeOperation(request, {
+    contextValue: {
       dmmf,
-      log,
+      log: (o) => {
+        log = o;
+      },
     },
+    ...options,
   });
+  return { result, log };
 };

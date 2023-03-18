@@ -4,21 +4,21 @@ import { join } from 'path';
 test('generate Json object from prisma schema', () => {
   const generate = new ConvertSchemaToObject(join(__dirname, './schemas/schema.prisma')).run();
   expect(generate).toMatchInlineSnapshot(`
-    Object {
-      "enums": Array [
-        Object {
-          "fields": Array [
+    {
+      "enums": [
+        {
+          "fields": [
             "ADMIN",
             "USER",
           ],
           "name": "Role",
         },
       ],
-      "models": Array [
-        Object {
+      "models": [
+        {
           "documentation": "// User modal documentation",
-          "fields": Array [
-            Object {
+          "fields": [
+            {
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -30,7 +30,7 @@ test('generate Json object from prisma schema', () => {
               "type": "Int",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -42,7 +42,7 @@ test('generate Json object from prisma schema', () => {
               "type": "DateTime",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -54,7 +54,7 @@ test('generate Json object from prisma schema', () => {
               "type": "String",
               "unique": true,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -66,7 +66,7 @@ test('generate Json object from prisma schema', () => {
               "type": "String",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "// password documentation
     // password second line documentation",
               "isId": false,
@@ -79,7 +79,7 @@ test('generate Json object from prisma schema', () => {
               "type": "String",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -91,7 +91,7 @@ test('generate Json object from prisma schema', () => {
               "type": "Json",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "object",
@@ -106,10 +106,10 @@ test('generate Json object from prisma schema', () => {
           ],
           "name": "User",
         },
-        Object {
+        {
           "documentation": "",
-          "fields": Array [
-            Object {
+          "fields": [
+            {
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -121,7 +121,7 @@ test('generate Json object from prisma schema', () => {
               "type": "Int",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -133,7 +133,7 @@ test('generate Json object from prisma schema', () => {
               "type": "Boolean",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -145,18 +145,18 @@ test('generate Json object from prisma schema', () => {
               "type": "String",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "object",
               "list": false,
               "map": undefined,
               "name": "author",
-              "relation": Object {
-                "fields": Array [
+              "relation": {
+                "fields": [
                   "authorId",
                 ],
-                "references": Array [
+                "references": [
                   "id",
                 ],
               },
@@ -164,7 +164,7 @@ test('generate Json object from prisma schema', () => {
               "type": "User",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -176,7 +176,7 @@ test('generate Json object from prisma schema', () => {
               "type": "Int",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -188,7 +188,7 @@ test('generate Json object from prisma schema', () => {
               "type": "DateTime",
               "unique": false,
             },
-            Object {
+            {
               "documentation": "",
               "isId": false,
               "kind": "scalar",

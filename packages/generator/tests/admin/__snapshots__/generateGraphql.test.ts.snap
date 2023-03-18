@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generate Graphql queries And mutations for Frontend Should back User model graphql with custom exclude 1`] = `
-Object {
+{
   "User": "fragment UserFields on User {
   id
   createdAt
@@ -54,7 +54,7 @@ mutation deleteManyUser($where: UserWhereInput) {
 `;
 
 exports[`Generate Graphql queries And mutations for Frontend Should back with all models 1`] = `
-Object {
+{
   "Post": "fragment PostFields on Post {
   id
   published

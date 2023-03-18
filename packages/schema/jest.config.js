@@ -3,5 +3,4 @@
 module.exports = {
   preset: 'ts-jest',
   displayName: 'schema',
-  collectCoverageFrom: ['./src'],
 };

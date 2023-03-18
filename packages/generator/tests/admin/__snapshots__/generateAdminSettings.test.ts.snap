@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`] = `
-Object {
-  "enums": Array [
-    Object {
-      "fields": Array [
+{
+  "enums": [
+    {
+      "fields": [
         "ADMIN",
         "USER",
       ],
       "name": "Role",
     },
   ],
-  "models": Array [
-    Object {
+  "models": [
+    {
       "create": true,
       "delete": true,
-      "displayFields": Array [
+      "displayFields": [
         "id",
       ],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "create": false,
           "editor": false,
           "filter": true,
@@ -40,7 +40,7 @@ Object {
           "update": false,
           "upload": false,
         },
-        Object {
+        {
           "create": false,
           "editor": false,
           "filter": true,
@@ -61,7 +61,7 @@ Object {
           "update": false,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -82,7 +82,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -103,7 +103,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -124,7 +124,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -145,7 +145,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -171,14 +171,14 @@ Object {
       "name": "User",
       "update": true,
     },
-    Object {
+    {
       "create": true,
       "delete": true,
-      "displayFields": Array [
+      "displayFields": [
         "id",
       ],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "create": false,
           "editor": false,
           "filter": true,
@@ -199,7 +199,7 @@ Object {
           "update": false,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -220,7 +220,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -241,7 +241,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": true,
           "editor": false,
           "filter": true,
@@ -261,7 +261,7 @@ Object {
           "update": true,
           "upload": false,
         },
-        Object {
+        {
           "create": false,
           "editor": false,
           "filter": true,
@@ -282,7 +282,7 @@ Object {
           "update": false,
           "upload": false,
         },
-        Object {
+        {
           "create": false,
           "editor": false,
           "filter": true,
@@ -303,7 +303,7 @@ Object {
           "update": false,
           "upload": false,
         },
-        Object {
+        {
           "create": false,
           "editor": false,
           "filter": true,

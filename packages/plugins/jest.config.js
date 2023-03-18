@@ -4,5 +4,4 @@ module.exports = {
   preset: 'ts-jest',
   displayName: 'plugins',
   moduleDirectories: ['node_modules', 'src'],
-  collectCoverageFrom: ['./src'],
 };

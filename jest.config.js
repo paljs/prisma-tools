@@ -11,4 +11,5 @@ module.exports = {
     './packages/nexus/jest.config.js',
     './packages/generator/jest.config.js',
   ],
+  collectCoverageFrom: ['./packages/**/src/**/*.{ts,tsx}'],
 };

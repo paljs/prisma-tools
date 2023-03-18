@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test PrismaSelect class should add the selected fields on the args object if the type is aggregate 1`] = `
-Object {
-  "_avg": Object {
+{
+  "_avg": {
     "id": true,
   },
-  "_count": Object {
+  "_count": {
     "email": true,
   },
-  "_max": Object {
+  "_max": {
     "id": true,
   },
-  "_sum": Object {
+  "_sum": {
     "id": true,
   },
 }
 `;
 
-exports[`test PrismaSelect class should back empty object if the path not found 1`] = `Object {}`;
+exports[`test PrismaSelect class should back empty object if the path not found 1`] = `{}`;
 
 exports[`test PrismaSelect class should contain default values firstName, lastName 1`] = `
-Object {
-  "select": Object {
+{
+  "select": {
     "firstName": true,
     "id": true,
     "lastName": true,
@@ -30,8 +30,8 @@ Object {
 `;
 
 exports[`test PrismaSelect class should filter the type depend on the @PrismaSelect comment on the schema file 1`] = `
-Object {
-  "select": Object {
+{
+  "select": {
     "firstName": true,
     "id": true,
   },
@@ -39,10 +39,10 @@ Object {
 `;
 
 exports[`test PrismaSelect class should get value from nested object and filter by given type 1`] = `
-Object {
-  "select": Object {
-    "comments": Object {
-      "select": Object {
+{
+  "select": {
+    "comments": {
+      "select": {
         "contain": true,
         "id": true,
       },
@@ -53,8 +53,8 @@ Object {
 `;
 
 exports[`test PrismaSelect class should get value from nested object more than one deep 1`] = `
-Object {
-  "select": Object {
+{
+  "select": {
     "contain": true,
     "id": true,
   },
@@ -62,12 +62,12 @@ Object {
 `;
 
 exports[`test PrismaSelect class should merge deep add custom select object to current one 1`] = `
-Object {
-  "select": Object {
+{
+  "select": {
     "email": true,
     "id": true,
-    "posts": Object {
-      "select": Object {
+    "posts": {
+      "select": {
         "id": true,
         "title": true,
       },
@@ -77,7 +77,7 @@ Object {
 `;
 
 exports[`test PrismaSelect class test nested relations with args 1`] = `
-Object {
+{
   "user": null,
 }
 `;
@@ -85,24 +85,24 @@ Object {
 exports[`test PrismaSelect class test nested relations with args 2`] = `undefined`;
 
 exports[`test PrismaSelect class test nested relations with args 3`] = `
-Object {
-  "select": Object {
+{
+  "select": {
     "email": true,
     "firstName": true,
     "id": true,
-    "posts": Object {
+    "posts": {
       "distinct": "id",
-      "orderBy": Object {
+      "orderBy": {
         "published": "asc",
       },
-      "select": Object {
-        "comments": Object {
-          "select": Object {
+      "select": {
+        "comments": {
+          "select": {
             "contain": true,
             "id": true,
           },
-          "where": Object {
-            "contain": Object {
+          "where": {
+            "contain": {
               "contains": "a",
             },
           },
@@ -112,8 +112,8 @@ Object {
       },
       "skip": 5,
       "take": 10,
-      "where": Object {
-        "title": Object {
+      "where": {
+        "title": {
           "contains": "a",
         },
       },
@@ -123,93 +123,93 @@ Object {
 `;
 
 exports[`test PrismaSelect class test nested relations with args 4`] = `
-Object {
+{
   "alias": "user",
-  "args": Object {
-    "where": Object {
+  "args": {
+    "where": {
       "id": 1,
     },
   },
-  "fieldsByTypeName": Object {
-    "User": Object {
-      "email": Object {
+  "fieldsByTypeName": {
+    "User": {
+      "email": {
         "alias": "email",
-        "args": Object {},
-        "fieldsByTypeName": Object {},
+        "args": {},
+        "fieldsByTypeName": {},
         "name": "email",
       },
-      "fullName": Object {
+      "fullName": {
         "alias": "fullName",
-        "args": Object {},
-        "fieldsByTypeName": Object {},
+        "args": {},
+        "fieldsByTypeName": {},
         "name": "fullName",
       },
-      "id": Object {
+      "id": {
         "alias": "id",
-        "args": Object {},
-        "fieldsByTypeName": Object {},
+        "args": {},
+        "fieldsByTypeName": {},
         "name": "id",
       },
-      "name": Object {
+      "name": {
         "alias": "name",
-        "args": Object {},
-        "fieldsByTypeName": Object {},
+        "args": {},
+        "fieldsByTypeName": {},
         "name": "firstName",
       },
-      "posts": Object {
+      "posts": {
         "alias": "posts",
-        "args": Object {
+        "args": {
           "distinct": "id",
-          "orderBy": Object {
+          "orderBy": {
             "published": "asc",
           },
           "skip": 5,
           "take": 10,
-          "where": Object {
-            "title": Object {
+          "where": {
+            "title": {
               "contains": "a",
             },
           },
         },
-        "fieldsByTypeName": Object {
-          "Post": Object {
-            "comments": Object {
+        "fieldsByTypeName": {
+          "Post": {
+            "comments": {
               "alias": "comments",
-              "args": Object {
-                "where": Object {
-                  "contain": Object {
+              "args": {
+                "where": {
+                  "contain": {
                     "contains": "a",
                   },
                 },
               },
-              "fieldsByTypeName": Object {
-                "Comment": Object {
-                  "contain": Object {
+              "fieldsByTypeName": {
+                "Comment": {
+                  "contain": {
                     "alias": "contain",
-                    "args": Object {},
-                    "fieldsByTypeName": Object {},
+                    "args": {},
+                    "fieldsByTypeName": {},
                     "name": "contain",
                   },
-                  "id": Object {
+                  "id": {
                     "alias": "id",
-                    "args": Object {},
-                    "fieldsByTypeName": Object {},
+                    "args": {},
+                    "fieldsByTypeName": {},
                     "name": "id",
                   },
                 },
               },
               "name": "comments",
             },
-            "id": Object {
+            "id": {
               "alias": "id",
-              "args": Object {},
-              "fieldsByTypeName": Object {},
+              "args": {},
+              "fieldsByTypeName": {},
               "name": "id",
             },
-            "title": Object {
+            "title": {
               "alias": "title",
-              "args": Object {},
-              "fieldsByTypeName": Object {},
+              "args": {},
+              "fieldsByTypeName": {},
               "name": "title",
             },
           },
