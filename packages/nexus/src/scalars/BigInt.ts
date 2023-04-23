@@ -8,5 +8,5 @@ export const BigInt = asNexusMethod(
     description: `The \`BigInt\` scalar type represents non-fractional signed whole numeric values.
 @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt`,
   }),
-  'bigInt',
+  'bigint',
 );
