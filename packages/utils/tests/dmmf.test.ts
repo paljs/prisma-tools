@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join, relative, normalize, resolve } from 'path';
 import { getDMMFBySchemaPath, getSchemaPath } from 'dmmf';
 
 describe('test read schema and convert to dmmf', () => {
@@ -8,7 +8,9 @@ describe('test read schema and convert to dmmf', () => {
   });
 
   test('success load schema path', async () => {
-    expect(await getSchemaPath(schemaPath)).toContain('/packages/utils/tests/schemas/schema.prisma');
+    expect(relative(process.cwd(), await getSchemaPath(schemaPath))).toContain(
+      normalize('packages/utils/tests/schemas/schema.prisma'),
+    );
   });
 
   test('build DMMF from schema', async () => {

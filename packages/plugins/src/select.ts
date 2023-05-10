@@ -1,7 +1,77 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { DMMF } from '@paljs/types';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
+export interface FindAndTransformOption {
+  /**
+   * Determines whether the field should be found and selected.
+   *
+   * @param path - The path of the found GraphQL field name. The path must start with "root". For example, if the field is "SomeField" at the root level, the path would be "root.SomeField".
+   * @returns A boolean value indicating if the field should be selected.
+   */
+  find: (path: string) => boolean;
 
+  /**
+   * Transforms the field when it is found.
+   *
+   * @param parentPath - The path of the parent field.
+   * @param fieldName - The name of the found GraphQL field.
+   * @param fieldPrismaObject - The Prisma object representation of the field.
+   * @returns The transformed representation of the field.
+   */
+  change: (parentPath: string, fieldName: string, fieldPrismaObject: true | { select: any }) => any;
+}
+export type PrismaSelectOptions = {
+  /*
+   * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
+   * @example
+   * const defaultFields = {
+   *    User: { id: true, name: true },
+   *    Type: { id: true, descriptionRaw: true },
+   *    Post: { id: true, body: true },
+   *    // as function you can check if client select some fields to add another to default fields
+   *    Account: (select) => select.name ? {firstname: true, lastname: true} : {}
+   * }
+   * */
+  defaultFields?: {
+    [key: string]: { [key: string]: boolean } | ((select: any) => { [key: string]: boolean });
+  };
+  /*
+   * array of dmmf object import from generated prisma client default
+   * @example
+   * import {Prisma} from './customPath';
+   * import {Prisma as Prisma2} from './customPath2';
+   * {
+   *  dmmf: [Prisma.dmmf, Prisma2.dmmf]
+   * }
+   * */
+  dmmf?: Omit<DMMF.Document, 'schema'>[];
+
+  /**
+   * An array of transformations to apply to Prisma fields.
+   *
+   * @example
+   * {
+   *   transform: [
+   *     {
+   *       find: (path: string) => path.endsWith("SomeModel"),
+   *       change: (parentPath, fieldName, fieldPrismaObject) => {
+   *         // Perform the desired transformation here
+   *         return {
+   *           [fieldName]: {
+   *             select: fieldPrismaObject.select,
+   *             orderBy: {
+   *               title: 'asc'
+   *             }
+   *           }
+   *         }
+   *       }
+   *     },
+   *     // Add more transformation objects as needed
+   *   ]
+   * }
+   */
+  transform?: FindAndTransformOption[];
+};
 /**
  * Convert `info` to select object accepted by `prisma client`.
  * @param info - GraphQLResolveInfo.
@@ -45,35 +115,7 @@ export class PrismaSelect {
   private allowedProps = ['_count'];
   private isAggregate = false;
 
-  constructor(
-    private info: GraphQLResolveInfo,
-    private options?: {
-      /*
-       * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
-       * @example
-       * const defaultFields = {
-       *    User: { id: true, name: true },
-       *    Type: { id: true, descriptionRaw: true },
-       *    Post: { id: true, body: true },
-       *    // as function you can check if client select some fields to add another to default fields
-       *    Account: (select) => select.name ? {firstname: true, lastname: true} : {}
-       * }
-       * */
-      defaultFields?: {
-        [key: string]: { [key: string]: boolean } | ((select: any) => { [key: string]: boolean });
-      };
-      /*
-       * array of dmmf object import from generated prisma client default
-       * @example
-       * import {Prisma} from './customPath';
-       * import {Prisma as Prisma2} from './customPath2';
-       * {
-       *  dmmf: [Prisma.dmmf, Prisma2.dmmf]
-       * }
-       * */
-      dmmf?: Omit<DMMF.Document, 'schema'>[];
-    },
-  ) {}
+  constructor(private info: GraphQLResolveInfo, private options?: PrismaSelectOptions) {}
 
   get value() {
     const returnType = this.info.returnType.toString().replace(/]/g, '').replace(/\[/g, '').replace(/!/g, '');
@@ -89,7 +131,7 @@ export class PrismaSelect {
       });
       return models;
     } else {
-      const { Prisma } = require('@prisma/client');
+      const Prisma = require('@prisma/client').Prisma;
       if (Prisma.dmmf && Prisma.dmmf.datamodel) {
         return Prisma.dmmf.datamodel.models;
       } else {
@@ -261,26 +303,27 @@ export class PrismaSelect {
     return filteredArgs;
   }
 
-  private getSelect(fields: PrismaSelect['fields'], parent = true) {
-    const selectObject: any = this.isAggregate ? {} : { select: {}, ...(parent ? {} : this.getArgs(fields?.args)) };
+  private getSelect(fields: PrismaSelect['fields'], parent = true, path = 'root') {
+    let selectObject: any = this.isAggregate
+      ? {}
+      : {
+          select: {},
+          ...(parent ? {} : this.getArgs(fields?.args)),
+        };
     if (fields) {
       Object.keys(fields.fieldsByTypeName).forEach((type) => {
         const fieldsByTypeName = fields.fieldsByTypeName[type];
         Object.keys(fieldsByTypeName).forEach((key) => {
-          const fieldName = fieldsByTypeName[key].name;
-          if (Object.keys(fieldsByTypeName[key].fieldsByTypeName).length === 0) {
-            if (this.isAggregate) {
-              selectObject[fieldName] = true;
-            } else {
-              selectObject.select[fieldName] = true;
-            }
-          } else {
-            if (this.isAggregate) {
-              selectObject[fieldName] = this.getSelect(fieldsByTypeName[key], false);
-            } else {
-              selectObject.select[fieldName] = this.getSelect(fieldsByTypeName[key], false);
-            }
-          }
+          const field = fieldsByTypeName[key];
+          const fieldName = field.name;
+          const currentPath = `${path}${'.'}${fieldName}`;
+          const hasNotChildField = Object.keys(field.fieldsByTypeName).length <= 0;
+          const fieldValue = hasNotChildField ? true : this.getSelect(field, false, currentPath);
+          const foundTransform = this.options?.transform?.find((v) => v.find(currentPath));
+          const transformedValue = {
+            [fieldName]: foundTransform ? foundTransform.change(path, fieldName, fieldValue) : fieldValue,
+          };
+          Object.assign(this.isAggregate ? selectObject : selectObject.select, transformedValue);
         });
       });
     }

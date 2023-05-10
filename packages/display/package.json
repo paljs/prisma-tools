@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "shx rm -rf dist node_modules/.cache"
   },
   "author": {
     "name": "Ahmed Elywa",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.7",
     "@types/node": "18.15.3",
-    "typescript": "^5.0.2"
+    "typescript": "^5.x",
+    "shx": "^0.3.4"
   }
 }

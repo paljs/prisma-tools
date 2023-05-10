@@ -7,7 +7,7 @@
   "description": "prisma and apollo server  example to create CUED system by one command",
   "scripts": {
     "start": "node dist/src",
-    "clean": "rm -rf dist",
+    "clean": "shx rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "pal g && prisma generate",
     "db-dev": "prisma migrate dev",
@@ -28,6 +28,7 @@
     "prettier": "2.x",
     "ts-node": "10.x",
     "ts-node-dev": "2.x",
-    "typescript": "4.x"
+    "typescript": "4.x",
+    "shx": "^0.3.4"
   }
 }

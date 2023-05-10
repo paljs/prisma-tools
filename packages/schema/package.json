@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "shx rm -rf dist node_modules/.cache"
   },
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,8 @@
     "@paljs/utils": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.0.2"
+    "typescript": "^5.x",
+    "shx": "^0.3.4"
   },
   "files": [
     "dist"

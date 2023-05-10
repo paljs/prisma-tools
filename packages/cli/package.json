@@ -38,7 +38,7 @@
     "shx": "^0.3.3",
     "ts-node": "^10",
     "tslib": "^2.3.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.x"
   },
   "engines": {
     "node": ">=12.0.0"
