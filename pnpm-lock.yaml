@@ -152,7 +152,7 @@ importers:
       shx: ^0.3.3
       ts-node: ^10
       tslib: ^2.3.1
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@oclif/core': 1.26.2
       '@oclif/plugin-help': 5.2.9_6z536bmejtygxbjlmd3jqruara
@@ -200,7 +200,7 @@ importers:
       shx: ^0.3.4
       tslib: ^2.3.1
       type-fest: ^2.16.0
-      typescript: ^5.x
+      typescript: ^5
       wait-on: ^6.0.1
     dependencies:
       '@paljs/display': link:../display
@@ -229,7 +229,7 @@ importers:
       ora: 5.4.1
       readline: ^1.3.0
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       chalk: 4.1.2
       debug: 4.3.4
@@ -253,7 +253,7 @@ importers:
       pluralize: ^8.0.0
       prettier: ^2.8.4
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@paljs/schema': link:../schema
       '@paljs/types': link:../types
@@ -281,7 +281,7 @@ importers:
       lowdb: ^1.0.0
       nexus: ^1.3.0
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@paljs/plugins': link:../plugins
       '@paljs/types': link:../types
@@ -310,7 +310,7 @@ importers:
       graphql-tag: ^2.12.6
       prettier: ^2.8.4
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@paljs/types': link:../types
       '@paljs/utils': link:../utils
@@ -332,7 +332,7 @@ importers:
       '@paljs/types': workspace:*
       '@paljs/utils': workspace:*
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@paljs/display': link:../display
       '@paljs/types': link:../types
@@ -345,7 +345,7 @@ importers:
     specifiers:
       '@prisma/client': ^4.11.0
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     devDependencies:
       '@prisma/client': 4.11.0
       shx: 0.3.4
@@ -357,7 +357,7 @@ importers:
       '@paljs/types': workspace:*
       '@prisma/internals': ^4.11.0
       shx: ^0.3.4
-      typescript: ^5.x
+      typescript: ^5
     dependencies:
       '@paljs/display': link:../display
       '@paljs/types': link:../types

@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@prisma/client": "^4.11.0",
-    "typescript": "^5.x",
+    "typescript": "^5",
     "shx": "^0.3.4"
   },
   "files": [

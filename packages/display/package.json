@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.7",
     "@types/node": "18.15.3",
-    "typescript": "^5.x",
+    "typescript": "^5",
     "shx": "^0.3.4"
   }
 }

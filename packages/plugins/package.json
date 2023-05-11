@@ -36,7 +36,7 @@
     "@types/prettier": "^2.7.2",
     "@apollo/server": "^4.5.0",
     "graphql": "^16.5.0",
-    "typescript": "^5.x",
+    "typescript": "^5",
     "shx": "^0.3.4"
   },
   "files": [

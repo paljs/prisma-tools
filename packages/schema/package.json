@@ -25,7 +25,7 @@
     "@paljs/utils": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.x",
+    "typescript": "^5",
     "shx": "^0.3.4"
   },
   "files": [

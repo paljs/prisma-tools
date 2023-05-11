@@ -20,7 +20,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "typescript": "^5.x",
+    "typescript": "^5",
     "shx": "^0.3.4"
   },
   "dependencies": {

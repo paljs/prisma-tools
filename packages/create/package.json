@@ -38,7 +38,7 @@
     "cross-spawn": "^7.0.3",
     "rimraf": "^3.0.2",
     "tslib": "^2.3.1",
-    "typescript": "^5.x",
+    "typescript": "^5",
     "wait-on": "^6.0.1"
   },
   "files": [
