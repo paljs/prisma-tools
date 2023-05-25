@@ -1,5 +1,15 @@
 # @paljs/nexus
 
+## 5.3.1
+
+### Patch Changes
+
+- update prisma version to v4.14.1
+- Updated dependencies
+  - @paljs/types@5.3.1
+  - @paljs/utils@5.3.1
+  - @paljs/plugins@5.3.1
+
 ## 5.3.0
 
 ### Minor Changes

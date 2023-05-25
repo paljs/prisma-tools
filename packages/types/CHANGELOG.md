@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 5.3.1
+
+### Patch Changes
+
+- update prisma version to v4.14.1
+
 ## 5.3.0
 
 ### Minor Changes

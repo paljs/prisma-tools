@@ -1,6 +1,6 @@
 {
   "name": "@paljs/utils",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "@paljs/types": "workspace:*",
     "@paljs/display": "workspace:*",
-    "@prisma/internals": "^4.11.0"
+    "@prisma/internals": "^4.14.1"
   },
   "files": [
     "dist"

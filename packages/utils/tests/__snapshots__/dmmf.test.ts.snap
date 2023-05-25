@@ -3108,6 +3108,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Int",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3117,6 +3122,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -3219,6 +3229,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3228,6 +3243,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
                 },
@@ -3330,6 +3350,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3339,6 +3364,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -3498,6 +3528,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -3509,6 +3544,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -4211,6 +4251,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Int",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4220,6 +4265,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -4387,6 +4437,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4396,6 +4451,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
                 },
@@ -4537,6 +4597,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4546,6 +4611,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -4744,6 +4814,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -4755,6 +4830,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -5233,6 +5313,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -5244,6 +5329,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -5818,6 +5908,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -5829,6 +5924,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -7032,6 +7132,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Int",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7041,6 +7146,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -7143,6 +7253,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7152,6 +7267,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
                 },
@@ -7254,6 +7374,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7263,6 +7388,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -7409,6 +7539,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -7420,6 +7555,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -7568,6 +7708,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Int",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7577,6 +7722,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -7744,6 +7894,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Float",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7753,6 +7908,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Float",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Float",
                 },
@@ -7855,6 +8015,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7864,6 +8029,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
                 },
@@ -8005,6 +8175,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8014,6 +8189,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -8199,6 +8379,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -8210,6 +8395,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -8405,6 +8595,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -8416,6 +8611,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -8845,6 +9045,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -8856,6 +9061,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Int",
                 },
@@ -9041,6 +9251,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "isList": false,
                   "location": "scalar",
+                  "type": "Float",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
                   "type": "Null",
                 },
               ],
@@ -9052,6 +9267,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": true,
+                  "location": "scalar",
+                  "type": "Float",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Float",
                 },
