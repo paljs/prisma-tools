@@ -1,5 +1,14 @@
 # @paljs/plugins
 
+## 5.3.2
+
+### Patch Changes
+
+- upgrade the prisma version 15
+- Updated dependencies
+  - @paljs/types@5.3.2
+  - @paljs/utils@5.3.2
+
 ## 5.3.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 5.3.2
+
+### Patch Changes
+
+- upgrade the prisma version 15
+
 ## 5.3.1
 
 ### Patch Changes

@@ -680,6 +680,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "email",
             },
           ],
+          "meta": {
+            "source": "User",
+          },
           "name": "UserWhereUniqueInput",
         },
         {
@@ -1324,6 +1327,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "id",
             },
           ],
+          "meta": {
+            "source": "Post",
+          },
           "name": "PostWhereUniqueInput",
         },
         {
