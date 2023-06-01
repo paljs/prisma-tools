@@ -71,7 +71,7 @@ export class PrismaSelect {
        *  dmmf: [Prisma.dmmf, Prisma2.dmmf]
        * }
        * */
-      dmmf?: Omit<DMMF.Document, 'schema'>[];
+      dmmf?: Pick<DMMF.Document, 'datamodel'>[];
     },
   ) {}
 
