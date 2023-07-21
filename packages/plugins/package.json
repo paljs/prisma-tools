@@ -17,7 +17,7 @@
     "clean": "rm -rf dist node_modules/.cache"
   },
   "peerDependencies": {
-    "@prisma/client": "^4",
+    "@prisma/client": "^5",
     "graphql": "^15 || ^16"
   },
   "dependencies": {
