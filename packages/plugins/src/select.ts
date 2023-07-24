@@ -304,7 +304,7 @@ export class PrismaSelect {
   }
 
   private getSelect(fields: PrismaSelect['fields'], parent = true, path = 'root') {
-    let selectObject: any = this.isAggregate
+    const selectObject: any = this.isAggregate
       ? {}
       : {
           select: {},

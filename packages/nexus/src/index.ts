@@ -1,4 +1,5 @@
 import { PrismaSelect } from '@paljs/plugins';
+import type { DMMF } from '@paljs/types';
 import { objectType, plugin } from 'nexus';
 import { NexusAcceptedTypeDef } from 'nexus/dist/builder';
 import { adminNexusSchemaSettings } from './admin';
@@ -35,7 +36,8 @@ export const paljs = (settings?: Settings) =>
       return async (root, args, ctx, info: any, next) => {
         ctx.select = new PrismaSelect(info, {
           ...settings?.prismaSelectOptions,
-        }).value;
+          dmmf: settings?.prismaSelectOptions?.dmmf as Omit<DMMF.Document, 'schema'>[],
+        });
         return await next(root, args, ctx, info);
       };
     },
