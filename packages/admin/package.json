@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "5.3.0",
+  "version": "5.3.3",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",
@@ -20,7 +20,7 @@
     "build:es": "node ./scripts/build es",
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "cross-env NODE_ENV=production tailwindcss build -o ./dist/style.css"
+    "build:css": "cross-env NODE_ENV=production tailwindcss-cli build -o ./dist/style.css"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
@@ -31,7 +31,7 @@
     "react-table": "7.7.0"
   },
   "devDependencies": {
-    "@apollo/client": "3.5.9",
+    "@apollo/client": "3.x",
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/node": "^7.16.8",
@@ -56,6 +56,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tailwindcss": "3.0.23",
+    "tailwindcss-cli": "^0.1.2",
     "typescript": "4.7.4",
     "yargs": "^17.3.1"
   },

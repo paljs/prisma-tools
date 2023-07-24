@@ -1,5 +1,32 @@
 # @paljs/plugins
 
+## 5.3.3
+
+### Patch Changes
+
+- fix the DMMF type
+- Updated dependencies
+  - @paljs/types@5.3.3
+  - @paljs/utils@5.3.3
+
+## 5.3.2
+
+### Patch Changes
+
+- upgrade the prisma version 15
+- Updated dependencies
+  - @paljs/types@5.3.2
+  - @paljs/utils@5.3.2
+
+## 5.3.1
+
+### Patch Changes
+
+- update prisma version to v4.14.1
+- Updated dependencies
+  - @paljs/types@5.3.1
+  - @paljs/utils@5.3.1
+
 ## 5.3.0
 
 ### Minor Changes
