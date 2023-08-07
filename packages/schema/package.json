@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "rimraf dist node_modules/.cache"
   },
   "publishConfig": {
     "access": "public"
@@ -25,6 +25,7 @@
     "@paljs/utils": "workspace:*"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "typescript": "^5.0.2"
   },
   "files": [

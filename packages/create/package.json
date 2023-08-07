@@ -14,9 +14,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "pnpm run clean && tsc -p tsconfig.build.json && yarn build:examples",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json && pnpm run build:examples",
     "build:examples": "wait-on dist/index.js && node updatePalversion.js && rimraf examples/**/node_modules && cpy --dot --parents '!/node_modules/' examples dist",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "rimraf dist node_modules/.cache"
   },
   "dependencies": {
     "@paljs/display": "workspace:*",

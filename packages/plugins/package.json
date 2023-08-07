@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "rimraf dist node_modules/.cache"
   },
   "peerDependencies": {
     "@prisma/client": "^4",
@@ -36,6 +36,7 @@
     "@types/prettier": "^2.7.2",
     "@apollo/server": "^4.5.0",
     "graphql": "^16.6.0",
+    "rimraf": "^3.0.2",
     "typescript": "^5.0.2"
   },
   "files": [
