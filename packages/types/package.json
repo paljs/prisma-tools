@@ -14,13 +14,14 @@
   "private": false,
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "rimraf dist node_modules/.cache"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@prisma/generator-helper": "^5.1.1",
+    "rimraf": "^3.0.2",
     "typescript": "^5.1.6"
   },
   "files": [

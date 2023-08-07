@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules/.cache"
+    "clean": "rimraf dist node_modules/.cache"
   },
   "dependencies": {
     "@paljs/types": "workspace:*",
@@ -28,6 +28,7 @@
     "@types/node": "18.15.3",
     "@types/pluralize": "^0.0.29",
     "@types/prettier": "^2.7.2",
+    "rimraf": "^3.0.2",
     "typescript": "^5.1.6"
   },
   "files": [
