@@ -302,45 +302,6 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
     "enumTypes": {
       "prisma": [
         {
-          "name": "JsonNullValueFilter",
-          "values": [
-            "DbNull",
-            "JsonNull",
-            "AnyNull",
-          ],
-        },
-        {
-          "name": "JsonNullValueInput",
-          "values": [
-            "JsonNull",
-          ],
-        },
-        {
-          "name": "PostScalarFieldEnum",
-          "values": [
-            "id",
-            "published",
-            "title",
-            "authorId",
-            "createdAt",
-            "updatedAt",
-          ],
-        },
-        {
-          "name": "QueryMode",
-          "values": [
-            "default",
-            "insensitive",
-          ],
-        },
-        {
-          "name": "SortOrder",
-          "values": [
-            "asc",
-            "desc",
-          ],
-        },
-        {
           "name": "TransactionIsolationLevel",
           "values": [
             "ReadUncommitted",
@@ -360,9 +321,418 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             "permissions",
           ],
         },
+        {
+          "name": "PostScalarFieldEnum",
+          "values": [
+            "id",
+            "published",
+            "title",
+            "authorId",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+        {
+          "name": "SortOrder",
+          "values": [
+            "asc",
+            "desc",
+          ],
+        },
+        {
+          "name": "JsonNullValueInput",
+          "values": [
+            "JsonNull",
+          ],
+        },
+        {
+          "name": "QueryMode",
+          "values": [
+            "default",
+            "insensitive",
+          ],
+        },
+        {
+          "name": "JsonNullValueFilter",
+          "values": [
+            "DbNull",
+            "JsonNull",
+            "AnyNull",
+          ],
+        },
+        {
+          "name": "NullsOrder",
+          "values": [
+            "first",
+            "last",
+          ],
+        },
       ],
     },
-    "fieldRefTypes": {},
+    "fieldRefTypes": {
+      "prisma": [
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "Int",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "IntFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": true,
+              "location": "scalar",
+              "type": "Int",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "ListIntFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "DateTime",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "DateTimeFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": true,
+              "location": "scalar",
+              "type": "DateTime",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "ListDateTimeFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "String",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "StringFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": true,
+              "location": "scalar",
+              "type": "String",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "ListStringFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "Json",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "JsonFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "Boolean",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "BooleanFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
+              "location": "scalar",
+              "type": "Float",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "FloatFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": true,
+              "location": "scalar",
+              "type": "Float",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "ListFloatFieldRefInput",
+        },
+      ],
+    },
     "inputObjectTypes": {
       "prisma": [
         {
@@ -602,6 +972,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "namespace": "prisma",
                   "type": "SortOrder",
                 },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "SortOrderInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -651,7 +1027,11 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         },
         {
           "constraints": {
-            "maxNumFields": 1,
+            "fields": [
+              "id",
+              "email",
+            ],
+            "maxNumFields": null,
             "minNumFields": 1,
           },
           "fields": [
@@ -678,6 +1058,142 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isNullable": false,
               "isRequired": false,
               "name": "email",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "AND",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "OR",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "NOT",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "createdAt",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "StringNullableFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "name",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "StringFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "password",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFilter",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "permissions",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostListRelationFilter",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "posts",
             },
           ],
           "meta": {
@@ -737,6 +1253,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "enumTypes",
                   "namespace": "prisma",
                   "type": "SortOrder",
+                },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "SortOrderInput",
                 },
               ],
               "isNullable": false,
@@ -1184,7 +1706,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "inputObjectTypes",
                   "namespace": "prisma",
-                  "type": "UserRelationFilter",
+                  "type": "UserNullableRelationFilter",
                 },
                 {
                   "isList": false,
@@ -1261,6 +1783,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "namespace": "prisma",
                   "type": "SortOrder",
                 },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "SortOrderInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -1310,7 +1838,10 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         },
         {
           "constraints": {
-            "maxNumFields": 1,
+            "fields": [
+              "id",
+            ],
+            "maxNumFields": null,
             "minNumFields": 1,
           },
           "fields": [
@@ -1325,6 +1856,176 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isNullable": false,
               "isRequired": false,
               "name": "id",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostWhereInput",
+                },
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "AND",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "OR",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostWhereInput",
+                },
+                {
+                  "isList": true,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "PostWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "NOT",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "BoolFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Boolean",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "published",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "StringFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "title",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "IntNullableFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "authorId",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "createdAt",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "DateTime",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "updatedAt",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserNullableRelationFilter",
+                },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "author",
             },
           ],
           "meta": {
@@ -1384,6 +2085,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "enumTypes",
                   "namespace": "prisma",
                   "type": "SortOrder",
+                },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "SortOrderInput",
                 },
               ],
               "isNullable": false,
@@ -3102,6 +3809,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3116,8 +3829,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3133,8 +3847,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3148,6 +3863,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3159,6 +3880,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3172,6 +3899,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3183,6 +3916,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3223,6 +3962,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3237,8 +3982,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3254,8 +4000,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3269,6 +4016,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3280,6 +4033,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3293,6 +4052,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3304,6 +4069,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3344,6 +4115,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3358,8 +4135,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3375,8 +4153,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3390,6 +4169,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3401,6 +4186,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3414,6 +4205,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3425,6 +4222,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3438,6 +4241,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3450,6 +4259,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3461,6 +4276,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3516,6 +4337,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -3533,8 +4360,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -3555,8 +4383,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -3575,6 +4404,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3586,6 +4421,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3599,6 +4440,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3610,6 +4457,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3623,6 +4476,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3635,6 +4494,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3646,6 +4511,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3706,6 +4577,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "enumTypes",
                   "namespace": "prisma",
                   "type": "JsonNullValueFilter",
@@ -3734,6 +4611,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3745,6 +4628,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3758,6 +4647,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3769,6 +4664,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -3789,6 +4690,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -3803,6 +4710,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -3821,6 +4734,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3832,6 +4751,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -3845,6 +4770,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3857,6 +4788,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -3868,6 +4805,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -3930,6 +4873,41 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "name": "PostListRelationFilter",
+        },
+        {
+          "constraints": {
+            "maxNumFields": null,
+            "minNumFields": null,
+          },
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "enumTypes",
+                  "namespace": "prisma",
+                  "type": "SortOrder",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "sort",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "enumTypes",
+                  "namespace": "prisma",
+                  "type": "NullsOrder",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "nulls",
+            },
+          ],
+          "name": "SortOrderInput",
         },
         {
           "constraints": {
@@ -4245,6 +5223,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4259,8 +5243,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4276,8 +5261,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4291,6 +5277,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4302,6 +5294,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4315,6 +5313,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4326,6 +5330,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4431,6 +5441,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4445,8 +5461,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4462,8 +5479,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4477,6 +5495,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4488,6 +5512,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4501,6 +5531,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4512,6 +5548,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4591,6 +5633,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4605,8 +5653,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4622,8 +5671,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4637,6 +5687,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4648,6 +5704,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4661,6 +5723,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4672,6 +5740,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4685,6 +5759,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4697,6 +5777,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4708,6 +5794,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4802,6 +5894,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -4819,8 +5917,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -4841,8 +5940,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -4861,6 +5961,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4872,6 +5978,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4885,6 +5997,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4896,6 +6014,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -4909,6 +6033,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4921,6 +6051,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -4932,6 +6068,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5031,6 +6173,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "enumTypes",
                   "namespace": "prisma",
                   "type": "JsonNullValueFilter",
@@ -5059,6 +6207,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5070,6 +6224,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5083,6 +6243,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5094,6 +6260,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5114,6 +6286,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -5128,6 +6306,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5146,6 +6330,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5157,6 +6347,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5170,6 +6366,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5182,6 +6384,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5193,6 +6401,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5260,6 +6474,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Boolean",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "BooleanFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5301,6 +6521,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -5318,8 +6544,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5340,8 +6567,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5360,6 +6588,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5371,6 +6605,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5384,6 +6624,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5395,6 +6641,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5470,7 +6722,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "isNot",
             },
           ],
-          "name": "UserRelationFilter",
+          "name": "UserNullableRelationFilter",
         },
         {
           "constraints": {
@@ -5816,6 +7068,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Boolean",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "BooleanFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5896,6 +7154,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -5913,8 +7177,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5935,8 +7200,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -5955,6 +7221,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5966,6 +7238,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -5979,6 +7257,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -5990,6 +7274,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -6987,6 +8277,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Boolean",
                 },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -6998,6 +8294,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Boolean",
+                },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
                 },
               ],
               "isNullable": false,
@@ -7019,6 +8321,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
             {
               "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserUpdateToOneWithWhereWithoutPostsInput",
+                },
                 {
                   "isList": false,
                   "location": "inputObjectTypes",
@@ -7126,6 +8434,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7140,8 +8454,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7157,8 +8472,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7172,6 +8488,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7183,6 +8505,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7196,6 +8524,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7207,6 +8541,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7247,6 +8587,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7261,8 +8607,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7278,8 +8625,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7293,6 +8641,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7304,6 +8658,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7317,6 +8677,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7328,6 +8694,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7368,6 +8740,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7382,8 +8760,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7399,8 +8778,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7414,6 +8794,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7425,6 +8811,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7438,6 +8830,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7449,6 +8847,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7462,6 +8866,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7474,6 +8884,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7485,6 +8901,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7527,6 +8949,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -7544,8 +8972,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -7566,8 +8995,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -7586,6 +9016,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7597,6 +9033,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7610,6 +9052,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7621,6 +9069,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7634,6 +9088,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7646,6 +9106,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7657,6 +9123,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7702,6 +9174,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7716,8 +9194,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7733,8 +9212,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7748,6 +9228,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7759,6 +9245,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7772,6 +9264,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7783,6 +9281,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7888,6 +9392,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7902,8 +9412,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Float",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListFloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7919,8 +9430,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Float",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListFloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7934,6 +9446,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7945,6 +9463,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Float",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -7958,6 +9482,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -7969,6 +9499,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Float",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8009,6 +9545,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8023,8 +9565,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8040,8 +9583,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "DateTime",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListDateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8055,6 +9599,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8066,6 +9616,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8079,6 +9635,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "DateTime",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8090,6 +9652,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "DateTime",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "DateTimeFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8169,6 +9737,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8183,8 +9757,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8200,8 +9775,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8215,6 +9791,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8226,6 +9808,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8239,6 +9827,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8250,6 +9844,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8263,6 +9863,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8275,6 +9881,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8286,6 +9898,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8367,6 +9985,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -8384,8 +10008,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8406,8 +10031,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "String",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListStringFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8426,6 +10052,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8437,6 +10069,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8450,6 +10088,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8461,6 +10105,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8474,6 +10124,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8486,6 +10142,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8497,6 +10159,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8583,6 +10251,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -8600,8 +10274,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8622,8 +10297,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8642,6 +10318,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8653,6 +10335,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8666,6 +10354,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8677,6 +10371,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8724,6 +10424,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "enumTypes",
                   "namespace": "prisma",
                   "type": "JsonNullValueFilter",
@@ -8752,6 +10458,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8763,6 +10475,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "String",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8776,6 +10494,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "String",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "StringFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8787,6 +10511,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8807,6 +10537,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -8821,6 +10557,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8839,6 +10581,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8850,6 +10598,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8863,6 +10617,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8875,6 +10635,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Json",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -8886,6 +10652,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -8913,6 +10685,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Boolean",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "BooleanFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -8952,6 +10730,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Boolean",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "BooleanFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -9033,6 +10817,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -9050,8 +10840,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -9072,8 +10863,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Int",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListIntFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -9092,6 +10884,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -9103,6 +10901,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -9116,6 +10920,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Int",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -9127,6 +10937,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Int",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "IntFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -9239,6 +11055,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "Null",
                 },
@@ -9256,8 +11078,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Float",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListFloatFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -9278,8 +11101,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "isList": false,
-                  "location": "scalar",
-                  "type": "Float",
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "ListFloatFieldRefInput",
                 },
                 {
                   "isList": false,
@@ -9298,6 +11122,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -9309,6 +11139,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Float",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -9322,6 +11158,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "location": "scalar",
                   "type": "Float",
                 },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
+                },
               ],
               "isNullable": false,
               "isRequired": false,
@@ -9333,6 +11175,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "scalar",
                   "type": "Float",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "FloatFieldRefInput",
                 },
               ],
               "isNullable": false,
@@ -9704,7 +11552,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isList": false,
                   "location": "inputObjectTypes",
                   "namespace": "prisma",
-                  "type": "PostUncheckedUpdateManyWithoutPostsInput",
+                  "type": "PostUncheckedUpdateManyWithoutAuthorInput",
                 },
               ],
               "isNullable": false,
@@ -10147,8 +11995,62 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isRequired": true,
               "name": "create",
             },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "where",
+            },
           ],
           "name": "UserUpsertWithoutPostsInput",
+        },
+        {
+          "constraints": {
+            "maxNumFields": null,
+            "minNumFields": null,
+          },
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserWhereInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "where",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserUpdateWithoutPostsInput",
+                },
+                {
+                  "isList": false,
+                  "location": "inputObjectTypes",
+                  "namespace": "prisma",
+                  "type": "UserUncheckedUpdateWithoutPostsInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "data",
+            },
+          ],
+          "name": "UserUpdateToOneWithWhereWithoutPostsInput",
         },
         {
           "constraints": {
@@ -10722,7 +12624,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
-          "name": "PostUncheckedUpdateManyWithoutPostsInput",
+          "name": "PostUncheckedUpdateManyWithoutAuthorInput",
         },
       ],
     },
@@ -10864,6 +12766,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "inputTypes": [
                     {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "PostScalarFieldEnum",
+                    },
+                    {
                       "isList": true,
                       "location": "enumTypes",
                       "namespace": "prisma",
@@ -10961,7 +12869,21 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               },
             },
             {
-              "args": [],
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+              ],
               "isNullable": true,
               "name": "author",
               "outputType": {
@@ -11051,6 +12973,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "UserScalarFieldEnum",
+                    },
                     {
                       "isList": true,
                       "location": "enumTypes",
@@ -11146,6 +13074,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "inputTypes": [
                     {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "UserScalarFieldEnum",
+                    },
+                    {
                       "isList": true,
                       "location": "enumTypes",
                       "namespace": "prisma",
@@ -11239,6 +13173,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "UserScalarFieldEnum",
+                    },
                     {
                       "isList": true,
                       "location": "enumTypes",
@@ -11565,6 +13505,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "inputTypes": [
                     {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "PostScalarFieldEnum",
+                    },
+                    {
                       "isList": true,
                       "location": "enumTypes",
                       "namespace": "prisma",
@@ -11659,6 +13605,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 {
                   "inputTypes": [
                     {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "PostScalarFieldEnum",
+                    },
+                    {
                       "isList": true,
                       "location": "enumTypes",
                       "namespace": "prisma",
@@ -11752,6 +13704,12 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 },
                 {
                   "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "enumTypes",
+                      "namespace": "prisma",
+                      "type": "PostScalarFieldEnum",
+                    },
                     {
                       "isList": true,
                       "location": "enumTypes",
@@ -13010,7 +14968,21 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         {
           "fields": [
             {
-              "args": [],
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+              ],
               "isNullable": false,
               "name": "posts",
               "outputType": {

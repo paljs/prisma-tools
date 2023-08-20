@@ -29,15 +29,13 @@ export const useFilter = (init: any, setFilter: (value: any) => void, number?: b
     setFilter(search ?? undefined);
   };
 
-  const onChange: (options?: { event?: React.ChangeEvent<HTMLInputElement>; name?: string; value?: any }) => void = (
-    options,
-  ) => {
+  const onChange: (options?: { name?: string; value?: any; wait?: boolean }) => void = (options) => {
     if (!options) {
       setState({ value: {} });
       onChangeHandler({});
     } else if (options.name) {
-      const { event, name, value } = options;
-      const search: string = event?.target.value || value;
+      const { name, value, wait } = options;
+      const search: string = value;
       if (state.typingTimeout) clearTimeout(state.typingTimeout);
 
       const newValue = {
@@ -49,7 +47,7 @@ export const useFilter = (init: any, setFilter: (value: any) => void, number?: b
           function () {
             onChangeHandler(newValue);
           },
-          !event ? 1 : 1000,
+          !wait ? 1 : 1000,
         ),
       });
     }

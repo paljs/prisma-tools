@@ -48,11 +48,11 @@ export default gql\`
     permissions: Json!
     posts(
       where: PostWhereInput
-      orderBy: PostOrderByWithRelationInput
+      orderBy: [PostOrderByWithRelationInput]
       cursor: PostWhereUniqueInput
       take: Int
       skip: Int
-      distinct: PostScalarFieldEnum
+      distinct: [PostScalarFieldEnum]
     ): [Post!]!
     _count: UserCountOutputType!
   }
@@ -156,7 +156,7 @@ export default gql\`
     authorId: Int
     createdAt: DateTime!
     updatedAt: DateTime!
-    author: User
+    author(where: UserWhereInput): User
   }
 
   type Query {
@@ -268,11 +268,11 @@ export default gql\`
     permissions: Json!
     posts(
       where: PostWhereInput
-      orderBy: PostOrderByWithRelationInput
+      orderBy: [PostOrderByWithRelationInput]
       cursor: PostWhereUniqueInput
       take: Int
       skip: Int
-      distinct: PostScalarFieldEnum
+      distinct: [PostScalarFieldEnum]
     ): [Post!]!
     _count: UserCountOutputType!
   }

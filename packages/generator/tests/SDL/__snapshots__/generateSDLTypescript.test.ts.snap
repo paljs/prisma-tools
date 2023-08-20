@@ -57,7 +57,7 @@ export type Post = { [key: string]: Resolver<any, any, any> } & {
   authorId?: Resolver<Client.Post, {}, number | null>
   createdAt?: Resolver<Client.Post, {}, Date>
   updatedAt?: Resolver<Client.Post, {}, Date>
-  author?: Resolver<Client.Post, {}, Client.User | null>
+  author?: Resolver<Client.Post, PostAuthorArgs, Client.User | null>
 }
 
 export type Query = { [key: string]: Resolver<any, any, any> } & {
@@ -263,7 +263,11 @@ export type AffectedRowsOutput = { [key: string]: Resolver<any, any, any> } & {
 }
 
 export type UserCountOutputType = { [key: string]: Resolver<any, any, any> } & {
-  posts?: Resolver<Client.Prisma.UserCountOutputType, {}, number>
+  posts?: Resolver<
+    Client.Prisma.UserCountOutputType,
+    UserCountOutputTypePostsArgs,
+    number
+  >
 }
 
 export type UserCountAggregateOutputType = {
@@ -423,6 +427,10 @@ export interface UserPostsArgs {
   distinct?: PostScalarFieldEnum[] | null
 }
 
+export interface PostAuthorArgs {
+  where?: UserWhereInput | null
+}
+
 export interface FindFirstUserArgs {
   where?: UserWhereInput | null
   orderBy?: UserOrderByWithRelationInput[] | null
@@ -548,7 +556,7 @@ export interface UpsertOneUserArgs {
 }
 
 export interface CreateManyUserArgs {
-  data: UserCreateManyInput
+  data: UserCreateManyInput[]
   skipDuplicates?: boolean
 }
 
@@ -581,7 +589,7 @@ export interface UpsertOnePostArgs {
 }
 
 export interface CreateManyPostArgs {
-  data: PostCreateManyInput
+  data: PostCreateManyInput[]
   skipDuplicates?: boolean
 }
 
@@ -613,6 +621,10 @@ export interface QueryRawArgs {
   parameters?: any
 }
 
+export interface UserCountOutputTypePostsArgs {
+  where?: PostWhereInput
+}
+
 export interface UserWhereInput {
   AND?: UserWhereInput[]
   OR?: UserWhereInput[]
@@ -630,7 +642,7 @@ export interface UserOrderByWithRelationInput {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
-  name?: SortOrder
+  name?: SortOrderInput
   password?: SortOrder
   permissions?: SortOrder
   posts?: PostOrderByRelationAggregateInput
@@ -639,13 +651,21 @@ export interface UserOrderByWithRelationInput {
 export interface UserWhereUniqueInput {
   id?: number
   email?: string
+  AND?: UserWhereInput[]
+  OR?: UserWhereInput[]
+  NOT?: UserWhereInput[]
+  createdAt?: DateTimeFilter
+  name?: StringNullableFilter | null
+  password?: StringFilter
+  permissions?: JsonFilter
+  posts?: PostListRelationFilter
 }
 
 export interface UserOrderByWithAggregationInput {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
-  name?: SortOrder
+  name?: SortOrderInput
   password?: SortOrder
   permissions?: SortOrder
   _count?: UserCountOrderByAggregateInput
@@ -677,14 +697,14 @@ export interface PostWhereInput {
   authorId?: IntNullableFilter | null
   createdAt?: DateTimeFilter
   updatedAt?: DateTimeFilter
-  author?: UserWhereInput | null
+  author?: UserNullableRelationFilter | null
 }
 
 export interface PostOrderByWithRelationInput {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
-  authorId?: SortOrder
+  authorId?: SortOrderInput
   createdAt?: SortOrder
   updatedAt?: SortOrder
   author?: UserOrderByWithRelationInput
@@ -692,13 +712,22 @@ export interface PostOrderByWithRelationInput {
 
 export interface PostWhereUniqueInput {
   id?: number
+  AND?: PostWhereInput[]
+  OR?: PostWhereInput[]
+  NOT?: PostWhereInput[]
+  published?: BoolFilter
+  title?: StringFilter
+  authorId?: IntNullableFilter | null
+  createdAt?: DateTimeFilter
+  updatedAt?: DateTimeFilter
+  author?: UserNullableRelationFilter | null
 }
 
 export interface PostOrderByWithAggregationInput {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
-  authorId?: SortOrder
+  authorId?: SortOrderInput
   createdAt?: SortOrder
   updatedAt?: SortOrder
   _count?: PostCountOrderByAggregateInput
@@ -725,7 +754,7 @@ export interface UserCreateInput {
   email: string
   name?: string | null
   password: string
-  permissions?: JsonNullValueInput
+  permissions?: any
   posts?: PostCreateNestedManyWithoutAuthorInput
 }
 
@@ -735,7 +764,7 @@ export interface UserUncheckedCreateInput {
   email: string
   name?: string | null
   password: string
-  permissions?: JsonNullValueInput
+  permissions?: any
   posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -744,7 +773,7 @@ export interface UserUpdateInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
   posts?: PostUpdateManyWithoutAuthorNestedInput
 }
 
@@ -754,7 +783,7 @@ export interface UserUncheckedUpdateInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
   posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
@@ -764,7 +793,7 @@ export interface UserCreateManyInput {
   email: string
   name?: string | null
   password: string
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface UserUpdateManyMutationInput {
@@ -772,7 +801,7 @@ export interface UserUpdateManyMutationInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface UserUncheckedUpdateManyInput {
@@ -781,7 +810,7 @@ export interface UserUncheckedUpdateManyInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface PostCreateInput {
@@ -915,6 +944,11 @@ export interface PostListRelationFilter {
   every?: PostWhereInput
   some?: PostWhereInput
   none?: PostWhereInput
+}
+
+export interface SortOrderInput {
+  sort: SortOrder
+  nulls?: NullsOrder
 }
 
 export interface PostOrderByRelationAggregateInput {
@@ -1055,7 +1089,7 @@ export interface IntNullableFilter {
   not?: NestedIntNullableFilter | null
 }
 
-export interface UserRelationFilter {
+export interface UserNullableRelationFilter {
   is?: UserWhereInput | null
   isNot?: UserWhereInput | null
 }
@@ -1184,7 +1218,7 @@ export interface PostUncheckedUpdateManyWithoutAuthorNestedInput {
 }
 
 export interface UserCreateNestedOneWithoutPostsInput {
-  create?: UserUncheckedCreateWithoutPostsInput
+  create?: UserCreateWithoutPostsInput
   connectOrCreate?: UserCreateOrConnectWithoutPostsInput
   connect?: UserWhereUniqueInput
 }
@@ -1194,13 +1228,13 @@ export interface BoolFieldUpdateOperationsInput {
 }
 
 export interface UserUpdateOneWithoutPostsNestedInput {
-  create?: UserUncheckedCreateWithoutPostsInput
+  create?: UserCreateWithoutPostsInput
   connectOrCreate?: UserCreateOrConnectWithoutPostsInput
   upsert?: UserUpsertWithoutPostsInput
-  disconnect?: boolean
-  delete?: boolean
+  disconnect?: UserWhereInput
+  delete?: UserWhereInput
   connect?: UserWhereUniqueInput
-  update?: UserUncheckedUpdateWithoutPostsInput
+  update?: UserUpdateToOneWithWhereWithoutPostsInput
 }
 
 export interface NullableIntFieldUpdateOperationsInput {
@@ -1420,7 +1454,7 @@ export interface PostUncheckedCreateWithoutAuthorInput {
 
 export interface PostCreateOrConnectWithoutAuthorInput {
   where: PostWhereUniqueInput
-  create: PostUncheckedCreateWithoutAuthorInput
+  create: PostCreateWithoutAuthorInput
 }
 
 export interface PostCreateManyAuthorInputEnvelope {
@@ -1430,18 +1464,18 @@ export interface PostCreateManyAuthorInputEnvelope {
 
 export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
   where: PostWhereUniqueInput
-  update: PostUncheckedUpdateWithoutAuthorInput
-  create: PostUncheckedCreateWithoutAuthorInput
+  update: PostUpdateWithoutAuthorInput
+  create: PostCreateWithoutAuthorInput
 }
 
 export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
   where: PostWhereUniqueInput
-  data: PostUncheckedUpdateWithoutAuthorInput
+  data: PostUpdateWithoutAuthorInput
 }
 
 export interface PostUpdateManyWithWhereWithoutAuthorInput {
   where: PostScalarWhereInput
-  data: PostUncheckedUpdateManyWithoutPostsInput
+  data: PostUpdateManyMutationInput
 }
 
 export interface PostScalarWhereInput {
@@ -1461,7 +1495,7 @@ export interface UserCreateWithoutPostsInput {
   email: string
   name?: string | null
   password: string
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface UserUncheckedCreateWithoutPostsInput {
@@ -1470,17 +1504,23 @@ export interface UserUncheckedCreateWithoutPostsInput {
   email: string
   name?: string | null
   password: string
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface UserCreateOrConnectWithoutPostsInput {
   where: UserWhereUniqueInput
-  create: UserUncheckedCreateWithoutPostsInput
+  create: UserCreateWithoutPostsInput
 }
 
 export interface UserUpsertWithoutPostsInput {
-  update: UserUncheckedUpdateWithoutPostsInput
-  create: UserUncheckedCreateWithoutPostsInput
+  update: UserUpdateWithoutPostsInput
+  create: UserCreateWithoutPostsInput
+  where?: UserWhereInput
+}
+
+export interface UserUpdateToOneWithWhereWithoutPostsInput {
+  where?: UserWhereInput
+  data: UserUpdateWithoutPostsInput
 }
 
 export interface UserUpdateWithoutPostsInput {
@@ -1488,7 +1528,7 @@ export interface UserUpdateWithoutPostsInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface UserUncheckedUpdateWithoutPostsInput {
@@ -1497,7 +1537,7 @@ export interface UserUncheckedUpdateWithoutPostsInput {
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
   password?: StringFieldUpdateOperationsInput
-  permissions?: JsonNullValueInput
+  permissions?: any
 }
 
 export interface PostCreateManyAuthorInput {
@@ -1523,7 +1563,7 @@ export interface PostUncheckedUpdateWithoutAuthorInput {
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface PostUncheckedUpdateManyWithoutPostsInput {
+export interface PostUncheckedUpdateManyWithoutAuthorInput {
   id?: IntFieldUpdateOperationsInput
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
@@ -1531,30 +1571,6 @@ export interface PostUncheckedUpdateManyWithoutPostsInput {
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export enum JsonNullValueFilter {
-  DbNull = 'DbNull',
-  JsonNull = 'JsonNull',
-  AnyNull = 'AnyNull',
-}
-export enum JsonNullValueInput {
-  JsonNull = 'JsonNull',
-}
-export enum PostScalarFieldEnum {
-  id = 'id',
-  published = 'published',
-  title = 'title',
-  authorId = 'authorId',
-  createdAt = 'createdAt',
-  updatedAt = 'updatedAt',
-}
-export enum QueryMode {
-  default = 'default',
-  insensitive = 'insensitive',
-}
-export enum SortOrder {
-  asc = 'asc',
-  desc = 'desc',
-}
 export enum TransactionIsolationLevel {
   ReadUncommitted = 'ReadUncommitted',
   ReadCommitted = 'ReadCommitted',
@@ -1568,6 +1584,34 @@ export enum UserScalarFieldEnum {
   name = 'name',
   password = 'password',
   permissions = 'permissions',
+}
+export enum PostScalarFieldEnum {
+  id = 'id',
+  published = 'published',
+  title = 'title',
+  authorId = 'authorId',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+}
+export enum SortOrder {
+  asc = 'asc',
+  desc = 'desc',
+}
+export enum JsonNullValueInput {
+  JsonNull = 'JsonNull',
+}
+export enum QueryMode {
+  default = 'default',
+  insensitive = 'insensitive',
+}
+export enum JsonNullValueFilter {
+  DbNull = 'DbNull',
+  JsonNull = 'JsonNull',
+  AnyNull = 'AnyNull',
+}
+export enum NullsOrder {
+  first = 'first',
+  last = 'last',
 }
 "
 `;

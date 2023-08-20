@@ -76,11 +76,11 @@ export default gql\`
   extend type User {
     posts(
       where: PostWhereInput
-      orderBy: PostOrderByWithRelationInput
+      orderBy: [PostOrderByWithRelationInput]
       cursor: PostWhereUniqueInput
       take: Int
       skip: Int
-      distinct: PostScalarFieldEnum
+      distinct: [PostScalarFieldEnum]
     ): [Post!]!
   }
 
@@ -197,7 +197,7 @@ export default gql\`
   }
 
   extend type Post {
-    author: User
+    author(where: UserWhereInput): User
   }
 
   extend type Query {
@@ -329,11 +329,11 @@ export default gql\`
   extend type User {
     posts(
       where: PostWhereInput
-      orderBy: PostOrderByWithRelationInput
+      orderBy: [PostOrderByWithRelationInput]
       cursor: PostWhereUniqueInput
       take: Int
       skip: Int
-      distinct: PostScalarFieldEnum
+      distinct: [PostScalarFieldEnum]
     ): [Post!]!
   }
 
@@ -473,7 +473,7 @@ export default gql\`
   }
 
   extend type Post {
-    author: User
+    author(where: UserWhereInput): User
   }
 
   extend type Query {

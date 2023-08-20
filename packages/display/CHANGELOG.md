@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 6.0.0
+
+### Major Changes
+
+- Upgrade Prisma Version to V5 and fix all breaking changes
+
 ## 5.3.3
 
 ### Patch Changes

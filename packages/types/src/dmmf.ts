@@ -1,3 +1,3 @@
-import type { DMMF } from '@prisma/client/runtime';
+import type { DMMF } from '@prisma/generator-helper';
 
 export { DMMF };

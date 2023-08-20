@@ -149,7 +149,7 @@ export * from './findMany'
 export * from './aggregate'
 ",
     },
-    "type": "import { objectType } from 'nexus'
+    "type": "import { objectType, list } from 'nexus'
 
 export const User = objectType({
   nonNullDefaults: {
@@ -167,11 +167,11 @@ export const User = objectType({
       type: 'Post',
       args: {
         where: 'PostWhereInput',
-        orderBy: 'PostOrderByWithRelationInput',
+        orderBy: "list('PostOrderByWithRelationInput')",
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
-        distinct: 'PostScalarFieldEnum',
+        distinct: "list('PostScalarFieldEnum')",
       },
       resolve(root: any) {
         return root.posts
@@ -404,6 +404,7 @@ export const Post = objectType({
     t.field('updatedAt', { type: 'DateTime' })
     t.nullable.field('author', {
       type: 'User',
+      args: { where: 'UserWhereInput' },
       resolve(root: any) {
         return root.author
       },
@@ -607,7 +608,7 @@ export * from './findCount'
 export * from './aggregate'
 ",
     },
-    "type": "import { objectType } from 'nexus'
+    "type": "import { objectType, list } from 'nexus'
 
 export const User = objectType({
   nonNullDefaults: {
@@ -626,11 +627,11 @@ export const User = objectType({
       type: 'Post',
       args: {
         where: 'PostWhereInput',
-        orderBy: 'PostOrderByWithRelationInput',
+        orderBy: "list('PostOrderByWithRelationInput')",
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
-        distinct: 'PostScalarFieldEnum',
+        distinct: "list('PostScalarFieldEnum')",
       },
       resolve(root: any) {
         return root.posts

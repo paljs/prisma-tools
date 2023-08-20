@@ -183,7 +183,13 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({ filterValue, setFilter
         placeholder={lang[option.id as 'gt']}
         type={field.type === 'DateTime' ? 'date' : 'text'}
         value={value ? value[option.id] || '' : ''}
-        onChange={(event) => onChange({ event, name: option.id })}
+        onChange={(event) =>
+          onChange({
+            name: option.id,
+            value: field.type === 'DateTime' ? event.target.valueAsDate : event.target.value,
+            wait: true,
+          })
+        }
       />
     </>
   );

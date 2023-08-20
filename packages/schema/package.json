@@ -1,6 +1,6 @@
 {
   "name": "@paljs/schema",
-  "version": "5.3.3",
+  "version": "6.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -25,7 +25,7 @@
     "@paljs/utils": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.0.2"
+    "typescript": "^5.1.6"
   },
   "files": [
     "dist"

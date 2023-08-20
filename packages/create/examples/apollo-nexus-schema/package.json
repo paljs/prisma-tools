@@ -17,19 +17,19 @@
   },
   "dependencies": {
     "nexus": "1.x",
-    "@prisma/client": "4.x",
-    "@paljs/nexus": "5.3.3",
+    "@prisma/client": "5.x",
+    "@paljs/nexus": "6.0.0",
     "apollo-server": "3.x",
     "graphql": "16.x"
   },
   "devDependencies": {
-    "prisma": "4.x",
+    "prisma": "5.x",
     "@types/node": "18.x",
-    "@paljs/cli": "5.3.3",
+    "@paljs/cli": "6.0.0",
     "prettier": "2.x",
     "ts-node": "10.x",
     "ts-node-dev": "2.x",
-    "typescript": "4.x"
+    "typescript": "5.x"
   },
   "prettier": {
     "singleQuote": true,

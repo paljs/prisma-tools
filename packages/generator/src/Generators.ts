@@ -75,9 +75,10 @@ export class Generators {
 
   getNexusArgs(args: DMMF.SchemaArg[]) {
     const getType = (arg: DMMF.SchemaArg) => {
-      let type = `'${arg.inputTypes[0].type}'`;
+      const inputType = getInputType(arg, this.options);
+      let type = `'${inputType.type}'`;
 
-      if (arg.inputTypes[0].isList) {
+      if (inputType.isList) {
         type = `list(${type})`;
       }
 
@@ -96,13 +97,14 @@ export class Generators {
 
   getSDLArgs(args: DMMF.SchemaArg[]) {
     const getType = (arg: DMMF.SchemaArg) => {
-      let type = `${arg.inputTypes[0].type}`;
+      const inputType = getInputType(arg, this.options);
+      let type = `${inputType.type}`;
 
       if (arg.isRequired) {
         type = `${type}!`;
       }
 
-      if (arg.inputTypes[0].isList) {
+      if (inputType.isList) {
         type = `[${type}]`;
       }
 

@@ -9,13 +9,16 @@ export const getInputType = (field: DMMF.SchemaArg, options?: { doNotUseFieldUpd
   ) {
     return field.inputTypes[index];
   }
-  if (
-    field.inputTypes.length > 1 &&
-    (field.inputTypes[1].location === 'inputObjectTypes' ||
-      field.inputTypes[1].isList ||
-      field.inputTypes[1].type === 'Json')
-  ) {
-    index = 1;
+  if (field.inputTypes.length > 1) {
+    if (field.inputTypes.some((item) => item.isList && item.location === 'inputObjectTypes')) {
+      index = field.inputTypes.findIndex((item) => item.isList && item.location === 'inputObjectTypes');
+    } else if (field.inputTypes.some((item) => item.isList)) {
+      index = field.inputTypes.findIndex((item) => item.isList);
+    } else if (field.inputTypes.some((item) => item.location === 'inputObjectTypes')) {
+      index = field.inputTypes.findIndex((item) => item.location === 'inputObjectTypes');
+    } else if (field.inputTypes.some((item) => item.type === 'Json')) {
+      index = field.inputTypes.findIndex((item) => item.type === 'Json');
+    }
   }
   return field.inputTypes[index];
 };

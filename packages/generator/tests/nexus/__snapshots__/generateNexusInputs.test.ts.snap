@@ -3,31 +3,6 @@
 exports[`Generate Nexus Inputs Should back with all inputs types 1`] = `
 "import { enumType, inputObjectType, objectType } from 'nexus'
 
-export const JsonNullValueFilter = enumType({
-  name: 'JsonNullValueFilter',
-  members: ['DbNull', 'JsonNull', 'AnyNull'],
-})
-
-export const JsonNullValueInput = enumType({
-  name: 'JsonNullValueInput',
-  members: ['JsonNull'],
-})
-
-export const PostScalarFieldEnum = enumType({
-  name: 'PostScalarFieldEnum',
-  members: ['id', 'published', 'title', 'authorId', 'createdAt', 'updatedAt'],
-})
-
-export const QueryMode = enumType({
-  name: 'QueryMode',
-  members: ['default', 'insensitive'],
-})
-
-export const SortOrder = enumType({
-  name: 'SortOrder',
-  members: ['asc', 'desc'],
-})
-
 export const TransactionIsolationLevel = enumType({
   name: 'TransactionIsolationLevel',
   members: [
@@ -41,6 +16,36 @@ export const TransactionIsolationLevel = enumType({
 export const UserScalarFieldEnum = enumType({
   name: 'UserScalarFieldEnum',
   members: ['id', 'createdAt', 'email', 'name', 'password', 'permissions'],
+})
+
+export const PostScalarFieldEnum = enumType({
+  name: 'PostScalarFieldEnum',
+  members: ['id', 'published', 'title', 'authorId', 'createdAt', 'updatedAt'],
+})
+
+export const SortOrder = enumType({
+  name: 'SortOrder',
+  members: ['asc', 'desc'],
+})
+
+export const JsonNullValueInput = enumType({
+  name: 'JsonNullValueInput',
+  members: ['JsonNull'],
+})
+
+export const QueryMode = enumType({
+  name: 'QueryMode',
+  members: ['default', 'insensitive'],
+})
+
+export const JsonNullValueFilter = enumType({
+  name: 'JsonNullValueFilter',
+  members: ['DbNull', 'JsonNull', 'AnyNull'],
+})
+
+export const NullsOrder = enumType({
+  name: 'NullsOrder',
+  members: ['first', 'last'],
 })
 
 export const UserWhereInput = inputObjectType({
@@ -71,7 +76,7 @@ export const UserOrderByWithRelationInput = inputObjectType({
     t.field('id', { type: 'SortOrder' })
     t.field('createdAt', { type: 'SortOrder' })
     t.field('email', { type: 'SortOrder' })
-    t.field('name', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrderInput' })
     t.field('password', { type: 'SortOrder' })
     t.field('permissions', { type: 'SortOrder' })
     t.field('posts', { type: 'PostOrderByRelationAggregateInput' })
@@ -86,6 +91,14 @@ export const UserWhereUniqueInput = inputObjectType({
   definition(t) {
     t.field('id', { type: 'Int' })
     t.field('email', { type: 'String' })
+    t.list.field('AND', { type: 'UserWhereInput' })
+    t.list.field('OR', { type: 'UserWhereInput' })
+    t.list.field('NOT', { type: 'UserWhereInput' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('name', { type: 'StringNullableFilter' })
+    t.field('password', { type: 'StringFilter' })
+    t.field('permissions', { type: 'JsonFilter' })
+    t.field('posts', { type: 'PostListRelationFilter' })
   },
 })
 
@@ -98,7 +111,7 @@ export const UserOrderByWithAggregationInput = inputObjectType({
     t.field('id', { type: 'SortOrder' })
     t.field('createdAt', { type: 'SortOrder' })
     t.field('email', { type: 'SortOrder' })
-    t.field('name', { type: 'SortOrder' })
+    t.field('name', { type: 'SortOrderInput' })
     t.field('password', { type: 'SortOrder' })
     t.field('permissions', { type: 'SortOrder' })
     t.field('_count', { type: 'UserCountOrderByAggregateInput' })
@@ -142,7 +155,7 @@ export const PostWhereInput = inputObjectType({
     t.field('authorId', { type: 'IntNullableFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
-    t.field('author', { type: 'UserWhereInput' })
+    t.field('author', { type: 'UserNullableRelationFilter' })
   },
 })
 
@@ -155,7 +168,7 @@ export const PostOrderByWithRelationInput = inputObjectType({
     t.field('id', { type: 'SortOrder' })
     t.field('published', { type: 'SortOrder' })
     t.field('title', { type: 'SortOrder' })
-    t.field('authorId', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrderInput' })
     t.field('createdAt', { type: 'SortOrder' })
     t.field('updatedAt', { type: 'SortOrder' })
     t.field('author', { type: 'UserOrderByWithRelationInput' })
@@ -169,6 +182,15 @@ export const PostWhereUniqueInput = inputObjectType({
   name: 'PostWhereUniqueInput',
   definition(t) {
     t.field('id', { type: 'Int' })
+    t.list.field('AND', { type: 'PostWhereInput' })
+    t.list.field('OR', { type: 'PostWhereInput' })
+    t.list.field('NOT', { type: 'PostWhereInput' })
+    t.field('published', { type: 'BoolFilter' })
+    t.field('title', { type: 'StringFilter' })
+    t.field('authorId', { type: 'IntNullableFilter' })
+    t.field('createdAt', { type: 'DateTimeFilter' })
+    t.field('updatedAt', { type: 'DateTimeFilter' })
+    t.field('author', { type: 'UserNullableRelationFilter' })
   },
 })
 
@@ -181,7 +203,7 @@ export const PostOrderByWithAggregationInput = inputObjectType({
     t.field('id', { type: 'SortOrder' })
     t.field('published', { type: 'SortOrder' })
     t.field('title', { type: 'SortOrder' })
-    t.field('authorId', { type: 'SortOrder' })
+    t.field('authorId', { type: 'SortOrderInput' })
     t.field('createdAt', { type: 'SortOrder' })
     t.field('updatedAt', { type: 'SortOrder' })
     t.field('_count', { type: 'PostCountOrderByAggregateInput' })
@@ -531,6 +553,17 @@ export const PostListRelationFilter = inputObjectType({
   },
 })
 
+export const SortOrderInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'SortOrderInput',
+  definition(t) {
+    t.nonNull.field('sort', { type: 'SortOrder' })
+    t.field('nulls', { type: 'NullsOrder' })
+  },
+})
+
 export const PostOrderByRelationAggregateInput = inputObjectType({
   nonNullDefaults: {
     input: false,
@@ -747,11 +780,11 @@ export const IntNullableFilter = inputObjectType({
   },
 })
 
-export const UserRelationFilter = inputObjectType({
+export const UserNullableRelationFilter = inputObjectType({
   nonNullDefaults: {
     input: false,
   },
-  name: 'UserRelationFilter',
+  name: 'UserNullableRelationFilter',
   definition(t) {
     t.field('is', { type: 'UserWhereInput' })
     t.field('isNot', { type: 'UserWhereInput' })
@@ -997,7 +1030,7 @@ export const UserCreateNestedOneWithoutPostsInput = inputObjectType({
   },
   name: 'UserCreateNestedOneWithoutPostsInput',
   definition(t) {
-    t.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.field('create', { type: 'UserCreateWithoutPostsInput' })
     t.field('connectOrCreate', { type: 'UserCreateOrConnectWithoutPostsInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
   },
@@ -1019,13 +1052,13 @@ export const UserUpdateOneWithoutPostsNestedInput = inputObjectType({
   },
   name: 'UserUpdateOneWithoutPostsNestedInput',
   definition(t) {
-    t.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.field('create', { type: 'UserCreateWithoutPostsInput' })
     t.field('connectOrCreate', { type: 'UserCreateOrConnectWithoutPostsInput' })
     t.field('upsert', { type: 'UserUpsertWithoutPostsInput' })
-    t.field('disconnect', { type: 'Boolean' })
-    t.field('delete', { type: 'Boolean' })
+    t.field('disconnect', { type: 'UserWhereInput' })
+    t.field('delete', { type: 'UserWhereInput' })
     t.field('connect', { type: 'UserWhereUniqueInput' })
-    t.field('update', { type: 'UserUncheckedUpdateWithoutPostsInput' })
+    t.field('update', { type: 'UserUpdateToOneWithWhereWithoutPostsInput' })
   },
 })
 
@@ -1359,7 +1392,7 @@ export const PostCreateOrConnectWithoutAuthorInput = inputObjectType({
   name: 'PostCreateOrConnectWithoutAuthorInput',
   definition(t) {
     t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
-    t.nonNull.field('create', { type: 'PostUncheckedCreateWithoutAuthorInput' })
+    t.nonNull.field('create', { type: 'PostCreateWithoutAuthorInput' })
   },
 })
 
@@ -1381,8 +1414,8 @@ export const PostUpsertWithWhereUniqueWithoutAuthorInput = inputObjectType({
   name: 'PostUpsertWithWhereUniqueWithoutAuthorInput',
   definition(t) {
     t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
-    t.nonNull.field('update', { type: 'PostUncheckedUpdateWithoutAuthorInput' })
-    t.nonNull.field('create', { type: 'PostUncheckedCreateWithoutAuthorInput' })
+    t.nonNull.field('update', { type: 'PostUpdateWithoutAuthorInput' })
+    t.nonNull.field('create', { type: 'PostCreateWithoutAuthorInput' })
   },
 })
 
@@ -1393,7 +1426,7 @@ export const PostUpdateWithWhereUniqueWithoutAuthorInput = inputObjectType({
   name: 'PostUpdateWithWhereUniqueWithoutAuthorInput',
   definition(t) {
     t.nonNull.field('where', { type: 'PostWhereUniqueInput' })
-    t.nonNull.field('data', { type: 'PostUncheckedUpdateWithoutAuthorInput' })
+    t.nonNull.field('data', { type: 'PostUpdateWithoutAuthorInput' })
   },
 })
 
@@ -1404,9 +1437,7 @@ export const PostUpdateManyWithWhereWithoutAuthorInput = inputObjectType({
   name: 'PostUpdateManyWithWhereWithoutAuthorInput',
   definition(t) {
     t.nonNull.field('where', { type: 'PostScalarWhereInput' })
-    t.nonNull.field('data', {
-      type: 'PostUncheckedUpdateManyWithoutPostsInput',
-    })
+    t.nonNull.field('data', { type: 'PostUpdateManyMutationInput' })
   },
 })
 
@@ -1464,7 +1495,7 @@ export const UserCreateOrConnectWithoutPostsInput = inputObjectType({
   name: 'UserCreateOrConnectWithoutPostsInput',
   definition(t) {
     t.nonNull.field('where', { type: 'UserWhereUniqueInput' })
-    t.nonNull.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.nonNull.field('create', { type: 'UserCreateWithoutPostsInput' })
   },
 })
 
@@ -1474,8 +1505,20 @@ export const UserUpsertWithoutPostsInput = inputObjectType({
   },
   name: 'UserUpsertWithoutPostsInput',
   definition(t) {
-    t.nonNull.field('update', { type: 'UserUncheckedUpdateWithoutPostsInput' })
-    t.nonNull.field('create', { type: 'UserUncheckedCreateWithoutPostsInput' })
+    t.nonNull.field('update', { type: 'UserUpdateWithoutPostsInput' })
+    t.nonNull.field('create', { type: 'UserCreateWithoutPostsInput' })
+    t.field('where', { type: 'UserWhereInput' })
+  },
+})
+
+export const UserUpdateToOneWithWhereWithoutPostsInput = inputObjectType({
+  nonNullDefaults: {
+    input: false,
+  },
+  name: 'UserUpdateToOneWithWhereWithoutPostsInput',
+  definition(t) {
+    t.field('where', { type: 'UserWhereInput' })
+    t.nonNull.field('data', { type: 'UserUpdateWithoutPostsInput' })
   },
 })
 
@@ -1549,11 +1592,11 @@ export const PostUncheckedUpdateWithoutAuthorInput = inputObjectType({
   },
 })
 
-export const PostUncheckedUpdateManyWithoutPostsInput = inputObjectType({
+export const PostUncheckedUpdateManyWithoutAuthorInput = inputObjectType({
   nonNullDefaults: {
     input: false,
   },
-  name: 'PostUncheckedUpdateManyWithoutPostsInput',
+  name: 'PostUncheckedUpdateManyWithoutAuthorInput',
   definition(t) {
     t.field('id', { type: 'IntFieldUpdateOperationsInput' })
     t.field('published', { type: 'BoolFieldUpdateOperationsInput' })

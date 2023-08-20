@@ -43,7 +43,8 @@ export class GenerateNexus extends Generators {
       }
       const dataModel = this.dataModel(dataModels.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
-      let fileContent = `${this.getImport('{ objectType }', 'nexus')}\n\n`;
+      const hasList = model.fields.find((f) => f.outputType.isList);
+      let fileContent = `${this.getImport(`{ objectType${hasList ? ', list' : ''} }`, 'nexus')}\n\n`;
       fileContent += `${!this.isJS ? 'export ' : ''}const ${model.name} = objectType({
         nonNullDefaults: {
           output: true,
@@ -250,7 +251,8 @@ export class GenerateNexus extends Generators {
     if (field.args.length > 0) {
       field.args.forEach((arg) => {
         if (!options['args']) options['args'] = {};
-        options['args'][arg.name] = arg.inputTypes[0].type;
+        const inputType = getInputType(arg, this.options);
+        options['args'][arg.name] = inputType.isList ? `list('${inputType.type}')` : inputType.type;
       });
     }
     let toString = JSON.stringify(options);

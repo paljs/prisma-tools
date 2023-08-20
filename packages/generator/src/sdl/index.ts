@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
 import { GenerateTypes } from './GenerateTypes';
+import { getInputType } from '@paljs/utils';
 
 export class GenerateSdl extends Generators {
   generatedText: {
@@ -56,7 +57,8 @@ export class GenerateSdl extends Generators {
           if (field.args.length > 0) {
             fileContent += '(';
             field.args.forEach((arg) => {
-              fileContent += `${arg.name}: ${arg.inputTypes[0].type}
+              const inputType = getInputType(arg, this.options);
+              fileContent += `${arg.name}: ${inputType.isList ? `[${inputType.type}]` : inputType.type}
               `;
             });
             fileContent += ')';

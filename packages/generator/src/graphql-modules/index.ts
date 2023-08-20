@@ -2,6 +2,7 @@ import { GeneratorOptions, DMMF } from '@paljs/types';
 import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
+import { getInputType } from '@paljs/utils';
 
 export class GenerateModules extends Generators {
   generatedText: {
@@ -51,13 +52,13 @@ export class GenerateModules extends Generators {
                 .find((item) => item.name === dataField.type)
                 ?.fields.filter((item) => item.outputType.type === model.name)
                 .forEach((item) => {
-                  extendsTypes = getField(item, extendsTypes, fieldDocs);
+                  extendsTypes = this.getField(item, extendsTypes, fieldDocs);
                 });
 
               extendsTypes += `}\n\n`;
             }
           } else {
-            fileContent = getField(field, fileContent, fieldDocs);
+            fileContent = this.getField(field, fileContent, fieldDocs);
           }
         }
       });
@@ -150,6 +151,26 @@ export class GenerateModules extends Generators {
       writeFileSync(this.indexPath, content);
     }
   }
+
+  getField(field: DMMF.SchemaField, content: string, docs?: string) {
+    content += `
+  ${docs ? `"""${docs}"""\n` : ''}${field.name}`;
+    if (field.args.length > 0) {
+      content += '(';
+      field.args.forEach((arg) => {
+        const inputType = getInputType(arg, this.options);
+        content += `${arg.name}: ${inputType.isList ? `[${inputType.type}]` : inputType.type}
+              `;
+      });
+      content += ')';
+    }
+    content += `: ${
+      field.outputType.isList
+        ? `[${field.outputType.type}!]!`
+        : `${field.outputType.type}${!field.isNullable ? '!' : ''}`
+    }`;
+    return content;
+  }
 }
 
 const getModule = (name: string) => {
@@ -163,23 +184,6 @@ export const ${name}Module = createModule({
   resolvers,
 });
 `;
-};
-
-const getField = (field: DMMF.SchemaField, content: string, docs?: string) => {
-  content += `
-  ${docs ? `"""${docs}"""\n` : ''}${field.name}`;
-  if (field.args.length > 0) {
-    content += '(';
-    field.args.forEach((arg) => {
-      content += `${arg.name}: ${arg.inputTypes[0].type}
-              `;
-    });
-    content += ')';
-  }
-  content += `: ${
-    field.outputType.isList ? `[${field.outputType.type}!]!` : `${field.outputType.type}${!field.isNullable ? '!' : ''}`
-  }`;
-  return content;
 };
 
 const App = (modules: string[], index: string) => {

@@ -1,7 +1,7 @@
 {
   "name": "@paljs/cli",
   "description": "Pal cli will be your friend in developing nodejs full-stack projects to auto generate everything for you",
-  "version": "5.3.3",
+  "version": "6.0.0",
   "author": "Ahmed Elewa @AhmedElywa",
   "bin": {
     "pal": "./bin/run"
@@ -38,7 +38,7 @@
     "shx": "^0.3.3",
     "ts-node": "^10",
     "tslib": "^2.3.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=12.0.0"

@@ -1,6 +1,6 @@
 {
   "name": "@paljs/types",
-  "version": "5.3.3",
+  "version": "6.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -20,8 +20,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/client": "^4.15.0",
-    "typescript": "^5.0.2"
+    "@prisma/generator-helper": "^5.1.1",
+    "typescript": "^5.1.6"
   },
   "files": [
     "dist"

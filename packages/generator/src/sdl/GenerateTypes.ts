@@ -1,5 +1,6 @@
 import { GeneratorOptions, DMMF } from '@paljs/types';
 import { format } from 'prettier';
+import { getInputType } from '@paljs/utils';
 
 export class GenerateTypes {
   code: string[] = [
@@ -59,7 +60,7 @@ export class GenerateTypes {
     if (inputType) {
       if (inputType.fields.length === 0) return true;
       for (const field of inputType.fields) {
-        const fieldType = this.getInputType(field);
+        const fieldType = getInputType(field, this.options);
         if (
           fieldType.type !== type &&
           fieldType.location === 'inputObjectTypes' &&
@@ -71,21 +72,6 @@ export class GenerateTypes {
       }
     }
     return false;
-  }
-
-  getInputType(field: DMMF.SchemaArg) {
-    let index = 0;
-    if (
-      this.options.doNotUseFieldUpdateOperationsInput &&
-      field.inputTypes.length > 1 &&
-      (field.inputTypes[1].type as string).endsWith('FieldUpdateOperationsInput')
-    ) {
-      return field.inputTypes[index];
-    }
-    if (field.inputTypes.length > 1 && field.inputTypes[1].location === 'inputObjectTypes') {
-      index = 1;
-    }
-    return field.inputTypes[index];
   }
 
   getOutput(typeName: string) {
@@ -133,8 +119,9 @@ export class GenerateTypes {
         if (argsType !== '{}') {
           const args: string[] = [`export interface ${argsType} {`];
           field.args.forEach((arg) => {
+            const inputType = getInputType(arg, this.options);
             args.push(
-              `${arg.name}${arg.isRequired ? '' : '?'}: ${this.getOutputType(arg.inputTypes[0], true)}${
+              `${arg.name}${arg.isRequired ? '' : '?'}: ${this.getOutputType(inputType, true)}${
                 field.isNullable ? ' | null' : ''
               }`,
             );
@@ -164,7 +151,7 @@ export class GenerateTypes {
       if (input.fields.length > 0) {
         const fields: string[] = [`export interface ${input.name} {`];
         input.fields.forEach((field) => {
-          const inputType = this.getInputType(field);
+          const inputType = getInputType(field, this.options);
           const hasEmptyType =
             inputType.location === 'inputObjectTypes' && this.hasEmptyTypeFields(inputType.type as string);
           if (!hasEmptyType) {

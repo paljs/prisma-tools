@@ -9,35 +9,6 @@ export default gql\`
     count: Int!
   }
 
-  enum JsonNullValueFilter {
-    DbNull
-    JsonNull
-    AnyNull
-  }
-
-  enum JsonNullValueInput {
-    JsonNull
-  }
-
-  enum PostScalarFieldEnum {
-    id
-    published
-    title
-    authorId
-    createdAt
-    updatedAt
-  }
-
-  enum QueryMode {
-    default
-    insensitive
-  }
-
-  enum SortOrder {
-    asc
-    desc
-  }
-
   enum TransactionIsolationLevel {
     ReadUncommitted
     ReadCommitted
@@ -52,6 +23,40 @@ export default gql\`
     name
     password
     permissions
+  }
+
+  enum PostScalarFieldEnum {
+    id
+    published
+    title
+    authorId
+    createdAt
+    updatedAt
+  }
+
+  enum SortOrder {
+    asc
+    desc
+  }
+
+  enum JsonNullValueInput {
+    JsonNull
+  }
+
+  enum QueryMode {
+    default
+    insensitive
+  }
+
+  enum JsonNullValueFilter {
+    DbNull
+    JsonNull
+    AnyNull
+  }
+
+  enum NullsOrder {
+    first
+    last
   }
 
   input UserWhereInput {
@@ -71,7 +76,7 @@ export default gql\`
     id: SortOrder
     createdAt: SortOrder
     email: SortOrder
-    name: SortOrder
+    name: SortOrderInput
     password: SortOrder
     permissions: SortOrder
     posts: PostOrderByRelationAggregateInput
@@ -80,13 +85,21 @@ export default gql\`
   input UserWhereUniqueInput {
     id: Int
     email: String
+    AND: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    createdAt: DateTimeFilter
+    name: StringNullableFilter
+    password: StringFilter
+    permissions: JsonFilter
+    posts: PostListRelationFilter
   }
 
   input UserOrderByWithAggregationInput {
     id: SortOrder
     createdAt: SortOrder
     email: SortOrder
-    name: SortOrder
+    name: SortOrderInput
     password: SortOrder
     permissions: SortOrder
     _count: UserCountOrderByAggregateInput
@@ -118,14 +131,14 @@ export default gql\`
     authorId: IntNullableFilter
     createdAt: DateTimeFilter
     updatedAt: DateTimeFilter
-    author: UserWhereInput
+    author: UserNullableRelationFilter
   }
 
   input PostOrderByWithRelationInput {
     id: SortOrder
     published: SortOrder
     title: SortOrder
-    authorId: SortOrder
+    authorId: SortOrderInput
     createdAt: SortOrder
     updatedAt: SortOrder
     author: UserOrderByWithRelationInput
@@ -133,13 +146,22 @@ export default gql\`
 
   input PostWhereUniqueInput {
     id: Int
+    AND: [PostWhereInput!]
+    OR: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    published: BoolFilter
+    title: StringFilter
+    authorId: IntNullableFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    author: UserNullableRelationFilter
   }
 
   input PostOrderByWithAggregationInput {
     id: SortOrder
     published: SortOrder
     title: SortOrder
-    authorId: SortOrder
+    authorId: SortOrderInput
     createdAt: SortOrder
     updatedAt: SortOrder
     _count: PostCountOrderByAggregateInput
@@ -358,6 +380,11 @@ export default gql\`
     none: PostWhereInput
   }
 
+  input SortOrderInput {
+    sort: SortOrder!
+    nulls: NullsOrder
+  }
+
   input PostOrderByRelationAggregateInput {
     _count: SortOrder
   }
@@ -496,7 +523,7 @@ export default gql\`
     not: NestedIntNullableFilter
   }
 
-  input UserRelationFilter {
+  input UserNullableRelationFilter {
     is: UserWhereInput
     isNot: UserWhereInput
   }
@@ -625,7 +652,7 @@ export default gql\`
   }
 
   input UserCreateNestedOneWithoutPostsInput {
-    create: UserUncheckedCreateWithoutPostsInput
+    create: UserCreateWithoutPostsInput
     connectOrCreate: UserCreateOrConnectWithoutPostsInput
     connect: UserWhereUniqueInput
   }
@@ -635,13 +662,13 @@ export default gql\`
   }
 
   input UserUpdateOneWithoutPostsNestedInput {
-    create: UserUncheckedCreateWithoutPostsInput
+    create: UserCreateWithoutPostsInput
     connectOrCreate: UserCreateOrConnectWithoutPostsInput
     upsert: UserUpsertWithoutPostsInput
-    disconnect: Boolean
-    delete: Boolean
+    disconnect: UserWhereInput
+    delete: UserWhereInput
     connect: UserWhereUniqueInput
-    update: UserUncheckedUpdateWithoutPostsInput
+    update: UserUpdateToOneWithWhereWithoutPostsInput
   }
 
   input NullableIntFieldUpdateOperationsInput {
@@ -861,7 +888,7 @@ export default gql\`
 
   input PostCreateOrConnectWithoutAuthorInput {
     where: PostWhereUniqueInput!
-    create: PostUncheckedCreateWithoutAuthorInput!
+    create: PostCreateWithoutAuthorInput!
   }
 
   input PostCreateManyAuthorInputEnvelope {
@@ -871,18 +898,18 @@ export default gql\`
 
   input PostUpsertWithWhereUniqueWithoutAuthorInput {
     where: PostWhereUniqueInput!
-    update: PostUncheckedUpdateWithoutAuthorInput!
-    create: PostUncheckedCreateWithoutAuthorInput!
+    update: PostUpdateWithoutAuthorInput!
+    create: PostCreateWithoutAuthorInput!
   }
 
   input PostUpdateWithWhereUniqueWithoutAuthorInput {
     where: PostWhereUniqueInput!
-    data: PostUncheckedUpdateWithoutAuthorInput!
+    data: PostUpdateWithoutAuthorInput!
   }
 
   input PostUpdateManyWithWhereWithoutAuthorInput {
     where: PostScalarWhereInput!
-    data: PostUncheckedUpdateManyWithoutPostsInput!
+    data: PostUpdateManyMutationInput!
   }
 
   input PostScalarWhereInput {
@@ -916,12 +943,18 @@ export default gql\`
 
   input UserCreateOrConnectWithoutPostsInput {
     where: UserWhereUniqueInput!
-    create: UserUncheckedCreateWithoutPostsInput!
+    create: UserCreateWithoutPostsInput!
   }
 
   input UserUpsertWithoutPostsInput {
-    update: UserUncheckedUpdateWithoutPostsInput!
-    create: UserUncheckedCreateWithoutPostsInput!
+    update: UserUpdateWithoutPostsInput!
+    create: UserCreateWithoutPostsInput!
+    where: UserWhereInput
+  }
+
+  input UserUpdateToOneWithWhereWithoutPostsInput {
+    where: UserWhereInput
+    data: UserUpdateWithoutPostsInput!
   }
 
   input UserUpdateWithoutPostsInput {
@@ -964,7 +997,7 @@ export default gql\`
     updatedAt: DateTimeFieldUpdateOperationsInput
   }
 
-  input PostUncheckedUpdateManyWithoutPostsInput {
+  input PostUncheckedUpdateManyWithoutAuthorInput {
     id: IntFieldUpdateOperationsInput
     published: BoolFieldUpdateOperationsInput
     title: StringFieldUpdateOperationsInput
