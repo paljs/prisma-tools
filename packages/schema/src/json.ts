@@ -37,8 +37,8 @@ export class ConvertSchemaToObject extends PrismaReader {
             const field: Field = {
               name: line[0],
               type,
-              isId: line.includes('@id'),
-              unique: line.includes('@unique'),
+              isId: !!line.find(part => part.startsWith('@id')),
+              unique: !!line.find(part => part.startsWith('@unique')),
               list: line[1].includes('[]'),
               required: !line[1].includes('[]') && !line[1].includes('?'),
               kind: this.getKind(type),
