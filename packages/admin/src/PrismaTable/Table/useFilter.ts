@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useFilter = (init: any, setFilter: (value: any) => void, number?: boolean) => {
   const [state, setState] = useState<{
