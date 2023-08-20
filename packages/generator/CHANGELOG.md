@@ -1,5 +1,15 @@
 # @paljs/generator
 
+## 6.0.1
+
+### Patch Changes
+
+- fix nexus generate types args
+- Updated dependencies
+  - @paljs/schema@6.0.1
+  - @paljs/types@6.0.1
+  - @paljs/utils@6.0.1
+
 ## 6.0.0
 
 ### Major Changes

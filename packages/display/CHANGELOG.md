@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 6.0.1
+
+### Patch Changes
+
+- fix nexus generate types args
+
 ## 6.0.0
 
 ### Major Changes
