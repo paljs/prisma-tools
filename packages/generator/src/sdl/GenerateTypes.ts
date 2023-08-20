@@ -122,7 +122,7 @@ export class GenerateTypes {
             const inputType = getInputType(arg, this.options);
             args.push(
               `${arg.name}${arg.isRequired ? '' : '?'}: ${this.getOutputType(inputType, true)}${
-                field.isNullable ? ' | null' : ''
+                arg.isNullable ? ' | null' : ''
               }`,
             );
           });
