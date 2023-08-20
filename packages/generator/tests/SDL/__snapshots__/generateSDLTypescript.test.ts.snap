@@ -419,34 +419,34 @@ export type PostMaxAggregateOutputType = {
 }
 
 export interface UserPostsArgs {
-  where?: PostWhereInput | null
-  orderBy?: PostOrderByWithRelationInput[] | null
-  cursor?: PostWhereUniqueInput | null
-  take?: number | null
-  skip?: number | null
-  distinct?: PostScalarFieldEnum[] | null
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithRelationInput[]
+  cursor?: PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: PostScalarFieldEnum[]
 }
 
 export interface PostAuthorArgs {
-  where?: UserWhereInput | null
+  where?: UserWhereInput
 }
 
 export interface FindFirstUserArgs {
-  where?: UserWhereInput | null
-  orderBy?: UserOrderByWithRelationInput[] | null
-  cursor?: UserWhereUniqueInput | null
-  take?: number | null
-  skip?: number | null
-  distinct?: UserScalarFieldEnum[] | null
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithRelationInput[]
+  cursor?: UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: UserScalarFieldEnum[]
 }
 
 export interface FindFirstUserOrThrowArgs {
-  where?: UserWhereInput | null
-  orderBy?: UserOrderByWithRelationInput[] | null
-  cursor?: UserWhereUniqueInput | null
-  take?: number | null
-  skip?: number | null
-  distinct?: UserScalarFieldEnum[] | null
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithRelationInput[]
+  cursor?: UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: UserScalarFieldEnum[]
 }
 
 export interface FindManyUserArgs {
@@ -481,29 +481,29 @@ export interface GroupByUserArgs {
 }
 
 export interface FindUniqueUserArgs {
-  where: UserWhereUniqueInput | null
+  where: UserWhereUniqueInput
 }
 
 export interface FindUniqueUserOrThrowArgs {
-  where: UserWhereUniqueInput | null
+  where: UserWhereUniqueInput
 }
 
 export interface FindFirstPostArgs {
-  where?: PostWhereInput | null
-  orderBy?: PostOrderByWithRelationInput[] | null
-  cursor?: PostWhereUniqueInput | null
-  take?: number | null
-  skip?: number | null
-  distinct?: PostScalarFieldEnum[] | null
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithRelationInput[]
+  cursor?: PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: PostScalarFieldEnum[]
 }
 
 export interface FindFirstPostOrThrowArgs {
-  where?: PostWhereInput | null
-  orderBy?: PostOrderByWithRelationInput[] | null
-  cursor?: PostWhereUniqueInput | null
-  take?: number | null
-  skip?: number | null
-  distinct?: PostScalarFieldEnum[] | null
+  where?: PostWhereInput
+  orderBy?: PostOrderByWithRelationInput[]
+  cursor?: PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: PostScalarFieldEnum[]
 }
 
 export interface FindManyPostArgs {
@@ -538,11 +538,11 @@ export interface GroupByPostArgs {
 }
 
 export interface FindUniquePostArgs {
-  where: PostWhereUniqueInput | null
+  where: PostWhereUniqueInput
 }
 
 export interface FindUniquePostOrThrowArgs {
-  where: PostWhereUniqueInput | null
+  where: PostWhereUniqueInput
 }
 
 export interface CreateOneUserArgs {
@@ -561,12 +561,12 @@ export interface CreateManyUserArgs {
 }
 
 export interface DeleteOneUserArgs {
-  where: UserWhereUniqueInput | null
+  where: UserWhereUniqueInput
 }
 
 export interface UpdateOneUserArgs {
-  data: UserUpdateInput | null
-  where: UserWhereUniqueInput | null
+  data: UserUpdateInput
+  where: UserWhereUniqueInput
 }
 
 export interface UpdateManyUserArgs {
@@ -594,12 +594,12 @@ export interface CreateManyPostArgs {
 }
 
 export interface DeleteOnePostArgs {
-  where: PostWhereUniqueInput | null
+  where: PostWhereUniqueInput
 }
 
 export interface UpdateOnePostArgs {
-  data: PostUpdateInput | null
-  where: PostWhereUniqueInput | null
+  data: PostUpdateInput
+  where: PostWhereUniqueInput
 }
 
 export interface UpdateManyPostArgs {
