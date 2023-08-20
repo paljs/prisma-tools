@@ -8,18 +8,18 @@ test('generate typescript types from prisma schema', () => {
     id: number
     createdAt: Date
     email: string
-    name?: string
+    name: string | null
     password: string
     permissions: any
-    posts?: Post[]
+    posts: Post[] | null
     }
 
     export interface Post {
     id: number
     published: boolean
     title: string
-    author?: User
-    authorId?: number
+    author: User | null
+    authorId: number | null
     createdAt: Date
     updatedAt: Date
     }
