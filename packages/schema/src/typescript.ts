@@ -24,7 +24,7 @@ export class GenerateTypeScript {
     this.schema.models.forEach((model) => {
       const fields: string[] = [`export interface ${model.name} {`];
       model.fields.forEach((field) => {
-        fields.push(`${field.name}${field.required ? '' : '?'}: ${this.getType(field)}`);
+        fields.push(`${field.name}: ${this.getType(field)}${field.required ? '' : ' | null'}`);
       });
       fields.push('}');
       models.push(fields.join('\n'));
