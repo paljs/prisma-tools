@@ -248,14 +248,12 @@ export class GenerateNexus extends Generators {
     const options: any = docs ? { description: docs } : {};
     if (field.outputType.location !== 'scalar' || field.outputType.type === 'DateTime')
       options['type'] = field.outputType.type;
-    if (field.args.length > 0) {
-      field.args.forEach((arg) => {
-        if (!options['args']) options['args'] = {};
-        const inputType = getInputType(arg, this.options);
-        options['args'][arg.name] = inputType.isList ? `list('${inputType.type}')` : inputType.type;
-      });
-    }
     let toString = JSON.stringify(options);
+    if (field.args.length > 0) {
+      toString = toString.slice(0, -1);
+      toString += ', ';
+      toString += this.getNexusArgs(field.args);
+    }
     if (field.outputType.location === 'outputObjectTypes') {
       toString = toString.slice(0, -1);
       toString += `, resolve(root${this.isJS ? '' : ': any'}) {

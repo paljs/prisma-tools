@@ -167,11 +167,11 @@ export const User = objectType({
       type: 'Post',
       args: {
         where: 'PostWhereInput',
-        orderBy: "list('PostOrderByWithRelationInput')",
+        orderBy: list('PostOrderByWithRelationInput'),
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
-        distinct: "list('PostScalarFieldEnum')",
+        distinct: list('PostScalarFieldEnum'),
       },
       resolve(root: any) {
         return root.posts
@@ -404,7 +404,9 @@ export const Post = objectType({
     t.field('updatedAt', { type: 'DateTime' })
     t.nullable.field('author', {
       type: 'User',
-      args: { where: 'UserWhereInput' },
+      args: {
+        where: 'UserWhereInput',
+      },
       resolve(root: any) {
         return root.author
       },
@@ -627,11 +629,11 @@ export const User = objectType({
       type: 'Post',
       args: {
         where: 'PostWhereInput',
-        orderBy: "list('PostOrderByWithRelationInput')",
+        orderBy: list('PostOrderByWithRelationInput'),
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
-        distinct: "list('PostScalarFieldEnum')",
+        distinct: list('PostScalarFieldEnum'),
       },
       resolve(root: any) {
         return root.posts
