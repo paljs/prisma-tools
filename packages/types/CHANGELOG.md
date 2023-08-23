@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 6.0.2
+
+### Patch Changes
+
+- Update prisma v5.2
+
 ## 6.0.1
 
 ### Patch Changes

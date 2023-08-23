@@ -1,6 +1,6 @@
 {
   "name": "@paljs/nexus",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -17,7 +17,7 @@
     "clean": "rimraf dist node_modules/.cache"
   },
   "peerDependencies": {
-    "@prisma/client": "^4",
+    "@prisma/client": "^5",
     "graphql": "^15 || ^16",
     "nexus": "^1"
   },

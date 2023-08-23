@@ -1,5 +1,18 @@
 # @paljs/cli
 
+## 6.0.2
+
+### Patch Changes
+
+- Update prisma v5.2
+- Updated dependencies
+  - @paljs/types@6.0.2
+  - @paljs/utils@6.0.2
+  - @paljs/create@6.0.2
+  - @paljs/display@6.0.2
+  - @paljs/generator@6.0.2
+  - @paljs/schema@6.0.2
+
 ## 6.0.1
 
 ### Patch Changes
