@@ -39,7 +39,7 @@ async function run(argv) {
   );
 
   const command = [
-    'yarn babel',
+    'pnpm babel',
     '--config-file',
     babelConfigPath,
     '--extensions',

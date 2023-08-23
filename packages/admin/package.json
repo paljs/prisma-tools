@@ -20,7 +20,7 @@
     "build:es": "node ./scripts/build es",
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "NODE_ENV=production tailwindcss-cli build -o ./dist/style.css"
+    "build:css": "cross-env NODE_ENV=production tailwindcss-cli build -o ./dist/style.css"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
@@ -48,6 +48,7 @@
     "@types/react-table": "7.7.9",
     "autoprefixer": "^10.4.2",
     "babel-plugin-module-resolver": "^4.1.0",
+    "cross-env": "^7.0.3",
     "fs-extra": "^10.0.1",
     "glob": "^7.2.0",
     "graphql-tag": "2.12.6",
