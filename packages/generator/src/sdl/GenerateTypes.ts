@@ -8,6 +8,12 @@ export class GenerateTypes {
     `import { Context } from './context'`,
     `import { GraphQLResolveInfo } from 'graphql';`,
     `type Resolver<T extends {}, A extends {}, R extends any> = (parent: T,args: A, context: Context, info: GraphQLResolveInfo) => Promise<R>;`,
+    `type NoExpand<T> = T extends unknown ? T : never;`,
+    `type AtLeast<O extends object, K extends string> = NoExpand<
+      O extends unknown
+      ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+        | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
+      : never>;`,
   ];
   scalar: { [key: string]: any } = {
     Int: 'number',
@@ -117,7 +123,7 @@ export class GenerateTypes {
 
         // generate args
         if (argsType !== '{}') {
-          const args: string[] = [`export interface ${argsType} {`];
+          const args: string[] = [`export type ${argsType} = {`];
           field.args.forEach((arg) => {
             const inputType = getInputType(arg, this.options);
             args.push(
@@ -134,7 +140,7 @@ export class GenerateTypes {
               args.push(`${field.name}?: Client.Prisma.${modelName}${name}AggregateInputType`);
             });
           }
-          args.push('}');
+          args.push('};');
           argsTypes.push(args.join('\n'));
         }
       });
@@ -149,7 +155,11 @@ export class GenerateTypes {
     const inputModel = this.schema.inputObjectTypes.model || [];
     [...this.schema.inputObjectTypes.prisma, ...inputModel].forEach((input) => {
       if (input.fields.length > 0) {
-        const fields: string[] = [`export interface ${input.name} {`];
+        const atLeastFields =
+          input.constraints?.fields && input.constraints.fields.length > 0
+            ? input.constraints.fields.map((f) => `"${f}"`).join(' | ')
+            : null;
+        const fields: string[] = [`export type ${input.name} = ${atLeastFields ? 'AtLeast<' : ''}{`];
         input.fields.forEach((field) => {
           const inputType = getInputType(field, this.options);
           const hasEmptyType =
@@ -162,7 +172,7 @@ export class GenerateTypes {
             );
           }
         });
-        fields.push('}');
+        fields.push(`}${atLeastFields ? `, ${atLeastFields}>` : ''}`);
         inputTypes.push(fields.join('\n'));
       }
     });
