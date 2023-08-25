@@ -88,6 +88,19 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     variables,
     fetchPolicy: 'no-cache',
   });
+  const whereRef = React.useRef(where);
+
+  useEffect(() => {
+    if (
+      where &&
+      whereRef.current &&
+      where !== whereRef.current &&
+      Object.keys(whereRef.current).length === Object.keys(where).length
+    ) {
+      getData();
+    }
+    whereRef.current = where;
+  }, [where, getData]);
 
   const [deleteOne] = useMutation(mutationDocument(models, model, 'delete'));
 

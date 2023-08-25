@@ -69,7 +69,7 @@ interface SameProps {
     Update?: React.FC<{ id: any }>;
     Delete?: React.FC<{ id: any }>;
   };
-  defaultOrderBy?: Record<string, Record<string, 'asc' | 'desc'>[]>;
+  defaultOrderBy?: Record<string, Record<string, 'asc' | 'desc' | { sort: 'asc' | 'desc'; nulls: 'last' | 'first' }>[]>;
 }
 
 export interface ModelTableProps extends Partial<Omit<RequireContextProps, 'lang'>>, SameProps {

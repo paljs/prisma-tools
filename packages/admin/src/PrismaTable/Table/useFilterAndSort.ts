@@ -44,32 +44,77 @@ const filterMemo = (modelName: string, filter?: any) => {
   }, [filter, models]);
 };
 
+function isObject(item: any) {
+  return item && typeof item === 'object' && !Array.isArray(item);
+}
+
+function mergeDeep(target: any, ...sources: any[]): any {
+  if (!sources.length) return target;
+  const source: any = sources.shift();
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} });
+        mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(target, { [key]: source[key] });
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources);
+}
+
 const handleFilter = (filters: { id: string; value: any }[]) => {
   if (filters.length) {
     const newWhere: { [key: string]: { [key: string]: any } } = {};
     filters.forEach((item) => {
-      newWhere[item.id] = item.value;
+      // Check if an entry with the same id already exists
+      if (newWhere[item.id]) {
+        // If the value for the existing entry is an object, and the new value is also an object, merge them
+        if (isObject(newWhere[item.id]) && isObject(item.value)) {
+          newWhere[item.id] = mergeDeep(newWhere[item.id], item.value);
+        } else {
+          // Otherwise, just overwrite it (or you can handle it differently if needed)
+          newWhere[item.id] = item.value;
+        }
+      } else {
+        newWhere[item.id] = item.value;
+      }
     });
     return newWhere;
   }
   return undefined;
 };
 
-export const useFilterAndSort = (model: string, filter?: any, defaultOrder?: Record<string, 'asc' | 'desc'>[]) => {
+type OrderBy = Record<string, 'asc' | 'desc' | { sort: 'asc' | 'desc'; nulls: 'last' | 'first' }>;
+
+export const useFilterAndSort = (model: string, filter?: any, defaultOrder?: OrderBy[]) => {
   const initialFilter = filterMemo(model, filter);
+  const {
+    schema: { models },
+  } = useContext(TableContext);
   const [where, setWhere] = useState<any>(handleFilter(initialFilter));
-  const [orderBy, setOrderBy] = useState<Record<string, 'asc' | 'desc'>[] | undefined>(defaultOrder);
+  const [orderBy, setOrderBy] = useState<OrderBy[] | undefined>(defaultOrder);
 
   const filterHandler = (filters: { id: string; value: any }[]) => {
-    setWhere(handleFilter(filters));
+    setWhere(handleFilter(JSON.parse(JSON.stringify(filters))));
   };
 
   const sortByHandler = (sortBy: { id: string; desc: boolean }[]) => {
     if (sortBy.length > 0) {
-      const newOrderBy: { [key: string]: 'asc' | 'desc' }[] = [];
+      const newOrderBy: OrderBy[] = [];
       sortBy.forEach((item) => {
+        const field = item.id.split('.')[0];
+        const modelObject = models.find((item) => item.id === model);
+        const fieldModel = modelObject?.fields.find((item) => item.name === field);
         newOrderBy.push({
-          [item.id.split('.')[0]]: item.desc ? 'desc' : 'asc',
+          [field]: fieldModel?.required
+            ? item.desc
+              ? 'desc'
+              : 'asc'
+            : { sort: item.desc ? 'desc' : 'asc', nulls: 'last' },
         });
       });
       setOrderBy(newOrderBy);

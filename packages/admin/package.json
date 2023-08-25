@@ -20,7 +20,7 @@
     "build:es": "node ./scripts/build es",
     "build:copy-files": "node ./scripts/copyFiles",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "cross-env NODE_ENV=production tailwindcss-cli build -o ./dist/style.css"
+    "build:css": "cross-env NODE_ENV=production tailwindcss build -o ./dist/style.css"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
@@ -55,8 +55,7 @@
     "postcss": "^8.4.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tailwindcss": "3.0.23",
-    "tailwindcss-cli": "^0.1.2",
+    "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
     "yargs": "^17.3.1"
   },

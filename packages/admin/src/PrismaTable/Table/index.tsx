@@ -205,9 +205,7 @@ export const Table: React.FC<TableProps> = ({
     <>
       <div className="flex flex-col rounded-lg shadow bg-white">
         {headerActions}
-        <div
-          className={classNames('w-full inline-flex space-x-4 my-4', dir === 'rtl' ? 'pr-4 space-x-reverse' : 'pl-4')}
-        >
+        <div className="w-full inline-flex space-x-4 my-4 rtl:pr-4 rtl:space-x-reverse ltr:pl-4">
           {actions.create && !connect && (
             <div>
               <ActionButtons.Add />
@@ -222,9 +220,7 @@ export const Table: React.FC<TableProps> = ({
             >
               {lang.filter}
               {!!filters.length && (
-                <span className={classNames('rounded-full bg-yellow-400 px-2', dir === 'rtl' ? 'mr-2' : 'ml-2')}>
-                  {filters.length}
-                </span>
+                <span className="rounded-full bg-yellow-400 px-2 rtl:mr-2 ltr:ml-2">{filters.length}</span>
               )}
             </Popover.Button>
             <Transition
@@ -402,20 +398,14 @@ export const Table: React.FC<TableProps> = ({
         </div>
         <div className={classNames('flex flex-wrap md:justify-between justify-center w-full', tdClasses)}>
           <nav
-            className={classNames(
-              'w-full md:w-auto  mb-4 md:mb-0 inline-flex -space-x-px',
-              dir === 'rtl' ? 'space-x-reverse' : '',
-            )}
+            className="w-full md:w-auto  mb-4 md:mb-0 inline-flex -space-x-px rtl:space-x-reverse"
             aria-label="Pagination"
           >
             <button
               type="button"
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
-              className={classNames(
-                'relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50',
-                dir === 'rtl' ? 'rounded-r-md' : 'rounded-l-md',
-              )}
+              className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 rtl:rounded-r-md ltr:rounded-l-md"
             >
               <ChevronDoubleRightIcon className={classNames('h-4 w-4', dir === 'rtl' ? '' : 'transform rotate-180')} />
             </button>
@@ -425,7 +415,7 @@ export const Table: React.FC<TableProps> = ({
               disabled={!canPreviousPage}
               className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              <ChevronRightIcon className={classNames('h-4 w-4', dir === 'rtl' ? '' : 'transform rotate-180')} />
+              <ChevronRightIcon className="h-4 w-4 ltr:transform ltr:rotate-180" />
             </button>
             {initPages(pageCount, pageIndex + 1, paginationOptions).map((item) => (
               <button
@@ -448,7 +438,7 @@ export const Table: React.FC<TableProps> = ({
               disabled={!canNextPage}
               className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              <ChevronLeftIcon className={classNames('h-4 w-4', dir === 'rtl' ? '' : 'transform rotate-180')} />
+              <ChevronLeftIcon className="h-4 w-4 ltr:transform ltr:rotate-180" />
             </button>
             <button
               type="button"
@@ -462,25 +452,16 @@ export const Table: React.FC<TableProps> = ({
               <ChevronDoubleLeftIcon className={classNames('h-4 w-4', dir === 'rtl' ? '' : 'transform rotate-180')} />
             </button>
           </nav>
-          <div
-            className={classNames(
-              'inline-flex justify-center -space-x-px w-full md:w-auto',
-              dir === 'rtl' ? 'space-x-reverse' : '',
-            )}
-          >
+          <div className="inline-flex justify-center -space-x-px w-full md:w-auto rtl:space-x-reverse">
             {pageSizeOptions.map((item, index) => (
               <button
                 type="button"
                 key={index}
                 className={classNames(
                   index === 0
-                    ? dir === 'rtl'
-                      ? 'rounded-r-md'
-                      : 'rounded-l-md'
+                    ? 'rtl:rounded-r-md ltr:rounded-l-md'
                     : index === pageSizeOptions.length - 1
-                    ? dir === 'rtl'
-                      ? 'rounded-l-md'
-                      : 'rounded-r-md'
+                    ? 'rtl:rounded-l-md ltr:rounded-r-md'
                     : '',
                   item === pageSize
                     ? 'bg-blue-500 text-white hover:bg-blue-700'

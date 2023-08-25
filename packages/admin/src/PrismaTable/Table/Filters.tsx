@@ -9,6 +9,8 @@ import { TableContext } from '../Context';
 import { SearchCircleIcon, TrashIcon } from '@heroicons/react/solid';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { randString } from './utils';
+import { getDate } from '../Form/getDate';
+import { data } from 'autoprefixer';
 
 interface Option {
   id: any;
@@ -27,13 +29,19 @@ interface FilterProps {
   filters: { id: string; value: any }[];
 }
 
+const removeByIndexWithSplice = (array: any[], index: number) => {
+  const newArr = array.slice(); // create a copy of the original array
+  newArr.splice(index, 1); // remove the item at the specified index
+  return newArr; // return the modified array
+};
+
 export const Filter: React.FC<FilterProps> = ({ model, setAllFilters, filters }) => {
   const [state, setState] = useState(filters.map(() => randString(10)));
   const { lang } = useContext(TableContext);
 
   const deleteFilter = (index: number) => {
-    setState([...state.filter((_, i) => i !== index)]);
-    setAllFilters([...filters.filter((_, i) => i !== index)]);
+    setState(removeByIndexWithSplice(state, index));
+    setAllFilters(removeByIndexWithSplice(filters, index));
   };
 
   return (
@@ -46,13 +54,18 @@ export const Filter: React.FC<FilterProps> = ({ model, setAllFilters, filters })
           deleteFilter={() => deleteFilter(index)}
           filter={filters[index]}
           setFilter={({ id, value }) => {
+            // Deep clone filters to break references
+            const newFilters = JSON.parse(JSON.stringify(filters));
+
             if (!value) {
-              setAllFilters([...filters.filter((item) => item.id !== id)]);
-            } else {
-              const newFilters = [...filters];
-              newFilters[index] = { id, value };
-              setAllFilters(newFilters);
+              setAllFilters(removeByIndexWithSplice(newFilters, index));
+              return;
             }
+
+            newFilters[index] = { id, value: { ...value } };
+
+            // Update the filters state
+            setAllFilters(newFilters);
           }}
         />
       ))}
@@ -99,9 +112,9 @@ const FilterRow: React.FC<FilterRowProps> = ({ model, filter, setFilter, index, 
   };
   let filterComponent;
   if (getField.kind === 'enum') {
-    filterComponent = <EnumFilter key={getField.name} {...props} />;
+    filterComponent = <EnumFilter key={getField.name + index} {...props} />;
   } else if (getField.kind === 'object') {
-    filterComponent = <ObjectFilter key={getField.name} {...props} />;
+    filterComponent = <ObjectFilter key={getField.name + index} {...props} />;
   } else {
     switch (getField.type) {
       case 'Int':
@@ -110,10 +123,10 @@ const FilterRow: React.FC<FilterRowProps> = ({ model, filter, setFilter, index, 
       case 'Float':
       case 'DateTime':
       case 'String':
-        filterComponent = <DefaultFilter key={getField.name} {...props} />;
+        filterComponent = <DefaultFilter key={getField.name + index} {...props} />;
         break;
       case 'Boolean':
-        filterComponent = <BooleanFilter key={getField.name} {...props} />;
+        filterComponent = <BooleanFilter key={getField.name + index} {...props} />;
         break;
     }
   }
@@ -168,6 +181,12 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({ filterValue, setFilter
   const [option, setOption] = useState<Option>(
     filterValue ? options.find((item) => !!filterValue[item.id])! : options[0],
   );
+
+  const inputProps =
+    field.type === 'DateTime'
+      ? { type: 'datetime-local', defaultValue: value[option.id] ? getDate(new Date(value[option.id])) : undefined }
+      : { type: 'text', value: value[option.id] || '' };
+
   return (
     <>
       <Select
@@ -181,12 +200,11 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({ filterValue, setFilter
         style={{ maxWidth: '13rem', lineHeight: 'inherit' }}
         className={inputClasses.replace('py-2 px-4', 'py-2 px-3 text-sm')}
         placeholder={lang[option.id as 'gt']}
-        type={field.type === 'DateTime' ? 'date' : 'text'}
-        value={value ? value[option.id] || '' : ''}
+        {...inputProps}
         onChange={(event) =>
           onChange({
             name: option.id,
-            value: field.type === 'DateTime' ? event.target.valueAsDate : event.target.value,
+            value: field.type === 'DateTime' ? new Date(event.target.value).toISOString() : event.target.value,
             wait: true,
           })
         }
@@ -234,7 +252,7 @@ export const EnumFilter: React.FC<FilterComponentsProps> = ({ field, filterValue
 const ObjectFilter: React.FC<FilterComponentsProps> = ({ field, filterValue, setFilter }) => {
   const { dir } = useContext(TableContext);
   const model = useModel(field.type)!;
-  const filter = filterValue ? (field.list ? filterValue.some : filterValue) : {};
+  const filter = filterValue ? (field.list ? filterValue.some : filterValue.is) : {};
   const options = model.fields
     .filter((item) => item.filter && item.kind !== 'object' && !item.list && item.type !== 'Json')
     .sort((a, b) => a.order - b.order)
@@ -265,7 +283,9 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({ field, filterValue, set
           } else {
             delete newValue[getField.name];
           }
-          setFilter(Object.keys(newValue).length > 0 ? (field.list ? { some: newValue } : newValue) : undefined);
+          setFilter(
+            Object.keys(newValue).length > 0 ? (field.list ? { some: newValue } : { is: newValue }) : undefined,
+          );
         },
       }
     : null;

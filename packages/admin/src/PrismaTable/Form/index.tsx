@@ -83,8 +83,8 @@ const Form: React.FC<FormProps> = ({ action, model: modelName, data, onCancel, o
 
   return (
     <div
-      className="flex flex-col bg-white rounded shadow-lg text-gray-800 text-base mb-5"
-      style={action === 'create' ? { maxWidth: '800px', maxHeight: '100vh' } : {}}
+      className="flex flex-col bg-white rounded shadow-lg text-gray-800 text-base mb-5 mx-auto"
+      style={action === 'create' ? { maxWidth: '1000px', maxHeight: '100vh' } : {}}
     >
       <header className="py-4 px-5 rounded-t border-b border-gray-100 font-bold text-2xl">
         {lang[action] + ' ' + model.name}

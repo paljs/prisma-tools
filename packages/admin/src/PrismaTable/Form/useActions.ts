@@ -71,7 +71,6 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
       if (field?.update) {
         if (field.kind === 'object') {
           const fieldModel = models.find((item) => item.id === field.type)!;
-          console.log(newData);
           if ((newData[key] && !data[key]) || (newData[key] && newData[key] !== data[key][fieldModel.idField])) {
             const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
             updateData[key] = {
