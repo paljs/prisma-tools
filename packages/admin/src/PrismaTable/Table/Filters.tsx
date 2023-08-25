@@ -10,7 +10,6 @@ import { SearchCircleIcon, TrashIcon } from '@heroicons/react/solid';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { randString } from './utils';
 import { getDate } from '../Form/getDate';
-import { data } from 'autoprefixer';
 
 interface Option {
   id: any;
