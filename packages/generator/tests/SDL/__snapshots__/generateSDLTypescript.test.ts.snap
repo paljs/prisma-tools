@@ -14,6 +14,16 @@ type Resolver<T extends {}, A extends {}, R extends any> = (
   info: GraphQLResolveInfo,
 ) => Promise<R>
 
+type NoExpand<T> = T extends unknown ? T : never
+
+type AtLeast<O extends object, K extends string> = NoExpand<
+  O extends unknown
+    ?
+        | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+        | ({ [P in keyof O as P extends K ? K : never]-?: O[P] } & O)
+    : never
+>
+
 export type Resolvers = {
   [key: string]: { [key: string]: Resolver<any, any, any> }
 } & {
@@ -418,7 +428,7 @@ export type PostMaxAggregateOutputType = {
   >
 }
 
-export interface UserPostsArgs {
+export type UserPostsArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithRelationInput[]
   cursor?: PostWhereUniqueInput
@@ -427,20 +437,11 @@ export interface UserPostsArgs {
   distinct?: PostScalarFieldEnum[]
 }
 
-export interface PostAuthorArgs {
+export type PostAuthorArgs = {
   where?: UserWhereInput
 }
 
-export interface FindFirstUserArgs {
-  where?: UserWhereInput
-  orderBy?: UserOrderByWithRelationInput[]
-  cursor?: UserWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: UserScalarFieldEnum[]
-}
-
-export interface FindFirstUserOrThrowArgs {
+export type FindFirstUserArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
   cursor?: UserWhereUniqueInput
@@ -449,7 +450,7 @@ export interface FindFirstUserOrThrowArgs {
   distinct?: UserScalarFieldEnum[]
 }
 
-export interface FindManyUserArgs {
+export type FindFirstUserOrThrowArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
   cursor?: UserWhereUniqueInput
@@ -458,7 +459,16 @@ export interface FindManyUserArgs {
   distinct?: UserScalarFieldEnum[]
 }
 
-export interface AggregateUserArgs {
+export type FindManyUserArgs = {
+  where?: UserWhereInput
+  orderBy?: UserOrderByWithRelationInput[]
+  cursor?: UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: UserScalarFieldEnum[]
+}
+
+export type AggregateUserArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
   cursor?: UserWhereUniqueInput
@@ -471,7 +481,7 @@ export interface AggregateUserArgs {
   _max?: Client.Prisma.UserMaxAggregateInputType
 }
 
-export interface GroupByUserArgs {
+export type GroupByUserArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithAggregationInput[]
   by: UserScalarFieldEnum[]
@@ -480,15 +490,15 @@ export interface GroupByUserArgs {
   skip?: number
 }
 
-export interface FindUniqueUserArgs {
+export type FindUniqueUserArgs = {
   where: UserWhereUniqueInput
 }
 
-export interface FindUniqueUserOrThrowArgs {
+export type FindUniqueUserOrThrowArgs = {
   where: UserWhereUniqueInput
 }
 
-export interface FindFirstPostArgs {
+export type FindFirstPostArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithRelationInput[]
   cursor?: PostWhereUniqueInput
@@ -497,7 +507,7 @@ export interface FindFirstPostArgs {
   distinct?: PostScalarFieldEnum[]
 }
 
-export interface FindFirstPostOrThrowArgs {
+export type FindFirstPostOrThrowArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithRelationInput[]
   cursor?: PostWhereUniqueInput
@@ -506,7 +516,7 @@ export interface FindFirstPostOrThrowArgs {
   distinct?: PostScalarFieldEnum[]
 }
 
-export interface FindManyPostArgs {
+export type FindManyPostArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithRelationInput[]
   cursor?: PostWhereUniqueInput
@@ -515,7 +525,7 @@ export interface FindManyPostArgs {
   distinct?: PostScalarFieldEnum[]
 }
 
-export interface AggregatePostArgs {
+export type AggregatePostArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithRelationInput[]
   cursor?: PostWhereUniqueInput
@@ -528,7 +538,7 @@ export interface AggregatePostArgs {
   _max?: Client.Prisma.PostMaxAggregateInputType
 }
 
-export interface GroupByPostArgs {
+export type GroupByPostArgs = {
   where?: PostWhereInput
   orderBy?: PostOrderByWithAggregationInput[]
   by: PostScalarFieldEnum[]
@@ -537,95 +547,95 @@ export interface GroupByPostArgs {
   skip?: number
 }
 
-export interface FindUniquePostArgs {
+export type FindUniquePostArgs = {
   where: PostWhereUniqueInput
 }
 
-export interface FindUniquePostOrThrowArgs {
+export type FindUniquePostOrThrowArgs = {
   where: PostWhereUniqueInput
 }
 
-export interface CreateOneUserArgs {
+export type CreateOneUserArgs = {
   data: UserCreateInput
 }
 
-export interface UpsertOneUserArgs {
+export type UpsertOneUserArgs = {
   where: UserWhereUniqueInput
   create: UserCreateInput
   update: UserUpdateInput
 }
 
-export interface CreateManyUserArgs {
+export type CreateManyUserArgs = {
   data: UserCreateManyInput[]
   skipDuplicates?: boolean
 }
 
-export interface DeleteOneUserArgs {
+export type DeleteOneUserArgs = {
   where: UserWhereUniqueInput
 }
 
-export interface UpdateOneUserArgs {
+export type UpdateOneUserArgs = {
   data: UserUpdateInput
   where: UserWhereUniqueInput
 }
 
-export interface UpdateManyUserArgs {
+export type UpdateManyUserArgs = {
   data: UserUpdateManyMutationInput
   where?: UserWhereInput
 }
 
-export interface DeleteManyUserArgs {
+export type DeleteManyUserArgs = {
   where?: UserWhereInput
 }
 
-export interface CreateOnePostArgs {
+export type CreateOnePostArgs = {
   data: PostCreateInput
 }
 
-export interface UpsertOnePostArgs {
+export type UpsertOnePostArgs = {
   where: PostWhereUniqueInput
   create: PostCreateInput
   update: PostUpdateInput
 }
 
-export interface CreateManyPostArgs {
+export type CreateManyPostArgs = {
   data: PostCreateManyInput[]
   skipDuplicates?: boolean
 }
 
-export interface DeleteOnePostArgs {
+export type DeleteOnePostArgs = {
   where: PostWhereUniqueInput
 }
 
-export interface UpdateOnePostArgs {
+export type UpdateOnePostArgs = {
   data: PostUpdateInput
   where: PostWhereUniqueInput
 }
 
-export interface UpdateManyPostArgs {
+export type UpdateManyPostArgs = {
   data: PostUpdateManyMutationInput
   where?: PostWhereInput
 }
 
-export interface DeleteManyPostArgs {
+export type DeleteManyPostArgs = {
   where?: PostWhereInput
 }
 
-export interface ExecuteRawArgs {
+export type ExecuteRawArgs = {
   query: string
   parameters?: any
 }
 
-export interface QueryRawArgs {
+export type QueryRawArgs = {
   query: string
   parameters?: any
 }
 
-export interface UserCountOutputTypePostsArgs {
+export type UserCountOutputTypePostsArgs = {
   where?: PostWhereInput
 }
 
-export interface UserWhereInput {
+export type UserWhereInput = {
   AND?: UserWhereInput[]
   OR?: UserWhereInput[]
   NOT?: UserWhereInput[]
@@ -638,7 +648,7 @@ export interface UserWhereInput {
   posts?: PostListRelationFilter
 }
 
-export interface UserOrderByWithRelationInput {
+export type UserOrderByWithRelationInput = {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
@@ -648,20 +658,23 @@ export interface UserOrderByWithRelationInput {
   posts?: PostOrderByRelationAggregateInput
 }
 
-export interface UserWhereUniqueInput {
-  id?: number
-  email?: string
-  AND?: UserWhereInput[]
-  OR?: UserWhereInput[]
-  NOT?: UserWhereInput[]
-  createdAt?: DateTimeFilter
-  name?: StringNullableFilter | null
-  password?: StringFilter
-  permissions?: JsonFilter
-  posts?: PostListRelationFilter
-}
+export type UserWhereUniqueInput = AtLeast<
+  {
+    id?: number
+    email?: string
+    AND?: UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput[]
+    createdAt?: DateTimeFilter
+    name?: StringNullableFilter | null
+    password?: StringFilter
+    permissions?: JsonFilter
+    posts?: PostListRelationFilter
+  },
+  'id' | 'email'
+>
 
-export interface UserOrderByWithAggregationInput {
+export type UserOrderByWithAggregationInput = {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
@@ -675,7 +688,7 @@ export interface UserOrderByWithAggregationInput {
   _sum?: UserSumOrderByAggregateInput
 }
 
-export interface UserScalarWhereWithAggregatesInput {
+export type UserScalarWhereWithAggregatesInput = {
   AND?: UserScalarWhereWithAggregatesInput[]
   OR?: UserScalarWhereWithAggregatesInput[]
   NOT?: UserScalarWhereWithAggregatesInput[]
@@ -687,7 +700,7 @@ export interface UserScalarWhereWithAggregatesInput {
   permissions?: JsonWithAggregatesFilter
 }
 
-export interface PostWhereInput {
+export type PostWhereInput = {
   AND?: PostWhereInput[]
   OR?: PostWhereInput[]
   NOT?: PostWhereInput[]
@@ -700,7 +713,7 @@ export interface PostWhereInput {
   author?: UserNullableRelationFilter | null
 }
 
-export interface PostOrderByWithRelationInput {
+export type PostOrderByWithRelationInput = {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
@@ -710,20 +723,23 @@ export interface PostOrderByWithRelationInput {
   author?: UserOrderByWithRelationInput
 }
 
-export interface PostWhereUniqueInput {
-  id?: number
-  AND?: PostWhereInput[]
-  OR?: PostWhereInput[]
-  NOT?: PostWhereInput[]
-  published?: BoolFilter
-  title?: StringFilter
-  authorId?: IntNullableFilter | null
-  createdAt?: DateTimeFilter
-  updatedAt?: DateTimeFilter
-  author?: UserNullableRelationFilter | null
-}
+export type PostWhereUniqueInput = AtLeast<
+  {
+    id?: number
+    AND?: PostWhereInput[]
+    OR?: PostWhereInput[]
+    NOT?: PostWhereInput[]
+    published?: BoolFilter
+    title?: StringFilter
+    authorId?: IntNullableFilter | null
+    createdAt?: DateTimeFilter
+    updatedAt?: DateTimeFilter
+    author?: UserNullableRelationFilter | null
+  },
+  'id'
+>
 
-export interface PostOrderByWithAggregationInput {
+export type PostOrderByWithAggregationInput = {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
@@ -737,7 +753,7 @@ export interface PostOrderByWithAggregationInput {
   _sum?: PostSumOrderByAggregateInput
 }
 
-export interface PostScalarWhereWithAggregatesInput {
+export type PostScalarWhereWithAggregatesInput = {
   AND?: PostScalarWhereWithAggregatesInput[]
   OR?: PostScalarWhereWithAggregatesInput[]
   NOT?: PostScalarWhereWithAggregatesInput[]
@@ -749,7 +765,7 @@ export interface PostScalarWhereWithAggregatesInput {
   updatedAt?: DateTimeWithAggregatesFilter
 }
 
-export interface UserCreateInput {
+export type UserCreateInput = {
   createdAt?: Date
   email: string
   name?: string | null
@@ -758,7 +774,7 @@ export interface UserCreateInput {
   posts?: PostCreateNestedManyWithoutAuthorInput
 }
 
-export interface UserUncheckedCreateInput {
+export type UserUncheckedCreateInput = {
   id?: number
   createdAt?: Date
   email: string
@@ -768,7 +784,7 @@ export interface UserUncheckedCreateInput {
   posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
-export interface UserUpdateInput {
+export type UserUpdateInput = {
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
@@ -777,7 +793,7 @@ export interface UserUpdateInput {
   posts?: PostUpdateManyWithoutAuthorNestedInput
 }
 
-export interface UserUncheckedUpdateInput {
+export type UserUncheckedUpdateInput = {
   id?: IntFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
@@ -787,7 +803,7 @@ export interface UserUncheckedUpdateInput {
   posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
-export interface UserCreateManyInput {
+export type UserCreateManyInput = {
   id?: number
   createdAt?: Date
   email: string
@@ -796,7 +812,7 @@ export interface UserCreateManyInput {
   permissions?: any
 }
 
-export interface UserUpdateManyMutationInput {
+export type UserUpdateManyMutationInput = {
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
@@ -804,7 +820,7 @@ export interface UserUpdateManyMutationInput {
   permissions?: any
 }
 
-export interface UserUncheckedUpdateManyInput {
+export type UserUncheckedUpdateManyInput = {
   id?: IntFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
@@ -813,7 +829,7 @@ export interface UserUncheckedUpdateManyInput {
   permissions?: any
 }
 
-export interface PostCreateInput {
+export type PostCreateInput = {
   published?: boolean
   title: string
   createdAt?: Date
@@ -821,7 +837,7 @@ export interface PostCreateInput {
   author?: UserCreateNestedOneWithoutPostsInput
 }
 
-export interface PostUncheckedCreateInput {
+export type PostUncheckedCreateInput = {
   id?: number
   published?: boolean
   title: string
@@ -830,7 +846,7 @@ export interface PostUncheckedCreateInput {
   updatedAt?: Date
 }
 
-export interface PostUpdateInput {
+export type PostUpdateInput = {
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
@@ -838,7 +854,7 @@ export interface PostUpdateInput {
   author?: UserUpdateOneWithoutPostsNestedInput
 }
 
-export interface PostUncheckedUpdateInput {
+export type PostUncheckedUpdateInput = {
   id?: IntFieldUpdateOperationsInput
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
@@ -847,7 +863,7 @@ export interface PostUncheckedUpdateInput {
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface PostCreateManyInput {
+export type PostCreateManyInput = {
   id?: number
   published?: boolean
   title: string
@@ -856,14 +872,14 @@ export interface PostCreateManyInput {
   updatedAt?: Date
 }
 
-export interface PostUpdateManyMutationInput {
+export type PostUpdateManyMutationInput = {
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface PostUncheckedUpdateManyInput {
+export type PostUncheckedUpdateManyInput = {
   id?: IntFieldUpdateOperationsInput
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
@@ -872,7 +888,7 @@ export interface PostUncheckedUpdateManyInput {
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface IntFilter {
+export type IntFilter = {
   equals?: number
   in?: number[]
   notIn?: number[]
@@ -883,7 +899,7 @@ export interface IntFilter {
   not?: NestedIntFilter
 }
 
-export interface DateTimeFilter {
+export type DateTimeFilter = {
   equals?: Date
   in?: Date[]
   notIn?: Date[]
@@ -894,7 +910,7 @@ export interface DateTimeFilter {
   not?: NestedDateTimeFilter
 }
 
-export interface StringFilter {
+export type StringFilter = {
   equals?: string
   in?: string[]
   notIn?: string[]
@@ -909,7 +925,7 @@ export interface StringFilter {
   not?: NestedStringFilter
 }
 
-export interface StringNullableFilter {
+export type StringNullableFilter = {
   equals?: string | null
   in?: string[] | null
   notIn?: string[] | null
@@ -924,7 +940,7 @@ export interface StringNullableFilter {
   not?: NestedStringNullableFilter | null
 }
 
-export interface JsonFilter {
+export type JsonFilter = {
   equals?: any
   path?: string[]
   string_contains?: string
@@ -940,22 +956,22 @@ export interface JsonFilter {
   not?: any
 }
 
-export interface PostListRelationFilter {
+export type PostListRelationFilter = {
   every?: PostWhereInput
   some?: PostWhereInput
   none?: PostWhereInput
 }
 
-export interface SortOrderInput {
+export type SortOrderInput = {
   sort: SortOrder
   nulls?: NullsOrder
 }
 
-export interface PostOrderByRelationAggregateInput {
+export type PostOrderByRelationAggregateInput = {
   _count?: SortOrder
 }
 
-export interface UserCountOrderByAggregateInput {
+export type UserCountOrderByAggregateInput = {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
@@ -964,19 +980,11 @@ export interface UserCountOrderByAggregateInput {
   permissions?: SortOrder
 }
 
-export interface UserAvgOrderByAggregateInput {
+export type UserAvgOrderByAggregateInput = {
   id?: SortOrder
 }
 
-export interface UserMaxOrderByAggregateInput {
-  id?: SortOrder
-  createdAt?: SortOrder
-  email?: SortOrder
-  name?: SortOrder
-  password?: SortOrder
-}
-
-export interface UserMinOrderByAggregateInput {
+export type UserMaxOrderByAggregateInput = {
   id?: SortOrder
   createdAt?: SortOrder
   email?: SortOrder
@@ -984,11 +992,19 @@ export interface UserMinOrderByAggregateInput {
   password?: SortOrder
 }
 
-export interface UserSumOrderByAggregateInput {
+export type UserMinOrderByAggregateInput = {
+  id?: SortOrder
+  createdAt?: SortOrder
+  email?: SortOrder
+  name?: SortOrder
+  password?: SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
   id?: SortOrder
 }
 
-export interface IntWithAggregatesFilter {
+export type IntWithAggregatesFilter = {
   equals?: number
   in?: number[]
   notIn?: number[]
@@ -1004,7 +1020,7 @@ export interface IntWithAggregatesFilter {
   _max?: NestedIntFilter
 }
 
-export interface DateTimeWithAggregatesFilter {
+export type DateTimeWithAggregatesFilter = {
   equals?: Date
   in?: Date[]
   notIn?: Date[]
@@ -1018,7 +1034,7 @@ export interface DateTimeWithAggregatesFilter {
   _max?: NestedDateTimeFilter
 }
 
-export interface StringWithAggregatesFilter {
+export type StringWithAggregatesFilter = {
   equals?: string
   in?: string[]
   notIn?: string[]
@@ -1036,7 +1052,7 @@ export interface StringWithAggregatesFilter {
   _max?: NestedStringFilter
 }
 
-export interface StringNullableWithAggregatesFilter {
+export type StringNullableWithAggregatesFilter = {
   equals?: string | null
   in?: string[] | null
   notIn?: string[] | null
@@ -1054,7 +1070,7 @@ export interface StringNullableWithAggregatesFilter {
   _max?: NestedStringNullableFilter
 }
 
-export interface JsonWithAggregatesFilter {
+export type JsonWithAggregatesFilter = {
   equals?: any
   path?: string[]
   string_contains?: string
@@ -1073,12 +1089,12 @@ export interface JsonWithAggregatesFilter {
   _max?: NestedJsonFilter
 }
 
-export interface BoolFilter {
+export type BoolFilter = {
   equals?: boolean
   not?: NestedBoolFilter
 }
 
-export interface IntNullableFilter {
+export type IntNullableFilter = {
   equals?: number | null
   in?: number[] | null
   notIn?: number[] | null
@@ -1089,12 +1105,12 @@ export interface IntNullableFilter {
   not?: NestedIntNullableFilter | null
 }
 
-export interface UserNullableRelationFilter {
+export type UserNullableRelationFilter = {
   is?: UserWhereInput | null
   isNot?: UserWhereInput | null
 }
 
-export interface PostCountOrderByAggregateInput {
+export type PostCountOrderByAggregateInput = {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
@@ -1103,21 +1119,12 @@ export interface PostCountOrderByAggregateInput {
   updatedAt?: SortOrder
 }
 
-export interface PostAvgOrderByAggregateInput {
+export type PostAvgOrderByAggregateInput = {
   id?: SortOrder
   authorId?: SortOrder
 }
 
-export interface PostMaxOrderByAggregateInput {
-  id?: SortOrder
-  published?: SortOrder
-  title?: SortOrder
-  authorId?: SortOrder
-  createdAt?: SortOrder
-  updatedAt?: SortOrder
-}
-
-export interface PostMinOrderByAggregateInput {
+export type PostMaxOrderByAggregateInput = {
   id?: SortOrder
   published?: SortOrder
   title?: SortOrder
@@ -1126,12 +1133,21 @@ export interface PostMinOrderByAggregateInput {
   updatedAt?: SortOrder
 }
 
-export interface PostSumOrderByAggregateInput {
+export type PostMinOrderByAggregateInput = {
+  id?: SortOrder
+  published?: SortOrder
+  title?: SortOrder
+  authorId?: SortOrder
+  createdAt?: SortOrder
+  updatedAt?: SortOrder
+}
+
+export type PostSumOrderByAggregateInput = {
   id?: SortOrder
   authorId?: SortOrder
 }
 
-export interface BoolWithAggregatesFilter {
+export type BoolWithAggregatesFilter = {
   equals?: boolean
   not?: NestedBoolWithAggregatesFilter
   _count?: NestedIntFilter
@@ -1139,7 +1155,7 @@ export interface BoolWithAggregatesFilter {
   _max?: NestedBoolFilter
 }
 
-export interface IntNullableWithAggregatesFilter {
+export type IntNullableWithAggregatesFilter = {
   equals?: number | null
   in?: number[] | null
   notIn?: number[] | null
@@ -1155,33 +1171,33 @@ export interface IntNullableWithAggregatesFilter {
   _max?: NestedIntNullableFilter
 }
 
-export interface PostCreateNestedManyWithoutAuthorInput {
+export type PostCreateNestedManyWithoutAuthorInput = {
   create?: PostCreateWithoutAuthorInput[]
   connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
   createMany?: PostCreateManyAuthorInputEnvelope
   connect?: PostWhereUniqueInput[]
 }
 
-export interface PostUncheckedCreateNestedManyWithoutAuthorInput {
+export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
   create?: PostCreateWithoutAuthorInput[]
   connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
   createMany?: PostCreateManyAuthorInputEnvelope
   connect?: PostWhereUniqueInput[]
 }
 
-export interface DateTimeFieldUpdateOperationsInput {
+export type DateTimeFieldUpdateOperationsInput = {
   set?: Date
 }
 
-export interface StringFieldUpdateOperationsInput {
+export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export interface NullableStringFieldUpdateOperationsInput {
+export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export interface PostUpdateManyWithoutAuthorNestedInput {
+export type PostUpdateManyWithoutAuthorNestedInput = {
   create?: PostCreateWithoutAuthorInput[]
   connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
   upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[]
@@ -1195,7 +1211,7 @@ export interface PostUpdateManyWithoutAuthorNestedInput {
   deleteMany?: PostScalarWhereInput[]
 }
 
-export interface IntFieldUpdateOperationsInput {
+export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
@@ -1203,7 +1219,7 @@ export interface IntFieldUpdateOperationsInput {
   divide?: number
 }
 
-export interface PostUncheckedUpdateManyWithoutAuthorNestedInput {
+export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
   create?: PostCreateWithoutAuthorInput[]
   connectOrCreate?: PostCreateOrConnectWithoutAuthorInput[]
   upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[]
@@ -1217,17 +1233,17 @@ export interface PostUncheckedUpdateManyWithoutAuthorNestedInput {
   deleteMany?: PostScalarWhereInput[]
 }
 
-export interface UserCreateNestedOneWithoutPostsInput {
+export type UserCreateNestedOneWithoutPostsInput = {
   create?: UserCreateWithoutPostsInput
   connectOrCreate?: UserCreateOrConnectWithoutPostsInput
   connect?: UserWhereUniqueInput
 }
 
-export interface BoolFieldUpdateOperationsInput {
+export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export interface UserUpdateOneWithoutPostsNestedInput {
+export type UserUpdateOneWithoutPostsNestedInput = {
   create?: UserCreateWithoutPostsInput
   connectOrCreate?: UserCreateOrConnectWithoutPostsInput
   upsert?: UserUpsertWithoutPostsInput
@@ -1237,7 +1253,7 @@ export interface UserUpdateOneWithoutPostsNestedInput {
   update?: UserUpdateToOneWithWhereWithoutPostsInput
 }
 
-export interface NullableIntFieldUpdateOperationsInput {
+export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
   decrement?: number
@@ -1245,7 +1261,7 @@ export interface NullableIntFieldUpdateOperationsInput {
   divide?: number
 }
 
-export interface NestedIntFilter {
+export type NestedIntFilter = {
   equals?: number
   in?: number[]
   notIn?: number[]
@@ -1256,7 +1272,7 @@ export interface NestedIntFilter {
   not?: NestedIntFilter
 }
 
-export interface NestedDateTimeFilter {
+export type NestedDateTimeFilter = {
   equals?: Date
   in?: Date[]
   notIn?: Date[]
@@ -1267,7 +1283,7 @@ export interface NestedDateTimeFilter {
   not?: NestedDateTimeFilter
 }
 
-export interface NestedStringFilter {
+export type NestedStringFilter = {
   equals?: string
   in?: string[]
   notIn?: string[]
@@ -1281,7 +1297,7 @@ export interface NestedStringFilter {
   not?: NestedStringFilter
 }
 
-export interface NestedStringNullableFilter {
+export type NestedStringNullableFilter = {
   equals?: string | null
   in?: string[] | null
   notIn?: string[] | null
@@ -1295,7 +1311,7 @@ export interface NestedStringNullableFilter {
   not?: NestedStringNullableFilter | null
 }
 
-export interface NestedIntWithAggregatesFilter {
+export type NestedIntWithAggregatesFilter = {
   equals?: number
   in?: number[]
   notIn?: number[]
@@ -1311,7 +1327,7 @@ export interface NestedIntWithAggregatesFilter {
   _max?: NestedIntFilter
 }
 
-export interface NestedFloatFilter {
+export type NestedFloatFilter = {
   equals?: number
   in?: number[]
   notIn?: number[]
@@ -1322,7 +1338,7 @@ export interface NestedFloatFilter {
   not?: NestedFloatFilter
 }
 
-export interface NestedDateTimeWithAggregatesFilter {
+export type NestedDateTimeWithAggregatesFilter = {
   equals?: Date
   in?: Date[]
   notIn?: Date[]
@@ -1336,7 +1352,7 @@ export interface NestedDateTimeWithAggregatesFilter {
   _max?: NestedDateTimeFilter
 }
 
-export interface NestedStringWithAggregatesFilter {
+export type NestedStringWithAggregatesFilter = {
   equals?: string
   in?: string[]
   notIn?: string[]
@@ -1353,7 +1369,7 @@ export interface NestedStringWithAggregatesFilter {
   _max?: NestedStringFilter
 }
 
-export interface NestedStringNullableWithAggregatesFilter {
+export type NestedStringNullableWithAggregatesFilter = {
   equals?: string | null
   in?: string[] | null
   notIn?: string[] | null
@@ -1370,7 +1386,7 @@ export interface NestedStringNullableWithAggregatesFilter {
   _max?: NestedStringNullableFilter
 }
 
-export interface NestedIntNullableFilter {
+export type NestedIntNullableFilter = {
   equals?: number | null
   in?: number[] | null
   notIn?: number[] | null
@@ -1381,7 +1397,7 @@ export interface NestedIntNullableFilter {
   not?: NestedIntNullableFilter | null
 }
 
-export interface NestedJsonFilter {
+export type NestedJsonFilter = {
   equals?: any
   path?: string[]
   string_contains?: string
@@ -1397,12 +1413,12 @@ export interface NestedJsonFilter {
   not?: any
 }
 
-export interface NestedBoolFilter {
+export type NestedBoolFilter = {
   equals?: boolean
   not?: NestedBoolFilter
 }
 
-export interface NestedBoolWithAggregatesFilter {
+export type NestedBoolWithAggregatesFilter = {
   equals?: boolean
   not?: NestedBoolWithAggregatesFilter
   _count?: NestedIntFilter
@@ -1410,7 +1426,7 @@ export interface NestedBoolWithAggregatesFilter {
   _max?: NestedBoolFilter
 }
 
-export interface NestedIntNullableWithAggregatesFilter {
+export type NestedIntNullableWithAggregatesFilter = {
   equals?: number | null
   in?: number[] | null
   notIn?: number[] | null
@@ -1426,7 +1442,7 @@ export interface NestedIntNullableWithAggregatesFilter {
   _max?: NestedIntNullableFilter
 }
 
-export interface NestedFloatNullableFilter {
+export type NestedFloatNullableFilter = {
   equals?: number | null
   in?: number[] | null
   notIn?: number[] | null
@@ -1437,14 +1453,14 @@ export interface NestedFloatNullableFilter {
   not?: NestedFloatNullableFilter | null
 }
 
-export interface PostCreateWithoutAuthorInput {
+export type PostCreateWithoutAuthorInput = {
   published?: boolean
   title: string
   createdAt?: Date
   updatedAt?: Date
 }
 
-export interface PostUncheckedCreateWithoutAuthorInput {
+export type PostUncheckedCreateWithoutAuthorInput = {
   id?: number
   published?: boolean
   title: string
@@ -1452,33 +1468,33 @@ export interface PostUncheckedCreateWithoutAuthorInput {
   updatedAt?: Date
 }
 
-export interface PostCreateOrConnectWithoutAuthorInput {
+export type PostCreateOrConnectWithoutAuthorInput = {
   where: PostWhereUniqueInput
   create: PostCreateWithoutAuthorInput
 }
 
-export interface PostCreateManyAuthorInputEnvelope {
+export type PostCreateManyAuthorInputEnvelope = {
   data: PostCreateManyAuthorInput[]
   skipDuplicates?: boolean
 }
 
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
+export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
   where: PostWhereUniqueInput
   update: PostUpdateWithoutAuthorInput
   create: PostCreateWithoutAuthorInput
 }
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
+export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
   where: PostWhereUniqueInput
   data: PostUpdateWithoutAuthorInput
 }
 
-export interface PostUpdateManyWithWhereWithoutAuthorInput {
+export type PostUpdateManyWithWhereWithoutAuthorInput = {
   where: PostScalarWhereInput
   data: PostUpdateManyMutationInput
 }
 
-export interface PostScalarWhereInput {
+export type PostScalarWhereInput = {
   AND?: PostScalarWhereInput[]
   OR?: PostScalarWhereInput[]
   NOT?: PostScalarWhereInput[]
@@ -1490,7 +1506,7 @@ export interface PostScalarWhereInput {
   updatedAt?: DateTimeFilter
 }
 
-export interface UserCreateWithoutPostsInput {
+export type UserCreateWithoutPostsInput = {
   createdAt?: Date
   email: string
   name?: string | null
@@ -1498,7 +1514,7 @@ export interface UserCreateWithoutPostsInput {
   permissions?: any
 }
 
-export interface UserUncheckedCreateWithoutPostsInput {
+export type UserUncheckedCreateWithoutPostsInput = {
   id?: number
   createdAt?: Date
   email: string
@@ -1507,23 +1523,23 @@ export interface UserUncheckedCreateWithoutPostsInput {
   permissions?: any
 }
 
-export interface UserCreateOrConnectWithoutPostsInput {
+export type UserCreateOrConnectWithoutPostsInput = {
   where: UserWhereUniqueInput
   create: UserCreateWithoutPostsInput
 }
 
-export interface UserUpsertWithoutPostsInput {
+export type UserUpsertWithoutPostsInput = {
   update: UserUpdateWithoutPostsInput
   create: UserCreateWithoutPostsInput
   where?: UserWhereInput
 }
 
-export interface UserUpdateToOneWithWhereWithoutPostsInput {
+export type UserUpdateToOneWithWhereWithoutPostsInput = {
   where?: UserWhereInput
   data: UserUpdateWithoutPostsInput
 }
 
-export interface UserUpdateWithoutPostsInput {
+export type UserUpdateWithoutPostsInput = {
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
   name?: NullableStringFieldUpdateOperationsInput | null
@@ -1531,7 +1547,7 @@ export interface UserUpdateWithoutPostsInput {
   permissions?: any
 }
 
-export interface UserUncheckedUpdateWithoutPostsInput {
+export type UserUncheckedUpdateWithoutPostsInput = {
   id?: IntFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   email?: StringFieldUpdateOperationsInput
@@ -1540,7 +1556,7 @@ export interface UserUncheckedUpdateWithoutPostsInput {
   permissions?: any
 }
 
-export interface PostCreateManyAuthorInput {
+export type PostCreateManyAuthorInput = {
   id?: number
   published?: boolean
   title: string
@@ -1548,14 +1564,14 @@ export interface PostCreateManyAuthorInput {
   updatedAt?: Date
 }
 
-export interface PostUpdateWithoutAuthorInput {
+export type PostUpdateWithoutAuthorInput = {
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
   createdAt?: DateTimeFieldUpdateOperationsInput
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface PostUncheckedUpdateWithoutAuthorInput {
+export type PostUncheckedUpdateWithoutAuthorInput = {
   id?: IntFieldUpdateOperationsInput
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
@@ -1563,7 +1579,7 @@ export interface PostUncheckedUpdateWithoutAuthorInput {
   updatedAt?: DateTimeFieldUpdateOperationsInput
 }
 
-export interface PostUncheckedUpdateManyWithoutAuthorInput {
+export type PostUncheckedUpdateManyWithoutAuthorInput = {
   id?: IntFieldUpdateOperationsInput
   published?: BoolFieldUpdateOperationsInput
   title?: StringFieldUpdateOperationsInput
