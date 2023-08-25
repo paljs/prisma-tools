@@ -1,5 +1,14 @@
 # @paljs/plugins
 
+## 6.0.3
+
+### Patch Changes
+
+- [admin] fix filter and sort to use new Prisma v5 inputs
+- Updated dependencies
+  - @paljs/types@6.0.3
+  - @paljs/utils@6.0.3
+
 ## 6.0.2
 
 ### Patch Changes
