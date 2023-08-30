@@ -1,5 +1,14 @@
 # @paljs/create
 
+## 6.0.5
+
+### Patch Changes
+
+- make the findMany non null able
+- Updated dependencies
+  - @paljs/display@6.0.5
+  - @paljs/types@6.0.5
+
 ## 6.0.4
 
 ### Patch Changes

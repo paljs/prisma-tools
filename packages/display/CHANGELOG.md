@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 6.0.5
+
+### Patch Changes
+
+- make the findMany non null able
+
 ## 6.0.4
 
 ### Patch Changes
