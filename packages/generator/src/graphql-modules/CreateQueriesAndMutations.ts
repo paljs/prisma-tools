@@ -42,7 +42,7 @@ export async function createQueriesAndMutations(
 
   if (!exclude.includes('findMany')) {
     operations.queries.type += `
-    findMany${name}(${await args('findMany')}): [${modelName}!]`;
+    findMany${name}(${await args('findMany')}): [${modelName}!]!`;
     operations.queries.resolver += `
     findMany${name}: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).${model}.findMany(args);

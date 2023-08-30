@@ -101,7 +101,7 @@ export default gql\`
       take: Int
       skip: Int
       distinct: [PostScalarFieldEnum]
-    ): [Post!]
+    ): [Post!]!
     aggregatePost(
       where: PostWhereInput
       orderBy: [PostOrderByWithRelationInput]
@@ -217,7 +217,7 @@ export default gql\`
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
-    ): [User!]
+    ): [User!]!
     aggregateUser(
       where: UserWhereInput
       orderBy: [UserOrderByWithRelationInput]
@@ -354,7 +354,7 @@ export default gql\`
       take: Int
       skip: Int
       distinct: [PostScalarFieldEnum]
-    ): [Post!]
+    ): [Post!]!
     findManyPostCount(
       where: PostWhereInput
       orderBy: [PostOrderByWithRelationInput]
@@ -493,7 +493,7 @@ export default gql\`
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
-    ): [User!]
+    ): [User!]!
     findManyUserCount(
       where: UserWhereInput
       orderBy: [UserOrderByWithRelationInput]
