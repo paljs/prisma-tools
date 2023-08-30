@@ -34,7 +34,7 @@
     "@paljs/generator": "workspace:*",
     "@types/node": "18.15.3",
     "@types/prettier": "^2.7.2",
-    "@apollo/server": "^4.5.0",
+    "@apollo/server": "^4.9.3",
     "graphql": "^16.6.0",
     "rimraf": "^3.0.2",
     "typescript": "^5.1.6"
