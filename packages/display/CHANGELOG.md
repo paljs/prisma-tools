@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 6.0.4
+
+### Patch Changes
+
+- [admin] fix issue in the initial filter
+
 ## 6.0.3
 
 ### Patch Changes

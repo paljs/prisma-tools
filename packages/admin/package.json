@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",

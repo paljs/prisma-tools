@@ -1,5 +1,15 @@
 # @paljs/generator
 
+## 6.0.4
+
+### Patch Changes
+
+- [admin] fix issue in the initial filter
+- Updated dependencies
+  - @paljs/schema@6.0.4
+  - @paljs/types@6.0.4
+  - @paljs/utils@6.0.4
+
 ## 6.0.3
 
 ### Patch Changes

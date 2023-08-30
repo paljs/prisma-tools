@@ -21,7 +21,7 @@ const filterMemo = (modelName: string, filter?: any) => {
                 equals: isField?.type === 'String' ? filter[key] : parseInt(filter[key]),
               },
             };
-            const value = field?.list ? { some: filterValue } : filterValue;
+            const value = field?.list ? { some: filterValue } : { is: filterValue };
             initialValue.push({
               id: field ? field.name : key,
               value,
