@@ -29,6 +29,16 @@ exports[`test PrismaSelect class should contain default values firstName, lastNa
 }
 `;
 
+exports[`test PrismaSelect class should exclude values email, password 1`] = `
+{
+  "select": {
+    "firstName": true,
+    "id": true,
+    "lastName": true,
+  },
+}
+`;
+
 exports[`test PrismaSelect class should filter the type depend on the @PrismaSelect comment on the schema file 1`] = `
 {
   "select": {

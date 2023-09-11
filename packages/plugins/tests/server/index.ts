@@ -64,6 +64,7 @@ const typeDefs = gql`
     aggregateUser: AggregateUser
     getNestedValue(value: String!, type: String!): User
     userWithDefaultValues: User
+    userWithExcludeValues: User
   }
 `;
 
@@ -91,9 +92,17 @@ const resolvers = {
       return null;
     },
     userWithDefaultValues: (_, __, ctx, info) => {
-      const select = new PrismaSelect(info, {
+      const select = new PrismaSelect<'User', { User: { firstName: string; lastName: string } }>(info, {
         dmmf: [ctx.dmmf],
         defaultFields: { User: { firstName: true, lastName: true } },
+      }).value;
+      ctx.log({ select });
+      return null;
+    },
+    userWithExcludeValues: (_, __, ctx, info) => {
+      const select = new PrismaSelect<'User', { User: { email: string; password: string } }>(info, {
+        dmmf: [ctx.dmmf],
+        excludeFields: { User: ['email', 'password'] },
       }).value;
       ctx.log({ select });
       return null;

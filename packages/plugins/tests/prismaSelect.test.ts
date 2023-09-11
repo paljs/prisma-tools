@@ -85,6 +85,18 @@ const userWithDefaultValuesQuery = gql`
   }
 `;
 
+const userWithExcludeValuesQuery = gql`
+  query userWithExcludeValues {
+    userWithExcludeValues {
+      id
+      email
+      password
+      firstName
+      lastName
+    }
+  }
+`;
+
 describe('test PrismaSelect class', () => {
   it('test nested relations with args', async () => {
     const { result, log } = await executeOperation({ query: userQuery });
@@ -132,6 +144,11 @@ describe('test PrismaSelect class', () => {
 
   it('should contain default values firstName, lastName', async () => {
     const { log } = await executeOperation({ query: userWithDefaultValuesQuery });
+    expect(log.select).toMatchSnapshot();
+  });
+
+  it('should exclude values email, password', async () => {
+    const { log } = await executeOperation({ query: userWithExcludeValuesQuery });
     expect(log.select).toMatchSnapshot();
   });
 });

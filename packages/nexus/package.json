@@ -1,6 +1,6 @@
 {
   "name": "@paljs/nexus",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {

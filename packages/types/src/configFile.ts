@@ -1,26 +1,35 @@
 import { GeneratorOptions } from './generator';
 
-export interface AdminPagesOptions {
-  models?: string[];
+export interface AdminPagesOptions<ModelName extends string = string> {
+  models?: ModelName[];
   pageContent?: string;
   outPut?: string;
   backAsText?: boolean;
 }
 
-export type PartialOptions = Omit<Partial<GeneratorOptions>, 'backAsText'>;
+export type PartialOptions<
+  ModelName extends string = string,
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+> = Omit<Partial<GeneratorOptions<ModelName, ModelsObject>>, 'backAsText'>;
 
 export type GeneratorsType = 'nexus' | 'sdl' | 'graphql-modules';
 
-export interface Config {
+export interface Config<
+  ModelName extends string = string,
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+> {
   schema?: string;
   backend?: {
     generator: GeneratorsType;
     adminSettingsPath?: string;
-  } & PartialOptions;
+  } & PartialOptions<ModelName, ModelsObject>;
   frontend?: {
-    admin?: AdminPagesOptions | boolean;
-    graphql?: PartialOptions | boolean;
+    admin?: AdminPagesOptions<ModelName> | boolean;
+    graphql?: PartialOptions<ModelName, ModelsObject> | boolean;
   };
 }
 
-export type MultiSchemaConfig = Record<string, Config>;
+export type MultiSchemaConfig<
+  ModelName extends string = string,
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+> = Record<string, Config<ModelName, ModelsObject>>;

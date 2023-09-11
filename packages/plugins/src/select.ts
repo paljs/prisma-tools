@@ -2,6 +2,53 @@ import { GraphQLResolveInfo } from 'graphql';
 import { DMMF } from '@paljs/types';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
 
+export type PrismaSelectOptions<ModelName extends string, ModelsObject extends Record<string, Record<string, any>>> = {
+  /*
+   * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
+   * @example
+   * const defaultFields = {
+   *    User: { id: true, name: true },
+   *    Type: { id: true, descriptionRaw: true },
+   *    Post: { id: true, body: true },
+   *    // as function you can check if client select some fields to add another to default fields
+   *    Account: (select) => select.name ? {firstname: true, lastname: true} : {}
+   * }
+   * */
+  defaultFields?: {
+    [model in ModelName]?:
+      | {
+          [field in keyof ModelsObject[model]]?: boolean;
+        }
+      | ((select: any) => { [field in keyof ModelsObject[model]]?: boolean });
+  };
+  /*
+   * you can pass object with your models and what the fields you need to exclude for every model even if user requested in GraphQL query.
+   * @example
+   * const excludeFields = {
+   *    User: ['id', 'name'],
+   *    Type: ['id', 'descriptionRaw'],
+   *    Post: ['id', 'body'],
+   *    // as function you can check if client select some fields to add another to default fields
+   *    Account: (select) => select.name ? ['firstName', 'lastname'] : []
+   * }
+   * */
+  excludeFields?: {
+    [model in ModelName]?:
+      | (keyof ModelsObject[model] | string)[]
+      | ((select: any) => (keyof ModelsObject[model] | string)[]);
+  };
+  /*
+   * array of dmmf object import from generated prisma client default
+   * @example
+   * import {Prisma} from './customPath';
+   * import {Prisma as Prisma2} from './customPath2';
+   * {
+   *  dmmf: [Prisma.dmmf, Prisma2.dmmf]
+   * }
+   * */
+  dmmf?: Pick<DMMF.Document, 'datamodel'>[];
+};
+
 /**
  * Convert `info` to select object accepted by `prisma client`.
  * @param info - GraphQLResolveInfo.
@@ -40,40 +87,16 @@ import { parseResolveInfo } from 'graphql-parse-resolve-info';
  * })
  *
  **/
-export class PrismaSelect {
+
+export class PrismaSelect<
+  ModelName extends string = '',
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+> {
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take', 'distinct'];
   private allowedProps = ['_count'];
   private isAggregate = false;
 
-  constructor(
-    private info: GraphQLResolveInfo,
-    private options?: {
-      /*
-       * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
-       * @example
-       * const defaultFields = {
-       *    User: { id: true, name: true },
-       *    Type: { id: true, descriptionRaw: true },
-       *    Post: { id: true, body: true },
-       *    // as function you can check if client select some fields to add another to default fields
-       *    Account: (select) => select.name ? {firstname: true, lastname: true} : {}
-       * }
-       * */
-      defaultFields?: {
-        [key: string]: { [key: string]: boolean } | ((select: any) => { [key: string]: boolean });
-      };
-      /*
-       * array of dmmf object import from generated prisma client default
-       * @example
-       * import {Prisma} from './customPath';
-       * import {Prisma as Prisma2} from './customPath2';
-       * {
-       *  dmmf: [Prisma.dmmf, Prisma2.dmmf]
-       * }
-       * */
-      dmmf?: Pick<DMMF.Document, 'datamodel'>[];
-    },
-  ) {}
+  constructor(private info: GraphQLResolveInfo, private options?: PrismaSelectOptions<ModelName, ModelsObject>) {}
 
   get value() {
     const returnType = this.info.returnType.toString().replace(/]/g, '').replace(/\[/g, '').replace(/!/g, '');
@@ -100,6 +123,10 @@ export class PrismaSelect {
 
   get defaultFields() {
     return this.options?.defaultFields;
+  }
+
+  get excludeFields() {
+    return this.options?.excludeFields;
   }
 
   private get fields() {
@@ -224,25 +251,37 @@ export class PrismaSelect {
         ...selectObject,
         select: { ...defaultFields },
       };
-      Object.keys(selectObject.select).forEach((key) => {
+
+      for (const key in selectObject.select) {
+        if (this.excludeFields && this.excludeFields[modelName]) {
+          const modelFields = this.excludeFields[modelName];
+          const excludeFields = typeof modelFields === 'function' ? modelFields(selectObject.select) : modelFields;
+          if (excludeFields.includes(key)) continue;
+        }
+
         if (this.allowedProps.includes(key)) {
           filteredObject.select[key] = selectObject.select[key];
-        } else {
-          const field = this.field(key, model);
-          if (field) {
-            if (field.kind !== 'object') {
-              filteredObject.select[key] = true;
-            } else {
-              const subModelFilter = this.filterBy(field.type, selectObject.select[key]);
-              if (subModelFilter === true) {
-                filteredObject.select[key] = true;
-              } else if (Object.keys(subModelFilter.select).length > 0) {
-                filteredObject.select[key] = subModelFilter;
-              }
-            }
+          continue;
+        }
+
+        const field = this.field(key, model);
+        if (field) {
+          if (field.kind !== 'object') {
+            filteredObject.select[key] = true;
+            continue;
+          }
+
+          const subModelFilter = this.filterBy(field.type, selectObject.select[key]);
+          if (subModelFilter === true) {
+            filteredObject.select[key] = true;
+            continue;
+          }
+
+          if (Object.keys(subModelFilter.select).length > 0) {
+            filteredObject.select[key] = subModelFilter;
           }
         }
-      });
+      }
       return filteredObject;
     } else {
       return selectObject;

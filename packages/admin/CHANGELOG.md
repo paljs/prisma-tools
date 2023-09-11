@@ -1,5 +1,13 @@
 # @paljs/admin
 
+## 6.0.6
+
+### Patch Changes
+
+- Improve the select plugin option types and add exclude fields
+- Updated dependencies
+  - @paljs/types@6.0.6
+
 ## 6.0.5
 
 ### Patch Changes

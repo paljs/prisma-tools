@@ -8,7 +8,12 @@ import { AllNexusOutputTypeDefs } from 'nexus/dist/definitions/wrapping';
 
 export { Settings };
 
-export const paljs = (settings?: Settings) =>
+export const paljs = <
+  ModelName extends string = '',
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+>(
+  settings?: Settings<ModelName, ModelsObject>,
+) =>
   plugin({
     name: 'paljs',
     description:
@@ -33,7 +38,7 @@ export const paljs = (settings?: Settings) =>
     },
     onCreateFieldResolver() {
       return async (root, args, ctx, info: any, next) => {
-        ctx.select = new PrismaSelect(info, {
+        ctx.select = new PrismaSelect<ModelName, ModelsObject>(info, {
           ...settings?.prismaSelectOptions,
         }).value;
         return await next(root, args, ctx, info);

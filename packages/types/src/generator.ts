@@ -5,19 +5,22 @@ export type Mutation = 'createOne' | 'updateOne' | 'upsertOne' | 'deleteOne' | '
 
 export type QueriesAndMutations = Query | Mutation;
 
-export interface GeneratorOptions {
+export interface GeneratorOptions<
+  ModelName extends string = string,
+  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+> {
   backAsText?: boolean;
   prismaName: string;
-  models?: string[];
+  models?: ModelName[];
   output: string;
   javaScript?: boolean;
   excludeFields: string[];
-  excludeModels: { name: string; queries?: boolean; mutations?: boolean }[];
+  excludeModels: { name: ModelName; queries?: boolean; mutations?: boolean }[];
   disableQueries?: boolean;
   disableMutations?: boolean;
-  excludeFieldsByModel: { [modelName: string]: string[] };
+  excludeFieldsByModel: { [modelName in ModelName]: (keyof ModelsObject[modelName])[] };
   excludeQueriesAndMutationsByModel: {
-    [modelName: string]: QueriesAndMutations[];
+    [modelName in ModelName]: QueriesAndMutations[];
   };
   excludeQueriesAndMutations: QueriesAndMutations[];
   excludeInputFields?: string[];
