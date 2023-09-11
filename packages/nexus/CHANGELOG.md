@@ -1,5 +1,15 @@
 # @paljs/nexus
 
+## 6.0.7
+
+### Patch Changes
+
+- Fix an issue in the select plugin options
+- Updated dependencies
+  - @paljs/plugins@6.0.7
+  - @paljs/types@6.0.7
+  - @paljs/utils@6.0.7
+
 ## 6.0.6
 
 ### Patch Changes

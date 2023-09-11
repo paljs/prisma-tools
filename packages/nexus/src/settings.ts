@@ -2,7 +2,7 @@ import { PrismaSelectOptions } from '@paljs/plugins';
 
 export interface Settings<
   ModelName extends string = '',
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   /*
    * We will pass these options to `PrismaSelect` plugin.

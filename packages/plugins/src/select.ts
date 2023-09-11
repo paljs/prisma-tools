@@ -2,7 +2,10 @@ import { GraphQLResolveInfo } from 'graphql';
 import { DMMF } from '@paljs/types';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
 
-export type PrismaSelectOptions<ModelName extends string, ModelsObject extends Record<string, Record<string, any>>> = {
+export type PrismaSelectOptions<
+  ModelName extends string,
+  ModelsObject extends Record<ModelName, Record<string, any>>,
+> = {
   /*
    * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
    * @example
@@ -90,7 +93,7 @@ export type PrismaSelectOptions<ModelName extends string, ModelsObject extends R
 
 export class PrismaSelect<
   ModelName extends string = '',
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   private availableArgs = ['where', 'orderBy', 'skip', 'cursor', 'take', 'distinct'];
   private allowedProps = ['_count'];

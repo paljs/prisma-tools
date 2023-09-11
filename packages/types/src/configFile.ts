@@ -9,14 +9,14 @@ export interface AdminPagesOptions<ModelName extends string = string> {
 
 export type PartialOptions<
   ModelName extends string = string,
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > = Omit<Partial<GeneratorOptions<ModelName, ModelsObject>>, 'backAsText'>;
 
 export type GeneratorsType = 'nexus' | 'sdl' | 'graphql-modules';
 
 export interface Config<
   ModelName extends string = string,
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   schema?: string;
   backend?: {
@@ -31,5 +31,5 @@ export interface Config<
 
 export type MultiSchemaConfig<
   ModelName extends string = string,
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > = Record<string, Config<ModelName, ModelsObject>>;

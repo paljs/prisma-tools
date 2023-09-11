@@ -4,7 +4,7 @@ import { printSchema } from 'graphql';
 
 export const generateSchema = <
   ModelName extends string = '',
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, { [key: string]: boolean }>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 >(
   settings?: Settings<ModelName, ModelsObject>,
 ) =>

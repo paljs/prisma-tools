@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 6.0.7
+
+### Patch Changes
+
+- Fix an issue in the select plugin options
+
 ## 6.0.6
 
 ### Patch Changes

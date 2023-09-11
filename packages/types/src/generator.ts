@@ -7,7 +7,7 @@ export type QueriesAndMutations = Query | Mutation;
 
 export interface GeneratorOptions<
   ModelName extends string = string,
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   backAsText?: boolean;
   prismaName: string;

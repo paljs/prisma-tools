@@ -10,7 +10,7 @@ export { Settings };
 
 export const paljs = <
   ModelName extends string = '',
-  ModelsObject extends Record<string, Record<string, any>> = Record<string, Record<string, any>>,
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 >(
   settings?: Settings<ModelName, ModelsObject>,
 ) =>
