@@ -7,6 +7,7 @@ export class GenerateTypes {
     `import * as Client from '@prisma/client'`,
     `import { Context } from './context'`,
     `import { GraphQLResolveInfo } from 'graphql';`,
+    `import { GetAggregateResult } from '@prisma/client/runtime/library';`,
     `type Resolver<T extends {}, A extends {}, R extends any> = (parent: T,args: A, context: Context, info: GraphQLResolveInfo) => Promise<R>;`,
     `type NoExpand<T> = T extends unknown ? T : never;`,
     `type AtLeast<O extends object, K extends string> = NoExpand<
@@ -48,13 +49,17 @@ export class GenerateTypes {
       case 'scalar':
         return `${this.scalar[options.type as string]}${options.isList ? '[]' : ''}`;
       default: {
-        const type = options.type.toString().startsWith('Aggregate')
-          ? `Prisma.Get${options.type.toString().replace('Aggregate', '')}AggregateType<${options.type}Args>`
-          : options.type.toString() === 'AffectedRowsOutput'
-          ? 'Prisma.BatchPayload'
-          : !this.isModel(options.type.toString()) && !input
-          ? `Prisma.${options.type}`
-          : options.type;
+        if (options.type.toString().startsWith('Aggregate')) {
+          return `GetAggregateResult<Client.Prisma.$${options.type.toString().replace('Aggregate', '')}Payload, ${
+            options.type
+          }Args>`;
+        }
+        const type =
+          options.type.toString() === 'AffectedRowsOutput'
+            ? 'Prisma.BatchPayload'
+            : !this.isModel(options.type.toString()) && !input
+            ? `Prisma.${options.type}`
+            : options.type;
         return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
       }
     }
