@@ -7,6 +7,8 @@ import { Context } from './context'
 
 import { GraphQLResolveInfo } from 'graphql'
 
+import { GetAggregateResult } from '@prisma/client/runtime/library'
+
 type Resolver<T extends {}, A extends {}, R extends any> = (
   parent: T,
   args: A,
@@ -82,7 +84,7 @@ export type Query = { [key: string]: Resolver<any, any, any> } & {
   aggregateUser?: Resolver<
     {},
     AggregateUserArgs,
-    Client.Prisma.GetUserAggregateType<AggregateUserArgs>
+    GetAggregateResult<Client.Prisma.$UserPayload, AggregateUserArgs>
   >
   groupByUser?: Resolver<
     {},
@@ -106,7 +108,7 @@ export type Query = { [key: string]: Resolver<any, any, any> } & {
   aggregatePost?: Resolver<
     {},
     AggregatePostArgs,
-    Client.Prisma.GetPostAggregateType<AggregatePostArgs>
+    GetAggregateResult<Client.Prisma.$PostPayload, AggregatePostArgs>
   >
   groupByPost?: Resolver<
     {},
