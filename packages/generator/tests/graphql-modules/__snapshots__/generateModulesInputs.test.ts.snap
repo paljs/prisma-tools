@@ -1022,7 +1022,7 @@ type AggregatePost {
 }
 
 type UserCountOutputType {
-  posts: Int!
+  posts(where: PostWhereInput): Int!
 }
 
 type UserCountAggregateOutputType {
