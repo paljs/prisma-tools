@@ -22,7 +22,7 @@ export const getSchemaPath = async (path?: string): Promise<string> => {
   return schemaPath;
 };
 
-export const getDMMFBySchemaPath = async (schemaPath?: string) => {
+export const getDMMFBySchemaPath = async (schemaPath?: string): Promise<DMMF.Document> => {
   const schemaPathFromPrisma = await getSchemaPath(schemaPath);
   const schemaString = readFileSync(schemaPathFromPrisma, 'utf-8');
   const dmmf: DMMF.Document = await getDMMF({ datamodel: schemaString });
