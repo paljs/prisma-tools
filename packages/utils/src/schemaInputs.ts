@@ -1,11 +1,15 @@
 import { DMMF } from '@paljs/types';
 
-export const getInputType = (field: DMMF.SchemaArg, options?: { doNotUseFieldUpdateOperationsInput?: boolean }) => {
+export const getInputType = (
+  field: DMMF.SchemaArg,
+  options?: { doNotUseFieldUpdateOperationsInput?: boolean },
+): DMMF.SchemaArgInputType => {
   let index = 0;
   if (
     options?.doNotUseFieldUpdateOperationsInput &&
     field.inputTypes.length > 1 &&
-    (field.inputTypes[1].type as string).endsWith('FieldUpdateOperationsInput')
+    typeof field.inputTypes[1].type === 'string' &&
+    field.inputTypes[1].type.endsWith('FieldUpdateOperationsInput')
   ) {
     return field.inputTypes[index];
   }
