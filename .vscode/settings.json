@@ -7,5 +7,6 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "npm.packageManager": "pnpm"
 }
