@@ -45,8 +45,8 @@ export const getValueByType = ({ value, field, useSet = true }: GetValueOptions)
     const result = ['BigInt', 'Int'].includes(field.type)
       ? parseInt(value)
       : ['Float', 'Decimal'].includes(field.type)
-      ? parseFloat(value)
-      : value;
+        ? parseFloat(value)
+        : value;
     return !useSet ? result : { set: result };
   }
 };

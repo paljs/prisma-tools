@@ -2,9 +2,12 @@ import { getLatestVersion } from './get-latest-version';
 import { Fallbackable } from './fallbackable';
 
 function fromEntries<K extends number | string, V>(entries: [K, V][]): Record<K, V> {
-  return entries.reduce<Record<K, V>>((result, [key, value]) => {
-    return Object.assign({}, result, { [key]: value });
-  }, {} as Record<K, V>);
+  return entries.reduce<Record<K, V>>(
+    (result, [key, value]) => {
+      return Object.assign({}, result, { [key]: value });
+    },
+    {} as Record<K, V>,
+  );
 }
 
 export const fetchLatestVersionsFor = async <T extends Record<string, string>>(

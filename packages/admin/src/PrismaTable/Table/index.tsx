@@ -461,8 +461,8 @@ export const Table: React.FC<TableProps> = ({
                   index === 0
                     ? 'rtl:rounded-r-md ltr:rounded-l-md'
                     : index === pageSizeOptions.length - 1
-                    ? 'rtl:rounded-l-md ltr:rounded-r-md'
-                    : '',
+                      ? 'rtl:rounded-l-md ltr:rounded-r-md'
+                      : '',
                   item === pageSize
                     ? 'bg-blue-500 text-white hover:bg-blue-700'
                     : 'bg-white text-gray-700 hover:bg-gray-100',
