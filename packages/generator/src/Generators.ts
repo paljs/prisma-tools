@@ -1,4 +1,4 @@
-import { Mutation, GeneratorOptions, Query, DMMF } from '@paljs/types';
+import { Mutation, GeneratorOptions, Query, DMMF, ReadonlyDeep } from '@paljs/types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { format, Options as PrettierOptions } from 'prettier';
 import pkgDir from 'pkg-dir';
@@ -28,7 +28,10 @@ export class Generators {
 
   readyDmmf?: DMMF.Document;
 
-  constructor(private schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
+  constructor(
+    private schemaPath: string,
+    customOptions?: Partial<GeneratorOptions>,
+  ) {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
     this.schemaString = readFileSync(this.schemaPath, 'utf-8');
@@ -44,23 +47,25 @@ export class Generators {
     }
   }
 
-  protected async datamodel() {
+  protected async datamodel(): Promise<DMMF.Datamodel> {
     const { datamodel }: { datamodel: DMMF.Datamodel } = await this.dmmf();
     return datamodel;
   }
 
-  protected dataModel(models: DMMF.Model[], name: string) {
+  protected dataModel(models: ReadonlyDeep<DMMF.Model[]>, name: string): DMMF.Model | undefined {
     return models.find((m) => m.name === name);
   }
 
-  protected dataField(name: string, model?: DMMF.Model) {
+  protected dataField(name: string, model?: DMMF.Model): DMMF.Field | undefined {
     return model?.fields.find((f) => f.name === name);
   }
 
-  protected async models() {
-    const { schema }: { schema: DMMF.Schema } = await this.dmmf();
+  protected async models(): Promise<DMMF.OutputType[]> {
+    const { schema, datamodel }: { schema: DMMF.Schema; datamodel: DMMF.Datamodel } = await this.dmmf();
     return schema.outputObjectTypes.model.filter(
-      (model) => !this.options.models || this.options.models.includes(model.name),
+      (model) =>
+        (!this.options.models || this.options.models.includes(model.name)) &&
+        datamodel.models.find((m) => m.name === model.name),
     );
   }
 
@@ -73,7 +78,7 @@ export class Generators {
     return sdl ? this.getSDLArgs(field.args) : this.getNexusArgs(field.args);
   }
 
-  getNexusArgs(args: DMMF.SchemaArg[]) {
+  getNexusArgs(args: ReadonlyDeep<DMMF.SchemaArg[]>) {
     const getType = (arg: DMMF.SchemaArg) => {
       const inputType = getInputType(arg, this.options);
       let type = `'${inputType.type}'`;
@@ -95,7 +100,7 @@ export class Generators {
     return argsText.join('\n');
   }
 
-  getSDLArgs(args: DMMF.SchemaArg[]) {
+  getSDLArgs(args: ReadonlyDeep<DMMF.SchemaArg[]>) {
     const getType = (arg: DMMF.SchemaArg) => {
       const inputType = getInputType(arg, this.options);
       let type = `${inputType.type}`;
@@ -179,7 +184,7 @@ export class Generators {
   }
 
   async generateSDLInputsString() {
-    const { schema }: { schema: DMMF.Schema } = await this.dmmf();
+    const { schema }: { schema: DMMF.Schema; datamodel: DMMF.Datamodel } = await this.dmmf();
     const fileContent: string[] = ['scalar DateTime', 'type BatchPayload {', 'count: Int!', '}', ''];
     if (schema) {
       const enums = [...schema.enumTypes.prisma];
@@ -214,8 +219,13 @@ export class Generators {
         }
       });
 
-      schema?.outputObjectTypes.prisma
-        .filter((type) => type.name.includes('Aggregate') || type.name.endsWith('CountOutputType'))
+      const outputObjectTypes: DMMF.OutputType[] = [
+        ...schema.outputObjectTypes.prisma,
+        ...schema.outputObjectTypes.model,
+      ];
+
+      outputObjectTypes
+        .filter((type) => type.name.includes('Aggregate') || type.name.endsWith('OutputType'))
         .forEach((type) => {
           fileContent.push(`type ${type.name} {`, '');
           type.fields
@@ -230,7 +240,7 @@ export class Generators {
           fileContent.push('}', '');
         });
     }
-    return this.formation(fileContent.join('\n'), 'graphql');
+    return await this.formation(fileContent.join('\n'), 'graphql');
   }
 
   protected readFile(path: string) {
@@ -242,7 +252,7 @@ export class Generators {
   }
 
   protected filterDocs(docs?: string) {
-    return docs?.replace(/@PrismaSelect.map\(\[(.*?)\]\)/, '').replace(/@onDelete\((.*?)\)/, '');
+    return docs?.replace(/@PrismaSelect.map\(\[(.*?)]\)/, '').replace(/@onDelete\((.*?)\)/, '');
   }
 
   protected shouldOmit(docs?: string) {
@@ -252,7 +262,7 @@ export class Generators {
     if (docs?.match(/@Pal.omit(\(\))?\b/)) {
       return true;
     }
-    const innerExpression = docs?.match(/@Pal.omit\(\[(.*?)\]\)/);
+    const innerExpression = docs?.match(/@Pal.omit\(\[(.*?)]\)/);
     if (innerExpression) {
       const expressionArguments = innerExpression[1].replace(/\s/g, '').split(',').filter(Boolean);
       return expressionArguments.includes('output');
@@ -269,8 +279,8 @@ export class Generators {
     return this.isJS ? 'babel' : 'babel-ts';
   }
 
-  formation(text: string, parser: PrettierOptions['parser'] = this.parser) {
-    return format(text, {
+  async formation(text: string, parser: PrettierOptions['parser'] = this.parser) {
+    return await format(text, {
       singleQuote: true,
       semi: false,
       trailingComma: 'all',

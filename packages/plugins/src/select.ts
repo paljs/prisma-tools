@@ -2,19 +2,21 @@ import { GraphQLResolveInfo } from 'graphql';
 import { DMMF } from '@paljs/types';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
 
-export type PrismaSelectOptions<
+export interface PrismaSelectOptions<
   ModelName extends string,
   ModelsObject extends Record<ModelName, Record<string, any>>,
-> = {
+> {
   /*
-   * you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query.
+   * you can pass an object with your models and what the fields you need
+   * to include for every model even if user not requested in GraphQL query.
    * @example
    * const defaultFields = {
    *    User: { id: true, name: true },
    *    Type: { id: true, descriptionRaw: true },
    *    Post: { id: true, body: true },
    *    // as function you can check if client select some fields to add another to default fields
-   *    Account: (select) => select.name ? {firstname: true, lastname: true} : {}
+   *    Account: (select) => select.name ?
+   * {firstname: true, lastname: true} : {}
    * }
    * */
   defaultFields?: {
@@ -25,14 +27,16 @@ export type PrismaSelectOptions<
       | ((select: any) => { [field in keyof ModelsObject[model]]?: boolean });
   };
   /*
-   * you can pass object with your models and what the fields you need to exclude for every model even if user requested in GraphQL query.
+   * you can pass an object with your models and what the fields you need
+   * to exclude for every model even if user requested in GraphQL query.
    * @example
    * const excludeFields = {
    *    User: ['id', 'name'],
    *    Type: ['id', 'descriptionRaw'],
    *    Post: ['id', 'body'],
    *    // as function you can check if client select some fields to add another to default fields
-   *    Account: (select) => select.name ? ['firstName', 'lastname'] : []
+   *    Account: (select) => select.name ?
+   * ['firstName', 'lastname'] : []
    * }
    * */
   excludeFields?: {
@@ -50,7 +54,7 @@ export type PrismaSelectOptions<
    * }
    * */
   dmmf?: Pick<DMMF.Document, 'datamodel'>[];
-};
+}
 
 /**
  * Convert `info` to select object accepted by `prisma client`.
@@ -99,7 +103,10 @@ export class PrismaSelect<
   private allowedProps = ['_count'];
   private isAggregate = false;
 
-  constructor(private info: GraphQLResolveInfo, private options?: PrismaSelectOptions<ModelName, ModelsObject>) {}
+  constructor(
+    private info: GraphQLResolveInfo,
+    private options?: PrismaSelectOptions<ModelName, ModelsObject>,
+  ) {}
 
   get value() {
     const returnType = this.info.returnType.toString().replace(/]/g, '').replace(/\[/g, '').replace(/!/g, '');
@@ -137,7 +144,7 @@ export class PrismaSelect<
   }
 
   private static getModelMap(docs?: string, name?: string) {
-    const value = docs?.match(/@PrismaSelect.map\(\[(.*?)\]\)/);
+    const value = docs?.match(/@PrismaSelect.map\(\[(.*?)]\)/);
     if (value && name) {
       const asArray = value[1]
         .replace(/ /g, '')
@@ -179,8 +186,8 @@ export class PrismaSelect<
   }
 
   /**
-   * Get nested value from select object.
-   * @param field - name of field in select object.
+   * Get nested value from a select object.
+   * @param field - name of field in a select object.
    * @param filterBy - Model name as you have in schema.prisma file.
    * @param mergeObject
    * @example
@@ -197,7 +204,7 @@ export class PrismaSelect<
    *    }
    * }
    *
-   * // when you need to get more nested fields just add `.`
+   * // when you need to get more nested fields add `.`
    * PrismaSelect.valueOf('posts.comments', 'Comment');
    * // return
    * { select: { id: true } }

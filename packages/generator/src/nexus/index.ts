@@ -1,4 +1,4 @@
-import { GeneratorOptions, DMMF } from '@paljs/types';
+import { DMMF } from '@paljs/types';
 import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { Generators } from '../Generators';
 import { getCrud } from './templates';
@@ -15,10 +15,6 @@ export class GenerateNexus extends Generators {
     index: string;
   } = { models: {}, index: '', inputs: '' };
 
-  constructor(schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
-    super(schemaPath, customOptions);
-  }
-
   private indexPath = this.output(this.withExtension('index'));
   private indexTS = this.readIndex();
   private indexJS: string[] = [];
@@ -26,7 +22,7 @@ export class GenerateNexus extends Generators {
   async run() {
     await this.createModels();
     await this.createInputs();
-    this.createIndex();
+    await this.createIndex();
   }
 
   async createModels() {
@@ -75,13 +71,13 @@ export class GenerateNexus extends Generators {
       const path = this.output(model.name);
 
       if (this.options.backAsText) {
-        this.generatedText.models[model.name] = { type: this.formation(fileContent), queries: {}, mutations: {} };
+        this.generatedText.models[model.name] = { type: await this.formation(fileContent), queries: {}, mutations: {} };
       } else {
         this.mkdir(path);
-        writeFileSync(join(path, this.withExtension('type')), this.formation(fileContent));
+        writeFileSync(join(path, this.withExtension('type')), await this.formation(fileContent));
       }
 
-      this.createIndex(path, ['type'].concat(await this.createQueriesAndMutations(model.name)));
+      await this.createIndex(path, ['type'].concat(await this.createQueriesAndMutations(model.name)));
     }
   }
 
@@ -94,16 +90,16 @@ export class GenerateNexus extends Generators {
       for (const item of this.queries.filter((item) => !exclude.includes(item))) {
         const itemContent = await getCrud(name, 'query', item, this);
         if (this.options.backAsText) {
-          this.generatedText.models[name].queries[item] = this.formation(itemContent);
+          this.generatedText.models[name].queries[item] = await this.formation(itemContent);
         } else {
-          this.createFileIfNotfound(path, this.withExtension(item), this.formation(itemContent));
+          this.createFileIfNotfound(path, this.withExtension(item), await this.formation(itemContent));
         }
         queriesIndex.push(item);
       }
       if (queriesIndex) {
         modelIndex.push('queries');
         const indexPath = join(path, this.withExtension('index'));
-        const indexContent = this.formation(this.getIndexContent(queriesIndex, indexPath));
+        const indexContent = await this.formation(this.getIndexContent(queriesIndex, indexPath));
         if (this.options.backAsText) {
           this.generatedText.models[name].queries.index = indexContent;
         } else {
@@ -118,16 +114,16 @@ export class GenerateNexus extends Generators {
       for (const item of this.mutations.filter((item) => !exclude.includes(item))) {
         const itemContent = await getCrud(name, 'mutation', item, this);
         if (this.options.backAsText) {
-          this.generatedText.models[name].mutations[item] = this.formation(itemContent);
+          this.generatedText.models[name].mutations[item] = await this.formation(itemContent);
         } else {
-          this.createFileIfNotfound(path, this.withExtension(item), this.formation(itemContent));
+          this.createFileIfNotfound(path, this.withExtension(item), await this.formation(itemContent));
         }
         mutationsIndex.push(item);
       }
       if (mutationsIndex) {
         modelIndex.push('mutations');
         const indexPath = join(path, this.withExtension('index'));
-        const indexContent = this.formation(this.getIndexContent(mutationsIndex, indexPath));
+        const indexContent = await this.formation(this.getIndexContent(mutationsIndex, indexPath));
         if (this.options.backAsText) {
           this.generatedText.models[name].mutations.index = indexContent;
         } else {
@@ -188,8 +184,9 @@ export class GenerateNexus extends Generators {
           text.push(`},\n});\n`);
         }
       });
-      data.outputObjectTypes.prisma
-        .filter((type) => type.name.includes('Aggregate') || type.name.endsWith('CountOutputType'))
+      const outputObjectTypes: DMMF.OutputType[] = [...data.outputObjectTypes.prisma, ...data.outputObjectTypes.model];
+      outputObjectTypes
+        .filter((type) => type.name.includes('Aggregate') || type.name.endsWith('OutputType'))
         .forEach((type) => {
           exportModels.push(type.name);
           text.push(`${!this.isJS ? 'export ' : ''} const ${type.name} = objectType({
@@ -215,23 +212,23 @@ export class GenerateNexus extends Generators {
       }
     }
     if (this.options.backAsText) {
-      this.generatedText.inputs = this.formation(text.join('\n'));
+      this.generatedText.inputs = await this.formation(text.join('\n'));
     } else {
-      writeFileSync(join(this.output(), this.withExtension(this.inputName)), this.formation(text.join('\n')));
+      writeFileSync(join(this.output(), this.withExtension(this.inputName)), await this.formation(text.join('\n')));
     }
   }
 
-  createIndex(path?: string, content?: string[]): string | void {
+  async createIndex(path?: string, content?: string[]): Promise<string | void> {
     if (path && content) {
       const indexPath = join(path, this.withExtension('index'));
-      const fileContent = this.formation(this.getIndexContent(content, indexPath));
+      const fileContent = await this.formation(this.getIndexContent(content, indexPath));
       if (this.options.backAsText) {
         return fileContent;
       } else {
         writeFileSync(indexPath, fileContent);
       }
     } else {
-      const fileContent = this.formation(this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS);
+      const fileContent = await this.formation(this.isJS ? this.getIndexContent(this.indexJS) : this.indexTS);
       if (this.options.backAsText) {
         return fileContent;
       } else {

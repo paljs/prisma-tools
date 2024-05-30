@@ -6,6 +6,7 @@ describe('Generate Nexus Index', () => {
   it('Should back with all models Index', async () => {
     const generator = new GenerateNexus(schemaPath, { backAsText: true });
     await generator.createModels();
-    expect(generator.createIndex()).toMatchSnapshot();
+    const index = await generator.createIndex();
+    expect(index).toMatchSnapshot();
   });
 });

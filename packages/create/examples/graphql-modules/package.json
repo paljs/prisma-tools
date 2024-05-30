@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "prisma": "5.x",
-    "@types/node": "18.x",
+    "@types/node": "20.x",
     "@paljs/cli": "6.0.7",
     "prettier": "2.x",
     "ts-node": "10.x",

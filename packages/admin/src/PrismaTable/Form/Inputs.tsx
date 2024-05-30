@@ -15,6 +15,7 @@ import Checkbox from '../../components/Checkbox';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { getDate } from './getDate';
 import { AdminSchemaField } from '@paljs/types';
+import { useController, useFormContext } from 'react-hook-form';
 
 interface Option {
   id: any;
@@ -27,7 +28,7 @@ const getFieldValidation = (field: AdminSchemaField, inputValidation: ModelTable
 };
 
 const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
-  Default({ field, error, register, disabled, value }) {
+  Default({ field, disabled, value }) {
     const { lang, inputValidation } = useContext(TableContext);
     const options: any = {
       disabled,
@@ -35,8 +36,8 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
         ? field.type === 'Json'
           ? JSON.stringify(value)
           : field.list
-          ? value.join(',')
-          : value
+            ? value.join(',')
+            : value
         : value,
     };
     if (field.list) {
@@ -57,6 +58,16 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           break;
       }
     }
+    const { control } = useFormContext();
+    const {
+      field: inputField,
+      fieldState: { error },
+    } = useController({
+      name: field.name,
+      control,
+      defaultValue: value,
+      rules: { required: field.required, ...getFieldValidation(field, inputValidation) },
+    });
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600">
@@ -65,26 +76,26 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
         </div>
         <input
           className={classNames('w-full', inputClasses, error ? 'border-red-400' : '')}
-          {...register(field.name, {
-            required: field.required,
-            ...getFieldValidation(field, inputValidation),
-          })}
+          {...inputField}
           {...options}
         />
       </div>
     );
   },
-  Enum({ field, value, error, register, setValue, disabled }) {
+  Enum({ field, value, disabled }) {
     const [state, setState] = useState(value);
     const enumType = useEnum(field.type);
     const { lang, dir, inputValidation } = useContext(TableContext);
-
-    React.useEffect(() => {
-      register(field.name, {
-        required: field.required,
-        ...getFieldValidation(field, inputValidation),
-      });
-    }, [register]);
+    const { control } = useFormContext();
+    const {
+      field: inputField,
+      fieldState: { error },
+    } = useController({
+      name: field.name,
+      control,
+      defaultValue: value,
+      rules: { required: field.required, ...getFieldValidation(field, inputValidation) },
+    });
 
     const options: Option[] = field.required ? [] : [{ id: null, name: lang.all }];
     if (enumType) {
@@ -103,10 +114,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           value={options.find((option) => option.id === state)}
           onChange={(option: Option) => {
             setState(option.id);
-            setValue(field.name, option.id, {
-              shouldValidate: !!option.id,
-              shouldDirty: true,
-            });
+            inputField.onChange(option.id);
           }}
           options={options}
         />
@@ -114,7 +122,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     );
   },
 
-  Object({ field, value, error, register, setValue, disabled }) {
+  Object({ field, value, disabled }) {
     const {
       schema: { models },
       lang,
@@ -134,9 +142,16 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
 
     const result = data ? data[`findUnique${field.type}`] : {};
 
-    React.useEffect(() => {
-      register(field.name, { required: field.required });
-    }, [register]);
+    const { control } = useFormContext();
+    const {
+      field: inputField,
+      fieldState: { error },
+    } = useController({
+      name: field.name,
+      control,
+      defaultValue: value,
+      rules: { required: field.required },
+    });
 
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
@@ -147,10 +162,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             connect={Object.keys(state).length > 0 ? result : {}}
             onConnect={(_value) => {
               setSate(_value);
-              setValue(field.name, _value[model.idField], {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
+              inputField.onChange(_value[model.idField]);
               setModal(!modal);
             }}
           />
@@ -182,10 +194,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
               )}
               onClick={() => {
                 setSate({});
-                setValue(field.name, null, {
-                  shouldValidate: !field.required,
-                  shouldDirty: true,
-                });
+                inputField.onChange(null);
               }}
             >
               <XCircleIcon className="h-5 w-5" />
@@ -195,8 +204,18 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
       </div>
     );
   },
-  Date({ field, value, error, register, disabled }) {
+  Date({ field, value, disabled }) {
     const { lang, inputValidation } = useContext(TableContext);
+    const { control } = useFormContext();
+    const {
+      field: inputField,
+      fieldState: { error },
+    } = useController({
+      name: field.name,
+      control,
+      defaultValue: value,
+      rules: { required: field.required, valueAsDate: true, ...getFieldValidation(field, inputValidation) },
+    });
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600">
@@ -208,26 +227,25 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           type="datetime-local"
           disabled={disabled}
           defaultValue={value ? getDate(new Date(value)) : undefined}
-          {...register(field.name, {
-            required: field.required,
-            valueAsDate: true,
-            ...getFieldValidation(field, inputValidation),
-          })}
+          {...inputField}
         />
       </div>
     );
   },
-  Boolean({ field, value, register, setValue, disabled }) {
+  Boolean({ field, value, disabled }) {
     const [state, setState] = useState(value);
 
+    const { control } = useFormContext();
+    const { field: inputField } = useController({
+      name: field.name,
+      control,
+      defaultValue: value,
+    });
+
     const onChangeHandler = (value: boolean) => {
-      setValue(field.name, value, { shouldValidate: true, shouldDirty: true });
+      inputField.onChange(value);
       setState(value);
     };
-
-    React.useEffect(() => {
-      register(field.name);
-    }, [register]);
 
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">

@@ -1620,12 +1620,52 @@ export const AggregateUser = objectType({
   },
 })
 
+export const UserGroupByOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UserGroupByOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('email', { type: 'String' })
+    t.nullable.field('name', { type: 'String' })
+    t.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+    t.nullable.field('_count', { type: 'UserCountAggregateOutputType' })
+    t.nullable.field('_avg', { type: 'UserAvgAggregateOutputType' })
+    t.nullable.field('_sum', { type: 'UserSumAggregateOutputType' })
+    t.nullable.field('_min', { type: 'UserMinAggregateOutputType' })
+    t.nullable.field('_max', { type: 'UserMaxAggregateOutputType' })
+  },
+})
+
 export const AggregatePost = objectType({
   nonNullDefaults: {
     output: true,
   },
   name: 'AggregatePost',
   definition(t) {
+    t.nullable.field('_count', { type: 'PostCountAggregateOutputType' })
+    t.nullable.field('_avg', { type: 'PostAvgAggregateOutputType' })
+    t.nullable.field('_sum', { type: 'PostSumAggregateOutputType' })
+    t.nullable.field('_min', { type: 'PostMinAggregateOutputType' })
+    t.nullable.field('_max', { type: 'PostMaxAggregateOutputType' })
+  },
+})
+
+export const PostGroupByOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'PostGroupByOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.field('title', { type: 'String' })
+    t.nullable.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
     t.nullable.field('_count', { type: 'PostCountAggregateOutputType' })
     t.nullable.field('_avg', { type: 'PostAvgAggregateOutputType' })
     t.nullable.field('_sum', { type: 'PostSumAggregateOutputType' })
@@ -1773,6 +1813,37 @@ export const PostMaxAggregateOutputType = objectType({
     t.nullable.field('authorId', { type: 'Int' })
     t.nullable.field('createdAt', { type: 'DateTime' })
     t.nullable.field('updatedAt', { type: 'DateTime' })
+  },
+})
+
+export const CreateManyUserAndReturnOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'CreateManyUserAndReturnOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('email', { type: 'String' })
+    t.nullable.field('name', { type: 'String' })
+    t.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
+export const CreateManyPostAndReturnOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'CreateManyPostAndReturnOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.field('title', { type: 'String' })
+    t.nullable.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+    t.nullable.field('author', { type: 'User' })
   },
 })
 "

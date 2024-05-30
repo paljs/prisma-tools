@@ -19,7 +19,7 @@ const PrismaTable: React.FC<ModelTableProps> = ({ children, language, model, ...
           models: [],
           enums: [],
         },
-        ...(rest as any),
+        ...({ ...defaultSettings, ...rest } as any),
         lang: mergedLanguage,
       }}
     >
@@ -27,8 +27,6 @@ const PrismaTable: React.FC<ModelTableProps> = ({ children, language, model, ...
     </TableContext.Provider>
   );
 };
-
-PrismaTable.defaultProps = defaultSettings;
 
 export { PrismaTable, TableContext };
 export * from './Table/Filters';

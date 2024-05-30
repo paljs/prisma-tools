@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+ 
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { useMemo } from 'react'
 

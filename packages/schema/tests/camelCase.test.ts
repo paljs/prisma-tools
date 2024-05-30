@@ -24,14 +24,16 @@ test('convert prisma schema from lower case to camel case', async () => {
     }
 
     model Post {
-      id           Int           @id @default(autoincrement())
-      published    Boolean       @default(false)
-      title        String
-      author       User?         @relation(fields: [authorId], references: [id])
-      authorId     Int?          @map("author_id")
-      postComments PostComment[]
-      createdAt    DateTime      @default(now()) @map("created_at")
-      updatedAt    DateTime      @updatedAt @map("updated_at")
+      id               Int           @id @default(autoincrement())
+      published        Boolean       @default(false)
+      title            String
+      author           User?         @relation(fields: [authorId], references: [id])
+      authorId         Int?          @map("author_id")
+      postComments     PostComment[]
+      currentLoanValue Decimal       @map("current_loan_value")
+      currentLoan      Boolean       @map("current_loan")
+      createdAt        DateTime      @default(now()) @map("created_at")
+      updatedAt        DateTime      @updatedAt @map("updated_at")
 
       @@map("post")
     }

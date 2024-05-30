@@ -1013,7 +1013,35 @@ export default gql\`
     _max: UserMaxAggregateOutputType
   }
 
+  type UserGroupByOutputType {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    password: String!
+    permissions: Json!
+    _count: UserCountAggregateOutputType
+    _avg: UserAvgAggregateOutputType
+    _sum: UserSumAggregateOutputType
+    _min: UserMinAggregateOutputType
+    _max: UserMaxAggregateOutputType
+  }
+
   type AggregatePost {
+    _count: PostCountAggregateOutputType
+    _avg: PostAvgAggregateOutputType
+    _sum: PostSumAggregateOutputType
+    _min: PostMinAggregateOutputType
+    _max: PostMaxAggregateOutputType
+  }
+
+  type PostGroupByOutputType {
+    id: Int!
+    published: Boolean!
+    title: String!
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
     _count: PostCountAggregateOutputType
     _avg: PostAvgAggregateOutputType
     _sum: PostSumAggregateOutputType
@@ -1095,6 +1123,25 @@ export default gql\`
     authorId: Int
     createdAt: DateTime
     updatedAt: DateTime
+  }
+
+  type CreateManyUserAndReturnOutputType {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    password: String!
+    permissions: Json!
+  }
+
+  type CreateManyPostAndReturnOutputType {
+    id: Int!
+    published: Boolean!
+    title: String!
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    author: User
   }
 \`
 "

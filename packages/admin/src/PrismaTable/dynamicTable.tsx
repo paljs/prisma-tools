@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ApolloError, QueryLazyOptions, useLazyQuery, useMutation } from '@apollo/client';
+import { ApolloError, useLazyQuery, useMutation } from '@apollo/client';
 
 import Modal from '../components/Modal';
 import { Table } from './Table';
@@ -9,6 +9,14 @@ import { TableContext } from './Context';
 import EditRecord from './EditRecord';
 import { mutationDocument, queryDocument } from './QueryDocument';
 import { ContextProps, TableParentRecord } from '..';
+import { LazyQueryExecFunction } from '@apollo/client/react/types/types';
+
+interface OperationVariables {
+  where: any;
+  orderBy?: any[];
+  take: number;
+  skip: number;
+}
 
 export interface DynamicTableProps {
   parent?: TableParentRecord;
@@ -31,14 +39,7 @@ export interface DynamicTableProps {
           data?: any;
           loading: boolean;
           error?: ApolloError;
-          getData: (
-            options?: QueryLazyOptions<{
-              take: number;
-              skip: number;
-              where: any;
-              orderBy: any[] | undefined;
-            }>,
-          ) => void;
+          getData: LazyQueryExecFunction<any, OperationVariables>;
         };
       }) => React.ReactNode)
     | null;
@@ -78,13 +79,13 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     defaultOrderBy ? defaultOrderBy[model] : undefined,
   );
 
-  const variables = {
+  const variables: OperationVariables = {
     where,
     orderBy,
     ...page,
   };
 
-  const [getData, { data, loading, error }] = useLazyQuery(queryDocument(models, model), {
+  const [getData, { data, loading, error }] = useLazyQuery<any, OperationVariables>(queryDocument(models, model), {
     variables,
     fetchPolicy: 'no-cache',
   });

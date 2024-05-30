@@ -200,7 +200,7 @@ export class AppGenerator {
   }
 
   commitChanges() {
-    const commands: Array<[string, string[], object]> = [
+    const commands: [string, string[], object][] = [
       ['git', ['add', '.'], { stdio: 'ignore' }],
       ['git', ['commit', '-m', 'New paljs app!'], { stdio: 'ignore' }],
     ];
@@ -269,6 +269,7 @@ export class AppGenerator {
                 for (const pkgKey in data[dep]) {
                   if (Object.prototype.hasOwnProperty.call(data[dep], pkgKey)) {
                     if (frameworkExclude.packages.includes(pkgKey)) {
+                      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                       delete data[dep][pkgKey];
                     }
                   }

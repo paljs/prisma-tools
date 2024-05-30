@@ -1,6 +1,8 @@
-module.exports = {
-  rules: {
-    'jest/no-standalone-expect': 'off',
-    'jest/valid-expect': 'off',
+module.exports = [
+  {
+    rules: {
+      'jest/no-standalone-expect': 'off',
+      'jest/valid-expect': 'off',
+    },
   },
-};
+];

@@ -258,6 +258,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
       {
         "aggregate": "aggregateUser",
         "createMany": "createManyUser",
+        "createManyAndReturn": "createManyUserAndReturn",
         "createOne": "createOneUser",
         "deleteMany": "deleteManyUser",
         "deleteOne": "deleteOneUser",
@@ -275,6 +276,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
       {
         "aggregate": "aggregatePost",
         "createMany": "createManyPost",
+        "createManyAndReturn": "createManyPostAndReturn",
         "createOne": "createOnePost",
         "deleteMany": "deleteManyPost",
         "deleteOne": "deleteOnePost",
@@ -12896,6 +12898,161 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
           ],
           "name": "Post",
         },
+        {
+          "fields": [
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "id",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "createdAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "email",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": true,
+              "name": "name",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "password",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "permissions",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Json",
+              },
+            },
+          ],
+          "name": "CreateManyUserAndReturnOutputType",
+        },
+        {
+          "fields": [
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "id",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "published",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Boolean",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "title",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": true,
+              "name": "authorId",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "createdAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "updatedAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+              ],
+              "isNullable": true,
+              "name": "author",
+              "outputType": {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "User",
+              },
+            },
+          ],
+          "name": "CreateManyPostAndReturnOutputType",
+        },
       ],
       "prisma": [
         {
@@ -14112,6 +14269,49 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                       "isList": false,
                       "location": "inputObjectTypes",
                       "namespace": "prisma",
+                      "type": "UserCreateManyInput",
+                    },
+                    {
+                      "isList": true,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserCreateManyInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "data",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Boolean",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "skipDuplicates",
+                },
+              ],
+              "isNullable": false,
+              "name": "createManyUserAndReturn",
+              "outputType": {
+                "isList": true,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "CreateManyUserAndReturnOutputType",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
                       "type": "UserWhereUniqueInput",
                     },
                   ],
@@ -14377,6 +14577,49 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                 "location": "outputObjectTypes",
                 "namespace": "prisma",
                 "type": "AffectedRowsOutput",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostCreateManyInput",
+                    },
+                    {
+                      "isList": true,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostCreateManyInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "data",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Boolean",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "skipDuplicates",
+                },
+              ],
+              "isNullable": false,
+              "name": "createManyPostAndReturn",
+              "outputType": {
+                "isList": true,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "CreateManyPostAndReturnOutputType",
               },
             },
             {

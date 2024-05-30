@@ -1,7 +1,9 @@
 import got from 'got';
 
 type PackageInformation = any;
-type NpmDepResponse = { versions: Record<string, PackageInformation> };
+interface NpmDepResponse {
+  versions: Record<string, PackageInformation>;
+}
 
 export const fetchAllVersions = async (dependency: string) => {
   const res = await got(`https://registry.npmjs.org/${dependency}`, {
@@ -11,7 +13,10 @@ export const fetchAllVersions = async (dependency: string) => {
   return Object.keys(res.versions);
 };
 
-type NpmDistTagsResponse = { latest: string; canary: string };
+interface NpmDistTagsResponse {
+  latest: string;
+  canary: string;
+}
 
 export const fetchDistTags = async (dependency: string) => {
   return got(`https://registry.npmjs.org/-/package/${dependency}/dist-tags`, {

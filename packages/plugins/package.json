@@ -24,20 +24,18 @@
     "@paljs/types": "workspace:*",
     "@paljs/utils": "workspace:*",
     "graphql-parse-resolve-info": "^4.13.0",
-    "graphql-tag": "^2.12.6",
-    "prettier": "^2.8.4"
+    "graphql-tag": "^2.12.6"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@paljs/generator": "workspace:*",
-    "@types/node": "18.15.3",
-    "@types/prettier": "^2.7.2",
-    "@apollo/server": "^4.9.3",
+    "@types/node": "20.12.12",
+    "@apollo/server": "^4.10.4",
     "graphql": "^16.8.1",
     "rimraf": "^3.0.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.4.5"
   },
   "files": [
     "dist"

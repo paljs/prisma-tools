@@ -67,7 +67,7 @@ export default class Generate extends Command {
       const { args, flags } = await this.parse(Generate);
       const config = await getConfig(flags);
 
-      const configObject: { [key: string]: Config } = flags.multi ? config : { schema: config };
+      const configObject: Record<string, Config> = flags.multi ? config : { schema: config };
 
       if (flags.autoComplete) {
         const schemaPaths: string[] = [];
@@ -123,12 +123,12 @@ export default class Generate extends Command {
             const uiGenerator = new UIGenerator(schemaPaths);
 
             if (admin) {
-              uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
+              await uiGenerator.buildSettingsSchema(config.backend?.adminSettingsPath);
               const options: AdminPagesOptions = {
                 ...(typeof frontend?.admin === 'object' ? frontend.admin : {}),
                 models: args.models?.split(','),
               };
-              uiGenerator.generateAdminPages(options);
+              await uiGenerator.generateAdminPages(options);
             }
 
             if (graphql) {
@@ -136,7 +136,7 @@ export default class Generate extends Command {
                 ...(typeof frontend?.graphql === 'object' ? frontend.graphql : {}),
                 models: args.models?.split(','),
               };
-              uiGenerator.generateGraphql(options);
+              await uiGenerator.generateGraphql(options);
             }
           }
           spinner.succeed();

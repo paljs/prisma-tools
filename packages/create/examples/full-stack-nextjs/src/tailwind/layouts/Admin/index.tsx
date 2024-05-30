@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
-const AdminLayout: React.FC = ({ children }) => {
+const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const auth = router.pathname === '/admin/auth';
   return auth ? (

@@ -23,4 +23,7 @@ export interface AdminSchemaModel extends Omit<Model, 'documentation' | 'map'> {
   fields: AdminSchemaField[];
 }
 
-export type AdminSchema = { models: AdminSchemaModel[]; enums: Enums[] };
+export interface AdminSchema {
+  models: AdminSchemaModel[];
+  enums: Enums[];
+}

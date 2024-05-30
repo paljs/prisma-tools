@@ -5,7 +5,7 @@ interface ModalProps {
   toggle: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, on, toggle }) => {
+const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, on, toggle }) => {
   if (!on) return <></>;
   return (
     <div

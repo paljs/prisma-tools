@@ -35,9 +35,9 @@ export class UIGenerator {
     return schema;
   }
 
-  buildSettingsSchema(path = 'adminSettings.json', backAsText?: boolean) {
+  async buildSettingsSchema(path = 'adminSettings.json', backAsText?: boolean) {
     const newSchema = mergeSchema(this.schema, path);
-    const fileContent = format(`${JSON.stringify(newSchema)}`, {
+    const fileContent = await format(`${JSON.stringify(newSchema)}`, {
       singleQuote: true,
       semi: false,
       trailingComma: 'all',
@@ -49,34 +49,34 @@ export class UIGenerator {
     return newSchema;
   }
 
-  generateGraphql(customOptions?: Omit<Partial<GeneratorOptions>, 'nexusSchema'>) {
+  async generateGraphql(customOptions?: Omit<Partial<GeneratorOptions>, 'nexusSchema'>) {
     const options: GeneratorOptions = {
       ...defaultOptions,
       ...customOptions,
     };
-    return createGraphql(this.schema, options);
+    return await createGraphql(this.schema, options);
   }
 
-  generateAdminPages(options?: AdminPagesOptions) {
+  async generateAdminPages(options?: AdminPagesOptions) {
     const content = options?.pageContent ?? page;
     const generatedText: Record<string, string> = {};
-    this.schema.models
-      .filter((model) => !options?.models || options?.models.includes(model.name))
-      .forEach((model) => {
-        const fileContent = format(content.replace(/#{id}/g, model.name), {
-          semi: true,
-          trailingComma: 'all',
-          singleQuote: true,
-          printWidth: 120,
-          tabWidth: 2,
-          parser: 'babel-ts',
-        });
-        if (options?.backAsText) {
-          generatedText[model.name] = fileContent;
-        } else {
-          createFile(options?.outPut ?? 'src/pages/admin/models/', `${model.name}.tsx`, fileContent);
-        }
+    const filterModels = this.schema.models.filter((model) => !options?.models || options?.models.includes(model.name));
+
+    for (const model of filterModels) {
+      const fileContent = await format(content.replace(/#{id}/g, model.name), {
+        semi: true,
+        trailingComma: 'all',
+        singleQuote: true,
+        printWidth: 120,
+        tabWidth: 2,
+        parser: 'babel-ts',
       });
+      if (options?.backAsText) {
+        generatedText[model.name] = fileContent;
+      } else {
+        createFile(options?.outPut ?? 'src/pages/admin/models/', `${model.name}.tsx`, fileContent);
+      }
+    }
     return generatedText;
   }
 }

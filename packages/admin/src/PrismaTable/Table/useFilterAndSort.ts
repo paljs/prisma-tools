@@ -68,7 +68,7 @@ function mergeDeep(target: any, ...sources: any[]): any {
 
 const handleFilter = (filters: { id: string; value: any }[]) => {
   if (filters.length) {
-    const newWhere: { [key: string]: { [key: string]: any } } = {};
+    const newWhere: Record<string, Record<string, any>> = {};
     filters.forEach((item) => {
       // Check if an entry with the same id already exists
       if (newWhere[item.id]) {

@@ -31,6 +31,8 @@ export type Resolvers = {
 } & {
   User?: User
   Post?: Post
+  CreateManyUserAndReturnOutputType?: CreateManyUserAndReturnOutputType
+  CreateManyPostAndReturnOutputType?: CreateManyPostAndReturnOutputType
   Query?: Query
   Mutation?: Mutation
   AggregateUser?: AggregateUser
@@ -70,6 +72,65 @@ export type Post = { [key: string]: Resolver<any, any, any> } & {
   createdAt?: Resolver<Client.Post, {}, Date>
   updatedAt?: Resolver<Client.Post, {}, Date>
   author?: Resolver<Client.Post, PostAuthorArgs, Client.User | null>
+}
+
+export type CreateManyUserAndReturnOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.CreateManyUserAndReturnOutputType, {}, number>
+  createdAt?: Resolver<
+    Client.Prisma.CreateManyUserAndReturnOutputType,
+    {},
+    Date
+  >
+  email?: Resolver<Client.Prisma.CreateManyUserAndReturnOutputType, {}, string>
+  name?: Resolver<
+    Client.Prisma.CreateManyUserAndReturnOutputType,
+    {},
+    string | null
+  >
+  password?: Resolver<
+    Client.Prisma.CreateManyUserAndReturnOutputType,
+    {},
+    string
+  >
+  permissions?: Resolver<
+    Client.Prisma.CreateManyUserAndReturnOutputType,
+    {},
+    any
+  >
+}
+
+export type CreateManyPostAndReturnOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.CreateManyPostAndReturnOutputType, {}, number>
+  published?: Resolver<
+    Client.Prisma.CreateManyPostAndReturnOutputType,
+    {},
+    boolean
+  >
+  title?: Resolver<Client.Prisma.CreateManyPostAndReturnOutputType, {}, string>
+  authorId?: Resolver<
+    Client.Prisma.CreateManyPostAndReturnOutputType,
+    {},
+    number | null
+  >
+  createdAt?: Resolver<
+    Client.Prisma.CreateManyPostAndReturnOutputType,
+    {},
+    Date
+  >
+  updatedAt?: Resolver<
+    Client.Prisma.CreateManyPostAndReturnOutputType,
+    {},
+    Date
+  >
+  author?: Resolver<
+    Client.Prisma.CreateManyPostAndReturnOutputType,
+    CreateManyPostAndReturnOutputTypeAuthorArgs,
+    Client.User | null
+  >
 }
 
 export type Query = { [key: string]: Resolver<any, any, any> } & {
@@ -127,6 +188,11 @@ export type Mutation = { [key: string]: Resolver<any, any, any> } & {
   createOneUser?: Resolver<{}, CreateOneUserArgs, Client.User>
   upsertOneUser?: Resolver<{}, UpsertOneUserArgs, Client.User>
   createManyUser?: Resolver<{}, CreateManyUserArgs, Client.Prisma.BatchPayload>
+  createManyUserAndReturn?: Resolver<
+    {},
+    CreateManyUserAndReturnArgs,
+    Client.Prisma.CreateManyUserAndReturnOutputType[]
+  >
   deleteOneUser?: Resolver<{}, DeleteOneUserArgs, Client.User | null>
   updateOneUser?: Resolver<{}, UpdateOneUserArgs, Client.User | null>
   updateManyUser?: Resolver<{}, UpdateManyUserArgs, Client.Prisma.BatchPayload>
@@ -134,6 +200,11 @@ export type Mutation = { [key: string]: Resolver<any, any, any> } & {
   createOnePost?: Resolver<{}, CreateOnePostArgs, Client.Post>
   upsertOnePost?: Resolver<{}, UpsertOnePostArgs, Client.Post>
   createManyPost?: Resolver<{}, CreateManyPostArgs, Client.Prisma.BatchPayload>
+  createManyPostAndReturn?: Resolver<
+    {},
+    CreateManyPostAndReturnArgs,
+    Client.Prisma.CreateManyPostAndReturnOutputType[]
+  >
   deleteOnePost?: Resolver<{}, DeleteOnePostArgs, Client.Post | null>
   updateOnePost?: Resolver<{}, UpdateOnePostArgs, Client.Post | null>
   updateManyPost?: Resolver<{}, UpdateManyPostArgs, Client.Prisma.BatchPayload>
@@ -443,6 +514,10 @@ export type PostAuthorArgs = {
   where?: UserWhereInput
 }
 
+export type CreateManyPostAndReturnOutputTypeAuthorArgs = {
+  where?: UserWhereInput
+}
+
 export type FindFirstUserArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
@@ -572,6 +647,11 @@ export type CreateManyUserArgs = {
   skipDuplicates?: boolean
 }
 
+export type CreateManyUserAndReturnArgs = {
+  data: UserCreateManyInput[]
+  skipDuplicates?: boolean
+}
+
 export type DeleteOneUserArgs = {
   where: UserWhereUniqueInput
 }
@@ -601,6 +681,11 @@ export type UpsertOnePostArgs = {
 }
 
 export type CreateManyPostArgs = {
+  data: PostCreateManyInput[]
+  skipDuplicates?: boolean
+}
+
+export type CreateManyPostAndReturnArgs = {
   data: PostCreateManyInput[]
   skipDuplicates?: boolean
 }

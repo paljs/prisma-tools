@@ -6,6 +6,6 @@ describe('Generate Modules App', () => {
   it('Should back with App File', async () => {
     const generator = new GenerateModules(schemaPath, { backAsText: true });
     await generator.createModules();
-    expect(generator.createApp()).toMatchSnapshot();
+    expect(await generator.createApp()).toMatchSnapshot();
   });
 });

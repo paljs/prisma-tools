@@ -280,6 +280,7 @@ const ObjectFilter: React.FC<FilterComponentsProps> = ({ field, filterValue, set
           if (value) {
             newValue[getField.name] = value;
           } else {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
             delete newValue[getField.name];
           }
           setFilter(

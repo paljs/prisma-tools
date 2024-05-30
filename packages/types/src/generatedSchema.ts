@@ -28,4 +28,7 @@ export interface Enums {
   fields: string[];
 }
 
-export type SchemaObject = { models: Model[]; enums: Enums[] };
+export interface SchemaObject {
+  models: Model[];
+  enums: Enums[];
+}

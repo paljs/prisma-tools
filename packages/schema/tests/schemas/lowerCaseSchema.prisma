@@ -18,14 +18,16 @@ model User {
 }
 
 model post {
-  id            Int            @id @default(autoincrement())
-  published     Boolean        @default(false)
-  title         String
-  author        User?          @relation(fields: [author_id], references: [id])
-  author_id     Int?
-  post_comments post_comment[]
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @updatedAt
+  id                 Int            @id @default(autoincrement())
+  published          Boolean        @default(false)
+  title              String
+  author             User?          @relation(fields: [author_id], references: [id])
+  author_id          Int?
+  post_comments      post_comment[]
+  current_loan_value Decimal
+  current_loan       Boolean
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt
 }
 
 model post_comment {

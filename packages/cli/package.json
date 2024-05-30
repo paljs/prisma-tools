@@ -21,24 +21,24 @@
     "enquirer": "^2.3.6",
     "fs-extra": "^10.0.1",
     "pkg-dir": "^5.0.0",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.8"
   },
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/mocha": "^9",
-    "@types/node": "18.15.3",
+    "@types/node": "20.12.12",
     "chai": "^4",
-    "eslint": "^8.9",
-    "eslint-config-oclif": "^4.0.0",
-    "eslint-config-oclif-typescript": "^1.0",
+    "eslint": "^9.3.0",
+    "eslint-config-oclif": "^5.2.0",
+    "eslint-config-oclif-typescript": "^3.1.7",
     "mocha": "^9",
     "oclif": "^3",
     "shx": "^0.3.3",
     "ts-node": "^10",
     "tslib": "^2.3.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=12.0.0"

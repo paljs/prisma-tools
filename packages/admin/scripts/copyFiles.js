@@ -1,4 +1,3 @@
-/* eslint  @typescript-eslint/unbound-method: 0 */
 const path = require('path');
 const fse = require('fs-extra');
 const { existsSync } = require('fs');

@@ -3,11 +3,11 @@ import { SelectorIcon, CheckIcon } from '@heroicons/react/solid';
 import { Listbox, Transition } from '@headlessui/react';
 import { classNames } from './css';
 
-export type Option = {
+export interface Option {
   name: string;
   id: string;
   unavailable?: boolean;
-};
+}
 
 interface SelectProps {
   options: Option[];
@@ -71,8 +71,8 @@ const Select: React.FC<SelectProps> = ({ options, value, className, onChange, di
                             active
                               ? 'text-white bg-blue-600'
                               : item.unavailable
-                              ? 'bg-gray-300 text-gray-900'
-                              : 'text-gray-900',
+                                ? 'bg-gray-300 text-gray-900'
+                                : 'text-gray-900',
                             'cursor-default select-none relative py-2 pl-8 pr-4',
                           )}
                         >

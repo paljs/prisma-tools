@@ -5,7 +5,6 @@ const projectRoot = pkgDir.sync() || process.cwd();
 
 export const getConfig = async (
   flags: {
-    help: void;
     config: string;
     schema: string | undefined;
     multi: boolean;

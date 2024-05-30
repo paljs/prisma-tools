@@ -16,7 +16,7 @@ export class GenerateTypes {
         | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
       : never>;`,
   ];
-  scalar: { [key: string]: any } = {
+  scalar: Record<string, any> = {
     Int: 'number',
     Float: 'number',
     String: 'string',
@@ -27,7 +27,10 @@ export class GenerateTypes {
 
   testedTypes: string[] = [];
 
-  constructor(private dmmf: DMMF.Document, private options: Partial<GeneratorOptions>) {}
+  constructor(
+    private dmmf: DMMF.Document,
+    private options: Partial<GeneratorOptions>,
+  ) {}
 
   get schema() {
     return this.dmmf.schema;
@@ -44,7 +47,7 @@ export class GenerateTypes {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
-  getOutputType(options: DMMF.SchemaField['outputType'] | DMMF.SchemaArgInputType, input = false) {
+  getOutputType(options: DMMF.SchemaField['outputType'] | DMMF.InputTypeRef, input = false) {
     switch (options.location) {
       case 'scalar':
         return `${this.scalar[options.type as string]}${options.isList ? '[]' : ''}`;
@@ -58,8 +61,8 @@ export class GenerateTypes {
           options.type.toString() === 'AffectedRowsOutput'
             ? 'Prisma.BatchPayload'
             : !this.isModel(options.type.toString()) && !input
-            ? `Prisma.${options.type}`
-            : options.type;
+              ? `Prisma.${options.type}`
+              : options.type;
         return `${!input ? 'Client.' : ''}${type}${options.isList ? '[]' : ''}`;
       }
     }
@@ -108,8 +111,8 @@ export class GenerateTypes {
               type.name === 'AffectedRowsOutput'
                 ? 'Prisma.BatchPayload'
                 : !this.isModel(type.name)
-                ? 'Prisma.' + type.name
-                : type.name
+                  ? 'Prisma.' + type.name
+                  : type.name
             }`;
         const argsType =
           field.args.length > 0

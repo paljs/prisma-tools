@@ -9,7 +9,7 @@ import { getSchemaPath } from '@paljs/utils';
 
 type Output = 'js' | 'ts' | 'json';
 
-const schemaFile = (path: string, schema: SchemaObject, output: Output) => {
+const schemaFile = async (path: string, schema: SchemaObject, output: Output) => {
   const content: {
     [key in Output]: {
       text: string;
@@ -32,7 +32,7 @@ export const schema: SchemaObject = ${JSON.stringify(schema)}`,
     },
   };
 
-  const fileContent = format(content[output].text, {
+  const fileContent = await format(content[output].text, {
     singleQuote: true,
     semi: false,
     trailingComma: 'all',
@@ -85,7 +85,7 @@ export default class Schema extends Command {
       if (args.converter === 'json') {
         const spinner = log.spinner(log.withBrand('Generating your file')).start();
         const schemaObject = new ConvertSchemaToObject(schemaPath).run();
-        schemaFile(flags['output-path'], schemaObject, flags.type as Output);
+        await schemaFile(flags['output-path'], schemaObject, flags.type as Output);
         spinner.succeed('Your file generated successfully');
       }
       // camel case convertor
@@ -102,7 +102,7 @@ export default class Schema extends Command {
         mkdirSync(flags['output-path'], { recursive: true });
         writeFileSync(
           join(flags['output-path'], `schema.ts`),
-          format(code, {
+          await format(code, {
             singleQuote: true,
             trailingComma: 'all',
             parser: 'babel-ts',

@@ -1,4 +1,3 @@
-import { GeneratorOptions } from '@paljs/types';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { createQueriesAndMutations } from './CreateQueriesAndMutations';
 import { Generators } from '../Generators';
@@ -11,18 +10,14 @@ export class GenerateSdl extends Generators {
     inputs: string;
   } = { models: {}, inputs: '' };
 
-  constructor(schemaPath: string, customOptions?: Partial<GeneratorOptions>) {
-    super(schemaPath, customOptions);
-  }
-
   async run() {
     await this.createModels();
     await this.createInputs();
-    this.createMaster();
+    await this.createMaster();
     if (!this.isJS) {
       const generateTypes = new GenerateTypes(await this.dmmf(), this.options);
-      const code = generateTypes.run();
-      writeFileSync(this.output('../resolversTypes.ts'), this.formation(code));
+      const code = await generateTypes.run();
+      writeFileSync(this.output('../resolversTypes.ts'), await this.formation(code));
     }
   }
 
@@ -94,14 +89,14 @@ export class GenerateSdl extends Generators {
       resolvers += operations.mutations.resolver;
       typeContent += operations.mutations.type;
     }
-    const resolverFile = this.createResolvers(resolvers, model);
-    const typeFile = this.createTypes(typeContent, model);
+    const resolverFile = await this.createResolvers(resolvers, model);
+    const typeFile = await this.createTypes(typeContent, model);
     if (this.options.backAsText) {
       this.generatedText.models[model] = { resolvers: resolverFile || '', typeDefs: typeFile || '' };
     }
   }
 
-  private createResolvers(resolvers: string, model: string): string | void {
+  private async createResolvers(resolvers: string, model: string): Promise<string | void> {
     if (resolvers) {
       if (this.isJS) {
         resolvers = `
@@ -133,21 +128,21 @@ export class GenerateSdl extends Generators {
       if (this.options.backAsText) {
         return this.formation(resolvers);
       } else {
-        writeFileSync(this.output(model, this.withExtension('resolvers')), this.formation(resolvers));
+        writeFileSync(this.output(model, this.withExtension('resolvers')), await this.formation(resolvers));
       }
     }
   }
 
-  private createTypes(fileContent: string, model: string): string | void {
+  private async createTypes(fileContent: string, model: string): Promise<string | void> {
     if (this.isJS) {
       fileContent = `const { default: gql } = require('graphql-tag');\n
-    const ${model} = gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n
+    const ${model} = gql\`\n${await this.formation(fileContent, 'graphql')}\n\`;\n
     module.exports = { 
       ${model}
       }`;
     } else {
       fileContent = `import gql from 'graphql-tag';\n
-    export default gql\`\n${this.formation(fileContent, 'graphql')}\n\`;\n`;
+    export default gql\`\n${await this.formation(fileContent, 'graphql')}\n\`;\n`;
     }
 
     if (!this.typeDefsExport.includes(model)) {
@@ -160,7 +155,7 @@ export class GenerateSdl extends Generators {
     if (this.options.backAsText) {
       return this.formation(fileContent);
     } else {
-      writeFileSync(this.output(model, this.withExtension('typeDefs')), this.formation(fileContent));
+      writeFileSync(this.output(model, this.withExtension('typeDefs')), await this.formation(fileContent));
     }
   }
 
@@ -186,16 +181,16 @@ export class GenerateSdl extends Generators {
       )}\n${this.typeDefsIndex}`;
     }
     if (this.options.backAsText) {
-      this.generatedText.inputs = this.formation(content);
+      this.generatedText.inputs = await this.formation(content);
     } else {
-      writeFileSync(this.output(this.withExtension(this.inputName)), this.formation(content));
+      writeFileSync(this.output(this.withExtension(this.inputName)), await this.formation(content));
     }
   }
 
-  createMaster() {
-    writeFileSync(this.resolversPath, this.formation(replaceExports(this.resolversExport, this.resolversIndex)));
+  async createMaster() {
+    writeFileSync(this.resolversPath, await this.formation(replaceExports(this.resolversExport, this.resolversIndex)));
 
-    writeFileSync(this.typeDefsPath, this.formation(replaceExports(this.typeDefsExport, this.typeDefsIndex)));
+    writeFileSync(this.typeDefsPath, await this.formation(replaceExports(this.typeDefsExport, this.typeDefsIndex)));
   }
 }
 

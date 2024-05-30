@@ -8,13 +8,7 @@ const NextComposed = React.forwardRef<
   HTMLAnchorElement,
   LinkProps & { className?: string; children?: React.ReactNode }
 >(function NextComposed(props, ref) {
-  const { as, href, ...other } = props;
-
-  return (
-    <NextLink href={href} as={as}>
-      <a ref={ref} {...other} />
-    </NextLink>
-  );
+  return <NextLink {...props} ref={ref} />;
 });
 
 const Link: React.FC<LinkProps2> = (props) => {

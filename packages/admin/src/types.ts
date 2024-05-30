@@ -1,6 +1,5 @@
 import React from 'react';
 import { Column, UseSortByColumnOptions } from 'react-table';
-import { UseFormReturn, FieldError } from 'react-hook-form';
 import { AdminSchema, AdminSchemaField, AdminSchemaModel } from '@paljs/types';
 import Language from './PrismaTable/language';
 import { DynamicTableProps } from './PrismaTable/dynamicTable';
@@ -10,18 +9,13 @@ export type { AdminSchema, AdminSchemaField, AdminSchemaModel };
 
 export type Columns = Record<
   'boolean' | 'number' | 'enum' | 'DateTime' | 'object' | 'string' | 'list' | 'json',
-  Column<{ [key: string]: any }> & UseSortByColumnOptions<any>
+  Column<Record<string, any>> & UseSortByColumnOptions<any>
 >;
 
 export interface InputProps {
   field: AdminSchemaField;
   value: any;
   data: any;
-  error: FieldError;
-  register: UseFormReturn['register'];
-  setValue: UseFormReturn['setValue'];
-  getValues: UseFormReturn['getValues'];
-  watch: UseFormReturn['watch'];
   disabled: boolean;
 }
 
@@ -51,9 +45,9 @@ interface SameProps {
   useSet?: boolean;
   tableColumns?: GetColumnsPartial;
   formInputs?: Partial<FormInputs>;
-  inputValidation?: { [model: string]: { [field: string]: RegisterOptions } };
+  inputValidation?: Record<string, Record<string, RegisterOptions>>;
   push: (url: string) => void;
-  query: { [key: string]: any };
+  query: Record<string, any>;
   onSelect?: (values: any[]) => void;
   onCancelCreate?: (options: { model: string; setCreateModal: (state: boolean) => void }) => void;
   onSaveCreate?: (options: {
@@ -78,9 +72,9 @@ export interface ModelTableProps extends Partial<Omit<RequireContextProps, 'lang
   children?: DynamicTableProps['children'];
 }
 
-export type TableParentRecord = {
+export interface TableParentRecord {
   name: string;
   value: any;
   field: string;
   updateRecord?: () => Promise<any>;
-};
+}

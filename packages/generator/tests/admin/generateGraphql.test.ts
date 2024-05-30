@@ -3,15 +3,15 @@ import { UIGenerator } from '../../src';
 
 describe('Generate Graphql queries And mutations for Frontend', () => {
   const schemaPath = join(__dirname, '../schemas/schema.prisma');
-  it('Should back with all models', () => {
+  it('Should back with all models', async () => {
     const generator = new UIGenerator(schemaPath);
-    expect(generator.generateGraphql({ backAsText: true })).toMatchSnapshot();
+    expect(await generator.generateGraphql({ backAsText: true })).toMatchSnapshot();
   });
 
-  it('Should back User model graphql with custom exclude', () => {
+  it('Should back User model graphql with custom exclude', async () => {
     const generator = new UIGenerator(schemaPath);
     expect(
-      generator.generateGraphql({
+      await generator.generateGraphql({
         models: ['User'],
         backAsText: true,
         excludeFields: ['password'],

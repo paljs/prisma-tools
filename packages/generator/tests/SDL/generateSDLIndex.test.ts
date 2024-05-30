@@ -6,12 +6,16 @@ describe('Generate SDL Index', () => {
   it('Should back with resolvers Index', async () => {
     const generator = new GenerateSdl(schemaPath, { backAsText: true });
     await generator.createModels();
-    expect(generator.formation(replaceExports(generator.resolversExport, generator.resolversIndex))).toMatchSnapshot();
+    expect(
+      await generator.formation(replaceExports(generator.resolversExport, generator.resolversIndex)),
+    ).toMatchSnapshot();
   });
 
   it('Should back with typeDefs Index', async () => {
     const generator = new GenerateSdl(schemaPath, { backAsText: true });
     await generator.createModels();
-    expect(generator.formation(replaceExports(generator.typeDefsExport, generator.typeDefsIndex))).toMatchSnapshot();
+    expect(
+      await generator.formation(replaceExports(generator.typeDefsExport, generator.typeDefsIndex)),
+    ).toMatchSnapshot();
   });
 });

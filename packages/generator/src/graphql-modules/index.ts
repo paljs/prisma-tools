@@ -17,7 +17,7 @@ export class GenerateModules extends Generators {
   async run() {
     await this.createModules();
     await this.createInputs();
-    this.createApp();
+    await this.createApp();
   }
 
   private indexPath = this.output('application.ts');
@@ -28,13 +28,13 @@ export class GenerateModules extends Generators {
     const models = await this.models();
     const datamodel = await this.datamodel();
     for (const model of models) {
+      const dataModel = this.dataModel(datamodel.models, model.name);
       let extendsTypes = '';
 
       if (!this.appModules.includes(model.name + 'Module')) {
         this.appModules.push(model.name + 'Module');
         this.index = `import { ${model.name}Module } from './${model.name}/${model.name}.module';${this.index}`;
       }
-      const dataModel = this.dataModel(datamodel.models, model.name);
       const modelDocs = this.filterDocs(dataModel?.documentation);
       let fileContent = `${modelDocs ? `"""${modelDocs}"""\n` : ''}type ${model.name} {`;
 
@@ -90,31 +90,31 @@ export class GenerateModules extends Generators {
       content += operations.mutations.type;
     }
 
-    this.createResolver(resolvers, model);
+    await this.createResolver(resolvers, model);
 
-    this.createTypes(content, model);
+    await this.createTypes(content, model);
     if (this.options.backAsText) {
-      this.generatedText.models[model].module = this.formation(getModule(model), 'babel-ts');
+      this.generatedText.models[model].module = await this.formation(getModule(model), 'babel-ts');
     } else {
-      writeFileSync(this.output(model, `${model}.module.ts`), this.formation(getModule(model), 'babel-ts'));
+      writeFileSync(this.output(model, `${model}.module.ts`), await this.formation(getModule(model), 'babel-ts'));
     }
   }
 
-  private createTypes(content: string, model: string) {
+  private async createTypes(content: string, model: string) {
     content = `import { gql } from 'graphql-modules';
 
       export default gql\`
-      ${this.formation(content, 'graphql')}
+      ${await this.formation(content, 'graphql')}
       \`;
       `;
     if (this.options.backAsText) {
-      this.generatedText.models[model].typeDefs = this.formation(content, 'babel-ts');
+      this.generatedText.models[model].typeDefs = await this.formation(content, 'babel-ts');
     } else {
-      writeFileSync(this.output(model, 'typeDefs.ts'), this.formation(content, 'babel-ts'));
+      writeFileSync(this.output(model, 'typeDefs.ts'), await this.formation(content, 'babel-ts'));
     }
   }
 
-  private createResolver(resolvers: string, model: string) {
+  private async createResolver(resolvers: string, model: string) {
     if (resolvers) {
       resolvers = `import { PrismaProvider } from '../Prisma.provider';
       
@@ -123,9 +123,9 @@ export class GenerateModules extends Generators {
       }
         `;
       if (this.options.backAsText) {
-        this.generatedText.models[model] = { resolvers: this.formation(resolvers, 'babel-ts') };
+        this.generatedText.models[model] = { resolvers: await this.formation(resolvers, 'babel-ts') };
       } else {
-        writeFileSync(this.output(model, 'resolvers.ts'), this.formation(resolvers, 'babel-ts'));
+        writeFileSync(this.output(model, 'resolvers.ts'), await this.formation(resolvers, 'babel-ts'));
       }
     }
   }
@@ -139,12 +139,12 @@ export class GenerateModules extends Generators {
     if (this.options.backAsText) {
       this.generatedText.inputs = content;
     } else {
-      writeFileSync(this.output('inputs', this.withExtension(this.inputName)), this.formation(content));
+      writeFileSync(this.output('inputs', this.withExtension(this.inputName)), await this.formation(content));
     }
   }
 
-  createApp(): string | void {
-    const content = this.formation(App(this.appModules, this.index), 'babel-ts');
+  async createApp(): Promise<string | void> {
+    const content = await this.formation(App(this.appModules, this.index), 'babel-ts');
     if (this.options.backAsText) {
       return content;
     } else {

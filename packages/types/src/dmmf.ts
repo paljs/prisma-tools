@@ -1,3 +1,3 @@
-import type { DMMF } from '@prisma/generator-helper';
+import type { DMMF, ReadonlyDeep } from '@prisma/generator-helper';
 
-export { DMMF };
+export { DMMF, ReadonlyDeep };

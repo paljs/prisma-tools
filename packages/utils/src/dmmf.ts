@@ -5,8 +5,8 @@ import { chalk, log } from '@paljs/display';
 import { DMMF } from '@paljs/types';
 
 export const getSchemaPath = async (path?: string): Promise<string> => {
-  const schemaPath = await getSchemaPath0(path);
-  if (!schemaPath) {
+  const schema = await getSchemaPath0(path);
+  if (!schema) {
     log.throwError(
       `Could not find a ${chalk.bold(
         'schema.prisma',
@@ -18,13 +18,12 @@ export const getSchemaPath = async (path?: string): Promise<string> => {
     );
   }
 
-  log.d(chalk.dim(`Prisma Schema loaded from ${relative(process.cwd(), schemaPath)}`));
-  return schemaPath;
+  log.d(chalk.dim(`Prisma Schema loaded from ${relative(process.cwd(), schema?.schemaPath)}`));
+  return schema?.schemaPath;
 };
 
 export const getDMMFBySchemaPath = async (schemaPath?: string): Promise<DMMF.Document> => {
   const schemaPathFromPrisma = await getSchemaPath(schemaPath);
   const schemaString = readFileSync(schemaPathFromPrisma, 'utf-8');
-  const dmmf: DMMF.Document = await getDMMF({ datamodel: schemaString });
-  return dmmf;
+  return await getDMMF({ datamodel: schemaString });
 };

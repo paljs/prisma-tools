@@ -4,9 +4,6 @@ import { formatSchema } from '@paljs/utils';
 import os from 'os';
 
 export class CamelCase extends PrismaReader {
-  constructor(path: string) {
-    super(path);
-  }
   async convert(returnString = false): Promise<string | void> {
     let newData = this.data;
     if (this.models) {
@@ -22,7 +19,7 @@ export class CamelCase extends PrismaReader {
           if (i === 0) {
             modelName = line[1];
           }
-          // check if we are in the first line that have the model name
+          // check if we are in the first line that has the model name
           // check if we need to change this model name
           if (i === 0 && CamelCase.checkIfModelNameNeedToConvert(line[1])) {
             // add a map with the old model name
@@ -38,7 +35,7 @@ export class CamelCase extends PrismaReader {
             const fieldName = line[0];
             const type = line[1];
             if (fieldName.includes('_')) {
-              if (kind !== 'object') line.push(`@map("${fieldName}")`);
+              if (kind !== 'object') line.push(`@map("${fieldName}")`); // keep the original field name for @map
               line[0] = this.convertWord(fieldName);
               fieldsList.push({
                 old: fieldName,
@@ -52,7 +49,7 @@ export class CamelCase extends PrismaReader {
           }
         }
         for (const field of fieldsList) {
-          const fieldPattern = new RegExp(field.old, 'g');
+          const fieldPattern = new RegExp(`\\b${field.old}\\b`, 'g'); // use word boundaries to match whole words only
           lines.forEach((line, index) => {
             if (!line.endsWith(`@map("${field.old}")`)) {
               lines[index] = line.replace(fieldPattern, field.new);
@@ -62,12 +59,12 @@ export class CamelCase extends PrismaReader {
         const newModel = lines.join(`
 `);
 
-        const pattern = new RegExp(`model ${modelName}[\\s\\S]*?\\}\n`);
+        const pattern = new RegExp(`model ${modelName}[\\s\\S]*?}\n`);
         newData = newData.replace(pattern, newModel);
       }
 
-      let output: string = await formatSchema({
-        schema: newData,
+      let [[, output]] = await formatSchema({
+        schemas: [['schema.prisma', newData]],
       });
 
       output = output.trimEnd() + os.EOL;
@@ -90,13 +87,13 @@ export class CamelCase extends PrismaReader {
       .join('');
   }
 
-  // check is the word start with lower case letter
+  // check is the word start with a lower case letter
   private static checkFirstLetterLowerCase(word: string) {
     return word[0] === word[0].toLowerCase();
   }
 
   /*
-   * check if the model name start with lower case or have an underscore
+   * check if the model name starts with a lower case or has an underscore
    */
   private static checkIfModelNameNeedToConvert(modelName: string) {
     return modelName.includes('_') || CamelCase.checkFirstLetterLowerCase(modelName);

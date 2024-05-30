@@ -10,11 +10,11 @@ import Checkbox from '../components/Checkbox';
 import { inputClasses } from '../components/css';
 
 type Fields = 'delete' | 'create' | 'update';
-type Option = {
+interface Option {
   name: string;
   id: string;
   unavailable?: boolean;
-};
+}
 const fieldsArray: Fields[] = ['create', 'update', 'delete'];
 
 const UpdateModel: React.FC<{

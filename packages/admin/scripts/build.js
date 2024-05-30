@@ -52,7 +52,6 @@ async function run(argv) {
   ].join(' ');
 
   if (verbose) {
-    // eslint-disable-next-line no-console
     console.log(`running '${command}' with ${JSON.stringify(env)}`);
   }
 
