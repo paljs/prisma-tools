@@ -38,10 +38,5 @@
     "*.{js,jsx,ts,tsx}": [
       "jest --findRelatedTests --passWithNoTests"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "eslint-plugin-unicorn": "^41.0.0"
-    }
   }
 }
