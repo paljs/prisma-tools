@@ -4,8 +4,8 @@ const ts = require('typescript-eslint');
 const jest = require('eslint-plugin-jest');
 
 module.exports = ts.config(
+  { ignores: ['**/node_modules/**', '**/dist/**', '**/coverage/**', '**/examples/**', '.vscode/**', '.github/**'] },
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/coverage/**', '**/examples/**', '.vscode/**', '.github/**'],
     files: ['**/*.ts', '**/*.tsx'],
     extends: [eslint.configs.recommended, ...ts.configs.strict, ...ts.configs.stylistic],
     rules: {
