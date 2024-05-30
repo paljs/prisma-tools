@@ -1,5 +1,39 @@
 # @paljs/plugins
 
+## 7.0.0
+
+### Major Changes
+
+- We encourage you to update your applications to utilize the newest features and improvements.
+
+  ## Key Changes
+
+  - **Prisma (5.14):** We have upgraded Prisma to version 5.14 to leverage recent Prisma features and improvements.
+  - **React (18):** We have also upgraded React to version 18 to take advantage of the latest React features.
+  - **ESLint (9):** The project now uses ESLint version 9 for an improved and more effective linting process.
+
+  ## Breaking Changes
+
+  While making these changes, we had to introduce some breaking changes. As such, please exercise caution and test your applications thoroughly after the upgrade.
+
+  ## Fixes
+
+  We have fixed many issues in the process, optimizing our package to provide you with a smoother development experience.
+
+  ***
+
+  Please update your applications with these new versions and let us know if you encounter any issues. We always strive to improve our products and appreciate your feedback!
+
+  (Note: Always back up your projects prior to applying any major updates to avoid unexpected data loss)
+
+  Stay tuned for more updates!
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/types@7.0.0
+  - @paljs/utils@7.0.0
+
 ## 6.0.7
 
 ### Patch Changes
