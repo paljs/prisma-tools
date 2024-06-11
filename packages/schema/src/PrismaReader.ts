@@ -11,11 +11,11 @@ export class PrismaReader {
   }
 
   get models() {
-    return this.data.match(/\n(model(\s)[\s\S]*?})\n/g);
+    return this.data.match(/\n(model(\s)[\s\S]*?})\r?\n/g);
   }
 
   get enums() {
-    return this.data.match(/\n(enum(\s)[\s\S]*?})\n/g);
+    return this.data.match(/\n(enum(\s)[\s\S]*?})\r?\n/g);
   }
 
   getModelDocumentation(modelName: string) {
