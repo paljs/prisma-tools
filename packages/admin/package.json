@@ -1,6 +1,6 @@
 {
   "name": "@paljs/admin",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "main": "index.js",
   "module": "./esm/index.js",
   "types": "index.d.ts",
@@ -23,8 +23,8 @@
     "build:css": "cross-env NODE_ENV=production tailwindcss build -o ./dist/style.css"
   },
   "dependencies": {
-    "@headlessui/react": "^1.5.0",
-    "@heroicons/react": "^1.0.5",
+    "@headlessui/react": "^2.0.4",
+    "@heroicons/react": "^2.1.3",
     "@paljs/types": "workspace:*",
     "react-beautiful-dnd": "13.1.0",
     "react-hook-form": "7.51.5",

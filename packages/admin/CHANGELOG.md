@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 7.0.1
+
+### Patch Changes
+
+- upgrade tailwend packages
+
 ## 7.0.0
 
 ### Major Changes

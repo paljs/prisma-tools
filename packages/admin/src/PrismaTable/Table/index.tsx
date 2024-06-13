@@ -7,20 +7,20 @@ import { TableContext } from '../Context';
 import Spinner from '../../components/Spinner';
 import Checkbox from '../../components/Checkbox';
 import { ListConnect } from './ListConnect';
-import { PencilAltIcon, EyeIcon, TrashIcon, PlusIcon } from '@heroicons/react/outline';
+import { PencilSquareIcon, EyeIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
-  ArrowNarrowDownIcon,
-  ArrowNarrowUpIcon,
-  SearchCircleIcon,
-} from '@heroicons/react/solid';
+  MagnifyingGlassCircleIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+} from '@heroicons/react/24/solid';
 import { Filter } from './Filters';
 import { buttonClasses, classNames } from '../../components/css';
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { TableParentRecord } from '../..';
 
 interface TableProps {
@@ -172,7 +172,7 @@ export const Table: React.FC<TableProps> = ({
         className={classNames(buttonClasses, 'bg-transparent text-blue-600 hover:bg-blue-100 hover:bg-opacity-25')}
         onClick={() => model && push(`${pagesPath}${modelName}?${actions.update ? 'update' : 'view'}=${id}`)}
       >
-        {actions.update ? <PencilAltIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+        {actions.update ? <PencilSquareIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
       </button>
     ),
     Delete: ({ id }: { id: any }) => (
@@ -212,7 +212,7 @@ export const Table: React.FC<TableProps> = ({
             </div>
           )}
           <Popover className="relative w-full">
-            <Popover.Button
+            <PopoverButton
               className={classNames(
                 buttonClasses,
                 'flex items-center rounded-md py-2 px-2 bg-blue-500 text-white active:bg-blue-600 shadow hover:bg-blue-800',
@@ -222,7 +222,7 @@ export const Table: React.FC<TableProps> = ({
               {!!filters.length && (
                 <span className="rounded-full bg-yellow-400 px-2 rtl:mr-2 ltr:ml-2">{filters.length}</span>
               )}
-            </Popover.Button>
+            </PopoverButton>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-200"
@@ -232,9 +232,9 @@ export const Table: React.FC<TableProps> = ({
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 mt-1">
+              <PopoverPanel className="absolute z-10 mt-1">
                 {model && <Filter filters={filters} setAllFilters={setAllFilters} model={model} />}
-              </Popover.Panel>
+              </PopoverPanel>
             </Transition>
           </Popover>
         </div>
@@ -295,16 +295,16 @@ export const Table: React.FC<TableProps> = ({
                                   <span>
                                     {column.isSorted ? (
                                       column.isSortedDesc ? (
-                                        <ArrowNarrowDownIcon className="h-5 w-5" />
+                                        <ArrowDownIcon className="h-5 w-5" />
                                       ) : (
-                                        <ArrowNarrowUpIcon className="h-5 w-5" />
+                                        <ArrowUpIcon className="h-5 w-5" />
                                       )
                                     ) : (
                                       ''
                                     )}
                                   </span>
                                   {filters.filter(Boolean).find((item) => item.id === column.id) ? (
-                                    <SearchCircleIcon className="h-5 w-5 text-green-500" />
+                                    <MagnifyingGlassCircleIcon className="h-5 w-5 text-green-500" />
                                   ) : (
                                     ''
                                   )}

@@ -25,7 +25,7 @@
     "@heroicons/react": "1.x",
     "@material-ui/core": "4.x",
     "@material-ui/icons": "4.x",
-    "@paljs/admin": "7.0.0",
+    "@paljs/admin": "7.0.1",
     "@paljs/nexus": "7.0.0",
     "@prisma/client": "5.x",
     "apollo-server-micro": "3.x",

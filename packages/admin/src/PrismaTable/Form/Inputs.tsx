@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { SearchIcon, XCircleIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 import Modal from '../../components/Modal';
 import { useEnum } from '../useSchema';
@@ -181,7 +181,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
             )}
             onClick={() => setModal(!modal)}
           >
-            <SearchIcon className="h-5 w-5" />
+            <MagnifyingGlassIcon className="h-5 w-5" />
           </button>
           <input className={classNames(inputClasses, 'mx-2 flex-1')} value={getDisplayName(state, model)} disabled />
           {!field.required && (

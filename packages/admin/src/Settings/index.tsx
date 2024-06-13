@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { ChevronUpIcon, ChevronDownIcon, MenuIcon } from '@heroicons/react/solid';
+import { ChevronUpIcon, ChevronDownIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import UpdateModel from './UpdateModel';
@@ -136,7 +136,7 @@ export const Settings: React.FC<{
                                     dir === 'rtl' ? 'space-x-reverse' : '',
                                   )}
                                 >
-                                  <MenuIcon className="w-5 h-5 text-blue-700" />
+                                  <Bars3Icon className="w-5 h-5 text-blue-700" />
                                   <span>{field.title}</span>
                                 </div>
                                 {field.id === openedField ? (
