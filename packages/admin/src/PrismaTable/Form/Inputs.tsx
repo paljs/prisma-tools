@@ -206,28 +206,28 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
   },
   Date({ field, value, disabled }) {
     const { lang, inputValidation } = useContext(TableContext);
-    const { control } = useFormContext();
-    const {
-      field: inputField,
-      fieldState: { error },
-    } = useController({
-      name: field.name,
-      control,
-      defaultValue: value,
-      rules: { required: field.required, valueAsDate: true, ...getFieldValidation(field, inputValidation) },
-    });
+    const { register, getFieldState } = useFormContext();
+    const { error } = getFieldState(field.name);
     return (
-      <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
+      <div className="flex w-full flex-wrap pr-2 pt-2 sm:w-1/2">
         <div className="w-full text-gray-600">
           {field.title}
-          {error && <span className="text-red-700 text-xs">{error.message ? error.message : lang.isRequired}</span>}
+          {error && (
+            <span className="text-xs text-red-700">
+              {typeof error.message === 'string' ? error.message : lang.isRequired}
+            </span>
+          )}
         </div>
         <input
           className={classNames('w-full', inputClasses, error ? 'border-red-400' : '')}
           type="datetime-local"
           disabled={disabled}
-          defaultValue={value ? getDate(new Date(value)) : undefined}
-          {...inputField}
+          defaultValue={value ? new Date(value).toISOString().slice(0, 16) : ''}
+          {...register(field.name, {
+            required: field.required,
+            valueAsDate: true,
+            ...(getFieldValidation(field, inputValidation) as any),
+          })}
         />
       </div>
     );

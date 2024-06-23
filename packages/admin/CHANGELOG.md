@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 7.0.2
+
+### Patch Changes
+
+- fix date input
+
 ## 7.0.1
 
 ### Patch Changes
