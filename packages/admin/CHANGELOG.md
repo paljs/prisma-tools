@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 7.0.3
+
+### Patch Changes
+
+- Remove getDate function and refactor usage
+
 ## 7.0.2
 
 ### Patch Changes
