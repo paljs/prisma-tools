@@ -8,7 +8,6 @@ import useActions from './useActions';
 import { TableContext } from '../Context';
 import { AdminSchemaModel } from '../../types';
 import { buttonClasses, classNames } from '../../components/css';
-import { getDate } from './getDate';
 
 export interface FormProps {
   action: 'update' | 'create' | 'view';
@@ -40,7 +39,7 @@ const getDefaultValues = (
       } else {
         const valueHandler = () => {
           if (field.type === 'DateTime') {
-            return getDate(new Date(data[field.name]));
+            return new Date(data[field.name]).toISOString().slice(0, 16);
           } else if (field.type === 'Json') {
             return JSON.stringify(data[field.name]);
           } else if (field.list) {

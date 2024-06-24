@@ -9,7 +9,6 @@ import { TableContext } from '../Context';
 import { MagnifyingGlassCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
 import { randString } from './utils';
-import { getDate } from '../Form/getDate';
 
 interface Option {
   id: any;
@@ -183,7 +182,10 @@ const DefaultFilter: React.FC<FilterComponentsProps> = ({ filterValue, setFilter
 
   const inputProps =
     field.type === 'DateTime'
-      ? { type: 'datetime-local', defaultValue: value[option.id] ? getDate(new Date(value[option.id])) : undefined }
+      ? {
+          type: 'datetime-local',
+          defaultValue: value[option.id] ? new Date(value[option.id]).toISOString().slice(0, 16) : undefined,
+        }
       : { type: 'text', value: value[option.id] || '' };
 
   return (

@@ -13,7 +13,6 @@ import { FormInputs, ModelTableProps } from '../../types';
 import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
 import { buttonClasses, classNames, inputClasses } from '../../components/css';
-import { getDate } from './getDate';
 import { AdminSchemaField } from '@paljs/types';
 import { useController, useFormContext } from 'react-hook-form';
 
