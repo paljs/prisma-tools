@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 7.0.4
+
+### Patch Changes
+
+- Refactor form inputs handling in PrismaTable
+
 ## 7.0.3
 
 ### Patch Changes

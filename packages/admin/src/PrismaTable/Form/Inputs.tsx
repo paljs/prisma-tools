@@ -57,25 +57,22 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
           break;
       }
     }
-    const { control } = useFormContext();
-    const {
-      field: inputField,
-      fieldState: { error },
-    } = useController({
-      name: field.name,
-      control,
-      defaultValue: value,
-      rules: { required: field.required, ...getFieldValidation(field, inputValidation) },
-    });
+    const { register, getFieldState } = useFormContext();
+    const { error } = getFieldState(field.name);
     return (
       <div className="flex flex-wrap w-full sm:w-1/2 pr-2 pt-2">
         <div className="w-full text-gray-600">
           {field.title}
-          {error && <span className="text-red-700 text-xs">{error.message ? error.message : lang.isRequired}</span>}
+          {error && (
+            <span className="text-red-700 text-xs">
+              {typeof error.message === 'string' ? error.message : lang.isRequired}
+            </span>
+          )}
         </div>
         <input
           className={classNames('w-full', inputClasses, error ? 'border-red-400' : '')}
-          {...inputField}
+          defaultValue={value}
+          {...register(field.name, { required: field.required, ...getFieldValidation(field, inputValidation) })}
           {...options}
         />
       </div>
