@@ -1,11 +1,11 @@
-import { getDMMF, getSchemaPath as getSchemaPath0 } from '@prisma/internals';
+import { getDMMF, getSchemaWithPath } from '@prisma/internals';
 import { readFileSync } from 'fs';
 import { relative } from 'path';
 import { chalk, log } from '@paljs/display';
 import { DMMF } from '@paljs/types';
 
 export const getSchemaPath = async (path?: string): Promise<string> => {
-  const schema = await getSchemaPath0(path);
+  const schema = await getSchemaWithPath(path);
   if (!schema) {
     log.throwError(
       `Could not find a ${chalk.bold(

@@ -1,5 +1,14 @@
 # @paljs/utils
 
+## 7.0.1
+
+### Patch Changes
+
+- update prisma to load schema right
+- Updated dependencies
+  - @paljs/types@7.0.1
+  - @paljs/display@7.0.1
+
 ## 7.0.0
 
 ### Major Changes

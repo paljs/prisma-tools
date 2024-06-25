@@ -1,5 +1,18 @@
 # @paljs/cli
 
+## 7.0.1
+
+### Patch Changes
+
+- update prisma to load schema right
+- Updated dependencies
+  - @paljs/generator@7.0.1
+  - @paljs/types@7.0.1
+  - @paljs/utils@7.0.1
+  - @paljs/create@7.0.1
+  - @paljs/display@7.0.1
+  - @paljs/schema@7.0.1
+
 ## 7.0.0
 
 ### Major Changes

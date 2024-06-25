@@ -1,6 +1,6 @@
 {
   "name": "@paljs/types",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -20,7 +20,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/generator-helper": "^5.14.0",
+    "@prisma/generator-helper": "5.16.0",
     "rimraf": "^3.0.2",
     "typescript": "^5.4.5"
   },

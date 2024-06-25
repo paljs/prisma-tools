@@ -30,7 +30,7 @@ const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, on, to
           leaveTo="opacity-0 scale-95"
         >
           <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4">
-            <DialogPanel className="inline-block transform align-middle transition-all w-full sm:w-[700px]">
+            <DialogPanel className="inline-block transform align-middle transition-all w-full lg:w-5/6">
               {children}
             </DialogPanel>
           </div>

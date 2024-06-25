@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { format, Options as PrettierOptions } from 'prettier';
 import pkgDir from 'pkg-dir';
 import { join } from 'path';
-import { getInputType, getEnvPaths, tryLoadEnvs, getDMMF } from '@paljs/utils';
+import { getInputType, getDMMF } from '@paljs/utils';
 const projectRoot = pkgDir.sync() || process.cwd();
 
 export class Generators {
@@ -35,7 +35,7 @@ export class Generators {
     this.options = { ...this.options, ...customOptions };
     this.isJS = this.options.javaScript;
     this.schemaString = readFileSync(this.schemaPath, 'utf-8');
-    tryLoadEnvs(getEnvPaths());
+    //tryLoadEnvs(getEnvPaths());
   }
 
   protected async dmmf(): Promise<DMMF.Document> {
