@@ -43,6 +43,23 @@ export class GenerateTypes {
     );
   }
 
+  getParentType(name: string) {
+    if (['Query', 'Mutation'].includes(name)) {
+      return '{}';
+    }
+    if (name === 'AffectedRowsOutput') {
+      return 'Client.Prisma.BatchPayload';
+    }
+    if (this.isModel(name)) {
+      return `Client.${name}`;
+    }
+    if (name.startsWith('CreateMany') && name.endsWith('AndReturnOutputType')) {
+      const innerType = name.replace(/^CreateMany|AndReturnOutputType$/g, '');
+      return `ReturnType<Client.Prisma.${innerType}Delegate["createManyAndReturn"]>`;
+    }
+    return `Client.Prisma.${name}`;
+  }
+
   capital(name: string) {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
@@ -56,6 +73,10 @@ export class GenerateTypes {
           return `GetAggregateResult<Client.Prisma.$${options.type.toString().replace('Aggregate', '')}Payload, ${
             options.type
           }Args>`;
+        }
+        if (options.type.startsWith('CreateMany') && options.type.endsWith('AndReturnOutputType')) {
+          const innerType = options.type.replace(/^CreateMany|AndReturnOutputType$/g, '');
+          return `ReturnType<Client.Prisma.${innerType}Delegate["createManyAndReturn"]>`;
         }
         const type =
           options.type.toString() === 'AffectedRowsOutput'
@@ -105,15 +126,7 @@ export class GenerateTypes {
 
       // generate fields
       type.fields.forEach((field) => {
-        const parentType = ['Query', 'Mutation'].includes(type.name)
-          ? '{}'
-          : `Client.${
-              type.name === 'AffectedRowsOutput'
-                ? 'Prisma.BatchPayload'
-                : !this.isModel(type.name)
-                  ? 'Prisma.' + type.name
-                  : type.name
-            }`;
+        const parentType = this.getParentType(type.name);
         const argsType =
           field.args.length > 0
             ? `${['Query', 'Mutation'].includes(type.name) ? '' : type.name}${this.capital(field.name)}Args`
