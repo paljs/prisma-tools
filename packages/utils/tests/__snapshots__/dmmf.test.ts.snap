@@ -15712,15 +15712,3 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
   },
 }
 `;
-
-exports[`test read schema and convert to dmmf failing load schema path 1`] = `
-"Could not find Prisma Schema that is required for this command.
-You can either provide it with \`--schema\` argument, set it as \`prisma.schema\` in your package.json or put it into the default location.
-Checked following paths:
-
-schema.prisma: file not found
-prisma/schema.prisma: file not found
-prisma/schema: directory not found
-
-See also https://pris.ly/d/prisma-schema-location"
-`;
