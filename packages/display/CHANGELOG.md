@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 7.0.2
+
+### Patch Changes
+
+- fixing sdl typescript
+
 ## 7.0.1
 
 ### Patch Changes

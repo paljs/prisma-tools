@@ -1,6 +1,6 @@
 {
   "name": "@paljs/display",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Display package for the paljs CLI",
   "homepage": "https://paljs.com",
   "license": "MIT",

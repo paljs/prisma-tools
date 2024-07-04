@@ -1,5 +1,15 @@
 # @paljs/schema
 
+## 7.0.2
+
+### Patch Changes
+
+- fixing sdl typescript
+- Updated dependencies
+  - @paljs/display@7.0.2
+  - @paljs/types@7.0.2
+  - @paljs/utils@7.0.2
+
 ## 7.0.1
 
 ### Patch Changes

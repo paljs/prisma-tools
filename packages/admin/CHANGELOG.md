@@ -1,5 +1,13 @@
 # @paljs/admin
 
+## 7.0.6
+
+### Patch Changes
+
+- fixing sdl typescript
+- Updated dependencies
+  - @paljs/types@7.0.2
+
 ## 7.0.5
 
 ### Patch Changes
