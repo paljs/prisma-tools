@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { DMMF } from '@paljs/types';
 import { parseResolveInfo } from 'graphql-parse-resolve-info';
+import { Prisma } from '@prisma/client';
 
 export interface PrismaSelectOptions<
   ModelName extends string,
@@ -122,8 +123,9 @@ export class PrismaSelect<
       });
       return models;
     } else {
-      const { Prisma } = require('@prisma/client');
+      // @ts-ignore: Prisma.dmmf is a lazy/runtime property and not defined in @prisma/client ts type
       if (Prisma.dmmf && Prisma.dmmf.datamodel) {
+        // @ts-ignore
         return Prisma.dmmf.datamodel.models;
       } else {
         return [];
