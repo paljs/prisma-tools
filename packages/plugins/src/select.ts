@@ -123,10 +123,10 @@ export class PrismaSelect<
       });
       return models;
     } else {
-      // @ts-ignore: Prisma.dmmf is a lazy/runtime property and not defined in @prisma/client ts type
-      if (Prisma.dmmf && Prisma.dmmf.datamodel) {
-        // @ts-ignore
-        return Prisma.dmmf.datamodel.models;
+      // Prisma.dmmf is a lazy/runtime property and not defined in @prisma/client ts type
+      const dmmf = (Prisma as any).dmmf;
+      if (dmmf && dmmf.datamodel) {
+        return dmmf.datamodel.models;
       } else {
         return [];
       }
