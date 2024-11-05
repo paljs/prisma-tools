@@ -69,11 +69,11 @@ export class CamelCase extends PrismaReader {
 
       output = output.trimEnd() + os.EOL;
 
-      if (!returnString) {
-        writeFileSync(this.path, output);
-      } else {
+      if (returnString) {
         return output;
       }
+
+      writeFileSync(this.path, output);
     }
   }
 
