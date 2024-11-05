@@ -10,6 +10,7 @@ export interface Field {
   isId: boolean;
   unique: boolean;
   kind: 'object' | 'enum' | 'scalar';
+  defaultValue?: string;
   map?: string;
   relationField?: boolean;
   documentation?: string;

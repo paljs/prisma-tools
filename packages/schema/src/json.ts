@@ -39,6 +39,7 @@ export class ConvertSchemaToObject extends PrismaReader {
               type,
               isId: !!line.find((part) => part.startsWith('@id')),
               unique: !!line.find((part) => part.startsWith('@unique')),
+              defaultValue: line.find((part) => part.startsWith('@default')),
               list: line[1].includes('[]'),
               required: !line[1].includes('[]') && !line[1].includes('?'),
               kind: this.getKind(type),

@@ -3,6 +3,7 @@ import { join } from 'path';
 
 test('generate Json object from prisma schema', () => {
   const generate = new ConvertSchemaToObject(join(__dirname, './schemas/schema.prisma')).run();
+
   expect(generate).toMatchInlineSnapshot(`
     {
       "enums": [
@@ -19,6 +20,7 @@ test('generate Json object from prisma schema', () => {
           "documentation": "// User modal documentation",
           "fields": [
             {
+              "defaultValue": "@default(autoincrement())",
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -31,6 +33,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": "@default(now())",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -43,6 +46,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -55,6 +59,7 @@ test('generate Json object from prisma schema', () => {
               "unique": true,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -67,6 +72,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "// password documentation
     // password second line documentation",
               "isId": false,
@@ -80,6 +86,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": "@default(\"{}\")",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -92,6 +99,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "object",
@@ -110,6 +118,7 @@ test('generate Json object from prisma schema', () => {
           "documentation": "",
           "fields": [
             {
+              "defaultValue": "@default(autoincrement())",
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -122,6 +131,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": "@default(false)",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -134,6 +144,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -146,6 +157,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "object",
@@ -165,6 +177,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -177,6 +190,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": "@default(now())",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -189,6 +203,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
+              "defaultValue": undefined,
               "documentation": "",
               "isId": false,
               "kind": "scalar",
