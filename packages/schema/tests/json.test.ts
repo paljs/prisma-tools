@@ -86,7 +86,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
-              "defaultValue": "@default(\"{}\")",
+              "defaultValue": "@default("{}")",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
