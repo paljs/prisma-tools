@@ -20,7 +20,7 @@ test('generate Json object from prisma schema', () => {
           "documentation": "// User modal documentation",
           "fields": [
             {
-              "defaultValue": "@default(autoincrement())",
+              "defaultValue": "autoincrement()",
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -33,7 +33,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
-              "defaultValue": "@default(now())",
+              "defaultValue": "now()",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -86,7 +86,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
-              "defaultValue": "@default("{}")",
+              "defaultValue": ""{}"",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -118,7 +118,7 @@ test('generate Json object from prisma schema', () => {
           "documentation": "",
           "fields": [
             {
-              "defaultValue": "@default(autoincrement())",
+              "defaultValue": "autoincrement()",
               "documentation": "",
               "isId": true,
               "kind": "scalar",
@@ -131,7 +131,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
-              "defaultValue": "@default(false)",
+              "defaultValue": "false",
               "documentation": "",
               "isId": false,
               "kind": "scalar",
@@ -190,7 +190,7 @@ test('generate Json object from prisma schema', () => {
               "unique": false,
             },
             {
-              "defaultValue": "@default(now())",
+              "defaultValue": "now()",
               "documentation": "",
               "isId": false,
               "kind": "scalar",

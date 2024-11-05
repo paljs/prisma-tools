@@ -66,6 +66,10 @@ export class PrismaReader {
     return undefined;
   }
 
+  getDefaultValue(line: string) {
+    return line.match(/@default\((.*)\)/)?.[1];
+  }
+
   getRelation(line: string) {
     const relationString = line.match(/@relation\((.*?)\)/);
     if (relationString) {
