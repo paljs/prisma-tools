@@ -21,7 +21,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
       "fields": [
         {
           "create": false,
-          "defaultValue": "@default(autoincrement())",
+          "defaultValue": "autoincrement()",
           "editor": false,
           "filter": true,
           "id": "User.id",
@@ -43,7 +43,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
-          "defaultValue": "@default(now())",
+          "defaultValue": "now()",
           "editor": false,
           "filter": true,
           "id": "User.createdAt",
@@ -131,7 +131,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
-          "defaultValue": "@default(\"{}\")",
+          "defaultValue": "\"{}\"",
           "editor": false,
           "filter": true,
           "id": "User.permissions",
@@ -187,7 +187,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
       "fields": [
         {
           "create": false,
-          "defaultValue": "@default(autoincrement())",
+          "defaultValue": "autoincrement()",
           "editor": false,
           "filter": true,
           "id": "Post.id",
@@ -209,7 +209,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
-          "defaultValue": "@default(false)",
+          "defaultValue": "false",
           "editor": false,
           "filter": true,
           "id": "Post.published",
@@ -296,7 +296,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
-          "defaultValue": "@default(now())",
+          "defaultValue": "now()",
           "editor": false,
           "filter": true,
           "id": "Post.createdAt",
