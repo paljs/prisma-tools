@@ -19,6 +19,38 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         ],
       },
     ],
+    "indexes": [
+      {
+        "fields": [
+          {
+            "name": "id",
+          },
+        ],
+        "isDefinedOnField": true,
+        "model": "User",
+        "type": "id",
+      },
+      {
+        "fields": [
+          {
+            "name": "email",
+          },
+        ],
+        "isDefinedOnField": true,
+        "model": "User",
+        "type": "unique",
+      },
+      {
+        "fields": [
+          {
+            "name": "id",
+          },
+        ],
+        "isDefinedOnField": true,
+        "model": "Post",
+        "type": "id",
+      },
+    ],
     "models": [
       {
         "dbName": null,

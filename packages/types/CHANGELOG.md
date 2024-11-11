@@ -1,5 +1,13 @@
 # @paljs/types
 
+## 7.1.0
+
+### Minor Changes
+
+- Upgrade Prisma dependencies and update test snapshots
+
+  Updated Prisma-related dependencies from version 5.16.0 to 5.22.0. This change also includes updates to test snapshots to reflect recent modifications in model indexes and field defaults. The dependency react-hook-form is now specified with a flexible version range.
+
 ## 7.0.2
 
 ### Patch Changes
