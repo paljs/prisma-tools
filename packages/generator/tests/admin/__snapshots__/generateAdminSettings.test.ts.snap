@@ -21,6 +21,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
       "fields": [
         {
           "create": false,
+          "defaultValue": "autoincrement()",
           "editor": false,
           "filter": true,
           "id": "User.id",
@@ -42,6 +43,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
+          "defaultValue": "now()",
           "editor": false,
           "filter": true,
           "id": "User.createdAt",
@@ -63,6 +65,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "User.email",
@@ -84,6 +87,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "User.name",
@@ -105,6 +109,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "User.password",
@@ -126,6 +131,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": ""{}"",
           "editor": false,
           "filter": true,
           "id": "User.permissions",
@@ -147,6 +153,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "User.posts",
@@ -180,6 +187,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
       "fields": [
         {
           "create": false,
+          "defaultValue": "autoincrement()",
           "editor": false,
           "filter": true,
           "id": "Post.id",
@@ -201,6 +209,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": "false",
           "editor": false,
           "filter": true,
           "id": "Post.published",
@@ -222,6 +231,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "Post.title",
@@ -243,6 +253,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": true,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "Post.author",
@@ -263,6 +274,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "Post.authorId",
@@ -284,6 +296,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
+          "defaultValue": "now()",
           "editor": false,
           "filter": true,
           "id": "Post.createdAt",
@@ -305,6 +318,7 @@ exports[`Generate Json Object For Admin Tables Should back with Json Settings 1`
         },
         {
           "create": false,
+          "defaultValue": undefined,
           "editor": false,
           "filter": true,
           "id": "Post.updatedAt",
