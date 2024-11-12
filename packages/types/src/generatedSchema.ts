@@ -29,7 +29,19 @@ export interface Enums {
   fields: string[];
 }
 
+export interface Generator {
+  name: string;
+  provider: string;
+}
+
+export interface DataSource {
+  provider: string;
+  url: string;
+}
+
 export interface SchemaObject {
   models: Model[];
   enums: Enums[];
+  dataSource?: DataSource;
+  generators?: Generator[];
 }
