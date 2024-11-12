@@ -18,6 +18,14 @@ export class PrismaReader {
     return this.data.match(/\n(enum(\s)[\s\S]*?})\r?\n/g);
   }
 
+  get dataSource() {
+    return this.data.match(/(datasource(\s)[\s\S]*?})\r?\n/g);
+  }
+
+  get generators() {
+    return this.data.match(/\n(generator(\s)[\s\S]*?})\r?\n/g);
+  }
+
   getModelDocumentation(modelName: string) {
     return this.data
       .split(/\n/)
@@ -60,9 +68,11 @@ export class PrismaReader {
 
   getMap(line: string) {
     const value = line.match(/@map\((.*?)\)/);
+
     if (value) {
       return value[1].replace(/name/, '').replace(':', '').replace(' ', '').replace(/"/g, '');
     }
+
     return undefined;
   }
 
@@ -72,27 +82,34 @@ export class PrismaReader {
 
   getRelation(line: string) {
     const relationString = line.match(/@relation\((.*?)\)/);
+
     if (relationString) {
       const relation: Field['relation'] = {};
       const name = relationString[1].match(/"(\w+)"/);
+
       if (name) {
         relation.name = name[1];
       }
+
       ['fields', 'references'].forEach((item) => {
         const pattern = new RegExp(`${item}:[\\s\\S]\\[(.*?)\\]`);
         const values = relationString[1].match(pattern);
+
         if (values) {
           const asArray = values[1]
             .replace(/ /g, '')
             .split(',')
             .filter((v) => v);
+
           if (asArray.length > 0) {
             relation[item as 'fields' | 'references'] = asArray;
           }
         }
       });
+
       return relation;
     }
+
     return undefined;
   }
 }
