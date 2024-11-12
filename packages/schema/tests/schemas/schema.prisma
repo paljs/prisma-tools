@@ -7,6 +7,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator pothos {
+  provider = "prisma-pothos-types"
+}
+
 // User modal documentation
 model User {
   id          Int      @id @default(autoincrement())

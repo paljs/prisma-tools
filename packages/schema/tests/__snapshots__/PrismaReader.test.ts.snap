@@ -1,11 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`test the Prisma Reader class read prisma datasource 1`] = `
+[
+  "datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+",
+]
+`;
+
 exports[`test the Prisma Reader class read prisma enums 1`] = `
 [
   "
 enum Role {
   ADMIN
   USER
+}
+",
+]
+`;
+
+exports[`test the Prisma Reader class read prisma generators 1`] = `
+[
+  "
+generator client {
+  provider = "prisma-client-js"
+}
+",
+  "
+generator pothos {
+  provider = "prisma-pothos-types"
 }
 ",
 ]
