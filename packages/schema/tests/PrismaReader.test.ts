@@ -15,4 +15,26 @@ describe('test the Prisma Reader class', () => {
   test('read prisma model documentation', () => {
     expect(prismaReader.getModelDocumentation('User')).toMatchSnapshot();
   });
+
+  test('read prisma datasource', () => {
+    expect(prismaReader.dataSource).toMatchSnapshot();
+  });
+
+  test('read prisma generators', () => {
+    expect(prismaReader.generators).toMatchSnapshot();
+  });
+
+  test('read prisma datasource with url string', () => {
+    const prismaReader = new PrismaReader(join(__dirname, './schemas/schema-datasource-with-url-string.prisma'));
+
+    expect(prismaReader.dataSource).toMatchInlineSnapshot(`
+      [
+        "datasource db {
+        provider = "postgresql"
+        url      = "file:./dev.db"
+      }
+      ",
+      ]
+    `);
+  });
 });

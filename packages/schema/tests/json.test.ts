@@ -6,6 +6,10 @@ test('generate Json object from prisma schema', () => {
 
   expect(generate).toMatchInlineSnapshot(`
     {
+      "dataSource": {
+        "provider": "postgresql",
+        "url": "env("DATABASE_URL")",
+      },
       "enums": [
         {
           "fields": [
@@ -13,6 +17,16 @@ test('generate Json object from prisma schema', () => {
             "USER",
           ],
           "name": "Role",
+        },
+      ],
+      "generators": [
+        {
+          "name": "client",
+          "provider": "prisma-client-js",
+        },
+        {
+          "name": "pothos",
+          "provider": "prisma-pothos-types",
         },
       ],
       "models": [
