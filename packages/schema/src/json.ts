@@ -5,6 +5,8 @@ export class ConvertSchemaToObject extends PrismaReader {
   schemaObject: SchemaObject = {
     models: [],
     enums: [],
+    dataSource: undefined,
+    generators: [],
   };
 
   constructor(protected path: string) {
@@ -14,6 +16,9 @@ export class ConvertSchemaToObject extends PrismaReader {
   run() {
     this.getModels();
     this.getEnums();
+    this.getDataSource();
+    this.getGenerators();
+
     return this.schemaObject;
   }
 
@@ -87,6 +92,28 @@ export class ConvertSchemaToObject extends PrismaReader {
         }
         this.schemaObject.enums.push({ ...itemObject });
       }
+    }
+  }
+
+  private getDataSource() {
+    if (this.dataSource) {
+      this.schemaObject.dataSource = this.dataSource.map((dataSource) => {
+        return {
+          provider: dataSource.match(/provider\s+=\s+"(\w+)"/)?.[1] || '',
+          url: dataSource.match(/url\s+=\s+(.+)/)?.[1] || '',
+        };
+      })[0];
+    }
+  }
+
+  private getGenerators() {
+    if (this.generators) {
+      this.schemaObject.generators = this.generators.map((generator) => {
+        return {
+          name: generator.match(/generator\s+(\w+)/)?.[1] || '',
+          provider: generator.match(/provider\s+=\s+"(.+)"/)?.[1] || '',
+        };
+      });
     }
   }
 }
