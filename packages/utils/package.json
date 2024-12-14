@@ -21,12 +21,12 @@
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@paljs/types": "workspace:*",
     "@paljs/display": "workspace:*",
-    "@prisma/internals": "5.22.0"
+    "@prisma/internals": "6.0.1"
   },
   "files": [
     "dist"

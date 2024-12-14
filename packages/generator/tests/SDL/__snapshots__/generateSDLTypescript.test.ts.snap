@@ -813,7 +813,7 @@ export type PostWhereInput = {
   authorId?: IntNullableFilter | null
   createdAt?: DateTimeFilter
   updatedAt?: DateTimeFilter
-  author?: UserNullableRelationFilter | null
+  author?: UserNullableScalarRelationFilter | null
 }
 
 export type PostOrderByWithRelationInput = {
@@ -837,7 +837,7 @@ export type PostWhereUniqueInput = AtLeast<
     authorId?: IntNullableFilter | null
     createdAt?: DateTimeFilter
     updatedAt?: DateTimeFilter
-    author?: UserNullableRelationFilter | null
+    author?: UserNullableScalarRelationFilter | null
   },
   'id'
 >
@@ -1208,7 +1208,7 @@ export type IntNullableFilter = {
   not?: NestedIntNullableFilter | null
 }
 
-export type UserNullableRelationFilter = {
+export type UserNullableScalarRelationFilter = {
   is?: UserWhereInput | null
   isNot?: UserWhereInput | null
 }

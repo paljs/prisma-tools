@@ -35,7 +35,7 @@
     "@apollo/server": "^4.10.4",
     "graphql": "^16.8.1",
     "rimraf": "^3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   },
   "files": [
     "dist"

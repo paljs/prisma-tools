@@ -131,7 +131,7 @@ export default gql\`
     authorId: IntNullableFilter
     createdAt: DateTimeFilter
     updatedAt: DateTimeFilter
-    author: UserNullableRelationFilter
+    author: UserNullableScalarRelationFilter
   }
 
   input PostOrderByWithRelationInput {
@@ -154,7 +154,7 @@ export default gql\`
     authorId: IntNullableFilter
     createdAt: DateTimeFilter
     updatedAt: DateTimeFilter
-    author: UserNullableRelationFilter
+    author: UserNullableScalarRelationFilter
   }
 
   input PostOrderByWithAggregationInput {
@@ -523,7 +523,7 @@ export default gql\`
     not: NestedIntNullableFilter
   }
 
-  input UserNullableRelationFilter {
+  input UserNullableScalarRelationFilter {
     is: UserWhereInput
     isNot: UserWhereInput
   }

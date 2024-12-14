@@ -145,7 +145,7 @@ const defaultInputs: Omit<FormInputs, 'Upload' | 'Editor'> = {
     } = useController({
       name: field.name,
       control,
-      defaultValue: value,
+      defaultValue: value[model.idField],
       rules: { required: field.required },
     });
 

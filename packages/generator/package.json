@@ -28,7 +28,7 @@
     "@types/node": "20.12.12",
     "@types/pluralize": "^0.0.33",
     "rimraf": "^3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   },
   "files": [
     "dist"

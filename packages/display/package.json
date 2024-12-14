@@ -35,6 +35,6 @@
     "@types/debug": "^4.1.7",
     "@types/node": "20.12.12",
     "rimraf": "^3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

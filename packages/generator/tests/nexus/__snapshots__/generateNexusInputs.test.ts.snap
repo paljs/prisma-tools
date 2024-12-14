@@ -155,7 +155,7 @@ export const PostWhereInput = inputObjectType({
     t.field('authorId', { type: 'IntNullableFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
-    t.field('author', { type: 'UserNullableRelationFilter' })
+    t.field('author', { type: 'UserNullableScalarRelationFilter' })
   },
 })
 
@@ -190,7 +190,7 @@ export const PostWhereUniqueInput = inputObjectType({
     t.field('authorId', { type: 'IntNullableFilter' })
     t.field('createdAt', { type: 'DateTimeFilter' })
     t.field('updatedAt', { type: 'DateTimeFilter' })
-    t.field('author', { type: 'UserNullableRelationFilter' })
+    t.field('author', { type: 'UserNullableScalarRelationFilter' })
   },
 })
 
@@ -780,11 +780,11 @@ export const IntNullableFilter = inputObjectType({
   },
 })
 
-export const UserNullableRelationFilter = inputObjectType({
+export const UserNullableScalarRelationFilter = inputObjectType({
   nonNullDefaults: {
     input: false,
   },
-  name: 'UserNullableRelationFilter',
+  name: 'UserNullableScalarRelationFilter',
   definition(t) {
     t.field('is', { type: 'UserWhereInput' })
     t.field('isNot', { type: 'UserWhereInput' })

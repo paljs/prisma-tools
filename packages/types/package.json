@@ -20,9 +20,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "@prisma/generator-helper": "5.22.0",
+    "@prisma/generator-helper": "6.0.1",
     "rimraf": "^3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   },
   "files": [
     "dist"

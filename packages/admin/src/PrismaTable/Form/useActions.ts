@@ -71,8 +71,8 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
       if (field?.update) {
         if (field.kind === 'object') {
           const fieldModel = models.find((item) => item.id === field.type)!;
+          const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
           if ((newData[key] && !data[key]) || (newData[key] && newData[key] !== data[key][fieldModel.idField])) {
-            const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
             updateData[key] = {
               connect: {
                 [fieldModel.idField]: getValueByType({
@@ -83,7 +83,15 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
               },
             };
           } else if (!newData[key] && data[key]) {
-            updateData[key] = { disconnect: true };
+            updateData[key] = {
+              disconnect: {
+                [fieldModel.idField]: getValueByType({
+                  value: data[key][fieldModel.idField],
+                  field: editField,
+                  useSet: false,
+                }),
+              },
+            };
           }
         } else if (newData[key] !== data[key]) {
           updateData[key] = valueHandler
@@ -113,7 +121,7 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
       if (field?.kind === 'object') {
         const fieldModel = models.find((item) => item.id === field.type)!;
         const editField = fieldModel.fields.find((item) => item.name === fieldModel.idField)!;
-        if (newData[key]) {
+        if (newData[key] && typeof newData[key] !== 'object') {
           createData[key] = {
             connect: {
               [fieldModel.idField]: getValueByType({
