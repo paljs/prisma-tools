@@ -1,5 +1,18 @@
 # @paljs/cli
 
+## 8.0.1
+
+### Patch Changes
+
+- fix(admin): fix bug in admin disconntect
+- Updated dependencies
+  - @paljs/create@8.0.1
+  - @paljs/display@8.0.1
+  - @paljs/generator@8.0.1
+  - @paljs/schema@8.0.1
+  - @paljs/types@8.0.1
+  - @paljs/utils@8.0.1
+
 ## 8.0.0
 
 ### Major Changes

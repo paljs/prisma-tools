@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 8.0.1
+
+### Patch Changes
+
+- fix(admin): fix bug in admin disconntect
+
 ## 8.0.0
 
 ### Major Changes

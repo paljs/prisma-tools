@@ -1,5 +1,15 @@
 # @paljs/schema
 
+## 8.0.1
+
+### Patch Changes
+
+- fix(admin): fix bug in admin disconntect
+- Updated dependencies
+  - @paljs/display@8.0.1
+  - @paljs/types@8.0.1
+  - @paljs/utils@8.0.1
+
 ## 8.0.0
 
 ### Major Changes
