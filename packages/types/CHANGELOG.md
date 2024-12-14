@@ -1,5 +1,11 @@
 # @paljs/types
 
+## 8.0.0
+
+### Major Changes
+
+- Update the prisma version to 6 that have breaking changes
+
 ## 7.1.0
 
 ### Minor Changes

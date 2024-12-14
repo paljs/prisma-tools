@@ -1,5 +1,18 @@
 # @paljs/generator
 
+## 8.0.0
+
+### Major Changes
+
+- Update the prisma version to 6 that have breaking changes
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/schema@8.0.0
+  - @paljs/types@8.0.0
+  - @paljs/utils@8.0.0
+
 ## 7.1.0
 
 ### Minor Changes
