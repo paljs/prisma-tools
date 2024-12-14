@@ -90,7 +90,7 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
                   value: data[key][fieldModel.idField],
                   field: editField,
                   useSet: false,
-                  useEqual: !editField.required,
+                  useEqual: !field.required,
                 }),
               },
             };
