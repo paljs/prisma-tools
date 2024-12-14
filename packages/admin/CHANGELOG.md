@@ -1,5 +1,11 @@
 # @paljs/admin
 
+## 8.0.3
+
+### Patch Changes
+
+- fix bug
+
 ## 8.0.2
 
 ### Patch Changes

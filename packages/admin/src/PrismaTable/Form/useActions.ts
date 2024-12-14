@@ -11,10 +11,10 @@ interface GetValueOptions {
   value: string;
   field?: AdminSchemaField;
   useSet?: boolean;
-  useEqual?: boolean;
+  useEquals?: boolean;
 }
 
-export const getValueByType = ({ value, field, useSet = true, useEqual }: GetValueOptions) => {
+export const getValueByType = ({ value, field, useSet = true, useEquals }: GetValueOptions) => {
   if (!field) {
     return value;
   }
@@ -48,7 +48,7 @@ export const getValueByType = ({ value, field, useSet = true, useEqual }: GetVal
       : ['Float', 'Decimal'].includes(field.type)
         ? parseFloat(value)
         : value;
-    return !useSet || useEqual ? (useEqual ? { equal: result } : result) : { set: result };
+    return !useSet || useEquals ? (useEquals ? { equals: result } : result) : { set: result };
   }
 };
 
@@ -90,7 +90,7 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
                   value: data[key][fieldModel.idField],
                   field: editField,
                   useSet: false,
-                  useEqual: !field.required,
+                  useEquals: !field.required,
                 }),
               },
             };
