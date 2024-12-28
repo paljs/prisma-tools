@@ -1,5 +1,11 @@
 # @paljs/display
 
+## 8.1.0
+
+### Minor Changes
+
+- update prisma version
+
 ## 8.0.1
 
 ### Patch Changes
