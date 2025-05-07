@@ -92,7 +92,7 @@ export default gql\`
       create: UserCreateInput!
       update: UserUpdateInput!
     ): User
-    deleteManyUser(where: UserWhereInput): BatchPayload
+    deleteManyUser(where: UserWhereInput, limit: Int): BatchPayload
   }
 \`
 ",
@@ -203,10 +203,11 @@ export default gql\`
       create: PostCreateInput!
       update: PostUpdateInput!
     ): Post
-    deleteManyPost(where: PostWhereInput): BatchPayload
+    deleteManyPost(where: PostWhereInput, limit: Int): BatchPayload
     updateManyPost(
       data: PostUpdateManyMutationInput!
       where: PostWhereInput
+      limit: Int
     ): BatchPayload
   }
 \`
@@ -321,10 +322,11 @@ export default gql\`
       create: UserCreateInput!
       update: UserUpdateInput!
     ): User
-    deleteManyUser(where: UserWhereInput): BatchPayload
+    deleteManyUser(where: UserWhereInput, limit: Int): BatchPayload
     updateManyUser(
       data: UserUpdateManyMutationInput!
       where: UserWhereInput
+      limit: Int
     ): BatchPayload
   }
 \`

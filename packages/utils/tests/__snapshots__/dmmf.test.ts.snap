@@ -318,6 +318,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         "groupBy": "groupByUser",
         "model": "User",
         "updateMany": "updateManyUser",
+        "updateManyAndReturn": "updateManyUserAndReturn",
         "updateOne": "updateOneUser",
         "upsertOne": "upsertOneUser",
       },
@@ -336,6 +337,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
         "groupBy": "groupByPost",
         "model": "Post",
         "updateMany": "updateManyPost",
+        "updateManyAndReturn": "updateManyPostAndReturn",
         "updateOne": "updateOnePost",
         "upsertOne": "upsertOnePost",
       },
@@ -677,6 +679,43 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
           "allowTypes": [
             {
               "isList": false,
+              "location": "enumTypes",
+              "namespace": "prisma",
+              "type": "QueryMode",
+            },
+          ],
+          "fields": [
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_ref",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "String",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": true,
+              "name": "_container",
+            },
+          ],
+          "name": "EnumQueryModeFieldRefInput",
+        },
+        {
+          "allowTypes": [
+            {
+              "isList": false,
               "location": "scalar",
               "type": "Boolean",
             },
@@ -965,6 +1004,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "User",
             "source": "User",
           },
           "name": "UserWhereInput",
@@ -1073,6 +1113,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "posts",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserOrderByWithRelationInput",
         },
         {
@@ -1247,6 +1290,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "User",
             "source": "User",
           },
           "name": "UserWhereUniqueInput",
@@ -1407,6 +1451,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "_sum",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserOrderByWithAggregationInput",
         },
         {
@@ -1576,6 +1623,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "User",
             "source": "User",
           },
           "name": "UserScalarWhereWithAggregatesInput",
@@ -1776,6 +1824,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "Post",
             "source": "Post",
           },
           "name": "PostWhereInput",
@@ -1884,6 +1933,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "author",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostOrderByWithRelationInput",
         },
         {
@@ -2079,6 +2131,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "Post",
             "source": "Post",
           },
           "name": "PostWhereUniqueInput",
@@ -2239,6 +2292,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "_sum",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostOrderByWithAggregationInput",
         },
         {
@@ -2413,6 +2469,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "Post",
             "source": "Post",
           },
           "name": "PostScalarWhereWithAggregatesInput",
@@ -2508,6 +2565,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "posts",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCreateInput",
         },
         {
@@ -2613,6 +2673,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "posts",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUncheckedCreateInput",
         },
         {
@@ -2730,6 +2793,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "posts",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpdateInput",
         },
         {
@@ -2865,6 +2931,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "posts",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUncheckedUpdateInput",
         },
         {
@@ -2957,6 +3026,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCreateManyInput",
         },
         {
@@ -3061,6 +3133,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpdateManyMutationInput",
         },
         {
@@ -3183,6 +3258,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUncheckedUpdateManyInput",
         },
         {
@@ -3253,6 +3331,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "author",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateInput",
         },
         {
@@ -3339,6 +3420,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedCreateInput",
         },
         {
@@ -3433,6 +3517,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "author",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateInput",
         },
         {
@@ -3555,6 +3642,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedUpdateInput",
         },
         {
@@ -3641,6 +3731,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateManyInput",
         },
         {
@@ -3722,6 +3815,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateManyMutationInput",
         },
         {
@@ -3844,6 +3940,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedUpdateManyInput",
         },
         {
@@ -4658,6 +4757,25 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": false,
+                  "location": "enumTypes",
+                  "namespace": "prisma",
+                  "type": "QueryMode",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "EnumQueryModeFieldRefInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "mode",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -4729,29 +4847,6 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               ],
               "isNullable": true,
               "isRequired": false,
-              "name": "array_contains",
-            },
-            {
-              "inputTypes": [
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Json",
-                },
-                {
-                  "isList": false,
-                  "location": "fieldRefTypes",
-                  "namespace": "prisma",
-                  "type": "JsonFieldRefInput",
-                },
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Null",
-                },
-              ],
-              "isNullable": true,
-              "isRequired": false,
               "name": "array_starts_with",
             },
             {
@@ -4776,6 +4871,29 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isNullable": true,
               "isRequired": false,
               "name": "array_ends_with",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "array_contains",
             },
             {
               "inputTypes": [
@@ -4922,6 +5040,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "none",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostListRelationFilter",
         },
         {
@@ -4979,6 +5100,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "_count",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostOrderByRelationAggregateInput",
         },
         {
@@ -5066,6 +5190,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCountOrderByAggregateInput",
         },
         {
@@ -5088,6 +5215,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "id",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserAvgOrderByAggregateInput",
         },
         {
@@ -5162,6 +5292,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "password",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserMaxOrderByAggregateInput",
         },
         {
@@ -5236,6 +5369,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "password",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserMinOrderByAggregateInput",
         },
         {
@@ -5258,6 +5394,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "id",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserSumOrderByAggregateInput",
         },
         {
@@ -6254,6 +6393,25 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": false,
+                  "location": "enumTypes",
+                  "namespace": "prisma",
+                  "type": "QueryMode",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "EnumQueryModeFieldRefInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "mode",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -6325,29 +6483,6 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               ],
               "isNullable": true,
               "isRequired": false,
-              "name": "array_contains",
-            },
-            {
-              "inputTypes": [
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Json",
-                },
-                {
-                  "isList": false,
-                  "location": "fieldRefTypes",
-                  "namespace": "prisma",
-                  "type": "JsonFieldRefInput",
-                },
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Null",
-                },
-              ],
-              "isNullable": true,
-              "isRequired": false,
               "name": "array_starts_with",
             },
             {
@@ -6372,6 +6507,29 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isNullable": true,
               "isRequired": false,
               "name": "array_ends_with",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "array_contains",
             },
             {
               "inputTypes": [
@@ -6772,6 +6930,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "isNot",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserNullableScalarRelationFilter",
         },
         {
@@ -6859,6 +7020,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCountOrderByAggregateInput",
         },
         {
@@ -6894,6 +7058,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "authorId",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostAvgOrderByAggregateInput",
         },
         {
@@ -6981,6 +7148,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostMaxOrderByAggregateInput",
         },
         {
@@ -7068,6 +7238,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostMinOrderByAggregateInput",
         },
         {
@@ -7103,6 +7276,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "authorId",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostSumOrderByAggregateInput",
         },
         {
@@ -7516,6 +7692,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "connect",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateNestedManyWithoutAuthorInput",
         },
         {
@@ -7607,6 +7786,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "connect",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedCreateNestedManyWithoutAuthorInput",
         },
         {
@@ -7628,6 +7810,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "set",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "DateTimeFieldUpdateOperationsInput",
         },
         {
@@ -7649,6 +7834,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "set",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "StringFieldUpdateOperationsInput",
         },
         {
@@ -7675,6 +7863,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "set",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "NullableStringFieldUpdateOperationsInput",
         },
         {
@@ -7899,6 +8090,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "deleteMany",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateManyWithoutAuthorNestedInput",
         },
         {
@@ -7968,6 +8162,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "divide",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "IntFieldUpdateOperationsInput",
         },
         {
@@ -8192,6 +8389,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "deleteMany",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedUpdateManyWithoutAuthorNestedInput",
         },
         {
@@ -8246,6 +8446,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "connect",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCreateNestedOneWithoutPostsInput",
         },
         {
@@ -8267,6 +8470,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "set",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "BoolFieldUpdateOperationsInput",
         },
         {
@@ -8395,6 +8601,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "update",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpdateOneWithoutPostsNestedInput",
         },
         {
@@ -8469,6 +8678,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "divide",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "NullableIntFieldUpdateOperationsInput",
         },
         {
@@ -10505,6 +10717,25 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "inputTypes": [
                 {
                   "isList": false,
+                  "location": "enumTypes",
+                  "namespace": "prisma",
+                  "type": "QueryMode",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "EnumQueryModeFieldRefInput",
+                },
+              ],
+              "isNullable": false,
+              "isRequired": false,
+              "name": "mode",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
                   "location": "scalar",
                   "type": "String",
                 },
@@ -10576,29 +10807,6 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               ],
               "isNullable": true,
               "isRequired": false,
-              "name": "array_contains",
-            },
-            {
-              "inputTypes": [
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Json",
-                },
-                {
-                  "isList": false,
-                  "location": "fieldRefTypes",
-                  "namespace": "prisma",
-                  "type": "JsonFieldRefInput",
-                },
-                {
-                  "isList": false,
-                  "location": "scalar",
-                  "type": "Null",
-                },
-              ],
-              "isNullable": true,
-              "isRequired": false,
               "name": "array_starts_with",
             },
             {
@@ -10623,6 +10831,29 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "isNullable": true,
               "isRequired": false,
               "name": "array_ends_with",
+            },
+            {
+              "inputTypes": [
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Json",
+                },
+                {
+                  "isList": false,
+                  "location": "fieldRefTypes",
+                  "namespace": "prisma",
+                  "type": "JsonFieldRefInput",
+                },
+                {
+                  "isList": false,
+                  "location": "scalar",
+                  "type": "Null",
+                },
+              ],
+              "isNullable": true,
+              "isRequired": false,
+              "name": "array_contains",
             },
             {
               "inputTypes": [
@@ -11318,6 +11549,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateWithoutAuthorInput",
         },
         {
@@ -11387,6 +11621,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedCreateWithoutAuthorInput",
         },
         {
@@ -11428,6 +11665,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "create",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateOrConnectWithoutAuthorInput",
         },
         {
@@ -11468,6 +11708,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "skipDuplicates",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateManyAuthorInputEnvelope",
         },
         {
@@ -11528,6 +11771,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "create",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpsertWithWhereUniqueWithoutAuthorInput",
         },
         {
@@ -11569,6 +11815,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "data",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateWithWhereUniqueWithoutAuthorInput",
         },
         {
@@ -11610,6 +11859,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "data",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateManyWithWhereWithoutAuthorInput",
         },
         {
@@ -11784,6 +12036,7 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "meta": {
+            "grouping": "Post",
             "source": "Post",
           },
           "name": "PostScalarWhereInput",
@@ -11866,6 +12119,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCreateWithoutPostsInput",
         },
         {
@@ -11958,6 +12214,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUncheckedCreateWithoutPostsInput",
         },
         {
@@ -11999,6 +12258,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "create",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserCreateOrConnectWithoutPostsInput",
         },
         {
@@ -12059,6 +12321,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "where",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpsertWithoutPostsInput",
         },
         {
@@ -12100,6 +12365,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "data",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpdateToOneWithWhereWithoutPostsInput",
         },
         {
@@ -12204,6 +12472,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUpdateWithoutPostsInput",
         },
         {
@@ -12326,6 +12597,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "permissions",
             },
           ],
+          "meta": {
+            "grouping": "User",
+          },
           "name": "UserUncheckedUpdateWithoutPostsInput",
         },
         {
@@ -12395,6 +12669,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostCreateManyAuthorInput",
         },
         {
@@ -12476,6 +12753,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUpdateWithoutAuthorInput",
         },
         {
@@ -12575,6 +12855,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedUpdateWithoutAuthorInput",
         },
         {
@@ -12674,6 +12957,9 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
               "name": "updatedAt",
             },
           ],
+          "meta": {
+            "grouping": "Post",
+          },
           "name": "PostUncheckedUpdateManyWithoutAuthorInput",
         },
       ],
@@ -13026,6 +13312,71 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             {
               "args": [],
               "isNullable": false,
+              "name": "createdAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "email",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": true,
+              "name": "name",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "password",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "permissions",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Json",
+              },
+            },
+          ],
+          "name": "UpdateManyUserAndReturnOutputType",
+        },
+        {
+          "fields": [
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "id",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
               "name": "published",
               "outputType": {
                 "isList": false,
@@ -13100,6 +13451,96 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
             },
           ],
           "name": "CreateManyPostAndReturnOutputType",
+        },
+        {
+          "fields": [
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "id",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "published",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Boolean",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "title",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "String",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": true,
+              "name": "authorId",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "Int",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "createdAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [],
+              "isNullable": false,
+              "name": "updatedAt",
+              "outputType": {
+                "isList": false,
+                "location": "scalar",
+                "type": "DateTime",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+              ],
+              "isNullable": true,
+              "name": "author",
+              "outputType": {
+                "isList": false,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "User",
+              },
+            },
+          ],
+          "name": "UpdateManyPostAndReturnOutputType",
         },
       ],
       "prisma": [
@@ -14455,6 +14896,18 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isRequired": false,
                   "name": "where",
                 },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
+                },
               ],
               "isNullable": false,
               "name": "updateManyUser",
@@ -14473,12 +14926,80 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                       "isList": false,
                       "location": "inputObjectTypes",
                       "namespace": "prisma",
+                      "type": "UserUpdateManyMutationInput",
+                    },
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserUncheckedUpdateManyInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "data",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
                       "type": "UserWhereInput",
                     },
                   ],
                   "isNullable": false,
                   "isRequired": false,
                   "name": "where",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
+                },
+              ],
+              "isNullable": false,
+              "name": "updateManyUserAndReturn",
+              "outputType": {
+                "isList": true,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "UpdateManyUserAndReturnOutputType",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "UserWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
                 },
               ],
               "isNullable": false,
@@ -14773,6 +15294,18 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                   "isRequired": false,
                   "name": "where",
                 },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
+                },
               ],
               "isNullable": false,
               "name": "updateManyPost",
@@ -14791,12 +15324,80 @@ exports[`test read schema and convert to dmmf build DMMF from schema 1`] = `
                       "isList": false,
                       "location": "inputObjectTypes",
                       "namespace": "prisma",
+                      "type": "PostUpdateManyMutationInput",
+                    },
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostUncheckedUpdateManyInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": true,
+                  "name": "data",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
                       "type": "PostWhereInput",
                     },
                   ],
                   "isNullable": false,
                   "isRequired": false,
                   "name": "where",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
+                },
+              ],
+              "isNullable": false,
+              "name": "updateManyPostAndReturn",
+              "outputType": {
+                "isList": true,
+                "location": "outputObjectTypes",
+                "namespace": "model",
+                "type": "UpdateManyPostAndReturnOutputType",
+              },
+            },
+            {
+              "args": [
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "inputObjectTypes",
+                      "namespace": "prisma",
+                      "type": "PostWhereInput",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "where",
+                },
+                {
+                  "inputTypes": [
+                    {
+                      "isList": false,
+                      "location": "scalar",
+                      "type": "Int",
+                    },
+                  ],
+                  "isNullable": false,
+                  "isRequired": false,
+                  "name": "limit",
                 },
               ],
               "isNullable": false,

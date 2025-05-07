@@ -1,0 +1,31 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# PalJS Development Workflow
+
+## Package Management
+This project uses [pnpm](mdc:pnpm-workspace.yaml) as its package manager with workspace support for the monorepo structure.
+
+## Building Packages
+- The main build script in [package.json](mdc:package.json) builds all packages in the correct dependency order
+- Individual packages have their own build configurations in their respective `tsconfig.build.json` files
+
+## Code Quality
+- [eslint.config.js](mdc:eslint.config.js) - ESLint configuration for code linting
+- [.prettierrc.js](mdc:.prettierrc.js) - Prettier configuration for code formatting
+- [jest.config.js](mdc:jest.config.js) - Jest configuration for testing
+
+## CI/CD
+- GitHub workflows are defined in the [.github/](mdc:.github) directory
+- Changesets in [.changeset/](mdc:.changeset) are used for versioning and changelog management
+
+## Contributions
+When working on this codebase:
+1. Create a feature branch from main
+2. Make your changes in the appropriate package(s)
+3. Run tests with `pnpm test`
+4. Format code with `pnpm format`
+5. Add a changeset if needed
+6. Create a pull request

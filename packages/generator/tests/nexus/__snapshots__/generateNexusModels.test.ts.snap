@@ -10,6 +10,7 @@ export const UserDeleteManyMutation = mutationField('deleteManyUser', {
   type: nonNull('BatchPayload'),
   args: {
     where: 'UserWhereInput',
+    limit: 'Int',
   },
   resolve: async (_parent, { where }, { prisma }) => {
     return prisma.user.deleteMany({ where } as any)
@@ -215,6 +216,7 @@ export const PostDeleteManyMutation = mutationField('deleteManyPost', {
   type: nonNull('BatchPayload'),
   args: {
     where: 'PostWhereInput',
+    limit: 'Int',
   },
   resolve: async (_parent, { where }, { prisma }) => {
     return prisma.post.deleteMany({ where } as any)
@@ -250,6 +252,7 @@ export const PostUpdateManyMutation = mutationField('updateManyPost', {
   args: {
     data: nonNull('PostUpdateManyMutationInput'),
     where: 'PostWhereInput',
+    limit: 'Int',
   },
   resolve(_parent, args, { prisma }) {
     return prisma.post.updateMany(args as any)
@@ -438,6 +441,7 @@ export const UserDeleteManyMutation = mutationField('deleteManyUser', {
   type: nonNull('BatchPayload'),
   args: {
     where: 'UserWhereInput',
+    limit: 'Int',
   },
   resolve: async (_parent, { where }, { prisma }) => {
     return prisma.user.deleteMany({ where } as any)
@@ -473,6 +477,7 @@ export const UserUpdateManyMutation = mutationField('updateManyUser', {
   args: {
     data: nonNull('UserUpdateManyMutationInput'),
     where: 'UserWhereInput',
+    limit: 'Int',
   },
   resolve(_parent, args, { prisma }) {
     return prisma.user.updateMany(args as any)

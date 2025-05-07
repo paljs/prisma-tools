@@ -361,12 +361,13 @@ export default gql\`
   input JsonFilter {
     equals: Json
     path: [String!]
+    mode: QueryMode
     string_contains: String
     string_starts_with: String
     string_ends_with: String
-    array_contains: Json
     array_starts_with: Json
     array_ends_with: Json
+    array_contains: Json
     lt: Json
     lte: Json
     gt: Json
@@ -491,12 +492,13 @@ export default gql\`
   input JsonWithAggregatesFilter {
     equals: Json
     path: [String!]
+    mode: QueryMode
     string_contains: String
     string_starts_with: String
     string_ends_with: String
-    array_contains: Json
     array_starts_with: Json
     array_ends_with: Json
+    array_contains: Json
     lt: Json
     lte: Json
     gt: Json
@@ -818,12 +820,13 @@ export default gql\`
   input NestedJsonFilter {
     equals: Json
     path: [String!]
+    mode: QueryMode
     string_contains: String
     string_starts_with: String
     string_ends_with: String
-    array_contains: Json
     array_starts_with: Json
     array_ends_with: Json
+    array_contains: Json
     lt: Json
     lte: Json
     gt: Json
@@ -1134,7 +1137,26 @@ export default gql\`
     permissions: Json!
   }
 
+  type UpdateManyUserAndReturnOutputType {
+    id: Int!
+    createdAt: DateTime!
+    email: String!
+    name: String
+    password: String!
+    permissions: Json!
+  }
+
   type CreateManyPostAndReturnOutputType {
+    id: Int!
+    published: Boolean!
+    title: String!
+    authorId: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    author: User
+  }
+
+  type UpdateManyPostAndReturnOutputType {
     id: Int!
     published: Boolean!
     title: String!

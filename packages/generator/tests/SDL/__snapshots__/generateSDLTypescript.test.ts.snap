@@ -32,7 +32,9 @@ export type Resolvers = {
   User?: User
   Post?: Post
   CreateManyUserAndReturnOutputType?: CreateManyUserAndReturnOutputType
+  UpdateManyUserAndReturnOutputType?: UpdateManyUserAndReturnOutputType
   CreateManyPostAndReturnOutputType?: CreateManyPostAndReturnOutputType
+  UpdateManyPostAndReturnOutputType?: UpdateManyPostAndReturnOutputType
   Query?: Query
   Mutation?: Mutation
   AggregateUser?: AggregateUser
@@ -109,6 +111,33 @@ export type CreateManyUserAndReturnOutputType = {
   >
 }
 
+export type UpdateManyUserAndReturnOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UpdateManyUserAndReturnOutputType, {}, number>
+  createdAt?: Resolver<
+    Client.Prisma.UpdateManyUserAndReturnOutputType,
+    {},
+    Date
+  >
+  email?: Resolver<Client.Prisma.UpdateManyUserAndReturnOutputType, {}, string>
+  name?: Resolver<
+    Client.Prisma.UpdateManyUserAndReturnOutputType,
+    {},
+    string | null
+  >
+  password?: Resolver<
+    Client.Prisma.UpdateManyUserAndReturnOutputType,
+    {},
+    string
+  >
+  permissions?: Resolver<
+    Client.Prisma.UpdateManyUserAndReturnOutputType,
+    {},
+    any
+  >
+}
+
 export type CreateManyPostAndReturnOutputType = {
   [key: string]: Resolver<any, any, any>
 } & {
@@ -145,6 +174,38 @@ export type CreateManyPostAndReturnOutputType = {
   author?: Resolver<
     ReturnType<Client.Prisma.PostDelegate['createManyAndReturn']>,
     CreateManyPostAndReturnOutputTypeAuthorArgs,
+    Client.User | null
+  >
+}
+
+export type UpdateManyPostAndReturnOutputType = {
+  [key: string]: Resolver<any, any, any>
+} & {
+  id?: Resolver<Client.Prisma.UpdateManyPostAndReturnOutputType, {}, number>
+  published?: Resolver<
+    Client.Prisma.UpdateManyPostAndReturnOutputType,
+    {},
+    boolean
+  >
+  title?: Resolver<Client.Prisma.UpdateManyPostAndReturnOutputType, {}, string>
+  authorId?: Resolver<
+    Client.Prisma.UpdateManyPostAndReturnOutputType,
+    {},
+    number | null
+  >
+  createdAt?: Resolver<
+    Client.Prisma.UpdateManyPostAndReturnOutputType,
+    {},
+    Date
+  >
+  updatedAt?: Resolver<
+    Client.Prisma.UpdateManyPostAndReturnOutputType,
+    {},
+    Date
+  >
+  author?: Resolver<
+    Client.Prisma.UpdateManyPostAndReturnOutputType,
+    UpdateManyPostAndReturnOutputTypeAuthorArgs,
     Client.User | null
   >
 }
@@ -212,6 +273,11 @@ export type Mutation = { [key: string]: Resolver<any, any, any> } & {
   deleteOneUser?: Resolver<{}, DeleteOneUserArgs, Client.User | null>
   updateOneUser?: Resolver<{}, UpdateOneUserArgs, Client.User | null>
   updateManyUser?: Resolver<{}, UpdateManyUserArgs, Client.Prisma.BatchPayload>
+  updateManyUserAndReturn?: Resolver<
+    {},
+    UpdateManyUserAndReturnArgs,
+    Client.Prisma.UpdateManyUserAndReturnOutputType[]
+  >
   deleteManyUser?: Resolver<{}, DeleteManyUserArgs, Client.Prisma.BatchPayload>
   createOnePost?: Resolver<{}, CreateOnePostArgs, Client.Post>
   upsertOnePost?: Resolver<{}, UpsertOnePostArgs, Client.Post>
@@ -224,6 +290,11 @@ export type Mutation = { [key: string]: Resolver<any, any, any> } & {
   deleteOnePost?: Resolver<{}, DeleteOnePostArgs, Client.Post | null>
   updateOnePost?: Resolver<{}, UpdateOnePostArgs, Client.Post | null>
   updateManyPost?: Resolver<{}, UpdateManyPostArgs, Client.Prisma.BatchPayload>
+  updateManyPostAndReturn?: Resolver<
+    {},
+    UpdateManyPostAndReturnArgs,
+    Client.Prisma.UpdateManyPostAndReturnOutputType[]
+  >
   deleteManyPost?: Resolver<{}, DeleteManyPostArgs, Client.Prisma.BatchPayload>
   executeRaw?: Resolver<{}, ExecuteRawArgs, any>
   queryRaw?: Resolver<{}, QueryRawArgs, any>
@@ -534,6 +605,10 @@ export type CreateManyPostAndReturnOutputTypeAuthorArgs = {
   where?: UserWhereInput
 }
 
+export type UpdateManyPostAndReturnOutputTypeAuthorArgs = {
+  where?: UserWhereInput
+}
+
 export type FindFirstUserArgs = {
   where?: UserWhereInput
   orderBy?: UserOrderByWithRelationInput[]
@@ -680,10 +755,18 @@ export type UpdateOneUserArgs = {
 export type UpdateManyUserArgs = {
   data: UserUpdateManyMutationInput
   where?: UserWhereInput
+  limit?: number
+}
+
+export type UpdateManyUserAndReturnArgs = {
+  data: UserUpdateManyMutationInput
+  where?: UserWhereInput
+  limit?: number
 }
 
 export type DeleteManyUserArgs = {
   where?: UserWhereInput
+  limit?: number
 }
 
 export type CreateOnePostArgs = {
@@ -718,10 +801,18 @@ export type UpdateOnePostArgs = {
 export type UpdateManyPostArgs = {
   data: PostUpdateManyMutationInput
   where?: PostWhereInput
+  limit?: number
+}
+
+export type UpdateManyPostAndReturnArgs = {
+  data: PostUpdateManyMutationInput
+  where?: PostWhereInput
+  limit?: number
 }
 
 export type DeleteManyPostArgs = {
   where?: PostWhereInput
+  limit?: number
 }
 
 export type ExecuteRawArgs = {
@@ -1046,12 +1137,13 @@ export type StringNullableFilter = {
 export type JsonFilter = {
   equals?: any
   path?: string[]
+  mode?: QueryMode
   string_contains?: string
   string_starts_with?: string
   string_ends_with?: string
-  array_contains?: any | null
   array_starts_with?: any | null
   array_ends_with?: any | null
+  array_contains?: any | null
   lt?: any
   lte?: any
   gt?: any
@@ -1176,12 +1268,13 @@ export type StringNullableWithAggregatesFilter = {
 export type JsonWithAggregatesFilter = {
   equals?: any
   path?: string[]
+  mode?: QueryMode
   string_contains?: string
   string_starts_with?: string
   string_ends_with?: string
-  array_contains?: any | null
   array_starts_with?: any | null
   array_ends_with?: any | null
+  array_contains?: any | null
   lt?: any
   lte?: any
   gt?: any
@@ -1503,12 +1596,13 @@ export type NestedIntNullableFilter = {
 export type NestedJsonFilter = {
   equals?: any
   path?: string[]
+  mode?: QueryMode
   string_contains?: string
   string_starts_with?: string
   string_ends_with?: string
-  array_contains?: any | null
   array_starts_with?: any | null
   array_ends_with?: any | null
+  array_contains?: any | null
   lt?: any
   lte?: any
   gt?: any

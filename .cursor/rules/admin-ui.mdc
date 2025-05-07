@@ -1,0 +1,26 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# PalJS Admin UI
+
+The [admin](mdc:packages/admin) package provides a UI framework for building admin interfaces for Prisma-based applications.
+
+## Key Features
+- Built with React and TypeScript
+- Tailwind CSS for styling ([tailwind.config.js](mdc:packages/admin/tailwind.config.js))
+- Component library for common admin interfaces
+
+## Configuration
+- [tsconfig.json](mdc:packages/admin/tsconfig.json) - TypeScript configuration
+- [babel.config.js](mdc:packages/admin/babel.config.js) - Babel configuration for transpilation
+- [postcss.config.js](mdc:packages/admin/postcss.config.js) - PostCSS configuration
+
+## Usage
+The Admin UI can be integrated into your Prisma-based applications to provide:
+- Data browsing and management interfaces
+- CRUD operations on Prisma models
+- Custom views and forms
+
+Refer to the [README.md](mdc:packages/admin/README.md) for detailed usage instructions.

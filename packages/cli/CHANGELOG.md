@@ -1,5 +1,21 @@
 # @paljs/cli
 
+## 8.2.0
+
+### Minor Changes
+
+- update the prisma version to 6.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @paljs/generator@8.2.0
+  - @paljs/types@8.2.0
+  - @paljs/utils@8.2.0
+  - @paljs/create@8.2.0
+  - @paljs/display@8.2.0
+  - @paljs/schema@8.2.0
+
 ## 8.1.0
 
 ### Minor Changes

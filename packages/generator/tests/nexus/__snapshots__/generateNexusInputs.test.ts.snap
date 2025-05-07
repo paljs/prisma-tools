@@ -527,12 +527,13 @@ export const JsonFilter = inputObjectType({
   definition(t) {
     t.field('equals', { type: 'Json' })
     t.list.field('path', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
     t.field('string_contains', { type: 'String' })
     t.field('string_starts_with', { type: 'String' })
     t.field('string_ends_with', { type: 'String' })
-    t.field('array_contains', { type: 'Json' })
     t.field('array_starts_with', { type: 'Json' })
     t.field('array_ends_with', { type: 'Json' })
+    t.field('array_contains', { type: 'Json' })
     t.field('lt', { type: 'Json' })
     t.field('lte', { type: 'Json' })
     t.field('gt', { type: 'Json' })
@@ -735,12 +736,13 @@ export const JsonWithAggregatesFilter = inputObjectType({
   definition(t) {
     t.field('equals', { type: 'Json' })
     t.list.field('path', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
     t.field('string_contains', { type: 'String' })
     t.field('string_starts_with', { type: 'String' })
     t.field('string_ends_with', { type: 'String' })
-    t.field('array_contains', { type: 'Json' })
     t.field('array_starts_with', { type: 'Json' })
     t.field('array_ends_with', { type: 'Json' })
+    t.field('array_contains', { type: 'Json' })
     t.field('lt', { type: 'Json' })
     t.field('lte', { type: 'Json' })
     t.field('gt', { type: 'Json' })
@@ -1280,12 +1282,13 @@ export const NestedJsonFilter = inputObjectType({
   definition(t) {
     t.field('equals', { type: 'Json' })
     t.list.field('path', { type: 'String' })
+    t.field('mode', { type: 'QueryMode' })
     t.field('string_contains', { type: 'String' })
     t.field('string_starts_with', { type: 'String' })
     t.field('string_ends_with', { type: 'String' })
-    t.field('array_contains', { type: 'Json' })
     t.field('array_starts_with', { type: 'Json' })
     t.field('array_ends_with', { type: 'Json' })
+    t.field('array_contains', { type: 'Json' })
     t.field('lt', { type: 'Json' })
     t.field('lte', { type: 'Json' })
     t.field('gt', { type: 'Json' })
@@ -1831,11 +1834,42 @@ export const CreateManyUserAndReturnOutputType = objectType({
   },
 })
 
+export const UpdateManyUserAndReturnOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UpdateManyUserAndReturnOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('email', { type: 'String' })
+    t.nullable.field('name', { type: 'String' })
+    t.field('password', { type: 'String' })
+    t.field('permissions', { type: 'Json' })
+  },
+})
+
 export const CreateManyPostAndReturnOutputType = objectType({
   nonNullDefaults: {
     output: true,
   },
   name: 'CreateManyPostAndReturnOutputType',
+  definition(t) {
+    t.field('id', { type: 'Int' })
+    t.field('published', { type: 'Boolean' })
+    t.field('title', { type: 'String' })
+    t.nullable.field('authorId', { type: 'Int' })
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+    t.nullable.field('author', { type: 'User' })
+  },
+})
+
+export const UpdateManyPostAndReturnOutputType = objectType({
+  nonNullDefaults: {
+    output: true,
+  },
+  name: 'UpdateManyPostAndReturnOutputType',
   definition(t) {
     t.field('id', { type: 'Int' })
     t.field('published', { type: 'Boolean' })

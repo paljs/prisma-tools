@@ -1,0 +1,43 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Getting Started with PalJS
+
+## Prerequisites
+To get started with PalJS, you need:
+- Git - <https://git-scm.com>
+- Node.js >=12 - <https://nodejs.org>
+- Package manager (npm, yarn, pnpm)
+- Prisma CLI - <https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-cli/installation>
+
+## Installation
+Install the PalJS CLI globally:
+```bash
+npm install -g @paljs/cli
+# or
+yarn global add @paljs/cli
+```
+
+## Project Creation
+Use the CLI to create a new project:
+```bash
+npx @paljs/cli create
+```
+
+The CLI offers several starter templates:
+- full-stack-nextjs
+- full-stack-gatsbyjs
+- apollo-nexus-schema
+- apollo-sdl-first
+- graphql-modules
+
+## UI Frameworks
+PalJS supports multiple UI frameworks:
+- Material UI
+- Material UI + PrismaAdmin UI
+- Tailwind CSS
+- Tailwind CSS + PrismaAdmin UI
+
+For more information, refer to the [README.md](mdc:README.md).

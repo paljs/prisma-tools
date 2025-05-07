@@ -1,0 +1,18 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# PalJS Project Overview
+
+PalJS is a toolkit for building NodeJS, Prisma, GraphQL, and React applications. It provides a set of packages that help with various aspects of development.
+
+## Key Resources
+- The [package.json](mdc:package.json) contains the main project configuration and scripts
+- The [README.md](mdc:README.md) provides an overview of the project and quick start guide
+- The project is structured as a monorepo with packages in the [packages/](mdc:packages) directory
+
+## Build Configuration
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+- [tsconfig.build.bundle.json](mdc:tsconfig.build.bundle.json) - Build configuration for bundles
+- [tsconfig.build.regular.json](mdc:tsconfig.build.regular.json) - Regular build configuration

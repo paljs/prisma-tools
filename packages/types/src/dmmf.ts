@@ -1,3 +1,5 @@
-import type { DMMF, ReadonlyDeep } from '@prisma/generator-helper';
+export type { DMMF } from '@prisma/generator-helper';
 
-export { DMMF, ReadonlyDeep };
+export type ReadonlyDeep<O> = {
+  +readonly [K in keyof O]: ReadonlyDeep<O[K]>;
+};

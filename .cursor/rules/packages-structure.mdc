@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# PalJS Packages Structure
+
+PalJS is organized as a monorepo with multiple packages in the [packages/](mdc:packages) directory:
+
+## Core Packages
+- [cli](mdc:packages/cli) - Command-line interface for PalJS
+- [create](mdc:packages/create) - Project scaffolding and initialization
+- [generator](mdc:packages/generator) - Code generation utilities
+- [schema](mdc:packages/schema) - Schema definition and management
+- [plugins](mdc:packages/plugins) - Plugins for extending functionality
+
+## UI and Integration
+- [admin](mdc:packages/admin) - Admin UI components and utilities
+- [display](mdc:packages/display) - Display components for UI
+- [nexus](mdc:packages/nexus) - Integration with Nexus GraphQL framework
+
+## Common Utilities
+- [types](mdc:packages/types) - TypeScript type definitions
+- [utils](mdc:packages/utils) - Shared utility functions

@@ -32,7 +32,7 @@ export class GenerateTypes {
     private options: Partial<GeneratorOptions>,
   ) {}
 
-  get schema() {
+  get schema(): DMMF.Schema {
     return this.dmmf.schema;
   }
 
@@ -109,7 +109,7 @@ export class GenerateTypes {
     return false;
   }
 
-  getOutput(typeName: string) {
+  getOutput(typeName: string): DMMF.OutputType | undefined {
     return this.dmmf.schema.outputObjectTypes.prisma.find((type) => type.name === typeName);
   }
 
