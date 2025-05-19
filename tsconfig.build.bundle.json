@@ -2,6 +2,7 @@
   // useful for bundling because esbuild can then tree-shake via the paths
   "extends": "./tsconfig.build.regular.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@paljs/types": ["./packages/types/src"],
       "@paljs/schema": ["./packages/schema/src"],
