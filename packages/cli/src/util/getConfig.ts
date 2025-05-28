@@ -14,7 +14,7 @@ export const getConfig = async (
   try {
     const userConfig = await import(join(projectRoot, flags.config));
     return userConfig?.default ?? userConfig;
-  } catch (error: any) {
+  } catch {
     if (isRequire) {
       log.error(`Error: ${chalk.blue('pal')} config file is not found`);
       process.exit();

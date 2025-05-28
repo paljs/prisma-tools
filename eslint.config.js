@@ -31,7 +31,12 @@ module.exports = ts.config(
   {
     // enable jest rules on test files
     files: ['**/*.test.ts', '**/*.spec.ts'],
-    ...jest.configs['flat/recommended'],
+    plugins: {
+      jest: jest,
+    },
+    rules: {
+      ...jest.configs['flat/recommended'].rules,
+    },
   },
   {
     files: ['**/*.js'],
