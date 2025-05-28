@@ -214,7 +214,7 @@ export class AppGenerator {
   }
 
   newDir(path: string) {
-    !existsSync(path) && mkdirSync(path, { recursive: true });
+    void (!existsSync(path) && mkdirSync(path, { recursive: true }));
   }
 
   excludeMulti(file: string) {

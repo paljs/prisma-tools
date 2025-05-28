@@ -121,14 +121,8 @@ export class PrismaSelect<
         models.push(...doc.datamodel.models);
       });
       return models;
-    } else {
-      const { Prisma } = require('@prisma/client');
-      if (Prisma.dmmf && Prisma.dmmf.datamodel) {
-        return Prisma.dmmf.datamodel.models;
-      } else {
-        return [];
-      }
     }
+    return [];
   }
 
   get defaultFields() {

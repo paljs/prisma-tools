@@ -37,14 +37,15 @@ const chakraExclude = {
   packages: ['postcss', 'tailwindcss', '@heroicons/react', 'autoprefixer', '@material-ui/core', '@material-ui/icons'],
 };
 
-export const framework: {
-  [key in Frameworks]: {
+export const framework: Record<
+  Frameworks,
+  {
     app: string;
     files: string[];
     packages: string[];
     folder: string;
-  };
-} = {
+  }
+> = {
   'Material UI': {
     app: '_appM.tsx',
     folder: 'material',

@@ -29,7 +29,7 @@ export const useListConnectToOne = (parent: TableParentRecord) => {
           },
         },
       }).then(() => {
-        parent.updateRecord && parent.updateRecord();
+        void (parent.updateRecord && parent.updateRecord());
         getData();
       });
     }

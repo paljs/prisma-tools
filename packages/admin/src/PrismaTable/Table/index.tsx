@@ -125,7 +125,7 @@ export const Table: React.FC<TableProps> = ({
       newValues = [...selected, id];
       setSelected(newValues);
     }
-    onSelect && onSelect(newValues);
+    void (onSelect && onSelect(newValues));
   };
 
   React.useEffect(() => {

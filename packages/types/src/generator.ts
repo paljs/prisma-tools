@@ -19,9 +19,7 @@ export interface GeneratorOptions<
   disableQueries?: boolean;
   disableMutations?: boolean;
   excludeFieldsByModel: { [modelName in ModelName]: (keyof ModelsObject[modelName])[] };
-  excludeQueriesAndMutationsByModel: {
-    [modelName in ModelName]: QueriesAndMutations[];
-  };
+  excludeQueriesAndMutationsByModel: Record<ModelName, QueriesAndMutations[]>;
   excludeQueriesAndMutations: QueriesAndMutations[];
   excludeInputFields?: string[];
   filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];

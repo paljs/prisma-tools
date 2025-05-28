@@ -162,7 +162,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
     onSaveCreate ||
     function () {
       setCreate(false);
-      parent?.updateRecord && parent.updateRecord();
+      void (parent?.updateRecord && parent.updateRecord());
       getData();
     };
 

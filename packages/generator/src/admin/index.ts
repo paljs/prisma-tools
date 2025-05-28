@@ -44,7 +44,7 @@ export class UIGenerator {
       parser: 'json',
     });
 
-    !backAsText && writeFileSync(path, fileContent);
+    void (!backAsText && writeFileSync(path, fileContent));
 
     return newSchema;
   }

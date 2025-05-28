@@ -45,7 +45,7 @@ const branded = (msg: string) => {
 const clearLine = (msg?: string) => {
   readline.clearLine(process.stdout, 0);
   readline.cursorTo(process.stdout, 0);
-  msg && process.stdout.write(msg);
+  void (msg && process.stdout.write(msg));
 };
 
 /**

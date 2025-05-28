@@ -77,7 +77,7 @@ export class GenerateModules extends Generators {
   private async createFiles(model: string, content: string) {
     const operations = await this.getOperations(model);
 
-    !this.options.backAsText && this.mkdir(this.output(model));
+    void (!this.options.backAsText && this.mkdir(this.output(model)));
 
     let resolvers = '';
 

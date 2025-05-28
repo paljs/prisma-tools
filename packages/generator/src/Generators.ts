@@ -156,7 +156,7 @@ export class Generators {
   }
 
   protected mkdir(path: string) {
-    !existsSync(path) && mkdirSync(path, { recursive: true });
+    void (!existsSync(path) && mkdirSync(path, { recursive: true }));
   }
 
   protected output(...paths: string[]): string {
@@ -271,8 +271,8 @@ export class Generators {
   }
 
   protected createFileIfNotfound(path: string, fileName: string, content: string) {
-    !existsSync(path) && this.mkdir(path);
-    !existsSync(join(path, fileName)) && writeFileSync(join(path, fileName), content);
+    void (!existsSync(path) && this.mkdir(path));
+    void (!existsSync(join(path, fileName)) && writeFileSync(join(path, fileName), content));
   }
 
   protected get parser() {

@@ -10,12 +10,13 @@ import { getSchemaPath } from '@paljs/utils';
 type Output = 'js' | 'ts' | 'json';
 
 const schemaFile = async (path: string, schema: SchemaObject, output: Output) => {
-  const content: {
-    [key in Output]: {
+  const content: Record<
+    Output,
+    {
       text: string;
       parser: Options['parser'];
-    };
-  } = {
+    }
+  > = {
     json: {
       text: JSON.stringify(schema),
       parser: 'json',

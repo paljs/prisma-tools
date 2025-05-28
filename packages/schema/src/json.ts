@@ -88,7 +88,7 @@ export class ConvertSchemaToObject extends PrismaReader {
         };
         for (let i = 1; i + 1 < lines.length; i++) {
           const line = this.lineArray(lines[i]);
-          !line[0].includes('//') && itemObject.fields.push(line[0]);
+          void (!line[0].includes('//') && itemObject.fields.push(line[0]));
         }
         this.schemaObject.enums.push({ ...itemObject });
       }

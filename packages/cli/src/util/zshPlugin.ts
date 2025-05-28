@@ -75,6 +75,6 @@ export default function createPlugin(models: string[], path: string) {
     .replace('#{#words[@]}', '${#words[@]}')
     .replace('#{ZSH', '${ZSH');
   const completePath = join(path, 'pal');
-  !existsSync(completePath) && mkdirSync(completePath, { recursive: true });
+  void (!existsSync(completePath) && mkdirSync(completePath, { recursive: true }));
   writeFileSync(join(completePath, 'pal.plugin.zsh'), fileContent);
 }

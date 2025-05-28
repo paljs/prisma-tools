@@ -4,9 +4,7 @@ import { GenerateSdl } from './sdl';
 import { GenerateModules } from './graphql-modules';
 
 export class Generator {
-  generators: {
-    [key in GeneratorsType]: GenerateNexus | GenerateSdl | GenerateModules;
-  };
+  generators: Record<GeneratorsType, GenerateNexus | GenerateSdl | GenerateModules>;
 
   constructor(
     private generator: { name: GeneratorsType; schemaPath: string },

@@ -32,7 +32,7 @@ export const getLatestVersion = async (dependency: string, templateVersion = '')
     } else {
       return { value: latestVersion, isFallback: false };
     }
-  } catch (error) {
+  } catch {
     const fallback = templateVersion;
     logFailedVersionFetch(dependency, fallback);
     return { value: fallback, isFallback: false };

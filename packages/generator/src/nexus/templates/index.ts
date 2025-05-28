@@ -12,7 +12,7 @@ import aggregate from './aggregate';
 import { QueriesAndMutations } from '@paljs/types';
 import { GenerateNexus } from '..';
 
-const crud: { [key in QueriesAndMutations]: string } = {
+const crud: Record<QueriesAndMutations, string> = {
   findUnique,
   findFirst,
   findMany,

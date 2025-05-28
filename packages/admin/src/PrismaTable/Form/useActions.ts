@@ -154,7 +154,7 @@ const useActions = (model: AdminSchemaModel, data: any, action: FormProps['actio
   };
 
   const onSubmit = (newData: any) => {
-    action === 'create' ? onCreateHandler(newData) : onUpdateHandler(newData);
+    void (action === 'create' ? onCreateHandler(newData) : onUpdateHandler(newData));
   };
 
   return {

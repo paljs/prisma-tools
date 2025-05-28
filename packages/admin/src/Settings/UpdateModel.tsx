@@ -83,7 +83,7 @@ const UpdateModel: React.FC<{
           if (modelObject.displayFields.includes(option.id)) {
             values.push(option);
           }
-          parent ? options.push(option) : allOptions.push(option);
+          void (parent ? options.push(option) : allOptions.push(option));
         } else {
           if (item.type !== model.id && !parent) {
             getOptions(models.find((item2) => item2.id === item.type)!, parent ? parent + '.' + item.name : item.name);

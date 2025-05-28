@@ -78,7 +78,7 @@ export class GenerateSdl extends Generators {
 
   private async createFiles(model: string, typeContent: string) {
     const operations = await this.getOperations(model);
-    !this.options.backAsText && this.mkdir(this.output(model));
+    void (!this.options.backAsText && this.mkdir(this.output(model)));
 
     let resolvers = '';
     if (!this.disableQueries(model)) {
