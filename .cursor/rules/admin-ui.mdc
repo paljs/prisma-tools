@@ -1,6 +1,6 @@
 ---
 description: 
-globs: 
+globs: **/admin/**
 alwaysApply: false
 ---
 # PalJS Admin UI
