@@ -15,8 +15,8 @@ pnpm add @paljs/admin
 ## Dependencies
 
 This package requires the following peer dependencies:
-- React 18.3.1+
-- React DOM 18.3.1+
+- React ^18.2.0
+- React DOM ^18.2.0
 - React Hook Form
 - @apollo/client (for GraphQL operations)
 

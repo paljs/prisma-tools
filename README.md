@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/header.png" alt="PalJS Header" width="100%" />
+  <img src="./header.png" alt="PalJS Header" width="100%" />
   
   <h1>PalJS - Your Prisma GraphQL Toolkit</h1>
   
@@ -42,16 +42,26 @@ PalJS is a powerful toolkit that accelerates GraphQL API development with Prisma
 
 ### Installation
 
+Choose one of the following installation methods:
+
+#### Option 1: Global Installation (Recommended)
 ```bash
-# Install PalJS CLI globally
+# Install PalJS CLI globally to use the 'pal' command
 npm install -g @paljs/cli
 
-# Or use npx to create a project directly
-npx @paljs/cli create my-awesome-app
+# After global installation, the 'pal' binary is available system-wide
+pal --help
+```
+
+#### Option 2: Use with npx (No Installation Required)
+```bash
+# Use npx to run commands without global installation
+npx @paljs/cli --help
 ```
 
 ### Create Your First Project
 
+#### Using Global Installation (`pal` command)
 ```bash
 # Create a new full-stack project
 pal create my-graphql-app
@@ -66,8 +76,19 @@ cd my-graphql-app
 yarn dev
 ```
 
+#### Using npx (Alternative Method)
+```bash
+# Create a new full-stack project without global installation
+npx @paljs/cli create my-graphql-app
+
+# Same interactive setup process follows
+cd my-graphql-app
+yarn dev
+```
+
 ### Generate GraphQL API
 
+#### Using Global Installation
 ```bash
 # After defining your Prisma schema
 pal generate
@@ -77,6 +98,14 @@ pal generate
 # ✅ Type-safe resolvers  
 # ✅ Admin interface pages
 # ✅ Query optimization utilities
+```
+
+#### Using npx
+```bash
+# After defining your Prisma schema
+npx @paljs/cli generate
+
+# Same generated output
 ```
 
 ---
