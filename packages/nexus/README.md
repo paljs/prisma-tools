@@ -15,6 +15,7 @@ pnpm add @paljs/nexus
 ## Peer Dependencies
 
 This package requires the following peer dependencies:
+
 - `@prisma/client` ^6
 - `graphql` ^15 || ^16
 - `nexus` ^1
@@ -68,17 +69,17 @@ Configuration interface for the paljs plugin.
 ```typescript
 interface Settings<
   ModelName extends string = '',
-  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   // Include admin queries and mutations
   includeAdmin?: boolean;
-  
+
   // Path to Prisma schema file for admin generation
   adminSchemaPath?: string;
-  
+
   // Scalar types to exclude from generation
   excludeScalar?: string[];
-  
+
   // PrismaSelect configuration options
   prismaSelectOptions?: PrismaSelectOptions<ModelName, ModelsObject>;
 }
@@ -137,11 +138,7 @@ The plugin includes common GraphQL scalar types for Prisma:
 
 ```typescript
 // Available scalar types:
-- DateTime
-- Json
-- Decimal
-- BigInt
-- Bytes
+-DateTime - Json - Decimal - BigInt - Bytes;
 ```
 
 ## Configuration Options
@@ -172,17 +169,17 @@ const plugin = paljs({
       User: { id: true, email: true, createdAt: true },
       Post: { id: true, title: true, published: true },
       // Function-based default fields
-      Comment: (select) => select.author ? { authorId: true } : {},
+      Comment: (select) => (select.author ? { authorId: true } : {}),
     },
-    
+
     // Fields to always exclude
     excludeFields: {
       User: ['password', 'hash', 'salt'],
       Post: ['internalNotes'],
       // Function-based exclusion
-      Session: (select) => select.user ? ['token'] : [],
+      Session: (select) => (select.user ? ['token'] : []),
     },
-    
+
     // Multiple DMMF documents for multi-schema support
     dmmf: [Prisma.dmmf, Prisma2.dmmf],
   },
@@ -206,8 +203,7 @@ const User = objectType({
     t.string('name');
     t.list.field('posts', {
       type: 'Post',
-      resolve: (parent, _, { prisma, select }) =>
-        prisma.user.findUnique({ where: { id: parent.id } }).posts(select),
+      resolve: (parent, _, { prisma, select }) => prisma.user.findUnique({ where: { id: parent.id } }).posts(select),
     });
   },
 });
@@ -220,8 +216,7 @@ const Post = objectType({
     t.string('content');
     t.field('author', {
       type: 'User',
-      resolve: (parent, _, { prisma, select }) =>
-        prisma.post.findUnique({ where: { id: parent.id } }).author(select),
+      resolve: (parent, _, { prisma, select }) => prisma.post.findUnique({ where: { id: parent.id } }).author(select),
     });
   },
 });
@@ -231,15 +226,13 @@ const Query = queryType({
   definition(t) {
     t.list.field('users', {
       type: 'User',
-      resolve: (_, __, { prisma, select }) =>
-        prisma.user.findMany(select),
+      resolve: (_, __, { prisma, select }) => prisma.user.findMany(select),
     });
-    
+
     t.field('user', {
       type: 'User',
       args: { id: nonNull(intArg()) },
-      resolve: (_, { id }, { prisma, select }) =>
-        prisma.user.findUnique({ where: { id }, ...select }),
+      resolve: (_, { id }, { prisma, select }) => prisma.user.findUnique({ where: { id }, ...select }),
     });
   },
 });
@@ -299,7 +292,7 @@ const plugin = paljs({
     defaultFields: {
       // Always include these fields
       User: { id: true, email: true },
-      
+
       // Conditional fields based on selection
       Profile: (select) => {
         const base = { id: true };
@@ -309,11 +302,11 @@ const plugin = paljs({
         return base;
       },
     },
-    
+
     excludeFields: {
       // Always exclude sensitive fields
       User: ['password', 'hash'],
-      
+
       // Conditional exclusion
       Session: (select) => {
         const excluded = ['token'];
@@ -388,12 +381,14 @@ const posts = await prisma.post.findMany({
   select: {
     id: true,
     title: true,
-    author: select.author ? {
-      select: {
-        id: true,
-        name: true,
-      },
-    } : false,
+    author: select.author
+      ? {
+          select: {
+            id: true,
+            name: true,
+          },
+        }
+      : false,
   },
 });
 ```
@@ -420,10 +415,13 @@ This package provides full TypeScript support with proper type inference:
 ```typescript
 import type { Settings } from '@paljs/nexus';
 
-const settings: Settings<'User' | 'Post', {
-  User: { id: number; email: string; name?: string };
-  Post: { id: number; title: string; content?: string };
-}> = {
+const settings: Settings<
+  'User' | 'Post',
+  {
+    User: { id: number; email: string; name?: string };
+    Post: { id: number; title: string; content?: string };
+  }
+> = {
   includeAdmin: true,
   prismaSelectOptions: {
     defaultFields: {

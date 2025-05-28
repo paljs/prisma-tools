@@ -15,6 +15,7 @@ pnpm add @paljs/plugins
 ## Peer Dependencies
 
 This package requires the following peer dependencies:
+
 - `@prisma/client` ^6
 - `graphql` ^15 || ^16
 
@@ -71,24 +72,21 @@ console.log(inputTypes); // String containing all SDL input type definitions
 ### PrismaSelectOptions Interface
 
 ```typescript
-interface PrismaSelectOptions<
-  ModelName extends string,
-  ModelsObject extends Record<ModelName, Record<string, any>>
-> {
+interface PrismaSelectOptions<ModelName extends string, ModelsObject extends Record<ModelName, Record<string, any>>> {
   // Default fields to always include for each model
   defaultFields?: {
-    [model in ModelName]?: 
+    [model in ModelName]?:
       | { [field in keyof ModelsObject[model]]?: boolean }
       | ((select: any) => { [field in keyof ModelsObject[model]]?: boolean });
   };
-  
+
   // Fields to always exclude for each model
   excludeFields?: {
-    [model in ModelName]?: 
+    [model in ModelName]?:
       | (keyof ModelsObject[model] | string)[]
       | ((select: any) => (keyof ModelsObject[model] | string)[]);
   };
-  
+
   // Array of DMMF documents for multi-schema support
   dmmf?: Pick<DMMF.Document, 'datamodel'>[];
 }
@@ -107,7 +105,7 @@ export const resolvers = {
   Query: {
     users: async (parent, args, context, info: GraphQLResolveInfo) => {
       const select = new PrismaSelect(info).value;
-      
+
       return context.prisma.user.findMany({
         ...args,
         ...select, // Automatically optimized field selection
@@ -159,7 +157,7 @@ const select = new PrismaSelect(info, {
       return base;
     },
   },
-  
+
   excludeFields: {
     User: ['password'],
     // Function-based exclusion
@@ -271,16 +269,16 @@ export const resolvers = {
           User: ['password'],
         },
       }).value;
-      
+
       return prisma.user.findUnique({
         where: args.where,
         ...select,
       });
     },
-    
+
     users: async (parent, args, { prisma }, info) => {
       const select = new PrismaSelect(info).value;
-      
+
       return prisma.user.findMany({
         where: args.where,
         orderBy: args.orderBy,
@@ -290,20 +288,22 @@ export const resolvers = {
       });
     },
   },
-  
+
   User: {
     posts: async (parent, args, { prisma }, info) => {
       const select = new PrismaSelect(info).value;
-      
-      return prisma.user.findUnique({
-        where: { id: parent.id },
-      }).posts({
-        where: args.where,
-        ...select,
-      });
+
+      return prisma.user
+        .findUnique({
+          where: { id: parent.id },
+        })
+        .posts({
+          where: args.where,
+          ...select,
+        });
     },
   },
-  
+
   Post: {
     author: async (parent, args, { prisma }, info) => {
       const select = new PrismaSelect(info, {
@@ -311,10 +311,12 @@ export const resolvers = {
           User: ['password'],
         },
       }).value;
-      
-      return prisma.post.findUnique({
-        where: { id: parent.id },
-      }).author(select);
+
+      return prisma.post
+        .findUnique({
+          where: { id: parent.id },
+        })
+        .author(select);
     },
   },
 };
@@ -328,30 +330,30 @@ const select = new PrismaSelect(info, {
     User: (select) => {
       // Always include id
       const fields = { id: true };
-      
+
       // Include email if posts are being queried
       if (select.posts) {
         fields.email = true;
       }
-      
+
       // Include profile data if profile is being queried
       if (select.profile) {
         fields.profileId = true;
       }
-      
+
       return fields;
     },
   },
-  
+
   excludeFields: {
     User: (select) => {
       const excluded = ['password', 'hash'];
-      
+
       // Exclude sensitive data if not admin context
       if (!context.user?.isAdmin) {
         excluded.push('internalNotes', 'adminFlags');
       }
-      
+
       return excluded;
     },
   },
@@ -435,7 +437,7 @@ try {
       User: { id: true, email: true },
     },
   }).value;
-  
+
   const result = await prisma.user.findMany(select);
   return result;
 } catch (error) {
@@ -466,10 +468,13 @@ type PostModel = {
   authorId: number;
 };
 
-const options: PrismaSelectOptions<'User' | 'Post', {
-  User: UserModel;
-  Post: PostModel;
-}> = {
+const options: PrismaSelectOptions<
+  'User' | 'Post',
+  {
+    User: UserModel;
+    Post: PostModel;
+  }
+> = {
   defaultFields: {
     User: { id: true, email: true }, // Type-safe field selection
     Post: { id: true, title: true },

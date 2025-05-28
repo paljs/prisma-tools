@@ -22,7 +22,7 @@ PalJS is a powerful toolkit that accelerates GraphQL API development with Prisma
 ### ✨ Key Features
 
 - 🔥 **Instant CRUD Generation** - Auto-generate complete GraphQL schemas, resolvers, and mutations
-- 🎨 **Admin UI Components** - Ready-to-use React admin interfaces with full CRUD operations  
+- 🎨 **Admin UI Components** - Ready-to-use React admin interfaces with full CRUD operations
 - ⚡ **Query Optimization** - Automatic field selection and query optimization for better performance
 - 🏗️ **Project Scaffolding** - Create full-stack applications with modern frameworks and best practices
 - 🎯 **Type Safety** - Full TypeScript support across all packages and generated code
@@ -31,7 +31,7 @@ PalJS is a powerful toolkit that accelerates GraphQL API development with Prisma
 ### 🎯 Why Choose PalJS?
 
 - **⏰ Rapid Development**: Go from Prisma schema to production API in minutes
-- **🛡️ Enterprise Ready**: Built with type safety, security, and scalability in mind  
+- **🛡️ Enterprise Ready**: Built with type safety, security, and scalability in mind
 - **🔌 Framework Agnostic**: Works with Apollo Server, Express, Next.js, and more
 - **📚 Well Documented**: Comprehensive documentation and examples for every package
 - **🌍 Active Community**: Join thousands of developers building with PalJS
@@ -45,6 +45,7 @@ PalJS is a powerful toolkit that accelerates GraphQL API development with Prisma
 Choose one of the following installation methods:
 
 #### Option 1: Global Installation (Recommended)
+
 ```bash
 # Install PalJS CLI globally to use the 'pal' command
 npm install -g @paljs/cli
@@ -54,6 +55,7 @@ pal --help
 ```
 
 #### Option 2: Use with npx (No Installation Required)
+
 ```bash
 # Use npx to run commands without global installation
 npx @paljs/cli --help
@@ -62,12 +64,13 @@ npx @paljs/cli --help
 ### Create Your First Project
 
 #### Using Global Installation (`pal` command)
+
 ```bash
 # Create a new full-stack project
 pal create my-graphql-app
 
 # Choose your preferred setup:
-# ✔ Project template: full-stack-nextjs  
+# ✔ Project template: full-stack-nextjs
 # ✔ UI framework: Tailwind CSS + PrismaAdmin UI
 # ✔ Package manager: yarn
 # ✔ Initialize git: yes
@@ -77,6 +80,7 @@ yarn dev
 ```
 
 #### Using npx (Alternative Method)
+
 ```bash
 # Create a new full-stack project without global installation
 npx @paljs/cli create my-graphql-app
@@ -89,18 +93,20 @@ yarn dev
 ### Generate GraphQL API
 
 #### Using Global Installation
+
 ```bash
 # After defining your Prisma schema
 pal generate
 
 # Generates:
 # ✅ GraphQL schema with all CRUD operations
-# ✅ Type-safe resolvers  
+# ✅ Type-safe resolvers
 # ✅ Admin interface pages
 # ✅ Query optimization utilities
 ```
 
 #### Using npx
+
 ```bash
 # After defining your Prisma schema
 npx @paljs/cli generate
@@ -194,20 +200,20 @@ PalJS follows a modular architecture that supports different GraphQL patterns:
 graph TB
     CLI[📱 PalJS CLI] --> Create[🚀 Project Creation]
     CLI --> Generate[⚡ Code Generation]
-    
+
     Create --> Templates[📋 Templates]
     Templates --> NextJS[Next.js + GraphQL]
     Templates --> Apollo[Apollo Server]
     Templates --> Modules[GraphQL Modules]
-    
+
     Generate --> Schema[🔧 Schema Processing]
     Generate --> Nexus[🎯 Nexus Integration]
     Generate --> SDL[📝 SDL Generation]
     Generate --> Admin[🎨 Admin UI]
-    
+
     Schema --> Utils[🛠️ Utilities]
     Schema --> Types[📊 Type Definitions]
-    
+
     Nexus --> Plugins[🔌 GraphQL Plugins]
     Plugins --> Optimization[⚡ Query Optimization]
 ```
@@ -219,21 +225,24 @@ graph TB
 ### 🔥 5-Minute Setup
 
 1. **Install PalJS CLI**
+
    ```bash
    npm install -g @paljs/cli
    ```
 
 2. **Create a new project**
+
    ```bash
    pal create my-app --example full-stack-nextjs --framework "Tailwind CSS + PrismaAdmin UI"
    ```
 
 3. **Define your data model**
+
    ```prisma
    // prisma/schema.prisma
    model User {
-     id    Int    @id @default(autoincrement())
-     email String @unique
+     id    Int     @id @default(autoincrement())
+     email String  @unique
      name  String?
      posts Post[]
    }
@@ -249,6 +258,7 @@ graph TB
    ```
 
 4. **Generate GraphQL API**
+
    ```bash
    cd my-app
    pal generate
@@ -262,27 +272,35 @@ graph TB
 ### 🎯 Choose Your Architecture
 
 #### Nexus Schema-First
+
 ```bash
 pal create my-nexus-api --example apollo-nexus-schema
 ```
+
 Perfect for: Type-safe GraphQL with excellent TypeScript integration
 
-#### SDL-First  
+#### SDL-First
+
 ```bash
 pal create my-sdl-api --example apollo-sdl-first
 ```
+
 Perfect for: Schema-first development with flexible resolver patterns
 
 #### GraphQL Modules
+
 ```bash
 pal create my-modular-api --example graphql-modules
 ```
+
 Perfect for: Large, scalable applications with modular architecture
 
 #### Full-Stack Next.js
+
 ```bash
 pal create my-fullstack-app --example full-stack-nextjs
 ```
+
 Perfect for: Complete web applications with admin interfaces
 
 ---
@@ -298,16 +316,14 @@ module.exports = {
     generator: 'nexus', // 'nexus' | 'sdl' | 'graphql-modules'
     output: './src/graphql',
     excludeFields: ['password', 'hash'],
-    excludeModels: [
-      { name: 'Log', queries: true, mutations: false }
-    ]
+    excludeModels: [{ name: 'Log', queries: true, mutations: false }],
   },
   frontend: {
     admin: {
       models: ['User', 'Post', 'Category'],
-      output: './src/admin/pages'
-    }
-  }
+      output: './src/admin/pages',
+    },
+  },
 };
 ```
 
@@ -319,13 +335,13 @@ module.exports = {
   schemas: {
     user: {
       schema: './prisma/user.prisma',
-      backend: { generator: 'nexus', output: './src/graphql/user' }
+      backend: { generator: 'nexus', output: './src/graphql/user' },
     },
     blog: {
-      schema: './prisma/blog.prisma', 
-      backend: { generator: 'sdl', output: './src/graphql/blog' }
-    }
-  }
+      schema: './prisma/blog.prisma',
+      backend: { generator: 'sdl', output: './src/graphql/blog' },
+    },
+  },
 };
 ```
 
@@ -334,21 +350,25 @@ module.exports = {
 ## 🎯 Use Cases
 
 ### 🚀 Rapid Prototyping
+
 - Generate complete GraphQL APIs from Prisma schemas
 - Instant admin interfaces for data management
 - Built-in authentication and authorization patterns
 
-### 🏢 Enterprise Applications  
+### 🏢 Enterprise Applications
+
 - Multi-schema support for microservices
 - Type-safe code generation
 - Scalable GraphQL architectures
 
 ### 📚 Learning & Education
+
 - Best practice templates and examples
 - Comprehensive documentation
 - Community support and tutorials
 
 ### 🔧 API Modernization
+
 - Migrate REST APIs to GraphQL
 - Add admin interfaces to existing databases
 - Optimize query performance automatically
@@ -358,19 +378,23 @@ module.exports = {
 ## 🌟 Community & Support
 
 ### 📚 Resources
+
 - **[Documentation](https://paljs.com)** - Comprehensive guides and API references
 - **[Examples](./packages/create/examples)** - Real-world project templates
 - **[Blog](https://paljs.com/blog)** - Tutorials, tips, and best practices
 
 ### 💬 Community
+
 - **[Discord](https://discord.gg/X7yWXrM)** - Join our community for help and discussions
 - **[GitHub Issues](https://github.com/paljs/prisma-tools/issues)** - Report bugs and request features
 - **[Discussions](https://github.com/paljs/prisma-tools/discussions)** - Ask questions and share ideas
 
 ### 🤝 Contributing
+
 We welcome contributions! See our [Contributing Guide](./CONTRIBUTING.md) for details.
 
 ### 📧 Professional Support
+
 Need enterprise support? Contact us at **hello@paljs.com**
 
 ---
@@ -378,16 +402,19 @@ Need enterprise support? Contact us at **hello@paljs.com**
 ## 📈 Performance & Best Practices
 
 ### ⚡ Query Optimization
+
 - Automatic field selection based on GraphQL queries
 - Reduced database load with smart relationship loading
 - Built-in query complexity analysis
 
 ### 🛡️ Security
+
 - Input validation and sanitization
 - Rate limiting and query depth limiting
 - Secure authentication patterns
 
 ### 📊 Monitoring
+
 - Built-in performance metrics
 - Error tracking and logging
 - Development and production optimizations
@@ -397,6 +424,7 @@ Need enterprise support? Contact us at **hello@paljs.com**
 ## 🔄 Migration & Upgrading
 
 ### From v7 to v8
+
 ```bash
 # Update all PalJS packages
 npm update @paljs/cli @paljs/generator @paljs/nexus
@@ -406,6 +434,7 @@ pal generate --force
 ```
 
 ### Database Migrations
+
 ```bash
 # Generate Prisma migration
 npx prisma migrate dev

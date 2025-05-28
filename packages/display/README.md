@@ -15,6 +15,7 @@ pnpm add @paljs/display
 ## Dependencies
 
 This package includes the following dependencies:
+
 - `chalk` ^4.1.2 - Terminal string styling
 - `debug` ^4.3.4 - Debug utility
 - `ora` ^5.4.1 - Elegant terminal spinners
@@ -62,6 +63,7 @@ console.log(chalk.blue.bold('Custom styled text'));
 ### Message Types
 
 #### `log.success(msg: string)`
+
 Displays a green success message with checkmark icon.
 
 ```typescript
@@ -70,6 +72,7 @@ log.success('Project created successfully!');
 ```
 
 #### `log.error(msg: string)`
+
 Displays a red error message with X icon to stderr.
 
 ```typescript
@@ -78,6 +81,7 @@ log.error('Failed to generate files');
 ```
 
 #### `log.warning(msg: string)`
+
 Displays a yellow warning message with warning icon.
 
 ```typescript
@@ -86,6 +90,7 @@ log.warning('Deprecated feature detected');
 ```
 
 #### `log.info(msg: string)`
+
 Displays a bold informational message.
 
 ```typescript
@@ -94,6 +99,7 @@ log.info('Starting code generation...');
 ```
 
 #### `log.progress(msg: string)`
+
 Displays a bold progress message with caret.
 
 ```typescript
@@ -102,6 +108,7 @@ log.progress('Analyzing schema...');
 ```
 
 #### `log.meta(msg: string)`
+
 Displays a subtle gray metadata message with caret.
 
 ```typescript
@@ -112,6 +119,7 @@ log.meta('Using Prisma schema from ./prisma/schema.prisma');
 ### Brand Styling
 
 #### `log.branded(msg: string)`
+
 Displays a message in the PalJS brand color (purple).
 
 ```typescript
@@ -120,6 +128,7 @@ log.branded('PalJS CLI v8.2.0');
 ```
 
 #### `log.withBrand(str: string)`
+
 Returns a string styled with brand color.
 
 ```typescript
@@ -130,6 +139,7 @@ console.log(`Welcome to ${brandedText}!`);
 ### Utility Functions
 
 #### `log.variable(val: string)`
+
 Styles a variable name for display.
 
 ```typescript
@@ -138,6 +148,7 @@ log.info(`Generated ${log.variable('User')} model`);
 ```
 
 #### `log.newline()`
+
 Prints a blank line.
 
 ```typescript
@@ -145,6 +156,7 @@ log.newline();
 ```
 
 #### `log.clearLine(msg?: string)`
+
 Clears the current line and optionally writes a message.
 
 ```typescript
@@ -154,6 +166,7 @@ log.clearLine('Updated status');
 ### Spinners
 
 #### `log.spinner(str: string)`
+
 Creates an ora spinner instance with custom styling.
 
 ```typescript
@@ -169,6 +182,7 @@ setTimeout(() => {
 ### Advanced Styling
 
 #### `log.withCaret(str: string)`
+
 Adds a gray caret prefix to a string.
 
 ```typescript
@@ -177,6 +191,7 @@ console.log(log.withCaret('Processing item 1 of 10'));
 ```
 
 #### `log.withCheck(str: string)`
+
 Adds a green checkmark prefix to a string.
 
 ```typescript
@@ -185,6 +200,7 @@ console.log(log.withCheck('Validation passed'));
 ```
 
 #### `log.withX(str: string)`
+
 Adds a red X prefix to a string.
 
 ```typescript
@@ -193,6 +209,7 @@ console.log(log.withX('Validation failed'));
 ```
 
 #### `log.withWarning(str: string)`
+
 Adds a warning emoji prefix to a string.
 
 ```typescript
@@ -203,6 +220,7 @@ console.log(log.withWarning('Deprecated API usage'));
 ### Debug Utilities
 
 #### `log.d(msg: string)`
+
 Debug logger using the 'paljs' namespace.
 
 ```typescript
@@ -211,6 +229,7 @@ log.d('Debug information');
 ```
 
 #### `log.throwError(str: string)`
+
 Throws an error with styled message (colors removed in test environment).
 
 ```typescript
@@ -219,6 +238,7 @@ log.throwError('Critical error occurred');
 ```
 
 #### `log.removeColorInTest(str: string)`
+
 Removes ANSI color codes when NODE_ENV is 'test'.
 
 ```typescript
@@ -235,27 +255,26 @@ import { log } from '@paljs/display';
 export async function generateCommand() {
   log.branded('PalJS Generator');
   log.newline();
-  
+
   const spinner = log.spinner('Analyzing Prisma schema...');
   spinner.start();
-  
+
   try {
     // Simulate schema analysis
     await analyzeSchema();
     spinner.succeed('Schema analysis complete');
-    
+
     log.progress('Generating GraphQL types...');
     await generateTypes();
     log.success('GraphQL types generated');
-    
+
     log.progress('Generating resolvers...');
     await generateResolvers();
     log.success('Resolvers generated');
-    
+
     log.newline();
     log.success('Code generation completed successfully!');
     log.meta(`Generated files in ${log.variable('./src/generated')}`);
-    
   } catch (error) {
     spinner.fail('Generation failed');
     log.error(error.message);
@@ -275,12 +294,12 @@ function validateConfig(config: any) {
     log.meta('Add schema path to your paljs.config.js file');
     return false;
   }
-  
+
   if (config.deprecated) {
     log.warning('Using deprecated configuration options');
     log.meta('Please update your configuration file');
   }
-  
+
   log.success('Configuration is valid');
   return true;
 }
@@ -294,11 +313,11 @@ import { log } from '@paljs/display';
 async function processModels(models: string[]) {
   log.info(`Processing ${log.variable(models.length.toString())} models...`);
   log.newline();
-  
+
   for (let i = 0; i < models.length; i++) {
     const model = models[i];
     log.progress(`Processing ${log.variable(model)} (${i + 1}/${models.length})`);
-    
+
     try {
       await processModel(model);
       log.success(`${model} processed successfully`);
@@ -306,7 +325,7 @@ async function processModels(models: string[]) {
       log.error(`Failed to process ${model}: ${error.message}`);
     }
   }
-  
+
   log.newline();
   log.success('All models processed');
 }
@@ -322,7 +341,7 @@ function debugExample() {
   log.d('Starting debug session');
   log.d('Configuration loaded');
   log.d('Schema parsed successfully');
-  
+
   // Regular output
   log.info('Debug mode is enabled');
   log.meta('Set DEBUG=paljs to see debug output');
@@ -337,6 +356,7 @@ function debugExample() {
 ## Integration with Other Packages
 
 This package is primarily used by:
+
 - `@paljs/cli` - Command-line interface
 - `@paljs/generator` - Code generation
 - `@paljs/create` - Project scaffolding

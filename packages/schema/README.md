@@ -156,15 +156,15 @@ const converter = new ConvertSchemaToObject('./prisma/schema.prisma');
 const schema = converter.run();
 
 // Access models
-schema.models.forEach(model => {
+schema.models.forEach((model) => {
   console.log(`Model: ${model.name}`);
-  model.fields.forEach(field => {
+  model.fields.forEach((field) => {
     console.log(`  Field: ${field.name} (${field.type})`);
   });
 });
 
 // Access enums
-schema.enums.forEach(enumType => {
+schema.enums.forEach((enumType) => {
   console.log(`Enum: ${enumType.name}`);
   console.log(`Values: ${enumType.fields.join(', ')}`);
 });
@@ -242,21 +242,18 @@ const reader = new PrismaReader('./prisma/schema.prisma');
 const schema = reader.read();
 
 // Find all models with specific field
-const modelsWithEmail = schema.models.filter(model =>
-  model.fields.some(field => field.name === 'email')
-);
+const modelsWithEmail = schema.models.filter((model) => model.fields.some((field) => field.name === 'email'));
 
 // Find all relations
-const relations = schema.models.flatMap(model =>
-  model.fields.filter(field => field.relation)
-);
+const relations = schema.models.flatMap((model) => model.fields.filter((field) => field.relation));
 
 // Find all unique fields
-const uniqueFields = schema.models.flatMap(model =>
-  model.fields.filter(field => field.unique)
-);
+const uniqueFields = schema.models.flatMap((model) => model.fields.filter((field) => field.unique));
 
-console.log('Models with email:', modelsWithEmail.map(m => m.name));
+console.log(
+  'Models with email:',
+  modelsWithEmail.map((m) => m.name),
+);
 console.log('Relations found:', relations.length);
 console.log('Unique fields:', uniqueFields.length);
 ```
@@ -302,29 +299,29 @@ function validateSchema(schemaPath: string) {
   try {
     const converter = new ConvertSchemaToObject(schemaPath);
     const schema = converter.run();
-    
+
     const errors: string[] = [];
-    
+
     // Check for models without id fields
-    schema.models.forEach(model => {
-      const hasId = model.fields.some(field => field.id);
+    schema.models.forEach((model) => {
+      const hasId = model.fields.some((field) => field.id);
       if (!hasId) {
         errors.push(`Model ${model.name} has no id field`);
       }
     });
-    
+
     // Check for missing relations
-    schema.models.forEach(model => {
-      model.fields.forEach(field => {
+    schema.models.forEach((model) => {
+      model.fields.forEach((field) => {
         if (field.relation && field.kind === 'object') {
-          const relatedModel = schema.models.find(m => m.name === field.type);
+          const relatedModel = schema.models.find((m) => m.name === field.type);
           if (!relatedModel) {
             errors.push(`Model ${model.name} references non-existent model ${field.type}`);
           }
         }
       });
     });
-    
+
     return { valid: errors.length === 0, errors };
   } catch (error) {
     return { valid: false, errors: [error.message] };
@@ -343,33 +340,29 @@ if (!validation.valid) {
 import { ConvertSchemaToObject } from '@paljs/schema';
 
 function mergeSchemas(schemaPaths: string[]) {
-  const schemas = schemaPaths.map(path => {
+  const schemas = schemaPaths.map((path) => {
     const converter = new ConvertSchemaToObject(path);
     return converter.run();
   });
-  
+
   const merged = {
     models: [],
     enums: [],
     generators: [],
     datasources: [],
   };
-  
-  schemas.forEach(schema => {
+
+  schemas.forEach((schema) => {
     merged.models.push(...schema.models);
     merged.enums.push(...schema.enums);
     merged.generators.push(...schema.generators);
     merged.datasources.push(...schema.datasources);
   });
-  
+
   return merged;
 }
 
-const mergedSchema = mergeSchemas([
-  './prisma/user.prisma',
-  './prisma/blog.prisma',
-  './prisma/ecommerce.prisma'
-]);
+const mergedSchema = mergeSchemas(['./prisma/user.prisma', './prisma/blog.prisma', './prisma/ecommerce.prisma']);
 ```
 
 ### Schema Transformation Pipeline
@@ -382,17 +375,17 @@ async function processSchema(inputPath: string, outputDir: string) {
   // Step 1: Convert to camelCase
   const camelCase = new CamelCase(inputPath);
   await camelCase.convert();
-  
+
   // Step 2: Convert to JSON
   const converter = new ConvertSchemaToObject(inputPath);
   const schemaObject = converter.run();
   writeFileSync(`${outputDir}/schema.json`, JSON.stringify(schemaObject, null, 2));
-  
+
   // Step 3: Generate TypeScript types
   const typeGenerator = new GenerateTypeScript(inputPath);
   const types = typeGenerator.run();
   writeFileSync(`${outputDir}/types.ts`, types);
-  
+
   console.log('Schema processing complete!');
   return schemaObject;
 }
@@ -416,13 +409,13 @@ module.exports = {
         compiler.hooks.beforeCompile.tap('PrismaSchemaPlugin', () => {
           const converter = new ConvertSchemaToObject('./prisma/schema.prisma');
           const schema = converter.run();
-          
+
           // Use schema data for build-time optimizations
           console.log(`Processing ${schema.models.length} models`);
         });
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 ```
 
@@ -435,10 +428,11 @@ import { writeFileSync } from 'fs';
 function generateApiRoutes(schemaPath: string) {
   const converter = new ConvertSchemaToObject(schemaPath);
   const schema = converter.run();
-  
-  const routes = schema.models.map(model => {
-    const modelName = model.name.toLowerCase();
-    return `
+
+  const routes = schema.models
+    .map((model) => {
+      const modelName = model.name.toLowerCase();
+      return `
 // ${model.name} routes
 app.get('/${modelName}', async (req, res) => {
   const ${modelName}s = await prisma.${modelName}.findMany();
@@ -452,8 +446,9 @@ app.post('/${modelName}', async (req, res) => {
   res.json(${modelName});
 });
     `;
-  }).join('\n');
-  
+    })
+    .join('\n');
+
   writeFileSync('./src/routes/generated.ts', routes);
 }
 

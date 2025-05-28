@@ -31,11 +31,7 @@ Types for CLI commands and project templates.
 import { CliGeneratedExamples } from '@paljs/types';
 
 // Available project examples
-type CliGeneratedExamples = 
-  | 'apollo-nexus-schema' 
-  | 'apollo-sdl-first' 
-  | 'graphql-modules' 
-  | 'full-stack-nextjs';
+type CliGeneratedExamples = 'apollo-nexus-schema' | 'apollo-sdl-first' | 'graphql-modules' | 'full-stack-nextjs';
 
 // Usage
 const example: CliGeneratedExamples = 'full-stack-nextjs';
@@ -46,17 +42,12 @@ const example: CliGeneratedExamples = 'full-stack-nextjs';
 Core types for code generation functionality.
 
 ```typescript
-import { 
-  GeneratorOptions, 
-  QueriesAndMutations, 
-  Query, 
-  Mutation 
-} from '@paljs/types';
+import { GeneratorOptions, QueriesAndMutations, Query, Mutation } from '@paljs/types';
 
 // Available query types
 type Query = 'findUnique' | 'findFirst' | 'findMany' | 'findCount' | 'aggregate';
 
-// Available mutation types  
+// Available mutation types
 type Mutation = 'createOne' | 'updateOne' | 'upsertOne' | 'deleteOne' | 'updateMany' | 'deleteMany';
 
 // Combined queries and mutations
@@ -65,56 +56,56 @@ type QueriesAndMutations = Query | Mutation;
 // Generator configuration interface
 interface GeneratorOptions<
   ModelName extends string = string,
-  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>
+  ModelsObject extends Record<ModelName, Record<string, any>> = Record<ModelName, Record<string, any>>,
 > {
   // Return generated code as text instead of writing files
   backAsText?: boolean;
-  
+
   // Prisma client instance name
   prismaName: string;
-  
+
   // Models to include in generation
   models?: ModelName[];
-  
+
   // Output directory
   output: string;
-  
+
   // Generate JavaScript instead of TypeScript
   javaScript?: boolean;
-  
+
   // Fields to exclude globally
   excludeFields: string[];
-  
+
   // Models to exclude with specific operations
-  excludeModels: { 
-    name: ModelName; 
-    queries?: boolean; 
-    mutations?: boolean; 
+  excludeModels: {
+    name: ModelName;
+    queries?: boolean;
+    mutations?: boolean;
   }[];
-  
+
   // Disable all queries or mutations
   disableQueries?: boolean;
   disableMutations?: boolean;
-  
+
   // Fields to exclude per model
-  excludeFieldsByModel: { 
-    [modelName in ModelName]: (keyof ModelsObject[modelName])[] 
+  excludeFieldsByModel: {
+    [modelName in ModelName]: (keyof ModelsObject[modelName])[];
   };
-  
+
   // Queries/mutations to exclude per model
   excludeQueriesAndMutationsByModel: {
     [modelName in ModelName]: QueriesAndMutations[];
   };
-  
+
   // Queries/mutations to exclude globally
   excludeQueriesAndMutations: QueriesAndMutations[];
-  
+
   // Input fields to exclude
   excludeInputFields?: string[];
-  
+
   // Custom input filter function
   filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
-  
+
   // Disable field update operations input
   doNotUseFieldUpdateOperationsInput?: boolean;
 }
@@ -130,11 +121,11 @@ import { ConfigFile } from '@paljs/types';
 interface ConfigFile {
   // Schema file path
   schema?: string;
-  
+
   // Multi-schema configuration
   multiSchema?: boolean;
   schemas?: Record<string, SchemaConfig>;
-  
+
   // Backend generation settings
   backend?: {
     generator: 'nexus' | 'sdl' | 'graphql-modules';
@@ -147,7 +138,7 @@ interface ConfigFile {
     }>;
     // ... other backend options
   };
-  
+
   // Frontend generation settings
   frontend?: {
     admin?: {
@@ -179,16 +170,16 @@ import { AdminSchemaOptions } from '@paljs/types';
 interface AdminSchemaOptions {
   // Models to include in admin interface
   models: string[];
-  
+
   // Output directory for admin pages
   output: string;
-  
+
   // Custom page template
   pageContent?: string;
-  
+
   // Exclude specific fields from admin
   excludeFields?: Record<string, string[]>;
-  
+
   // Custom field configurations
   fieldConfigs?: Record<string, FieldConfig[]>;
 }
@@ -221,19 +212,19 @@ import { GeneratedSchema } from '@paljs/types';
 interface GeneratedSchema {
   // Generated file content
   content: string;
-  
+
   // File path
   path: string;
-  
+
   // Generation timestamp
   timestamp: Date;
-  
+
   // Generator type used
   generator: 'nexus' | 'sdl' | 'graphql-modules';
-  
+
   // Models included
   models: string[];
-  
+
   // Configuration used
   options: GeneratorOptions;
 }
@@ -253,7 +244,7 @@ namespace DMMF {
     schema: Schema;
     mappings: Mappings;
   }
-  
+
   export interface Model {
     name: string;
     dbName?: string;
@@ -264,7 +255,7 @@ namespace DMMF {
     documentation?: string;
     isGenerated?: boolean;
   }
-  
+
   export interface Field {
     name: string;
     kind: FieldKind;
@@ -284,7 +275,7 @@ namespace DMMF {
     isGenerated?: boolean;
     isUpdatedAt?: boolean;
   }
-  
+
   export interface InputType {
     name: string;
     constraints: {
@@ -293,7 +284,7 @@ namespace DMMF {
     };
     fields: SchemaArg[];
   }
-  
+
   export interface SchemaArg {
     name: string;
     comment?: string;
@@ -319,17 +310,17 @@ const generatorConfig: GeneratorOptions<'User' | 'Post'> = {
   excludeFields: ['password', 'hash'],
   excludeModels: [
     { name: 'User', mutations: false },
-    { name: 'Post', queries: false }
+    { name: 'Post', queries: false },
   ],
   excludeQueriesAndMutations: ['deleteMany', 'updateMany'],
   excludeFieldsByModel: {
     User: ['internalNotes'],
-    Post: ['adminComments']
+    Post: ['adminComments'],
   },
   excludeQueriesAndMutationsByModel: {
     User: ['deleteMany'],
-    Post: ['updateMany']
-  }
+    Post: ['updateMany'],
+  },
 };
 ```
 
@@ -341,11 +332,11 @@ import type { CliGeneratedExamples } from '@paljs/types';
 function validateExample(example: string): example is CliGeneratedExamples {
   const validExamples: CliGeneratedExamples[] = [
     'apollo-nexus-schema',
-    'apollo-sdl-first', 
+    'apollo-sdl-first',
     'graphql-modules',
-    'full-stack-nextjs'
+    'full-stack-nextjs',
   ];
-  
+
   return validExamples.includes(example as CliGeneratedExamples);
 }
 
@@ -367,20 +358,18 @@ const config: ConfigFile = {
     generator: 'nexus',
     output: './src/graphql',
     excludeFields: ['password'],
-    excludeModels: [
-      { name: 'Log', queries: true, mutations: false }
-    ]
+    excludeModels: [{ name: 'Log', queries: true, mutations: false }],
   },
   frontend: {
     admin: {
       models: ['User', 'Post', 'Category'],
-      output: './src/admin/pages'
+      output: './src/admin/pages',
     },
     graphql: {
       output: './src/graphql/generated',
-      models: ['User', 'Post']
-    }
-  }
+      models: ['User', 'Post'],
+    },
+  },
 };
 ```
 
@@ -396,17 +385,17 @@ const multiSchemaConfig: ConfigFile = {
       schema: './prisma/user.prisma',
       backend: {
         generator: 'nexus',
-        output: './src/graphql/user'
-      }
+        output: './src/graphql/user',
+      },
     },
     blog: {
-      schema: './prisma/blog.prisma', 
+      schema: './prisma/blog.prisma',
       backend: {
         generator: 'sdl',
-        output: './src/graphql/blog'
-      }
-    }
-  }
+        output: './src/graphql/blog',
+      },
+    },
+  },
 };
 ```
 
@@ -420,7 +409,7 @@ const adminConfig: AdminSchemaOptions = {
   output: './src/admin',
   excludeFields: {
     User: ['password', 'hash'],
-    Post: ['internalNotes']
+    Post: ['internalNotes'],
   },
   fieldConfigs: {
     User: [
@@ -430,8 +419,8 @@ const adminConfig: AdminSchemaOptions = {
         label: 'Email Address',
         required: true,
         validation: {
-          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        }
+          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        },
       },
       {
         name: 'role',
@@ -439,11 +428,11 @@ const adminConfig: AdminSchemaOptions = {
         label: 'User Role',
         options: [
           { value: 'USER', label: 'User' },
-          { value: 'ADMIN', label: 'Administrator' }
-        ]
-      }
-    ]
-  }
+          { value: 'ADMIN', label: 'Administrator' },
+        ],
+      },
+    ],
+  },
 };
 ```
 
@@ -504,8 +493,8 @@ const config: GeneratorOptions<keyof MyModels, MyModels> = {
   excludeFields: ['password'],
   excludeFieldsByModel: {
     User: ['password'], // Type-safe field names
-    Post: ['content']
-  }
+    Post: ['content'],
+  },
 };
 ```
 
@@ -533,10 +522,7 @@ For optimal type checking, configure your `tsconfig.json`:
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*",
-    "node_modules/@paljs/types/**/*"
-  ]
+  "include": ["src/**/*", "node_modules/@paljs/types/**/*"]
 }
 ```
 

@@ -15,8 +15,9 @@ pnpm add @paljs/utils
 ## Dependencies
 
 This package includes the following dependencies:
+
 - `@paljs/types` - Type definitions
-- `@paljs/display` - Logging utilities  
+- `@paljs/display` - Logging utilities
 - `@prisma/internals` - Prisma internal utilities
 
 ## Features
@@ -66,12 +67,12 @@ import { getDMMF, formatSchema } from '@paljs/utils';
 
 // Get DMMF from schema string
 const dmmf = await getDMMF({
-  datamodel: schemaString
+  datamodel: schemaString,
 });
 
 // Format schema string
 const formattedSchema = formatSchema({
-  schema: schemaString
+  schema: schemaString,
 });
 ```
 
@@ -82,16 +83,19 @@ const formattedSchema = formatSchema({
 Resolves and validates the Prisma schema file path.
 
 ```typescript
-async function getSchemaPath(path?: string): Promise<string>
+async function getSchemaPath(path?: string): Promise<string>;
 ```
 
 **Parameters:**
+
 - `path` (optional) - Custom schema file path
 
 **Returns:**
+
 - Promise resolving to validated schema file path
 
 **Example:**
+
 ```typescript
 import { getSchemaPath } from '@paljs/utils';
 
@@ -116,16 +120,19 @@ try {
 Loads and parses a Prisma schema file to return the DMMF document.
 
 ```typescript
-async function getDMMFBySchemaPath(schemaPath?: string): Promise<DMMF.Document>
+async function getDMMFBySchemaPath(schemaPath?: string): Promise<DMMF.Document>;
 ```
 
 **Parameters:**
+
 - `schemaPath` (optional) - Path to the Prisma schema file
 
 **Returns:**
+
 - Promise resolving to Prisma DMMF document
 
 **Example:**
+
 ```typescript
 import { getDMMFBySchemaPath } from '@paljs/utils';
 
@@ -146,16 +153,19 @@ console.log('Types:', dmmf.datamodel.types);
 Generates GraphQL SDL input type definitions from Prisma DMMF.
 
 ```typescript
-function sdlInputs(dmmf: DMMF.Document): string
+function sdlInputs(dmmf: DMMF.Document): string;
 ```
 
 **Parameters:**
+
 - `dmmf` - Prisma DMMF document
 
 **Returns:**
+
 - String containing SDL input type definitions
 
 **Example:**
+
 ```typescript
 import { sdlInputs } from '@paljs/utils';
 import { Prisma } from '@prisma/client';
@@ -164,7 +174,7 @@ const inputTypeDefs = sdlInputs(Prisma.dmmf);
 
 // Generated output includes:
 // - UserCreateInput
-// - UserUpdateInput  
+// - UserUpdateInput
 // - UserWhereInput
 // - UserOrderByInput
 // - And many more...
@@ -182,16 +192,15 @@ async function processSchema() {
     // Find and validate schema
     const schemaPath = await getSchemaPath();
     console.log(`Found schema at: ${schemaPath}`);
-    
+
     // Load DMMF
     const dmmf = await getDMMFBySchemaPath(schemaPath);
-    
+
     // Process models
-    dmmf.datamodel.models.forEach(model => {
+    dmmf.datamodel.models.forEach((model) => {
       console.log(`Model: ${model.name}`);
       console.log(`Fields: ${model.fields.length}`);
     });
-    
   } catch (error) {
     console.error('Schema processing failed:', error.message);
   }
@@ -209,10 +218,10 @@ import { writeFileSync } from 'fs';
 async function generateGraphQLTypes() {
   // Load schema
   const dmmf = await getDMMFBySchemaPath('./prisma/schema.prisma');
-  
+
   // Generate input types
   const inputTypes = sdlInputs(dmmf);
-  
+
   // Create complete type definitions
   const typeDefs = `
     # Generated input types
@@ -229,7 +238,7 @@ async function generateGraphQLTypes() {
       updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
     }
   `;
-  
+
   // Save to file
   writeFileSync('./src/schema.graphql', typeDefs);
   console.log('GraphQL schema generated successfully!');
@@ -244,25 +253,19 @@ await generateGraphQLTypes();
 import { getDMMFBySchemaPath } from '@paljs/utils';
 
 async function procesMultipleSchemas() {
-  const schemaPaths = [
-    './prisma/user.prisma',
-    './prisma/blog.prisma', 
-    './prisma/ecommerce.prisma'
-  ];
-  
-  const dmmfs = await Promise.all(
-    schemaPaths.map(path => getDMMFBySchemaPath(path))
-  );
-  
+  const schemaPaths = ['./prisma/user.prisma', './prisma/blog.prisma', './prisma/ecommerce.prisma'];
+
+  const dmmfs = await Promise.all(schemaPaths.map((path) => getDMMFBySchemaPath(path)));
+
   // Combine models from all schemas
-  const allModels = dmmfs.flatMap(dmmf => dmmf.datamodel.models);
-  
+  const allModels = dmmfs.flatMap((dmmf) => dmmf.datamodel.models);
+
   console.log(`Total models across all schemas: ${allModels.length}`);
-  
+
   // Process each schema separately
   dmmfs.forEach((dmmf, index) => {
     console.log(`\nSchema ${index + 1} (${schemaPaths[index]}):`);
-    console.log(`Models: ${dmmf.datamodel.models.map(m => m.name).join(', ')}`);
+    console.log(`Models: ${dmmf.datamodel.models.map((m) => m.name).join(', ')}`);
   });
 }
 
@@ -276,35 +279,36 @@ import { getDMMFBySchemaPath } from '@paljs/utils';
 
 async function analyzeSchema() {
   const dmmf = await getDMMFBySchemaPath();
-  
+
   // Count different elements
   const stats = {
     models: dmmf.datamodel.models.length,
     enums: dmmf.datamodel.enums.length,
-    types: dmmf.datamodel.types.length
+    types: dmmf.datamodel.types.length,
   };
-  
+
   console.log('Schema Statistics:', stats);
-  
+
   // Find relations
-  const relations = dmmf.datamodel.models.flatMap(model =>
-    model.fields.filter(field => field.relationName)
-  );
-  
+  const relations = dmmf.datamodel.models.flatMap((model) => model.fields.filter((field) => field.relationName));
+
   console.log(`Total relations: ${relations.length}`);
-  
+
   // Find models with specific field types
-  const modelsWithDateTime = dmmf.datamodel.models.filter(model =>
-    model.fields.some(field => field.type === 'DateTime')
+  const modelsWithDateTime = dmmf.datamodel.models.filter((model) =>
+    model.fields.some((field) => field.type === 'DateTime'),
   );
-  
-  console.log('Models with DateTime fields:', modelsWithDateTime.map(m => m.name));
-  
+
+  console.log(
+    'Models with DateTime fields:',
+    modelsWithDateTime.map((m) => m.name),
+  );
+
   // Find optional fields
-  const optionalFields = dmmf.datamodel.models.flatMap(model =>
-    model.fields.filter(field => !field.isRequired && !field.isList)
+  const optionalFields = dmmf.datamodel.models.flatMap((model) =>
+    model.fields.filter((field) => !field.isRequired && !field.isList),
   );
-  
+
   console.log(`Total optional fields: ${optionalFields.length}`);
 }
 
@@ -319,23 +323,22 @@ import { log } from '@paljs/display';
 
 async function generateWithProgress() {
   const spinner = log.spinner('Loading Prisma schema...').start();
-  
+
   try {
     // Load schema
     const dmmf = await getDMMFBySchemaPath();
     spinner.succeed('Schema loaded successfully');
-    
+
     // Generate types
     log.progress('Generating GraphQL input types...');
     const inputTypes = sdlInputs(dmmf);
-    
+
     // Save generated types
     log.progress('Writing generated files...');
     // ... save logic here
-    
+
     log.success('Code generation completed!');
     log.meta(`Generated types for ${dmmf.datamodel.models.length} models`);
-    
   } catch (error) {
     spinner.fail('Generation failed');
     log.error(error.message);
@@ -356,29 +359,28 @@ async function validateAndProcess(customPath?: string) {
   try {
     // Validate schema path
     const schemaPath = await getSchemaPath(customPath);
-    
+
     // Load and validate DMMF
     const dmmf = await getDMMFBySchemaPath(schemaPath);
-    
+
     // Validate schema content
     if (dmmf.datamodel.models.length === 0) {
       log.warning('No models found in schema');
       return;
     }
-    
+
     // Check for required models
     const requiredModels = ['User', 'Post'];
     const missingModels = requiredModels.filter(
-      required => !dmmf.datamodel.models.some(model => model.name === required)
+      (required) => !dmmf.datamodel.models.some((model) => model.name === required),
     );
-    
+
     if (missingModels.length > 0) {
       log.warning(`Missing required models: ${missingModels.join(', ')}`);
     }
-    
+
     log.success('Schema validation passed');
     return dmmf;
-    
   } catch (error) {
     if (error.message.includes('schema.prisma')) {
       log.error('Schema file not found');
@@ -389,7 +391,7 @@ async function validateAndProcess(customPath?: string) {
     } else {
       log.error(`Unexpected error: ${error.message}`);
     }
-    
+
     throw error;
   }
 }
@@ -440,7 +442,7 @@ export function prismaUtils() {
     buildStart: async () => {
       const dmmf = await getDMMFBySchemaPath();
       console.log(`Processing ${dmmf.datamodel.models.length} models`);
-    }
+    },
   };
 }
 ```

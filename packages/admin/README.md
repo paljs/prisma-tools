@@ -15,6 +15,7 @@ pnpm add @paljs/admin
 ## Dependencies
 
 This package requires the following peer dependencies:
+
 - React ^18.2.0
 - React DOM ^18.2.0
 - React Hook Form
@@ -35,6 +36,7 @@ This package requires the following peer dependencies:
 ### Components
 
 #### PrismaTable
+
 The main table component for displaying and managing Prisma model data.
 
 ```typescript
@@ -71,6 +73,7 @@ interface PrismaTableProps<T = any> {
 ```
 
 #### Settings
+
 Configuration component for admin panel settings.
 
 ```typescript
@@ -93,6 +96,7 @@ interface SettingsProps {
 ### Types and Interfaces
 
 #### TableParentRecord
+
 Interface for parent record relationships in tables.
 
 ```typescript
@@ -105,6 +109,7 @@ interface TableParentRecord {
 ```
 
 #### Column Configuration
+
 Define table columns with sorting, filtering, and custom rendering.
 
 ```typescript
@@ -121,6 +126,7 @@ interface Column<T> {
 ### Form Components
 
 #### Dynamic Form Generation
+
 Auto-generate forms based on Prisma schema definitions.
 
 ```typescript
@@ -149,18 +155,14 @@ interface PrismaFormProps {
 ### Utility Functions
 
 #### classNames
+
 Utility function for conditional CSS class names.
 
 ```typescript
 function classNames(...classes: string[]): string;
 
 // Usage
-const buttonClass = classNames(
-  'btn',
-  'btn-primary',
-  isLoading && 'btn-loading',
-  isDisabled && 'btn-disabled'
-);
+const buttonClass = classNames('btn', 'btn-primary', isLoading && 'btn-loading', isDisabled && 'btn-disabled');
 ```
 
 ## Advanced Usage

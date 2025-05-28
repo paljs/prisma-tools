@@ -8,7 +8,7 @@ A powerful project scaffolding package for creating full-stack applications with
 npm install @paljs/create
 # or
 yarn add @paljs/create
-# or  
+# or
 pnpm add @paljs/create
 
 # Global installation for CLI usage
@@ -18,6 +18,7 @@ npm install -g @paljs/create
 ## Dependencies
 
 This package includes the following dependencies:
+
 - `@paljs/display` - Styled console output
 - `@paljs/types` - Type definitions
 - `cross-spawn` - Cross-platform process spawning
@@ -40,23 +41,23 @@ This package includes the following dependencies:
 ### Core Templates
 
 ```typescript
-type CliGeneratedExamples = 
-  | 'apollo-nexus-schema'     // Apollo Server with Nexus schema-first
-  | 'apollo-sdl-first'        // Apollo Server with SDL-first approach  
-  | 'graphql-modules'         // GraphQL Modules architecture
-  | 'full-stack-nextjs';      // Complete Next.js application
+type CliGeneratedExamples =
+  | 'apollo-nexus-schema' // Apollo Server with Nexus schema-first
+  | 'apollo-sdl-first' // Apollo Server with SDL-first approach
+  | 'graphql-modules' // GraphQL Modules architecture
+  | 'full-stack-nextjs'; // Complete Next.js application
 ```
 
 ### Framework Options
 
 ```typescript
 type Frameworks =
-  | 'Material UI'                    // Material UI only
-  | 'Material UI + PrismaAdmin UI'   // Material UI with admin interface
-  | 'Tailwind CSS'                   // Tailwind CSS only
-  | 'Tailwind CSS + PrismaAdmin UI'  // Tailwind CSS with admin interface
-  | 'Chakra UI'                      // Chakra UI only
-  | 'Chakra UI + PrismaAdmin UI';    // Chakra UI with admin interface
+  | 'Material UI' // Material UI only
+  | 'Material UI + PrismaAdmin UI' // Material UI with admin interface
+  | 'Tailwind CSS' // Tailwind CSS only
+  | 'Tailwind CSS + PrismaAdmin UI' // Tailwind CSS with admin interface
+  | 'Chakra UI' // Chakra UI only
+  | 'Chakra UI + PrismaAdmin UI'; // Chakra UI with admin interface
 ```
 
 ## Main Exports
@@ -107,7 +108,7 @@ const options = {
   yarn: true,
   skipInstall: false,
   useGit: true,
-  multi: false
+  multi: false,
 };
 
 const generator = new AppGenerator(options);
@@ -122,7 +123,7 @@ import { log } from '@paljs/display';
 
 async function createProject(answers: any) {
   log.branded('Creating your PalJS project...');
-  
+
   const options = {
     example: answers.example,
     framework: answers.framework,
@@ -135,16 +136,15 @@ async function createProject(answers: any) {
     yarn: answers.manager === 'yarn',
     skipInstall: answers.skipInstall === 'yes',
     useGit: answers.useGit === 'yes',
-    multi: answers.multi === 'yes'
+    multi: answers.multi === 'yes',
   };
-  
+
   try {
     const generator = new AppGenerator(options);
     await generator.run();
-    
+
     log.success('Project created successfully!');
     log.meta(`cd ${answers.name} && ${answers.manager} dev`);
-    
   } catch (error) {
     log.error('Project creation failed');
     log.error(error.message);
@@ -161,7 +161,7 @@ import { AppGenerator } from '@paljs/create';
 // Create multi-schema project
 const multiSchemaOptions = {
   example: 'full-stack-nextjs',
-  framework: 'Material UI + PrismaAdmin UI', 
+  framework: 'Material UI + PrismaAdmin UI',
   name: 'multi-tenant-app',
   description: 'Multi-tenant application with separate schemas',
   author: 'Developer',
@@ -171,7 +171,7 @@ const multiSchemaOptions = {
   yarn: false,
   skipInstall: false,
   useGit: true,
-  multi: true // Enable multi-schema template
+  multi: true, // Enable multi-schema template
 };
 
 const generator = new AppGenerator(multiSchemaOptions);
@@ -187,21 +187,21 @@ class CustomAppGenerator extends AppGenerator {
   constructor(options) {
     super(options);
   }
-  
+
   // Override to add custom logic
   async postWrite() {
     await super.postWrite();
-    
+
     // Add custom post-generation steps
     await this.setupCustomConfiguration();
     await this.generateAdditionalFiles();
   }
-  
+
   async setupCustomConfiguration() {
     // Custom configuration logic
     console.log('Setting up custom configuration...');
   }
-  
+
   async generateAdditionalFiles() {
     // Generate additional project files
     console.log('Generating additional files...');
@@ -220,6 +220,7 @@ await customGenerator.run();
 Creates a GraphQL API using Apollo Server with Nexus schema-first approach.
 
 **Features:**
+
 - Type-safe GraphQL schema with Nexus
 - Prisma integration
 - Auto-generated CRUD operations
@@ -227,6 +228,7 @@ Creates a GraphQL API using Apollo Server with Nexus schema-first approach.
 - Authentication middleware
 
 **Generated Structure:**
+
 ```
 src/
 ├── graphql/
@@ -243,6 +245,7 @@ src/
 Creates a GraphQL API using Apollo Server with SDL-first approach.
 
 **Features:**
+
 - SDL type definitions
 - Resolver functions
 - Schema stitching support
@@ -250,6 +253,7 @@ Creates a GraphQL API using Apollo Server with SDL-first approach.
 - File upload support
 
 **Generated Structure:**
+
 ```
 src/
 ├── graphql/
@@ -266,6 +270,7 @@ src/
 Creates a modular GraphQL architecture using GraphQL Modules.
 
 **Features:**
+
 - Modular schema organization
 - Dependency injection
 - Testing utilities
@@ -273,6 +278,7 @@ Creates a modular GraphQL architecture using GraphQL Modules.
 - Scalable architecture
 
 **Generated Structure:**
+
 ```
 src/
 ├── modules/
@@ -288,6 +294,7 @@ src/
 Creates a complete full-stack application with Next.js frontend and GraphQL API.
 
 **Features:**
+
 - Next.js with TypeScript
 - GraphQL API routes
 - Admin dashboard
@@ -296,6 +303,7 @@ Creates a complete full-stack application with Next.js frontend and GraphQL API.
 - Database management
 
 **Generated Structure:**
+
 ```
 src/
 ├── components/
@@ -333,7 +341,7 @@ const materialOptions = {
 ```typescript
 // Generates projects with Tailwind CSS
 const tailwindOptions = {
-  example: 'full-stack-nextjs', 
+  example: 'full-stack-nextjs',
   framework: 'Tailwind CSS + PrismaAdmin UI',
   // ... other options
 };
@@ -352,7 +360,7 @@ const tailwindOptions = {
 // Generates projects with Chakra UI
 const chakraOptions = {
   example: 'full-stack-nextjs',
-  framework: 'Chakra UI + PrismaAdmin UI', 
+  framework: 'Chakra UI + PrismaAdmin UI',
   // ... other options
 };
 
@@ -373,13 +381,13 @@ The generator automatically handles package management:
 ```typescript
 // Supports multiple package managers
 const options = {
-  manager: 'yarn',   // 'yarn', 'npm', 'pnpm'
-  skipInstall: false // Skip automatic installation
+  manager: 'yarn', // 'yarn', 'npm', 'pnpm'
+  skipInstall: false, // Skip automatic installation
 };
 
 // Features:
 // - Latest version resolution
-// - Dependency conflict resolution  
+// - Dependency conflict resolution
 // - Lockfile generation
 // - Progress reporting
 ```
@@ -390,7 +398,7 @@ Automatic git repository initialization:
 
 ```typescript
 const options = {
-  useGit: true // Initialize git repository
+  useGit: true, // Initialize git repository
 };
 
 // Features:
@@ -406,7 +414,7 @@ Support for multi-database architectures:
 
 ```typescript
 const options = {
-  multi: true // Enable multi-schema template
+  multi: true, // Enable multi-schema template
 };
 
 // Generates:
@@ -427,18 +435,18 @@ import { copySync, writeJSONSync } from 'fs-extra';
 class ExtendedGenerator extends AppGenerator {
   async run() {
     await super.run();
-    
+
     // Add custom template files
     await this.addCustomFiles();
-    
+
     // Modify generated files
     await this.modifyConfiguration();
   }
-  
+
   async addCustomFiles() {
     copySync('./custom-templates', this.destinationPath());
   }
-  
+
   async modifyConfiguration() {
     const packageJson = require(this.destinationPath('package.json'));
     packageJson.scripts.custom = 'echo "Custom script"';
@@ -457,9 +465,8 @@ async function createProjectWithErrorHandling(options) {
   try {
     const generator = new AppGenerator(options);
     await generator.run();
-    
+
     log.success('Project created successfully!');
-    
   } catch (error) {
     if (error.message.includes('ENOENT')) {
       log.error('Template files not found');
@@ -473,7 +480,7 @@ async function createProjectWithErrorHandling(options) {
     } else {
       log.error(`Project creation failed: ${error.message}`);
     }
-    
+
     throw error;
   }
 }
@@ -498,11 +505,7 @@ await generator.run();
 
 ```typescript
 // Dependencies are resolved in parallel
-await Promise.all([
-  generator.updatePackages(),
-  generator.setupGit(),
-  generator.formatCode()
-]);
+await Promise.all([generator.updatePackages(), generator.setupGit(), generator.formatCode()]);
 ```
 
 ## Integration Examples
@@ -518,24 +521,14 @@ const questions = [
     type: 'list',
     name: 'example',
     message: 'Select project template:',
-    choices: [
-      'apollo-nexus-schema',
-      'apollo-sdl-first', 
-      'graphql-modules',
-      'full-stack-nextjs'
-    ]
+    choices: ['apollo-nexus-schema', 'apollo-sdl-first', 'graphql-modules', 'full-stack-nextjs'],
   },
   {
     type: 'list',
     name: 'framework',
     message: 'Select UI framework:',
-    choices: [
-      'Material UI',
-      'Material UI + PrismaAdmin UI',
-      'Tailwind CSS',
-      'Tailwind CSS + PrismaAdmin UI'
-    ]
-  }
+    choices: ['Material UI', 'Material UI + PrismaAdmin UI', 'Tailwind CSS', 'Tailwind CSS + PrismaAdmin UI'],
+  },
 ];
 
 const answers = await inquirer.prompt(questions);
@@ -571,7 +564,7 @@ program
       skipInstall: options.skipInstall,
       // ... other options
     });
-    
+
     await generator.run();
   });
 
@@ -597,7 +590,7 @@ const options: AppGeneratorOptions = {
   yarn: true,
   skipInstall: false,
   useGit: true,
-  multi: false
+  multi: false,
 };
 ```
 
