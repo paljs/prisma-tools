@@ -1,8 +1,19 @@
 # @paljs/admin
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A comprehensive React admin UI package for Prisma-based applications. This package provides ready-to-use components for building admin interfaces with full CRUD operations, form handling, and table management.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/admin
@@ -21,15 +32,7 @@ This package requires the following peer dependencies:
 - React Hook Form
 - @apollo/client (for GraphQL operations)
 
-## Features
-
-- 🎨 **Modern UI Components** - Built with Tailwind CSS and Headless UI
-- 📝 **Dynamic Forms** - Auto-generated forms based on Prisma schema
-- 📊 **Data Tables** - Sortable, filterable tables with pagination
-- 🔧 **CRUD Operations** - Complete Create, Read, Update, Delete functionality
-- 🎯 **Type Safety** - Full TypeScript support
-- 🎨 **Customizable** - Flexible theming and styling options
-- 📱 **Responsive** - Mobile-friendly design
+# Usage
 
 ## Main Exports
 
@@ -243,6 +246,8 @@ const userFields: FieldConfig[] = [
 ];
 ```
 
+## Integration Examples
+
 ### Integration with Apollo Client
 
 ```typescript
@@ -276,7 +281,31 @@ function UserManagement() {
 }
 ```
 
-## Styling
+# Features
+
+## Modern UI Components
+
+- 🎨 **Built with Tailwind CSS and Headless UI** - Modern, accessible design system
+- 📝 **Dynamic Forms** - Auto-generated forms based on Prisma schema
+- 📊 **Data Tables** - Sortable, filterable tables with pagination
+- 🔧 **CRUD Operations** - Complete Create, Read, Update, Delete functionality
+
+## TypeScript Support
+
+- 🎯 **Full Type Safety** - Complete TypeScript support with proper type definitions
+- 🔍 **IntelliSense** - Enhanced development experience with auto-completion
+- 🛡️ **Type Checking** - Compile-time error detection
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+# Configuration
+
+## Styling Setup
 
 The package uses Tailwind CSS for styling. Make sure to include Tailwind CSS in your project:
 
@@ -290,21 +319,6 @@ Include the admin styles in your CSS:
 @import '@paljs/admin/dist/style.css';
 ```
 
-## TypeScript Support
-
-This package is written in TypeScript and provides full type definitions. All components and functions are properly typed for the best development experience.
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
-
-## License
+# License
 
 MIT License - see the LICENSE file for details.

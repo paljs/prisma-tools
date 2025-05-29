@@ -1,8 +1,19 @@
 # @paljs/create
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A powerful project scaffolding package for creating full-stack applications with Prisma, GraphQL, and modern frontend frameworks. This package provides templates and automation for rapid project initialization with best practices built-in.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/create
@@ -26,15 +37,7 @@ This package includes the following dependencies:
 - `got` - HTTP request library
 - `chalk` - Terminal string styling
 
-## Features
-
-- 🚀 **Multiple Templates** - Pre-built project templates for different architectures
-- 🎨 **Framework Integration** - Support for Material UI, Tailwind CSS, and Chakra UI
-- 🏗️ **Multi-Schema Support** - Templates for multi-database architectures
-- 📦 **Package Management** - Automatic dependency installation and management
-- 🔧 **Git Integration** - Automatic git repository initialization
-- 🎯 **TypeScript Support** - Full TypeScript templates with proper configuration
-- ⚡ **Fast Setup** - Optimized template copying and dependency resolution
+# Usage
 
 ## Available Templates
 
@@ -372,6 +375,108 @@ const chakraOptions = {
 // - Admin components
 ```
 
+## Integration Examples
+
+### With Inquirer.js
+
+```typescript
+import inquirer from 'inquirer';
+import { AppGenerator } from '@paljs/create';
+
+const questions = [
+  {
+    type: 'list',
+    name: 'example',
+    message: 'Select project template:',
+    choices: ['apollo-nexus-schema', 'apollo-sdl-first', 'graphql-modules', 'full-stack-nextjs'],
+  },
+  {
+    type: 'list',
+    name: 'framework',
+    message: 'Select UI framework:',
+    choices: ['Material UI', 'Material UI + PrismaAdmin UI', 'Tailwind CSS', 'Tailwind CSS + PrismaAdmin UI'],
+  },
+];
+
+const answers = await inquirer.prompt(questions);
+const generator = new AppGenerator({
+  ...answers,
+  name: 'my-project',
+  // ... other options
+});
+
+await generator.run();
+```
+
+### With Commander.js
+
+```typescript
+import { Command } from 'commander';
+import { AppGenerator } from '@paljs/create';
+
+const program = new Command();
+
+program
+  .command('create <name>')
+  .option('-e, --example <type>', 'project template')
+  .option('-f, --framework <framework>', 'UI framework')
+  .option('--multi', 'multi-schema project')
+  .option('--skip-install', 'skip dependency installation')
+  .action(async (name, options) => {
+    const generator = new AppGenerator({
+      name,
+      example: options.example || 'full-stack-nextjs',
+      framework: options.framework,
+      multi: options.multi,
+      skipInstall: options.skipInstall,
+      // ... other options
+    });
+
+    await generator.run();
+  });
+
+program.parse();
+```
+
+## Error Handling
+
+```typescript
+import { AppGenerator } from '@paljs/create';
+import { log } from '@paljs/display';
+
+async function createProjectWithErrorHandling(options) {
+  try {
+    const generator = new AppGenerator(options);
+    await generator.run();
+
+    log.success('Project created successfully!');
+  } catch (error) {
+    if (error.message.includes('ENOENT')) {
+      log.error('Template files not found');
+      log.meta('Make sure all template files are available');
+    } else if (error.message.includes('EACCES')) {
+      log.error('Permission denied');
+      log.meta('Check file permissions and try again');
+    } else if (error.message.includes('network')) {
+      log.error('Network error during dependency installation');
+      log.meta('Check your internet connection and try again');
+    } else {
+      log.error(`Project creation failed: ${error.message}`);
+    }
+
+    throw error;
+  }
+}
+```
+
+# Features
+
+## Multiple Templates
+
+- 🚀 **Pre-built project templates** - Templates for different architectures and use cases
+- 🎨 **Framework Integration** - Support for Material UI, Tailwind CSS, and Chakra UI
+- 🏗️ **Multi-Schema Support** - Templates for multi-database architectures
+
 ## Advanced Features
 
 ### Package Management
@@ -455,37 +560,6 @@ class ExtendedGenerator extends AppGenerator {
 }
 ```
 
-## Error Handling
-
-```typescript
-import { AppGenerator } from '@paljs/create';
-import { log } from '@paljs/display';
-
-async function createProjectWithErrorHandling(options) {
-  try {
-    const generator = new AppGenerator(options);
-    await generator.run();
-
-    log.success('Project created successfully!');
-  } catch (error) {
-    if (error.message.includes('ENOENT')) {
-      log.error('Template files not found');
-      log.meta('Make sure all template files are available');
-    } else if (error.message.includes('EACCES')) {
-      log.error('Permission denied');
-      log.meta('Check file permissions and try again');
-    } else if (error.message.includes('network')) {
-      log.error('Network error during dependency installation');
-      log.meta('Check your internet connection and try again');
-    } else {
-      log.error(`Project creation failed: ${error.message}`);
-    }
-
-    throw error;
-  }
-}
-```
-
 ## Performance Optimization
 
 ### Template Caching
@@ -506,69 +580,6 @@ await generator.run();
 ```typescript
 // Dependencies are resolved in parallel
 await Promise.all([generator.updatePackages(), generator.setupGit(), generator.formatCode()]);
-```
-
-## Integration Examples
-
-### With Inquirer.js
-
-```typescript
-import inquirer from 'inquirer';
-import { AppGenerator } from '@paljs/create';
-
-const questions = [
-  {
-    type: 'list',
-    name: 'example',
-    message: 'Select project template:',
-    choices: ['apollo-nexus-schema', 'apollo-sdl-first', 'graphql-modules', 'full-stack-nextjs'],
-  },
-  {
-    type: 'list',
-    name: 'framework',
-    message: 'Select UI framework:',
-    choices: ['Material UI', 'Material UI + PrismaAdmin UI', 'Tailwind CSS', 'Tailwind CSS + PrismaAdmin UI'],
-  },
-];
-
-const answers = await inquirer.prompt(questions);
-const generator = new AppGenerator({
-  ...answers,
-  name: 'my-project',
-  // ... other options
-});
-
-await generator.run();
-```
-
-### With Commander.js
-
-```typescript
-import { Command } from 'commander';
-import { AppGenerator } from '@paljs/create';
-
-const program = new Command();
-
-program
-  .command('create <name>')
-  .option('-e, --example <type>', 'project template')
-  .option('-f, --framework <framework>', 'UI framework')
-  .option('--multi', 'multi-schema project')
-  .option('--skip-install', 'skip dependency installation')
-  .action(async (name, options) => {
-    const generator = new AppGenerator({
-      name,
-      example: options.example || 'full-stack-nextjs',
-      framework: options.framework,
-      multi: options.multi,
-      skipInstall: options.skipInstall,
-      // ... other options
-    });
-
-    await generator.run();
-  });
-
-program.parse();
 ```
 
 ## TypeScript Support
@@ -594,10 +605,10 @@ const options: AppGeneratorOptions = {
 };
 ```
 
-## Contributing
+# Configuration
 
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
+This package uses the configuration options passed to the `AppGenerator` constructor. No additional configuration files are required.
 
-## License
+# License
 
 MIT License - see the LICENSE file for details.

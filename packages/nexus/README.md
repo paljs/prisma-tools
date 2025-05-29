@@ -1,8 +1,19 @@
 # @paljs/nexus
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A Nexus plugin that provides Prisma integration with automatic field selection, admin schema generation, and GraphQL scalar types. This package bridges Prisma and Nexus GraphQL to create type-safe, efficient GraphQL APIs.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/nexus
@@ -20,14 +31,7 @@ This package requires the following peer dependencies:
 - `graphql` ^15 || ^16
 - `nexus` ^1
 
-## Features
-
-- 🔍 **Automatic Field Selection** - Optimizes Prisma queries based on GraphQL selection
-- 🛡️ **Type Safety** - Full TypeScript support with Nexus integration
-- 📊 **Admin Schema** - Auto-generated admin queries and mutations
-- 🎯 **Custom Scalars** - Built-in GraphQL scalar types for Prisma
-- ⚡ **Performance** - Efficient query optimization and caching
-- 🔧 **Configurable** - Extensive customization options
+# Usage
 
 ## Main Exports
 
@@ -139,51 +143,6 @@ The plugin includes common GraphQL scalar types for Prisma:
 ```typescript
 // Available scalar types:
 -DateTime - Json - Decimal - BigInt - Bytes;
-```
-
-## Configuration Options
-
-### Basic Configuration
-
-```typescript
-import { paljs } from '@paljs/nexus';
-
-const plugin = paljs({
-  includeAdmin: true,
-  adminSchemaPath: './prisma/schema.prisma',
-});
-```
-
-### Advanced Configuration
-
-```typescript
-import { paljs } from '@paljs/nexus';
-
-const plugin = paljs({
-  includeAdmin: true,
-  adminSchemaPath: './prisma/schema.prisma',
-  excludeScalar: ['Upload', 'File'],
-  prismaSelectOptions: {
-    // Default fields to always include
-    defaultFields: {
-      User: { id: true, email: true, createdAt: true },
-      Post: { id: true, title: true, published: true },
-      // Function-based default fields
-      Comment: (select) => (select.author ? { authorId: true } : {}),
-    },
-
-    // Fields to always exclude
-    excludeFields: {
-      User: ['password', 'hash', 'salt'],
-      Post: ['internalNotes'],
-      // Function-based exclusion
-      Session: (select) => (select.user ? ['token'] : []),
-    },
-
-    // Multiple DMMF documents for multi-schema support
-    dmmf: [Prisma.dmmf, Prisma2.dmmf],
-  },
-});
 ```
 
 ## Usage Examples
@@ -320,7 +279,9 @@ const plugin = paljs({
 });
 ```
 
-## Integration with Apollo Server
+## Integration
+
+### Integration with Apollo Server
 
 ```typescript
 import { ApolloServer } from 'apollo-server-express';
@@ -336,6 +297,29 @@ const server = new ApolloServer({
   }),
 });
 ```
+
+## Error Handling
+
+```typescript
+import { paljs } from '@paljs/nexus';
+
+try {
+  const plugin = paljs({
+    includeAdmin: true,
+    adminSchemaPath: './prisma/schema.prisma',
+  });
+} catch (error) {
+  console.error('Failed to initialize paljs plugin:', error.message);
+}
+```
+
+# Features
+
+## Automatic Field Selection
+
+- 🔍 **Optimizes Prisma queries** - Automatically selects only requested GraphQL fields
+- ⚡ **Performance benefits** - Reduces database load and improves query speed
+- 🎯 **Smart relation loading** - Efficiently loads related data based on selection
 
 ## Performance Benefits
 
@@ -393,21 +377,6 @@ const posts = await prisma.post.findMany({
 });
 ```
 
-## Error Handling
-
-```typescript
-import { paljs } from '@paljs/nexus';
-
-try {
-  const plugin = paljs({
-    includeAdmin: true,
-    adminSchemaPath: './prisma/schema.prisma',
-  });
-} catch (error) {
-  console.error('Failed to initialize paljs plugin:', error.message);
-}
-```
-
 ## TypeScript Support
 
 This package provides full TypeScript support with proper type inference:
@@ -432,10 +401,51 @@ const settings: Settings<
 };
 ```
 
-## Contributing
+# Configuration
 
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
+## Basic Configuration
 
-## License
+```typescript
+import { paljs } from '@paljs/nexus';
+
+const plugin = paljs({
+  includeAdmin: true,
+  adminSchemaPath: './prisma/schema.prisma',
+});
+```
+
+## Advanced Configuration
+
+```typescript
+import { paljs } from '@paljs/nexus';
+
+const plugin = paljs({
+  includeAdmin: true,
+  adminSchemaPath: './prisma/schema.prisma',
+  excludeScalar: ['Upload', 'File'],
+  prismaSelectOptions: {
+    // Default fields to always include
+    defaultFields: {
+      User: { id: true, email: true, createdAt: true },
+      Post: { id: true, title: true, published: true },
+      // Function-based default fields
+      Comment: (select) => (select.author ? { authorId: true } : {}),
+    },
+
+    // Fields to always exclude
+    excludeFields: {
+      User: ['password', 'hash', 'salt'],
+      Post: ['internalNotes'],
+      // Function-based exclusion
+      Session: (select) => (select.user ? ['token'] : []),
+    },
+
+    // Multiple DMMF documents for multi-schema support
+    dmmf: [Prisma.dmmf, Prisma2.dmmf],
+  },
+});
+```
+
+# License
 
 MIT License - see the LICENSE file for details.

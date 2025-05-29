@@ -7,7 +7,7 @@ alwaysApply: false
 
 The [admin](mdc:packages/admin) package provides a UI framework for building admin interfaces for Prisma-based applications.
 
-## Key Features
+## Features
 - Built with React and TypeScript
 - Tailwind CSS for styling ([tailwind.config.js](mdc:packages/admin/tailwind.config.js))
 - Component library for common admin interfaces

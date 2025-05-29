@@ -1,8 +1,19 @@
 # @paljs/plugins
 
-GraphQL plugins for Prisma that provide automatic field selection optimization and SDL input type generation. This package helps optimize GraphQL queries by automatically selecting only the fields requested in the GraphQL query.
+## Table of Contents
 
-## Installation
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
+GraphQL plugins for Prisma that provide automatic field selection optimization and SDL input type generation. This package helps optimize GraphQL queries by automatically selecting only the fields requested in the GraphQL query, reducing database load and improving performance.
+
+# Installation
 
 ```bash
 npm install @paljs/plugins
@@ -19,14 +30,7 @@ This package requires the following peer dependencies:
 - `@prisma/client` ^6
 - `graphql` ^15 || ^16
 
-## Features
-
-- 🔍 **Automatic Field Selection** - Optimizes Prisma queries based on GraphQL selection
-- 🎯 **Type Safety** - Full TypeScript support with proper type inference
-- 📊 **Multi-Schema Support** - Works with multiple Prisma schemas
-- 🚀 **Performance** - Reduces database load by selecting only needed fields
-- 🔧 **Configurable** - Extensive customization options
-- 📝 **SDL Support** - Generate input types for SDL-first GraphQL
+# Usage
 
 ## Main Exports
 
@@ -92,9 +96,7 @@ interface PrismaSelectOptions<ModelName extends string, ModelsObject extends Rec
 }
 ```
 
-## Usage Examples
-
-### Basic Field Selection
+## Basic Field Selection
 
 ```typescript
 import { PrismaSelect } from '@paljs/plugins';
@@ -115,7 +117,7 @@ export const resolvers = {
 };
 ```
 
-### With Default Fields
+## With Default Fields
 
 ```typescript
 const select = new PrismaSelect(info, {
@@ -129,7 +131,7 @@ const select = new PrismaSelect(info, {
 // they will be included in the Prisma select
 ```
 
-### With Field Exclusion
+## With Field Exclusion
 
 ```typescript
 const select = new PrismaSelect(info, {
@@ -142,7 +144,7 @@ const select = new PrismaSelect(info, {
 // These fields will never be selected, even if requested in GraphQL
 ```
 
-### Function-Based Configuration
+## Function-Based Configuration
 
 ```typescript
 const select = new PrismaSelect(info, {
@@ -172,7 +174,7 @@ const select = new PrismaSelect(info, {
 }).value;
 ```
 
-### Multi-Schema Support
+## Multi-Schema Support
 
 ```typescript
 import { Prisma as UserPrisma } from './generated/user-client';
@@ -251,9 +253,7 @@ const server = new ApolloServer({
 });
 ```
 
-## Advanced Examples
-
-### Complete Resolver with Optimization
+## Complete Resolver with Optimization
 
 ```typescript
 import { PrismaSelect } from '@paljs/plugins';
@@ -322,7 +322,7 @@ export const resolvers = {
 };
 ```
 
-### Conditional Field Selection
+## Conditional Field Selection
 
 ```typescript
 const select = new PrismaSelect(info, {
@@ -360,9 +360,39 @@ const select = new PrismaSelect(info, {
 }).value;
 ```
 
-## Performance Benefits
+## Error Handling
 
-### Query Optimization Example
+```typescript
+import { PrismaSelect } from '@paljs/plugins';
+
+try {
+  const select = new PrismaSelect(info, {
+    defaultFields: {
+      User: { id: true, email: true },
+    },
+  }).value;
+
+  const result = await prisma.user.findMany(select);
+  return result;
+} catch (error) {
+  console.error('PrismaSelect error:', error.message);
+  // Fallback to basic query
+  return prisma.user.findMany();
+}
+```
+
+# Features
+
+## Automatic Field Selection
+
+- 🔍 **Optimizes Prisma queries** - Automatically selects only requested GraphQL fields
+- ⚡ **Performance benefits** - Reduces database load and improves query speed
+- 🎯 **Smart relation loading** - Efficiently loads related data based on selection
+- 🚀 **Performance** - Reduces database load by selecting only needed fields
+- 🔧 **Configurable** - Extensive customization options
+- 📝 **SDL Support** - Generate input types for SDL-first GraphQL
+
+## Query Optimization Example
 
 ```graphql
 # GraphQL Query
@@ -426,27 +456,6 @@ const users = await prisma.user.findMany(select);
 // }
 ```
 
-## Error Handling
-
-```typescript
-import { PrismaSelect } from '@paljs/plugins';
-
-try {
-  const select = new PrismaSelect(info, {
-    defaultFields: {
-      User: { id: true, email: true },
-    },
-  }).value;
-
-  const result = await prisma.user.findMany(select);
-  return result;
-} catch (error) {
-  console.error('PrismaSelect error:', error.message);
-  // Fallback to basic query
-  return prisma.user.findMany();
-}
-```
-
 ## TypeScript Support
 
 This package provides full TypeScript support with proper type inference:
@@ -485,10 +494,10 @@ const options: PrismaSelectOptions<
 };
 ```
 
-## Contributing
+# Configuration
 
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
+This package uses configuration options passed to the `PrismaSelect` constructor and `sdlInputs` function. No additional configuration files are required.
 
-## License
+# License
 
 MIT License - see the LICENSE file for details.

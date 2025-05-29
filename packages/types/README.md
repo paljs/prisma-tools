@@ -1,8 +1,19 @@
 # @paljs/types
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A comprehensive TypeScript type definitions package for the PalJS ecosystem. This package provides shared type definitions, interfaces, and utilities used across all PalJS packages for type safety and consistency.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/types
@@ -12,14 +23,7 @@ yarn add @paljs/types
 pnpm add @paljs/types
 ```
 
-## Features
-
-- 🎯 **Type Safety** - Comprehensive TypeScript definitions for all PalJS packages
-- 🔧 **Generator Types** - Type definitions for code generation options and configurations
-- 📊 **CLI Types** - Type definitions for CLI commands and examples
-- 🏗️ **Schema Types** - Type definitions for Prisma schema manipulation
-- 📝 **Admin Types** - Type definitions for admin interface generation
-- 🔍 **DMMF Types** - Extended Prisma DMMF type definitions
+# Usage
 
 ## Main Exports
 
@@ -498,6 +502,14 @@ const config: GeneratorOptions<keyof MyModels, MyModels> = {
 };
 ```
 
+# Features
+
+## Type Safety
+
+- 🎯 **Comprehensive TypeScript definitions** - Complete type coverage for all PalJS packages
+- 🔧 **Generator Types** - Type definitions for code generation options and configurations
+- 📊 **CLI Types** - Type definitions for CLI commands and examples
+
 ## Integration with Other Packages
 
 This package provides types used throughout the PalJS ecosystem:
@@ -507,6 +519,8 @@ This package provides types used throughout the PalJS ecosystem:
 - **@paljs/create** - Uses CLI types for project scaffolding
 - **@paljs/admin** - Uses admin schema types for UI generation
 - **@paljs/schema** - Uses DMMF types for schema manipulation
+
+# Configuration
 
 ## TypeScript Configuration
 
@@ -526,10 +540,6 @@ For optimal type checking, configure your `tsconfig.json`:
 }
 ```
 
-## Contributing
-
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
-
-## License
+# License
 
 MIT License - see the LICENSE file for details.

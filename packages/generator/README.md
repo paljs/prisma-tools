@@ -1,8 +1,19 @@
 # @paljs/generator
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A powerful code generation package that creates GraphQL schemas, resolvers, and admin interfaces from Prisma schema definitions. Supports multiple GraphQL architectures including Nexus, SDL-first, and GraphQL Modules.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/generator
@@ -12,14 +23,7 @@ yarn add @paljs/generator
 pnpm add @paljs/generator
 ```
 
-## Features
-
-- 🏗️ **Multiple Generators** - Support for Nexus, SDL, and GraphQL Modules
-- 🎯 **Type Safety** - Full TypeScript support with generated types
-- 🔧 **Customizable** - Extensive configuration options
-- 📝 **Admin UI** - Generate admin interfaces automatically
-- 🚀 **Performance** - Optimized code generation
-- 🔄 **Incremental** - Smart updates without overwriting custom code
+# Usage
 
 ## Main Classes
 
@@ -161,86 +165,7 @@ await uiGenerator.generateAdminPages({
 - `generateAdminPages()` - Generate admin interface pages
 - `mergeSchemas()` - Merge multiple schemas for multi-database support
 
-## Configuration Options
-
-### GeneratorOptions Interface
-
-```typescript
-interface GeneratorOptions {
-  // Output directory for generated files
-  output: string;
-
-  // Prisma client instance name
-  prismaName: string;
-
-  // Models to include (default: all models)
-  models?: string[];
-
-  // Generate JavaScript instead of TypeScript
-  javaScript?: boolean;
-
-  // Fields to exclude globally
-  excludeFields: string[];
-
-  // Models to exclude with specific operations
-  excludeModels: Array<{
-    name: string;
-    queries?: boolean;
-    mutations?: boolean;
-  }>;
-
-  // Disable all queries or mutations
-  disableQueries?: boolean;
-  disableMutations?: boolean;
-
-  // Fields to exclude per model
-  excludeFieldsByModel: {
-    [modelName: string]: string[];
-  };
-
-  // Queries/mutations to exclude globally
-  excludeQueriesAndMutations: QueriesAndMutations[];
-
-  // Queries/mutations to exclude per model
-  excludeQueriesAndMutationsByModel: {
-    [modelName: string]: QueriesAndMutations[];
-  };
-
-  // Exclude input fields
-  excludeInputFields?: string[];
-
-  // Custom input filter function
-  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
-
-  // Disable field update operations input
-  doNotUseFieldUpdateOperationsInput?: boolean;
-
-  // Return generated code as text instead of writing files
-  backAsText?: boolean;
-}
-```
-
-### Available Queries and Mutations
-
-```typescript
-type QueriesAndMutations =
-  | 'findUnique'
-  | 'findFirst'
-  | 'findMany'
-  | 'findCount'
-  | 'aggregate'
-  | 'createOne'
-  | 'createMany'
-  | 'updateOne'
-  | 'updateMany'
-  | 'deleteOne'
-  | 'deleteMany'
-  | 'upsertOne';
-```
-
-## Usage Examples
-
-### Basic Nexus Generation
+## Basic Nexus Generation
 
 ```typescript
 import { Generator } from '@paljs/generator';
@@ -258,7 +183,7 @@ const generator = new Generator(
 await generator.run();
 ```
 
-### SDL Generation with Custom Configuration
+## SDL Generation with Custom Configuration
 
 ```typescript
 import { GenerateSdl } from '@paljs/generator';
@@ -276,7 +201,7 @@ const generator = new GenerateSdl('./prisma/schema.prisma', {
 await generator.run();
 ```
 
-### GraphQL Modules Generation
+## GraphQL Modules Generation
 
 ```typescript
 import { GenerateModules } from '@paljs/generator';
@@ -291,7 +216,7 @@ const generator = new GenerateModules('./prisma/schema.prisma', {
 await generator.run();
 ```
 
-### Admin UI Generation
+## Admin UI Generation
 
 ```typescript
 import { UIGenerator } from '@paljs/generator';
@@ -312,7 +237,7 @@ await uiGenerator.generateGraphqlQueries({
 });
 ```
 
-### Multi-Schema Support
+## Multi-Schema Support
 
 ```typescript
 import { UIGenerator } from '@paljs/generator';
@@ -327,9 +252,7 @@ await uiGenerator.generateAdminPages({
 });
 ```
 
-## Advanced Features
-
-### Custom Templates
+## Custom Templates
 
 You can provide custom templates for generated code:
 
@@ -343,7 +266,7 @@ const generator = new GenerateNexus('./prisma/schema.prisma', {
 });
 ```
 
-### Conditional Field Exclusion
+## Conditional Field Exclusion
 
 ```typescript
 const generator = new Generator(
@@ -358,7 +281,7 @@ const generator = new Generator(
 );
 ```
 
-### JavaScript Output
+## JavaScript Output
 
 ```typescript
 const generator = new GenerateSdl('./prisma/schema.prisma', {
@@ -367,7 +290,7 @@ const generator = new GenerateSdl('./prisma/schema.prisma', {
 });
 ```
 
-### Return as Text
+## Return as Text
 
 ```typescript
 const generator = new GenerateNexus('./prisma/schema.prisma', {
@@ -464,6 +387,35 @@ const [nexusResult, sdlResult] = await Promise.all([
 ]);
 ```
 
+# Features
+
+## Multiple Generators
+
+- 🏗️ **Multiple Generators** - Support for Nexus, SDL, and GraphQL Modules
+- 🎯 **Type Safety** - Full TypeScript support with generated types
+- 🔧 **Customizable** - Extensive configuration options
+- 📝 **Admin UI** - Generate admin interfaces automatically
+- 🚀 **Performance** - Optimized code generation
+- 🔄 **Incremental** - Smart updates without overwriting custom code
+
+## Available Queries and Mutations
+
+```typescript
+type QueriesAndMutations =
+  | 'findUnique'
+  | 'findFirst'
+  | 'findMany'
+  | 'findCount'
+  | 'aggregate'
+  | 'createOne'
+  | 'createMany'
+  | 'updateOne'
+  | 'updateMany'
+  | 'deleteOne'
+  | 'deleteMany'
+  | 'upsertOne';
+```
+
 ## TypeScript Support
 
 This package is written in TypeScript and provides comprehensive type definitions:
@@ -482,10 +434,65 @@ const options: GeneratorOptions = {
 };
 ```
 
-## Contributing
+# Configuration
 
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
+## GeneratorOptions Interface
 
-## License
+```typescript
+interface GeneratorOptions {
+  // Output directory for generated files
+  output: string;
+
+  // Prisma client instance name
+  prismaName: string;
+
+  // Models to include (default: all models)
+  models?: string[];
+
+  // Generate JavaScript instead of TypeScript
+  javaScript?: boolean;
+
+  // Fields to exclude globally
+  excludeFields: string[];
+
+  // Models to exclude with specific operations
+  excludeModels: Array<{
+    name: string;
+    queries?: boolean;
+    mutations?: boolean;
+  }>;
+
+  // Disable all queries or mutations
+  disableQueries?: boolean;
+  disableMutations?: boolean;
+
+  // Fields to exclude per model
+  excludeFieldsByModel: {
+    [modelName: string]: string[];
+  };
+
+  // Queries/mutations to exclude globally
+  excludeQueriesAndMutations: QueriesAndMutations[];
+
+  // Queries/mutations to exclude per model
+  excludeQueriesAndMutationsByModel: {
+    [modelName: string]: QueriesAndMutations[];
+  };
+
+  // Exclude input fields
+  excludeInputFields?: string[];
+
+  // Custom input filter function
+  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
+
+  // Disable field update operations input
+  doNotUseFieldUpdateOperationsInput?: boolean;
+
+  // Return generated code as text instead of writing files
+  backAsText?: boolean;
+}
+```
+
+# License
 
 MIT License - see the LICENSE file for details.

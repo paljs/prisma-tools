@@ -1,8 +1,19 @@
 # @paljs/schema
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A comprehensive Prisma schema manipulation package that provides tools for converting, transforming, and analyzing Prisma schema files. This package includes utilities for JSON conversion, camelCase transformation, TypeScript generation, and schema reading.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/schema
@@ -12,14 +23,7 @@ yarn add @paljs/schema
 pnpm add @paljs/schema
 ```
 
-## Features
-
-- 📄 **Schema to JSON** - Convert Prisma schema to structured JSON objects
-- 🐪 **CamelCase Conversion** - Transform snake_case to camelCase in schemas
-- 📝 **TypeScript Generation** - Generate TypeScript types from Prisma schema
-- 🔍 **Schema Reading** - Parse and analyze Prisma schema files
-- 🎯 **Type Safety** - Full TypeScript support with proper type definitions
-- 🔧 **Configurable** - Extensive customization options
+# Usage
 
 ## Main Exports
 
@@ -483,6 +487,15 @@ try {
 }
 ```
 
+# Features
+
+## Schema Manipulation
+
+- 📄 **Schema to JSON** - Convert Prisma schema to structured JSON objects
+- 🐪 **CamelCase Conversion** - Transform snake_case to camelCase in schemas
+- 📝 **TypeScript Generation** - Generate TypeScript types from Prisma schema
+- 🔍 **Schema Reading** - Parse and analyze Prisma schema files
+
 ## TypeScript Support
 
 This package is written in TypeScript and provides comprehensive type definitions:
@@ -501,10 +514,10 @@ function analyzeSchema(schema: SchemaObject): void {
 }
 ```
 
-## Contributing
+# Configuration
 
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
+This package does not require additional configuration files. All functionality is accessed through the exported classes and their constructor parameters.
 
-## License
+# License
 
 MIT License - see the LICENSE file for details.

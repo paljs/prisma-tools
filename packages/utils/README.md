@@ -1,8 +1,19 @@
 # @paljs/utils
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A comprehensive utility package for the PalJS ecosystem providing common helper functions, DMMF utilities, schema input generation, and Prisma integration helpers. This package serves as the foundation for other PalJS packages.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/utils
@@ -20,14 +31,7 @@ This package includes the following dependencies:
 - `@paljs/display` - Logging utilities
 - `@prisma/internals` - Prisma internal utilities
 
-## Features
-
-- 🔍 **DMMF Utilities** - Helper functions for working with Prisma DMMF
-- 📄 **Schema Processing** - Utilities for schema path resolution and parsing
-- 🎯 **Input Generation** - Functions for generating GraphQL input types
-- 🏗️ **Prisma Integration** - Seamless integration with Prisma internals
-- 🔧 **Common Helpers** - Shared utility functions across PalJS packages
-- 📊 **Type Safety** - Full TypeScript support with proper type inference
+# Usage
 
 ## Main Exports
 
@@ -419,64 +423,4 @@ class PrismaUtilsPlugin {
     compiler.hooks.beforeCompile.tapAsync('PrismaUtils', async (params, callback) => {
       try {
         const dmmf = await getDMMFBySchemaPath();
-        console.log(`Loaded schema with ${dmmf.datamodel.models.length} models`);
-        callback();
-      } catch (error) {
-        callback(error);
-      }
-    });
-  }
-}
-
-module.exports = PrismaUtilsPlugin;
-```
-
-### Rollup Plugin
-
-```javascript
-import { getDMMFBySchemaPath } from '@paljs/utils';
-
-export function prismaUtils() {
-  return {
-    name: 'prisma-utils',
-    buildStart: async () => {
-      const dmmf = await getDMMFBySchemaPath();
-      console.log(`Processing ${dmmf.datamodel.models.length} models`);
-    },
-  };
-}
-```
-
-## Debug Mode
-
-Enable debug output by setting the `DEBUG` environment variable:
-
-```bash
-DEBUG=paljs* node your-script.js
-```
-
-This will show detailed logging from schema path resolution and DMMF loading.
-
-## TypeScript Support
-
-This package is written in TypeScript and provides comprehensive type definitions:
-
-```typescript
-import type { DMMF } from '@paljs/utils';
-
-function processModels(dmmf: DMMF.Document): void {
-  dmmf.datamodel.models.forEach((model: DMMF.Model) => {
-    model.fields.forEach((field: DMMF.Field) => {
-      console.log(`${model.name}.${field.name}: ${field.type}`);
-    });
-  });
-}
-```
-
-## Contributing
-
-This package is part of the PalJS ecosystem. For contributing guidelines, please refer to the main repository.
-
-## License
-
-MIT License - see the LICENSE file for details.
+        console.log(`

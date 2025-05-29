@@ -1,8 +1,19 @@
 # @paljs/display
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [License](#license)
+
+# Introduction
+
 A comprehensive logging and display utility package for the PalJS CLI and related tools. This package provides styled console output, spinners, and debugging utilities with a consistent brand experience.
 
-## Installation
+# Installation
 
 ```bash
 npm install @paljs/display
@@ -21,14 +32,7 @@ This package includes the following dependencies:
 - `ora` ^5.4.1 - Elegant terminal spinners
 - `readline` ^1.3.0 - Terminal interface utilities
 
-## Features
-
-- 🎨 **Styled Console Output** - Consistent branding with colors and icons
-- ⏳ **Loading Spinners** - Elegant progress indicators
-- 🐛 **Debug Utilities** - Built-in debugging support
-- 🎯 **Message Types** - Success, error, warning, info, and progress messages
-- 🔧 **Terminal Control** - Line clearing and cursor positioning
-- 🧪 **Test-Friendly** - Color removal for test environments
+# Usage
 
 ## Main Exports
 
@@ -376,6 +380,22 @@ log.error('Typed error message');
 const styledText: string = chalk.blue.bold('Styled text');
 ```
 
-## License
+# Features
+
+- 🎨 **Styled Console Output** - Consistent branding with colors and icons
+- ⏳ **Loading Spinners** - Elegant progress indicators
+- 🐛 **Debug Utilities** - Built-in debugging support
+- 🎯 **Message Types** - Success, error, warning, info, and progress messages
+- 🔧 **Terminal Control** - Line clearing and cursor positioning
+- 🧪 **Test-Friendly** - Color removal for test environments
+
+# Configuration
+
+This package uses environment variables for configuration:
+
+- `DEBUG=paljs` - Enable debug output
+- `NODE_ENV=test` - Remove colors from output (useful for testing)
+
+# License
 
 MIT License - see LICENSE file for details.
