@@ -223,11 +223,33 @@ import { UIGenerator } from '@paljs/generator';
 
 const uiGenerator = new UIGenerator('./prisma/schema.prisma');
 
-// Generate admin pages
+// Generate admin pages for Next.js Pages Router (default)
 await uiGenerator.generateAdminPages({
   models: ['User', 'Post', 'Category'],
-  output: './src/admin/pages',
-  pageContent: './templates/admin-page.tsx',
+  outPut: './src/pages/admin/models/',
+  routerType: 'pages', // Default: generates pages/admin/models/[Model].tsx
+});
+
+// Generate admin pages for Next.js App Router
+await uiGenerator.generateAdminPages({
+  models: ['User', 'Post', 'Category'],
+  outPut: './src/app/admin/models/',
+  routerType: 'app', // Generates app/admin/models/[Model]/page.tsx + layouts
+});
+
+// Custom page template
+await uiGenerator.generateAdminPages({
+  models: ['User', 'Post'],
+  outPut: './src/admin/pages',
+  pageContent: `
+import React from 'react';
+import CustomTable from 'components/CustomTable';
+
+export default function #{id}Page() {
+  return <CustomTable model="#{id}" />;
+}
+  `,
+  routerType: 'app',
 });
 
 // Generate GraphQL queries for frontend
@@ -236,6 +258,23 @@ await uiGenerator.generateGraphqlQueries({
   models: ['User', 'Post'],
 });
 ```
+
+### Router Types
+
+The generator supports both Next.js routing patterns:
+
+#### Pages Router (`routerType: 'pages'`)
+
+- **Output**: `pages/admin/models/[Model].tsx`
+- **Structure**: Traditional Next.js pages directory
+- **Component**: React functional component with default export
+
+#### App Router (`routerType: 'app'`)
+
+- **Output**: `app/admin/models/[Model]/page.tsx`
+- **Structure**: Next.js 13+ app directory with automatic layouts
+- **Component**: Default exported function component
+- **Layouts**: Automatically generates `layout.tsx` files for admin structure
 
 ## Multi-Schema Support
 
@@ -492,6 +531,39 @@ interface GeneratorOptions {
   backAsText?: boolean;
 }
 ```
+
+## AdminPagesOptions Interface
+
+```typescript
+interface AdminPagesOptions {
+  // Models to generate admin pages for
+  models?: string[];
+
+  // Custom page template content (use #{id} as placeholder for model name)
+  pageContent?: string;
+
+  // Output directory path
+  outPut?: string;
+
+  // Return generated content as text instead of writing files
+  backAsText?: boolean;
+
+  // Router type for Next.js
+  routerType?: 'pages' | 'app';
+}
+```
+
+### Router Type Options
+
+- **`'pages'`** (default): Generates files for Next.js Pages Router
+
+  - Creates: `pages/admin/models/[Model].tsx`
+  - Uses React functional components with default export
+
+- **`'app'`**: Generates files for Next.js App Router
+  - Creates: `app/admin/models/[Model]/page.tsx`
+  - Automatically generates layout files (`layout.tsx`)
+  - Uses default exported function components
 
 # License
 

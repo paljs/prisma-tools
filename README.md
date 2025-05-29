@@ -19,6 +19,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
+- [AI-Powered Code Generation with MDC Templates](#-ai-powered-code-generation-with-mdc-templates)
 - [Configuration](#configuration)
 - [License](#license)
 
@@ -135,6 +136,188 @@ graph TB
     Nexus --> Plugins[🔌 GraphQL Plugins]
     Plugins --> Optimization[⚡ Query Optimization]
 ```
+
+---
+
+# 🤖 AI-Powered Code Generation with MDC Templates
+
+**Transform 5 years of code generation expertise into AI-compatible instructions**
+
+PalJS now offers **MDC (Model Data Context) Templates** - comprehensive AI instructions that preserve all the power of our original generators while being maintenance-free and future-proof.
+
+## 🎯 Why MDC Templates?
+
+<table>
+  <tr>
+    <td><strong>🚀 Future-Proof</strong></td>
+    <td>No package dependencies to maintain or update</td>
+  </tr>
+  <tr>
+    <td><strong>🤖 AI-Compatible</strong></td>
+    <td>Works with any AI model that can read instructions</td>
+  </tr>
+  <tr>
+    <td><strong>📚 Human-Readable</strong></td>
+    <td>Easy to understand, customize, and extend</td>
+  </tr>
+  <tr>
+    <td><strong>⚡ Instant Setup</strong></td>
+    <td>No installation required - just copy and use</td>
+  </tr>
+</table>
+
+## 📦 Available MDC Templates
+
+<table>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-graphql-generator.md">🎯 GraphQL Operations</a></strong></td>
+    <td>Generate client-side GraphQL fragments, queries, and mutations</td>
+    <td>Frontend Development</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-admin-pages-generator.md">🎨 Admin Pages</a></strong></td>
+    <td>Create React admin interfaces with Next.js support</td>
+    <td>Admin Dashboards</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-nexus-generator.md">⚡ Nexus Backend</a></strong></td>
+    <td>Build type-safe GraphQL APIs with Nexus framework</td>
+    <td>Type-Safe APIs</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-sdl-generator.md">📝 SDL Backend</a></strong></td>
+    <td>Generate SDL-first GraphQL schemas and resolvers</td>
+    <td>Schema-First APIs</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-resolver-types-generator.md">🛡️ Resolver Types</a></strong></td>
+    <td>Create TypeScript type definitions for resolvers</td>
+    <td>Type Safety</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-graphql-modules-generator.md">🏗️ GraphQL Modules</a></strong></td>
+    <td>Build modular GraphQL with dependency injection</td>
+    <td>Enterprise Scale</td>
+  </tr>
+  <tr>
+    <td><strong><a href="./mdc-templates/prisma-admin-settings-generator.md">⚙️ Admin Settings</a></strong></td>
+    <td>Generate configuration files for admin interfaces</td>
+    <td>UI Configuration</td>
+  </tr>
+</table>
+
+## 🚀 Quick Start with AI
+
+### 1. Choose Your Template
+Pick the template that matches your needs from the table above.
+
+### 2. Prepare Your Context
+```bash
+# Your Prisma schema
+cat prisma/schema.prisma
+
+# Choose configuration options
+export OUTPUT_DIR="src/graphql"
+export MODELS="User,Post,Comment"
+```
+
+### 3. Generate with AI
+```bash
+# Example prompt for ChatGPT/Claude/etc:
+"I need you to generate GraphQL operations for my Prisma models.
+
+Here's the MDC template: [paste template content]
+
+Here's my Prisma schema: [paste schema]
+
+Configuration:
+- Output directory: src/graphql  
+- Models: User, Post, Comment
+- Exclude fields: createdAt, updatedAt
+- Generate TypeScript
+
+Please follow the exact patterns in the template."
+```
+
+### 4. Get Production-Ready Code
+The AI will generate the same high-quality code that PalJS generators created, but without any package dependencies!
+
+## 🎨 Example Output
+
+**Input**: Simple blog schema with User and Post models  
+**Output**: Complete GraphQL operations, admin pages, or backend APIs
+
+```typescript
+// Generated GraphQL operations
+export const USER_FRAGMENT = gql`
+  fragment UserFragment on User {
+    id
+    email
+    name
+    posts {
+      id
+      title
+    }
+  }
+`;
+
+export const FIND_MANY_USERS = gql`
+  query FindManyUsers($where: UserWhereInput) {
+    findManyUsers(where: $where) {
+      ...UserFragment
+    }
+  }
+  ${USER_FRAGMENT}
+`;
+```
+
+## 🔄 Migration from PalJS Generators
+
+Transitioning from the original generators is seamless:
+
+<table>
+  <tr>
+    <th>Original Generator</th>
+    <th>MDC Template</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td><code>@paljs/generator</code> → GraphQL</td>
+    <td><a href="./mdc-templates/prisma-graphql-generator.md">GraphQL Operations</a></td>
+    <td>✅ 100% Compatible</td>
+  </tr>
+  <tr>
+    <td><code>@paljs/generator</code> → Admin</td>
+    <td><a href="./mdc-templates/prisma-admin-pages-generator.md">Admin Pages</a></td>
+    <td>✅ 100% Compatible</td>
+  </tr>
+  <tr>
+    <td><code>@paljs/generator</code> → Nexus</td>
+    <td><a href="./mdc-templates/prisma-nexus-generator.md">Nexus Backend</a></td>
+    <td>✅ 100% Compatible</td>
+  </tr>
+  <tr>
+    <td><code>@paljs/generator</code> → SDL</td>
+    <td><a href="./mdc-templates/prisma-sdl-generator.md">SDL Backend</a></td>
+    <td>✅ 100% Compatible</td>
+  </tr>
+</table>
+
+## 💡 Benefits Over Traditional Generators
+
+| Traditional Generators | MDC Templates |
+|----------------------|---------------|
+| 📦 Package dependencies | 🚀 Zero dependencies |
+| 🔄 Version compatibility issues | ⚡ Always compatible |
+| 🛠️ Maintenance overhead | 🎯 Maintenance-free |
+| 🏗️ Fixed patterns | 🎨 AI-adaptable patterns |
+| 📅 Periodic updates needed | 🔮 Future-proof |
+
+## 📚 Documentation & Examples
+
+- **[Complete Documentation](./mdc-templates/README.md)** - Comprehensive guide and usage instructions
+- **[Practical Examples](./mdc-templates/example-usage.md)** - Real-world scenarios with sample schemas
+- **[Migration Guide](./mdc-templates/README.md#migration-from-original-generators)** - Step-by-step transition guide
 
 ---
 

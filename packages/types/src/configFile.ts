@@ -1,10 +1,13 @@
 import { GeneratorOptions } from './generator';
 
+export type RouterType = 'pages' | 'app';
+
 export interface AdminPagesOptions<ModelName extends string = string> {
   models?: ModelName[];
   pageContent?: string;
   outPut?: string;
   backAsText?: boolean;
+  routerType?: RouterType;
 }
 
 export type PartialOptions<
