@@ -7,8 +7,8 @@
   
   <p>
     <a href="https://www.npmjs.com/org/paljs"><img src="https://img.shields.io/npm/v/@paljs/cli?label=version&style=flat-square" alt="Version" /></a>
-    <a href="https://github.com/paljs/prisma-tools/blob/main/LICENSE"><img src="https://img.shields.io/github/license/paljs/prisma-tools?style=flat-square" alt="License" /></a>
-    <a href="https://github.com/paljs/prisma-tools/stargazers"><img src="https://img.shields.io/github/stars/paljs/prisma-tools?style=flat-square" alt="Stars" /></a>
+    <a href="https://github.com/AhmedElywa/prisma-tools/blob/main/LICENSE"><img src="https://img.shields.io/github/license/paljs/prisma-tools?style=flat-square" alt="License" /></a>
+    <a href="https://github.com/AhmedElywa/prisma-tools/stargazers"><img src="https://img.shields.io/github/stars/paljs/prisma-tools?style=flat-square" alt="Stars" /></a>
     <a href="https://discord.gg/X7yWXrM"><img src="https://img.shields.io/discord/768907308789235752?style=flat-square&logo=discord" alt="Discord" /></a>
   </p>
 </div>
@@ -574,8 +574,8 @@ pal generate
 ### Community
 
 - **[Discord](https://discord.gg/X7yWXrM)** - Join our community for help and discussions
-- **[GitHub Issues](https://github.com/paljs/prisma-tools/issues)** - Report bugs and request features
-- **[Discussions](https://github.com/paljs/prisma-tools/discussions)** - Ask questions and share ideas
+- **[GitHub Issues](https://github.com/AhmedElywa/prisma-tools/issues)** - Report bugs and request features
+- **[Discussions](https://github.com/AhmedElywa/prisma-tools/discussions)** - Ask questions and share ideas
 
 ### Contributing
 
@@ -638,7 +638,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   <p><strong>Built with ❤️ by the PalJS team</strong></p>
   <p>
-    <a href="https://github.com/paljs/prisma-tools">⭐ Star on GitHub</a> •
+    <a href="https://github.com/AhmedElywa/prisma-tools">⭐ Star on GitHub</a> •
     <a href="https://discord.gg/X7yWXrM">💬 Join Discord</a> •
     <a href="https://paljs.com">📚 Read Docs</a>
   </p>

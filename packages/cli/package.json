@@ -6,7 +6,7 @@
   "bin": {
     "pal": "./bin/run"
   },
-  "bugs": "https://github.com/paljs/prisma-tools/issues",
+  "bugs": "https://github.com/AhmedElywa/prisma-tools/issues",
   "dependencies": {
     "@oclif/core": "^1.19.1",
     "@oclif/plugin-help": "^5",
