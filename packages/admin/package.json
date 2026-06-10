@@ -25,6 +25,9 @@
     "directory": "packages/admin"
   },
   "homepage": "https://paljs.com",
+  "bugs": {
+    "url": "https://github.com/AhmedElywa/prisma-tools/issues"
+  },
   "author": "Ahmed Elywa",
   "license": "MIT",
   "private": false,
